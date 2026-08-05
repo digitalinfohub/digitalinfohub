@@ -1,245 +1,757 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
-<title>Digital Infohub | Live Command Center</title>
+<title>Digital Infohub | Command Center</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="theme-color" content="#030712">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="description" content="The ultimate tech dashboard. News, tools, games, and AI in one unified interface.">
+<meta name="description" content="Digital Infohub unified dashboard. News, tools, games, and AI.">
 
 <style>
-/* --- CORE VARIABLES & RESET --- */
+/* ═══════════════════════════════════════════
+   THEME SYSTEM
+   ═══════════════════════════════════════════ */
 :root {
-  --accent: #00f0ff;
-  --accent-2: #7000ff;
-  --bg-deep: #030712;
-  --card-bg: rgba(15, 23, 42, 0.65);
-  --card-border: rgba(255, 255, 255, 0.1);
-  --card-hover-border: rgba(0, 240, 255, 0.4);
-  --text-main: #f8fafc;
-  --text-sub: #cbd5e1;
-  --shadow-soft: 0 12px 30px -8px rgba(0, 0, 0, 0.5);
+  --transition: 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
   --radius-lg: 16px;
   --radius-md: 12px;
-  --transition: 0.25s cubic-bezier(0.22, 0.61, 0.36, 1);
+  --radius-sm: 8px;
   --modal-z: 10000;
 }
 
-*, *::before, *::after { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-html, body { margin: 0; padding: 0; background: var(--bg-deep); }
+[data-theme="dark"] {
+  --bg-deep: #030712;
+  --bg-surface: rgba(15, 23, 42, 0.7);
+  --bg-surface-hover: rgba(15, 23, 42, 0.85);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(0, 240, 255, 0.4);
+  --text-main: #f1f5f9;
+  --text-sub: #94a3b8;
+  --accent: #00f0ff;
+  --accent-2: #7c3aed;
+  --accent-glow: rgba(0, 240, 255, 0.15);
+  --shadow: 0 8px 32px -8px rgba(0, 0, 0, 0.5);
+  --input-bg: rgba(15, 23, 42, 0.6);
+  --canvas-dot: rgba(0, 240, 255, 0.3);
+  --canvas-line: rgba(0, 240, 255, 0.06);
+  --donate-from: #f59e0b;
+  --donate-to: #d97706;
+  --banner-overlay: rgba(3, 7, 18, 0.3);
+}
+
+[data-theme="light"] {
+  --bg-deep: #f0f4f8;
+  --bg-surface: rgba(255, 255, 255, 0.75);
+  --bg-surface-hover: rgba(255, 255, 255, 0.9);
+  --border: rgba(0, 0, 0, 0.08);
+  --border-hover: rgba(37, 99, 235, 0.4);
+  --text-main: #0f172a;
+  --text-sub: #64748b;
+  --accent: #2563eb;
+  --accent-2: #7c3aed;
+  --accent-glow: rgba(37, 99, 235, 0.1);
+  --shadow: 0 8px 32px -8px rgba(0, 0, 0, 0.08);
+  --input-bg: rgba(255, 255, 255, 0.7);
+  --canvas-dot: rgba(37, 99, 235, 0.25);
+  --canvas-line: rgba(37, 99, 235, 0.05);
+  --donate-from: #f59e0b;
+  --donate-to: #d97706;
+  --banner-overlay: rgba(240, 244, 248, 0.2);
+}
+
+/* ═══════════════════════════════════════════
+   RESET & BASE
+   ═══════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: smooth; }
 body {
-  font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
-  color: var(--text-main); min-height: 100vh; line-height: 1.4; overflow-x: hidden;
+  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: var(--bg-deep);
+  color: var(--text-main);
+  min-height: 100vh;
+  line-height: 1.5;
+  overflow-x: hidden;
+  transition: background var(--transition), color var(--transition);
+}
+
+/* Animated Background Canvas */
+#bgCanvas {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
 }
 
 /* Scrollbar */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.22); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
-/* --- LAYOUT --- */
-.wrapper { width: 100%; max-width: 1280px; margin: 0 auto; padding: 12px; animation: fadeInPage 0.6s ease-out; }
+/* ═══════════════════════════════════════════
+   LAYOUT
+   ═══════════════════════════════════════════ */
+.wrapper {
+  position: relative; z-index: 1;
+  width: 100%; max-width: 1320px; margin: 0 auto; padding: 16px;
+  animation: fadeInPage 0.5s ease-out;
+}
 
 /* Hero */
 .hero {
-  padding: 18px 20px; border-radius: var(--radius-lg); background: rgba(15, 23, 42, 0.75);
-  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--card-border);
-  color: #fff; margin-bottom: 12px; position: relative; overflow: hidden; box-shadow: var(--shadow-soft);
+  padding: 24px 28px; border-radius: var(--radius-lg);
+  background: var(--bg-surface); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--border); margin-bottom: 16px;
+  position: relative; overflow: hidden; box-shadow: var(--shadow);
+  transition: background var(--transition), border-color var(--transition);
 }
 .hero::before {
-  content: ""; position: absolute; top: -60%; right: -8%; width: 220px; height: 220px;
-  background: radial-gradient(circle, rgba(0, 240, 255, 0.12), transparent 70%);
-  border-radius: 50%; filter: blur(35px); animation: pulseGlow 6s ease-in-out infinite alternate;
+  content: ""; position: absolute; top: -50%; right: -5%; width: 250px; height: 250px;
+  background: radial-gradient(circle, var(--accent-glow), transparent 70%);
+  border-radius: 50%; filter: blur(40px); animation: pulseGlow 6s ease-in-out infinite alternate;
 }
 .hero-inner { position: relative; z-index: 1; }
-.hero-eyebrow { font-size: 10px; text-transform: uppercase; letter-spacing: 0.25em; color: var(--accent); font-weight: 700; margin-bottom: 4px; }
-.hero h1 {
-  font-size: clamp(22px, 4.5vw, 32px); line-height: 1.1; margin-bottom: 4px;
-  background: linear-gradient(to right, #fff, #cbd5e1); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+.hero-eyebrow {
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.3em;
+  color: var(--accent); font-weight: 700; margin-bottom: 6px;
 }
-.hero-sub { font-size: clamp(12px, 2.8vw, 14px); color: var(--text-sub); max-width: 560px; }
+.hero h1 {
+  font-size: clamp(24px, 5vw, 36px); line-height: 1.1; margin-bottom: 6px; font-weight: 800;
+  background: linear-gradient(135deg, var(--text-main), var(--text-sub));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.hero-sub { font-size: clamp(13px, 2.5vw, 15px); color: var(--text-sub); max-width: 600px; }
 
 /* Topbar */
-.topbar { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 12px; flex-wrap: nowrap; }
-.search-wrap { position: relative; flex: 1; min-width: 0; }
-.search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 14px; opacity: 0.5; pointer-events: none; }
-#search {
-  width: 100%; padding: 9px 12px 9px 34px; border-radius: 999px; border: 1px solid var(--card-border);
-  background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-  color: var(--text-main); font-size: 14px; outline: none; transition: var(--transition);
+.topbar {
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 10px; margin-bottom: 16px; flex-wrap: nowrap;
 }
-#search:focus { border-color: var(--accent); background: rgba(15, 23, 42, 0.85); box-shadow: 0 0 0 2px rgba(0, 240, 255, 0.12); }
-.topbar-right { display: flex; gap: 8px; align-items: center; flex-shrink: 0; z-index: 20; position: relative; }
+.search-wrap { position: relative; flex: 1; min-width: 0; }
+.search-icon {
+  position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+  font-size: 14px; opacity: 0.5; pointer-events: none; color: var(--text-sub);
+}
+#search {
+  width: 100%; padding: 10px 14px 10px 38px; border-radius: 999px;
+  border: 1px solid var(--border); background: var(--input-bg);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  color: var(--text-main); font-size: 14px; outline: none;
+  transition: var(--transition);
+}
+#search::placeholder { color: var(--text-sub); }
+#search:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
+
+.topbar-right { display: flex; gap: 8px; align-items: center; flex-shrink: 0; }
+
+.icon-btn {
+  width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border);
+  background: var(--bg-surface); backdrop-filter: blur(12px);
+  color: var(--text-main); font-size: 16px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: var(--transition); flex-shrink: 0;
+}
+.icon-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--bg-surface-hover); }
+
 .app-btn {
   background: linear-gradient(135deg, var(--accent-2), var(--accent)); color: #fff;
-  border: 2px solid rgba(255, 255, 255, 0.25); padding: 10px 18px; border-radius: 999px;
-  font-size: 13px; font-weight: 800; cursor: pointer; transition: var(--transition);
-  box-shadow: 0 0 15px rgba(0, 240, 255, 0.3), 0 4px 12px rgba(112, 0, 255, 0.3);
-  display: flex; align-items: center; gap: 6px; white-space: nowrap; flex-shrink: 0;
+  border: none; padding: 10px 20px; border-radius: 999px;
+  font-size: 13px; font-weight: 700; cursor: pointer; transition: var(--transition);
+  box-shadow: 0 4px 15px var(--accent-glow);
+  display: flex; align-items: center; gap: 6px; white-space: nowrap; text-decoration: none;
 }
-.app-btn:hover { transform: translateY(-1px) scale(1.03); box-shadow: 0 0 20px rgba(0, 240, 255, 0.5); }
+.app-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px var(--accent-glow); }
+
 #clock {
   font-weight: 600; font-size: 12px; white-space: nowrap; color: var(--text-sub);
-  padding: 10px 14px; border-radius: 999px; border: 1px solid var(--card-border);
-  background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(12px); font-variant-numeric: tabular-nums;
+  padding: 10px 16px; border-radius: 999px; border: 1px solid var(--border);
+  background: var(--bg-surface); backdrop-filter: blur(12px); font-variant-numeric: tabular-nums;
+  transition: background var(--transition), border-color var(--transition);
 }
 
-/* Grid & Cards */
-.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 10px; }
+/* ═══════════════════════════════════════════
+   UNIFIED GRID SYSTEM
+   ═══════════════════════════════════════════ */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-auto-rows: minmax(280px, auto);
+  gap: 12px;
+}
+
 .card {
-  border: 1px solid var(--card-border); border-radius: var(--radius-md); overflow: hidden;
-  background: var(--card-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-  box-shadow: var(--shadow-soft); opacity: 0; transform: translateY(14px);
-  animation: fadeInUp 0.5s var(--transition) forwards; transition: var(--transition);
+  border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden;
+  background: var(--bg-surface); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  box-shadow: var(--shadow); display: flex; flex-direction: column;
+  transition: background var(--transition), border-color var(--transition), transform 0.2s ease, box-shadow 0.2s ease;
+  animation: fadeInUp 0.4s ease forwards; opacity: 0;
 }
-.card:hover { border-color: var(--card-hover-border); transform: translateY(-2px); }
-.card-header {
-  padding: 9px 12px; background: rgba(15, 23, 42, 0.5); border-bottom: 1px solid var(--card-border);
-  font-weight: 700; font-size: 13px; color: var(--text-main); display: flex; align-items: center; gap: 7px;
-}
-.card-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 3px rgba(0, 240, 255, 0.18); animation: pulseDot 2s infinite; }
-.card-body { padding: 2px 0; max-height: 280px; overflow-y: auto; }
-.card-body.util-body { padding: 14px; max-height: none; overflow-y: visible; }
+.card:hover { border-color: var(--border-hover); transform: translateY(-2px); box-shadow: 0 12px 40px -10px rgba(0,0,0,0.3); }
 
-/* Feeds */
-.feed { list-style: none; margin: 0; padding: 0; }
-.feed li { border-bottom: 1px solid rgba(255, 255, 255, 0.04); }
+.card-header {
+  padding: 10px 14px; background: rgba(128,128,128,0.05);
+  border-bottom: 1px solid var(--border);
+  font-weight: 700; font-size: 13px; color: var(--text-main);
+  display: flex; align-items: center; gap: 8px; flex-shrink: 0;
+  transition: background var(--transition), border-color var(--transition);
+}
+.card-dot {
+  width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow); animation: pulseDot 2s infinite; flex-shrink: 0;
+}
+.card-body { padding: 0; flex: 1; overflow-y: auto; min-height: 0; }
+.card-body.util-body { padding: 14px; overflow-y: visible; }
+
+/* Stagger animations */
+.card:nth-child(1) { animation-delay: 0.02s; }
+.card:nth-child(2) { animation-delay: 0.04s; }
+.card:nth-child(3) { animation-delay: 0.06s; }
+.card:nth-child(4) { animation-delay: 0.08s; }
+.card:nth-child(5) { animation-delay: 0.10s; }
+.card:nth-child(6) { animation-delay: 0.12s; }
+.card:nth-child(7) { animation-delay: 0.14s; }
+.card:nth-child(8) { animation-delay: 0.16s; }
+.card:nth-child(9) { animation-delay: 0.18s; }
+.card:nth-child(10) { animation-delay: 0.20s; }
+.card:nth-child(11) { animation-delay: 0.22s; }
+.card:nth-child(12) { animation-delay: 0.24s; }
+.card:nth-child(13) { animation-delay: 0.26s; }
+
+/* ═══════════════════════════════════════════
+   FEEDS
+   ═══════════════════════════════════════════ */
+.feed { list-style: none; }
+.feed li { border-bottom: 1px solid var(--border); }
 .feed li:last-child { border-bottom: none; }
 .feed a, .feed-trigger {
-  display: flex; flex-direction: column; padding: 8px 12px; text-decoration: none;
-  color: var(--text-main); font-size: 13px; line-height: 1.35; transition: var(--transition); position: relative; cursor: pointer;
+  display: flex; flex-direction: column; padding: 10px 14px; text-decoration: none;
+  color: var(--text-main); font-size: 13px; line-height: 1.4;
+  transition: var(--transition); position: relative; cursor: pointer;
 }
-.feed a:hover, .feed-trigger:hover { background: rgba(0, 240, 255, 0.06); padding-left: 16px; }
-.feed a::before, .feed-trigger::before { content: "›"; position: absolute; left: 5px; opacity: 0; transition: var(--transition); color: var(--accent); font-weight: bold; }
-.feed a:hover::before, .feed-trigger:hover::before { opacity: 1; left: 7px; }
-.feed-title { font-weight: 500; margin-bottom: 2px; word-break: break-word; }
+.feed a:hover, .feed-trigger:hover { background: var(--accent-glow); padding-left: 18px; }
+.feed a::before, .feed-trigger::before {
+  content: "›"; position: absolute; left: 6px; opacity: 0;
+  transition: var(--transition); color: var(--accent); font-weight: bold;
+}
+.feed a:hover::before, .feed-trigger:hover::before { opacity: 1; left: 8px; }
+.feed-title { font-weight: 500; margin-bottom: 3px; word-break: break-word; }
 .feed-meta { font-size: 11px; color: var(--text-sub); display: flex; justify-content: space-between; }
+.loading-text, .error-text { padding: 14px; text-align: center; color: var(--text-sub); font-size: 12px; }
+.error-text { color: #ef4444; }
 
-/* Links Card Special */
-.links-card a, .links-card .feed-trigger { flex-direction: row; justify-content: space-between; align-items: center; font-weight: 600; }
+.links-card a, .links-card .feed-trigger {
+  flex-direction: row; justify-content: space-between; align-items: center; font-weight: 600;
+}
 .links-pill {
-  font-size: 10px; padding: 2px 8px; border-radius: 999px; background: rgba(0, 240, 255, 0.1);
-  color: var(--accent); border: 1px solid rgba(0, 240, 255, 0.3); font-weight: 700; text-transform: uppercase;
+  font-size: 10px; padding: 2px 8px; border-radius: 999px;
+  background: var(--accent-glow); color: var(--accent);
+  border: 1px solid var(--border-hover); font-weight: 700; text-transform: uppercase;
 }
 
-/* Utilities */
-#quickNotes {
-  width: 100%; min-height: 160px; background: rgba(15, 23, 42, 0.4); border: 1px solid var(--card-border);
-  border-radius: 8px; color: var(--text-main); padding: 10px 12px; font-size: 13px; resize: vertical; outline: none;
+/* ═══════════════════════════════════════════
+   QUICK ACTIONS
+   ═══════════════════════════════════════════ */
+.quick-actions { display: flex; flex-direction: column; gap: 10px; height: 100%; justify-content: center; }
+.qa-btn {
+  display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px;
+  border-radius: var(--radius-sm); font-size: 14px; font-weight: 700;
+  text-decoration: none; transition: var(--transition); cursor: pointer; border: none;
 }
-.pomodoro-display { font-size: 42px; font-weight: 700; color: var(--accent); text-align: center; margin-bottom: 14px; text-shadow: 0 0 20px rgba(0, 240, 255, 0.3); }
-.mode-chip { font-size: 11px; padding: 5px 12px; border-radius: 999px; background: rgba(255,255,255,0.06); border: 1px solid var(--card-border); cursor: pointer; }
-.mode-chip.active { background: var(--accent); color: #000; border-color: var(--accent); }
-.pomodoro-btn { background: rgba(255,255,255,0.08); border: 1px solid var(--card-border); color: #fff; padding: 8px 18px; border-radius: 999px; cursor: pointer; }
-.pomodoro-btn.primary { background: linear-gradient(135deg, var(--accent-2), var(--accent)); border: none; }
+.qa-donate {
+  background: linear-gradient(135deg, var(--donate-from), var(--donate-to)); color: #fff;
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.25);
+}
+.qa-donate:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(245, 158, 11, 0.35); }
+.qa-advertise {
+  background: var(--accent-glow); color: var(--accent);
+  border: 1px solid var(--border-hover);
+}
+.qa-advertise:hover { background: var(--accent); color: #fff; }
 
-/* AI Chat */
-.ai-chat { height: 320px; overflow-y: auto; padding: 4px; display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; }
-.ai-msg { max-width: 90%; padding: 9px 13px; border-radius: 14px; font-size: 13px; line-height: 1.5; animation: fadeInUp 0.3s ease; }
-.ai-msg.user { align-self: flex-end; background: linear-gradient(135deg, var(--accent-2), var(--accent)); color: #fff; border-bottom-right-radius: 4px; }
-.ai-msg.bot { align-self: flex-start; background: rgba(15, 23, 42, 0.6); border: 1px solid var(--card-border); border-bottom-left-radius: 4px; }
-.ai-msg.bot .bot-name { font-size: 10px; color: var(--accent); font-weight: 700; margin-bottom: 4px; display: block; }
+/* ═══════════════════════════════════════════
+   MINI APPS (REAL FUNCTIONAL)
+   ═══════════════════════════════════════════ */
+/* Unit Converter */
+.converter-row { display: flex; gap: 8px; align-items: center; margin-bottom: 10px; }
+.converter-input {
+  flex: 1; padding: 8px 12px; border-radius: var(--radius-sm); border: 1px solid var(--border);
+  background: var(--input-bg); color: var(--text-main); font-size: 14px; outline: none;
+  transition: var(--transition);
+}
+.converter-input:focus { border-color: var(--accent); }
+.converter-select {
+  padding: 8px 10px; border-radius: var(--radius-sm); border: 1px solid var(--border);
+  background: var(--input-bg); color: var(--text-main); font-size: 13px; outline: none;
+  cursor: pointer; transition: var(--transition);
+}
+.converter-result {
+  text-align: center; padding: 12px; background: var(--accent-glow);
+  border-radius: var(--radius-sm); font-size: 18px; font-weight: 700; color: var(--accent);
+  margin-top: 8px; word-break: break-all;
+}
+
+/* Password Generator */
+.pw-output {
+  padding: 12px; background: var(--input-bg); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); font-family: 'Courier New', monospace; font-size: 15px;
+  color: var(--accent); text-align: center; margin-bottom: 10px; word-break: break-all;
+  min-height: 44px; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: var(--transition); position: relative;
+}
+.pw-output:hover { border-color: var(--accent); }
+.pw-output .copy-hint {
+  position: absolute; font-size: 10px; color: var(--text-sub); bottom: 2px; right: 8px;
+  opacity: 0; transition: var(--transition); font-family: inherit;
+}
+.pw-output:hover .copy-hint { opacity: 1; }
+.pw-options { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.pw-opt {
+  font-size: 11px; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--border);
+  background: transparent; color: var(--text-sub); cursor: pointer; transition: var(--transition);
+}
+.pw-opt.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+.pw-gen-btn {
+  width: 100%; padding: 10px; border-radius: var(--radius-sm); border: none;
+  background: linear-gradient(135deg, var(--accent-2), var(--accent)); color: #fff;
+  font-size: 13px; font-weight: 700; cursor: pointer; transition: var(--transition);
+}
+.pw-gen-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px var(--accent-glow); }
+
+/* Color Picker */
+.color-preview {
+  width: 100%; height: 60px; border-radius: var(--radius-sm); border: 1px solid var(--border);
+  margin-bottom: 10px; transition: background 0.15s ease;
+}
+.color-values { display: flex; flex-direction: column; gap: 6px; }
+.color-val-row {
+  display: flex; align-items: center; gap: 8px; padding: 6px 10px;
+  background: var(--input-bg); border: 1px solid var(--border); border-radius: var(--radius-sm);
+  font-size: 12px; font-family: 'Courier New', monospace; color: var(--text-main); cursor: pointer;
+  transition: var(--transition);
+}
+.color-val-row:hover { border-color: var(--accent); }
+.color-val-label { color: var(--text-sub); font-family: inherit; font-weight: 600; min-width: 36px; }
+.color-input-native {
+  width: 100%; height: 36px; border: none; border-radius: var(--radius-sm);
+  cursor: pointer; margin-bottom: 10px; background: transparent;
+}
+
+/* ═══════════════════════════════════════════
+   SYSTEM STATUS (REAL DATA)
+   ═══════════════════════════════════════════ */
+.status-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; height: 100%; align-content: center; }
+.status-item {
+  background: var(--input-bg); border: 1px solid var(--border); border-radius: var(--radius-sm);
+  padding: 12px; text-align: center; transition: background var(--transition), border-color var(--transition);
+}
+.status-val { font-size: 20px; font-weight: 800; color: var(--accent); margin-bottom: 2px; }
+.status-label { font-size: 10px; color: var(--text-sub); text-transform: uppercase; letter-spacing: 0.05em; }
+
+/* ═══════════════════════════════════════════
+   TRENDING TAGS
+   ═══════════════════════════════════════════ */
+.tag-cloud { display: flex; flex-wrap: wrap; gap: 6px; align-content: flex-start; }
+.tag {
+  font-size: 11px; padding: 5px 12px; border-radius: 999px;
+  background: var(--input-bg); border: 1px solid var(--border);
+  color: var(--text-sub); cursor: pointer; transition: var(--transition);
+}
+.tag:hover { background: var(--accent-glow); border-color: var(--accent); color: var(--accent); }
+
+/* ═══════════════════════════════════════════
+   AI CHAT
+   ═══════════════════════════════════════════ */
+.ai-chat {
+  height: 100%; min-height: 240px; overflow-y: auto; padding: 8px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.ai-msg {
+  max-width: 90%; padding: 10px 14px; border-radius: 14px;
+  font-size: 13px; line-height: 1.5; animation: fadeInUp 0.3s ease; word-wrap: break-word;
+}
+.ai-msg.user {
+  align-self: flex-end; background: linear-gradient(135deg, var(--accent-2), var(--accent));
+  color: #fff; border-bottom-right-radius: 4px;
+}
+.ai-msg.bot {
+  align-self: flex-start; background: var(--input-bg); border: 1px solid var(--border);
+  color: var(--text-main); border-bottom-left-radius: 4px;
+}
+.ai-msg.bot .bot-name {
+  font-size: 10px; color: var(--accent); font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px; display: block;
+}
 .ai-action-btn {
   display: inline-block; margin-top: 6px; padding: 6px 14px; border-radius: 999px;
-  background: rgba(0, 240, 255, 0.1); border: 1px solid var(--accent); color: var(--accent);
-  font-size: 11px; font-weight: 700; cursor: pointer; text-transform: uppercase; transition: var(--transition);
+  background: var(--accent-glow); border: 1px solid var(--accent); color: var(--accent);
+  font-size: 11px; font-weight: 700; cursor: pointer; text-transform: uppercase;
+  transition: var(--transition); text-decoration: none;
 }
-.ai-action-btn:hover { background: var(--accent); color: #000; }
-.ai-input-wrap { display: flex; gap: 6px; }
-#aiInput { flex: 1; background: rgba(15, 23, 42, 0.5); border: 1px solid var(--card-border); border-radius: 999px; padding: 9px 14px; color: #fff; outline: none; }
-.ai-send { background: linear-gradient(135deg, var(--accent-2), var(--accent)); border: none; color: #fff; padding: 0 16px; border-radius: 999px; font-weight: 800; cursor: pointer; }
+.ai-action-btn:hover { background: var(--accent); color: #fff; }
+.ai-chips { display: flex; gap: 4px; flex-wrap: wrap; padding: 8px 8px 0; }
+.ai-chip {
+  font-size: 10px; padding: 4px 10px; border-radius: 999px;
+  background: var(--accent-glow); border: 1px solid var(--border);
+  color: var(--text-sub); cursor: pointer; transition: var(--transition);
+}
+.ai-chip:hover { border-color: var(--accent); color: var(--accent); }
+.ai-input-area { padding: 8px; border-top: 1px solid var(--border); display: flex; gap: 6px; flex-shrink: 0; }
+#aiInput {
+  flex: 1; background: var(--input-bg); border: 1px solid var(--border);
+  border-radius: 999px; padding: 9px 14px; color: var(--text-main);
+  font-size: 13px; outline: none; transition: var(--transition);
+}
+#aiInput:focus { border-color: var(--accent); }
+.ai-send {
+  background: linear-gradient(135deg, var(--accent-2), var(--accent)); border: none;
+  color: #fff; padding: 0 18px; border-radius: 999px; font-weight: 800;
+  cursor: pointer; transition: var(--transition); font-size: 13px;
+}
+.ai-send:hover { transform: translateY(-1px); }
 
-/* --- SITE EMBED MODAL (NEW) --- */
+/* ═══════════════════════════════════════════
+   NOTES & TIMER
+   ═══════════════════════════════════════════ */
+#quickNotes {
+  width: 100%; height: 100%; min-height: 180px; background: var(--input-bg);
+  border: 1px solid var(--border); border-radius: var(--radius-sm);
+  color: var(--text-main); padding: 12px; font-size: 13px; resize: none;
+  outline: none; transition: var(--transition); font-family: inherit; line-height: 1.6;
+}
+#quickNotes:focus { border-color: var(--accent); }
+.notes-footer {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 8px 0 0; font-size: 10px; color: var(--text-sub);
+}
+.notes-clear {
+  background: none; border: none; color: var(--text-sub); cursor: pointer;
+  text-decoration: underline; transition: var(--transition); font-size: 10px;
+}
+.notes-clear:hover { color: #ef4444; }
+
+.pomo-modes { display: flex; justify-content: center; gap: 6px; margin-bottom: 12px; }
+.mode-chip {
+  font-size: 11px; padding: 5px 14px; border-radius: 999px;
+  background: var(--input-bg); border: 1px solid var(--border);
+  color: var(--text-sub); cursor: pointer; transition: var(--transition); font-weight: 600;
+}
+.mode-chip.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+.pomo-display {
+  font-size: 48px; font-weight: 800; color: var(--accent); text-align: center;
+  margin-bottom: 14px; text-shadow: 0 0 30px var(--accent-glow);
+  font-variant-numeric: tabular-nums; line-height: 1;
+}
+.pomo-controls { display: flex; justify-content: center; gap: 8px; }
+.pomo-btn {
+  background: var(--input-bg); border: 1px solid var(--border); color: var(--text-main);
+  padding: 9px 22px; border-radius: 999px; font-size: 12px; font-weight: 700;
+  cursor: pointer; transition: var(--transition); text-transform: uppercase; letter-spacing: 0.05em;
+}
+.pomo-btn:hover { border-color: var(--accent); color: var(--accent); }
+.pomo-btn.primary {
+  background: linear-gradient(135deg, var(--accent-2), var(--accent));
+  border: none; color: #fff; box-shadow: 0 4px 12px var(--accent-glow);
+}
+.pomo-btn.primary:hover { box-shadow: 0 6px 18px var(--accent-glow); transform: translateY(-1px); }
+
+/* ═══════════════════════════════════════════
+   BANNER
+   ═══════════════════════════════════════════ */
+.banner-card {
+  grid-column: 1 / -1; padding: 0; overflow: hidden;
+  border-color: var(--border-hover); min-height: auto !important;
+}
+.banner-card a { display: block; width: 100%; position: relative; }
+.banner-card img { width: 100%; height: auto; display: block; object-fit: cover; }
+.banner-badge {
+  position: absolute; top: 10px; right: 14px; font-size: 9px; color: rgba(255,255,255,0.6);
+  text-transform: uppercase; letter-spacing: 0.12em; pointer-events: none; font-weight: 700;
+}
+
+/* ═══════════════════════════════════════════
+   BG SELECTOR DROPDOWN
+   ═══════════════════════════════════════════ */
+.bg-selector {
+  position: absolute; top: 48px; right: 0; background: var(--bg-surface);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border); border-radius: var(--radius-sm);
+  padding: 6px; min-width: 160px; z-index: 100; display: none;
+  box-shadow: var(--shadow);
+}
+.bg-selector.open { display: block; animation: fadeInUp 0.2s ease; }
+.bg-option {
+  display: flex; align-items: center; gap: 8px; padding: 8px 12px;
+  border-radius: 6px; font-size: 12px; color: var(--text-main);
+  cursor: pointer; transition: var(--transition); border: none;
+  background: none; width: 100%; text-align: left;
+}
+.bg-option:hover { background: var(--accent-glow); color: var(--accent); }
+.bg-option.active { color: var(--accent); font-weight: 700; }
+
+/* ═══════════════════════════════════════════
+   SITE EMBED MODAL
+   ═══════════════════════════════════════════ */
 #siteEmbedModal {
-  position: fixed; inset: 0; z-index: var(--modal-z); background: rgba(3, 7, 18, 0.95);
-  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  position: fixed; inset: 0; z-index: var(--modal-z);
+  background: rgba(3, 7, 18, 0.95); backdrop-filter: blur(12px);
   display: flex; align-items: center; justify-content: center;
   opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
 }
 #siteEmbedModal.active { opacity: 1; pointer-events: all; }
 .embed-container {
-  width: 95%; height: 90%; max-width: 1400px; background: #fff; border-radius: 12px; overflow: hidden;
-  position: relative; box-shadow: 0 0 50px rgba(0, 240, 255, 0.15); border: 1px solid rgba(255,255,255,0.1);
+  width: 95%; height: 90%; max-width: 1400px; background: #fff;
+  border-radius: var(--radius-lg); overflow: hidden; position: relative;
+  box-shadow: 0 0 60px var(--accent-glow); border: 1px solid var(--border);
   transform: scale(0.95); transition: transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 #siteEmbedModal.active .embed-container { transform: scale(1); }
 .embed-header {
-  height: 40px; background: #0f172a; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; border-bottom: 1px solid rgba(255,255,255,0.1);
+  height: 42px; background: var(--bg-deep); display: flex; align-items: center;
+  justify-content: space-between; padding: 0 16px; border-bottom: 1px solid var(--border);
 }
-.embed-title { font-size: 12px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; }
+.embed-title {
+  font-size: 12px; font-weight: 700; color: var(--accent);
+  text-transform: uppercase; letter-spacing: 0.1em;
+}
 .embed-close {
-  background: rgba(255,255,255,0.1); border: none; color: #fff; width: 28px; height: 28px; border-radius: 50%;
-  cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; transition: var(--transition);
+  background: rgba(255,255,255,0.1); border: none; color: #fff;
+  width: 28px; height: 28px; border-radius: 50%; cursor: pointer;
+  font-size: 16px; display: flex; align-items: center; justify-content: center;
+  transition: var(--transition);
 }
 .embed-close:hover { background: #ef4444; }
-.embed-frame { width: 100%; height: calc(100% - 40px); border: none; background: #fff; }
+.embed-frame { width: 100%; height: calc(100% - 42px); border: none; background: #fff; }
 .embed-loader {
-  position: absolute; top: 40px; left: 0; right: 0; bottom: 0; background: #030712;
-  display: flex; align-items: center; justify-content: center; color: var(--accent); font-weight: 700; z-index: 1;
+  position: absolute; top: 42px; left: 0; right: 0; bottom: 0;
+  background: var(--bg-deep); display: flex; align-items: center;
+  justify-content: center; color: var(--accent); font-weight: 700; z-index: 1;
 }
 
-/* Animations */
+/* ═══════════════════════════════════════════
+   ANIMATIONS
+   ═══════════════════════════════════════════ */
 @keyframes fadeInPage { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
-@keyframes pulseGlow { 0% { opacity: 0.5; transform: scale(1); } 100% { opacity: 0.8; transform: scale(1.1); } }
-@keyframes pulseDot { 0%, 100% { box-shadow: 0 0 0 3px rgba(0, 240, 255, 0.18); } 50% { box-shadow: 0 0 0 6px rgba(0, 240, 255, 0.08); } }
+@keyframes pulseGlow { 0% { opacity: 0.4; transform: scale(1); } 100% { opacity: 0.7; transform: scale(1.15); } }
+@keyframes pulseDot { 0%, 100% { box-shadow: 0 0 0 3px var(--accent-glow); } 50% { box-shadow: 0 0 0 6px transparent; } }
 
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════ */
 @media (max-width: 768px) {
-  .topbar { flex-direction: column; align-items: stretch; }
-  .grid { grid-template-columns: 1fr; }
+  .wrapper { padding: 12px; }
+  .topbar { flex-direction: column; align-items: stretch; gap: 10px; }
+  .topbar-right { justify-content: space-between; width: 100%; }
+  .grid { grid-template-columns: 1fr; grid-auto-rows: minmax(260px, auto); }
   .embed-container { width: 100%; height: 100%; border-radius: 0; }
+  .hero { padding: 18px 20px; }
+  .bg-selector { right: auto; left: 0; }
 }
 </style>
 </head>
 <body>
 
+<canvas id="bgCanvas"></canvas>
+
 <div class="wrapper">
+  <!-- HERO -->
   <section class="hero">
     <div class="hero-inner">
       <div class="hero-eyebrow">Digital Infohub · Unified Platform</div>
       <h1>Command Center</h1>
-      <p class="hero-sub">Access the entire Digital Infohub ecosystem, news feeds, and productivity tools without ever leaving this page.</p>
+      <p class="hero-sub">Access the entire Digital Infohub ecosystem, live news feeds, productivity tools, and AI — all from one adaptive interface.</p>
     </div>
   </section>
 
+  <!-- TOPBAR -->
   <div class="topbar">
     <div class="search-wrap">
       <span class="search-icon">🔍</span>
-      <input id="search" type="text" placeholder="Search headlines or ask AI..." autocomplete="off">
+      <input id="search" type="text" placeholder="Search headlines, tools, or ask AI..." autocomplete="off">
     </div>
-    <div class="topbar-right">
+    <div class="topbar-right" style="position:relative;">
+      <button class="icon-btn" id="themeToggle" title="Toggle Theme" aria-label="Toggle dark/light mode">🌙</button>
+      <button class="icon-btn" id="bgToggle" title="Change Background" aria-label="Change animated background">🎨</button>
+      <div class="bg-selector" id="bgSelector">
+        <button class="bg-option active" data-bg="neural">⬡ Neural Mesh</button>
+        <button class="bg-option" data-bg="stars">✦ Starfield</button>
+        <button class="bg-option" data-bg="gradient">◐ Gradient Flow</button>
+      </div>
       <button id="appBtn" class="app-btn">📱 Add Shortcut</button>
       <div id="clock">Loading...</div>
     </div>
   </div>
 
+  <!-- MAIN GRID -->
   <div class="grid">
-    <!-- FEEDS -->
+
+    <!-- QUICK ACTIONS -->
+    <div class="card">
+      <div class="card-header"><div class="card-dot"></div><span>⚡ Quick Actions</span></div>
+      <div class="card-body util-body">
+        <div class="quick-actions">
+          <a href="https://www.paypal.com/ncp/payment/QTX8WWTX8SBAG" target="_blank" rel="noopener noreferrer" class="qa-btn qa-donate">☕ Support Digital Infohub</a>
+          <a href="mailto:services@digitalinfohub.net?subject=Advertising%20Inquiry" class="qa-btn qa-advertise">📢 Advertise With Us</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- SYSTEM STATUS (REAL COMPUTED VALUES) -->
+    <div class="card">
+      <div class="card-header"><div class="card-dot"></div><span>📊 System Status</span></div>
+      <div class="card-body util-body">
+        <div class="status-grid">
+          <div class="status-item">
+            <div class="status-val" id="articleCount">--</div>
+            <div class="status-label">Live Articles</div>
+          </div>
+          <div class="status-item">
+            <div class="status-val" id="feedHealth">--%</div>
+            <div class="status-label">Feed Health</div>
+          </div>
+          <div class="status-item">
+            <div class="status-val" id="uptimeDisplay">0m</div>
+            <div class="status-label">Session Time</div>
+          </div>
+          <div class="status-item">
+            <div class="status-val" id="hubStatus" style="color:#22c55e;">ONLINE</div>
+            <div class="status-label">Hub Status</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- UNIT CONVERTER (REAL MINI APP) -->
+    <div class="card">
+      <div class="card-header"><div class="card-dot"></div><span>📐 Unit Converter</span></div>
+      <div class="card-body util-body">
+        <div class="converter-row">
+          <input type="number" class="converter-input" id="convInput" value="1" min="0" step="any">
+          <select class="converter-select" id="convFrom">
+            <option value="km">Kilometers</option>
+            <option value="mi">Miles</option>
+            <option value="m">Meters</option>
+            <option value="ft">Feet</option>
+            <option value="kg">Kilograms</option>
+            <option value="lb">Pounds</option>
+            <option value="c">Celsius</option>
+            <option value="f">Fahrenheit</option>
+          </select>
+        </div>
+        <div style="text-align:center; color:var(--text-sub); font-size:11px; margin-bottom:8px;">↓ converts to ↓</div>
+        <div class="converter-row">
+          <select class="converter-select" id="convTo" style="flex:1;">
+            <option value="mi">Miles</option>
+            <option value="km">Kilometers</option>
+            <option value="ft">Feet</option>
+            <option value="m">Meters</option>
+            <option value="lb">Pounds</option>
+            <option value="kg">Kilograms</option>
+            <option value="f">Fahrenheit</option>
+            <option value="c">Celsius</option>
+          </select>
+        </div>
+        <div class="converter-result" id="convResult">0.621 mi</div>
+      </div>
+    </div>
+
+    <!-- PASSWORD GENERATOR (REAL MINI APP) -->
+    <div class="card">
+      <div class="card-header"><div class="card-dot"></div><span>🔐 Password Generator</span></div>
+      <div class="card-body util-body">
+        <div class="pw-output" id="pwOutput" title="Click to copy">
+          <span id="pwText">Click Generate</span>
+          <span class="copy-hint">Click to copy</span>
+        </div>
+        <div class="pw-options">
+          <button class="pw-opt active" data-opt="upper">ABC</button>
+          <button class="pw-opt active" data-opt="lower">abc</button>
+          <button class="pw-opt active" data-opt="nums">123</button>
+          <button class="pw-opt active" data-opt="syms">!@#</button>
+        </div>
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px;">
+          <span style="font-size:11px; color:var(--text-sub); white-space:nowrap;">Length:</span>
+          <input type="range" id="pwLength" min="8" max="64" value="16" style="flex:1; accent-color:var(--accent);">
+          <span id="pwLenVal" style="font-size:12px; font-weight:700; color:var(--accent); min-width:24px; text-align:right;">16</span>
+        </div>
+        <button class="pw-gen-btn" id="pwGenerate">Generate Password</button>
+      </div>
+    </div>
+
+    <!-- COLOR PICKER (REAL MINI APP) -->
+    <div class="card">
+      <div class="card-header"><div class="card-dot"></div><span>🎨 Color Picker</span></div>
+      <div class="card-body util-body">
+        <input type="color" class="color-input-native" id="colorPicker" value="#00f0ff">
+        <div class="color-preview" id="colorPreview" style="background:#00f0ff;"></div>
+        <div class="color-values">
+          <div class="color-val-row" data-format="hex" title="Click to copy">
+            <span class="color-val-label">HEX</span>
+            <span id="colorHex">#00f0ff</span>
+          </div>
+          <div class="color-val-row" data-format="rgb" title="Click to copy">
+            <span class="color-val-label">RGB</span>
+            <span id="colorRgb">rgb(0, 240, 255)</span>
+          </div>
+          <div class="color-val-row" data-format="hsl" title="Click to copy">
+            <span class="color-val-label">HSL</span>
+            <span id="colorHsl">hsl(184, 100%, 50%)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OFFICIAL BLOG -->
     <div class="card">
       <div class="card-header"><div class="card-dot"></div><span>Official Blog</span></div>
       <div class="card-body"><ul class="feed" id="blog"><li class="loading-text">Loading feed...</li></ul></div>
     </div>
+
+    <!-- TECH NEWS -->
     <div class="card">
       <div class="card-header"><div class="card-dot"></div><span>Tech News</span></div>
       <div class="card-body"><ul class="feed" id="tech"><li class="loading-text">Loading feed...</li></ul></div>
     </div>
+
+    <!-- WORLD NEWS -->
     <div class="card">
       <div class="card-header"><div class="card-dot"></div><span>World News</span></div>
       <div class="card-body"><ul class="feed" id="world"><li class="loading-text">Loading feed...</li></ul></div>
     </div>
+
+    <!-- MARKETS -->
     <div class="card">
       <div class="card-header"><div class="card-dot"></div><span>Markets</span></div>
       <div class="card-body"><ul class="feed" id="markets"><li class="loading-text">Loading feed...</li></ul></div>
     </div>
+
+    <!-- CRYPTO -->
     <div class="card">
       <div class="card-header"><div class="card-dot"></div><span>Crypto</span></div>
       <div class="card-body"><ul class="feed" id="crypto"><li class="loading-text">Loading feed...</li></ul></div>
     </div>
 
-    <!-- NAVIGATION LINKS (NOW TRIGGERS MODAL) -->
+    <!-- TRENDING TOPICS -->
+    <div class="card">
+      <div class="card-header"><div class="card-dot"></div><span>🔥 Trending Topics</span></div>
+      <div class="card-body util-body">
+        <div class="tag-cloud" id="trendingTags">
+          <div class="tag" data-search="AI">Artificial Intelligence</div>
+          <div class="tag" data-search="Bitcoin">Bitcoin</div>
+          <div class="tag" data-search="Apple">Apple</div>
+          <div class="tag" data-search="Startup">Startups</div>
+          <div class="tag" data-search="Cybersecurity">Cybersecurity</div>
+          <div class="tag" data-search="Cloud">Cloud Computing</div>
+          <div class="tag" data-search="EV">Electric Vehicles</div>
+          <div class="tag" data-search="Quantum">Quantum</div>
+          <div class="tag" data-search="SaaS">SaaS</div>
+          <div class="tag" data-search="Open Source">Open Source</div>
+          <div class="tag" data-search="Machine Learning">Machine Learning</div>
+          <div class="tag" data-search="Web3">Web3</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HUB NAVIGATION -->
     <div class="card">
       <div class="card-header"><div class="card-dot"></div><span>Hub Navigation</span></div>
       <div class="card-body">
@@ -254,50 +766,63 @@ body {
     </div>
 
     <!-- AI ASSISTANT -->
-    <div class="card ai-card">
+    <div class="card" style="grid-row: span 2;">
       <div class="card-header">
         <div class="card-dot"></div>
         <span>🤖 InfoHub AI</span>
-        <span style="margin-left:auto; font-size:9px; color:var(--accent); border:1px solid var(--accent); padding:2px 6px; border-radius:99px;">ONLINE</span>
+        <span style="margin-left:auto; font-size:9px; color:var(--accent); border:1px solid var(--accent); padding:2px 8px; border-radius:99px; font-weight:700;">ONLINE</span>
       </div>
-      <div class="card-body util-body">
-        <div style="display:flex; gap:4px; margin-bottom:8px; flex-wrap:wrap;">
-          <div class="ai-chip" data-prompt="Latest tech news" style="font-size:10px; padding:3px 9px; border-radius:99px; background:rgba(0,240,255,0.08); border:1px solid rgba(0,240,255,0.2); cursor:pointer;">Tech</div>
-          <div class="ai-chip" data-prompt="Open games" style="font-size:10px; padding:3px 9px; border-radius:99px; background:rgba(0,240,255,0.08); border:1px solid rgba(0,240,255,0.2); cursor:pointer;">Games</div>
-          <div class="ai-chip" data-prompt="Summarize today" style="font-size:10px; padding:3px 9px; border-radius:99px; background:rgba(0,240,255,0.08); border:1px solid rgba(0,240,255,0.2); cursor:pointer;">Summary</div>
-        </div>
+      <div class="ai-chips">
+        <div class="ai-chip" data-prompt="Latest tech news">Tech News</div>
+        <div class="ai-chip" data-prompt="Open games">Games</div>
+        <div class="ai-chip" data-prompt="Summarize today">Summary</div>
+        <div class="ai-chip" data-prompt="Donate">Donate</div>
+        <div class="ai-chip" data-prompt="Advertise">Advertise</div>
+      </div>
+      <div class="card-body" style="display:flex; flex-direction:column; flex:1; min-height:0;">
         <div class="ai-chat" id="aiChat"></div>
-        <div class="ai-input-wrap">
-          <input id="aiInput" type="text" placeholder="Ask about news, tools, or navigate..." autocomplete="off">
+        <div class="ai-input-area">
+          <input id="aiInput" type="text" placeholder="Ask anything..." autocomplete="off">
           <button class="ai-send" id="aiSend">➤</button>
         </div>
       </div>
     </div>
 
-    <!-- UTILITIES -->
+    <!-- QUICK NOTES -->
     <div class="card">
       <div class="card-header"><div class="card-dot"></div><span>📝 Quick Notes</span></div>
-      <div class="card-body util-body">
+      <div class="card-body util-body" style="display:flex; flex-direction:column;">
         <textarea id="quickNotes" placeholder="Jot something down... Auto-saves locally."></textarea>
-        <div style="font-size:10px; color:var(--text-sub); margin-top:8px; display:flex; justify-content:space-between;">
+        <div class="notes-footer">
           <span id="notesStatus">Ready</span>
-          <button id="clearNotes" style="background:none; border:none; color:var(--text-sub); cursor:pointer; text-decoration:underline;">Clear</button>
+          <button class="notes-clear" id="clearNotes">Clear all</button>
         </div>
       </div>
     </div>
+
+    <!-- FOCUS TIMER -->
     <div class="card">
       <div class="card-header"><div class="card-dot"></div><span>⏱️ Focus Timer</span></div>
-      <div class="card-body util-body">
-        <div style="display:flex; justify-content:center; gap:6px; margin-bottom:14px;">
-          <div class="mode-chip active" data-mode="work">Focus</div>
-          <div class="mode-chip" data-mode="shortBreak">Break</div>
+      <div class="card-body util-body" style="display:flex; flex-direction:column; justify-content:center;">
+        <div class="pomo-modes">
+          <div class="mode-chip active" data-mode="work">Focus · 25m</div>
+          <div class="mode-chip" data-mode="shortBreak">Break · 5m</div>
+          <div class="mode-chip" data-mode="longBreak">Long · 15m</div>
         </div>
-        <div class="pomodoro-display" id="pomodoroTime">25:00</div>
-        <div style="display:flex; justify-content:center; gap:8px;">
-          <button class="pomodoro-btn primary" id="pomodoroStart">Start</button>
-          <button class="pomodoro-btn" id="pomodoroReset">Reset</button>
+        <div class="pomo-display" id="pomodoroTime">25:00</div>
+        <div class="pomo-controls">
+          <button class="pomo-btn primary" id="pomodoroStart">Start</button>
+          <button class="pomo-btn" id="pomodoroReset">Reset</button>
         </div>
       </div>
+    </div>
+
+    <!-- BANNER ADVERTISEMENT (BOTTOM) -->
+    <div class="card banner-card">
+      <a href="https://www.paypal.com/ncp/payment/SS6YDUMN4VYJA" target="_blank" rel="noopener noreferrer">
+        <img src="https://placehold.co/1320x260/0f172a/00f0ff?text=Premium+Ad+Space+%7C+Click+to+View+Offer" alt="Advertisement Banner">
+        <span class="banner-badge">Sponsored</span>
+      </a>
     </div>
   </div>
 </div>
@@ -307,20 +832,225 @@ body {
   <div class="embed-container">
     <div class="embed-header">
       <span class="embed-title" id="embedTitle">Digital Infohub</span>
-      <button class="embed-close" id="closeEmbed">×</button>
+      <button class="embed-close" id="closeEmbed" aria-label="Close embed">×</button>
     </div>
     <div class="embed-loader" id="embedLoader">Loading Module...</div>
-    <iframe id="siteFrame" class="embed-frame" sandbox="allow-scripts allow-same-origin allow-popups allow-forms"></iframe>
+    <iframe id="siteFrame" class="embed-frame" sandbox="allow-scripts allow-same-origin allow-popups allow-forms" title="Embedded page"></iframe>
   </div>
 </div>
 
 <script>
-/**
- * DIGITAL INFOHUB - UNIFIED DASHBOARD LOGIC
- */
+/* ═══════════════════════════════════════════════════════
+   ANIMATED BACKGROUND ENGINE
+   ═══════════════════════════════════════════════════════ */
+const canvas = document.getElementById('bgCanvas');
+const ctx = canvas.getContext('2d');
+let bgMode = localStorage.getItem('dih_bg') || 'neural';
+let animId;
+let particles = [];
 
-// ─── CONFIGURATION ───
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+
+function getThemeColors() {
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  return {
+    dot: isDark ? 'rgba(0, 240, 255, 0.3)' : 'rgba(37, 99, 235, 0.2)',
+    line: isDark ? 'rgba(0, 240, 255, 0.06)' : 'rgba(37, 99, 235, 0.04)',
+    star: isDark ? 'rgba(255, 255, 255, 0.6)' : 'rgba(37, 99, 235, 0.15)',
+    grad1: isDark ? '#030712' : '#f0f4f8',
+    grad2: isDark ? '#0f172a' : '#e2e8f0',
+    gradAccent: isDark ? 'rgba(0, 240, 255, 0.08)' : 'rgba(37, 99, 235, 0.06)'
+  };
+}
+
+// Neural Mesh
+function initNeural() {
+  particles = [];
+  const count = Math.min(80, Math.floor(window.innerWidth * window.innerHeight / 15000));
+  for (let i = 0; i < count; i++) {
+    particles.push({
+      x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+      vx: (Math.random() - 0.5) * 0.4, vy: (Math.random() - 0.5) * 0.4,
+      r: Math.random() * 2 + 1
+    });
+  }
+}
+function drawNeural() {
+  const c = getThemeColors();
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach(p => {
+    p.x += p.vx; p.y += p.vy;
+    if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+    if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+    ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = c.dot; ctx.fill();
+  });
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i + 1; j < particles.length; j++) {
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 150) {
+        ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.strokeStyle = c.line; ctx.lineWidth = 1 - dist / 150;
+        ctx.stroke();
+      }
+    }
+  }
+}
+
+// Starfield
+let stars = [];
+function initStars() {
+  stars = [];
+  const count = Math.min(200, Math.floor(window.innerWidth * window.innerHeight / 8000));
+  for (let i = 0; i < count; i++) {
+    stars.push({
+      x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+      r: Math.random() * 1.5 + 0.3, speed: Math.random() * 0.3 + 0.05,
+      twinkle: Math.random() * Math.PI * 2
+    });
+  }
+}
+function drawStars() {
+  const c = getThemeColors();
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const time = Date.now() * 0.001;
+  stars.forEach(s => {
+    s.y -= s.speed;
+    if (s.y < -5) { s.y = canvas.height + 5; s.x = Math.random() * canvas.width; }
+    const alpha = 0.4 + Math.sin(time * 2 + s.twinkle) * 0.3;
+    ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+    ctx.fillStyle = c.star.replace(/[\d.]+\)$/, `${alpha})`);
+    ctx.fill();
+  });
+}
+
+// Gradient Flow
+let gradTime = 0;
+function drawGradient() {
+  const c = getThemeColors();
+  gradTime += 0.003;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const grd = ctx.createRadialGradient(
+    canvas.width * (0.5 + Math.sin(gradTime) * 0.3),
+    canvas.height * (0.5 + Math.cos(gradTime * 0.7) * 0.3),
+    0,
+    canvas.width * 0.5, canvas.height * 0.5, canvas.width * 0.8
+  );
+  grd.addColorStop(0, c.gradAccent);
+  grd.addColorStop(0.5, c.grad2);
+  grd.addColorStop(1, c.grad1);
+  ctx.fillStyle = grd;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
+
+function animateBg() {
+  if (bgMode === 'neural') drawNeural();
+  else if (bgMode === 'stars') drawStars();
+  else if (bgMode === 'gradient') drawGradient();
+  animId = requestAnimationFrame(animateBg);
+}
+
+function setBgMode(mode) {
+  bgMode = mode;
+  localStorage.setItem('dih_bg', mode);
+  cancelAnimationFrame(animId);
+  if (mode === 'neural') initNeural();
+  else if (mode === 'stars') initStars();
+  document.querySelectorAll('.bg-option').forEach(o => o.classList.toggle('active', o.dataset.bg === mode));
+  animateBg();
+}
+
+// Init background
+if (bgMode === 'neural') initNeural();
+else if (bgMode === 'stars') initStars();
+animateBg();
+document.querySelectorAll('.bg-option').forEach(o => {
+  o.classList.toggle('active', o.dataset.bg === bgMode);
+  o.addEventListener('click', () => {
+    setBgMode(o.dataset.bg);
+    document.getElementById('bgSelector').classList.remove('open');
+  });
+});
+
+/* ═══════════════════════════════════════════════════════
+   THEME TOGGLE
+   ═══════════════════════════════════════════════════════ */
+const themeToggle = document.getElementById('themeToggle');
+let currentTheme = localStorage.getItem('dih_theme') || 'dark';
+document.documentElement.setAttribute('data-theme', currentTheme);
+themeToggle.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+
+themeToggle.addEventListener('click', () => {
+  currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', currentTheme);
+  localStorage.setItem('dih_theme', currentTheme);
+  themeToggle.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+});
+
+// BG Selector Toggle
+const bgToggle = document.getElementById('bgToggle');
+const bgSelector = document.getElementById('bgSelector');
+bgToggle.addEventListener('click', (e) => {
+  e.stopPropagation();
+  bgSelector.classList.toggle('open');
+});
+document.addEventListener('click', () => bgSelector.classList.remove('open'));
+bgSelector.addEventListener('click', (e) => e.stopPropagation());
+
+/* ═══════════════════════════════════════════════════════
+   CLOCK
+   ═══════════════════════════════════════════════════════ */
+function updateClock() {
+  const el = document.getElementById('clock');
+  const opts = window.innerWidth <= 768
+    ? { hour: '2-digit', minute: '2-digit' }
+    : { weekday: 'short', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+  el.textContent = new Date().toLocaleString('en-US', opts);
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+/* ═══════════════════════════════════════════════════════
+   SITE EMBEDDER
+   ═══════════════════════════════════════════════════════ */
 const WIX_BASE = "https://digitalinfohubnet.wixsite.com/digitalinfohub";
+const modal = document.getElementById('siteEmbedModal');
+const frame = document.getElementById('siteFrame');
+const loader = document.getElementById('embedLoader');
+const embedTitle = document.getElementById('embedTitle');
+
+function openSiteEmbed(path, title = "Digital Infohub") {
+  const url = path.startsWith('http') ? path : `${WIX_BASE}${path}`;
+  embedTitle.textContent = title;
+  loader.style.display = 'flex';
+  frame.src = url;
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeSiteEmbed() {
+  modal.classList.remove('active');
+  document.body.style.overflow = '';
+  setTimeout(() => { frame.src = ''; }, 300);
+}
+frame.onload = () => { loader.style.display = 'none'; };
+document.getElementById('closeEmbed').onclick = closeSiteEmbed;
+modal.addEventListener('click', (e) => { if (e.target === modal) closeSiteEmbed(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('active')) closeSiteEmbed(); });
+document.querySelectorAll('.feed-trigger').forEach(el => {
+  el.addEventListener('click', () => openSiteEmbed(el.dataset.path, el.querySelector('span:first-child').textContent.trim()));
+});
+
+/* ═══════════════════════════════════════════════════════
+   RSS FEED ENGINE WITH REAL STATUS TRACKING
+   ═══════════════════════════════════════════════════════ */
 const RSS_FEEDS = {
   blog: 'https://www.digitalinfohub.net/blog-feed.xml',
   tech: 'https://techcrunch.com/feed/',
@@ -328,96 +1058,8 @@ const RSS_FEEDS = {
   markets: 'https://rss.nytimes.com/services/xml/rss/nyt/Business.xml',
   crypto: 'https://cointelegraph.com/rss'
 };
-
-// ─── CLOCK & UI UTILS ───
-function updateClock() {
-  const el = document.getElementById('clock');
-  const opts = window.innerWidth <= 768 
-    ? { hour: '2-digit', minute: '2-digit' } 
-    : { weekday: 'short', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
-  el.textContent = new Date().toLocaleString('en-US', opts);
-}
-setInterval(updateClock, 1000);
-updateClock();
-
-// ─── SITE EMBEDDER SYSTEM (CORE REQUEST) ───
-const modal = document.getElementById('siteEmbedModal');
-const frame = document.getElementById('siteFrame');
-const loader = document.getElementById('embedLoader');
-const embedTitle = document.getElementById('embedTitle');
-
-function openSiteEmbed(path, title = "Digital Infohub") {
-  // Construct full URL
-  const url = path.startsWith('http') ? path : `${WIX_BASE}${path}`;
-  
-  embedTitle.textContent = title;
-  loader.style.display = 'flex';
-  frame.src = url;
-  modal.classList.add('active');
-  document.body.style.overflow = 'hidden'; // Prevent background scrolling
-}
-
-function closeSiteEmbed() {
-  modal.classList.remove('active');
-  document.body.style.overflow = '';
-  setTimeout(() => { frame.src = ''; }, 300); // Clear src after animation
-}
-
-// Handle Frame Load
-frame.onload = () => { loader.style.display = 'none'; };
-document.getElementById('closeEmbed').onclick = closeSiteEmbed;
-modal.addEventListener('click', (e) => { if(e.target === modal) closeSiteEmbed(); });
-document.addEventListener('keydown', (e) => { if(e.key === 'Escape' && modal.classList.contains('active')) closeSiteEmbed(); });
-
-// Attach triggers to navigation links
-document.querySelectorAll('.feed-trigger').forEach(el => {
-  el.addEventListener('click', () => {
-    const path = el.dataset.path;
-    const title = el.querySelector('span:first-child').textContent.trim();
-    openSiteEmbed(path, title);
-  });
-});
-
-// ─── RSS FEED ENGINE ───
 const feedData = { blog: [], tech: [], world: [], markets: [], crypto: [] };
-
-async function loadFeed(url, targetId) {
-  const container = document.getElementById(targetId);
-  try {
-    const api = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`;
-    const r = await fetch(api);
-    const data = await r.json();
-    container.innerHTML = '';
-    feedData[targetId] = [];
-    
-    if (!data.items?.length) { container.innerHTML = '<li style="padding:12px; color:var(--text-sub);">No articles found.</li>'; return; }
-    
-    data.items.slice(0, 6).forEach(item => {
-      const li = document.createElement('li');
-      const cleanTitle = item.title.replace(/<[^>]*>/g, '');
-      const timeAgo = getTimeAgo(item.pubDate);
-      
-      feedData[targetId].push({ title: cleanTitle, link: item.link, time: timeAgo });
-      
-      // SPECIAL HANDLING FOR BLOG: Open in modal if it's our site, else new tab
-      const isInternal = item.link.includes('digitalinfohub');
-      const clickAttr = isInternal 
-        ? `onclick="openSiteEmbed('/blog', 'Official Blog'); return false;"` 
-        : `target="_blank"`;
-      
-      // For internal blog posts, we try to load the blog index in modal since direct post embedding might be blocked by Wix X-Frame-Options
-      // If you have direct post URLs that allow embedding, use them. Otherwise, safe bet is opening the /blog section.
-      const href = isInternal ? '#' : item.link;
-      
-      li.innerHTML = `
-        <a href="${href}" ${clickAttr} rel="noopener">
-          <span class="feed-title">${cleanTitle}</span>
-          <span class="feed-meta"><span>${new URL(item.link).hostname.replace('www.','')}</span><span>${timeAgo}</span></span>
-        </a>`;
-      container.appendChild(li);
-    });
-  } catch (e) { container.innerHTML = '<li style="padding:12px; color:#f87171;">Feed unavailable.</li>'; }
-}
+let feedsLoaded = 0, feedsFailed = 0, totalFeeds = Object.keys(RSS_FEEDS).length;
 
 function getTimeAgo(dateStr) {
   const sec = Math.floor((new Date() - new Date(dateStr)) / 1000);
@@ -429,19 +1071,228 @@ function getTimeAgo(dateStr) {
   return `${Math.floor(hr / 24)}d ago`;
 }
 
-Object.entries(RSS_FEEDS).forEach(([k, v]) => loadFeed(v, k));
-setInterval(() => Object.entries(RSS_FEEDS).forEach(([k, v]) => loadFeed(v, k)), 900000);
+function updateStatus() {
+  const totalArticles = Object.values(feedData).flat().length;
+  const processed = feedsLoaded + feedsFailed;
+  const countEl = document.getElementById('articleCount');
+  const healthEl = document.getElementById('feedHealth');
+  const statusEl = document.getElementById('hubStatus');
+  if (countEl) countEl.textContent = totalArticles;
+  if (processed >= totalFeeds && healthEl) {
+    const pct = Math.round((feedsLoaded / totalFeeds) * 100);
+    healthEl.textContent = `${pct}%`;
+    healthEl.style.color = pct >= 80 ? '#22c55e' : pct >= 50 ? '#f59e0b' : '#ef4444';
+    if (statusEl) {
+      statusEl.textContent = pct >= 80 ? 'ONLINE' : 'DEGRADED';
+      statusEl.style.color = pct >= 80 ? '#22c55e' : '#f59e0b';
+    }
+  }
+}
+
+async function loadFeed(url, targetId) {
+  const container = document.getElementById(targetId);
+  try {
+    const api = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`;
+    const r = await fetch(api);
+    if (!r.ok) throw new Error('Network error');
+    const data = await r.json();
+    container.innerHTML = '';
+    feedData[targetId] = [];
+    if (!data.items?.length) {
+      container.innerHTML = '<li class="error-text">No articles found.</li>';
+      feedsFailed++; updateStatus(); return;
+    }
+    data.items.slice(0, 6).forEach(item => {
+      const li = document.createElement('li');
+      const cleanTitle = item.title.replace(/<[^>]*>/g, '');
+      const timeAgo = getTimeAgo(item.pubDate);
+      feedData[targetId].push({ title: cleanTitle, link: item.link, time: timeAgo });
+      const isInternal = item.link.includes('digitalinfohub');
+      const clickAttr = isInternal ? `onclick="openSiteEmbed('/blog','Official Blog');return false;"` : `target="_blank"`;
+      const href = isInternal ? '#' : item.link;
+      let domain = 'news';
+      try { domain = new URL(item.link).hostname.replace('www.', ''); } catch(e) {}
+      li.innerHTML = `<a href="${href}" ${clickAttr} rel="noopener"><span class="feed-title">${cleanTitle}</span><span class="feed-meta"><span>${domain}</span><span>${timeAgo}</span></span></a>`;
+      container.appendChild(li);
+    });
+    feedsLoaded++;
+  } catch (e) {
+    container.innerHTML = '<li class="error-text">Feed unavailable.</li>';
+    feedsFailed++;
+  }
+  updateStatus();
+}
+
+function refreshAllFeeds() {
+  feedsLoaded = 0; feedsFailed = 0;
+  Object.entries(RSS_FEEDS).forEach(([k, v]) => loadFeed(v, k));
+}
+refreshAllFeeds();
+setInterval(refreshAllFeeds, 900000);
+
+// Session Uptime
+const sessionStart = Date.now();
+setInterval(() => {
+  const mins = Math.floor((Date.now() - sessionStart) / 60000);
+  const el = document.getElementById('uptimeDisplay');
+  if (el) el.textContent = mins < 60 ? `${mins}m` : `${Math.floor(mins / 60)}h ${mins % 60}m`;
+}, 10000);
 
 // Search Filter
-document.getElementById('search').addEventListener('input', function() {
+document.getElementById('search').addEventListener('input', function () {
   const t = this.value.toLowerCase();
   document.querySelectorAll('.feed li').forEach(li => {
-    if(li.textContent.toLowerCase().includes(t)) li.style.display = '';
-    else li.style.display = 'none';
+    if (li.classList.contains('loading-text') || li.classList.contains('error-text')) return;
+    li.style.display = li.textContent.toLowerCase().includes(t) ? '' : 'none';
   });
 });
 
-// ─── RULE-BASED AI WITH MODAL INTEGRATION ───
+// Trending Tags → Search
+document.querySelectorAll('.tag[data-search]').forEach(tag => {
+  tag.addEventListener('click', () => {
+    const input = document.getElementById('search');
+    input.value = tag.dataset.search;
+    input.dispatchEvent(new Event('input'));
+    input.focus();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+
+/* ═══════════════════════════════════════════════════════
+   UNIT CONVERTER (REAL)
+   ═══════════════════════════════════════════════════════ */
+const CONVERSIONS = {
+  km: { mi: 0.621371, m: 1000, ft: 3280.84 },
+  mi: { km: 1.60934, m: 1609.34, ft: 5280 },
+  m: { km: 0.001, mi: 0.000621371, ft: 3.28084 },
+  ft: { km: 0.0003048, mi: 0.000189394, m: 0.3048 },
+  kg: { lb: 2.20462 },
+  lb: { kg: 0.453592 },
+  c: { f: 'c_to_f' },
+  f: { c: 'f_to_c' }
+};
+
+function convert(val, from, to) {
+  if (from === to) return val;
+  const table = CONVERSIONS[from];
+  if (!table || table[to] === undefined) return null;
+  const factor = table[to];
+  if (factor === 'c_to_f') return (val * 9 / 5) + 32;
+  if (factor === 'f_to_c') return (val - 32) * 5 / 9;
+  return val * factor;
+}
+
+function updateConverter() {
+  const val = parseFloat(document.getElementById('convInput').value);
+  const from = document.getElementById('convFrom').value;
+  const to = document.getElementById('convTo').value;
+  const resultEl = document.getElementById('convResult');
+  if (isNaN(val)) { resultEl.textContent = '--'; return; }
+  const result = convert(val, from, to);
+  if (result === null) { resultEl.textContent = 'N/A'; return; }
+  const unitLabels = { km: 'km', mi: 'mi', m: 'm', ft: 'ft', kg: 'kg', lb: 'lb', c: '°C', f: '°F' };
+  resultEl.textContent = `${parseFloat(result.toFixed(4))} ${unitLabels[to]}`;
+}
+
+document.getElementById('convInput').addEventListener('input', updateConverter);
+document.getElementById('convFrom').addEventListener('change', updateConverter);
+document.getElementById('convTo').addEventListener('change', updateConverter);
+updateConverter();
+
+/* ═══════════════════════════════════════════════════════
+   PASSWORD GENERATOR (REAL, CRYPTO-SECURE)
+   ═══════════════════════════════════════════════════════ */
+const pwState = { upper: true, lower: true, nums: true, syms: true, length: 16 };
+const CHARSETS = {
+  upper: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+  lower: 'abcdefghijklmnopqrstuvwxyz',
+  nums: '0123456789',
+  syms: '!@#$%^&*()_+-=[]{}|;:,.<>?'
+};
+
+function generatePassword() {
+  let chars = '';
+  if (pwState.upper) chars += CHARSETS.upper;
+  if (pwState.lower) chars += CHARSETS.lower;
+  if (pwState.nums) chars += CHARSETS.nums;
+  if (pwState.syms) chars += CHARSETS.syms;
+  if (!chars) { document.getElementById('pwText').textContent = 'Select options'; return; }
+  const arr = new Uint32Array(pwState.length);
+  crypto.getRandomValues(arr);
+  let pw = '';
+  for (let i = 0; i < pwState.length; i++) pw += chars[arr[i] % chars.length];
+  document.getElementById('pwText').textContent = pw;
+}
+
+document.querySelectorAll('.pw-opt').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const opt = btn.dataset.opt;
+    pwState[opt] = !pwState[opt];
+    btn.classList.toggle('active', pwState[opt]);
+  });
+});
+document.getElementById('pwLength').addEventListener('input', function () {
+  pwState.length = parseInt(this.value);
+  document.getElementById('pwLenVal').textContent = this.value;
+});
+document.getElementById('pwGenerate').addEventListener('click', generatePassword);
+document.getElementById('pwOutput').addEventListener('click', () => {
+  const text = document.getElementById('pwText').textContent;
+  if (text && text !== 'Click Generate' && text !== 'Select options') {
+    navigator.clipboard.writeText(text).then(() => {
+      const hint = document.querySelector('.copy-hint');
+      hint.textContent = 'Copied!';
+      setTimeout(() => { hint.textContent = 'Click to copy'; }, 1500);
+    });
+  }
+});
+generatePassword();
+
+/* ═══════════════════════════════════════════════════════
+   COLOR PICKER (REAL)
+   ═══════════════════════════════════════════════════════ */
+function hexToRgb(hex) {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  return { r, g, b };
+}
+function rgbToHsl(r, g, b) {
+  r /= 255; g /= 255; b /= 255;
+  const max = Math.max(r, g, b), min = Math.min(r, g, b);
+  let h, s, l = (max + min) / 2;
+  if (max === min) { h = s = 0; }
+  else {
+    const d = max - min;
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+    switch (max) {
+      case r: h = ((g - b) / d + (g < b ? 6 : 0)) / 6; break;
+      case g: h = ((b - r) / d + 2) / 6; break;
+      case b: h = ((r - g) / d + 4) / 6; break;
+    }
+  }
+  return { h: Math.round(h * 360), s: Math.round(s * 100), l: Math.round(l * 100) };
+}
+function updateColor(hex) {
+  document.getElementById('colorPreview').style.background = hex;
+  document.getElementById('colorHex').textContent = hex;
+  const { r, g, b } = hexToRgb(hex);
+  document.getElementById('colorRgb').textContent = `rgb(${r}, ${g}, ${b})`;
+  const { h, s, l } = rgbToHsl(r, g, b);
+  document.getElementById('colorHsl').textContent = `hsl(${h}, ${s}%, ${l}%)`;
+}
+document.getElementById('colorPicker').addEventListener('input', function () { updateColor(this.value); });
+document.querySelectorAll('.color-val-row').forEach(row => {
+  row.addEventListener('click', () => {
+    const text = row.querySelector('span:last-child').textContent;
+    navigator.clipboard.writeText(text);
+  });
+});
+updateColor('#00f0ff');
+
+/* ═══════════════════════════════════════════════════════
+   AI CHAT ENGINE
+   ═══════════════════════════════════════════════════════ */
 const aiChat = document.getElementById('aiChat');
 const aiInput = document.getElementById('aiInput');
 
@@ -456,25 +1307,25 @@ function addMsg(html, isUser) {
 
 function getAIResponse(q) {
   const lq = q.toLowerCase();
-  
   if (/open|go to|show|launch|play/.test(lq)) {
-    if (/game/.test(lq)) { openSiteEmbed('/games', 'Games Arcade'); return "Opening the Games Arcade for you..."; }
-    if (/app|tool/.test(lq)) { openSiteEmbed('/webapps', 'Web Apps'); return "Launching the Web Apps suite..."; }
-    if (/invest|stock|market/.test(lq)) { openSiteEmbed('/invest', 'Investment Hub'); return "Opening the Investment Hub..."; }
-    if (/subscrib|join|sign/.test(lq)) { openSiteEmbed('/subscribe', 'Subscribe'); return "Opening the subscription page..."; }
-    if (/blog|post|article/.test(lq)) { openSiteEmbed('/blog', 'Official Blog'); return "Opening the official blog..."; }
+    if (/game/.test(lq)) { openSiteEmbed('/games', 'Games Arcade'); return "Opening the Games Arcade..."; }
+    if (/app|tool/.test(lq)) { openSiteEmbed('/webapps', 'Web Apps'); return "Launching Web Apps..."; }
+    if (/invest|stock/.test(lq)) { openSiteEmbed('/invest', 'Investment Hub'); return "Opening Investment Hub..."; }
+    if (/subscrib|join/.test(lq)) { openSiteEmbed('/subscribe', 'Subscribe'); return "Opening subscription page..."; }
+    if (/blog/.test(lq)) { openSiteEmbed('/blog', 'Official Blog'); return "Opening the blog..."; }
   }
-  
   if (/tech|news/.test(lq)) {
-    const items = feedData.tech.slice(0,3).map(i => `<div style="margin-top:4px;"><a href="${i.link}" target="_blank" style="color:var(--accent); text-decoration:none;">• ${i.title}</a></div>`).join('');
-    return `<strong>Latest Tech Headlines:</strong>${items || 'Loading feeds...'}`;
+    const items = feedData.tech.slice(0, 3).map(i => `<div style="margin-top:4px;"><a href="${i.link}" target="_blank" style="color:var(--accent);text-decoration:none;">• ${i.title}</a></div>`).join('');
+    return `<strong>Latest Tech:</strong>${items || ' Loading...'}`;
   }
-  
+  if (/donate|support/.test(lq)) return `Support us:<br><a class="ai-action-btn" href="https://www.paypal.com/ncp/payment/QTX8WWTX8SBAG" target="_blank" rel="noopener">☕ Donate Now</a>`;
+  if (/advertis|sponsor/.test(lq)) return `Advertise with us:<br><a class="ai-action-btn" href="mailto:services@digitalinfohub.net?subject=Advertising%20Inquiry">📢 Contact Services</a>`;
   if (/summary|summarize/.test(lq)) {
-    return `You have access to ${Object.values(feedData).flat().length} live articles across 5 categories. Use the Hub Navigation card to access internal tools like Games and Web Apps without leaving this dashboard.`;
+    const total = Object.values(feedData).flat().length;
+    return `<strong>${total}</strong> live articles across 5 feeds. Use Hub Navigation for games, apps, and more.`;
   }
-  
-  return "I can help you navigate. Try saying 'Open Games', 'Show Tech News', or 'Go to Web Apps'. I can also summarize your live feeds.";
+  if (/hi|hello|hey/.test(lq)) return "Hi! I'm InfoHub AI. Try 'tech news', 'open games', 'donate', or 'summarize'.";
+  return "Try: 'Open Games', 'Tech News', 'Donate', 'Advertise', or 'Summarize'. I can also search headlines by topic.";
 }
 
 function handleSend() {
@@ -482,65 +1333,57 @@ function handleSend() {
   if (!txt) return;
   addMsg(txt, true);
   aiInput.value = '';
-  setTimeout(() => addMsg(getAIResponse(txt), false), 400);
+  setTimeout(() => addMsg(getAIResponse(txt), false), 350);
 }
-
 document.getElementById('aiSend').onclick = handleSend;
-aiInput.onkeydown = (e) => { if(e.key === 'Enter') handleSend(); };
+aiInput.onkeydown = (e) => { if (e.key === 'Enter') handleSend(); };
 document.querySelectorAll('.ai-chip').forEach(c => c.onclick = () => { aiInput.value = c.dataset.prompt; handleSend(); });
+setTimeout(() => addMsg("Welcome to <strong>Digital Infohub</strong>. I can navigate the site, pull news, or answer questions. Try 'tech news' or 'open games'.", false), 400);
 
-// Initial Greeting
-setTimeout(() => addMsg("Welcome to the <strong>Digital Infohub Command Center</strong>. Everything is now unified. You can browse news, use tools, and play games all within this single interface. How can I assist you?", false), 500);
-
-// ─── UTILITIES (NOTES & TIMER) ───
-// Notes
+/* ═══════════════════════════════════════════════════════
+   NOTES
+   ═══════════════════════════════════════════════════════ */
 const notes = document.getElementById('quickNotes');
 notes.value = localStorage.getItem('dih_notes') || '';
 notes.oninput = () => { localStorage.setItem('dih_notes', notes.value); document.getElementById('notesStatus').textContent = 'Saved'; };
 document.getElementById('clearNotes').onclick = () => { notes.value = ''; localStorage.removeItem('dih_notes'); document.getElementById('notesStatus').textContent = 'Cleared'; };
 
-// Timer
-let timerInt, timeLeft = 25*60, running = false;
+/* ═══════════════════════════════════════════════════════
+   POMODORO TIMER
+   ═══════════════════════════════════════════════════════ */
+let timerInt, timeLeft = 25 * 60, running = false;
 const tDisp = document.getElementById('pomodoroTime');
-function updTimer() { tDisp.textContent = `${String(Math.floor(timeLeft/60)).padStart(2,'0')}:${String(timeLeft%60).padStart(2,'0')}`; }
-document.getElementById('pomodoroStart').onclick = function() {
-  if(running) { clearInterval(timerInt); this.textContent = 'Resume'; }
-  else { 
-    timerInt = setInterval(() => { 
-      if(timeLeft <= 0) { clearInterval(timerInt); running=false; return; } 
-      timeLeft--; updTimer(); 
-    }, 1000); 
-    this.textContent = 'Pause'; 
+function updTimer() {
+  tDisp.textContent = `${String(Math.floor(timeLeft / 60)).padStart(2, '0')}:${String(timeLeft % 60).padStart(2, '0')}`;
+}
+document.getElementById('pomodoroStart').onclick = function () {
+  if (running) { clearInterval(timerInt); this.textContent = 'Resume'; }
+  else {
+    timerInt = setInterval(() => {
+      if (timeLeft <= 0) { clearInterval(timerInt); running = false; return; }
+      timeLeft--; updTimer();
+    }, 1000);
+    this.textContent = 'Pause';
   }
   running = !running;
 };
-document.getElementById('pomodoroReset').onclick = () => { clearInterval(timerInt); running=false; timeLeft=25*60; updTimer(); document.getElementById('pomodoroStart').textContent='Start'; };
-document.querySelectorAll('.mode-chip').forEach(c => c.onclick = function() {
-  document.querySelectorAll('.mode-chip').forEach(x=>x.classList.remove('active'));
+document.getElementById('pomodoroReset').onclick = () => {
+  clearInterval(timerInt); running = false; timeLeft = 25 * 60; updTimer();
+  document.getElementById('pomodoroStart').textContent = 'Start';
+};
+document.querySelectorAll('.mode-chip').forEach(c => c.onclick = function () {
+  document.querySelectorAll('.mode-chip').forEach(x => x.classList.remove('active'));
   this.classList.add('active');
-  clearInterval(timerInt); running=false;
-  timeLeft = this.dataset.mode === 'work' ? 25*60 : 5*60;
-  updTimer(); document.getElementById('pomodoroStart').textContent='Start';
+  clearInterval(timerInt); running = false;
+  const durations = { work: 25 * 60, shortBreak: 5 * 60, longBreak: 15 * 60 };
+  timeLeft = durations[this.dataset.mode] || 25 * 60;
+  updTimer(); document.getElementById('pomodoroStart').textContent = 'Start';
 });
 
-// Install Popup Logic (Simplified for brevity but functional)
-document.getElementById('appBtn').onclick = () => alert("To add Digital Infohub to your home screen:\n\n1. Tap the Share button 📤\n2. Select 'Add to Home Screen'\n\nThis dashboard is optimized for app-like usage!");
+/* ═══════════════════════════════════════════════════════
+   INSTALL SHORTCUT
+   ═══════════════════════════════════════════════════════ */
+document.getElementById('appBtn').onclick = () => alert("Add to Home Screen:\n\n1. Tap Share 📤\n2. Select 'Add to Home Screen'\n\nOptimized for app-like usage!");
 </script>
 </body>
-
-    <!-- HOMEPAGE BANNER ADVERTISEMENT -->
-<div class="card" style="grid-column: 1 / -1; padding: 0; overflow: hidden; border-color: var(--accent);">
-  <a href="https://www.paypal.com/ncp/payment/SS6YDUMN4VYJA" target="_blank" rel="noopener noreferrer" style="display: block; width: 100%; position: relative;">
-    <!-- Replace src below with your actual banner image URL -->
-    <img src="https://placehold.co/1280x250/0f172a/00f0ff?text=Premium+Ad+Space+%7C+Click+to+View+Offer" alt="Advertisement Banner" style="width: 100%; height: auto; display: block; object-fit: cover;">
-    <span style="position: absolute; top: 8px; right: 12px; font-size: 9px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.1em;">Sponsored</span>
-  </a>
-</div>
-
-<!-- DONATE BUTTON (One Line) -->
-<a href="https://www.paypal.com/ncp/payment/QTX8WWTX8SBAG" target="_blank" rel="noopener noreferrer" class="app-btn" style="background: linear-gradient(135deg, #f59e0b, #d97706); box-shadow: 0 0 15px rgba(245, 158, 11, 0.3); justify-content: center;">☕ Support Digital Infohub</a>
-
-<!-- ADVERTISE LINK (One Line) -->
-<a href="mailto:services@digitalinfohub.net?subject=Advertising%20Inquiry" style="color: var(--accent); font-size: 12px; font-weight: 600; text-decoration: none; border-bottom: 1px dashed rgba(0, 240, 255, 0.4); transition: var(--transition); padding: 4px 0;">📢 Advertise With Us</a>
-
 </html>
