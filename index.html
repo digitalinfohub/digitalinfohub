@@ -32,8 +32,6 @@
   --accent-glow: rgba(0, 240, 255, 0.15);
   --shadow: 0 8px 32px -8px rgba(0, 0, 0, 0.5);
   --input-bg: rgba(15, 23, 42, 0.6);
-  --canvas-dot: rgba(0, 240, 255, 0.3);
-  --canvas-line: rgba(0, 240, 255, 0.06);
   --donate-from: #f59e0b;
   --donate-to: #d97706;
 }
@@ -51,8 +49,6 @@
   --accent-glow: rgba(37, 99, 235, 0.1);
   --shadow: 0 8px 32px -8px rgba(0, 0, 0, 0.08);
   --input-bg: rgba(255, 255, 255, 0.7);
-  --canvas-dot: rgba(37, 99, 235, 0.25);
-  --canvas-line: rgba(37, 99, 235, 0.05);
   --donate-from: #f59e0b;
   --donate-to: #d97706;
 }
@@ -79,7 +75,6 @@ body {
   animation: fadeInPage 0.5s ease-out;
 }
 
-/* Hero */
 .hero {
   padding: 24px 28px; border-radius: var(--radius-lg);
   background: var(--bg-surface); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
@@ -101,7 +96,6 @@ body {
 }
 .hero-sub { font-size: clamp(13px, 2.5vw, 15px); color: var(--text-sub); max-width: 600px; }
 
-/* Topbar */
 .topbar { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 16px; flex-wrap: nowrap; }
 .search-wrap { position: relative; flex: 1; min-width: 0; }
 .search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); font-size: 14px; opacity: 0.5; pointer-events: none; color: var(--text-sub); }
@@ -133,7 +127,6 @@ body {
   transition: background var(--transition), border-color var(--transition);
 }
 
-/* ═══ UNIFORM GRID ═══ */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -170,9 +163,7 @@ body {
 .card:nth-child(10) { animation-delay: 0.20s; }
 .card:nth-child(11) { animation-delay: 0.22s; }
 .card:nth-child(12) { animation-delay: 0.24s; }
-.card:nth-child(13) { animation-delay: 0.26s; }
 
-/* Feeds */
 .feed { list-style: none; }
 .feed li { border-bottom: 1px solid var(--border); }
 .feed li:last-child { border-bottom: none; }
@@ -190,7 +181,6 @@ body {
 .links-card a, .links-card .feed-trigger { flex-direction: row; justify-content: space-between; align-items: center; font-weight: 600; }
 .links-pill { font-size: 10px; padding: 2px 8px; border-radius: 999px; background: var(--accent-glow); color: var(--accent); border: 1px solid var(--border-hover); font-weight: 700; text-transform: uppercase; }
 
-/* Quick Actions */
 .quick-actions { display: flex; flex-direction: column; gap: 10px; height: 100%; justify-content: center; }
 .qa-btn { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px; border-radius: var(--radius-sm); font-size: 14px; font-weight: 700; text-decoration: none; transition: var(--transition); cursor: pointer; border: none; }
 .qa-donate { background: linear-gradient(135deg, var(--donate-from), var(--donate-to)); color: #fff; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.25); }
@@ -198,7 +188,6 @@ body {
 .qa-advertise { background: var(--accent-glow); color: var(--accent); border: 1px solid var(--border-hover); }
 .qa-advertise:hover { background: var(--accent); color: #fff; }
 
-/* Mini Apps */
 .converter-row { display: flex; gap: 8px; align-items: center; margin-bottom: 10px; }
 .converter-input { flex: 1; padding: 8px 12px; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--input-bg); color: var(--text-main); font-size: 14px; outline: none; transition: var(--transition); }
 .converter-input:focus { border-color: var(--accent); }
@@ -220,24 +209,25 @@ body {
 .color-val-label { color: var(--text-sub); font-family: inherit; font-weight: 600; min-width: 32px; }
 .color-input-native { width: 100%; height: 32px; border: none; border-radius: var(--radius-sm); cursor: pointer; margin-bottom: 8px; background: transparent; }
 
-/* Status */
 .status-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; height: 100%; align-content: center; }
 .status-item { background: var(--input-bg); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px; text-align: center; transition: background var(--transition), border-color var(--transition); }
 .status-val { font-size: 20px; font-weight: 800; color: var(--accent); margin-bottom: 2px; }
 .status-label { font-size: 10px; color: var(--text-sub); text-transform: uppercase; letter-spacing: 0.05em; }
 
-/* Dynamic Tags */
-.tag-cloud { display: flex; flex-wrap: wrap; gap: 6px; align-content: flex-start; }
-.tag { font-size: 11px; padding: 5px 12px; border-radius: 999px; background: var(--input-bg); border: 1px solid var(--border); color: var(--text-sub); cursor: pointer; transition: var(--transition); }
-.tag:hover { background: var(--accent-glow); border-color: var(--accent); color: var(--accent); }
-.tag-loading { font-size: 12px; color: var(--text-sub); padding: 8px 0; }
-
-/* AI */
+/* AI Chat */
 .ai-chat { height: 100%; overflow-y: auto; padding: 8px; display: flex; flex-direction: column; gap: 8px; }
 .ai-msg { max-width: 90%; padding: 10px 14px; border-radius: 14px; font-size: 13px; line-height: 1.5; animation: fadeInUp 0.3s ease; word-wrap: break-word; }
 .ai-msg.user { align-self: flex-end; background: linear-gradient(135deg, var(--accent-2), var(--accent)); color: #fff; border-bottom-right-radius: 4px; }
 .ai-msg.bot { align-self: flex-start; background: var(--input-bg); border: 1px solid var(--border); color: var(--text-main); border-bottom-left-radius: 4px; }
 .ai-msg.bot .bot-name { font-size: 10px; color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px; display: block; }
+.ai-msg.bot .bot-content { display: inline; }
+/* Typing cursor for streaming effect */
+.ai-msg.bot .typing-cursor::after {
+  content: '▊'; display: inline-block; color: var(--accent); margin-left: 2px;
+  animation: blinkCursor 0.8s step-end infinite; vertical-align: baseline;
+}
+@keyframes blinkCursor { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
 .ai-action-btn { display: inline-block; margin-top: 6px; padding: 6px 14px; border-radius: 999px; background: var(--accent-glow); border: 1px solid var(--accent); color: var(--accent); font-size: 11px; font-weight: 700; cursor: pointer; text-transform: uppercase; transition: var(--transition); text-decoration: none; }
 .ai-action-btn:hover { background: var(--accent); color: #fff; }
 .ai-chips { display: flex; gap: 4px; flex-wrap: wrap; padding: 8px 8px 0; flex-shrink: 0; }
@@ -248,8 +238,8 @@ body {
 #aiInput:focus { border-color: var(--accent); }
 .ai-send { background: linear-gradient(135deg, var(--accent-2), var(--accent)); border: none; color: #fff; padding: 0 18px; border-radius: 999px; font-weight: 800; cursor: pointer; transition: var(--transition); font-size: 13px; }
 .ai-send:hover { transform: translateY(-1px); }
+.ai-send:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
-/* Notes & Timer */
 #quickNotes { width: 100%; height: 100%; min-height: 0; background: var(--input-bg); border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--text-main); padding: 12px; font-size: 13px; resize: none; outline: none; transition: var(--transition); font-family: inherit; line-height: 1.6; }
 #quickNotes:focus { border-color: var(--accent); }
 .notes-footer { display: flex; justify-content: space-between; align-items: center; padding: 8px 0 0; font-size: 10px; color: var(--text-sub); flex-shrink: 0; }
@@ -265,20 +255,17 @@ body {
 .pomo-btn.primary { background: linear-gradient(135deg, var(--accent-2), var(--accent)); border: none; color: #fff; box-shadow: 0 4px 12px var(--accent-glow); }
 .pomo-btn.primary:hover { box-shadow: 0 6px 18px var(--accent-glow); transform: translateY(-1px); }
 
-/* Banner */
 .banner-card { grid-column: 1 / -1; padding: 0; overflow: hidden; border-color: var(--border-hover); grid-auto-rows: auto !important; height: auto !important; }
 .banner-card a { display: block; width: 100%; position: relative; }
 .banner-card img { width: 100%; height: auto; display: block; object-fit: cover; }
 .banner-badge { position: absolute; top: 10px; right: 14px; font-size: 9px; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.12em; pointer-events: none; font-weight: 700; }
 
-/* BG Selector */
 .bg-selector { position: absolute; top: 48px; right: 0; background: var(--bg-surface); backdrop-filter: blur(20px); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 6px; min-width: 160px; z-index: 100; display: none; box-shadow: var(--shadow); }
 .bg-selector.open { display: block; animation: fadeInUp 0.2s ease; }
 .bg-option { display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 6px; font-size: 12px; color: var(--text-main); cursor: pointer; transition: var(--transition); border: none; background: none; width: 100%; text-align: left; }
 .bg-option:hover { background: var(--accent-glow); color: var(--accent); }
 .bg-option.active { color: var(--accent); font-weight: 700; }
 
-/* Modal */
 #siteEmbedModal { position: fixed; inset: 0; z-index: var(--modal-z); background: rgba(3, 7, 18, 0.95); backdrop-filter: blur(12px); display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
 #siteEmbedModal.active { opacity: 1; pointer-events: all; }
 .embed-container { width: 95%; height: 90%; max-width: 1400px; background: #fff; border-radius: var(--radius-lg); overflow: hidden; position: relative; box-shadow: 0 0 60px var(--accent-glow); border: 1px solid var(--border); transform: scale(0.95); transition: transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1); }
@@ -424,14 +411,6 @@ body {
     <div class="card"><div class="card-header"><div class="card-dot"></div><span>World News</span></div><div class="card-body"><ul class="feed" id="world"><li class="loading-text">Loading...</li></ul></div></div>
     <div class="card"><div class="card-header"><div class="card-dot"></div><span>Markets</span></div><div class="card-body"><ul class="feed" id="markets"><li class="loading-text">Loading...</li></ul></div></div>
     <div class="card"><div class="card-header"><div class="card-dot"></div><span>Crypto</span></div><div class="card-body"><ul class="feed" id="crypto"><li class="loading-text">Loading...</li></ul></div></div>
-
-    <!-- TRENDING TOPICS (DYNAMIC) -->
-    <div class="card">
-      <div class="card-header"><div class="card-dot"></div><span>🔥 Trending Topics</span></div>
-      <div class="card-body util-body">
-        <div class="tag-cloud" id="trendingTags"><span class="tag-loading">Extracting from live feeds...</span></div>
-      </div>
-    </div>
 
     <!-- HUB NAVIGATION -->
     <div class="card">
@@ -596,69 +575,10 @@ modal.addEventListener('click', (e) => { if (e.target === modal) closeSiteEmbed(
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('active')) closeSiteEmbed(); });
 document.querySelectorAll('.feed-trigger').forEach(el => { el.addEventListener('click', () => openSiteEmbed(el.dataset.path, el.querySelector('span:first-child').textContent.trim())); });
 
-/* ═══ RSS + DYNAMIC TRENDING TOPICS ═══ */
+/* ═══ RSS FEEDS ═══ */
 const RSS_FEEDS = { blog: 'https://www.digitalinfohub.net/blog-feed.xml', tech: 'https://techcrunch.com/feed/', world: 'https://rss.nytimes.com/services/xml/rss/nyt/World.xml', markets: 'https://rss.nytimes.com/services/xml/rss/nyt/Business.xml', crypto: 'https://cointelegraph.com/rss' };
 const feedData = { blog: [], tech: [], world: [], markets: [], crypto: [] };
 let feedsLoaded = 0, feedsFailed = 0, totalFeeds = Object.keys(RSS_FEEDS).length;
-
-// Stop words for topic extraction
-const STOP_WORDS = new Set(['the','a','an','and','or','but','in','on','at','to','for','of','with','by','from','is','are','was','were','be','been','being','have','has','had','do','does','did','will','would','could','should','may','might','can','shall','it','its','this','that','these','those','i','you','he','she','we','they','me','him','her','us','them','my','your','his','our','their','what','which','who','whom','how','when','where','why','all','each','every','both','few','more','most','other','some','such','no','not','only','own','same','so','than','too','very','just','because','as','until','while','about','between','through','during','before','after','above','below','up','down','out','off','over','under','again','further','then','once','here','there','into','new','said','says','also','one','two','first','last','long','great','little','right','big','high','different','small','large','next','early','young','important','public','bad','good','well','back','still','even','want','however','another','much','since','many','make','made','like','get','got','go','going','take','come','see','know','say','said','tell','told','think','thought','look','use','find','give','work','call','try','ask','need','feel','become','leave','put','mean','keep','let','begin','seem','help','show','hear','play','run','move','live','believe','bring','happen','must','provide','sit','stand','lose','pay','meet','include','continue','set','learn','change','lead','understand','watch','follow','stop','create','speak','read','allow','add','spend','grow','open','walk','win','offer','remember','love','consider','appear','buy','wait','serve','die','send','expect','build','stay','fall','cut','reach','kill','remain','suggest','raise','pass','sell','require','report','decide','pull','develop']);
-
-function extractTrendingTopics() {
-  const allTitles = Object.values(feedData).flat().map(a => a.title.toLowerCase());
-  if (allTitles.length === 0) return [];
-  
-  // Tokenize and count multi-word phrases + single words
-  const freq = {};
-  allTitles.forEach(title => {
-    const words = title.replace(/[^a-z0-9\s]/g, '').split(/\s+/).filter(w => w.length > 2 && !STOP_WORDS.has(w));
-    // Single words
-    words.forEach(w => { freq[w] = (freq[w] || 0) + 1; });
-    // Bigrams
-    for (let i = 0; i < words.length - 1; i++) {
-      const bigram = words[i] + ' ' + words[i + 1];
-      freq[bigram] = (freq[bigram] || 0) + 1;
-    }
-  });
-  
-  // Sort by frequency, prefer bigrams when tied
-  return Object.entries(freq)
-    .filter(([term, count]) => count >= 2)
-    .sort((a, b) => {
-      const aIsBigram = a[0].includes(' ');
-      const bIsBigram = b[0].includes(' ');
-      if (a[1] !== b[1]) return b[1] - a[1];
-      if (aIsBigram && !bIsBigram) return -1;
-      if (!aIsBigram && bIsBigram) return 1;
-      return 0;
-    })
-    .slice(0, 15)
-    .map(([term]) => term.replace(/\b\w/g, c => c.toUpperCase()));
-}
-
-function renderTrendingTopics() {
-  const container = document.getElementById('trendingTags');
-  const topics = extractTrendingTopics();
-  if (topics.length === 0) {
-    container.innerHTML = '<span class="tag-loading">Not enough data yet...</span>';
-    return;
-  }
-  container.innerHTML = '';
-  topics.forEach(topic => {
-    const tag = document.createElement('div');
-    tag.className = 'tag';
-    tag.textContent = topic;
-    tag.dataset.search = topic;
-    tag.addEventListener('click', () => {
-      const input = document.getElementById('search');
-      input.value = topic;
-      input.dispatchEvent(new Event('input'));
-      input.focus();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-    container.appendChild(tag);
-  });
-}
 
 function getTimeAgo(dateStr) {
   const sec = Math.floor((new Date() - new Date(dateStr)) / 1000);
@@ -680,8 +600,6 @@ function updateStatus() {
     healthEl.textContent = `${pct}%`;
     healthEl.style.color = pct >= 80 ? '#22c55e' : pct >= 50 ? '#f59e0b' : '#ef4444';
     if (statusEl) { statusEl.textContent = pct >= 80 ? 'ONLINE' : 'DEGRADED'; statusEl.style.color = pct >= 80 ? '#22c55e' : '#f59e0b'; }
-    // Extract trending topics once all feeds have been attempted
-    renderTrendingTopics();
   }
 }
 
@@ -713,11 +631,9 @@ function refreshAllFeeds() { feedsLoaded = 0; feedsFailed = 0; Object.entries(RS
 refreshAllFeeds();
 setInterval(refreshAllFeeds, 900000);
 
-// Session Uptime
 const sessionStart = Date.now();
 setInterval(() => { const mins = Math.floor((Date.now() - sessionStart) / 60000); const el = document.getElementById('uptimeDisplay'); if (el) el.textContent = mins < 60 ? `${mins}m` : `${Math.floor(mins / 60)}h ${mins % 60}m`; }, 10000);
 
-// Search
 document.getElementById('search').addEventListener('input', function () {
   const t = this.value.toLowerCase();
   document.querySelectorAll('.feed li').forEach(li => { if (li.classList.contains('loading-text') || li.classList.contains('error-text')) return; li.style.display = li.textContent.toLowerCase().includes(t) ? '' : 'none'; });
@@ -750,24 +666,161 @@ document.getElementById('colorPicker').addEventListener('input', function () { u
 document.querySelectorAll('.color-val-row').forEach(row => { row.addEventListener('click', () => navigator.clipboard.writeText(row.querySelector('span:last-child').textContent)); });
 updateColor('#00f0ff');
 
-/* ═══ AI CHAT ═══ */
-const aiChat = document.getElementById('aiChat'), aiInput = document.getElementById('aiInput');
-function addMsg(html, isUser) { const d = document.createElement('div'); d.className = `ai-msg ${isUser ? 'user' : 'bot'}`; if (!isUser) d.innerHTML = `<span class="bot-name">InfoHub AI</span>${html}`; else d.textContent = html; aiChat.appendChild(d); aiChat.scrollTop = aiChat.scrollHeight; }
+/* ═══════════════════════════════════════════════════════
+   AI CHAT WITH REAL-TIME TYPEWRITER STREAMING ENGINE
+   ═══════════════════════════════════════════════════════ */
+const aiChat = document.getElementById('aiChat');
+const aiInput = document.getElementById('aiInput');
+const aiSendBtn = document.getElementById('aiSend');
+let isTyping = false;
+
+function addUserMsg(text) {
+  const d = document.createElement('div');
+  d.className = 'ai-msg user';
+  d.textContent = text;
+  aiChat.appendChild(d);
+  aiChat.scrollTop = aiChat.scrollHeight;
+}
+
+/**
+ * Creates a bot message bubble and returns the content span element
+ * that the typewriter engine will stream into.
+ */
+function createBotBubble() {
+  const d = document.createElement('div');
+  d.className = 'ai-msg bot';
+  d.innerHTML = `<span class="bot-name">InfoHub AI</span><span class="bot-content typing-cursor"></span>`;
+  aiChat.appendChild(d);
+  aiChat.scrollTop = aiChat.scrollHeight;
+  return d.querySelector('.bot-content');
+}
+
+/**
+ * TYPEWRITER ENGINE
+ * Streams HTML content character-by-character into a target element.
+ * Handles HTML tags intelligently: renders full tags instantly so
+ * formatting appears correctly without showing raw markup.
+ * Uses variable speed for natural feel.
+ */
+function typeWriter(htmlContent, targetEl, onComplete) {
+  let i = 0;
+  let rendered = '';
+  
+  function tick() {
+    if (i >= htmlContent.length) {
+      // Remove cursor when done
+      targetEl.classList.remove('typing-cursor');
+      if (onComplete) onComplete();
+      return;
+    }
+
+    // If we hit an HTML tag, consume the entire tag instantly
+    if (htmlContent[i] === '<') {
+      const closeIdx = htmlContent.indexOf('>', i);
+      if (closeIdx !== -1) {
+        rendered += htmlContent.substring(i, closeIdx + 1);
+        i = closeIdx + 1;
+      } else {
+        rendered += htmlContent[i];
+        i++;
+      }
+      targetEl.innerHTML = rendered;
+      aiChat.scrollTop = aiChat.scrollHeight;
+      // No delay for tags — immediately process next char
+      requestAnimationFrame(tick);
+      return;
+    }
+
+    // Regular character
+    rendered += htmlContent[i];
+    i++;
+    targetEl.innerHTML = rendered;
+    aiChat.scrollTop = aiChat.scrollHeight;
+
+    // Variable typing speed for natural feel
+    // Faster for spaces/punctuation, slower for letters
+    const char = htmlContent[i - 1];
+    let delay = 12; // base speed
+    if (char === ' ') delay = 6;
+    else if (char === '.' || char === '!' || char === '?') delay = 80; // pause at sentences
+    else if (char === ',') delay = 40;
+    else if (char === '\n') delay = 30;
+    // Add slight randomness
+    delay += Math.random() * 10;
+
+    setTimeout(tick, delay);
+  }
+
+  tick();
+}
+
+/**
+ * Streams a bot response with typewriter effect.
+ * Returns a promise that resolves when typing is complete.
+ */
+function streamBotResponse(htmlContent) {
+  return new Promise(resolve => {
+    const contentEl = createBotBubble();
+    // Small initial delay before typing starts (simulates "thinking")
+    setTimeout(() => {
+      typeWriter(htmlContent, contentEl, resolve);
+    }, 200 + Math.random() * 200);
+  });
+}
+
 function getAIResponse(q) {
   const lq = q.toLowerCase();
-  if (/open|go to|show|launch|play/.test(lq)) { if (/game/.test(lq)) { openSiteEmbed('/games', 'Games Arcade'); return "Opening Games Arcade..."; } if (/app|tool/.test(lq)) { openSiteEmbed('/webapps', 'Web Apps'); return "Launching Web Apps..."; } if (/invest|stock/.test(lq)) { openSiteEmbed('/invest', 'Investment Hub'); return "Opening Investment Hub..."; } if (/subscrib|join/.test(lq)) { openSiteEmbed('/subscribe', 'Subscribe'); return "Opening subscription..."; } if (/blog/.test(lq)) { openSiteEmbed('/blog', 'Blog'); return "Opening blog..."; } }
-  if (/tech|news/.test(lq)) { const items = feedData.tech.slice(0, 3).map(i => `<div style="margin-top:4px;"><a href="${i.link}" target="_blank" style="color:var(--accent);text-decoration:none;">• ${i.title}</a></div>`).join(''); return `<strong>Latest Tech:</strong>${items || ' Loading...'}`; }
-  if (/donate|support/.test(lq)) return `Support us:<br><a class="ai-action-btn" href="https://www.paypal.com/ncp/payment/QTX8WWTX8SBAG" target="_blank" rel="noopener">☕ Donate Now</a>`;
-  if (/advertis|sponsor/.test(lq)) return `Advertise:<br><a class="ai-action-btn" href="mailto:services@digitalinfohub.net?subject=Advertising%20Inquiry">📢 Contact Services</a>`;
-  if (/summary|summarize/.test(lq)) { const total = Object.values(feedData).flat().length; return `<strong>${total}</strong> live articles across 5 feeds.`; }
-  if (/hi|hello|hey/.test(lq)) return "Hi! Try 'tech news', 'open games', 'donate', or 'summarize'.";
-  return "Try: 'Open Games', 'Tech News', 'Donate', or 'Summarize'.";
+  if (/open|go to|show|launch|play/.test(lq)) {
+    if (/game/.test(lq)) { openSiteEmbed('/games', 'Games Arcade'); return "Opening Games Arcade..."; }
+    if (/app|tool/.test(lq)) { openSiteEmbed('/webapps', 'Web Apps'); return "Launching Web Apps suite..."; }
+    if (/invest|stock/.test(lq)) { openSiteEmbed('/invest', 'Investment Hub'); return "Opening Investment Hub..."; }
+    if (/subscrib|join/.test(lq)) { openSiteEmbed('/subscribe', 'Subscribe'); return "Opening subscription page..."; }
+    if (/blog/.test(lq)) { openSiteEmbed('/blog', 'Blog'); return "Opening the official blog..."; }
+  }
+  if (/tech|news/.test(lq)) {
+    const items = feedData.tech.slice(0, 3).map(i => `<div style="margin-top:4px;"><a href="${i.link}" target="_blank" style="color:var(--accent);text-decoration:none;">• ${i.title}</a></div>`).join('');
+    return `<strong>Latest Tech Headlines:</strong>${items || ' Still loading feeds...'}`;
+  }
+  if (/donate|support/.test(lq)) return `You can support Digital Infohub directly:<br><a class="ai-action-btn" href="https://www.paypal.com/ncp/payment/QTX8WWTX8SBAG" target="_blank" rel="noopener">☕ Donate Now</a>`;
+  if (/advertis|sponsor/.test(lq)) return `Interested in advertising? Reach out:<br><a class="ai-action-btn" href="mailto:services@digitalinfohub.net?subject=Advertising%20Inquiry">📢 Contact Services</a>`;
+  if (/summary|summarize/.test(lq)) {
+    const total = Object.values(feedData).flat().length;
+    return `Currently tracking <strong>${total}</strong> live articles across 5 news feeds. Use the Hub Navigation card to access games, web apps, and investing tools without leaving this dashboard.`;
+  }
+  if (/hi|hello|hey|sup/.test(lq)) return "Hey there! I'm <strong>InfoHub AI</strong>. I can pull up news, navigate the site, or answer questions. Try asking about <strong>tech news</strong>, <strong>games</strong>, or say <strong>summarize</strong>.";
+  if (/thank/.test(lq)) return "You're welcome! Let me know if you need anything else.";
+  return "I can help with navigation and news. Try:<br>• <strong>\"Open Games\"</strong> or <strong>\"Tech News\"</strong><br>• <strong>\"Donate\"</strong> or <strong>\"Advertise\"</strong><br>• <strong>\"Summarize\"</strong> for a feed overview";
 }
-function handleSend() { const txt = aiInput.value.trim(); if (!txt) return; addMsg(txt, true); aiInput.value = ''; setTimeout(() => addMsg(getAIResponse(txt), false), 350); }
+
+async function handleSend() {
+  const txt = aiInput.value.trim();
+  if (!txt || isTyping) return;
+  
+  addUserMsg(txt);
+  aiInput.value = '';
+  isTyping = true;
+  aiSendBtn.disabled = true;
+  
+  const response = getAIResponse(txt);
+  await streamBotResponse(response);
+  
+  isTyping = false;
+  aiSendBtn.disabled = false;
+  aiInput.focus();
+}
+
 document.getElementById('aiSend').onclick = handleSend;
-aiInput.onkeydown = (e) => { if (e.key === 'Enter') handleSend(); };
-document.querySelectorAll('.ai-chip').forEach(c => c.onclick = () => { aiInput.value = c.dataset.prompt; handleSend(); });
-setTimeout(() => addMsg("Welcome to <strong>Digital Infohub</strong>. Try 'tech news', 'open games', or 'summarize'.", false), 400);
+aiInput.onkeydown = (e) => { if (e.key === 'Enter' && !isTyping) handleSend(); };
+document.querySelectorAll('.ai-chip').forEach(c => c.onclick = () => { if (!isTyping) { aiInput.value = c.dataset.prompt; handleSend(); } });
+
+// Initial greeting with typewriter effect
+setTimeout(async () => {
+  isTyping = true;
+  aiSendBtn.disabled = true;
+  await streamBotResponse("Welcome to <strong>Digital Infohub Command Center</strong>. I'm your AI assistant. Try asking for <strong>tech news</strong>, <strong>open games</strong>, or <strong>summarize today</strong>.");
+  isTyping = false;
+  aiSendBtn.disabled = false;
+}, 500);
 
 /* ═══ NOTES ═══ */
 const notes = document.getElementById('quickNotes');
