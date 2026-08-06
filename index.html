@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471"
-     crossorigin="anonymous"></script>
 <meta charset="UTF-8">
 <title>Digital Infohub | Command Center</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
@@ -14,67 +12,16 @@
 <meta name="color-scheme" content="dark light">
 
 <!-- Preconnect for performance -->
-<link rel="preconnect" href="https://www.gstatic.com">
-<link rel="preconnect" href="https://cdn.onesignal.com">
 <link rel="preconnect" href="https://api.rss2json.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://pagead2.googlesyndication.com">
+
+<!-- Google AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471" crossorigin="anonymous"></script>
 
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
-
-<!-- ═══ ONESIGNAL WEB PUSH SDK v16 ═══ -->
-<!-- ⚠️ REQUIRED: Place OneSignalSDKWorker.js and OneSignalSDKWorkerUpdater.js at site root -->
-<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-<script>
-  window.OneSignalDeferred = window.OneSignalDeferred || [];
-  window.OneSignalDeferred.push(async function(OneSignal) {
-    await OneSignal.init({
-      appId: "2b81aac8-bf6f-4727-940b-f3afa42acef3",
-      safari_web_id: "web.onesignal.auto.56dcd4fd-a138-4c52-be69-7f4de2370515",
-      allowLocalhostAsSecureOrigin: true,
-      notifyButton: { enable: false },
-      autoResubscribe: true,
-      autoRegister: false,
-    });
-
-    try {
-      const isSubscribed = await OneSignal.User.PushSubscription.optedIn;
-      if (isSubscribed) {
-        document.getElementById('notifToggle')?.classList.add('enabled');
-        const btn = document.getElementById('notifToggle');
-        if (btn) btn.title = 'Notifications Enabled';
-        localStorage.setItem('dih_notif_enabled', 'true');
-      }
-    } catch(e) { console.warn('[OneSignal] State sync:', e); }
-
-    OneSignal.Notifications.addEventListener('foregroundWillDisplay', function(event) {
-      event.preventDefault();
-      var notif = event.notification;
-      showToast(
-        notif.title || 'Digital Infohub',
-        notif.body || 'New content available',
-        notif.launchURL || null
-      );
-    });
-
-    OneSignal.User.PushSubscription.addEventListener('change', async function(subscription) {
-      var optedIn = subscription.current.optedIn;
-      localStorage.setItem('dih_notif_enabled', optedIn ? 'true' : 'false');
-      var btn = document.getElementById('notifToggle');
-      if (!btn) return;
-      if (optedIn) {
-        btn.classList.add('enabled');
-        btn.title = 'Notifications Enabled';
-      } else {
-        btn.classList.remove('enabled');
-        btn.title = 'Enable Push Notifications';
-      }
-    });
-
-    console.log('[OneSignal] Initialized');
-  });
-</script>
 
 <style>
 /* ═══════════════════════════════════════════════════════════════
@@ -411,27 +358,6 @@ body::before {
 }
 .icon-btn:hover::before { opacity: 1; }
 .icon-btn:active { transform: translateY(0) scale(0.96); }
-
-.notif-btn.enabled {
-  border-color: var(--accent);
-  color: var(--accent);
-  background: var(--accent-glow);
-  box-shadow: 0 0 0 1px var(--accent-glow-strong);
-}
-.notif-btn .notif-dot {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  width: 8px;
-  height: 8px;
-  background: var(--error);
-  border-radius: 50%;
-  display: none;
-  border: 2px solid var(--bg-deep);
-  z-index: 2;
-}
-.notif-btn.has-unread .notif-dot { display: block; animation: pulseDot 1.5s infinite; }
-.notif-btn.loading { opacity: 0.5; pointer-events: none; }
 
 .app-btn {
   background: linear-gradient(135deg, var(--accent-2), var(--accent));
@@ -1410,7 +1336,7 @@ body::before {
 .pomo-btn.primary:hover { box-shadow: 0 8px 22px var(--accent-glow-strong); }
 
 /* ═══════════════════════════════════════════════════════════════
-   BANNER
+   BANNER / ADSENSE
    ═══════════════════════════════════════════════════════════════ */
 .banner-card {
   grid-column: 1 / -1;
@@ -1445,6 +1371,14 @@ body::before {
   border-radius: 4px;
   backdrop-filter: blur(10px);
   font-family: var(--font-mono);
+}
+.adsense-wrap {
+  padding: 20px;
+  background: var(--bg-surface);
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -1769,10 +1703,10 @@ body::before {
           <h1>Command Center</h1>
         </div>
       </div>
-      <p class="hero-sub">Access the entire Digital Infohub ecosystem, live news feeds, productivity tools, and AI — all from one adaptive interface with real-time push notifications.</p>
+      <p class="hero-sub">Access the entire Digital Infohub ecosystem, live news feeds, productivity tools, and AI — all from one adaptive interface.</p>
       <div class="hero-badges">
         <span class="hero-badge"><span class="hero-badge-dot"></span> Live System</span>
-        <span class="hero-badge">🔔 Push Ready</span>
+        <span class="hero-badge">📬 Subscribe</span>
         <span class="hero-badge">⚡ PWA Enabled</span>
       </div>
     </div>
@@ -1785,7 +1719,7 @@ body::before {
       <input id="search" type="text" placeholder="Search headlines, tools, or ask AI..." autocomplete="off">
     </div>
     <div class="topbar-right">
-      <button class="icon-btn notif-btn" id="notifToggle" title="Enable Push Notifications" aria-label="Toggle notifications">🔔<span class="notif-dot"></span></button>
+      <button class="icon-btn" id="notifToggle" title="Subscribe to updates" aria-label="Subscribe">🔔</button>
       <button class="icon-btn" id="themeToggle" title="Toggle Theme" aria-label="Toggle dark/light mode">🌙</button>
       <button class="icon-btn" id="bgToggle" title="Change Background" aria-label="Change animated background">🎨</button>
       <div class="bg-selector" id="bgSelector">
@@ -1926,7 +1860,7 @@ body::before {
       <div class="card-body">
         <ul class="feed links-card">
           <li><div class="feed-trigger" data-path="/games"><span>🎮 Games Arcade</span><span class="links-pill">Open</span></div></li>
-          <li><div class="feed-trigger" data-path="/webapps"><span>🚀 Web Apps Suite</span><span class="links-pill">Launch</span></div></li>
+          <li><div class="feed-trigger" data-path="/software"><span>🚀 Web Apps Suite</span><span class="links-pill">Launch</span></div></li>
           <li><div class="feed-trigger" data-path="/invest"><span>📈 Investment Hub</span><span class="links-pill">Learn</span></div></li>
           <li><div class="feed-trigger" data-path="/subscribe"><span>📬 Subscribe & Join</span><span class="links-pill">Join</span></div></li>
           <li><a href="https://digitalinfohubnet.wixsite.com/digitalinfohub" target="_blank" rel="noopener"><span>🌐 Full Site</span><span class="links-pill">External</span></a></li>
@@ -1982,12 +1916,21 @@ body::before {
       </div>
     </div>
 
-    <!-- BANNER -->
+    <!-- ADSENSE BANNER -->
     <div class="card banner-card">
-      <a href="https://www.paypal.com/ncp/payment/SS6YDUMN4VYJA" target="_blank" rel="noopener noreferrer">
-        <img src="https://placehold.co/1400x280/0a0f1e/00f0ff?text=Premium+Ad+Space+%7C+Click+to+View+Offer" alt="Advertisement Banner">
-        <span class="banner-badge">Sponsored</span>
-      </a>
+      <div class="adsense-wrap">
+        <!-- 
+          Google AdSense Display Ad
+          Replace data-ad-slot with your actual ad unit ID from AdSense dashboard
+          Leave as "auto" if you want AdSense to auto-select
+        -->
+        <ins class="adsbygoogle"
+             style="display:block;width:100%;"
+             data-ad-client="ca-pub-5443646750699471"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      </div>
     </div>
   </div>
 </div>
@@ -2027,62 +1970,15 @@ function showToast(title, body, link) {
   t.addEventListener('click', () => { dismissToast(t); if (link) window.open(link, '_blank', 'noopener'); });
   c.appendChild(t);
   setTimeout(() => dismissToast(t), 8000);
-  const btn = document.getElementById('notifToggle');
-  if (btn) { btn.classList.add('has-unread'); setTimeout(() => btn.classList.remove('has-unread'), 10000); }
 }
 function dismissToast(t) { if (!t || t.classList.contains('toast-out')) return; t.classList.add('toast-out'); setTimeout(() => t.remove(), 300); }
 
 /* ═══════════════════════════════════════════════════════════════
-   NOTIFICATION BELL (OneSignal)
+   BELL BUTTON → OPENS SUBSCRIBE IN MODAL
    ═══════════════════════════════════════════════════════════════ */
-const notifBtn = document.getElementById('notifToggle');
-notifBtn.addEventListener('click', async () => {
-  if (!window.OneSignalDeferred) { alert('Notifications are still loading. Please try again.'); return; }
-  notifBtn.classList.add('loading');
-  try {
-    await window.OneSignalDeferred.push(async function(OneSignal) {
-      const isSubscribed = await OneSignal.User.PushSubscription.optedIn;
-      if (isSubscribed) {
-        await OneSignal.User.PushSubscription.unsubscribe();
-        showToast('Notifications Disabled', 'You will no longer receive push notifications.');
-      } else {
-        await OneSignal.User.PushSubscription.subscribe();
-        showToast('Notifications Enabled! 🎉', 'You\'ll receive push notifications even when the app is closed.');
-      }
-    });
-  } catch (e) {
-    console.error('[Notif] Toggle error:', e);
-    alert('Could not toggle notifications: ' + e.message);
-  } finally {
-    notifBtn.classList.remove('loading');
-  }
+document.getElementById('notifToggle').addEventListener('click', () => {
+  openSiteEmbed('/subscribe', 'Subscribe to Digital Infohub');
 });
-
-/* ═══════════════════════════════════════════════════════════════
-   SEEN ARTICLES TRACKER
-   ═══════════════════════════════════════════════════════════════ */
-const SEEN_KEY = 'dih_seen_articles';
-let seenIds = JSON.parse(localStorage.getItem(SEEN_KEY) || '[]');
-function markAllCurrentAsSeen() {
-  const all = Object.values(window.feedData || {}).flat().map(a => a.link);
-  seenIds = [...new Set([...seenIds, ...all])];
-  if (seenIds.length > 500) seenIds = seenIds.slice(-500);
-  localStorage.setItem(SEEN_KEY, JSON.stringify(seenIds));
-}
-function checkForNewArticles() {
-  const all = Object.entries(window.feedData || {}).flatMap(([cat, items]) => items.map(a => ({ ...a, category: cat })));
-  const newOnes = all.filter(a => !seenIds.includes(a.link));
-  if (newOnes.length > 0) {
-    newOnes.slice(0, 3).forEach(a => {
-      const label = a.category.charAt(0).toUpperCase() + a.category.slice(1);
-      showToast(`New ${label} Article`, a.title, a.link);
-    });
-    const ids = newOnes.map(a => a.link);
-    seenIds = [...new Set([...seenIds, ...ids])];
-    if (seenIds.length > 500) seenIds = seenIds.slice(-500);
-    localStorage.setItem(SEEN_KEY, JSON.stringify(seenIds));
-  }
-}
 
 /* ═══════════════════════════════════════════════════════════════
    ANIMATED BACKGROUND
@@ -2207,7 +2103,7 @@ function updateClock(){
 setInterval(updateClock,1000);updateClock();
 
 /* ═══════════════════════════════════════════════════════════════
-   EMBEDDER
+   EMBEDDER — ALL PATHS RESOLVE TO WIX SITE
    ═══════════════════════════════════════════════════════════════ */
 const WIX_BASE="https://digitalinfohubnet.wixsite.com/digitalinfohub";
 const modal=document.getElementById('siteEmbedModal'),frame=document.getElementById('siteFrame'),loader=document.getElementById('embedLoader'),embedTitle=document.getElementById('embedTitle');
@@ -2266,8 +2162,7 @@ function updateStatus(){
       se.textContent=pct>=80?'ONLINE':'DEGRADED';
       se.style.color=pct>=80?'var(--success)':'var(--warning)';
     }
-    if(!initialLoadComplete){initialLoadComplete=true;markAllCurrentAsSeen();}
-    else{checkForNewArticles();}
+    if(!initialLoadComplete) initialLoadComplete=true;
   }
 }
 
@@ -2505,7 +2400,7 @@ function getAIResponse(q){
   const l=q.toLowerCase();
   if(/open|go to|show|launch|play/.test(l)){
     if(/game/.test(l)){openSiteEmbed('/games','Games Arcade');return"Opening Games Arcade...";}
-    if(/app|tool/.test(l)){openSiteEmbed('/webapps','Web Apps');return"Launching Web Apps...";}
+    if(/app|tool|software/.test(l)){openSiteEmbed('/software','Web Apps');return"Launching Web Apps...";}
     if(/invest|stock/.test(l)){openSiteEmbed('/invest','Investment Hub');return"Opening Investment Hub...";}
     if(/subscrib|join/.test(l)){openSiteEmbed('/subscribe','Subscribe');return"Opening subscription...";}
     if(/blog/.test(l)){openSiteEmbed('/blog','Blog');return"Opening blog...";}
@@ -2541,7 +2436,7 @@ aiInput.onkeydown=e=>{if(e.key==='Enter'&&!isTyping)handleSend();};
 document.querySelectorAll('.ai-chip').forEach(c=>c.onclick=()=>{if(!isTyping){aiInput.value=c.dataset.prompt;handleSend();}});
 setTimeout(async()=>{
   isTyping=true;aiSendBtn.disabled=true;
-  await streamBot("Welcome to <strong>Digital Infohub</strong>. I'm Infohub AI. Click 🔔 to enable push notifications — works even when the app is closed! Try <strong>tech news</strong>, <strong>open games</strong>, or <strong>summarize</strong>.");
+  await streamBot("Welcome to <strong>Digital Infohub</strong>. I'm Infohub AI. Click 🔔 to subscribe, or try <strong>tech news</strong>, <strong>open games</strong>, or <strong>summarize</strong>.");
   isTyping=false;aiSendBtn.disabled=false;
 },500);
 
@@ -2604,6 +2499,5 @@ document.querySelectorAll('.mode-chip').forEach(c=>c.onclick=function(){
    ═══════════════════════════════════════════════════════════════ */
 document.getElementById('appBtn').onclick=()=>alert("Add to Home Screen:\n\n1. Tap Share 📤\n2. Select 'Add to Home Screen'\n\nThis dashboard is optimized for app-like usage!");
 </script>
-  <script>importScripts("https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.sw.js");</script>
 </body>
 </html>
