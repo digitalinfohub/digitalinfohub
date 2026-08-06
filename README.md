@@ -1,5 +1,5 @@
 - 👋 Hi, I’m @digitalinfohub
 - 👀 I’m interested in development and design.
-- 🌱 I’m currently learning tensorflow
-- 💞️ I’m looking to collaborate on AI projects or other web apps.
+- 🌱 I’m currently learning GitHub.
+- 💞️ I’m looking to collaborate by promoting your content on my blog.
 - 📫 How to reach me - services@digitalinfohub.net
