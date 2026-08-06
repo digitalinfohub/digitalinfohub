@@ -5,6 +5,7 @@
 - 📫 How to reach me - services@digitalinfohub.net
 
 About the website...
+
 Digital Infohub is a central platform for digital technology and online innovation.
  
 We provide free apps, games, articles, and a growing community focused on technology, creators, and the wider digital landscape.
