@@ -17,3 +17,5 @@ Digital Infohub is an independent project, and any support contributes to its co
 Explore, learn, and stay connected with Digital Infohub. 🚀
 
 ​AI tools may be used to support content creation for our site, including marketing, blogs, and newsletters. This usage is regularly reviewed to maintain quality, and any inaccuracies are promptly corrected.
+
+Donate - https://www.paypal.com/ncp/payment/QTX8WWTX8SBAG
