@@ -2,4 +2,4 @@
 - 👀 I’m interested in development and design.
 - 🌱 I’m currently learning tensorflow
 - 💞️ I’m looking to collaborate on AI projects or other web apps.
-- 📫 How to reach me - www.digitalinfohub.net/contact
+- 📫 How to reach me - services@digitalinfohub.net
