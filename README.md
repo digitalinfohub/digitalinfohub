@@ -1,9 +1,13 @@
 **About Me**
 
 👋 Hi, I'm @digitalinfohub
+
 👀 Passionate about technology, digital design, and development.
+
 🌱 Currently learning GitHub and modern development workflows.
+
 💞️ Open to collaborating and promoting quality content through Digital Infohub.
+
 📫 Contact: services@digitalinfohub.net
 
 I'm the founder of Digital Infohub, a free technology platform built with modern tools and AI. While I don't consider myself a traditional programmer, I'm a visual creator who enjoys building with no-code and low-code platforms. AI helps turn ideas into working projects, allowing me to focus on designing, creating, and solving problems without spending countless hours writing code from scratch.
