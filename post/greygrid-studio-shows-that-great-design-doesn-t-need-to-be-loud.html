@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GreyGrid.Studio Shows That Great Design Doesn't Need to Be Loud</title>
+<meta name="description" content="Clean design is often the hardest to achieve. GreyGrid.Studio demonstrates how typography, composition, and intentional restraint communicate more effectively than visual overload.">
+<meta property="og:title" content="GreyGrid.Studio Shows That Great Design Doesn't Need to Be Loud">
+<meta property="og:description" content="A look at POISE. and the philosophy that impactful design isn't about adding more, but refining until every detail feels intentional.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://static.wixstatic.com/media/94ccfe_5d800384d9b6441495785b824cc9521a~mv2.png/v1/fill/w_685,h_907,al_c,q_90/94ccfe_5d800384d9b6441495785b824cc9521a~mv2.png">
+
+<style>
+:root, [data-theme="light"] {
+  --bg: #fafaf9;
+  --surface: #ffffff;
+  --ink: #1c1917;
+  --ink-muted: #78716c;
+  --accent: #292524;
+  --border: #e7e5e4;
+  --toggle-icon: #1c1917;
+}
+
+[data-theme="dark"] {
+  --bg: #0c0a09;
+  --surface: #1c1917;
+  --ink: #e7e5e4;
+  --ink-muted: #a8a29e;
+  --accent: #d6d3d1;
+  --border: #292524;
+  --toggle-icon: #e7e5e4;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ---------- Controls (language + theme) ---------- */
+.controls {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.25rem;
+  z-index: 100;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.lang-switch {
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  overflow: hidden;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.lang-switch button {
+  border: none;
+  background: transparent;
+  color: var(--ink-muted);
+  font-family: inherit;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  padding: 0.55em 0.95em;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.lang-switch button:hover { color: var(--ink); }
+
+.lang-switch button.active {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.theme-toggle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle:hover { border-color: var(--ink-muted); }
+
+.theme-toggle svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: var(--toggle-icon);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke 0.3s ease;
+}
+
+.theme-toggle .icon-moon { display: block; }
+.theme-toggle .icon-sun { display: none; }
+
+[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+
+/* ---------- Language content ---------- */
+.lang-content { display: none; }
+.lang-content.active { display: block; }
+
+/* ---------- Header ---------- */
+header {
+  padding: 4rem 0 2rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2.5rem;
+  transition: border-color 0.3s ease;
+}
+
+.meta {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 1rem;
+  transition: color 0.3s ease;
+}
+
+h1 {
+  font-family: "Georgia", "Times New Roman", serif;
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin-bottom: 1rem;
+  transition: color 0.3s ease;
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  color: var(--ink-muted);
+  line-height: 1.6;
+  transition: color 0.3s ease;
+}
+
+/* CJK typography refinements */
+html[lang="ja"] body { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", "Inter", sans-serif; }
+html[lang="ja"] h1 { font-family: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", Georgia, serif; line-height: 1.4; }
+html[lang="ja"] article p, html[lang="ja"] .subtitle { line-height: 1.95; }
+
+html[lang="zh-Hans"] body { font-family: "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", "Inter", sans-serif; }
+html[lang="zh-Hans"] h1 { font-family: "Songti SC", "Noto Serif SC", "SimSun", Georgia, serif; line-height: 1.4; }
+html[lang="zh-Hans"] article p, html[lang="zh-Hans"] .subtitle { line-height: 1.95; }
+
+/* ---------- Content ---------- */
+article p {
+  margin-bottom: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+article em { font-style: italic; }
+
+figure { margin: 2.5rem 0; }
+
+figure img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 2px;
+}
+
+figcaption {
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+  margin-top: 0.75rem;
+  letter-spacing: 0.02em;
+  transition: color 0.3s ease;
+}
+
+/* ---------- Links ---------- */
+a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--border);
+  transition: text-decoration-color 0.2s, color 0.3s ease;
+}
+
+a:hover { text-decoration-color: var(--ink); }
+
+.link-block {
+  display: block;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  text-decoration: none;
+  margin: 1.5rem 0;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.link-block:hover {
+  border-color: var(--ink-muted);
+  background: var(--surface);
+}
+
+.link-block .label {
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 0.25rem;
+  transition: color 0.3s ease;
+}
+
+.link-block .url {
+  font-size: 0.875rem;
+  word-break: break-all;
+  transition: color 0.3s ease;
+}
+
+/* ---------- Section headings ---------- */
+h2, h3 {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin: 3rem 0 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+/* ---------- Services grid ---------- */
+.services {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  margin: 1.5rem 0 2rem;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.service {
+  background: var(--surface);
+  padding: 0.875rem 1rem;
+  font-size: 0.875rem;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* ---------- Tags ---------- */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+  transition: border-color 0.3s ease;
+}
+
+.tag {
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+  text-decoration: none;
+  padding: 0.375rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  transition: all 0.2s;
+}
+
+.tag:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+@media (max-width: 600px) {
+  header { padding: 2.5rem 0 1.5rem; }
+  .services { grid-template-columns: 1fr; }
+  .controls { top: 1rem; right: 1rem; }
+  .theme-toggle { width: 36px; height: 36px; }
+  .theme-toggle svg { width: 16px; height: 16px; }
+  .lang-switch button { padding: 0.5em 0.7em; font-size: 0.68rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="controls">
+  <div class="lang-switch" role="group" aria-label="Language selection">
+    <button type="button" data-lang-btn="en" class="active">EN</button>
+    <button type="button" data-lang-btn="ja">日本語</button>
+    <button type="button" data-lang-btn="zh">中文</button>
+  </div>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+    <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+  </button>
+</div>
+
+<div class="container">
+
+  <!-- ================= ENGLISH ================= -->
+  <div class="lang-content active" data-lang="en" lang="en">
+    <header>
+      <p class="meta">Jul 19 · 1 min read</p>
+      <h1>GreyGrid.Studio Shows That Great Design Doesn't Need to Be Loud</h1>
+      <p class="subtitle">Clean design is often the hardest to achieve, and GreyGrid.Studio is a great example of why less can be more.</p>
+    </header>
+
+    <article>
+      <p>The UI/UX and branding studio focuses on creating clean, usable digital products while placing strong emphasis on thoughtful design systems and user experience. Rather than relying on visual overload, its work demonstrates how typography, composition, and carefully selected colours can communicate just as effectively.</p>
+
+      <p>One recent concept, <em>POISE.</em>, highlights this philosophy perfectly. Starting as a rough sketch before evolving through multiple iterations, the design reflects the idea that every visual element should have a purpose. It's a reminder that impactful design isn't always about adding more, but refining until every detail feels intentional.</p>
+
+      <figure>
+        <img src="https://static.wixstatic.com/media/94ccfe_5d800384d9b6441495785b824cc9521a~mv2.png/v1/fill/w_685,h_907,al_c,q_90/94ccfe_5d800384d9b6441495785b824cc9521a~mv2.png" alt="POISE. design concept by GreyGrid.Studio showing minimalist typographic composition">
+        <figcaption>POISE. — A study in intentional restraint</figcaption>
+      </figure>
+
+      <a class="link-block" href="https://www.instagram.com/p/Da4wyR0i280/" target="_blank" rel="noopener">
+        <div class="label">View the post</div>
+        <div class="url">instagram.com/p/Da4wyR0i280/</div>
+      </a>
+
+      <p>If you're interested in modern UI/UX, branding, or product design, GreyGrid.Studio is worth following to see its latest work and creative process.</p>
+
+      <h3>Follow GreyGrid.Studio</h3>
+      <p>Explore more of their work:</p>
+
+      <a class="link-block" href="https://www.instagram.com/greygrid.studio/" target="_blank" rel="noopener">
+        <div class="label">Instagram</div>
+        <div class="url">instagram.com/greygrid.studio</div>
+      </a>
+
+      <a class="link-block" href="https://ananthaprasads.framer.website/" target="_blank" rel="noopener">
+        <div class="label">Website</div>
+        <div class="url">ananthaprasads.framer.website</div>
+      </a>
+
+      <h2>Services</h2>
+      <p>GreyGrid.Studio offers a wide range of creative services designed to help businesses and brands build strong digital identities:</p>
+
+      <div class="services">
+        <div class="service">UI/UX Design</div>
+        <div class="service">Branding</div>
+        <div class="service">Logo Design</div>
+        <div class="service">Poster Design</div>
+        <div class="service">Social Media Design & Management</div>
+        <div class="service">Content Strategy</div>
+        <div class="service">Content Ideation</div>
+        <div class="service">Digital Product Design</div>
+      </div>
+
+      <div class="tags">
+        <a class="tag" href="#">#UIUX</a>
+        <a class="tag" href="#">#Branding</a>
+        <a class="tag" href="#">#ProductDesign</a>
+        <a class="tag" href="#">#DesignSystems</a>
+      </div>
+    </article>
+  </div>
+
+  <!-- ================= 日本語 ================= -->
+  <div class="lang-content" data-lang="ja" lang="ja">
+    <header>
+      <p class="meta">7月19日 · 読了時間 1分</p>
+      <h1>GreyGrid.Studioが示す、優れたデザインに「声量」は不要ということ</h1>
+      <p class="subtitle">クリーンなデザインは、多くの場合もっとも達成が難しいものです。GreyGrid.Studioは、「少ないほど豊かである」理由を体現する優れた例です。</p>
+    </header>
+
+    <article>
+      <p>このUI/UXおよびブランディングスタジオは、クリーンで使いやすいデジタルプロダクトの制作に注力し、思慮深いデザインシステムとユーザー体験を強く重視しています。視覚的な過剰さに頼るのではなく、タイポグラフィ、構図、そして厳選された色彩が、同じように効果的にメッセージを伝えることを、その作品は示しています。</p>
+
+      <p>最近のコンセプトのひとつである<em>POISE.</em>は、この哲学を完璧に体現しています。ラフスケッチから始まり、複数の反復を経て発展したこのデザインは、すべての視覚要素に目的があるべきだという考えを反映しています。インパクトのあるデザインとは、必ずしも何かを加えることではなく、すべての細部が意図的だと感じられるまで磨き上げることなのだ、という気づきを与えてくれます。</p>
+
+      <figure>
+        <img src="https://static.wixstatic.com/media/94ccfe_5d800384d9b6441495785b824cc9521a~mv2.png/v1/fill/w_685,h_907,al_c,q_90/94ccfe_5d800384d9b6441495785b824cc9521a~mv2.png" alt="GreyGrid.StudioによるPOISE.デザインコンセプト。ミニマルなタイポグラフィ構成を示す">
+        <figcaption>POISE. — 意図的な抑制の研究</figcaption>
+      </figure>
+
+      <a class="link-block" href="https://www.instagram.com/p/Da4wyR0i280/" target="_blank" rel="noopener">
+        <div class="label">投稿を見る</div>
+        <div class="url">instagram.com/p/Da4wyR0i280/</div>
+      </a>
+
+      <p>モダンなUI/UX、ブランディング、プロダクトデザインに興味があるなら、GreyGrid.Studioは最新の作品と創作の過程を見るためにフォローする価値があります。</p>
+
+      <h3>GreyGrid.Studioをフォロー</h3>
+      <p>彼らの作品をもっと見る：</p>
+
+      <a class="link-block" href="https://www.instagram.com/greygrid.studio/" target="_blank" rel="noopener">
+        <div class="label">Instagram</div>
+        <div class="url">instagram.com/greygrid.studio</div>
+      </a>
+
+      <a class="link-block" href="https://ananthaprasads.framer.website/" target="_blank" rel="noopener">
+        <div class="label">ウェブサイト</div>
+        <div class="url">ananthaprasads.framer.website</div>
+      </a>
+
+      <h2>サービス</h2>
+      <p>GreyGrid.Studioは、企業やブランドが強力なデジタルアイデンティティを構築できるよう、幅広いクリエイティブサービスを提供しています：</p>
+
+      <div class="services">
+        <div class="service">UI/UXデザイン</div>
+        <div class="service">ブランディング</div>
+        <div class="service">ロゴデザイン</div>
+        <div class="service">ポスターデザイン</div>
+        <div class="service">ソーシャルメディアデザイン & 運用</div>
+        <div class="service">コンテンツ戦略</div>
+        <div class="service">コンテンツ企画</div>
+        <div class="service">デジタルプロダクトデザイン</div>
+      </div>
+
+      <div class="tags">
+        <a class="tag" href="#">#UIUX</a>
+        <a class="tag" href="#">#Branding</a>
+        <a class="tag" href="#">#ProductDesign</a>
+        <a class="tag" href="#">#DesignSystems</a>
+      </div>
+    </article>
+  </div>
+
+  <!-- ================= 中文 ================= -->
+  <div class="lang-content" data-lang="zh" lang="zh-Hans">
+    <header>
+      <p class="meta">7月19日 · 阅读时间 1 分钟</p>
+      <h1>GreyGrid.Studio 证明：优秀的设计不必张扬</h1>
+      <p class="subtitle">简洁的设计往往最难实现，而 GreyGrid.Studio 正是「少即是多」的最佳例证。</p>
+    </header>
+
+    <article>
+      <p>这家 UI/UX 与品牌设计工作室专注于打造简洁、易用的数字产品，并高度重视深思熟虑的设计系统与用户体验。其作品表明，排版、构图与精心挑选的色彩，无需依赖视觉堆砌，同样能有效传达信息。</p>
+
+      <p>近期的概念作品 <em>POISE.</em> 完美诠释了这一理念。它从一张草图起步，经过多轮迭代演化，体现了「每个视觉元素都应有其目的」的设计思想。这提醒我们：有影响力的设计不在于不断做加法，而在于反复打磨，直到每一处细节都恰到好处。</p>
+
+      <figure>
+        <img src="https://static.wixstatic.com/media/94ccfe_5d800384d9b6441495785b824cc9521a~mv2.png/v1/fill/w_685,h_907,al_c,q_90/94ccfe_5d800384d9b6441495785b824cc9521a~mv2.png" alt="GreyGrid.Studio 的 POISE. 设计概念，展示极简的字体排版构图">
+        <figcaption>POISE. — 一次关于克制与意图的探索</figcaption>
+      </figure>
+
+      <a class="link-block" href="https://www.instagram.com/p/Da4wyR0i280/" target="_blank" rel="noopener">
+        <div class="label">查看原文</div>
+        <div class="url">instagram.com/p/Da4wyR0i280/</div>
+      </a>
+
+      <p>如果你对现代 UI/UX、品牌或产品设计感兴趣，不妨关注 GreyGrid.Studio，了解其最新作品与创作过程。</p>
+
+      <h3>关注 GreyGrid.Studio</h3>
+      <p>探索更多作品：</p>
+
+      <a class="link-block" href="https://www.instagram.com/greygrid.studio/" target="_blank" rel="noopener">
+        <div class="label">Instagram</div>
+        <div class="url">instagram.com/greygrid.studio</div>
+      </a>
+
+      <a class="link-block" href="https://ananthaprasads.framer.website/" target="_blank" rel="noopener">
+        <div class="label">网站</div>
+        <div class="url">ananthaprasads.framer.website</div>
+      </a>
+
+      <h2>服务</h2>
+      <p>GreyGrid.Studio 提供丰富的创意服务，帮助企业和品牌建立强大的数字形象：</p>
+
+      <div class="services">
+        <div class="service">UI/UX 设计</div>
+        <div class="service">品牌设计</div>
+        <div class="service">Logo 设计</div>
+        <div class="service">海报设计</div>
+        <div class="service">社交媒体设计与运营</div>
+        <div class="service">内容策略</div>
+        <div class="service">内容创意</div>
+        <div class="service">数字产品设计</div>
+      </div>
+
+      <div class="tags">
+        <a class="tag" href="#">#UIUX</a>
+        <a class="tag" href="#">#Branding</a>
+        <a class="tag" href="#">#ProductDesign</a>
+        <a class="tag" href="#">#DesignSystems</a>
+      </div>
+    </article>
+  </div>
+
+</div>
+
+<script>
+(function() {
+  var html = document.documentElement;
+
+  /* ---------- Theme ---------- */
+  var toggle = document.getElementById('themeToggle');
+  var storedTheme = localStorage.getItem('theme');
+
+  if (storedTheme) {
+    html.setAttribute('data-theme', storedTheme);
+  } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    html.setAttribute('data-theme', 'dark');
+  }
+
+  toggle.addEventListener('click', function() {
+    var current = html.getAttribute('data-theme');
+    var next = current === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+
+  /* ---------- Language ---------- */
+  var titles = {
+    en: 'GreyGrid.Studio Shows That Great Design Doesn\'t Need to Be Loud',
+    ja: 'GreyGrid.Studioが示す、優れたデザインに「声量」は不要ということ',
+    zh: 'GreyGrid.Studio 证明：优秀的设计不必张扬'
+  };
+
+  var htmlLang = { en: 'en', ja: 'ja', zh: 'zh-Hans' };
+
+  function detectLang() {
+    var nav = (navigator.language || 'en').toLowerCase();
+    if (nav.indexOf('ja') === 0) return 'ja';
+    if (nav.indexOf('zh') === 0) return 'zh';
+    return 'en';
+  }
+
+  function setLang(lang) {
+    document.querySelectorAll('.lang-content').forEach(function(block) {
+      block.classList.toggle('active', block.getAttribute('data-lang') === lang);
+    });
+    document.querySelectorAll('[data-lang-btn]').forEach(function(btn) {
+      var isActive = btn.getAttribute('data-lang-btn') === lang;
+      btn.classList.toggle('active', isActive);
+      btn.setAttribute('aria-pressed', isActive);
+    });
+    html.setAttribute('lang', htmlLang[lang]);
+    document.title = titles[lang];
+    localStorage.setItem('lang', lang);
+  }
+
+  document.querySelectorAll('[data-lang-btn]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      setLang(btn.getAttribute('data-lang-btn'));
+    });
+  });
+
+  setLang(localStorage.getItem('lang') || detectLang());
+})();
+</script>
+
+</body>
+</html>
