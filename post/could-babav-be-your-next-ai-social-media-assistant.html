@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Could BABAV Be Your Next AI Social Media Assistant?</title>
+<meta name="description" content="BABAV is an AI-powered platform that acts as a social media employee — handling DMs, comments, content creation, and outreach so you can focus on building your brand.">
+<meta property="og:title" content="Could BABAV Be Your Next AI Social Media Assistant?">
+<meta property="og:description" content="An AI employee for your social channels that replies in your voice, generates posts and videos, and streamlines lead generation.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://static.wixstatic.com/media/94ccfe_5bb25eb80c5f49abb473f97ee2e3b9e8~mv2.png/v1/fill/w_1125,h_781,al_c,q_90/94ccfe_5bb25eb80c5f49abb473f97ee2e3b9e8~mv2.png">
+
+<style>
+:root, [data-theme="light"] {
+  --bg: #fafaf9;
+  --surface: #ffffff;
+  --ink: #1c1917;
+  --ink-muted: #78716c;
+  --accent: #292524;
+  --border: #e7e5e4;
+  --toggle-icon: #1c1917;
+}
+
+[data-theme="dark"] {
+  --bg: #0c0a09;
+  --surface: #1c1917;
+  --ink: #e7e5e4;
+  --ink-muted: #a8a29e;
+  --accent: #d6d3d1;
+  --border: #292524;
+  --toggle-icon: #e7e5e4;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ---------- Controls ---------- */
+.controls {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.25rem;
+  z-index: 100;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.lang-switch {
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  overflow: hidden;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.lang-switch button {
+  border: none;
+  background: transparent;
+  color: var(--ink-muted);
+  font-family: inherit;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  padding: 0.55em 0.95em;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.lang-switch button:hover { color: var(--ink); }
+
+.lang-switch button.active {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.theme-toggle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle:hover { border-color: var(--ink-muted); }
+
+.theme-toggle svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: var(--toggle-icon);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke 0.3s ease;
+}
+
+.theme-toggle .icon-moon { display: block; }
+.theme-toggle .icon-sun { display: none; }
+
+[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+
+/* ---------- Language content ---------- */
+.lang-content { display: none; }
+.lang-content.active { display: block; }
+
+/* ---------- Header ---------- */
+header {
+  padding: 4rem 0 2rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2.5rem;
+  transition: border-color 0.3s ease;
+}
+
+.meta {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 1rem;
+  transition: color 0.3s ease;
+}
+
+h1 {
+  font-family: "Georgia", "Times New Roman", serif;
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin-bottom: 1rem;
+  transition: color 0.3s ease;
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  color: var(--ink-muted);
+  line-height: 1.6;
+  transition: color 0.3s ease;
+}
+
+/* CJK typography */
+html[lang="ja"] body { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", "Inter", sans-serif; }
+html[lang="ja"] h1 { font-family: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", Georgia, serif; line-height: 1.4; }
+html[lang="ja"] article p, html[lang="ja"] .subtitle { line-height: 1.95; }
+
+html[lang="zh-Hans"] body { font-family: "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", "Inter", sans-serif; }
+html[lang="zh-Hans"] h1 { font-family: "Songti SC", "Noto Serif SC", "SimSun", Georgia, serif; line-height: 1.4; }
+html[lang="zh-Hans"] article p, html[lang="zh-Hans"] .subtitle { line-height: 1.95; }
+
+/* ---------- Content ---------- */
+article p {
+  margin-bottom: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+article strong { font-weight: 600; }
+
+figure { margin: 2.5rem 0; }
+
+figure img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 2px;
+}
+
+figcaption {
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+  margin-top: 0.75rem;
+  letter-spacing: 0.02em;
+  transition: color 0.3s ease;
+}
+
+/* ---------- Links ---------- */
+a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--border);
+  transition: text-decoration-color 0.2s, color 0.3s ease;
+}
+
+a:hover { text-decoration-color: var(--ink); }
+
+.link-block {
+  display: block;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  text-decoration: none;
+  margin: 1.5rem 0;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.link-block:hover {
+  border-color: var(--ink-muted);
+  background: var(--surface);
+}
+
+.link-block .label {
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 0.25rem;
+  transition: color 0.3s ease;
+}
+
+.link-block .url {
+  font-size: 0.875rem;
+  word-break: break-all;
+  transition: color 0.3s ease;
+}
+
+/* ---------- Section headings ---------- */
+h2, h3 {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin: 3rem 0 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+/* ---------- Tags ---------- */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+  transition: border-color 0.3s ease;
+}
+
+.tag {
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+  text-decoration: none;
+  padding: 0.375rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  transition: all 0.2s;
+}
+
+.tag:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+@media (max-width: 600px) {
+  header { padding: 2.5rem 0 1.5rem; }
+  .controls { top: 1rem; right: 1rem; }
+  .theme-toggle { width: 36px; height: 36px; }
+  .theme-toggle svg { width: 16px; height: 16px; }
+  .lang-switch button { padding: 0.5em 0.7em; font-size: 0.68rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="controls">
+  <div class="lang-switch" role="group" aria-label="Language selection">
+    <button type="button" data-lang-btn="en" class="active">EN</button>
+    <button type="button" data-lang-btn="ja">日本語</button>
+    <button type="button" data-lang-btn="zh">中文</button>
+  </div>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+    <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+  </button>
+</div>
+
+<div class="container">
+
+  <!-- ================= ENGLISH ================= -->
+  <div class="lang-content active" data-lang="en" lang="en">
+    <header>
+      <p class="meta">1 min read</p>
+      <h1>Could BABAV Be Your Next AI Social Media Assistant?</h1>
+      <p class="subtitle">Social media has become one of the biggest challenges for creators and businesses. Keeping up with posts, replying to messages, engaging with comments, and producing fresh content every day can take hours.</p>
+    </header>
+
+    <article>
+      <p>BABAV is an AI-powered platform designed to take much of that workload off your shoulders. It acts like an AI employee for your social channels, helping reply to DMs and comments in your own voice, creating posts, generating AI videos and images, and assisting with outreach and lead generation.</p>
+
+      <figure>
+        <img src="https://static.wixstatic.com/media/94ccfe_5bb25eb80c5f49abb473f97ee2e3b9e8~mv2.png/v1/fill/w_1125,h_781,al_c,q_90/94ccfe_5bb25eb80c5f49abb473f97ee2e3b9e8~mv2.png" alt="BABAV AI social media assistant platform interface">
+        <figcaption>BABAV — Your AI-powered social media employee</figcaption>
+      </figure>
+
+      <p>Rather than replacing your creativity, BABAV focuses on handling repetitive tasks so you can spend more time building your brand and connecting with your audience. The platform aims to keep your communication natural and consistent while reducing the time spent managing multiple social accounts.</p>
+
+      <p>As AI continues to reshape digital marketing, tools like BABAV show how automation is becoming more accessible for businesses of all sizes. Whether you're a solo creator, startup, or growing company, it's another example of how AI can help streamline your workflow.</p>
+
+      <p>If you're interested in AI-powered social media management, BABAV is worth a closer look.</p>
+
+      <a class="link-block" href="https://babav.co/" target="_blank" rel="noopener">
+        <div class="label">Learn More</div>
+        <div class="url">babav.co</div>
+      </a>
+
+      <p><strong>Enjoy discovering new technology?</strong> Visit <strong>Digital Infohub</strong> for the latest AI tools, software, tech news, and digital resources:</p>
+
+      <a class="link-block" href="https://www.digitalinfohub.net/" target="_blank" rel="noopener">
+        <div class="label">Digital Infohub</div>
+        <div class="url">digitalinfohub.net</div>
+      </a>
+
+      <div class="tags">
+        <a class="tag" href="#">#ArtificialIntelligence</a>
+        <a class="tag" href="#">#SocialMedia</a>
+        <a class="tag" href="#">#AITools</a>
+        <a class="tag" href="#">#DigitalMarketing</a>
+        <a class="tag" href="#">#TechNews</a>
+      </div>
+    </article>
+  </div>
+
+  <!-- ================= 日本語 ================= -->
+  <div class="lang-content" data-lang="ja" lang="ja">
+    <header>
+      <p class="meta">読了時間 1分</p>
+      <h1>BABAVはあなたの次のAIソーシャルメディアアシスタントになるか？</h1>
+      <p class="subtitle">ソーシャルメディアは、クリエイターや企業にとって最大の課題の一つとなっています。投稿の更新、メッセージへの返信、コメントへの対応、そして毎日新しいコンテンツを制作することは、何時間もかかる作業です。</p>
+    </header>
+
+    <article>
+      <p>BABAVは、その負担の多くを軽減するために設計されたAI搭載プラットフォームです。あなたのソーシャルチャンネルのためのAI社員のように機能し、あなた自身のトーンでDMやコメントに返信したり、投稿を作成したり、AI動画や画像を生成したり、アウトリーチやリード獲得を支援します。</p>
+
+      <figure>
+        <img src="https://static.wixstatic.com/media/94ccfe_5bb25eb80c5f49abb473f97ee2e3b9e8~mv2.png/v1/fill/w_1125,h_781,al_c,q_90/94ccfe_5bb25eb80c5f49abb473f97ee2e3b9e8~mv2.png" alt="BABAV AIソーシャルメディアアシスタントプラットフォームのインターフェース">
+        <figcaption>BABAV — あなたのAI搭載ソーシャルメディア社員</figcaption>
+      </figure>
+
+      <p>あなたの創造性を置き換えるのではなく、BABAVは繰り返し作業の処理に注力することで、あなたがブランド構築やオーディエンスとのつながりにより多くの時間を費やせるようにします。このプラットフォームは、複数のソーシャルアカウントの管理時間を削減しながら、コミュニケーションを自然で一貫性のあるものに保つことを目指しています。</p>
+
+      <p>AIがデジタルマーケティングを変革し続ける中、BABAVのようなツールは、あらゆる規模のビジネスにとって自動化がよりアクセスしやすくなっていることを示しています。ソロクリエイター、スタートアップ、成長中の企業問わず、AIがワークフローを効率化する方法のまた一つの例です。</p>
+
+      <p>AI搭載のソーシャルメディア管理に興味があるなら、BABAVは詳しく見る価値があります。</p>
+
+      <a class="link-block" href="https://babav.co/" target="_blank" rel="noopener">
+        <div class="label">詳細情報</div>
+        <div class="url">babav.co</div>
+      </a>
+
+      <p><strong>新しいテクノロジーの発見を楽しんでいますか？</strong> 最新のAIツール、ソフトウェア、テックニュース、デジタルリソースについては<strong>Digital Infohub</strong>をご覧ください：</p>
+
+      <a class="link-block" href="https://www.digitalinfohub.net/" target="_blank" rel="noopener">
+        <div class="label">Digital Infohub</div>
+        <div class="url">digitalinfohub.net</div>
+      </a>
+
+      <div class="tags">
+        <a class="tag" href="#">#ArtificialIntelligence</a>
+        <a class="tag" href="#">#SocialMedia</a>
+        <a class="tag" href="#">#AITools</a>
+        <a class="tag" href="#">#DigitalMarketing</a>
+        <a class="tag" href="#">#TechNews</a>
+      </div>
+    </article>
+  </div>
+
+  <!-- ================= 中文 ================= -->
+  <div class="lang-content" data-lang="zh" lang="zh-Hans">
+    <header>
+      <p class="meta">阅读时间 1 分钟</p>
+      <h1>BABAV 能成为你的下一个 AI 社交媒体助手吗？</h1>
+      <p class="subtitle">社交媒体已成为创作者和企业面临的最大挑战之一。每天跟进发帖、回复消息、互动评论以及制作新内容，往往要花费数小时。</p>
+    </header>
+
+    <article>
+      <p>BABAV 是一个 AI 驱动的平台，旨在帮你分担大量繁琐工作。它就像你社交渠道的 AI 员工，能以你的口吻回复私信和评论、创建帖子、生成 AI 视频和图片，并协助外联与潜在客户挖掘。</p>
+
+      <figure>
+        <img src="https://static.wixstatic.com/media/94ccfe_5bb25eb80c5f49abb473f97ee2e3b9e8~mv2.png/v1/fill/w_1125,h_781,al_c,q_90/94ccfe_5bb25eb80c5f49abb473f97ee2e3b9e8~mv2.png" alt="BABAV AI 社交媒体助手平台界面">
+        <figcaption>BABAV — 你的 AI 社交媒体员工</figcaption>
+      </figure>
+
+      <p>BABAV 并非取代你的创造力，而是专注于处理重复性任务，让你有更多时间打造品牌、连接受众。该平台旨在保持沟通的自然与一致性，同时减少管理多个社交账号所花费的时间。</p>
+
+      <p>随着 AI 持续重塑数字营销，像 BABAV 这样的工具表明自动化正变得对各种规模的企业更加触手可及。无论你是独立创作者、初创公司还是成长型企业，这都是 AI 助力工作流程优化的又一个实例。</p>
+
+      <p>如果你对 AI 驱动的社交媒体管理感兴趣，BABAV 值得深入了解。</p>
+
+      <a class="link-block" href="https://babav.co/" target="_blank" rel="noopener">
+        <div class="label">了解更多</div>
+        <div class="url">babav.co</div>
+      </a>
+
+      <p><strong>喜欢探索新技术？</strong>访问 <strong>Digital Infohub</strong> 获取最新 AI 工具、软件、科技新闻和数字资源：</p>
+
+      <a class="link-block" href="https://www.digitalinfohub.net/" target="_blank" rel="noopener">
+        <div class="label">Digital Infohub</div>
+        <div class="url">digitalinfohub.net</div>
+      </a>
+
+      <div class="tags">
+        <a class="tag" href="#">#ArtificialIntelligence</a>
+        <a class="tag" href="#">#SocialMedia</a>
+        <a class="tag" href="#">#AITools</a>
+        <a class="tag" href="#">#DigitalMarketing</a>
+        <a class="tag" href="#">#TechNews</a>
+      </div>
+    </article>
+  </div>
+
+</div>
+
+<script>
+(function() {
+  var html = document.documentElement;
+
+  /* ---------- Theme ---------- */
+  var toggle = document.getElementById('themeToggle');
+  var storedTheme = localStorage.getItem('theme');
+
+  if (storedTheme) {
+    html.setAttribute('data-theme', storedTheme);
+  } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    html.setAttribute('data-theme', 'dark');
+  }
+
+  toggle.addEventListener('click', function() {
+    var current = html.getAttribute('data-theme');
+    var next = current === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+
+  /* ---------- Language ---------- */
+  var titles = {
+    en: 'Could BABAV Be Your Next AI Social Media Assistant?',
+    ja: 'BABAVはあなたの次のAIソーシャルメディアアシスタントになるか？',
+    zh: 'BABAV 能成为你的下一个 AI 社交媒体助手吗？'
+  };
+
+  var htmlLang = { en: 'en', ja: 'ja', zh: 'zh-Hans' };
+
+  function detectLang() {
+    var nav = (navigator.language || 'en').toLowerCase();
+    if (nav.indexOf('ja') === 0) return 'ja';
+    if (nav.indexOf('zh') === 0) return 'zh';
+    return 'en';
+  }
+
+  function setLang(lang) {
+    document.querySelectorAll('.lang-content').forEach(function(block) {
+      block.classList.toggle('active', block.getAttribute('data-lang') === lang);
+    });
+    document.querySelectorAll('[data-lang-btn]').forEach(function(btn) {
+      var isActive = btn.getAttribute('data-lang-btn') === lang;
+      btn.classList.toggle('active', isActive);
+      btn.setAttribute('aria-pressed', isActive);
+    });
+    html.setAttribute('lang', htmlLang[lang]);
+    document.title = titles[lang];
+    localStorage.setItem('lang', lang);
+  }
+
+  document.querySelectorAll('[data-lang-btn]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      setLang(btn.getAttribute('data-lang-btn'));
+    });
+  });
+
+  setLang(localStorage.getItem('lang') || detectLang());
+})();
+</script>
+
+</body>
+</html>
