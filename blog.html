@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<title>Digital Infohub - Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta name="theme-color" content="#0a0a0a">
+<meta name="description" content="Digital Infohub Blog — Latest articles and insights">
+<meta name="color-scheme" content="dark light">
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<link rel="icon" type="image/png" href="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png">
+<link rel="apple-touch-icon" href="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, monospace;
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+
+[data-theme="dark"] {
+  --bg: #0a0a0a;
+  --surface: #111111;
+  --surface-2: #161616;
+  --surface-3: #1a1a1a;
+  --border: rgba(255,255,255,0.06);
+  --border-strong: rgba(255,255,255,0.1);
+  --text: #f5f5f5;
+  --text-sub: #a1a1aa;
+  --text-muted: #71717a;
+  --accent: #6366f1;
+  --accent-soft: rgba(99,102,241,0.1);
+  --shadow: 0 4px 24px -6px rgba(0,0,0,0.4);
+}
+
+[data-theme="light"] {
+  --bg: #fafafa;
+  --surface: #ffffff;
+  --surface-2: #f4f4f5;
+  --surface-3: #e4e4e7;
+  --border: rgba(0,0,0,0.06);
+  --border-strong: rgba(0,0,0,0.12);
+  --text: #0a0a0a;
+  --text-sub: #52525b;
+  --text-muted: #a1a1aa;
+  --accent: #4f46e5;
+  --accent-soft: rgba(79,70,229,0.08);
+  --shadow: 0 4px 24px -6px rgba(0,0,0,0.08);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.6;
+  font-feature-settings: 'cv11', 'ss01';
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+.shell { max-width: 1000px; margin: 0 auto; padding: 32px 24px 80px; }
+
+/* ═══ TOP BAR ═══ */
+.topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 48px; }
+.brand {
+  display: flex; align-items: center; gap: 10px;
+  font-weight: 700; font-size: 15px; letter-spacing: -0.01em;
+  text-decoration: none; color: var(--text);
+}
+.brand-logo {
+  width: 28px; height: 28px;
+  border-radius: 8px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.brand-logo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.topbar-actions { display: flex; gap: 6px; align-items: center; }
+.icon-btn {
+  width: 36px; height: 36px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-sub);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s var(--ease);
+  font-family: inherit;
+}
+.icon-btn:hover { color: var(--text); border-color: var(--border-strong); background: var(--surface-2); }
+.icon-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* ═══ BLOG HEADER ═══ */
+.blog-header {
+  text-align: center;
+  margin-bottom: 60px;
+  animation: fadeInDown 0.6s var(--ease);
+}
+.blog-header h1 {
+  font-size: clamp(32px, 6vw, 48px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 16px;
+  background: linear-gradient(180deg, var(--text) 0%, var(--text-sub) 140%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.blog-header p {
+  color: var(--text-sub);
+  font-size: 18px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ═══ BLOG CAROUSEL ═══ */
+.blog-carousel {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.blog-post-wrapper {
+  min-height: 600px;
+  position: relative;
+}
+
+.blog-post {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+}
+
+.blog-post.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.blog-post-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.blog-post-image {
+  width: 100%;
+  aspect-ratio: 21 / 9;
+  overflow: hidden;
+  background: var(--surface-3);
+  position: relative;
+}
+
+.blog-post-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s var(--ease);
+}
+
+.blog-post-link:hover .blog-post-image img {
+  transform: scale(1.05);
+}
+
+.blog-post-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 80px;
+  color: var(--text-sub);
+}
+
+.blog-post-content {
+  padding: 40px;
+}
+
+.blog-post-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  font-size: 12px;
+  color: var(--text-muted);
+  font-family: var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.blog-post-tag {
+  padding: 5px 12px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.blog-post-title {
+  font-size: clamp(28px, 5vw, 36px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 20px;
+  transition: color 0.2s var(--ease);
+}
+
+.blog-post-link:hover .blog-post-title {
+  color: var(--accent);
+}
+
+.blog-post-excerpt {
+  color: var(--text-sub);
+  font-size: 17px;
+  line-height: 1.8;
+  margin-bottom: 28px;
+}
+
+.blog-post-read-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 15px;
+  transition: gap 0.3s var(--ease);
+}
+
+.blog-post-link:hover .blog-post-read-more {
+  gap: 16px;
+}
+
+.blog-post-read-more::after {
+  content: '→';
+  font-size: 18px;
+  transition: transform 0.3s var(--ease);
+}
+
+.blog-post-link:hover .blog-post-read-more::after {
+  transform: translateX(6px);
+}
+
+/* ═══ NAVIGATION ═══ */
+.blog-nav {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 48px;
+  animation: fadeIn 0.6s var(--ease) 0.3s backwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.nav-btn {
+  padding: 14px 28px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s var(--ease);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-btn:hover:not(:disabled) {
+  background: var(--surface-2);
+  border-color: var(--border-strong);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+.nav-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.nav-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.nav-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.nav-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ═══ POST INDICATORS ═══ */
+.post-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 32px;
+  animation: fadeIn 0.6s var(--ease) 0.5s backwards;
+}
+
+.indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--border-strong);
+  cursor: pointer;
+  transition: all 0.4s var(--ease);
+  border: none;
+  padding: 0;
+}
+
+.indicator.active {
+  background: var(--accent);
+  width: 32px;
+  border-radius: 5px;
+}
+
+.indicator:hover:not(.active) {
+  background: var(--text-muted);
+  transform: scale(1.2);
+}
+
+.indicator:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ═══ POST COUNTER ═══ */
+.post-counter {
+  text-align: center;
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--text-muted);
+  font-family: var(--mono);
+  animation: fadeIn 0.6s var(--ease) 0.6s backwards;
+}
+
+/* ═══ FOOTER ═══ */
+.blog-footer {
+  text-align: center;
+  margin-top: 80px;
+  padding-top: 40px;
+  border-top: 1px solid var(--border);
+  animation: fadeIn 0.6s var(--ease) 0.8s backwards;
+}
+
+.blog-footer p {
+  color: var(--text-sub);
+  font-size: 15px;
+}
+
+.blog-footer a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s var(--ease);
+}
+
+.blog-footer a:hover {
+  text-decoration: underline;
+}
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 768px) {
+  .shell { padding: 20px 16px 60px; }
+  .blog-post-content { padding: 28px 24px; }
+  .blog-post-title { font-size: 26px; }
+  .blog-post-excerpt { font-size: 15px; }
+  .nav-btn { padding: 12px 20px; font-size: 13px; }
+  .blog-nav { gap: 12px; }
+  .post-indicators { gap: 8px; }
+  .indicator { width: 8px; height: 8px; }
+  .indicator.active { width: 24px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Skip link for a11y */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--accent);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  z-index: 9999;
+  text-decoration: none;
+  font-size: 13px;
+}
+.skip-link:focus { left: 8px; top: 8px; }
+</style>
+</head>
+<body>
+
+<a href="#blogContent" class="skip-link">Skip to blog posts</a>
+
+<div class="shell">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <a href="index.html" class="brand" aria-label="Digital Infohub - home">
+      <span class="brand-logo">
+        <img src="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png" alt="" loading="lazy">
+      </span>
+      <span>Digital Infohub</span>
+    </a>
+    <div class="topbar-actions">
+      <button class="icon-btn" id="themeToggle" title="Toggle theme" aria-label="Toggle dark and light theme">
+        <svg id="themeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- BLOG HEADER -->
+  <div class="blog-header">
+    <h1>Blog</h1>
+    <p>Explore our latest articles on technology, design, AI, and more</p>
+  </div>
+
+  <!-- BLOG CONTENT -->
+  <div id="blogContent" class="blog-carousel" role="main">
+    <div class="blog-post-wrapper" id="blogPosts"></div>
+
+    <!-- NAVIGATION -->
+    <div class="blog-nav">
+      <button class="nav-btn" id="prevBtn" aria-label="Previous post">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        <span>Previous</span>
+      </button>
+      <button class="nav-btn" id="nextBtn" aria-label="Next post">
+        <span>Next</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+
+    <!-- INDICATORS -->
+    <div class="post-indicators" id="indicators" role="tablist" aria-label="Post navigation"></div>
+    
+    <!-- COUNTER -->
+    <div class="post-counter" id="postCounter" aria-live="polite"></div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="blog-footer">
+    <p>Want more? <a href="index.html">Back to main site</a></p>
+  </div>
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  // Blog posts data with your specified links
+  const BLOG_POSTS = [
+    {
+      title: 'Small Biz Philly: A Great Resource for Local Entrepreneurs',
+      link: 'https://www.digitalinfohub.net/post/small-biz-philly-a-great-resource-for-local-entrepreneurs',
+      excerpt: 'Discover how Small Biz Philly is supporting local entrepreneurs with valuable resources, networking opportunities, and business insights to help small businesses thrive in the Philadelphia area. Learn about the community-driven approach that makes this platform unique.',
+      tag: 'Business',
+      date: 'August 2026',
+      image: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1200&q=80'
+    },
+    {
+      title: 'Could Babav Be Your Next AI Social Media Assistant?',
+      link: 'https://www.digitalinfohub.net/post/could-babav-be-your-next-ai-social-media-assistant',
+      excerpt: 'Explore Babav, an innovative AI-powered social media assistant that helps you create content, schedule posts, and engage with your audience more effectively than ever before. See how this tool is changing the game for content creators.',
+      tag: 'AI',
+      date: 'August 2026',
+      image: 'https://images.unsplash.com/photo-1611162617474-5b2278720f0d?w=1200&q=80'
+    },
+    {
+      title: 'Beating Syllabus Overload with Smarter Medical Learning',
+      link: 'https://www.digitalinfohub.net/post/beating-syllabus-overload-with-smarter-medical-learning',
+      excerpt: 'Learn how modern medical students are using smart learning tools and techniques to manage overwhelming syllabi and retain complex medical knowledge more effectively. Discover strategies that are transforming medical education.',
+      tag: 'Education',
+      date: 'August 2026',
+      image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1200&q=80'
+    },
+    {
+      title: 'GreyGrid Studio Shows That Great Design Doesn\'t Need to Be Loud',
+      link: 'https://www.digitalinfohub.net/post/greygrid-studio-shows-that-great-design-doesn-t-need-to-be-loud',
+      excerpt: 'Discover how GreyGrid Studio is redefining design with their minimalist approach, proving that subtle, thoughtful design can be just as impactful as bold, attention-grabbing visuals. A look at the philosophy behind their work.',
+      tag: 'Design',
+      date: 'August 2026',
+      image: 'https://images.unsplash.com/photo-1561070791-2526d30994b8?w=1200&q=80'
+    },
+    {
+      title: 'Meet Miyabi: From Nomad Sculpt to Blender',
+      link: 'https://www.digitalinfohub.net/post/meet-miyabi-from-nomad-sculpt-to-blender',
+      excerpt: 'Follow the journey of Miyabi, a 3D artist who transitioned from Nomad Sculpt to Blender, and learn valuable insights about the creative process and tool migration in 3D art. Tips and lessons from their experience.',
+      tag: '3D Art',
+      date: 'August 2026',
+      image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80'
+    }
+  ];
+
+  let currentPostIndex = 0;
+  const postsContainer = document.getElementById('blogPosts');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const indicatorsContainer = document.getElementById('indicators');
+  const postCounter = document.getElementById('postCounter');
+
+  // Theme toggle
+  const sunSvg = '<circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>';
+  const moonSvg = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+  let theme = 'dark';
+  try { theme = localStorage.getItem('dih_theme') || 'dark'; } catch(e) {}
+  document.documentElement.setAttribute('data-theme', theme);
+  document.getElementById('themeIcon').innerHTML = theme === 'dark' ? sunSvg : moonSvg;
+
+  document.getElementById('themeToggle').addEventListener('click', () => {
+    theme = theme === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', theme);
+    try { localStorage.setItem('dih_theme', theme); } catch(e) {}
+    document.getElementById('themeIcon').innerHTML = theme === 'dark' ? sunSvg : moonSvg;
+  });
+
+  // Create indicators
+  function createIndicators() {
+    indicatorsContainer.innerHTML = '';
+    BLOG_POSTS.forEach((_, index) => {
+      const indicator = document.createElement('button');
+      indicator.className = 'indicator' + (index === currentPostIndex ? ' active' : '');
+      indicator.setAttribute('role', 'tab');
+      indicator.setAttribute('aria-selected', index === currentPostIndex);
+      indicator.setAttribute('aria-label', `Go to post ${index + 1}`);
+      indicator.addEventListener('click', () => showPost(index));
+      indicatorsContainer.appendChild(indicator);
+    });
+  }
+
+  // Update indicators
+  function updateIndicators() {
+    const indicators = indicatorsContainer.querySelectorAll('.indicator');
+    indicators.forEach((indicator, index) => {
+      indicator.classList.toggle('active', index === currentPostIndex);
+      indicator.setAttribute('aria-selected', index === currentPostIndex);
+    });
+  }
+
+  // Update counter
+  function updateCounter() {
+    postCounter.textContent = `Post ${currentPostIndex + 1} of ${BLOG_POSTS.length}`;
+  }
+
+  // Show single post with animation
+  function showPost(index) {
+    if (index < 0 || index >= BLOG_POSTS.length) return;
+    
+    const post = BLOG_POSTS[index];
+    const existingPost = postsContainer.querySelector('.blog-post');
+    
+    // Fade out current post
+    if (existingPost) {
+      existingPost.classList.remove('active');
+    }
+    
+    setTimeout(() => {
+      // Create new post
+      const postElement = document.createElement('article');
+      postElement.className = 'blog-post';
+      postElement.innerHTML = `
+        <a href="${post.link}" target="_blank" rel="noopener noreferrer" class="blog-post-link" aria-label="Read: ${post.title}">
+          <div class="blog-post-image">
+            <img src="${post.image}" alt="${post.title}" loading="lazy" onerror="this.outerHTML='<div class=\\'blog-post-fallback\\'>📰</div>'">
+          </div>
+          <div class="blog-post-content">
+            <div class="blog-post-meta">
+              <span class="blog-post-tag">${post.tag}</span>
+              <span>${post.date}</span>
+            </div>
+            <h2 class="blog-post-title">${post.title}</h2>
+            <p class="blog-post-excerpt">${post.excerpt}</p>
+            <span class="blog-post-read-more">Read full article</span>
+          </div>
+        </a>
+      `;
+      
+      // Replace content
+      postsContainer.innerHTML = '';
+      postsContainer.appendChild(postElement);
+      
+      // Trigger animation
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          postElement.classList.add('active');
+        });
+      });
+      
+      currentPostIndex = index;
+      updateIndicators();
+      updateNavButtons();
+      updateCounter();
+      
+      // Scroll to top of post smoothly
+      postsContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 300);
+  }
+
+  // Update navigation buttons
+  function updateNavButtons() {
+    prevBtn.disabled = currentPostIndex === 0;
+    nextBtn.disabled = currentPostIndex === BLOG_POSTS.length - 1;
+  }
+
+  // Navigation
+  prevBtn.addEventListener('click', () => {
+    if (currentPostIndex > 0) {
+      showPost(currentPostIndex - 1);
+    }
+  });
+
+  nextBtn.addEventListener('click', () => {
+    if (currentPostIndex < BLOG_POSTS.length - 1) {
+      showPost(currentPostIndex + 1);
+    }
+  });
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft' && currentPostIndex > 0) {
+      e.preventDefault();
+      showPost(currentPostIndex - 1);
+    } else if (e.key === 'ArrowRight' && currentPostIndex < BLOG_POSTS.length - 1) {
+      e.preventDefault();
+      showPost(currentPostIndex + 1);
+    }
+  });
+
+  // Touch/swipe support
+  let touchStartX = 0;
+  let touchEndX = 0;
+  
+  postsContainer.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
+  
+  postsContainer.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+  }, { passive: true });
+  
+  function handleSwipe() {
+    const swipeThreshold = 50;
+    const diff = touchStartX - touchEndX;
+    
+    if (Math.abs(diff) > swipeThreshold) {
+      if (diff > 0 && currentPostIndex < BLOG_POSTS.length - 1) {
+        // Swipe left - next post
+        showPost(currentPostIndex + 1);
+      } else if (diff < 0 && currentPostIndex > 0) {
+        // Swipe right - previous post
+        showPost(currentPostIndex - 1);
+      }
+    }
+  }
+
+  // Initialize
+  createIndicators();
+  showPost(0);
+
+})();
+</script>
+</body>
+</html>
