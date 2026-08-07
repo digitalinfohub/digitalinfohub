@@ -1673,7 +1673,7 @@ body {
           results = cachedBlogs.slice(0, 6);
         }
         if (!results.length) {
-          return `<p>I couldn't find any blog posts matching that. Here are the latest posts:</p>${renderBlogCards(cachedBlogs.slice(0, 6))}`;
+          return `<p>Here are the latest posts:</p>${renderBlogCards(cachedBlogs.slice(0, 6))}`;
         }
         return `<p>Here are the blog posts I found:</p>${renderBlogCards(results)}`;
       }
