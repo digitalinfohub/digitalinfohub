@@ -1,21 +1,25 @@
-- 👋 Hi, I’m @digitalinfohub
-- 👀 I’m interested in development and design.
-- 🌱 I’m currently learning GitHub.
-- 💞️ I’m looking to collaborate by promoting your content on my blog.
-- 📫 How to reach me - services@digitalinfohub.net
+**About Me**
+👋 Hi, I'm @digitalinfohub
+👀 Passionate about technology, digital design, and development.
+🌱 Currently learning GitHub and modern development workflows.
+💞️ Open to collaborating and promoting quality content through Digital Infohub.
+📫 Contact: services@digitalinfohub.net
 
-About the website...
+I'm the founder of Digital Infohub, a free technology platform built with modern tools and AI. While I don't consider myself a traditional programmer, I'm a visual creator who enjoys building with no-code and low-code platforms. AI helps turn ideas into working projects, allowing me to focus on designing, creating, and solving problems without spending countless hours writing code from scratch.
+If it works, solves a problem, and helps people, that's what matters to me. I'm a builder.
 
-Digital Infohub is a central platform for digital technology and online innovation.
- 
-We provide free apps, games, articles, and a growing community focused on technology, creators, and the wider digital landscape.
- 
-Our aim is to deliver clear and practical insights into areas such as artificial intelligence, markets, and emerging trends, helping you stay informed and up to date.
- 
-Digital Infohub is an independent project, and any support contributes to its continued development and improvement.
- 
-Explore, learn, and stay connected with Digital Infohub. 🚀
+**About Digital Infohub**
+Digital Infohub is a free platform dedicated to technology, AI, software, digital tools, and online innovation.
+We provide free apps, games, articles, and a growing community designed for technology enthusiasts, creators, developers, and anyone interested in the digital world.
 
-​AI tools may be used to support content creation for our site, including marketing, blogs, and newsletters. This usage is regularly reviewed to maintain quality, and any inaccuracies are promptly corrected.
+Our goal is to make technology easier to understand by sharing practical insights into artificial intelligence, financial markets, emerging technologies, and the latest digital trends.
+Digital Infohub is an independent project, and any support helps us continue developing new tools, creating useful content, and improving the platform for everyone.
 
-Donate - https://www.paypal.com/ncp/payment/QTX8WWTX8SBAG
+Explore. Learn. Build. Stay connected with Digital Infohub. 🚀
+
+**AI Transparency**
+AI tools may be used to assist with creating content for our website, including articles, marketing materials, newsletters, and other resources. All AI-assisted content is reviewed by a human, and any inaccuracies identified are corrected.
+
+**Support Digital Infohub**
+If you'd like to support the project, you can donate here:
+https://www.paypal.com/ncp/payment/QTX8WWTX8SBAG
