@@ -14,6 +14,7 @@ I'm the founder of Digital Infohub, a free technology platform built with modern
 If it works, solves a problem, and helps people, that's what matters to me. I'm a builder.
 
 **About Digital Infohub**
+
 Digital Infohub is a free platform dedicated to technology, AI, software, digital tools, and online innovation.
 We provide free apps, games, articles, and a growing community designed for technology enthusiasts, creators, developers, and anyone interested in the digital world.
 
@@ -23,8 +24,10 @@ Digital Infohub is an independent project, and any support helps us continue dev
 Explore. Learn. Build. Stay connected with Digital Infohub. 🚀
 
 **AI Transparency**
+
 AI tools may be used to assist with creating content for our website, including articles, marketing materials, newsletters, and other resources. All AI-assisted content is reviewed by a human, and any inaccuracies identified are corrected.
 
 **Support Digital Infohub**
+
 If you'd like to support the project, you can donate here:
 https://www.paypal.com/ncp/payment/QTX8WWTX8SBAG
