@@ -462,6 +462,7 @@ body {
   padding: 12px 20px; background: var(--surface); border: 1px solid var(--border);
   border-radius: var(--radius-sm); font-size: 14px; font-weight: 600;
   min-height: 44px; display: flex; align-items: center; gap: 8px;
+  text-align: center;
 }
 .game-status.win { background: var(--success-soft); color: var(--success); border-color: var(--success); }
 .game-status.lose { background: var(--error-soft); color: var(--error); border-color: var(--error); }
@@ -612,6 +613,337 @@ body {
 .color-opt.correct { border-color: var(--success); box-shadow: 0 0 0 3px var(--success-soft); }
 .color-opt.wrong { border-color: var(--error); }
 
+/* ===== NEW GAME STYLES ===== */
+
+/* 2048 */
+.g2048-board {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
+  width: 360px; max-width: 100%; padding: 8px;
+  background: var(--surface-3); border-radius: var(--radius-sm);
+  touch-action: none;
+}
+.g2048-cell {
+  aspect-ratio: 1; background: var(--surface-2);
+  border-radius: 6px; display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-weight: 700; font-size: 26px;
+  color: var(--text); transition: all 0.15s;
+}
+.g2048-cell[data-v="2"] { background: #eee4da; color: #776e65; }
+.g2048-cell[data-v="4"] { background: #ede0c8; color: #776e65; }
+.g2048-cell[data-v="8"] { background: #f2b179; color: white; }
+.g2048-cell[data-v="16"] { background: #f59563; color: white; }
+.g2048-cell[data-v="32"] { background: #f67c5f; color: white; }
+.g2048-cell[data-v="64"] { background: #f65e3b; color: white; }
+.g2048-cell[data-v="128"] { background: #edcf72; color: white; font-size: 22px; }
+.g2048-cell[data-v="256"] { background: #edcc61; color: white; font-size: 22px; }
+.g2048-cell[data-v="512"] { background: #edc850; color: white; font-size: 22px; }
+.g2048-cell[data-v="1024"] { background: #edc53f; color: white; font-size: 18px; }
+.g2048-cell[data-v="2048"] { background: #edc22e; color: white; font-size: 18px; }
+
+/* SIMON */
+.simon-board { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 300px; max-width: 100%; }
+.simon-pad {
+  aspect-ratio: 1; border-radius: var(--radius); cursor: pointer;
+  opacity: 0.5; transition: all 0.15s; border: 2px solid transparent;
+}
+.simon-pad.active, .simon-pad.lit { opacity: 1; transform: scale(1.05); box-shadow: 0 0 24px currentColor; }
+.simon-pad:disabled { cursor: not-allowed; }
+.simon-pad.red { background: #ef4444; color: #ef4444; }
+.simon-pad.blue { background: #3b82f6; color: #3b82f6; }
+.simon-pad.green { background: #10b981; color: #10b981; }
+.simon-pad.yellow { background: #eab308; color: #eab308; }
+
+/* HANGMAN */
+.hangman-word {
+  font-family: var(--mono); font-size: 32px; letter-spacing: 8px;
+  font-weight: 700; margin: 8px 0; min-height: 48px;
+}
+.hangman-keys {
+  display: grid; grid-template-columns: repeat(9, 1fr); gap: 6px;
+  max-width: 420px;
+}
+.hangman-key {
+  padding: 10px 0; background: var(--surface);
+  border: 1px solid var(--border); border-radius: 6px;
+  font-family: var(--mono); font-weight: 700; cursor: pointer;
+  color: var(--text); transition: all 0.2s;
+}
+.hangman-key:hover:not(:disabled) { background: var(--surface-2); border-color: var(--accent); }
+.hangman-key:disabled { opacity: 0.3; cursor: not-allowed; }
+.hangman-key.correct { background: var(--success-soft); color: var(--success); border-color: var(--success); }
+.hangman-key.wrong { background: var(--error-soft); color: var(--error); border-color: var(--error); }
+.hangman-figure {
+  font-family: var(--mono); font-size: 12px; line-height: 1.2;
+  color: var(--text-sub); white-space: pre; padding: 8px;
+  background: var(--surface-2); border-radius: var(--radius-sm);
+}
+
+/* TYPING */
+.typing-text {
+  font-family: var(--mono); font-size: 18px; padding: 20px;
+  background: var(--surface-2); border-radius: var(--radius-sm);
+  max-width: 560px; width: 100%; line-height: 1.6;
+  border: 1px solid var(--border);
+}
+.typing-text .correct { color: var(--success); }
+.typing-text .wrong { color: var(--error); background: var(--error-soft); }
+.typing-text .current { background: var(--accent-soft); border-bottom: 2px solid var(--accent); }
+.typing-input {
+  width: 100%; max-width: 560px; padding: 14px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); color: var(--text);
+  font-family: var(--mono); font-size: 16px; outline: none;
+}
+.typing-input:focus { border-color: var(--accent); }
+
+/* MAZE */
+.maze-board {
+  display: grid; gap: 0; background: var(--surface-2);
+  padding: 2px; border-radius: var(--radius-sm); border: 1px solid var(--border);
+}
+.maze-cell {
+  width: 20px; height: 20px; background: var(--bg);
+  border: none; cursor: pointer;
+}
+.maze-cell.wall { background: var(--surface-4); }
+.maze-cell.start { background: var(--success); }
+.maze-cell.end { background: var(--accent); }
+.maze-cell.path { background: var(--accent-soft); }
+.maze-cell.player { background: var(--error); border-radius: 50%; }
+
+/* PONG */
+.pong-canvas {
+  background: var(--surface-2); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); display: block; touch-action: none;
+}
+
+/* BREAKOUT */
+.breakout-canvas {
+  background: var(--surface-2); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); display: block; touch-action: none;
+}
+
+/* MINESWEEPER */
+.mines-board {
+  display: grid; gap: 2px; background: var(--surface-3);
+  padding: 4px; border-radius: var(--radius-sm);
+  user-select: none;
+}
+.mines-cell {
+  width: 28px; height: 28px; background: var(--surface-2);
+  border: 1px solid var(--border); border-radius: 3px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-weight: 700; font-size: 13px;
+  cursor: pointer; color: var(--text); transition: background 0.1s;
+}
+.mines-cell:hover:not(.revealed):not(.flagged) { background: var(--surface-3); }
+.mines-cell.revealed { background: var(--bg); cursor: default; }
+.mines-cell.flagged { background: var(--accent-soft); color: var(--accent); }
+.mines-cell.mine { background: var(--error); color: white; }
+.mines-cell[data-n="1"] { color: #3b82f6; }
+.mines-cell[data-n="2"] { color: #10b981; }
+.mines-cell[data-n="3"] { color: #ef4444; }
+.mines-cell[data-n="4"] { color: #8b5cf6; }
+.mines-cell[data-n="5"] { color: #f59e0b; }
+.mines-cell[data-n="6"] { color: #06b6d4; }
+
+/* SUDOKU */
+.sudoku-board {
+  display: grid; grid-template-columns: repeat(9, 36px); grid-template-rows: repeat(9, 36px);
+  gap: 1px; background: var(--text-sub); padding: 2px; border-radius: var(--radius-sm);
+}
+.sudoku-cell {
+  background: var(--surface); display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-weight: 700; font-size: 16px; cursor: pointer;
+  color: var(--text);
+}
+.sudoku-cell.prefilled { color: var(--text); background: var(--surface-2); cursor: default; }
+.sudoku-cell.selected { background: var(--accent-soft); outline: 2px solid var(--accent); }
+.sudoku-cell.error { color: var(--error); }
+.sudoku-cell:nth-child(3n) { border-right: 2px solid var(--text-sub); }
+.sudoku-cell:nth-child(n+19):nth-child(-n+27),
+.sudoku-cell:nth-child(n+46):nth-child(-n+54) { border-bottom: 2px solid var(--text-sub); }
+.sudoku-keys { display: flex; gap: 4px; flex-wrap: wrap; justify-content: center; }
+.sudoku-key {
+  width: 36px; height: 36px; background: var(--surface);
+  border: 1px solid var(--border); border-radius: 6px;
+  font-family: var(--mono); font-weight: 700; cursor: pointer;
+  color: var(--text); transition: all 0.2s;
+}
+.sudoku-key:hover { background: var(--surface-2); border-color: var(--accent); }
+
+/* CHESS */
+.chess-board {
+  display: grid; grid-template-columns: repeat(8, 40px); grid-template-rows: repeat(8, 40px);
+  border: 2px solid var(--border-strong); border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+.chess-cell {
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px; cursor: pointer; transition: background 0.15s;
+  position: relative;
+}
+.chess-cell.light { background: #eee8d5; }
+.chess-cell.dark { background: #8b7a5f; }
+.chess-cell.selected { background: #f7d247 !important; }
+.chess-cell.can-move::after {
+  content: ''; position: absolute; width: 12px; height: 12px;
+  background: rgba(0,0,0,0.3); border-radius: 50%;
+}
+.chess-cell.can-capture { box-shadow: inset 0 0 0 3px rgba(239,68,68,0.5); }
+.chess-cell.in-check { background: #ef4444 !important; }
+
+/* CONNECT 4 */
+.c4-board {
+  display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px;
+  background: var(--accent); padding: 8px; border-radius: var(--radius-sm);
+  width: 340px; max-width: 100%;
+}
+.c4-cell {
+  aspect-ratio: 1; background: var(--bg);
+  border-radius: 50%; cursor: pointer;
+  transition: background 0.2s;
+}
+.c4-cell.red { background: var(--error); }
+.c4-cell.yellow { background: #facc15; }
+.c4-cell:hover:not(.red):not(.yellow) { background: var(--surface-3); }
+.c4-win { box-shadow: 0 0 0 3px white, 0 0 12px white; }
+.c4-cols { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; width: 340px; max-width: 100%; padding: 0 8px; }
+.c4-col-btn {
+  padding: 6px; background: var(--surface); border: 1px solid var(--border);
+  border-radius: 6px; cursor: pointer; color: var(--text); font-family: var(--mono);
+  transition: all 0.2s;
+}
+.c4-col-btn:hover { background: var(--surface-2); border-color: var(--accent); }
+
+/* WORDLE */
+.wordle-grid {
+  display: grid; grid-template-rows: repeat(6, 1fr); gap: 6px;
+  width: 280px; max-width: 100%;
+}
+.wordle-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+.wordle-cell {
+  aspect-ratio: 1; background: var(--surface);
+  border: 2px solid var(--border); border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-weight: 700; font-size: 24px;
+  color: var(--text); text-transform: uppercase;
+  transition: all 0.3s;
+}
+.wordle-cell.filled { border-color: var(--text-sub); }
+.wordle-cell.correct { background: var(--success); color: white; border-color: var(--success); }
+.wordle-cell.present { background: #f59e0b; color: white; border-color: #f59e0b; }
+.wordle-cell.absent { background: var(--surface-3); color: var(--text-sub); border-color: var(--surface-3); }
+.wordle-kb {
+  display: flex; flex-direction: column; gap: 4px;
+  max-width: 420px; width: 100%;
+}
+.wordle-kb-row { display: flex; gap: 4px; justify-content: center; }
+.wordle-key {
+  padding: 12px 8px; background: var(--surface);
+  border: 1px solid var(--border); border-radius: 6px;
+  font-family: var(--mono); font-weight: 700; cursor: pointer;
+  color: var(--text); transition: all 0.15s; font-size: 13px;
+  min-width: 28px; text-transform: uppercase;
+}
+.wordle-key:hover { background: var(--surface-2); }
+.wordle-key.correct { background: var(--success); color: white; border-color: var(--success); }
+.wordle-key.present { background: #f59e0b; color: white; border-color: #f59e0b; }
+.wordle-key.absent { background: var(--surface-3); color: var(--text-muted); border-color: var(--surface-3); }
+
+/* DINO */
+.dino-canvas {
+  background: var(--surface-2); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); display: block;
+  touch-action: none;
+}
+
+/* TETRIS */
+.tetris-wrap { display: flex; gap: 16px; align-items: flex-start; }
+.tetris-canvas {
+  background: var(--surface-2); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); display: block; touch-action: none;
+}
+.tetris-side {
+  display: flex; flex-direction: column; gap: 12px;
+  font-family: var(--mono); font-size: 13px;
+}
+.tetris-next {
+  padding: 12px; background: var(--surface);
+  border: 1px solid var(--border); border-radius: var(--radius-sm);
+}
+
+/* SOLITAIRE */
+.sol-wrap { width: 100%; overflow-x: auto; padding: 8px; }
+.sol-tableau {
+  display: grid; grid-template-columns: repeat(7, 70px); gap: 8px;
+  min-height: 260px;
+}
+.sol-pile { position: relative; min-height: 96px; }
+.sol-card {
+  width: 70px; height: 96px; background: white; color: #111;
+  border: 1px solid var(--border-strong); border-radius: 6px;
+  position: absolute; padding: 4px; font-family: var(--mono);
+  font-size: 12px; font-weight: 700; cursor: pointer;
+  display: flex; flex-direction: column; justify-content: space-between;
+  user-select: none; transition: transform 0.15s;
+}
+.sol-card.back {
+  background: linear-gradient(135deg, var(--accent), #8b5cf6);
+  color: transparent;
+}
+.sol-card.back::after {
+  content: '🂠'; position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 32px; color: white;
+}
+.sol-card.red { color: #dc2626; }
+.sol-card.selected { outline: 3px solid var(--accent); z-index: 10; }
+.sol-card .bot { transform: rotate(180deg); }
+.sol-foundations {
+  display: grid; grid-template-columns: repeat(4, 70px); gap: 8px;
+  margin-bottom: 16px;
+}
+.sol-foundation {
+  width: 70px; height: 96px; background: var(--surface-2);
+  border: 2px dashed var(--border-strong); border-radius: 6px;
+  position: relative; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-muted); font-size: 24px;
+}
+.sol-stock-waste {
+  display: grid; grid-template-columns: 70px 70px; gap: 8px;
+  margin-bottom: 16px;
+}
+
+/* BLACKJACK */
+.bj-hand {
+  display: flex; gap: 8px; min-height: 110px; flex-wrap: wrap;
+  justify-content: center;
+}
+.bj-card {
+  width: 70px; height: 100px; background: white; color: #111;
+  border: 1px solid var(--border-strong); border-radius: 6px;
+  padding: 6px; font-family: var(--mono); font-size: 14px; font-weight: 700;
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.bj-card.back {
+  background: linear-gradient(135deg, var(--accent), #8b5cf6);
+  color: transparent;
+}
+.bj-card.back::after {
+  content: '🂠'; position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 32px; color: white;
+}
+.bj-card.red { color: #dc2626; }
+.bj-label {
+  font-family: var(--mono); font-size: 11px; color: var(--text-muted);
+  text-transform: uppercase; letter-spacing: 0.08em; text-align: center;
+  margin-bottom: 6px;
+}
+.bj-actions { display: flex; gap: 8px; }
+
 /* TOAST */
 .toast-container {
   position: fixed; bottom: 24px; right: 24px; z-index: 2000;
@@ -658,6 +990,21 @@ body {
   .ttt-board { width: 280px; }
   .mem-board { width: 300px; grid-template-columns: repeat(4, 1fr); }
   .mem-card-front, .mem-card-back { font-size: 22px; }
+  .g2048-board { width: 300px; }
+  .g2048-cell { font-size: 20px; }
+  .hangman-keys { grid-template-columns: repeat(7, 1fr); }
+  .sudoku-board { grid-template-columns: repeat(9, 30px); grid-template-rows: repeat(9, 30px); }
+  .sudoku-cell { font-size: 13px; }
+  .chess-board { grid-template-columns: repeat(8, 34px); grid-template-rows: repeat(8, 34px); }
+  .chess-cell { font-size: 22px; }
+  .c4-board { width: 280px; }
+  .c4-cols { width: 280px; }
+  .sol-tableau { grid-template-columns: repeat(7, 52px); }
+  .sol-card { width: 52px; height: 74px; font-size: 10px; }
+  .sol-foundation { width: 52px; height: 74px; font-size: 18px; }
+  .sol-foundations { grid-template-columns: repeat(4, 52px); }
+  .sol-stock-waste { grid-template-columns: 52px 52px; }
+  .bj-card { width: 56px; height: 80px; font-size: 11px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -717,7 +1064,7 @@ body {
 
     <form class="search-shell" id="searchForm" autocomplete="off" role="search">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
-      <input class="search-input" id="searchInput" type="text" placeholder="Search games — try "snake", "puzzle", "memory"…" aria-label="Search games">
+      <input class="search-input" id="searchInput" type="text" placeholder='Search games — try "snake", "puzzle", "memory"…' aria-label="Search games">
       <button class="search-btn" type="submit">Search</button>
     </form>
 
@@ -1085,11 +1432,8 @@ body {
     }
 
     function aiMove() {
-      // Try to win
       for (let i = 0; i < 9; i++) if (!board[i]) { board[i] = 'O'; if (checkWin('O')) return i; board[i] = ''; }
-      // Block player
       for (let i = 0; i < 9; i++) if (!board[i]) { board[i] = 'X'; if (checkWin('X')) { board[i] = ''; return i; } board[i] = ''; }
-      // Take center, corners, or random
       const prefs = [4, 0, 2, 6, 8, 1, 3, 5, 7];
       for (const i of prefs) if (!board[i]) return i;
       return -1;
@@ -1236,12 +1580,10 @@ body {
       const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
       ctx.fillStyle = isDark ? '#161616' : '#f4f4f5';
       ctx.fillRect(0, 0, cv.width, cv.height);
-      // Food
       ctx.fillStyle = '#ef4444';
       ctx.beginPath();
       ctx.arc(food.x * CELL + CELL/2, food.y * CELL + CELL/2, CELL/2 - 2, 0, Math.PI * 2);
       ctx.fill();
-      // Snake
       snake.forEach((s, i) => {
         ctx.fillStyle = i === 0 ? '#6366f1' : '#8b5cf6';
         ctx.fillRect(s.x * CELL + 1, s.y * CELL + 1, CELL - 2, CELL - 2);
@@ -1563,6 +1905,1933 @@ body {
     }
     host.querySelector('#next').addEventListener('click', next);
     next();
+    return () => {};
+  };
+
+  /* ═════════════ 2048 ═════════════ */
+  GAME_ENGINES['2048'] = (host) => {
+    let grid, score, won, over;
+
+    host.innerHTML = `
+      <div class="game-stage">
+        <div class="game-stage-head">
+          <div class="game-stage-title">🧩 2048</div>
+          <div class="game-stage-stats"><span>Score <b id="sc">0</b></span><span>Best <b id="bs">${localStorage.getItem('2048Best')||0}</b></span></div>
+        </div>
+        <div class="game-status" id="status">Arrow keys or swipe to merge tiles</div>
+        <div class="g2048-board" id="board"></div>
+        <button class="game-btn" id="reset">New game</button>
+      </div>`;
+
+    const boardEl = host.querySelector('#board');
+    const scEl = host.querySelector('#sc'), bsEl = host.querySelector('#bs');
+    const statusEl = host.querySelector('#status');
+
+    function init() {
+      grid = Array(4).fill(null).map(() => Array(4).fill(0));
+      score = 0; won = false; over = false;
+      addRandom(); addRandom();
+      scEl.textContent = '0';
+      statusEl.className = 'game-status';
+      statusEl.textContent = 'Arrow keys or swipe to merge tiles';
+      render();
+    }
+
+    function addRandom() {
+      const empty = [];
+      for (let r=0; r<4; r++) for (let c=0; c<4; c++) if (!grid[r][c]) empty.push([r,c]);
+      if (!empty.length) return;
+      const [r,c] = empty[Math.floor(Math.random()*empty.length)];
+      grid[r][c] = Math.random() < 0.9 ? 2 : 4;
+    }
+
+    function render() {
+      boardEl.innerHTML = '';
+      for (let r=0; r<4; r++) for (let c=0; c<4; c++) {
+        const cell = document.createElement('div');
+        cell.className = 'g2048-cell';
+        if (grid[r][c]) { cell.dataset.v = grid[r][c]; cell.textContent = grid[r][c]; }
+        boardEl.appendChild(cell);
+      }
+    }
+
+    function slide(row) {
+      let arr = row.filter(v => v);
+      for (let i=0; i<arr.length-1; i++) {
+        if (arr[i] === arr[i+1]) {
+          arr[i] *= 2; score += arr[i];
+          arr.splice(i+1, 1);
+          if (arr[i] === 2048) won = true;
+        }
+      }
+      while (arr.length < 4) arr.push(0);
+      return arr;
+    }
+
+    function move(dir) {
+      if (over) return;
+      const before = JSON.stringify(grid);
+      if (dir === 'left') {
+        for (let r=0; r<4; r++) grid[r] = slide(grid[r]);
+      } else if (dir === 'right') {
+        for (let r=0; r<4; r++) grid[r] = slide(grid[r].reverse()).reverse();
+      } else if (dir === 'up') {
+        for (let c=0; c<4; c++) {
+          let col = [grid[0][c],grid[1][c],grid[2][c],grid[3][c]];
+          col = slide(col);
+          for (let r=0; r<4; r++) grid[r][c] = col[r];
+        }
+      } else if (dir === 'down') {
+        for (let c=0; c<4; c++) {
+          let col = [grid[0][c],grid[1][c],grid[2][c],grid[3][c]].reverse();
+          col = slide(col).reverse();
+          for (let r=0; r<4; r++) grid[r][c] = col[r];
+        }
+      }
+      if (JSON.stringify(grid) !== before) {
+        addRandom();
+        scEl.textContent = score;
+        const best = Math.max(parseInt(localStorage.getItem('2048Best')||0), score);
+        localStorage.setItem('2048Best', best); bsEl.textContent = best;
+        if (won) { statusEl.className='game-status win'; statusEl.textContent='🎉 You reached 2048!'; won=false; }
+        if (!canMove()) { over = true; statusEl.className='game-status lose'; statusEl.textContent='💀 Game over — no moves left'; }
+        render();
+      }
+    }
+
+    function canMove() {
+      for (let r=0; r<4; r++) for (let c=0; c<4; c++) {
+        if (!grid[r][c]) return true;
+        if (c<3 && grid[r][c] === grid[r][c+1]) return true;
+        if (r<3 && grid[r][c] === grid[r+1][c]) return true;
+      }
+      return false;
+    }
+
+    function keyHandler(e) {
+      const map = { ArrowLeft:'left', ArrowRight:'right', ArrowUp:'up', ArrowDown:'down' };
+      if (map[e.key]) { move(map[e.key]); e.preventDefault(); }
+    }
+    document.addEventListener('keydown', keyHandler);
+
+    // Touch / swipe support
+    let touchStart = null;
+    boardEl.addEventListener('touchstart', e => {
+      const t = e.touches[0]; touchStart = { x: t.clientX, y: t.clientY };
+    });
+    boardEl.addEventListener('touchend', e => {
+      if (!touchStart) return;
+      const t = e.changedTouches[0];
+      const dx = t.clientX - touchStart.x, dy = t.clientY - touchStart.y;
+      if (Math.abs(dx) > Math.abs(dy)) move(dx > 0 ? 'right' : 'left');
+      else move(dy > 0 ? 'down' : 'up');
+      touchStart = null;
+    });
+
+    host.querySelector('#reset').addEventListener('click', init);
+    init();
+    return () => document.removeEventListener('keydown', keyHandler);
+  };
+
+  /* ═════════════ SIMON SAYS ═════════════ */
+  GAME_ENGINES.simon = (host) => {
+    const COLORS = ['red','blue','green','yellow'];
+    let seq = [], playerSeq = [], round = 0, accepting = false, best = parseInt(localStorage.getItem('simonBest')||0);
+
+    host.innerHTML = `
+      <div class="game-stage">
+        <div class="game-stage-head">
+          <div class="game-stage-title">🔴 Simon Says</div>
+          <div class="game-stage-stats"><span>Round <b id="rd">0</b></span><span>Best <b id="bs">${best}</b></span></div>
+        </div>
+        <div class="game-status" id="status">Press Start to begin</div>
+        <div class="simon-board" id="board">
+          <button class="simon-pad red" data-c="0"></button>
+          <button class="simon-pad blue" data-c="1"></button>
+          <button class="simon-pad green" data-c="2"></button>
+          <button class="simon-pad yellow" data-c="3"></button>
+        </div>
+        <button class="game-btn" id="start">Start</button>
+      </div>`;
+
+    const rdEl = host.querySelector('#rd'), bsEl = host.querySelector('#bs');
+    const statusEl = host.querySelector('#status');
+    const pads = host.querySelectorAll('.simon-pad');
+    const startBtn = host.querySelector('#start');
+
+    function flash(idx, duration = 400) {
+      return new Promise(res => {
+        pads[idx].classList.add('lit');
+        setTimeout(() => { pads[idx].classList.remove('lit'); setTimeout(res, 150); }, duration);
+      });
+    }
+
+    async function playSequence() {
+      accepting = false;
+      pads.forEach(p => p.disabled = true);
+      statusEl.className = 'game-status'; statusEl.textContent = 'Watch carefully…';
+      await new Promise(r => setTimeout(r, 600));
+      const speed = Math.max(250, 500 - round * 20);
+      for (const idx of seq) {
+        await flash(idx, speed);
+      }
+      accepting = true;
+      playerSeq = [];
+      pads.forEach(p => p.disabled = false);
+      statusEl.textContent = 'Your turn — repeat the sequence';
+    }
+
+    async function nextRound() {
+      round++;
+      rdEl.textContent = round;
+      seq.push(Math.floor(Math.random() * 4));
+      await playSequence();
+    }
+
+    function handleClick(idx) {
+      if (!accepting) return;
+      flash(idx, 200);
+      playerSeq.push(idx);
+      const i = playerSeq.length - 1;
+      if (playerSeq[i] !== seq[i]) {
+        accepting = false;
+        pads.forEach(p => p.disabled = true);
+        statusEl.className = 'game-status lose';
+        statusEl.textContent = `💀 Wrong! You reached round ${round}`;
+        if (round > best) { best = round; localStorage.setItem('simonBest', best); bsEl.textContent = best; }
+        startBtn.textContent = 'Try again';
+        return;
+      }
+      if (playerSeq.length === seq.length) {
+        accepting = false;
+        pads.forEach(p => p.disabled = true);
+        statusEl.className = 'game-status win';
+        statusEl.textContent = '✓ Correct! Next round…';
+        setTimeout(nextRound, 1000);
+      }
+    }
+
+    pads.forEach(p => p.addEventListener('click', () => handleClick(parseInt(p.dataset.c))));
+
+    startBtn.addEventListener('click', () => {
+      seq = []; playerSeq = []; round = 0;
+      rdEl.textContent = '0';
+      startBtn.textContent = 'Playing…';
+      startBtn.disabled = true;
+      nextRound();
+    });
+
+    return () => { startBtn.disabled = false; };
+  };
+
+  /* ═════════════ HANGMAN ═════════════ */
+  GAME_ENGINES.hangman = (host) => {
+    const WORDS = ['javascript','computer','keyboard','elephant','giraffe','mountain','library','adventure','beautiful','dangerous','education','fantastic','happiness','important','knowledge','languages','memorable','nightmare','orchestra','pineapple','questions','raspberry','strawberry','telephone','understand','vegetables','wonderland','xylophone','yesterday','zigzagged'];
+    const FIGURES = [
+      '  ┌───┐\n  │   │\n      │\n      │\n      │\n──────┘',
+      '  ┌───┐\n  │   │\n  O   │\n      │\n      │\n──────┘',
+      '  ┌───┐\n  │   │\n  O   │\n  │   │\n      │\n──────┘',
+      '  ┌───┐\n  │   │\n  O   │\n /│   │\n      │\n──────┘',
+      '  ┌───┐\n  │   │\n  O   │\n /│\\  │\n      │\n──────┘',
+      '  ┌───┐\n  │   │\n  O   │\n /│\\  │\n /    │\n──────┘',
+      '  ┌───┐\n  │   │\n  O   │\n /│\\  │\n / \\  │\n──────┘',
+    ];
+    let word, guessed, wrong;
+
+    host.innerHTML = `
+      <div class="game-stage">
+        <div class="game-stage-head">
+          <div class="game-stage-title">📝 Hangman</div>
+          <div class="game-stage-stats"><span>Wrong <b id="wr">0</b>/6</span></div>
+        </div>
+        <div class="hangman-figure" id="fig"></div>
+        <div class="hangman-word" id="wd"></div>
+        <div class="game-status" id="status">Guess the word</div>
+        <div class="hangman-keys" id="keys"></div>
+        <button class="game-btn" id="reset">New word</button>
+      </div>`;
+
+    const figEl = host.querySelector('#fig');
+    const wdEl = host.querySelector('#wd');
+    const keysEl = host.querySelector('#keys');
+    const wrEl = host.querySelector('#wr');
+    const statusEl = host.querySelector('#status');
+
+    function init() {
+      word = WORDS[Math.floor(Math.random() * WORDS.length)];
+      guessed = new Set(); wrong = 0;
+      wrEl.textContent = '0';
+      statusEl.className = 'game-status'; statusEl.textContent = 'Guess the word';
+      renderKeys(); render();
+    }
+
+    function render() {
+      figEl.textContent = FIGURES[wrong];
+      wdEl.textContent = word.split('').map(l => guessed.has(l) ? l : '_').join(' ');
+    }
+
+    function renderKeys() {
+      keysEl.innerHTML = '';
+      for (let i = 0; i < 26; i++) {
+        const l = String.fromCharCode(97 + i);
+        const b = document.createElement('button');
+        b.className = 'hangman-key';
+        b.textContent = l.toUpperCase();
+        if (guessed.has(l)) {
+          b.disabled = true;
+          b.classList.add(word.includes(l) ? 'correct' : 'wrong');
+        }
+        b.addEventListener('click', () => guess(l));
+        keysEl.appendChild(b);
+      }
+    }
+
+    function guess(l) {
+      if (guessed.has(l) || wrong >= 6) return;
+      guessed.add(l);
+      if (!word.includes(l)) wrong++;
+      wrEl.textContent = wrong;
+      renderKeys(); render();
+      const wordComplete = word.split('').every(c => guessed.has(c));
+      if (wordComplete) {
+        statusEl.className = 'game-status win';
+        statusEl.textContent = `🎉 You got it! "${word}"`;
+        disableAll();
+      } else if (wrong >= 6) {
+        statusEl.className = 'game-status lose';
+        statusEl.textContent = `💀 The word was "${word}"`;
+        disableAll();
+      }
+    }
+
+    function disableAll() {
+      keysEl.querySelectorAll('button').forEach(b => b.disabled = true);
+    }
+
+    function keyHandler(e) {
+      const l = e.key.toLowerCase();
+      if (/^[a-z]$/.test(l)) guess(l);
+    }
+    document.addEventListener('keydown', keyHandler);
+    host.querySelector('#reset').addEventListener('click', init);
+    init();
+    return () => document.removeEventListener('keydown', keyHandler);
+  };
+
+  /* ═════════════ TYPING SPEED ═════════════ */
+  GAME_ENGINES.typing = (host) => {
+    const SENTENCES = [
+      'the quick brown fox jumps over the lazy dog near the river bank',
+      'practice makes perfect when you work hard every single day',
+      'a journey of a thousand miles begins with a single step forward',
+      'to be or not to be that is the question we must answer',
+      'coding is the art of telling a computer what to do step by step'
+    ];
+    let text, startTime = 0, errors = 0, done = false;
+
+    host.innerHTML = `
+      <div class="game-stage">
+        <div class="game-stage-head">
+          <div class="game-stage-title">⌨️ Typing Speed</div>
+          <div class="game-stage-stats"><span>WPM <b id="wpm">0</b></span><span>Acc <b id="acc">100%</b></span></div>
+        </div>
+        <div class="typing-text" id="disp"></div>
+        <input class="typing-input" id="inp" type="text" placeholder="Start typing here…" autocomplete="off" spellcheck="false">
+        <div class="game-status" id="status">Start typing to begin the test</div>
+        <button class="game-btn" id="reset">New text</button>
+      </div>`;
+
+    const dispEl = host.querySelector('#disp');
+    const inp = host.querySelector('#inp');
+    const wpmEl = host.querySelector('#wpm'), accEl = host.querySelector('#acc');
+    const statusEl = host.querySelector('#status');
+
+    function init() {
+      text = SENTENCES[Math.floor(Math.random() * SENTENCES.length)];
+      inp.value = ''; done = false; errors = 0; startTime = 0;
+      wpmEl.textContent = '0'; accEl.textContent = '100%';
+      statusEl.className = 'game-status'; statusEl.textContent = 'Start typing to begin the test';
+      render();
+      inp.focus();
+    }
+
+    function render() {
+      const v = inp.value;
+      dispEl.innerHTML = text.split('').map((c, i) => {
+        let cls = '';
+        if (i < v.length) cls = v[i] === c ? 'correct' : 'wrong';
+        else if (i === v.length) cls = 'current';
+        const ch = c === ' ' ? '&nbsp;' : esc(c);
+        return `<span class="${cls}">${ch}</span>`;
+      }).join('');
+    }
+
+    function updateStats() {
+      if (!startTime) return;
+      const mins = (Date.now() - startTime) / 60000;
+      const words = inp.value.trim().split(/\s+/).filter(Boolean).length;
+      const wpm = mins > 0 ? Math.round(words / mins) : 0;
+      const total = inp.value.length;
+      const acc = total > 0 ? Math.round(((total - errors) / total) * 100) : 100;
+      wpmEl.textContent = wpm;
+      accEl.textContent = acc + '%';
+    }
+
+    inp.addEventListener('input', () => {
+      if (!startTime) startTime = Date.now();
+      const v = inp.value;
+      let e = 0;
+      for (let i = 0; i < v.length; i++) if (v[i] !== text[i]) e++;
+      errors = e;
+      render(); updateStats();
+      if (v === text && !done) {
+        done = true;
+        const secs = (Date.now() - startTime) / 1000;
+        const wpm = Math.round((text.split(/\s+/).length / (secs/60)));
+        statusEl.className = 'game-status win';
+        statusEl.textContent = `🎉 Done! ${wpm} WPM · ${Math.round(((text.length-errors)/text.length)*100)}% acc · ${secs.toFixed(1)}s`;
+        inp.disabled = true;
+      } else if (v.length > 0 && v[v.length-1] !== text[v.length-1]) {
+        statusEl.className = 'game-status lose'; statusEl.textContent = 'Typo — keep going!';
+      } else {
+        statusEl.className = 'game-status'; statusEl.textContent = 'Keep typing…';
+      }
+    });
+
+    host.querySelector('#reset').addEventListener('click', init);
+    init();
+    return () => { inp.disabled = false; };
+  };
+
+  /* ═════════════ MAZE RUNNER ═════════════ */
+  GAME_ENGINES.maze = (host) => {
+    const SIZE = 15;
+    let maze, player, moves = 0;
+
+    host.innerHTML = `
+      <div class="game-stage">
+        <div class="game-stage-head">
+          <div class="game-stage-title">🌀 Maze Runner</div>
+          <div class="game-stage-stats"><span>Moves <b id="mv">0</b></span></div>
+        </div>
+        <div class="game-status" id="status">Use arrow keys to reach the blue goal</div>
+        <div class="maze-board" id="board"></div>
+        <button class="game-btn" id="reset">New maze</button>
+      </div>`;
+
+    const boardEl = host.querySelector('#board');
+    const mvEl = host.querySelector('#mv');
+    const statusEl = host.querySelector('#status');
+
+    function generate() {
+      // recursive backtracking
+      const m = Array(SIZE).fill(null).map(() => Array(SIZE).fill(1));
+      function carve(x, y) {
+        m[y][x] = 0;
+        const dirs = [[0,-2],[2,0],[0,2],[-2,0]].sort(() => Math.random()-0.5);
+        for (const [dx,dy] of dirs) {
+          const nx = x+dx, ny = y+dy;
+          if (nx>0 && nx<SIZE-1 && ny>0 && ny<SIZE-1 && m[ny][nx] === 1) {
+            m[y+dy/2][x+dx/2] = 0;
+            carve(nx, ny);
+          }
+        }
+      }
+      carve(1,1);
+      m[1][1] = 2; // start
+      m[SIZE-2][SIZE-2] = 3; // end
+      return m;
+    }
+
+    function init() {
+      maze = generate();
+      player = { x: 1, y: 1 };
+      moves = 0; mvEl.textContent = '0';
+      statusEl.className = 'game-status';
+      statusEl.textContent = 'Use arrow keys to reach the blue goal';
+      render();
+    }
+
+    function render() {
+      boardEl.style.gridTemplateColumns = `repeat(${SIZE}, 20px)`;
+      boardEl.innerHTML = '';
+      for (let y=0; y<SIZE; y++) for (let x=0; x<SIZE; x++) {
+        const c = document.createElement('div');
+        c.className = 'maze-cell';
+        if (x === player.x && y === player.y) c.classList.add('player');
+        else if (maze[y][x] === 1) c.classList.add('wall');
+        else if (maze[y][x] === 2) c.classList.add('start');
+        else if (maze[y][x] === 3) c.classList.add('end');
+        boardEl.appendChild(c);
+      }
+    }
+
+    function move(dx, dy) {
+      const nx = player.x + dx, ny = player.y + dy;
+      if (nx<0||nx>=SIZE||ny<0||ny>=SIZE) return;
+      if (maze[ny][nx] === 1) return;
+      player.x = nx; player.y = ny;
+      moves++; mvEl.textContent = moves;
+      render();
+      if (maze[ny][nx] === 3) {
+        statusEl.className = 'game-status win';
+        statusEl.textContent = `🎉 You escaped in ${moves} moves!`;
+      }
+    }
+
+    function keyHandler(e) {
+      const map = { ArrowUp:[0,-1], ArrowDown:[0,1], ArrowLeft:[-1,0], ArrowRight:[1,0] };
+      if (map[e.key]) { move(...map[e.key]); e.preventDefault(); }
+    }
+    document.addEventListener('keydown', keyHandler);
+    host.querySelector('#reset').addEventListener('click', init);
+    init();
+    return () => document.removeEventListener('keydown', keyHandler);
+  };
+
+  /* ═════════════ PONG ═════════════ */
+  GAME_ENGINES.pong = (host) => {
+    const W = 500, H = 320, PADDLE = 70, BALL = 8;
+    let pScore=0, cScore=0, loop, keys = {};
+    let pY, cY, bX, bY, bVX, bVY;
+
+    host.innerHTML = `
+      <div class="game-stage">
+        <div class="game-stage-head">
+          <div class="game-stage-title">🏓 Pong</div>
+          <div class="game-stage-stats"><span>You <b id="ps">0</b></span><span>CPU <b id="cs">0</b></span></div>
+        </div>
+        <div class="game-status" id="status">W/S or ↑/↓ to move · First to 5 wins</div>
+        <canvas class="pong-canvas" id="cv" width="${W}" height="${H}"></canvas>
+      </div>`;
+
+    const cv = host.querySelector('#cv'), ctx = cv.getContext('2d');
+    const psEl = host.querySelector('#ps'), csEl = host.querySelector('#cs');
+    const statusEl = host.querySelector('#status');
+
+    function reset() {
+      pY = H/2 - PADDLE/2; cY = H/2 - PADDLE/2;
+      bX = W/2; bY = H/2; bVX = 4 * (Math.random() > 0.5 ? 1 : -1); bVY = (Math.random()-0.5)*4;
+    }
+
+    function step() {
+      if (keys['w']||keys['ArrowUp']) pY = Math.max(0, pY-5);
+      if (keys['s']||keys['ArrowDown']) pY = Math.min(H-PADDLE, pY+5);
+      // AI
+      const target = bY - PADDLE/2;
+      if (cY < target - 4) cY = Math.min(H-PADDLE, cY+3.5);
+      else if (cY > target + 4) cY = Math.max(0, cY-3.5);
+
+      bX += bVX; bY += bVY;
+      if (bY < BALL || bY > H-BALL) bVY = -bVY;
+      if (bX < 15 && bY > pY && bY < pY+PADDLE) { bVX = Math.abs(bVX) * 1.05; bVY += (Math.random()-0.5)*2; }
+      if (bX > W-15 && bY > cY && bY < cY+PADDLE) { bVX = -Math.abs(bVX) * 1.05; bVY += (Math.random()-0.5)*2; }
+      if (bX < 0) { cScore++; csEl.textContent = cScore; reset(); }
+      if (bX > W) { pScore++; psEl.textContent = pScore; reset(); }
+
+      draw();
+      if (pScore >= 5) { statusEl.className='game-status win'; statusEl.textContent='🎉 You win!'; clearInterval(loop); }
+      else if (cScore >= 5) { statusEl.className='game-status lose'; statusEl.textContent='💀 CPU wins'; clearInterval(loop); }
+    }
+
+    function draw() {
+      const dark = document.documentElement.getAttribute('data-theme') === 'dark';
+      ctx.fillStyle = dark ? '#161616' : '#f4f4f5';
+      ctx.fillRect(0,0,W,H);
+      ctx.strokeStyle = dark ? '#27272a' : '#d4d4d8';
+      ctx.setLineDash([5,5]); ctx.beginPath(); ctx.moveTo(W/2,0); ctx.lineTo(W/2,H); ctx.stroke(); ctx.setLineDash([]);
+      ctx.fillStyle = '#6366f1'; ctx.fillRect(5, pY, 8, PADDLE);
+      ctx.fillStyle = '#ef4444'; ctx.fillRect(W-13, cY, 8, PADDLE);
+      ctx.fillStyle = dark ? '#f5f5f5' : '#0a0a0a';
+      ctx.beginPath(); ctx.arc(bX, bY, BALL, 0, Math.PI*2); ctx.fill();
+    }
+
+    function kd(e) { keys[e.key] = true; if(['ArrowUp','ArrowDown','w','s'].includes(e.key)) e.preventDefault(); }
+    function ku(e) { keys[e.key] = false; }
+    document.addEventListener('keydown', kd);
+    document.addEventListener('keyup', ku);
+    reset();
+    loop = setInterval(step, 1000/60);
+    return () => { clearInterval(loop); document.removeEventListener('keydown', kd); document.removeEventListener('keyup', ku); };
+  };
+
+  /* ═════════════ BREAKOUT ═════════════ */
+  GAME_ENGINES.breakout = (host) => {
+    const W = 480, H = 360, PAD = 80;
+    let pX, bX, bY, bVX, bVY, bricks, score, lives, loop;
+
+    host.innerHTML = `
+      <div class="game-stage">
+        <div class="game-stage-head">
+          <div class="game-stage-title">🧱 Breakout</div>
+          <div class="game-stage-stats"><span>Score <b id="sc">0</b></span><span>Lives <b id="lv">3</b></span></div>
+        </div>
+        <div class="game-status" id="status">Move mouse or ←/→ · Break all bricks</div>
+        <canvas class="breakout-canvas" id="cv" width="${W}" height="${H}"></canvas>
+      </div>`;
+
+    const cv = host.querySelector('#cv'), ctx = cv.getContext('2d');
+    const scEl = host.querySelector('#sc'), lvEl = host.querySelector('#lv');
+    const statusEl = host.querySelector('#status');
+
+    const ROWS = 5, COLS = 8, BW = W/COLS - 4, BH = 18;
+    const COLORS = ['#ef4444','#f59e0b','#eab308','#10b981','#3b82f6'];
+
+    function resetBall() {
+      pX = W/2 - PAD/2; bX = W/2; bY = H-40; bVX = 3 * (Math.random()>0.5?1:-1); bVY = -3;
+    }
+
+    function init() {
+      bricks = [];
+      for (let r=0; r<ROWS; r++) for (let c=0; c<COLS; c++)
+        bricks.push({ x: c*(BW+4)+2, y: r*(BH+4)+40, alive: true, color: COLORS[r] });
+      score = 0; lives = 3;
+      scEl.textContent = '0'; lvEl.textContent = '3';
+      statusEl.className='game-status'; statusEl.textContent='Move mouse or ←/→ · Break all bricks';
+      resetBall();
+    }
+
+    function step() {
+      if (keys && keys['ArrowLeft']) pX = Math.max(0, pX-6);
+      if (keys && keys['ArrowRight']) pX = Math.min(W-PAD, pX+6);
+      bX += bVX; bY += bVY;
+      if (bX < 6 || bX > W-6) bVX = -bVX;
+      if (bY < 6) bVY = -bVY;
+      if (bY > H-18 && bX > pX && bX < pX+PAD && bVY > 0) {
+        bVY = -Math.abs(bVY); bVX += ((bX - (pX+PAD/2)) / (PAD/2)) * 2;
+      }
+      if (bY > H) {
+        lives--; lvEl.textContent = lives;
+        if (lives <= 0) { statusEl.className='game-status lose'; statusEl.textContent='💀 Game over'; clearInterval(loop); }
+        else resetBall();
+      }
+      for (const br of bricks) {
+        if (br.alive && bX > br.x && bX < br.x+BW && bY > br.y && bY < br.y+BH) {
+          br.alive = false; bVY = -bVY; score += 10; scEl.textContent = score;
+        }
+      }
+      if (bricks.every(b => !b.alive)) {
+        statusEl.className='game-status win'; statusEl.textContent='🎉 You cleared the board!';
+        clearInterval(loop);
+      }
+      draw();
+    }
+
+    function draw() {
+      const dark = document.documentElement.getAttribute('data-theme') === 'dark';
+      ctx.fillStyle = dark ? '#161616' : '#f4f4f5'; ctx.fillRect(0,0,W,H);
+      for (const br of bricks) if (br.alive) { ctx.fillStyle = br.color; ctx.fillRect(br.x, br.y, BW, BH); }
+      ctx.fillStyle = '#6366f1'; ctx.fillRect(pX, H-12, PAD, 8);
+      ctx.fillStyle = dark ? '#f5f5f5' : '#0a0a0a';
+      ctx.beginPath(); ctx.arc(bX, bY, 6, 0, Math.PI*2); ctx.fill();
+    }
+
+    let keys = {};
+    function kd(e) { keys[e.key] = true; if(['ArrowLeft','ArrowRight'].includes(e.key)) e.preventDefault(); }
+    function ku(e) { keys[e.key] = false; }
+    function mm(e) {
+      const r = cv.getBoundingClientRect();
+      pX = Math.max(0, Math.min(W-PAD, e.clientX - r.left - PAD/2));
+    }
+    document.addEventListener('keydown', kd);
+    document.addEventListener('keyup', ku);
+    cv.addEventListener('mousemove', mm);
+    init();
+    loop = setInterval(step, 1000/60);
+    return () => { clearInterval(loop); document.removeEventListener('keydown', kd); document.removeEventListener('keyup', ku); cv.removeEventListener('mousemove', mm); };
+  };
+
+  /* ═════════════ MINESWEEPER ═════════════ */
+  GAME_ENGINES.mines = (host) => {
+    const SZ = 9, MINES = 10;
+    let grid, revealed, flagged, firstClick, gameOver;
+
+    host.innerHTML = `
+      <div class="game-stage">
+        <div class="game-stage-head">
+          <div class="game-stage-title">💣 Minesweeper</div>
+          <div class="game-stage-stats"><span>Flags <b id="fl">0</b>/${MINES}</span></div>
+        </div>
+        <div class="game-status" id="status">Click to reveal · Right-click to flag</div>
+        <div class="mines-board" id="board" style="grid-template-columns: repeat(${SZ}, 28px);"></div>
+        <button class="game-btn" id="reset">New game</button>
+      </div>`;
+
+    const boardEl = host.querySelector('#board');
+    const flEl = host.querySelector('#fl');
+    const statusEl = host.querySelector('#status');
+
+    function init() {
+      grid = Array(SZ).fill(null).map(() => Array(SZ).fill(0));
+      revealed = Array(SZ).fill(null).map(() => Array(SZ).fill(false));
+      flagged = Array(SZ).fill(null).map(() => Array(SZ).fill(false));
+      firstClick = true; gameOver = false;
+      statusEl.className='game-status'; statusEl.textContent='Click to reveal · Right-click to flag';
+      flEl.textContent = '0';
+      render();
+    }
+
+    function placeMines(safeX, safeY) {
+      let placed = 0;
+      while (placed < MINES) {
+        const x = Math.floor(Math.random()*SZ), y = Math.floor(Math.random()*SZ);
+        if (grid[y][x] === -1) continue;
+        if (Math.abs(x-safeX) <= 1 && Math.abs(y-safeY) <= 1) continue;
+        grid[y][x] = -1; placed++;
+      }
+      for (let y=0; y<SZ; y++) for (let x=0; x<SZ; x++) {
+        if (grid[y][x] === -1) continue;
+        let n = 0;
+        for (let dy=-1; dy<=1; dy++) for (let dx=-1; dx<=1; dx++) {
+          const nx = x+dx, ny = y+dy;
+          if (nx>=0&&nx<SZ&&ny>=0&&ny<SZ&&grid[ny][nx]===-1) n++;
+        }
+        grid[y][x] = n;
+      }
+    }
+
+    function flood(x, y) {
+      if (x<0||x>=SZ||y<0||y>=SZ) return;
+      if (revealed[y][x] || flagged[y][x]) return;
+      revealed[y][x] = true;
+      if (grid[y][x] === 0) {
+        for (let dy=-1; dy<=1; dy++) for (let dx=-1; dx<=1; dx++) if (dx||dy) flood(x+dx, y+dy);
+      }
+    }
+
+    function reveal(x, y) {
+      if (gameOver || revealed[y][x] || flagged[y][x]) return;
+      if (firstClick) { placeMines(x, y); firstClick = false; }
+      if (grid[y][x] === -1) {
+        gameOver = true;
+        for (let yy=0; yy<SZ; yy++) for (let xx=0; xx<SZ; xx++) if (grid[yy][xx]===-1) revealed[yy][xx] = true;
+        statusEl.className='game-status lose'; statusEl.textContent='💥 BOOM! You hit a mine';
+      } else {
+        flood(x, y);
+        const unrevealed = 0;
+        let count = 0;
+        for (let yy=0; yy<SZ; yy++) for (let xx=0; xx<SZ; xx++) if (!revealed[yy][xx]) count++;
+        if (count === MINES) {
+          gameOver = true;
+          statusEl.className='game-status win'; statusEl.textContent='🎉 You cleared the board!';
+        }
+      }
+      render();
+    }
+
+    function toggleFlag(x, y) {
+      if (gameOver || revealed[y][x]) return;
+      flagged[y][x] = !flagged[y][x];
+      let f = 0;
+      for (let yy=0; yy<SZ; yy++) for (let xx=0; xx<SZ; xx++) if (flagged[yy][xx]) f++;
+      flEl.textContent = f;
+      render();
+    }
+
+    function render() {
+      boardEl.innerHTML = '';
+      for (let y=0; y<SZ; y++) for (let x=0; x<SZ; x++) {
+        const c = document.createElement('div');
+        c.className = 'mines-cell';
+        if (revealed[y][x]) {
+          c.classList.add('revealed');
+          if (grid[y][x] === -1) { c.classList.add('mine'); c.textContent = '💣'; }
+          else if (grid[y][x] > 0) { c.textContent = grid[y][x]; c.dataset.n = grid[y][x]; }
+        } else if (flagged[y][x]) {
+          c.classList.add('flagged'); c.textContent = '🚩';
+        }
+        c.addEventListener('click', () => reveal(x, y));
+        c.addEventListener('contextmenu', e => { e.preventDefault(); toggleFlag(x, y); });
+        boardEl.appendChild(c);
+      }
+    }
+
+    host.querySelector('#reset').addEventListener('click', init);
+    init();
+    return () => {};
+  };
+
+  /* ═════════════ SUDOKU ═════════════ */
+  GAME_ENGINES.sudoku = (host) => {
+    const PUZZLE = [
+      [5,3,0,0,7,0,0,0,0],
+      [6,0,0,1,9,5,0,0,0],
+      [0,9,8,0,0,0,0,6,0],
+      [8,0,0,0,6,0,0,0,3],
+      [4,0,0,8,0,3,0,0,1],
+      [7,0,0,0,2,0,0,0,6],
+      [0,6,0,0,0,0,2,8,0],
+      [0,0,0,4,1,9,0,0,5],
+      [0,0,0,0,8,0,0,7,9]
+    ];
+    const SOLUTION = [
+      [5,3,4,6,7,8,9,1,2],
+      [6,7,2,1,9,5,3,4,8],
+      [1,9,8,3,4,2,5,6,7],
+      [8,5,9,7,6,1,4,2,3],
+      [4,2,6,8,5,3,7,9,1],
+      [7,1,3,9,2,4,8,5,6],
+      [9,6,1,5,3,7,2,8,4],
+      [2,8,7,4,1,9,6,3,5],
+      [3,4,5,2,8,6,1,7,9]
+    ];
+    let grid, selected = null;
+
+    host.innerHTML = `
+      <div class="game-stage">
+        <div class="game-stage-head">
+          <div class="game-stage-title">🔢 Sudoku</div>
+          <div class="game-stage-stats"><span>Empty <b id="em">0</b></span></div>
+        </div>
+        <div class="game-status" id="status">Click a cell, then pick a number</div>
+        <div class="sudoku-board" id="board"></div>
+        <div class="sudoku-keys" id="keys"></div>
+        <button class="game-btn" id="reset">Reset</button>
+      </div>`;
+
+    const boardEl = host.querySelector('#board');
+    const keysEl = host.querySelector('#keys');
+    const emEl = host.querySelector('#em');
+    const statusEl = host.querySelector('#status');
+
+    function init() {
+      grid = PUZZLE.map(r => [...r]);
+      selected = null;
+      render(); renderKeys();
+      updateEmpty();
+    }
+
+    function updateEmpty() {
+      let n = 0;
+      for (let r=0; r<9; r++) for (let c=0; c<9; c++) if (grid[r][c] === 0) n++;
+      emEl.textContent = n;
+    }
+
+    function isValid(r, c, n) {
+      for (let i=0; i<9; i++) if (grid[r][i]===n || grid[i][c]===n) return false;
+      const br = Math.floor(r/3)*3, bc = Math.floor(c/3)*3;
+      for (let i=0; i<3; i++) for (let j=0; j<3; j++) if (grid[br+i][bc+j]===n) return false;
+      return true;
+    }
+
+    function render() {
+      boardEl.innerHTML = '';
+      for (let r=0; r<9; r++) for (let c=0; c<9; c++) {
+        const cell = document.createElement('div');
+        cell.className = 'sudoku-cell';
+        if (PUZZLE[r][c] !== 0) {
+          cell.classList.add('prefilled'); cell.textContent = PUZZLE[r][c];
+        } else {
+          cell.textContent = grid[r][c] || '';
+          if (grid[r][c] && !isValid(r, c, grid[r][c])) cell.classList.add('error');
+          cell.addEventListener('click', () => { selected = {r,c}; render(); });
+          if (selected && selected.r === r && selected.c === c) cell.classList.add('selected');
+        }
+        boardEl.appendChild(cell);
+      }
+    }
+
+    function renderKeys() {
+      keysEl.innerHTML = '';
+      for (let i=1; i<=9; i++) {
+        const b = document.createElement('button');
+        b.className = 'sudoku-key'; b.textContent = i;
+        b.addEventListener('click', () => setNum(i));
+        keysEl.appendChild(b);
+      }
+      const er = document.createElement('button');
+      er.className = 'sudoku-key'; er.textContent = '✕';
+      er.addEventListener('click', () => setNum(0));
+      keysEl.appendChild(er);
+    }
+
+    function setNum(n) {
+      if (!selected) return;
+      const {r, c} = selected;
+      if (PUZZLE[r][c] !== 0) return;
+      grid[r][c] = n;
+      render(); updateEmpty();
+      // check completion
+      let done = true;
+      for (let rr=0; rr<9; rr++) for (let cc=0; cc<9; cc++) if (grid[rr][cc] !== SOLUTION[rr][cc]) done = false;
+      if (done) { statusEl.className='game-status win'; statusEl.textContent='🎉 Perfect solution!'; }
+    }
+
+    host.querySelector('#reset').addEventListener('click', init);
+    init();
+    return () => {};
+  };
+
+  /* ═════════════ CHESS ═════════════ */
+  GAME_ENGINES.chess = (host) => {
+    // Simplified chess: all pieces, basic legal moves, AI = random legal move
+    const PIECES = {
+      'K':'♔','Q':'♕','R':'♖','B':'♗','N':'♘','P':'♙',
+      'k':'♚','q':'♛','r':'♜','b':'♝','n':'♞','p':'♟'
+    };
+    let board, turn, selected, validMoves;
+
+    function initial() {
+      return [
+        ['r','n','b','q','k','b','n','r'],
+        ['p','p','p','p','p','p','p','p'],
+        [' ',' ',' ',' ',' ',' ',' ',' '],
+        [' ',' ',' ',' ',' ',' ',' ',' '],
+        [' ',' ',' ',' ',' ',' ',' ',' '],
+        [' ',' ',' ',' ',' ',' ',' ',' '],
+        ['P','P','P','P','P','P','P','P'],
+        ['R','N','B','Q','K','B','N','R'],
+      ];
+    }
+
+    const isWhite = p => p !== ' ' && p === p.toUpperCase();
+    const isBlack = p => p !== ' ' && p === p.toLowerCase();
+    const color = p => p === ' ' ? null : (isWhite(p) ? 'w' : 'b');
+
+    host.innerHTML = `
+      <div class="game-stage">
+        <div class="game-stage-head">
+          <div class="game-stage-title">♟️ Chess</div>
+          <div class="game-stage-stats"><span>Turn <b id="tn">White</b></span></div>
+        </div>
+        <div class="game-status" id="status">Click a piece, then a destination</div>
+        <div class="chess-board" id="board"></div>
+        <button class="game-btn" id="reset">New game</button>
+      </div>`;
+
+    const boardEl = host.querySelector('#board');
+    const tnEl = host.querySelector('#tn');
+    const statusEl = host.querySelector('#status');
+
+    function init() {
+      board = initial(); turn = 'w'; selected = null; validMoves = [];
+      statusEl.className='game-status'; statusEl.textContent='Click a piece, then a destination';
+      tnEl.textContent = 'White';
+      render();
+    }
+
+    function getMoves(r, c) {
+      const p = board[r][c]; if (p === ' ') return [];
+      const col = color(p);
+      const moves = [];
+      const piece = p.toLowerCase();
+      const addIfValid = (nr, nc) => {
+        if (nr<0||nr>7||nc<0||nc>7) return false;
+        const t = board[nr][nc];
+        if (color(t) === col) return false;
+        moves.push([nr, nc]);
+        return t === ' ';
+      };
+      const slide = (dr, dc) => {
+        for (let i=1; i<8; i++) if (!addIfValid(r+dr*i, c+dc*i)) break;
+      };
+
+      if (piece === 'p') {
+        const dir = col === 'w' ? -1 : 1;
+        const start = col === 'w' ? 6 : 1;
+        if (r+dir >= 0 && r+dir <= 7 && board[r+dir][c] === ' ') {
+          moves.push([r+dir, c]);
+          if (r === start && board[r+dir*2][c] === ' ') moves.push([r+dir*2, c]);
+        }
+        for (const dc of [-1, 1]) {
+          const nr = r+dir, nc = c+dc;
+          if (nr>=0&&nr<=7&&nc>=0&&nc<=7 && board[nr][nc] !== ' ' && color(board[nr][nc]) !== col)
+            moves.push([nr, nc]);
+        }
+      } else if (piece === 'n') {
+        for (const [dr,dc] of [[-2,-1],[-2,1],[-1,-2],[-1,2],[1,-2],[1,2],[2,-1],[2,1]]) addIfValid(r+dr, c+dc);
+      } else if (piece === 'b') {
+        slide(-1,-1); slide(-1,1); slide(1,-1); slide(1,1);
+      } else if (piece === 'r') {
+        slide(-1,0); slide(1,0); slide(0,-1); slide(0,1);
+      } else if (piece === 'q') {
+        slide(-1,-1); slide(-1,1); slide(1,-1); slide(1,1);
+        slide(-1,0); slide(1,0); slide(0,-1); slide(0,1);
+      } else if (piece === 'k') {
+        for (let dr=-1; dr<=1; dr++) for (let dc=-1; dc<=1; dc++) if (dr||dc) addIfValid(r+dr, c+dc);
+      }
+      return moves;
+    }
+
+    function getAllMoves(col) {
+      const moves = [];
+      for (let r=0; r<8; r++) for (let c=0; c<8; c++) {
+        if (color(board[r][c]) === col) {
+          const ms = getMoves(r, c);
+          for (const [nr, nc] of ms) moves.push({fr:r,fc:c,tr:nr,tc:nc});
+        }
+      }
+      return moves;
+    }
+
+    function makeMove(m) {
+      const piece = board[m.fr][m.fc];
+      board[m.tr][m.tc] = piece;
+      board[m.fr][m.fc] = ' ';
+      // auto-promote pawns to queen
+      if (piece === 'P' && m.tr === 0) board[m.tr][m.tc] = 'Q';
+      if (piece === 'p' && m.tr === 7) board[m.tr][m.tc] = 'q';
+    }
+
+    function render() {
+      boardEl.innerHTML = '';
+      for (let r=0; r<8; r++) for (let c=0; c<8; c++) {
+        const cell = document.createElement('div');
+        cell.className = 'chess-cell ' + ((r+c)%2 === 0 ? 'light' : 'dark');
+        cell.textContent = PIECES[board[r][c]] || '';
+        if (selected && selected[0] === r && selected[1] === c) cell.classList.add('selected');
+        if (validMoves.some(m => m[0]===r && m[1]===c)) {
+          cell.classList.add(board[r][c] !== ' ' ? 'can-capture' : 'can-move');
+        }
+        cell.addEventListener('click', () => cellClick(r, c));
+        boardEl.appendChild(cell);
+      }
+    }
+
+    function cellClick(r, c) {
+      if (turn !== 'w') return;
+      const p = board[r][c];
+      if (selected && validMoves.some(m => m[0]===r && m[1]===c)) {
+        makeMove({fr:selected[0],fc:selected[1],tr:r,tc:c});
+        selected = null; validMoves = [];
+        turn = 'b'; tnEl.textContent = 'Black (AI)';
+        render();
+        if (checkEnd()) return;
+        setTimeout(aiMove, 400);
+        return;
+      }
+      if (color(p) === 'w') {
+        selected = [r, c];
+        validMoves = getMoves(r, c);
+      } else {
+        selected = null; validMoves = [];
+      }
+      render();
+    }
+
+    function aiMove() {
+      const moves = getAllMoves('b');
+      if (!moves.length) {
+        statusEl.className='game-status win'; statusEl.textContent='🎉 Checkmate — you win!';
+        return;
+      }
+      // Prefer captures
+      const captures = moves.filter(m => board[m.tr][m.tc] !== ' ');
+      const pick = (captures.length && Math.random() < 0.7) ? captures[Math.floor(Math.random()*captures.length)] : moves[Math.floor(Math.random()*moves.length)];
+      makeMove(pick);
+      turn = 'w'; tnEl.textContent = 'White';
+      selected = null; validMoves = [];
+      render();
+      checkEnd();
+    }
+
+    function checkEnd() {
+      const wMoves = getAllMoves('w'), bMoves = getAllMoves('b');
+      if (!wMoves.length) { statusEl.className='game-status lose'; statusEl.textContent='💀 You are checkmated'; return true; }
+      if (!bMoves.length) { statusEl.className='game-status win'; statusEl.textContent='🎉 AI checkmated'; return true; }
+      return false;
+    }
+
+    host.querySelector('#reset').addEventListener('click', init);
+    init();
+    return () => {};
+  };
+
+  /* ═════════════ CONNECT 4 ═════════════ */
+  GAME_ENGINES.c4 = (host) => {
+    const R = 6, C = 7;
+    let board, turn, over;
+
+    host.innerHTML = `
+      <div class="game-stage">
+        <div class="game-stage-head">
+          <div class="game-stage-title">🔴 Connect 4</div>
+          <div class="game-stage-stats"><span>Turn <b id="tn">You</b></span></div>
+        </div>
+        <div class="game-status" id="status">Pick a column to drop your disc</div>
+        <div class="c4-cols" id="cols"></div>
+        <div class="c4-board" id="board"></div>
+        <button class="game-btn" id="reset">New game</button>
+      </div>`;
+
+    const boardEl = host.querySelector('#board');
+    const colsEl = host.querySelector('#cols');
+    const tnEl = host.querySelector('#tn');
+    const statusEl = host.querySelector('#status');
+
+    function init() {
+      board = Array(R).fill(null).map(() => Array(C).fill(0));
+      turn = 1; over = false;
+      statusEl.className='game-status'; statusEl.textContent='Pick a column to drop your disc';
+      tnEl.textContent = 'You (red)';
+      render();
+    }
+
+    function render() {
+      colsEl.innerHTML = '';
+      for (let c=0; c<C; c++) {
+        const b = document.createElement('button');
+        b.className = 'c4-col-btn'; b.textContent = '↓';
+        b.disabled = over || board[0][c] !== 0;
+        b.addEventListener('click', () => drop(c));
+        colsEl.appendChild(b);
+      }
+      boardEl.innerHTML = '';
+      for (let r=0; r<R; r++) for (let c=0; c<C; c++) {
+        const cell = document.createElement('div');
+        cell.className = 'c4-cell';
+        if (board[r][c] === 1) cell.classList.add('red');
+        else if (board[r][c] === 2) cell.classList.add('yellow');
+        boardEl.appendChild(cell);
+      }
+    }
+
+    function drop(col) {
+      if (over || turn !== 1) return;
+      for (let r = R-1; r >= 0; r--) {
+        if (board[r][col] === 0) { board[r][col] = 1; break; }
+      }
+      const win = checkWin(1);
+      if (win) { over = true; statusEl.className='game-status win'; statusEl.textContent='🎉 You connected four!'; highlight(win); render(); return; }
+      if (isFull()) { over = true; statusEl.textContent='🤝 Draw'; render(); return; }
+      turn = 2; tnEl.textContent = 'AI (yellow)';
+      render();
+      setTimeout(aiDrop, 500);
+    }
+
+    function aiDrop() {
+      // Simple AI: win if can, block if must, else random
+      for (let c=0; c<C; c++) {
+        for (let r = R-1; r >= 0; r--) {
+          if (board[r][c] === 0) {
+            board[r][c] = 2;
+            if (checkWin(2)) { afterAi(); return; }
+            board[r][c] = 0;
+            break;
+          }
+        }
+      }
+      for (let c=0; c<C; c++) {
+        for (let r = R-1; r >= 0; r--) {
+          if (board[r][c] === 0) {
+            board[r][c] = 1;
+            if (checkWin(1)) { board[r][c] = 2; afterAi(); return; }
+            board[r][c] = 0;
+            break;
+          }
+        }
+      }
+      const cols = [];
+      for (let c=0; c<C; c++) if (board[0][c] === 0) cols.push(c);
+      // Prefer center
+      cols.sort((a,b) => Math.abs(b-3) - Math.abs(a-3));
+      const pick = cols[Math.floor(Math.random() * Math.min(3, cols.length))];
+      for (let r = R-1; r >= 0; r--) {
+        if (board[r][pick] === 0) { board[r][pick] = 2; break; }
+      }
+      afterAi();
+    }
+
+    function afterAi() {
+      const win = checkWin(2);
+      if (win) { over = true; statusEl.className='game-status lose'; statusEl.textContent='💀 AI connected four'; highlight(win); render(); return; }
+      if (isFull()) { over = true; statusEl.textContent='🤝 Draw'; render(); return; }
+      turn = 1; tnEl.textContent = 'You (red)';
+      render();
+    }
+
+    function checkWin(p) {
+      for (let r=0; r<R; r++) for (let c=0; c<C; c++) {
+        if (board[r][c] !== p) continue;
+        const dirs = [[0,1],[1,0],[1,1],[1,-1]];
+        for (const [dr,dc] of dirs) {
+          const cells = [[r,c]];
+          for (let i=1; i<4; i++) {
+            const nr = r+dr*i, nc = c+dc*i;
+            if (nr<0||nr>=R||nc<0||nc>=C||board[nr][nc] !== p) break;
+            cells.push([nr,nc]);
+          }
+          if (cells.length === 4) return cells;
+        }
+      }
+      return null;
+    }
+
+    function highlight(cells) {
+      setTimeout(() => {
+        const children = boardEl.children;
+        for (const [r,c] of cells) children[r*C+c].classList.add('c4-win');
+      }, 50);
+    }
+
+    function isFull() {
+      for (let c=0; c<C; c++) if (board[0][c] === 0) return false;
+      return true;
+    }
+
+    host.querySelector('#reset').addEventListener('click', init);
+    init();
+    return () => {};
+  };
+
+  /* ═════════════ WORDLE ═════════════ */
+  GAME_ENGINES.wordle = (host) => {
+    const WORDS = ['about','above','abuse','actor','acute','admit','adopt','adult','after','again','agent','agree','ahead','alarm','album','alert','alike','alive','allow','alone','along','alter','among','anger','angle','angry','apart','apple','apply','arena','argue','arise','array','aside','asset','audio','audit','avoid','award','aware','badly','baker','bases','basic','basis','beach','began','begin','begun','being','below','bench','billy','birth','black','blame','blind','block','blood','board','boost','booth','bound','brain','brand','bread','break','breed','brief','bring','broad','broke','brown','build','built','buyer','cable','calif','carry','catch','cause','chain','chair','chaos','charm','chart','chase','cheap','check','chest','chief','child','china','chose','civil','claim','class','clean','clear','click','clock','close','cloud','coach','coast','could','count','court','cover','craft','crash','cream','crime','cross','crowd','crown','curve','cycle','daily','dance','dated','dealt','death','debut','delay','depth','doing','doubt','dozen','draft','drama','drawn','dream','dress','drill','drink','drive','drove','dying','eager','early','earth','eight','elite','empty','enemy','enjoy','enter','entry','equal','error','event','every','exact','exist','extra','faith','false','fault','fiber','field','fifth','fifty','fight','final','first','fixed','flash','fleet','floor','fluid','focus','force','forth','forty','forum','found','frame','frank','fraud','fresh','front','fruit','fully','funny','giant','given','glass','globe','going','grace','grade','grand','grant','grass','great','green','gross','group','grown','guard','guess','guest','guide','happy','harry','heart','heavy','hence','henry','horse','hotel','house','human','ideal','image','index','inner','input','issue','japan','jimmy','joint','jones','judge','known','label','large','laser','later','laugh','layer','learn','lease','least','leave','legal','level','lewis','light','limit','links','lives','local','logic','loose','lower','lucky','lunch','lying','magic','major','maker','march','maria','match','maybe','mayor','meant','media','metal','might','minor','minus','mixed','model','money','month','moral','motor','mount','mouse','mouth','movie','music','needs','never','newly','night','noise','north','noted','novel','nurse','occur','ocean','offer','often','order','other','ought','paint','panel','paper','party','peace','peter','phase','phone','photo','piece','pilot','pitch','place','plain','plane','plant','plate','point','pound','power','press','price','pride','prime','print','prior','prize','proof','proud','prove','queen','quick','quiet','quite','radio','raise','range','rapid','ratio','reach','ready','refer','right','rival','river','robin','roger','roman','rough','round','route','royal','rural','scale','scene','scope','score','sense','serve','seven','shall','shape','share','sharp','sheet','shelf','shell','shift','shirt','shock','shoot','short','shown','sight','since','sixth','sixty','sized','skill','sleep','slide','small','smart','smile','smoke','solid','solve','sorry','sound','south','space','spare','speak','speed','spend','spent','split','spoke','sport','staff','stage','stake','stand','start','state','steam','steel','stick','still','stock','stone','stood','store','storm','story','strip','stuck','study','stuff','style','sugar','suite','super','sweet','table','taken','taste','taxes','teach','team','texas','thank','theft','their','theme','there','these','thick','thing','think','third','those','three','threw','throw','tight','times','tired','title','today','topic','total','touch','tough','tower','track','trade','train','treat','trend','trial','tribe','trick','tried','tries','truck','truly','trust','truth','twice','under','undue','union','unity','until','upper','upset','urban','usage','usual','valid','value','video','virus','visit','vital','voice','waste','watch','water','wheel','where','which','while','white','whole','whose','woman','women','world','worry','worse','worst','worth','would','wound','write','wrong','wrote','yield','young','youth'];
+    let target, guesses, current, over, kbdStatus;
+
+    host.innerHTML = `
+      <div class="game-stage">
+        <div class="game-stage-head">
+          <div class="game-stage-title">🔤 Wordle</div>
+          <div class="game-stage-stats"><span>Guess <b id="gn">0</b>/6</span></div>
+        </div>
+        <div class="game-status" id="status">Guess the 5-letter word</div>
+        <div class="wordle-grid" id="grid"></div>
+        <div class="wordle-kb" id="kb"></div>
+        <button class="game-btn" id="reset">New word</button>
+      </div>`;
+
+    const gridEl = host.querySelector('#grid');
+    const kbEl = host.querySelector('#kb');
+    const gnEl = host.querySelector('#gn');
+    const statusEl = host.querySelector('#status');
+
+    function init() {
+      target = WORDS[Math.floor(Math.random() * WORDS.length)].toUpperCase();
+      guesses = []; current = ''; over = false;
+      kbdStatus = {};
+      statusEl.className='game-status'; statusEl.textContent='Guess the 5-letter word';
+      gnEl.textContent = '0';
+      render(); renderKb();
+    }
+
+    function render() {
+      gridEl.innerHTML = '';
+      for (let r=0; r<6; r++) {
+        const row = document.createElement('div');
+        row.className = 'wordle-row';
+        const guess = guesses[r] || (r === guesses.length ? current : '');
+        let evals = [];
+        if (guesses[r]) evals = evaluate(guesses[r]);
+        for (let c=0; c<5; c++) {
+          const cell = document.createElement('div');
+          cell.className = 'wordle-cell';
+          const ch = guess[c] || '';
+          cell.textContent = ch;
+          if (ch) cell.classList.add('filled');
+          if (evals[c]) cell.classList.add(evals[c]);
+          row.appendChild(cell);
+        }
+        gridEl.appendChild(row);
+      }
+    }
+
+    function evaluate(guess) {
+      const result = Array(5).fill('absent');
+      const tArr = target.split(''), gArr = guess.split('');
+      // Correct
+      for (let i=0; i<5; i++) if (gArr[i] === tArr[i]) { result[i] = 'correct'; tArr[i] = null; gArr[i] = null; }
+      // Present
+      for (let i=0; i<5; i++) {
+        if (!gArr[i]) continue;
+        const idx = tArr.indexOf(gArr[i]);
+        if (idx >= 0) { result[i] = 'present'; tArr[idx] = null; }
+      }
+      return result;
+    }
+
+    function renderKb() {
+      const rows = ['QWERTYUIOP','ASDFGHJKL','ZXCVBNM⌫'];
+      kbEl.innerHTML = '';
+      for (const row of rows) {
+        const r = document.createElement('div');
+        r.className = 'wordle-kb-row';
+        for (const ch of row) {
+          const b = document.createElement('button');
+          b.className = 'wordle-key';
+          b.textContent = ch;
+          if (kbdStatus[ch]) b.classList.add(kbdStatus[ch]);
+          b.addEventListener('click', () => key(ch));
+          r.appendChild(b);
+        }
+        if (row === rows[2]) {
+          const enter = document.createElement('button');
+          enter.className = 'wordle-key'; enter.textContent = '↵';
+          enter.style.padding = '12px 16px';
+          enter.addEventListener('click', () => key('↵'));
+          r.appendChild(enter);
+        }
+        kbEl.appendChild(r);
+      }
+    }
+
+    function key(k) {
+      if (over) return;
+      if (k === '↵') {
+        if (current.length !== 5) { statusEl.textContent = 'Need 5 letters'; return; }
+        if (!WORDS.includes(current.toLowerCase())) { statusEl.textContent = 'Not in word list'; return; }
+        guesses.push(current);
+        const evals = evaluate(current);
+        // update keyboard
+        for (let i=0; i<5; i++) {
+          const ch = current[i], s = evals[i];
+          if (s === 'correct') kbdStatus[ch] = 'correct';
+          else if (s === 'present' && kbdStatus[ch] !== 'correct') kbdStatus[ch] = 'present';
+          else if (!kbdStatus[ch]) kbdStatus[ch] = 'absent';
+        }
+        gnEl.textContent = guesses.length;
+        current = '';
+        if (current === '' && guesses[guesses.length-1] === target) {
+          over = true; statusEl.className='game-status win'; statusEl.textContent=`🎉 You got it in ${guesses.length}!`;
+        } else if (guesses.length === 6) {
+          over = true; statusEl.className='game-status lose'; statusEl.textContent=`💀 The word was ${target}`;
+        }
+        render(); renderKb();
+        return;
+      }
+      if (k === '⌫') { current = current.slice(0, -1); render(); return; }
+      if (current.length < 5 && /^[A-Z]$/.test(k)) { current += k; render(); }
+    }
+
+    function kd(e) {
+      if (e.key === 'Enter') key('↵');
+      else if (e.key === 'Backspace') key('⌫');
+      else if (/^[a-zA-Z]$/.test(e.key)) key(e.key.toUpperCase());
+    }
+    document.addEventListener('keydown', kd);
+    host.querySelector('#reset').addEventListener('click', init);
+    init();
+    return () => document.removeEventListener('keydown', kd);
+  };
+
+  /* ═════════════ DINO RUN ═════════════ */
+  GAME_ENGINES.dino = (host) => {
+    const W = 600, H = 200, GROUND = 160;
+    let dino, obs, score, alive, loop, speed;
+
+    host.innerHTML = `
+      <div class="game-stage">
+        <div class="game-stage-head">
+          <div class="game-stage-title">🦖 Dino Run</div>
+          <div class="game-stage-stats"><span>Score <b id="sc">0</b></span><span>Best <b id="bs">${localStorage.getItem('dinoBest')||0}</b></span></div>
+        </div>
+        <div class="game-status" id="status">Press Space or tap to jump</div>
+        <canvas class="dino-canvas" id="cv" width="${W}" height="${H}"></canvas>
+        <button class="game-btn" id="start">Start</button>
+      </div>`;
+
+    const cv = host.querySelector('#cv'), ctx = cv.getContext('2d');
+    const scEl = host.querySelector('#sc'), bsEl = host.querySelector('#bs');
+    const statusEl = host.querySelector('#status');
+    const startBtn = host.querySelector('#start');
+
+    function init() {
+      dino = { x: 60, y: GROUND, vy: 0, jumping: false };
+      obs = []; score = 0; alive = true; speed = 5;
+      scEl.textContent = '0';
+      statusEl.className='game-status'; statusEl.textContent='Press Space or tap to jump';
+      draw();
+    }
+
+    function jump() {
+      if (!alive) { init(); startLoop(); return; }
+      if (!dino.jumping) { dino.vy = -13; dino.jumping = true; }
+    }
+
+    function step() {
+      if (!alive) return;
+      // Physics
+      dino.vy += 0.7; dino.y += dino.vy;
+      if (dino.y >= GROUND) { dino.y = GROUND; dino.vy = 0; dino.jumping = false; }
+
+      // Spawn obstacles
+      if (!obs.length || obs[obs.length-1].x < W - 200 - Math.random()*150) {
+        const h = 20 + Math.random()*30;
+        obs.push({ x: W, y: GROUND + 30 - h, w: 15 + Math.random()*15, h: h });
+      }
+      // Move obstacles
+      for (const o of obs) o.x -= speed;
+      obs = obs.filter(o => o.x + o.w > 0);
+
+      // Collision
+      const dx = dino.x, dy = dino.y;
+      for (const o of obs) {
+        if (dx + 30 > o.x && dx < o.x + o.w && dy + 30 > o.y) {
+          alive = false;
+          clearInterval(loop);
+          const best = Math.max(parseInt(localStorage.getItem('dinoBest')||0), score);
+          localStorage.setItem('dinoBest', best); bsEl.textContent = best;
+          statusEl.className='game-status lose'; statusEl.textContent=`💀 Game over — score ${score}`;
+          startBtn.textContent = 'Restart';
+          draw();
+          return;
+        }
+      }
+
+      score++; scEl.textContent = score;
+      if (score % 100 === 0) speed += 0.5;
+      draw();
+    }
+
+    function draw() {
+      const dark = document.documentElement.getAttribute('data-theme') === 'dark';
+      ctx.fillStyle = dark ? '#161616' : '#f4f4f5';
+      ctx.fillRect(0,0,W,H);
+      // Ground
+      ctx.fillStyle = dark ? '#27272a' : '#d4d4d8';
+      ctx.fillRect(0, GROUND+30, W, 2);
+      // Dino (box)
+      ctx.fillStyle = '#10b981';
+      ctx.fillRect(dino.x, dino.y, 30, 30);
+      ctx.fillStyle = 'white';
+      ctx.fillRect(dino.x+20, dino.y+6, 4, 4);
+      // Obstacles
+      ctx.fillStyle = '#ef4444';
+      for (const o of obs) ctx.fillRect(o.x, o.y, o.w, o.h);
+    }
+
+    let loopInt;
+    function startLoop() {
+      if (loopInt) clearInterval(loopInt);
+      loopInt = setInterval(step, 1000/60);
+      loop = loopInt;
+    }
+
+    function kd(e) {
+      if (e.code === 'Space' || e.key === 'ArrowUp') { jump(); e.preventDefault(); }
+    }
+    document.addEventListener('keydown', kd);
+    cv.addEventListener('click', jump);
+    startBtn.addEventListener('click', () => {
+      if (!alive) init();
+      startLoop();
+      statusEl.textContent = 'Jump!';
+    });
+    init();
+    return () => { clearInterval(loopInt); document.removeEventListener('keydown', kd); };
+  };
+
+  /* ═════════════ TETRIS ═════════════ */
+  GAME_ENGINES.tetris = (host) => {
+    const COLS = 10, ROWS = 20, CELL = 22;
+    const SHAPES = {
+      I: { s: [[1,1,1,1]], c: '#06b6d4' },
+      O: { s: [[1,1],[1,1]], c: '#eab308' },
+      T: { s: [[0,1,0],[1,1,1]], c: '#8b5cf6' },
+      S: { s: [[0,1,1],[1,1,0]], c: '#10b981' },
+      Z: { s: [[1,1,0],[0,1,1]], c: '#ef4444' },
+      J: { s: [[1,0,0],[1,1,1]], c: '#3b82f6' },
+      L: { s: [[0,0,1],[1,1,1]], c: '#f97316' }
+    };
+    let grid, cur, nx, score, loop, dropMs, alive;
+
+    host.innerHTML = `
+      <div class="game-stage">
+        <div class="game-stage-head">
+          <div class="game-stage-title">🟦 Tetris</div>
+          <div class="game-stage-stats"><span>Score <b id="sc">0</b></span><span>Lines <b id="ln">0</b></span></div>
+        </div>
+        <div class="game-status" id="status">←/→ move · ↑ rotate · ↓ soft drop</div>
+        <div class="tetris-wrap">
+          <canvas class="tetris-canvas" id="cv" width="${COLS*CELL}" height="${ROWS*CELL}"></canvas>
+          <div class="tetris-side">
+            <div class="tetris-next">Next:<br><canvas id="nx" width="80" height="80"></canvas></div>
+          </div>
+        </div>
+        <button class="game-btn" id="start">Start</button>
+      </div>`;
+
+    const cv = host.querySelector('#cv'), ctx = cv.getContext('2d');
+    const nxCv = host.querySelector('#nx'), nxCtx = nxCv.getContext('2d');
+    const scEl = host.querySelector('#sc'), lnEl = host.querySelector('#ln');
+    const statusEl = host.querySelector('#status');
+    const startBtn = host.querySelector('#start');
+
+    function newPiece() {
+      const keys = Object.keys(SHAPES);
+      const k = keys[Math.floor(Math.random()*keys.length)];
+      return { k, s: SHAPES[k].s, c: SHAPES[k].c, x: Math.floor(COLS/2)-Math.floor(SHAPES[k].s[0].length/2), y: 0 };
+    }
+
+    function init() {
+      grid = Array(ROWS).fill(null).map(() => Array(COLS).fill(null));
+      score = 0; dropMs = 500; alive = true;
+      cur = newPiece(); nx = newPiece();
+      scEl.textContent = '0'; lnEl.textContent = '0';
+      statusEl.className='game-status'; statusEl.textContent='←/→ move · ↑ rotate · ↓ soft drop';
+      draw();
+    }
+
+    function collides(p, ox=0, oy=0, s=p.s) {
+      for (let r=0; r<s.length; r++) for (let c=0; c<s[r].length; c++) {
+        if (!s[r][c]) continue;
+        const nx = p.x + c + ox, ny = p.y + r + oy;
+        if (nx<0||nx>=COLS||ny>=ROWS) return true;
+        if (ny>=0 && grid[ny][nx]) return true;
+      }
+      return false;
+    }
+
+    function merge() {
+      for (let r=0; r<cur.s.length; r++) for (let c=0; c<cur.s[r].length; c++) {
+        if (cur.s[r][c] && cur.y+r >= 0) grid[cur.y+r][cur.x+c] = cur.c;
+      }
+    }
+
+    function clearLines() {
+      let lines = 0;
+      for (let r = ROWS-1; r >= 0; r--) {
+        if (grid[r].every(c => c)) {
+          grid.splice(r, 1);
+          grid.unshift(Array(COLS).fill(null));
+          lines++; r++;
+        }
+      }
+      if (lines) {
+        const pts = [0, 100, 300, 500, 800][lines];
+        score += pts; scEl.textContent = score;
+        lnEl.textContent = parseInt(lnEl.textContent) + lines;
+        if (dropMs > 100) dropMs -= 20;
+      }
+    }
+
+    function rotate(s) {
+      const R = s.length, C = s[0].length;
+      const n = Array(C).fill(null).map(() => Array(R).fill(0));
+      for (let r=0; r<R; r++) for (let c=0; c<C; c++) n[c][R-1-r] = s[r][c];
+      return n;
+    }
+
+    function drop() {
+      if (!alive) return;
+      if (!collides(cur, 0, 1)) { cur.y++; }
+      else {
+        merge(); clearLines();
+        cur = nx; nx = newPiece();
+        if (collides(cur)) {
+          alive = false; clearInterval(loop);
+          statusEl.className='game-status lose'; statusEl.textContent=`💀 Game over — score ${score}`;
+          startBtn.textContent = 'Restart';
+        }
+      }
+      draw();
+    }
+
+    function draw() {
+      const dark = document.documentElement.getAttribute('data-theme') === 'dark';
+      ctx.fillStyle = dark ? '#161616' : '#f4f4f5';
+      ctx.fillRect(0,0,cv.width,cv.height);
+      // Grid
+      for (let r=0; r<ROWS; r++) for (let c=0; c<COLS; c++) {
+        if (grid[r][c]) {
+          ctx.fillStyle = grid[r][c];
+          ctx.fillRect(c*CELL+1, r*CELL+1, CELL-2, CELL-2);
+        }
+      }
+      // Current piece
+      if (cur) {
+        ctx.fillStyle = cur.c;
+        for (let r=0; r<cur.s.length; r++) for (let c=0; c<cur.s[r].length; c++) {
+          if (cur.s[r][c] && cur.y+r >= 0)
+            ctx.fillRect((cur.x+c)*CELL+1, (cur.y+r)*CELL+1, CELL-2, CELL-2);
+        }
+      }
+      // Next
+      nxCtx.fillStyle = dark ? '#111' : '#fff';
+      nxCtx.fillRect(0,0,80,80);
+      if (nx) {
+        nxCtx.fillStyle = nx.c;
+        const sz = 16;
+        const ox = (80 - nx.s[0].length*sz)/2, oy = (80 - nx.s.length*sz)/2;
+        for (let r=0; r<nx.s.length; r++) for (let c=0; c<nx.s[r].length; c++)
+          if (nx.s[r][c]) nxCtx.fillRect(ox+c*sz+1, oy+r*sz+1, sz-2, sz-2);
+      }
+    }
+
+    function kd(e) {
+      if (!alive) return;
+      if (e.key === 'ArrowLeft' && !collides(cur, -1, 0)) { cur.x--; draw(); e.preventDefault(); }
+      else if (e.key === 'ArrowRight' && !collides(cur, 1, 0)) { cur.x++; draw(); e.preventDefault(); }
+      else if (e.key === 'ArrowDown') { drop(); e.preventDefault(); }
+      else if (e.key === 'ArrowUp') {
+        const ns = rotate(cur.s);
+        if (!collides(cur, 0, 0, ns)) { cur.s = ns; draw(); }
+        e.preventDefault();
+      }
+    }
+
+    document.addEventListener('keydown', kd);
+    startBtn.addEventListener('click', () => {
+      if (!alive) init();
+      if (loop) clearInterval(loop);
+      loop = setInterval(drop, dropMs);
+      statusEl.textContent = 'Playing!';
+    });
+    init();
+    return () => { clearInterval(loop); document.removeEventListener('keydown', kd); };
+  };
+
+  /* ═════════════ SOLITAIRE ═════════════ */
+  GAME_ENGINES.solitaire = (host) => {
+    const SUITS = ['♠','♥','♦','♣'];
+    const RANKS = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
+    let deck, tableau, foundations, stock, waste, selected;
+
+    function isRed(c) { return c.suit === '♥' || c.suit === '♦'; }
+    function cardVal(c) { return RANKS.indexOf(c.rank); }
+
+    function newDeck() {
+      const d = [];
+      for (const s of SUITS) for (const r of RANKS) d.push({ suit: s, rank: r, up: false });
+      for (let i = d.length-1; i>0; i--) { const j = Math.floor(Math.random()*(i+1)); [d[i],d[j]]=[d[j],d[i]]; }
+      return d;
+    }
+
+    host.innerHTML = `
+      <div class="game-stage">
+        <div class="game-stage-head">
+          <div class="game-stage-title">🃏 Solitaire</div>
+          <div class="game-stage-stats"><span>Moves <b id="mv">0</b></span></div>
+        </div>
+        <div class="game-status" id="status">Click a card then a destination</div>
+        <div class="sol-wrap">
+          <div class="sol-stock-waste">
+            <div class="sol-pile" id="stock"></div>
+            <div class="sol-pile" id="waste"></div>
+          </div>
+          <div class="sol-foundations" id="founds">
+            <div class="sol-foundation" data-f="0">♠</div>
+            <div class="sol-foundation" data-f="1">♥</div>
+            <div class="sol-foundation" data-f="2">♦</div>
+            <div class="sol-foundation" data-f="3">♣</div>
+          </div>
+          <div class="sol-tableau" id="tab"></div>
+        </div>
+        <button class="game-btn" id="reset">New game</button>
+      </div>`;
+
+    const tabEl = host.querySelector('#tab');
+    const stockEl = host.querySelector('#stock');
+    const wasteEl = host.querySelector('#waste');
+    const foundsEl = host.querySelector('#founds');
+    const mvEl = host.querySelector('#mv');
+    const statusEl = host.querySelector('#status');
+    let moves = 0;
+
+    function init() {
+      deck = newDeck();
+      tableau = Array(7).fill(null).map(() => []);
+      foundations = [[],[],[],[]];
+      stock = []; waste = []; selected = null;
+      moves = 0; mvEl.textContent = '0';
+      statusEl.className='game-status'; statusEl.textContent='Click a card then a destination';
+      // Deal
+      for (let c=0; c<7; c++) {
+        for (let r=0; r<=c; r++) {
+          const card = deck.pop();
+          if (r === c) card.up = true;
+          tableau[c].push(card);
+        }
+      }
+      stock = deck;
+      render();
+    }
+
+    function render() {
+      // Stock
+      stockEl.innerHTML = '';
+      if (stock.length) {
+        const c = document.createElement('div');
+        c.className = 'sol-card back';
+        c.addEventListener('click', drawFromStock);
+        stockEl.appendChild(c);
+      } else {
+        const r = document.createElement('div');
+        r.className = 'sol-foundation'; r.textContent = '↻';
+        r.style.cssText = 'width:70px;height:96px;';
+        r.addEventListener('click', resetStock);
+        stockEl.appendChild(r);
+      }
+      // Waste
+      wasteEl.innerHTML = '';
+      if (waste.length) {
+        const card = waste[waste.length-1];
+        wasteEl.appendChild(makeCard(card, {src:'waste', idx:waste.length-1}));
+      }
+      // Foundations
+      foundsEl.querySelectorAll('.sol-foundation').forEach((f, i) => {
+        f.innerHTML = SUITS[i];
+        if (foundations[i].length) {
+          const top = foundations[i][foundations[i].length-1];
+          const cardEl = makeCard(top, {src:'foundation', idx:i});
+          cardEl.style.position = 'absolute';
+          f.appendChild(cardEl);
+        }
+        f.onclick = () => tryMoveTo('foundation', i);
+      });
+      // Tableau
+      tabEl.innerHTML = '';
+      for (let c=0; c<7; c++) {
+        const pile = document.createElement('div');
+        pile.className = 'sol-pile';
+        tableau[c].forEach((card, r) => {
+          const el = makeCard(card, {src:'tableau', col:c, row:r});
+          el.style.top = (r * (card.up ? 22 : 10)) + 'px';
+          pile.appendChild(el);
+        });
+        pile.addEventListener('click', e => {
+          if (e.target === pile) tryMoveTo('tableau', c);
+        });
+        tabEl.appendChild(pile);
+      }
+    }
+
+    function makeCard(card, ref) {
+      const el = document.createElement('div');
+      el.className = 'sol-card';
+      if (!card.up) { el.classList.add('back'); return el; }
+      if (isRed(card)) el.classList.add('red');
+      el.innerHTML = `<div>${card.rank}${card.suit}</div><div class="bot">${card.rank}${card.suit}</div>`;
+      if (selected && selected.ref.src === ref.src && selected.ref.col === ref.col && selected.ref.row === ref.row) {
+        el.classList.add('selected');
+      }
+      el.addEventListener('click', e => { e.stopPropagation(); handleCardClick(card, ref); });
+      return el;
+    }
+
+    function handleCardClick(card, ref) {
+      if (!card.up) {
+        if (ref.src === 'tableau' && ref.row === tableau[ref.col].length - 1) {
+          card.up = true; moves++; mvEl.textContent = moves; render();
+        }
+        return;
+      }
+      if (selected && selected.ref.src === ref.src && selected.ref.col === ref.col && selected.ref.row === ref.row) {
+        selected = null; render(); return;
+      }
+      if (selected) {
+        // try to move to this card's location
+        if (ref.src === 'tableau') tryMoveTo('tableau', ref.col);
+        else if (ref.src === 'foundation') tryMoveTo('foundation', ref.idx);
+        return;
+      }
+      // Select this card (and all cards above it in tableau)
+      selected = { card, ref };
+      render();
+    }
+
+    function drawFromStock() {
+      if (!stock.length) return;
+      const c = stock.pop(); c.up = true;
+      waste.push(c); moves++; mvEl.textContent = moves;
+      render();
+    }
+
+    function resetStock() {
+      while (waste.length) { const c = waste.pop(); c.up = false; stock.push(c); }
+      moves++; mvEl.textContent = moves;
+      render();
+    }
+
+    function getPile(ref) {
+      if (ref.src === 'tableau') return tableau[ref.col];
+      if (ref.src === 'waste') return waste;
+      if (ref.src === 'foundation') return foundations[ref.idx];
+      return null;
+    }
+
+    function tryMoveTo(dstType, dstIdx) {
+      if (!selected) return;
+      const src = selected.ref;
+      const srcPile = getPile(src);
+      const srcIdx = srcPile.indexOf(selected.card);
+      const moving = srcPile.slice(srcIdx);
+
+      if (dstType === 'foundation') {
+        if (moving.length !== 1) { selected = null; render(); return; }
+        const card = moving[0];
+        const suitIdx = SUITS.indexOf(card.suit);
+        if (suitIdx !== dstIdx) { selected = null; render(); return; }
+        const fnd = foundations[dstIdx];
+        if (!fnd.length) {
+          if (card.rank !== 'A') { selected = null; render(); return; }
+        } else {
+          const top = fnd[fnd.length-1];
+          if (cardVal(card) !== cardVal(top)+1) { selected = null; render(); return; }
+        }
+        // Move
+        srcPile.splice(srcIdx, 1);
+        fnd.push(card);
+        if (src.src === 'tableau' && srcPile.length) srcPile[srcPile.length-1].up = true;
+        moves++; mvEl.textContent = moves;
+        selected = null;
+        checkWin();
+        render();
+      } else if (dstType === 'tableau') {
+        const destPile = tableau[dstIdx];
+        if (!destPile.length) {
+          if (moving[0].rank !== 'K') { selected = null; render(); return; }
+        } else {
+          const top = destPile[destPile.length-1];
+          if (!top.up || isRed(moving[0]) === isRed(top) || cardVal(moving[0]) !== cardVal(top)-1) {
+            selected = null; render(); return;
+          }
+        }
+        srcPile.splice(srcIdx, moving.length);
+        destPile.push(...moving);
+        if (src.src === 'tableau' && srcPile.length) srcPile[srcPile.length-1].up = true;
+        moves++; mvEl.textContent = moves;
+        selected = null;
+        render();
+      }
+    }
+
+    function checkWin() {
+      if (foundations.every(f => f.length === 13)) {
+        statusEl.className='game-status win'; statusEl.textContent='🎉 You won solitaire!';
+      }
+    }
+
+    host.querySelector('#reset').addEventListener('click', init);
+    init();
+    return () => {};
+  };
+
+  /* ═════════════ BLACKJACK ═════════════ */
+  GAME_ENGINES.blackjack = (host) => {
+    const SUITS = ['♠','♥','♦','♣'];
+    const RANKS = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
+    let deck, player, dealer, bet, chips, state;
+
+    function newDeck() {
+      const d = [];
+      for (const s of SUITS) for (const r of RANKS) d.push({ s, r });
+      for (let i=d.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1));[d[i],d[j]]=[d[j],d[i]]; }
+      return d;
+    }
+
+    function cardVal(c) {
+      if (c.r === 'A') return 11;
+      if (['K','Q','J'].includes(c.r)) return 10;
+      return parseInt(c.r);
+    }
+
+    function handVal(h) {
+      let total = 0, aces = 0;
+      for (const c of h) {
+        total += cardVal(c);
+        if (c.r === 'A') aces++;
+      }
+      while (total > 21 && aces) { total -= 10; aces--; }
+      return total;
+    }
+
+    host.innerHTML = `
+      <div class="game-stage">
+        <div class="game-stage-head">
+          <div class="game-stage-title">🂡 Blackjack</div>
+          <div class="game-stage-stats"><span>Chips <b id="ch">100</b></span><span>Bet <b id="bt">10</b></span></div>
+        </div>
+        <div class="game-status" id="status">Hit or Stand to play</div>
+        <div class="bj-label">Dealer · <span id="dv">?</span></div>
+        <div class="bj-hand" id="dh"></div>
+        <div class="bj-label">You · <span id="pv">0</span></div>
+        <div class="bj-hand" id="ph"></div>
+        <div class="bj-actions">
+          <button class="game-btn" id="hit">Hit</button>
+          <button class="game-btn ghost" id="stand">Stand</button>
+          <button class="game-btn ghost" id="deal">Deal (10)</button>
+        </div>
+      </div>`;
+
+    const dhEl = host.querySelector('#dh'), phEl = host.querySelector('#ph');
+    const dvEl = host.querySelector('#dv'), pvEl = host.querySelector('#pv');
+    const chEl = host.querySelector('#ch'), btEl = host.querySelector('#bt');
+    const statusEl = host.querySelector('#status');
+    const hitBtn = host.querySelector('#hit'), standBtn = host.querySelector('#stand'), dealBtn = host.querySelector('#deal');
+
+    function renderCard(c, hidden=false) {
+      const el = document.createElement('div');
+      el.className = 'bj-card';
+      if (hidden) { el.classList.add('back'); return el; }
+      if (c.s === '♥' || c.s === '♦') el.classList.add('red');
+      el.innerHTML = `<div>${c.r}${c.s}</div><div class="bot">${c.r}${c.s}</div>`;
+      return el;
+    }
+
+    function render() {
+      dhEl.innerHTML = ''; phEl.innerHTML = '';
+      dealer.forEach((c, i) => dhEl.appendChild(renderCard(c, i===1 && state==='play')));
+      player.forEach(c => phEl.appendChild(renderCard(c)));
+      pvEl.textContent = handVal(player);
+      if (state === 'play') dvEl.textContent = '?';
+      else dvEl.textContent = handVal(dealer);
+      chEl.textContent = chips; btEl.textContent = bet;
+    }
+
+    function initRound() {
+      if (chips < 10) { statusEl.className='game-status lose'; statusEl.textContent='💀 Out of chips — refresh to restart'; return; }
+      deck = newDeck();
+      player = [deck.pop(), deck.pop()];
+      dealer = [deck.pop(), deck.pop()];
+      chips -= bet;
+      state = 'play';
+      statusEl.className='game-status'; statusEl.textContent='Hit or Stand?';
+      hitBtn.disabled = false; standBtn.disabled = false;
+      if (handVal(player) === 21) { stand(); return; }
+      render();
+    }
+
+    function hit() {
+      if (state !== 'play') return;
+      player.push(deck.pop());
+      render();
+      if (handVal(player) > 21) {
+        state = 'end';
+        statusEl.className='game-status lose'; statusEl.textContent='💀 Bust! You lose';
+        hitBtn.disabled = true; standBtn.disabled = true;
+        render();
+      }
+    }
+
+    function stand() {
+      if (state !== 'play') return;
+      state = 'dealer';
+      hitBtn.disabled = true; standBtn.disabled = true;
+      render();
+      const dealerPlay = () => {
+        if (handVal(dealer) < 17) {
+          dealer.push(deck.pop()); render();
+          setTimeout(dealerPlay, 600);
+        } else {
+          finish();
+        }
+      };
+      setTimeout(dealerPlay, 600);
+    }
+
+    function finish() {
+      const pv = handVal(player), dv = handVal(dealer);
+      state = 'end';
+      let result;
+      if (dv > 21) { result = '🎉 Dealer busts — you win!'; chips += bet*2; }
+      else if (pv > dv) { result = '🎉 You win!'; chips += bet*2; }
+      else if (pv < dv) { result = '💀 Dealer wins'; }
+      else { result = '🤝 Push — bet returned'; chips += bet; }
+      statusEl.className = (result.startsWith('🎉') ? 'game-status win' : (result.startsWith('💀') ? 'game-status lose' : 'game-status'));
+      statusEl.textContent = result;
+      render();
+    }
+
+    chips = 100; bet = 10; state = 'idle';
+    player = []; dealer = [];
+    statusEl.textContent = 'Press Deal to start';
+    render();
+
+    hitBtn.addEventListener('click', hit);
+    standBtn.addEventListener('click', stand);
+    dealBtn.addEventListener('click', initRound);
+    hitBtn.disabled = true; standBtn.disabled = true;
     return () => {};
   };
 
