@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<title>Tech Topics | Digital Infohub</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta name="theme-color" content="#0a0a0a">
+<meta name="description" content="Explore common topics in the tech industry, from AI to Blockchain.">
+<meta name="color-scheme" content="dark light">
+
+<!-- Branding: Favicon -->
+<link rel="icon" type="image/png" href="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png">
+<link rel="apple-touch-icon" href="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://pagead2.googlesyndication.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<!-- AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471" crossorigin="anonymous"></script>
+
+<style>
+/* ═══ CORE VARIABLES ═══ */
+:root {
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, monospace;
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --radius: 12px;
+  --radius-sm: 8px;
+  --modal-z: 1000;
+}
+
+[data-theme="dark"] {
+  --bg: #0a0a0a;
+  --surface: #111111;
+  --surface-2: #161616;
+  --surface-3: #1a1a1a;
+  --border: rgba(255,255,255,0.06);
+  --border-strong: rgba(255,255,255,0.1);
+  --text: #f5f5f5;
+  --text-sub: #a1a1aa;
+  --text-muted: #71717a;
+  --accent: #6366f1;
+  --accent-soft: rgba(99,102,241,0.1);
+  --shadow: 0 4px 24px -6px rgba(0,0,0,0.4);
+}
+
+[data-theme="light"] {
+  --bg: #fafafa;
+  --surface: #ffffff;
+  --surface-2: #f4f4f5;
+  --surface-3: #e4e4e7;
+  --border: rgba(0,0,0,0.06);
+  --border-strong: rgba(0,0,0,0.12);
+  --text: #0a0a0a;
+  --text-sub: #52525b;
+  --text-muted: #a1a1aa;
+  --accent: #4f46e5;
+  --accent-soft: rgba(79,70,229,0.08);
+  --shadow: 0 4px 24px -6px rgba(0,0,0,0.08);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.shell { max-width: 820px; margin: 0 auto; padding: 32px 24px 80px; }
+
+/* ═══ TOP BAR ═══ */
+.topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 48px; }
+.brand {
+  display: flex; align-items: center; gap: 10px;
+  font-weight: 700; font-size: 15px; letter-spacing: -0.01em;
+  text-decoration: none; color: var(--text);
+}
+.brand-logo {
+  width: 28px; height: 28px;
+  border-radius: 8px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+.brand-logo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.topbar-actions { display: flex; gap: 6px; align-items: center; }
+.icon-btn {
+  width: 36px; height: 36px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-sub);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s var(--ease);
+}
+.icon-btn:hover { color: var(--text); border-color: var(--border-strong); background: var(--surface-2); }
+.icon-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* ═══ PAGE HEADER ═══ */
+.page-header { margin-bottom: 40px; }
+.page-title { font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 12px; }
+.page-desc { color: var(--text-sub); font-size: 16px; max-width: 600px; }
+
+/* ═══ TOPICS GRID ═══ */
+.topics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.topic-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  cursor: pointer;
+  transition: all 0.25s var(--ease);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+  overflow: hidden;
+  text-align: left;
+  color: inherit;
+  font-family: inherit;
+  width: 100%;
+}
+
+.topic-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+  box-shadow: var(--shadow);
+}
+
+.topic-card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  transform: translateY(-4px);
+}
+
+.topic-icon {
+  width: 48px; height: 48px;
+  border-radius: 12px;
+  background: var(--surface-2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px;
+  margin-bottom: 4px;
+}
+
+.topic-name { font-size: 18px; font-weight: 700; color: var(--text); }
+.topic-brief { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+.topic-arrow { 
+  position: absolute; top: 24px; right: 24px; 
+  color: var(--text-muted); opacity: 0; transition: opacity 0.2s; 
+  font-size: 18px;
+}
+.topic-card:hover .topic-arrow, .topic-card:focus-visible .topic-arrow { opacity: 1; color: var(--accent); }
+
+/* ═══ POPUP WIDGET (MODAL) ═══ */
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: var(--modal-z);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.3s var(--ease);
+  padding: 24px;
+}
+
+.modal-overlay.active { opacity: 1; pointer-events: all; }
+
+.modal-widget {
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 16px;
+  width: 100%; max-width: 500px;
+  padding: 32px;
+  box-shadow: 0 20px 60px -10px rgba(0,0,0,0.5);
+  transform: scale(0.95) translateY(10px);
+  transition: transform 0.3s var(--ease);
+  position: relative;
+  max-height: 90vh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.modal-overlay.active .modal-widget { transform: scale(1) translateY(0); }
+
+.modal-close {
+  position: absolute; top: 16px; right: 16px;
+  width: 32px; height: 32px;
+  background: var(--surface-2); border: 1px solid var(--border);
+  border-radius: 50%; color: var(--text-sub);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 18px; transition: all 0.2s;
+}
+.modal-close:hover { background: var(--surface-3); color: var(--text); }
+.modal-close:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.modal-head { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; padding-right: 32px; }
+.modal-icon {
+  width: 56px; height: 56px; border-radius: 14px;
+  background: var(--accent-soft); color: var(--accent);
+  display: flex; align-items: center; justify-content: center; font-size: 28px;
+  flex-shrink: 0;
+}
+.modal-title { font-size: 24px; font-weight: 700; letter-spacing: -0.01em; }
+
+.modal-body { color: var(--text-sub); font-size: 15px; line-height: 1.7; margin-bottom: 28px; }
+.modal-body p + p { margin-top: 12px; }
+
+.wiki-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--text); color: var(--bg);
+  padding: 12px 24px; border-radius: 99px;
+  font-weight: 600; font-size: 14px;
+  text-decoration: none; transition: transform 0.2s var(--ease), opacity 0.2s;
+  border: none;
+  cursor: pointer;
+}
+.wiki-btn:hover { transform: translateY(-2px); opacity: 0.9; }
+.wiki-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.wiki-btn svg { width: 16px; height: 16px; }
+
+/* ═══ NAV SHELL ═══ */
+.nav-shell {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--bg); border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  margin: -32px -24px 32px; padding: 0 24px;
+}
+.nav-bar { 
+  max-width: 820px; margin: 0 auto; 
+  display: flex; align-items: center; padding: 12px 0; gap: 8px; 
+  overflow-x: auto; scrollbar-width: none;
+}
+.nav-bar::-webkit-scrollbar { display: none; }
+
+.nav-link {
+  padding: 8px 14px; background: none; border: 1px solid transparent;
+  color: var(--text-sub); border-radius: 8px; cursor: pointer;
+  font-size: 13px; font-weight: 500; text-decoration: none; 
+  transition: all 0.2s; white-space: nowrap;
+  font-family: inherit;
+}
+.nav-link:hover { color: var(--text); background: var(--surface-2); border-color: var(--border); }
+.nav-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* ═══ AD BOXES ═══ */
+.ad-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 32px;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.ad-box-inline {
+  margin: 40px 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  min-height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.ad-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.ad-box-ins {
+  width: 100%;
+  display: block;
+  min-height: 100px;
+}
+
+@media (max-width: 640px) {
+  .shell { padding: 20px 16px 60px; }
+  .page-title { font-size: 26px; }
+  .modal-widget { padding: 24px; }
+  .nav-shell { margin: -20px -16px 32px; padding: 0 16px; }
+  .topics-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .topic-card { padding: 18px; }
+  .topic-name { font-size: 16px; }
+  .topic-icon { width: 40px; height: 40px; font-size: 20px; }
+}
+
+@media (max-width: 380px) {
+  .topics-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="shell">
+  
+  <!-- NAVIGATION (Tech Topics removed since user is already on this page) -->
+  <nav class="nav-shell" aria-label="Main navigation">
+    <div class="nav-bar">
+      <a href="https://digitalinfohub.net" class="nav-link" aria-label="Home">🏠 Home</a>
+      <a href="https://digitalinfohub.net/blog" class="nav-link" aria-label="Blog">📝 Blog</a>
+      <a href="https://digitalinfohub.net/games" class="nav-link" aria-label="Games">🎮 Games</a>
+    </div>
+  </nav>
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <a href="https://digitalinfohub.net" class="brand" aria-label="Digital Infohub Home">
+      <span class="brand-logo">
+        <img src="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png" alt="" loading="lazy">
+      </span>
+      <span>Digital Infohub</span>
+    </a>
+    <div class="topbar-actions">
+      <button class="icon-btn" id="themeToggle" title="Toggle theme" aria-label="Toggle dark and light theme">
+        <svg id="themeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- PAGE CONTENT -->
+  <header class="page-header">
+    <h1 class="page-title">Tech Topics</h1>
+    <p class="page-desc">Explore the core concepts shaping our digital world. Click any card below to learn more and dive deeper via Wikipedia.</p>
+  </header>
+
+  <!-- TOP AD -->
+  <div class="ad-box" role="complementary" aria-label="Advertisement">
+    <div>
+      <div class="ad-label">Sponsored</div>
+      <ins class="adsbygoogle ad-box-ins"
+           style="display:block"
+           data-ad-client="ca-pub-5443646750699471"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+  </div>
+
+  <div class="topics-grid" id="topicsGrid" role="list">
+    <!-- Cards injected via JS -->
+  </div>
+
+  <!-- MID CONTENT AD -->
+  <div class="ad-box-inline" role="complementary" aria-label="Advertisement">
+    <div style="width:100%;">
+      <div class="ad-label">Sponsored</div>
+      <ins class="adsbygoogle ad-box-ins"
+           style="display:block"
+           data-ad-client="ca-pub-5443646750699471"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+  </div>
+
+  <!-- FOOTER AD (with specific manual slot) -->
+  <div class="ad-box" role="complementary" aria-label="Advertisement">
+    <div style="width:100%;">
+      <div class="ad-label">Sponsored</div>
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-5443646750699471"
+           data-ad-slot="8451723433"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+  </div>
+
+</div>
+
+<!-- POPUP WIDGET / MODAL -->
+<div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="mTitle" aria-hidden="true">
+  <div class="modal-widget">
+    <button class="modal-close" id="modalClose" aria-label="Close popup">×</button>
+    
+    <div class="modal-head">
+      <div class="modal-icon" id="mIcon" aria-hidden="true"></div>
+      <h2 class="modal-title" id="mTitle">Topic Title</h2>
+    </div>
+    
+    <div class="modal-body" id="mBody">
+      <!-- Content injected via JS -->
+    </div>
+
+    <a href="#" target="_blank" rel="noopener noreferrer" class="wiki-btn" id="mLink">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+      Read on Wikipedia
+    </a>
+  </div>
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  /* ═══ DATA: COMMON TECH TOPICS (expanded) ═══ */
+  const TOPICS = [
+    {
+      id: 'ai',
+      name: 'Artificial Intelligence',
+      icon: '🧠',
+      brief: 'Simulation of human intelligence by machines.',
+      body: '<p>Artificial Intelligence (AI) refers to the simulation of human intelligence in machines that are programmed to think like humans and mimic their actions. The term may also be applied to any machine that exhibits traits associated with a human mind such as learning and problem solving.</p><p>Modern AI includes machine learning, natural language processing, and computer vision, powering everything from recommendation algorithms to autonomous vehicles.</p>',
+      wiki: 'https://en.wikipedia.org/wiki/Artificial_intelligence'
+    },
+    {
+      id: 'ml',
+      name: 'Machine Learning',
+      icon: '📊',
+      brief: 'Algorithms that improve through experience and data.',
+      body: '<p>Machine learning (ML) is a field of study in AI concerned with the development of algorithms that can learn from and make predictions on data. These algorithms operate by building a model from sample training data in order to make data-driven predictions or decisions.</p><p>It includes supervised, unsupervised, and reinforcement learning paradigms that power everything from spam filters to self-driving cars.</p>',
+      wiki: 'https://en.wikipedia.org/wiki/Machine_learning'
+    },
+    {
+      id: 'blockchain',
+      name: 'Blockchain',
+      icon: '⛓️',
+      brief: 'Decentralized, distributed ledger technology.',
+      body: '<p>A blockchain is a distributed ledger with growing lists of records (blocks) that are securely linked together via cryptographic hashes. Each block contains a cryptographic hash of the previous block, a timestamp, and transaction data.</p><p>By design, a blockchain is resistant to modification of its data. It is most famously known as the underlying technology behind cryptocurrencies like Bitcoin and Ethereum.</p>',
+      wiki: 'https://en.wikipedia.org/wiki/Blockchain'
+    },
+    {
+      id: 'cloud',
+      name: 'Cloud Computing',
+      icon: '☁️',
+      brief: 'On-demand delivery of IT resources over the internet.',
+      body: '<p>Cloud computing is the on-demand availability of computer system resources, especially data storage and computing power, without direct active management by the user. Large cloud systems often have functions distributed over multiple locations, each being a data center.</p><p>Key models include IaaS, PaaS, and SaaS, enabling scalable infrastructure for businesses worldwide.</p>',
+      wiki: 'https://en.wikipedia.org/wiki/Cloud_computing'
+    },
+    {
+      id: 'cybersec',
+      name: 'Cybersecurity',
+      icon: '🛡️',
+      brief: 'Protection of systems against digital attacks.',
+      body: '<p>Cybersecurity involves protecting computer systems, networks, and programs from digital attacks, theft, or damage. These cyberattacks are usually aimed at accessing, changing, or destroying sensitive information, extorting money from users, or interrupting normal business processes.</p><p>It encompasses network security, application security, and operational security practices.</p>',
+      wiki: 'https://en.wikipedia.org/wiki/Cybersecurity'
+    },
+    {
+      id: 'iot',
+      name: 'Internet of Things',
+      icon: '📡',
+      brief: 'Network of physical objects embedded with sensors.',
+      body: '<p>The Internet of Things (IoT) describes physical objects with sensors, processing ability, software, and other technologies that connect and exchange data with other devices and systems over the Internet or other communications networks.</p><p>From smart home thermostats to industrial manufacturing sensors, IoT bridges the physical and digital worlds.</p>',
+      wiki: 'https://en.wikipedia.org/wiki/Internet_of_things'
+    },
+    {
+      id: 'quantum',
+      name: 'Quantum Computing',
+      icon: '⚛️',
+      brief: 'Computing using quantum-mechanical phenomena.',
+      body: '<p>Quantum computing uses quantum-mechanical phenomena such as superposition and entanglement to perform computation. Quantum computers are believed to be able to solve certain computational problems substantially faster than classical computers.</p><p>This field holds promise for revolutionizing cryptography, drug discovery, and complex system modeling.</p>',
+      wiki: 'https://en.wikipedia.org/wiki/Quantum_computing'
+    },
+    {
+      id: 'bigdata',
+      name: 'Big Data',
+      icon: '💾',
+      brief: 'Processing massive datasets for insights.',
+      body: '<p>Big Data refers to extremely large datasets that may be analyzed computationally to reveal patterns, trends, and associations relating to human behavior and interactions. It is often characterized by the 5 Vs: volume, velocity, variety, veracity, and value.</p><p>Tools like Hadoop, Spark, and modern data warehouses power Big Data analytics across industries from finance to healthcare.</p>',
+      wiki: 'https://en.wikipedia.org/wiki/Big_data'
+    },
+    {
+      id: 'vrar',
+      name: 'VR & AR',
+      icon: '🥽',
+      brief: 'Immersive and augmented digital experiences.',
+      body: '<p>Virtual Reality (VR) creates fully immersive digital environments, while Augmented Reality (AR) overlays digital content onto the real world. Together they form the broader concept of Extended Reality (XR).</p><p>Applications span gaming, training simulations, architectural visualization, medical therapy, and the emerging metaverse ecosystem.</p>',
+      wiki: 'https://en.wikipedia.org/wiki/Virtual_reality'
+    },
+    {
+      id: '5g',
+      name: '5G Networks',
+      icon: '📶',
+      brief: 'Fifth-generation mobile connectivity.',
+      body: '<p>5G is the fifth generation of mobile network technology, offering significantly faster data speeds, lower latency, greater capacity, and more reliable connections than previous 4G networks.</p><p>5G enables new use cases like autonomous vehicles, remote surgery, smart cities, and massive IoT deployments at scale.</p>',
+      wiki: 'https://en.wikipedia.org/wiki/5G'
+    },
+    {
+      id: 'api',
+      name: 'APIs',
+      icon: '🔌',
+      brief: 'How software systems communicate with each other.',
+      body: '<p>An Application Programming Interface (API) is a way for two or more computer programs to communicate with each other. It defines the methods and data formats that applications can use to request and exchange information.</p><p>REST, GraphQL, and gRPC are common API styles that power modern web services and mobile app backends.</p>',
+      wiki: 'https://en.wikipedia.org/wiki/API'
+    },
+    {
+      id: 'devops',
+      name: 'DevOps',
+      icon: '⚙️',
+      brief: 'Bridging development and IT operations.',
+      body: '<p>DevOps is a set of practices, cultural philosophies, and tools that increase an organization&apos;s ability to deliver applications and services at high velocity. It combines software development (Dev) with IT operations (Ops).</p><p>Key practices include CI/CD pipelines, infrastructure as code, automated testing, and continuous monitoring.</p>',
+      wiki: 'https://en.wikipedia.org/wiki/DevOps'
+    },
+    {
+      id: 'opensource',
+      name: 'Open Source',
+      icon: '🌐',
+      brief: 'Software with publicly accessible source code.',
+      body: '<p>Open-source software (OSS) is computer software that is released under a license in which the copyright holder grants users the rights to use, study, change, and distribute the software and its source code to anyone and for any purpose.</p><p>Famous projects include Linux, Firefox, Kubernetes, React, and Python—forming the backbone of the modern internet.</p>',
+      wiki: 'https://en.wikipedia.org/wiki/Open-source_software'
+    },
+    {
+      id: 'robotics',
+      name: 'Robotics',
+      icon: '🤖',
+      brief: 'Design and operation of autonomous machines.',
+      body: '<p>Robotics is an interdisciplinary field that integrates computer science and engineering. It involves the design, construction, operation, and use of robots. The goal is to create machines that can assist humans in many applications.</p><p>From industrial automation to space exploration and surgical robots, the field is expanding rapidly with AI integration.</p>',
+      wiki: 'https://en.wikipedia.org/wiki/Robotics'
+    },
+    {
+      id: 'edge',
+      name: 'Edge Computing',
+      icon: '📍',
+      brief: 'Processing data closer to its source.',
+      body: '<p>Edge computing is a distributed computing paradigm that brings computation and data storage closer to the sources of data. This is expected to improve response times and save bandwidth compared to processing in distant cloud data centers.</p><p>It is essential for IoT, autonomous vehicles, real-time analytics, and 5G-enabled applications.</p>',
+      wiki: 'https://en.wikipedia.org/wiki/Edge_computing'
+    },
+    {
+      id: 'web3',
+      name: 'Web3',
+      icon: '🕸️',
+      brief: 'Decentralized web built on blockchain.',
+      body: '<p>Web3 refers to an iteration of the World Wide Web based on public blockchains, smart contracts, and decentralized technologies. It envisions a web where users own their data, identity, and digital assets.</p><p>Core components include decentralized apps (dApps), tokens, NFTs, and decentralized autonomous organizations (DAOs).</p>',
+      wiki: 'https://en.wikipedia.org/wiki/Web3'
+    }
+  ];
+
+  /* ═══ DOM ELEMENTS ═══ */
+  const grid = document.getElementById('topicsGrid');
+  const overlay = document.getElementById('modalOverlay');
+  const mIcon = document.getElementById('mIcon');
+  const mTitle = document.getElementById('mTitle');
+  const mBody = document.getElementById('mBody');
+  const mLink = document.getElementById('mLink');
+  const closeBtn = document.getElementById('modalClose');
+  const themeToggle = document.getElementById('themeToggle');
+  const themeIcon = document.getElementById('themeIcon');
+
+  let lastFocusedElement = null;
+
+  /* ═══ RENDER GRID ═══ */
+  TOPICS.forEach(t => {
+    const card = document.createElement('button');
+    card.className = 'topic-card';
+    card.setAttribute('role', 'listitem');
+    card.innerHTML = `
+      <div class="topic-icon" aria-hidden="true">${t.icon}</div>
+      <div class="topic-name">${t.name}</div>
+      <div class="topic-brief">${t.brief}</div>
+      <div class="topic-arrow" aria-hidden="true">→</div>
+    `;
+    card.addEventListener('click', () => openModal(t));
+    grid.appendChild(card);
+  });
+
+  /* ═══ MODAL LOGIC ═══ */
+  function openModal(topic) {
+    lastFocusedElement = document.activeElement;
+    
+    mIcon.textContent = topic.icon;
+    mTitle.textContent = topic.name;
+    mBody.innerHTML = topic.body;
+    mLink.href = topic.wiki;
+    
+    overlay.classList.add('active');
+    overlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    
+    setTimeout(() => closeBtn.focus(), 100);
+  }
+
+  function closeModal() {
+    overlay.classList.remove('active');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    
+    if (lastFocusedElement) {
+      lastFocusedElement.focus();
+    }
+  }
+
+  closeBtn.addEventListener('click', closeModal);
+  
+  overlay.addEventListener('click', e => { 
+    if (e.target === overlay) closeModal(); 
+  });
+  
+  document.addEventListener('keydown', e => { 
+    if (e.key === 'Escape' && overlay.classList.contains('active')) {
+      closeModal();
+    }
+  });
+
+  /* ═══ THEME TOGGLE ═══ */
+  const sunSvg = '<circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>';
+  const moonSvg = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+  
+  let theme = 'dark';
+  try { 
+    theme = localStorage.getItem('dih_theme') || 'dark'; 
+  } catch(e) {}
+  
+  document.documentElement.setAttribute('data-theme', theme);
+  themeIcon.innerHTML = theme === 'dark' ? sunSvg : moonSvg;
+
+  themeToggle.addEventListener('click', () => {
+    theme = theme === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', theme);
+    try { 
+      localStorage.setItem('dih_theme', theme); 
+    } catch(e) {}
+    themeIcon.innerHTML = theme === 'dark' ? sunSvg : moonSvg;
+  });
+
+})();
+</script>
+</body>
+</html>
