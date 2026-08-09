@@ -8,6 +8,32 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Social Sharing Meta Tags -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Digital Infohub">
+<meta property="og:description" content="A unified hub for news, tools, games, and AI.">
+<meta property="og:image" content="https://raw.githubusercontent.com/digitalinfohub/digitalinfohub/refs/heads/main/DigitalInfohubGAMES2.png">
+<meta property="og:url" content="https://digitalinfohub.net">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Digital Infohub">
+<meta name="twitter:description" content="A unified hub for news, tools, games, and AI.">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/digitalinfohub/digitalinfohub/refs/heads/main/DigitalInfohubGAMES2.png">
+
+<!-- Branding: Favicon -->
+<link rel="icon" type="image/png" href="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png">
+<link rel="apple-touch-icon" href="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png">
+
+<link rel="preconnect" href="https://api.rss2json.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://pagead2.googlesyndication.com">
+<link rel="preconnect" href="https://static.wixstatic.com">
+
+<!-- AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471"
+     crossorigin="anonymous"></script>
+
 <style>
 :root{
   --ink:#0e0c22; --panel:#171433; --panel2:#1e1a42; --line:#2e2860;
@@ -25,7 +51,7 @@ body{
 button{font-family:inherit;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
 button:focus-visible,input:focus-visible{outline:3px dashed var(--yellow);outline-offset:3px}
 
-/* ---------- ambient background ---------- */
+/* ambient background */
 .glow{position:fixed;border-radius:50%;filter:blur(90px);opacity:.32;pointer-events:none;z-index:0}
 .g1{width:44vw;height:44vw;background:var(--pink);top:-14vw;left:-10vw}
 .g2{width:38vw;height:38vw;background:var(--cyan);top:20vh;right:-14vw;opacity:.22}
@@ -44,10 +70,8 @@ button:focus-visible,input:focus-visible{outline:3px dashed var(--yellow);outlin
 body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:90;opacity:.5;
   background:repeating-linear-gradient(0deg,rgba(0,0,0,.10) 0 2px,transparent 2px 5px)}
 
-/* ---------- shell ---------- */
 .wrap{position:relative;z-index:1;max-width:1120px;margin:0 auto;padding:clamp(14px,3vw,28px)}
 
-/* header */
 header{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;flex-wrap:wrap;padding-bottom:18px}
 h1{font-family:'Press Start 2P';font-size:clamp(1.15rem,4.4vw,2.3rem);line-height:1.25;letter-spacing:.02em}
 h1 .p1{color:var(--cyan);text-shadow:0 0 18px rgba(69,240,223,.55),4px 4px 0 #0a3a37}
@@ -55,7 +79,7 @@ h1 .p2{color:var(--yellow);text-shadow:0 0 18px rgba(255,210,63,.5),4px 4px 0 #5
 .sub{font-family:'Press Start 2P';font-size:clamp(.5rem,1.6vw,.68rem);color:var(--pink);margin-top:10px;letter-spacing:.14em}
 .sub .blink{animation:blink 1s steps(2) infinite}
 @keyframes blink{50%{opacity:0}}
-.hright{display:flex;gap:10px;align-items:center}
+.hright{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .coinchip{font-family:'Press Start 2P';font-size:.62rem;background:var(--panel);border:3px solid var(--yellow);
   padding:.65rem .8rem;border-radius:var(--r);box-shadow:4px 4px 0 rgba(0,0,0,.45);display:flex;gap:.5rem;align-items:center;color:var(--yellow)}
 .coinchip.pop{animation:coinpop .35s}
@@ -64,7 +88,13 @@ h1 .p2{color:var(--yellow);text-shadow:0 0 18px rgba(255,210,63,.5),4px 4px 0 #5
   width:44px;height:44px;font-size:1.1rem;box-shadow:4px 4px 0 rgba(0,0,0,.45);transition:transform .12s}
 #mute:active{transform:translate(2px,2px)}
 
-/* ticker */
+/* nav buttons */
+.navbtns{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.navbtn{font-family:'Press Start 2P';font-size:.5rem;background:var(--panel);color:var(--cyan);border:3px solid var(--cyan);
+  padding:.6rem .8rem;border-radius:var(--r);text-decoration:none;box-shadow:3px 3px 0 rgba(0,0,0,.45);transition:transform .12s}
+.navbtn:hover{background:var(--cyan);color:#14102e}
+.navbtn:active{transform:translate(2px,2px)}
+
 .ticker{border-top:3px solid var(--line);border-bottom:3px solid var(--line);background:#120f2b;overflow:hidden;margin:6px 0 26px}
 .tickertrack{display:flex;width:max-content;animation:tick 26s linear infinite;padding:.55rem 0}
 .ticker:hover .tickertrack{animation-play-state:paused}
@@ -72,12 +102,14 @@ h1 .p2{color:var(--yellow);text-shadow:0 0 18px rgba(255,210,63,.5),4px 4px 0 #5
 .tickertrack span{font-family:'Press Start 2P';font-size:.56rem;color:var(--dim);padding:0 1.4rem;white-space:nowrap;letter-spacing:.08em}
 .tickertrack b{color:var(--yellow)}
 
+.adslot{background:var(--panel);border:3px dashed var(--line);border-radius:var(--r);margin:16px 0;padding:20px;text-align:center;
+  font-family:'Press Start 2P';font-size:.6rem;color:var(--dim);letter-spacing:.1em}
+
 .prompt{font-family:'Press Start 2P';font-size:clamp(.6rem,2vw,.8rem);color:var(--text);margin:4px 0 18px}
 .prompt .cursor{color:var(--lime);animation:blink .9s steps(2) infinite}
 .floor-label{font-family:'Press Start 2P';font-size:.72rem;color:var(--cyan);margin:8px 0 16px;letter-spacing:.15em;display:flex;align-items:center;gap:12px}
 .floor-label::after{content:'';flex:1;height:3px;background:repeating-linear-gradient(90deg,var(--line) 0 10px,transparent 10px 18px)}
 
-/* ---------- cabinets ---------- */
 .cabs{display:grid;grid-template-columns:repeat(6,1fr);gap:18px}
 .cab{grid-column:span 2;background:var(--panel);border:3px solid var(--acc,var(--cyan));border-radius:14px;
   box-shadow:6px 6px 0 rgba(0,0,0,.45);overflow:hidden;text-align:left;color:var(--text);
@@ -126,8 +158,22 @@ h1 .p2{color:var(--yellow);text-shadow:0 0 18px rgba(255,210,63,.5),4px 4px 0 #5
 .mini-ttt i:nth-child(odd){color:var(--cyan)}.mini-ttt i:nth-child(even){color:var(--pink)}
 .mini-ttt i:nth-child(2){animation-delay:.3s}.mini-ttt i:nth-child(4){animation-delay:.6s}.mini-ttt i:nth-child(7){animation-delay:.9s}
 @keyframes cellin{0%,100%{opacity:.25}30%,70%{opacity:1}}
+.mini-pong{display:flex;justify-content:space-between;width:70px}
+.mini-pong i{width:8px;height:24px;background:var(--cyan);animation:pongmove 1.4s ease-in-out infinite}
+.mini-pong i:last-child{background:var(--pink);animation-delay:.7s}
+.mini-pong::after{content:'';width:6px;height:6px;background:var(--yellow);border-radius:50%;animation:pongball 1.4s linear infinite;margin:auto}
+@keyframes pongmove{0%,100%{transform:translateY(10px)}50%{transform:translateY(-10px)}}
+@keyframes pongball{0%{transform:translate(0,0)}50%{transform:translate(0,20px)}100%{transform:translate(0,0)}}
+.mini-2048{display:grid;grid-template-columns:repeat(2,20px);gap:4px}
+.mini-2048 i{width:20px;height:20px;background:var(--orange);border-radius:4px;display:grid;place-items:center;font-style:normal;font-size:.6rem;font-weight:700;color:#14102e}
+.mini-simon{display:grid;grid-template-columns:repeat(2,20px);gap:4px}
+.mini-simon i{width:20px;height:20px;border-radius:4px;animation:simonflash 2.4s infinite}
+.mini-simon i:nth-child(1){background:#ff4d4d;animation-delay:0s}
+.mini-simon i:nth-child(2){background:#4dff4d;animation-delay:.6s}
+.mini-simon i:nth-child(3){background:#4d4dff;animation-delay:1.2s}
+.mini-simon i:nth-child(4){background:#ffff4d;animation-delay:1.8s}
+@keyframes simonflash{0%,50%,100%{opacity:.3}25%{opacity:1}}
 
-/* ---------- stage overlay ---------- */
 .stage{position:fixed;inset:0;z-index:60;background:rgba(10,8,26,.94);display:flex;flex-direction:column;
   opacity:0;visibility:hidden;transform:translateY(26px);transition:opacity .26s,transform .26s,visibility .26s}
 .stage.on{opacity:1;visibility:visible;transform:none}
@@ -144,7 +190,6 @@ h1 .p2{color:var(--yellow);text-shadow:0 0 18px rgba(255,210,63,.5),4px 4px 0 #5
 .stagebody{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:clamp(14px,3vw,26px) 16px calc(30px + env(safe-area-inset-bottom))}
 .stagebody-inner{max-width:660px;margin:0 auto}
 
-/* shared game bits */
 .gwrap{position:relative;display:flex;flex-direction:column;gap:16px;align-items:center}
 .gmsg{position:absolute;inset:0;z-index:5;display:flex;align-items:center;justify-content:center;background:rgba(10,8,26,.82);border-radius:var(--r);padding:14px}
 .gmsg.hide{display:none}
@@ -160,7 +205,6 @@ h1 .p2{color:var(--yellow);text-shadow:0 0 18px rgba(255,210,63,.5),4px 4px 0 #5
 .btn.ghost{background:var(--panel);color:var(--text);border:3px solid var(--line)}
 .hint{color:var(--dim);font-size:.82rem;text-align:center}
 
-/* Snake */
 .snakebox{position:relative;width:100%;max-width:440px}
 #scv{width:100%;aspect-ratio:1;display:block;border:3px solid var(--line);border-radius:var(--r);background:#120f2b;touch-action:none}
 .dpad{display:none;grid-template-columns:repeat(3,66px);grid-template-rows:repeat(2,56px);gap:8px;margin:2px auto 0}
@@ -174,7 +218,6 @@ h1 .p2{color:var(--yellow);text-shadow:0 0 18px rgba(255,210,63,.5),4px 4px 0 #5
 @media (pointer:coarse){.dpad{display:grid}}
 @media (max-width:640px){.dpad{display:grid}}
 
-/* Tic tac toe */
 .tttgrid{display:grid;grid-template-columns:repeat(3,minmax(72px,110px));gap:10px}
 .tttcell{aspect-ratio:1;background:var(--panel2);border:3px solid var(--line);border-radius:10px;
   font-family:'Press Start 2P';font-size:clamp(1.4rem,6vw,2rem);color:var(--text);transition:transform .1s,border-color .2s}
@@ -185,7 +228,6 @@ h1 .p2{color:var(--yellow);text-shadow:0 0 18px rgba(255,210,63,.5),4px 4px 0 #5
 @keyframes winpulse{50%{transform:scale(1.06)}}
 #tttStatus{font-family:'Press Start 2P';font-size:clamp(.6rem,2.4vw,.78rem);color:var(--yellow);text-align:center;min-height:1.4em}
 
-/* Memory */
 .memgrid{display:grid;grid-template-columns:repeat(4,minmax(58px,96px));gap:10px}
 .memcard{aspect-ratio:1;background:none;border:none;perspective:500px;padding:0}
 .min{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .38s;display:block}
@@ -197,13 +239,12 @@ h1 .p2{color:var(--yellow);text-shadow:0 0 18px rgba(255,210,63,.5),4px 4px 0 #5
 .memcard:active .min{transform:scale(.95)}
 .memcard.flip:active .min{transform:rotateY(180deg) scale(.95)}
 
-/* ---------- TYPING — fixed box ---------- */
 .twrap{width:100%;max-width:560px;align-items:stretch}
 .typebox{
   background:#0d0a20;border:3px solid var(--line);border-radius:var(--r);
   padding:14px 14px;
-  height:8.6em;                 /* fixed height — text can never escape */
-  overflow:hidden;             /* clipped + scrolled programmatically   */
+  height:8.6em;
+  overflow:hidden;
   font-size:clamp(.92rem,2.6vw,1.05rem);
   line-height:2.15;
   position:relative;
@@ -215,13 +256,12 @@ h1 .p2{color:var(--yellow);text-shadow:0 0 18px rgba(255,210,63,.5),4px 4px 0 #5
 .tlabel{font-family:'Press Start 2P';font-size:.55rem;color:var(--cyan);letter-spacing:.1em}
 #tinput{
   width:100%;background:var(--panel2);border:3px solid var(--line);border-radius:var(--r);
-  color:var(--text);font-family:'Space Grotesk';font-weight:700;font-size:16px; /* 16px = no iOS zoom */
+  color:var(--text);font-family:'Space Grotesk';font-weight:700;font-size:16px;
   padding:13px 14px;letter-spacing:.04em;
 }
 #tinput:focus{border-color:var(--yellow)}
 #tinput::placeholder{color:#5a5486;font-weight:400}
 
-/* Mole */
 .molegrid{display:grid;grid-template-columns:repeat(3,minmax(70px,110px));gap:12px}
 .hole{position:relative;aspect-ratio:1;background:radial-gradient(circle at 50% 78%,#241d4d 0 34%,transparent 35%),var(--panel2);
   border:3px solid var(--line);border-radius:12px;overflow:hidden;padding:0}
@@ -236,7 +276,6 @@ h1 .p2{color:var(--yellow);text-shadow:0 0 18px rgba(255,210,63,.5),4px 4px 0 #5
 .float.neg{color:var(--pink)}
 @keyframes rise{to{transform:translate(-50%,-26px);opacity:0}}
 
-/* Reaction */
 #rpad{width:100%;max-width:480px;min-height:min(44vh,320px);border-radius:14px;border:3px solid var(--line);
   background:var(--panel2);font-family:'Press Start 2P';font-size:clamp(.8rem,3.4vw,1.15rem);color:var(--text);
   padding:20px;line-height:1.9;transition:background .15s,border-color .15s}
@@ -247,10 +286,40 @@ h1 .p2{color:var(--yellow);text-shadow:0 0 18px rgba(255,210,63,.5),4px 4px 0 #5
 .rounds{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
 .rounds .chip{font-family:'Press Start 2P';font-size:.55rem;color:var(--green)}
 
-/* footer */
+/* Pong */
+.pongbox{position:relative;width:100%;max-width:500px}
+#pongcv{width:100%;aspect-ratio:2/1.2;display:block;border:3px solid var(--line);border-radius:var(--r);background:#120f2b;touch-action:none}
+
+/* 2048 */
+.g2048{display:grid;grid-template-columns:repeat(4,minmax(60px,90px));gap:8px;background:var(--panel);padding:8px;border-radius:var(--r);border:3px solid var(--line)}
+.t2048{aspect-ratio:1;background:var(--panel2);border-radius:6px;display:grid;place-items:center;font-family:'Press Start 2P';font-size:clamp(.6rem,2.8vw,.9rem);font-weight:700;transition:transform .15s}
+.t2048.pop{animation:pop .2s}
+@keyframes pop{50%{transform:scale(1.2)}}
+.t2048[data-v="2"]{background:#eee4da;color:#776e65}
+.t2048[data-v="4"]{background:#ede0c8;color:#776e65}
+.t2048[data-v="8"]{background:#f2b179;color:#f9f6f2}
+.t2048[data-v="16"]{background:#f59563;color:#f9f6f2}
+.t2048[data-v="32"]{background:#f67c5f;color:#f9f6f2}
+.t2048[data-v="64"]{background:#f65e3b;color:#f9f6f2}
+.t2048[data-v="128"]{background:#edcf72;color:#f9f6f2}
+.t2048[data-v="256"]{background:#edcc61;color:#f9f6f2}
+.t2048[data-v="512"]{background:#edc850;color:#f9f6f2}
+.t2048[data-v="1024"]{background:#edc53f;color:#f9f6f2;font-size:clamp(.5rem,2.2vw,.75rem)}
+.t2048[data-v="2048"]{background:#edc22e;color:#f9f6f2;font-size:clamp(.5rem,2.2vw,.75rem)}
+.g2048wrap{width:100%;max-width:420px}
+
+/* Simon */
+.simon{display:grid;grid-template-columns:repeat(2,minmax(80px,120px));gap:12px}
+.spad{aspect-ratio:1;border-radius:14px;border:3px solid var(--line);cursor:pointer;transition:filter .15s,transform .1s}
+.spad:active{transform:scale(.95)}
+.spad[data-c="0"]{background:#1a4d1a}.spad[data-c="1"]{background:#4d1a1a}
+.spad[data-c="2"]{background:#1a1a4d}.spad[data-c="3"]{background:#4d4d1a}
+.spad.active{filter:brightness(2.2);box-shadow:0 0 24px currentColor}
+.spad[data-c="0"]{color:#4dff4d}.spad[data-c="1"]{color:#ff4d4d}
+.spad[data-c="2"]{color:#4d4dff}.spad[data-c="3"]{color:#ffff4d}
+
 footer{margin:44px 0 20px;text-align:center;font-family:'Press Start 2P';font-size:.5rem;color:#5a5486;letter-spacing:.14em;line-height:2.2}
 
-/* ---------- responsive ---------- */
 @media(max-width:980px){
   .cabs{grid-template-columns:repeat(2,1fr)}
   .cab,.cab.snake,.cab.type,.cab.soon{grid-column:span 1}
@@ -275,12 +344,22 @@ footer{margin:44px 0 20px;text-align:center;font-family:'Press Start 2P';font-si
     <div>
       <h1><span class="p1">PIXEL</span> <span class="p2">PALACE</span></h1>
       <div class="sub">▸ COMMUNITY ARCADE <span class="blink">▮</span></div>
+      <div class="navbtns">
+        <a href="https://digitalinfohub.net" class="navbtn" target="_blank" rel="noopener">🏠 HOME</a>
+        <a href="https://digitalinfohub.net/blog" class="navbtn" target="_blank" rel="noopener">📝 BLOG</a>
+      </div>
     </div>
     <div class="hright">
       <button id="mute" aria-label="Toggle sound">🔊</button>
       <div class="coinchip" id="coinchip">🪙 ×<b id="coins">0</b></div>
     </div>
   </header>
+
+  <div class="adslot">
+    <!-- AdSense Header Ad -->
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
 
   <div class="ticker"><div class="tickertrack" id="tickertrack"></div></div>
 
@@ -330,6 +409,27 @@ footer{margin:44px 0 20px;text-align:center;font-family:'Press Start 2P';font-si
       <div class="cabfoot"><span class="cabbest">BEST <b data-best="reaction">—</b></span><span class="playchip">PLAY ▸</span></div>
     </button>
 
+    <button class="cab" data-game="pong" style="--acc:var(--cyan)">
+      <div class="screen"><div class="mini-pong"><i></i><i></i></div></div>
+      <div class="cabhead"><span class="cabtag">CLASSIC</span><h3>PONG</h3></div>
+      <p class="cabdesc">The original. Swipe up/down or drag to move your paddle.</p>
+      <div class="cabfoot"><span class="cabbest">BEST <b data-best="pong">0</b></span><span class="playchip">PLAY ▸</span></div>
+    </button>
+
+    <button class="cab" data-game="2048" style="--acc:var(--orange)">
+      <div class="screen"><div class="mini-2048"><i>2</i><i>4</i><i>8</i><i>16</i></div></div>
+      <div class="cabhead"><span class="cabtag">PUZZLE</span><h3>2048</h3></div>
+      <p class="cabdesc">Swipe to merge tiles. Reach 2048 to win.</p>
+      <div class="cabfoot"><span class="cabbest">BEST <b data-best="2048">0</b></span><span class="playchip">PLAY ▸</span></div>
+    </button>
+
+    <button class="cab" data-game="simon" style="--acc:var(--pink)">
+      <div class="screen"><div class="mini-simon"><i></i><i></i><i></i><i></i></div></div>
+      <div class="cabhead"><span class="cabtag">MEMORY</span><h3>SIMON</h3></div>
+      <p class="cabdesc">Watch the pattern, repeat it. One mistake ends the game.</p>
+      <div class="cabfoot"><span class="cabbest">BEST <b data-best="simon">0</b></span><span class="playchip">PLAY ▸</span></div>
+    </button>
+
     <div class="cab soon" style="--acc:var(--line)">
       <div class="screen">NEXT CABINET <i>COMING SOON…</i></div>
       <div class="cabhead"><span class="cabtag" style="background:var(--line);color:var(--text)">SOON</span><h3>???</h3></div>
@@ -337,10 +437,20 @@ footer{margin:44px 0 20px;text-align:center;font-family:'Press Start 2P';font-si
     </div>
   </div>
 
-  <footer>PIXEL PALACE © 198X — NO QUARTERS REQUIRED<br>ALL SCORES SAVED TO THIS DEVICE</footer>
+  <div class="adslot">
+    <!-- AdSense Footer Ad -->
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="0987654321" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <footer>
+    PIXEL PALACE © 198X — NO QUARTERS REQUIRED<br>
+    ALL SCORES SAVED TO THIS DEVICE<br>
+    <a href="https://digitalinfohub.net" style="color:var(--cyan);text-decoration:none">digitalinfohub.net</a> · 
+    <a href="https://digitalinfohub.net/blog" style="color:var(--cyan);text-decoration:none">blog</a>
+  </footer>
 </div>
 
-<!-- game stage -->
 <div class="stage" id="stage" role="dialog" aria-modal="true">
   <div class="stagebar">
     <button id="exit">◀ EXIT</button>
@@ -351,7 +461,6 @@ footer{margin:44px 0 20px;text-align:center;font-family:'Press Start 2P';font-si
 </div>
 
 <script>
-/* ================= helpers ================= */
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const store={
   get:(k,d)=>{try{const v=localStorage.getItem('pp_'+k);return v==null?d:JSON.parse(v)}catch(e){return d}},
@@ -380,7 +489,6 @@ function addCoin(){coins++;store.set('coins',coins);$('#coins').textContent=coin
 $('#mute').textContent=muted?'🔇':'🔊';
 $('#mute').onclick=()=>{muted=!muted;store.set('muted',muted);$('#mute').textContent=muted?'🔇':'🔊';if(!muted)beep(660,.05);};
 
-/* stars */
 (()=>{const sky=$('#sky');for(let i=0;i<26;i++){const s=document.createElement('span');
   s.style.left=Math.random()*100+'%';s.style.top=Math.random()*100+'%';
   s.style.animationDelay=(Math.random()*3)+'s';s.style.width=s.style.height=(Math.random()<.3?4:2)+'px';
@@ -397,6 +505,9 @@ function bestFmt(key){
     case 'mole':return v??0;
     case 'ttt':return store.get('ttt',{p:0}).p;
     case 'reaction':return v==null?'—':v+' MS';
+    case 'pong':return v??0;
+    case '2048':return v??0;
+    case 'simon':return v??0;
   }
 }
 function refreshBests(){$$('[data-best]').forEach(el=>el.textContent=bestFmt(el.dataset.best));buildTicker();}
@@ -404,13 +515,15 @@ function buildTicker(){
   const items=[
     `SNAKE HI-SCORE <b>${bestFmt('snake')}</b>`,`TYPING <b>${bestFmt('typing')}</b>`,
     `MEMORY <b>${bestFmt('memory')}</b>`,`WHACK <b>${bestFmt('mole')}</b>`,
-    `REFLEX <b>${bestFmt('reaction')}</b>`,'NO QUARTERS NEEDED','BEAT YOUR BEST','SWIPE · TAP · TYPE'
+    `REFLEX <b>${bestFmt('reaction')}</b>`,`PONG <b>${bestFmt('pong')}</b>`,
+    `2048 <b>${bestFmt('2048')}</b>`,`SIMON <b>${bestFmt('simon')}</b>`,
+    'NO QUARTERS NEEDED','BEAT YOUR BEST','SWIPE · TAP · TYPE'
   ];
   const half=items.map(t=>`<span>★ ${t}</span>`).join('');
   $('#tickertrack').innerHTML=half+half;
 }
 
-/* ================= SNAKE ================= */
+/* SNAKE */
 const Snake={
   N:20,cell:22,
   init(stage){
@@ -510,7 +623,7 @@ const Snake={
   stop(){clearInterval(this.iv);this.ac.abort();}
 };
 
-/* ================= TIC·TAC·CPU ================= */
+/* TIC·TAC·CPU */
 const LINES=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
 const lineWin=(b,a)=>LINES.find(l=>l.every(i=>b[i]===a));
 const TTT={
@@ -534,7 +647,7 @@ const TTT={
     if(this.over||this.cpuTurn||this.board[i])return;
     this.place(i,'X');beep(600,.05);
     if(this.checkEnd())return;
-    this.cpuTurn=true;$('#tttstatus').textContent='CPU IS THINKING…';
+    this.cpuTurn=true;$('#tttStatus').textContent='CPU IS THINKING…';
     setTimeout(()=>{if(this.over)return;const m=this.cpuPick();this.place(m,'O');beep(320,.05);this.cpuTurn=false;this.checkEnd();},340);
   },
   place(i,v){this.board[i]=v;const c=$$('.tttcell')[i];c.textContent=v==='X'?'✕':'◯';c.classList.add(v.toLowerCase());},
@@ -566,7 +679,7 @@ const TTT={
   stop(){this.ac.abort();}
 };
 
-/* ================= MEMORY ================= */
+/* MEMORY */
 const Memory={
   init(stage){
     this.stageEl=stage;this.ac=new AbortController();const sig={signal:this.ac.signal};
@@ -619,7 +732,7 @@ const Memory={
   stop(){this.timers.forEach(t=>{clearInterval(t);clearTimeout(t);});this.ac.abort();}
 };
 
-/* ================= TYPING RUSH ================= */
+/* TYPING RUSH */
 const WORDS=('arcade pixel coin laser ghost combo turbo jump dash quest zone power level bonus score rapid neon grid maze fire star ship nova byte code data keys fast type rush wave glow dark maze bold calm drift echo flux grit halo iron jade kite loop mist onyx pulse quartz rift sage tide ultr violet warp xenon yarn zeal').split(' ');
 const Typing={
   init(stage){
@@ -706,7 +819,7 @@ const Typing={
   stop(){clearInterval(this.civ);this.timers.forEach(clearTimeout);this.ac.abort();}
 };
 
-/* ================= WHACK-A-MOLE ================= */
+/* WHACK-A-MOLE */
 const Mole={
   init(stage){
     this.stageEl=stage;this.ac=new AbortController();const sig={signal:this.ac.signal};
@@ -778,7 +891,7 @@ const Mole={
   stop(){this.run=false;this.timers.forEach(t=>{clearInterval(t);clearTimeout(t);});this.ac.abort();}
 };
 
-/* ================= REACTION LAB ================= */
+/* REACTION LAB */
 const Reaction={
   init(stage){
     this.stageEl=stage;this.ac=new AbortController();const sig={signal:this.ac.signal};
@@ -830,10 +943,248 @@ const Reaction={
   stop(){this.timers.forEach(clearTimeout);this.ac.abort();}
 };
 
-/* ================= stage control ================= */
-const GAMES={snake:Snake,typing:Typing,memory:Memory,ttt:TTT,mole:Mole,reaction:Reaction};
-const TITLES={snake:'SNAKE',typing:'TYPING RUSH',memory:'MEMORY',ttt:'TIC·TAC·CPU',mole:'WHACK-A-MOLE',reaction:'REACTION LAB'};
-const ACCS={snake:'var(--lime)',typing:'var(--yellow)',memory:'var(--cyan)',ttt:'var(--pink)',mole:'var(--orange)',reaction:'var(--green)'};
+/* PONG */
+const Pong={
+  init(stage){
+    this.stageEl=stage;this.ac=new AbortController();const sig={signal:this.ac.signal};
+    this.score=0;this.running=false;
+    setHUD(`<span class="chip">SCORE<b id="pScore">0</b></span><span class="chip">BEST<b>${store.get('pong',0)}</b></span>`);
+    stage.innerHTML=`
+      <div class="gwrap">
+        <div class="pongbox">
+          <canvas id="pongcv" width="600" height="360"></canvas>
+          <div class="gmsg" id="pmsg"><div class="gmsgbox">
+            <h3>PONG</h3>
+            <p>Swipe up/down on mobile or use arrow keys. Don't let the ball pass!</p>
+            <button class="btn" id="pstart">START ▸</button>
+          </div></div>
+        </div>
+      </div>`;
+    this.cv=$('#pongcv');this.ctx=this.cv.getContext('2d');
+    $('#pstart').addEventListener('click',()=>this.start(),sig);
+    let sy=0;
+    this.cv.addEventListener('touchstart',e=>{sy=e.touches[0].clientY;},{passive:true,...sig});
+    this.cv.addEventListener('touchmove',e=>{
+      e.preventDefault();
+      const dy=e.touches[0].clientY-sy;
+      this.paddleY+=dy*.8;
+      this.paddleY=Math.max(0,Math.min(280,this.paddleY));
+      sy=e.touches[0].clientY;
+    },{passive:false,...sig});
+    document.addEventListener('keydown',e=>{
+      if(e.key==='ArrowUp'){this.paddleY=Math.max(0,this.paddleY-20);e.preventDefault();}
+      if(e.key==='ArrowDown'){this.paddleY=Math.min(280,this.paddleY+20);e.preventDefault();}
+    },sig);
+  },
+  start(){
+    this.score=0;this.ballX=300;this.ballY=180;this.ballVX=4;this.ballVY=3;
+    this.paddleY=140;this.running=true;
+    $('#pScore').textContent=0;$('#pmsg').classList.add('hide');
+    beep(880,.06);
+    cancelAnimationFrame(this.raf);
+    const loop=()=>{
+      if(!this.running)return;
+      this.update();this.draw();
+      this.raf=requestAnimationFrame(loop);
+    };
+    loop();
+  },
+  update(){
+    this.ballX+=this.ballVX;this.ballY+=this.ballVY;
+    if(this.ballY<=0||this.ballY>=350)this.ballVY*=-1;
+    if(this.ballX<=20&&this.ballY>=this.paddleY&&this.ballY<=this.paddleY+80){
+      this.ballVX=Math.abs(this.ballVX)*1.05;beep(600,.03);
+    }
+    if(this.ballX>=580){
+      this.running=false;
+      beep(160,.25,'sawtooth',.06);
+      const best=store.get('pong',0);
+      if(this.score>best)store.set('pong',this.score);
+      refreshBests();
+      const m=$('#pmsg');m.classList.remove('hide');
+      m.innerHTML=`<div class="gmsgbox"><h3>GAME OVER</h3><div class="bignum">${this.score}</div>
+        <p>${this.score>best?'★ NEW HI-SCORE! ★':'Best so far: <b>'+Math.max(best,this.score)+'</b>'}</p>
+        <button class="btn" id="pstart">RETRY ▸</button></div>`;
+      $('#pstart').addEventListener('click',()=>this.start(),{signal:this.ac.signal});
+    }
+    if(this.ballX>400&&this.ballVX>0){
+      this.score++;$('#pScore').textContent=this.score;beep(800,.03);
+      this.ballX=300;this.ballY=180;this.ballVX=-Math.abs(this.ballVX);
+    }
+  },
+  draw(){
+    const c=this.ctx;c.fillStyle='#120f2b';c.fillRect(0,0,600,360);
+    c.fillStyle='#45f0df';c.fillRect(10,this.paddleY,10,80);
+    c.fillStyle='#ff4d8d';c.fillRect(580,this.paddleY,10,80);
+    c.fillStyle='#ffd23f';c.beginPath();c.arc(this.ballX,this.ballY,6,0,7);c.fill();
+  },
+  stop(){this.running=false;cancelAnimationFrame(this.raf);this.ac.abort();}
+};
+
+/* 2048 */
+const Game2048={
+  init(stage){
+    this.stageEl=stage;this.ac=new AbortController();const sig={signal:this.ac.signal};
+    this.board=Array(16).fill(0);this.score=0;
+    setHUD(`<span class="chip">SCORE<b id="gScore">0</b></span><span class="chip">BEST<b>${store.get('2048',0)}</b></span>`);
+    stage.innerHTML=`
+      <div class="gwrap g2048wrap">
+        <div class="g2048" id="g2048"></div>
+        <p class="hint">Swipe or use arrow keys to merge tiles</p>
+        <div class="gmsg" id="gmsg"><div class="gmsgbox">
+          <h3>2048</h3>
+          <p>Merge tiles to reach 2048. Swipe on mobile or use arrows.</p>
+          <button class="btn" id="gstart">START ▸</button>
+        </div></div>
+      </div>`;
+    $('#gstart').addEventListener('click',()=>this.start(),sig);
+    let sx=0,sy=0;
+    this.stageEl.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;sy=e.touches[0].clientY;},{passive:true,...sig});
+    this.stageEl.addEventListener('touchend',e=>{
+      const dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy;
+      if(Math.abs(dx)<30&&Math.abs(dy)<30)return;
+      if(Math.abs(dx)>Math.abs(dy))this.move(dx>0?'right':'left');
+      else this.move(dy>0?'down':'up');
+    },sig);
+    document.addEventListener('keydown',e=>{
+      const m={ArrowUp:'up',ArrowDown:'down',ArrowLeft:'left',ArrowRight:'right'};
+      if(m[e.key]){this.move(m[e.key]);e.preventDefault();}
+    },sig);
+  },
+  start(){
+    this.board=Array(16).fill(0);this.score=0;
+    this.addTile();this.addTile();this.render();
+    $('#gScore').textContent=0;$('#gmsg').classList.add('hide');
+    beep(660,.06);
+  },
+  addTile(){
+    const empty=this.board.map((v,i)=>v?null:i).filter(v=>v!==null);
+    if(empty.length){
+      const i=empty[Math.random()*empty.length|0];
+      this.board[i]=Math.random()<.9?2:4;
+    }
+  },
+  move(dir){
+    const b=[...this.board];
+    const rotate=n=>{for(let i=0;i<n;i++){const t=[];for(let y=0;y<4;y++)for(let x=0;x<4;x++)t[y*4+x]=b[(3-x)*4+y];b.splice(0,16,...t);}};
+    if(dir==='right')rotate(2);
+    if(dir==='up')rotate(3);
+    if(dir==='down')rotate(1);
+    let moved=false;
+    for(let y=0;y<4;y++){
+      let row=b.slice(y*4,y*4+4).filter(v=>v);
+      for(let i=0;i<row.length-1;i++){
+        if(row[i]===row[i+1]){row[i]*=2;this.score+=row[i];row.splice(i+1,1);}
+      }
+      while(row.length<4)row.push(0);
+      if(b.slice(y*4,y*4+4).join()!==row.join())moved=true;
+      b.splice(y*4,4,...row);
+    }
+    if(dir==='right')rotate(2);
+    if(dir==='up')rotate(1);
+    if(dir==='down')rotate(3);
+    if(moved){
+      this.board=b;this.addTile();this.render();
+      $('#gScore').textContent=this.score;
+      if(this.score>store.get('2048',0)){store.set('2048',this.score);refreshBests();}
+      beep(500,.03);
+    }
+  },
+  render(){
+    const g=$('#g2048');
+    g.innerHTML=this.board.map(v=>`<div class="t2048" data-v="${v}">${v||''}</div>`).join('');
+  },
+  stop(){this.ac.abort();}
+};
+
+/* SIMON */
+const Simon={
+  init(stage){
+    this.stageEl=stage;this.ac=new AbortController();const sig={signal:this.ac.signal};
+    this.sequence=[];this.playerSeq=[];this.level=0;this.playing=false;
+    setHUD(`<span class="chip">LEVEL<b id="siLevel">0</b></span><span class="chip">BEST<b>${store.get('simon',0)}</b></span>`);
+    stage.innerHTML=`
+      <div class="gwrap">
+        <div class="simon" id="simon">
+          <button class="spad" data-c="0"></button>
+          <button class="spad" data-c="1"></button>
+          <button class="spad" data-c="2"></button>
+          <button class="spad" data-c="3"></button>
+        </div>
+        <div class="gmsg" id="simsg"><div class="gmsgbox">
+          <h3>SIMON</h3>
+          <p>Watch the pattern, repeat it. One mistake and it's over!</p>
+          <button class="btn" id="sistart">START ▸</button>
+        </div></div>
+      </div>`;
+    $$('.spad').forEach(p=>p.addEventListener('click',()=>{
+      if(this.playing)this.playerTap(+p.dataset.c);
+    },sig));
+    $('#sistart').addEventListener('click',()=>this.start(),sig);
+  },
+  start(){
+    this.sequence=[];this.playerSeq=[];this.level=0;this.playing=true;
+    $('#siLevel').textContent=0;$('#simsg').classList.add('hide');
+    this.nextRound();
+  },
+  nextRound(){
+    this.level++;$('#siLevel').textContent=this.level;
+    this.sequence.push(Math.floor(Math.random()*4));
+    this.playerSeq=[];
+    this.playSequence();
+  },
+  playSequence(){
+    this.playing=false;
+    let i=0;
+    const play=()=>{
+      if(i>=this.sequence.length){
+        this.playing=true;
+        return;
+      }
+      const c=this.sequence[i];
+      const pad=$$('.spad')[c];
+      pad.classList.add('active');
+      beep([262,330,392,523][c],.2);
+      setTimeout(()=>{
+        pad.classList.remove('active');
+        setTimeout(()=>{i++;play();},150);
+      },300);
+    };
+    setTimeout(play,500);
+  },
+  playerTap(c){
+    const pad=$$('.spad')[c];
+    pad.classList.add('active');
+    beep([262,330,392,523][c],.2);
+    setTimeout(()=>pad.classList.remove('active'),150);
+    this.playerSeq.push(c);
+    const idx=this.playerSeq.length-1;
+    if(this.playerSeq[idx]!==this.sequence[idx]){
+      this.gameOver();
+      return;
+    }
+    if(this.playerSeq.length===this.sequence.length){
+      setTimeout(()=>this.nextRound(),800);
+    }
+  },
+  gameOver(){
+    this.playing=false;
+    beep(160,.25,'sawtooth',.06);
+    const best=store.get('simon',0);
+    if(this.level>best)store.set('simon',this.level);
+    refreshBests();
+    const m=$('#simsg');m.classList.remove('hide');
+    m.innerHTML=`<div class="gmsgbox"><h3>GAME OVER</h3><div class="bignum">LEVEL ${this.level}</div>
+      <p>${this.level>best?'★ NEW HI-SCORE! ★':'Best so far: <b>'+Math.max(best,this.level)+'</b>'}</p>
+      <button class="btn" id="sistart">RETRY ▸</button></div>`;
+    $('#sistart').addEventListener('click',()=>this.start(),{signal:this.ac.signal});
+  },
+  stop(){this.playing=false;this.ac.abort();}
+};
+
+const GAMES={snake:Snake,typing:Typing,memory:Memory,ttt:TTT,mole:Mole,reaction:Reaction,pong:Pong,'2048':Game2048,simon:Simon};
+const TITLES={snake:'SNAKE',typing:'TYPING RUSH',memory:'MEMORY',ttt:'TIC·TAC·CPU',mole:'WHACK-A-MOLE',reaction:'REACTION LAB',pong:'PONG','2048':'2048',simon:'SIMON'};
+const ACCS={snake:'var(--lime)',typing:'var(--yellow)',memory:'var(--cyan)',ttt:'var(--pink)',mole:'var(--orange)',reaction:'var(--green)',pong:'var(--cyan)','2048':'var(--orange)',simon:'var(--pink)'};
 let current=null;
 
 function openGame(id){
