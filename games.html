@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#0e0c22">
 <title>PIXEL PALACE — Arcade</title>
 
-<!-- Sharing image meta -->
+<!-- Sharing Meta -->
 <meta property="og:image" content="https://raw.githubusercontent.com/digitalinfohub/digitalinfohub/refs/heads/main/DigitalInfohubGAMES2.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -94,14 +94,24 @@ h1 .p2{color:var(--yellow);text-shadow:0 0 18px rgba(255,210,63,.5),4px 4px 0 #5
 .tickertrack span{font-family:'Press Start 2P';font-size:.56rem;color:var(--dim);padding:0 1.4rem;white-space:nowrap;letter-spacing:.08em}
 .tickertrack b{color:var(--yellow)}
 
-/* Ad in cabinet box */
+/* Ad Cabinet Styling */
 .adcab{
   grid-column:span 2;background:var(--panel);border:3px solid var(--line);border-radius:14px;
-  box-shadow:6px 6px 0 rgba(0,0,0,.45);overflow:hidden;padding:14px;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:220px;
+  box-shadow:6px 6px 0 rgba(0,0,0,.45);overflow:hidden;padding:16px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:260px;
+  position: relative;
 }
-.adcab .adlabel{font-family:'Press Start 2P';font-size:.42rem;color:var(--dim);letter-spacing:.14em;margin-bottom:10px;text-transform:uppercase}
-.adcab ins{display:block;width:100%;min-height:140px}
+.adcab .adlabel{
+  font-family:'Press Start 2P';font-size:.42rem;color:var(--dim);letter-spacing:.14em;
+  margin-bottom:12px;text-transform:uppercase; opacity: 0.7;
+}
+.adcab ins.adsbygoogle {
+  width: 100%; 
+  min-height: 200px; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+}
 
 .prompt{font-family:'Press Start 2P';font-size:clamp(.6rem,2vw,.8rem);color:var(--text);margin:4px 0 18px}
 .prompt .cursor{color:var(--lime);animation:blink .9s steps(2) infinite}
@@ -374,18 +384,24 @@ footer{margin:44px 0 20px;text-align:center;font-family:'Press Start 2P';font-si
       <div class="cabfoot"><span class="cabbest">BEST <b data-best="typing">—</b></span><span class="playchip">PLAY ▸</span></div>
     </button>
 
+    <!-- AD CABINET 1 -->
+    <div class="adcab">
+      <div class="adlabel">▸ SPONSORED</div>
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-5443646750699471"
+           data-ad-slot="8451723433"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
     <button class="cab" data-game="memory" style="--acc:var(--cyan)">
       <div class="screen"><div class="mini-cards"><i>👾</i><i>🍒</i></div></div>
       <div class="cabhead"><span class="cabtag">PUZZLE</span><h3>MEMORY</h3></div>
       <p class="cabdesc">Flip fast, remember faster. 8 pairs, one brain.</p>
       <div class="cabfoot"><span class="cabbest">BEST <b data-best="memory">—</b></span><span class="playchip">PLAY ▸</span></div>
     </button>
-
-    <!-- Ad Cabinet 1 -->
-    <div class="adcab">
-      <div class="adlabel">▸ SPONSORED</div>
-      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5443646750699471" data-ad-slot="1111111111" data-ad-format="auto" data-full-width-responsive="true"></ins>
-    </div>
 
     <button class="cab" data-game="ttt" style="--acc:var(--pink)">
       <div class="screen"><div class="mini-ttt"><i>X</i><i></i><i>O</i><i></i><i>X</i><i></i><i>O</i><i></i><i>X</i></div></div>
@@ -401,18 +417,24 @@ footer{margin:44px 0 20px;text-align:center;font-family:'Press Start 2P';font-si
       <div class="cabfoot"><span class="cabbest">BEST <b data-best="mole">0</b></span><span class="playchip">PLAY ▸</span></div>
     </button>
 
+    <!-- AD CABINET 2 -->
+    <div class="adcab">
+      <div class="adlabel">▸ SPONSORED</div>
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-5443646750699471"
+           data-ad-slot="8451723433"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
     <button class="cab" data-game="reaction" style="--acc:var(--green)">
       <div class="screen"><div class="mini-lights"><i></i><i></i><i></i></div></div>
       <div class="cabhead"><span class="cabtag">REFLEX</span><h3>REACTION LAB</h3></div>
       <p class="cabdesc">Wait for green. Tap like your life depends on it.</p>
       <div class="cabfoot"><span class="cabbest">BEST <b data-best="reaction">—</b></span><span class="playchip">PLAY ▸</span></div>
     </button>
-
-    <!-- Ad Cabinet 2 -->
-    <div class="adcab">
-      <div class="adlabel">▸ SPONSORED</div>
-      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5443646750699471" data-ad-slot="2222222222" data-ad-format="auto" data-full-width-responsive="true"></ins>
-    </div>
 
     <button class="cab" data-game="pong" style="--acc:var(--cyan)">
       <div class="screen"><div class="mini-pong"><i></i><i></i></div></div>
@@ -1208,15 +1230,6 @@ $('#exit').addEventListener('click',closeGame);
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('#stage').classList.contains('on'))closeGame();});
 
 refreshBests();
-
-/* Push AdSense ads */
-setTimeout(()=>{
-  try{
-    $$('.adcab ins.adsbygoogle').forEach(()=>{
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    });
-  }catch(e){}
-},500);
 </script>
 </body>
 </html>
