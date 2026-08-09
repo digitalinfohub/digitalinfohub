@@ -299,7 +299,7 @@ h1 .p2{color:var(--yellow);text-shadow:0 0 18px rgba(255,210,63,.5),4px 4px 0 #5
 #pongcv{width:100%;aspect-ratio:2/1.2;display:block;border:3px solid var(--line);border-radius:var(--r);background:#120f2b;touch-action:none}
 
 /* 2048 */
-.g2048{display:grid;grid-template-columns:repeat(4,minmax(60px,90px));gap:8px;background:var(--panel);padding:8px;border-radius:var(--r);border:3px solid var(--line)}
+.g2048{display:grid;grid-template-columns:repeat(4,minmax(64px,1fr));gap:8px;background:var(--panel);padding:8px;border-radius:var(--r);border:3px solid var(--line);width:100%}
 .t2048{aspect-ratio:1;background:var(--panel2);border-radius:6px;display:grid;place-items:center;font-family:'Press Start 2P';font-size:clamp(.6rem,2.8vw,.9rem);font-weight:700;transition:transform .15s}
 .t2048.pop{animation:pop .2s}
 @keyframes pop{50%{transform:scale(1.2)}}
@@ -315,6 +315,8 @@ h1 .p2{color:var(--yellow);text-shadow:0 0 18px rgba(255,210,63,.5),4px 4px 0 #5
 .t2048[data-v="1024"]{background:#edc53f;color:#f9f6f2;font-size:clamp(.5rem,2.2vw,.75rem)}
 .t2048[data-v="2048"]{background:#edc22e;color:#f9f6f2;font-size:clamp(.5rem,2.2vw,.75rem)}
 .g2048wrap{width:100%;max-width:420px}
+/* Improved Button Spacing for 2048 Overlay */
+.g2048wrap .gmsgbox .btn { margin-top: 12px; padding: 1rem 1.5rem; font-size: .7rem; }
 
 /* Simon */
 .simon{display:grid;grid-template-columns:repeat(2,minmax(80px,120px));gap:12px}
@@ -964,7 +966,7 @@ const Reaction={
   stop(){this.timers.forEach(clearTimeout);this.ac.abort();}
 };
 
-/* PONG */
+/* PONG (FIXED) */
 const Pong={
   init(stage){
     this.stageEl=stage;this.ac=new AbortController();const sig={signal:this.ac.signal};
@@ -983,23 +985,36 @@ const Pong={
       </div>`;
     this.cv=$('#pongcv');this.ctx=this.cv.getContext('2d');
     $('#pstart').addEventListener('click',()=>this.start(),sig);
+    
+    // Controls
     let sy=0;
     this.cv.addEventListener('touchstart',e=>{sy=e.touches[0].clientY;},{passive:true,...sig});
     this.cv.addEventListener('touchmove',e=>{
       e.preventDefault();
       const dy=e.touches[0].clientY-sy;
-      this.paddleY+=dy*.8;
+      this.paddleY+=dy*1.2; // Sensitivity bump
       this.paddleY=Math.max(0,Math.min(280,this.paddleY));
       sy=e.touches[0].clientY;
     },{passive:false,...sig});
     document.addEventListener('keydown',e=>{
-      if(e.key==='ArrowUp'){this.paddleY=Math.max(0,this.paddleY-20);e.preventDefault();}
-      if(e.key==='ArrowDown'){this.paddleY=Math.min(280,this.paddleY+20);e.preventDefault();}
+      if(e.key==='ArrowUp'){this.paddleY=Math.max(0,this.paddleY-25);e.preventDefault();}
+      if(e.key==='ArrowDown'){this.paddleY=Math.min(280,this.paddleY+25);e.preventDefault();}
     },sig);
   },
+  resetBall(winner){
+    this.ballX=300;this.ballY=180;
+    this.ballVX=(winner==='player'?4:-4); // Serve to loser or random
+    this.ballVY=(Math.random()*4-2);
+    this.serving=true;
+    setTimeout(()=>{this.serving=false;}, 800); // Brief pause before serve
+  },
   start(){
-    this.score=0;this.ballX=300;this.ballY=180;this.ballVX=4;this.ballVY=3;
-    this.paddleY=140;this.running=true;
+    this.score=0;
+    this.paddleY=140;
+    this.aiY=140;
+    this.running=true;
+    this.resetBall('player');
+    
     $('#pScore').textContent=0;$('#pmsg').classList.add('hide');
     beep(880,.06);
     cancelAnimationFrame(this.raf);
@@ -1011,32 +1026,71 @@ const Pong={
     loop();
   },
   update(){
-    this.ballX+=this.ballVX;this.ballY+=this.ballVY;
-    if(this.ballY<=0||this.ballY>=350)this.ballVY*=-1;
-    if(this.ballX<=20&&this.ballY>=this.paddleY&&this.ballY<=this.paddleY+80){
-      this.ballVX=Math.abs(this.ballVX)*1.05;beep(600,.03);
+    if(this.serving) return;
+
+    // Move Ball
+    this.ballX+=this.ballVX;
+    this.ballY+=this.ballVY;
+
+    // Wall Bounce (Top/Bottom)
+    if(this.ballY<=6 || this.ballY>=354){
+      this.ballVY*=-1;
+      beep(200,.02,'square',.02);
     }
-    if(this.ballX>=580){
-      this.running=false;
-      beep(160,.25,'sawtooth',.06);
+
+    // Player Paddle Collision (Left)
+    if(this.ballX<=26 && this.ballX>=10 && this.ballY>=this.paddleY && this.ballY<=this.paddleY+80){
+      this.ballVX = Math.abs(this.ballVX) * 1.05; // Speed up
+      // Add "spin" based on where it hit
+      const hitPoint = this.ballY - (this.paddleY + 40);
+      this.ballVY = hitPoint * 0.15; 
+      beep(600,.03);
+    }
+
+    // AI Paddle Collision (Right)
+    if(this.ballX>=574 && this.ballX<=590 && this.ballY>=this.aiY && this.ballY<=this.aiY+80){
+      this.ballVX = -Math.abs(this.ballVX) * 1.05;
+      const hitPoint = this.ballY - (this.aiY + 40);
+      this.ballVY = hitPoint * 0.15;
+      beep(400,.03);
+    }
+
+    // AI Movement (Simple tracking with speed limit)
+    const aiCenter = this.aiY + 40;
+    if(aiCenter < this.ballY - 10) this.aiY += 3.5;
+    else if(aiCenter > this.ballY + 10) this.aiY -= 3.5;
+    this.aiY = Math.max(0, Math.min(280, this.aiY));
+
+    // Scoring
+    if(this.ballX < 0){
+      // AI Scores
+      beep(150,.3,'sawtooth',.05);
+      this.resetBall('ai');
+    } else if(this.ballX > 600){
+      // Player Scores
+      this.score++;
+      $('#pScore').textContent=this.score;
+      beep(800,.05,'triangle');
+      
       const best=store.get('pong',0);
-      if(this.score>best)store.set('pong',this.score);
-      refreshBests();
-      const m=$('#pmsg');m.classList.remove('hide');
-      m.innerHTML=`<div class="gmsgbox"><h3>GAME OVER</h3><div class="bignum">${this.score}</div>
-        <p>${this.score>best?'★ NEW HI-SCORE! ★':'Best so far: <b>'+Math.max(best,this.score)+'</b>'}</p>
-        <button class="btn" id="pstart">RETRY ▸</button></div>`;
-      $('#pstart').addEventListener('click',()=>this.start(),{signal:this.ac.signal});
-    }
-    if(this.ballX>400&&this.ballVX>0){
-      this.score++;$('#pScore').textContent=this.score;beep(800,.03);
-      this.ballX=300;this.ballY=180;this.ballVX=-Math.abs(this.ballVX);
+      if(this.score>best){store.set('pong',this.score);refreshBests();}
+      
+      this.resetBall('player');
     }
   },
   draw(){
-    const c=this.ctx;c.fillStyle='#120f2b';c.fillRect(0,0,600,360);
-    c.fillStyle='#45f0df';c.fillRect(10,this.paddleY,10,80);
-    c.fillStyle='#ff4d8d';c.fillRect(580,this.paddleY,10,80);
+    const c=this.ctx;
+    // Clear
+    c.fillStyle='#120f2b';c.fillRect(0,0,600,360);
+    // Center Line
+    c.strokeStyle='#2e2860';c.lineWidth=4;c.setLineDash([10,10]);
+    c.beginPath();c.moveTo(300,0);c.lineTo(300,360);c.stroke();c.setLineDash([]);
+    
+    // Paddles
+    c.fillStyle='#45f0df';c.fillRect(10,this.paddleY,10,80); // Player
+    c.fillStyle='#ff4d8d';c.fillRect(580,this.aiY,10,80);    // AI
+    
+    // Ball
     c.fillStyle='#ffd23f';c.beginPath();c.arc(this.ballX,this.ballY,6,0,7);c.fill();
   },
   stop(){this.running=false;cancelAnimationFrame(this.raf);this.ac.abort();}
@@ -1055,7 +1109,7 @@ const Game2048={
         <div class="gmsg" id="gmsg"><div class="gmsgbox">
           <h3>2048</h3>
           <p>Merge tiles to reach 2048. Swipe on mobile or use arrows.</p>
-          <button class="btn" id="gstart">START ▸</button>
+          <button class="btn" id="gstart">START GAME ▸</button>
         </div></div>
       </div>`;
     $('#gstart').addEventListener('click',()=>this.start(),sig);
