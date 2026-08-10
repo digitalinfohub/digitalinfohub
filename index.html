@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471"
-     crossorigin="anonymous"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471" crossorigin="anonymous"></script>
 <meta charset="UTF-8">
 <title>Digital Infohub | AI Tools, Tech News & Free Software</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
@@ -51,6 +50,14 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
 
 .shell { max-width: 860px; margin: 0 auto; padding: 32px 24px 80px; }
 
+/* ── NAVIGATION & MOBILE MENU FIX ── */
+.nav-shell { position: sticky; top: 0; z-index: 100; background: var(--bg); border-bottom: 1px solid var(--border); backdrop-filter: blur(12px); margin: -32px -24px 32px; padding: 0 24px; }
+.nav-bar { max-width: 860px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 12px 0; gap: 16px; position: relative; }
+.nav-links { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
+.nav-link { padding: 8px 14px; color: var(--text-sub); border-radius: 8px; font-size: 13px; font-weight: 500; text-decoration: none; transition: all 0.2s; white-space: nowrap; }
+.nav-link:hover, .nav-link.active { color: var(--text); background: var(--surface-2); }
+.hamburger { display: none; width: 36px; height: 36px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; cursor: pointer; align-items: center; justify-content: center; font-size: 18px; color: var(--text); }
+
 .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; }
 .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; text-decoration: none; color: var(--text); }
 .brand-logo { width: 28px; height: 28px; border-radius: 8px; background: var(--surface-2); border: 1px solid var(--border); overflow: hidden; }
@@ -78,6 +85,7 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
 .msg-content strong { color: var(--text); font-weight: 600; }
 .msg-content a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
 .msg-content em { font-style: normal; font-family: var(--mono); font-size: 0.9em; background: var(--surface-2); padding: 1px 6px; border-radius: 4px; border: 1px solid var(--border); }
+.msg-content ul { margin-left: 18px; margin-top: 8px; color: var(--text-sub); font-size: 14px; line-height: 2; }
 
 .typing-indicator { display: flex; gap: 4px; padding: 8px 0; }
 .typing-dot { width: 6px; height: 6px; background: var(--text-muted); border-radius: 50%; animation: bounce 1.4s infinite ease-in-out both; }
@@ -133,7 +141,6 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
 .info-writeup h2 { font-size: 20px; margin-bottom: 12px; }
 .info-writeup p { color: var(--text-sub); font-size: 15px; margin-bottom: 16px; }
 
-/* ── TOKEN SECTION STYLES ── */
 .token-section { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; margin-bottom: 48px; }
 .token-header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
 .token-icon { width: 32px; height: 32px; border-radius: 50%; background: var(--base-blue); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 14px; flex-shrink: 0; }
@@ -151,15 +158,30 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
 .disclaimer { background: var(--warn-bg); border: 1px solid var(--warn-border); border-radius: var(--radius-sm); padding: 14px 16px; }
 .disclaimer-text { font-size: 11px; color: var(--text-muted); line-height: 1.6; }
 
-.nav-shell { position: sticky; top: 0; z-index: 100; background: var(--bg); border-bottom: 1px solid var(--border); backdrop-filter: blur(12px); margin: -32px -24px 32px; padding: 0 24px; }
-.nav-bar { max-width: 860px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 12px 0; gap: 16px; }
-.nav-links { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
-.nav-link { padding: 8px 14px; color: var(--text-sub); border-radius: 8px; font-size: 13px; font-weight: 500; text-decoration: none; transition: all 0.2s; white-space: nowrap; }
-.nav-link:hover, .nav-link.active { color: var(--text); background: var(--surface-2); }
-.hamburger { display: none; width: 36px; height: 36px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; cursor: pointer; align-items: center; justify-content: center; }
-
+/* ── RESPONSIVE & MOBILE MENU STATES ── */
 @media (max-width: 768px) {
-  .nav-links { display: none; }
+  .nav-links { 
+    display: none; 
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 24px;
+    gap: 4px;
+    z-index: 99;
+    box-shadow: var(--shadow);
+  }
+  .nav-links.active {
+    display: flex;
+    animation: slideDown 0.3s var(--ease);
+  }
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
   .hamburger { display: flex; }
   .rich-grid, .stock-grid { grid-template-columns: 1fr 1fr; }
   .shell { padding: 20px 16px 60px; }
@@ -186,7 +208,7 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
         <a href="#token" class="nav-link">🔵 Token</a>
         <a href="/subscribe" class="nav-link">✉️ Subscribe</a>
       </div>
-      <button class="hamburger" id="hamburger" aria-label="Menu">☰</button>
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">☰</button>
     </div>
   </nav>
 
@@ -205,7 +227,7 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
     <div class="chat-thread" id="chatThread"></div>
     
     <form class="chat-input-shell" id="chatForm" autocomplete="off">
-      <input class="chat-input" id="chatInput" type="text" placeholder="Try 'stocks', 'software', or 'full briefing'" aria-label="Message">
+      <input class="chat-input" id="chatInput" type="text" placeholder="Try 'stocks', 'calculate 50*2', or 'tell me a joke'" aria-label="Message">
       <button class="chat-send" id="chatSend" type="submit">→</button>
     </form>
     
@@ -213,7 +235,7 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
       <span class="chip" data-prefill="Full briefing with stocks">📊 Full Briefing</span>
       <span class="chip" data-prefill="Search the web for ">🌐 Web Search</span>
       <span class="chip" data-prefill="Show available tools">🛠️ Tools</span>
-      <span class="chip" data-prefill="My name is ">🧠 Set My Name</span>
+      <span class="chip" data-prefill="Tell me something interesting">✨ Surprise Me</span>
       <span class="chip" data-prefill="What can you do?">❓ Help</span>
     </div>
   </section>
@@ -223,9 +245,6 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
     <p><strong>Digital Infohub</strong> combines real-time web search, live market data, and curated productivity tools in one adaptive interface. The assistant learns your preferences and improves its responses over time.</p>
   </section>
 
-  <!-- ═══════════════════════════════════════════════════════════
-       DIGITALINFOHUB TOKEN SECTION (BASE NETWORK)
-       ═══════════════════════════════════════════════════════════ -->
   <section class="token-section" id="token">
     <div class="token-header">
       <div class="token-icon">D</div>
@@ -272,10 +291,7 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
         await navigator.clipboard.writeText(addressEl.textContent.trim());
         copyBtn.textContent = '✅ Copied!';
         copyBtn.classList.add('copied');
-        setTimeout(() => {
-          copyBtn.textContent = '📋 Copy';
-          copyBtn.classList.remove('copied');
-        }, 2500);
+        setTimeout(() => { copyBtn.textContent = '📋 Copy'; copyBtn.classList.remove('copied'); }, 2500);
       } catch (err) {
         const range = document.createRange();
         range.selectNodeContents(addressEl);
@@ -286,10 +302,39 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
         sel.removeAllRanges();
         copyBtn.textContent = '✅ Copied!';
         copyBtn.classList.add('copied');
-        setTimeout(() => {
-          copyBtn.textContent = '📋 Copy';
-          copyBtn.classList.remove('copied');
-        }, 2500);
+        setTimeout(() => { copyBtn.textContent = '📋 Copy'; copyBtn.classList.remove('copied'); }, 2500);
+      }
+    });
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     MOBILE MENU TOGGLE (FIXED)
+     ═══════════════════════════════════════════════════════════ */
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.querySelector('.nav-links');
+  
+  if (hamburger && navLinks) {
+    hamburger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      navLinks.classList.toggle('active');
+      const isOpen = navLinks.classList.contains('active');
+      hamburger.textContent = isOpen ? '✕' : '☰';
+      hamburger.setAttribute('aria-expanded', isOpen);
+    });
+
+    navLinks.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        hamburger.textContent = '☰';
+        hamburger.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!navLinks.contains(e.target) && !hamburger.contains(e.target) && navLinks.classList.contains('active')) {
+        navLinks.classList.remove('active');
+        hamburger.textContent = '☰';
+        hamburger.setAttribute('aria-expanded', 'false');
       }
     });
   }
@@ -327,11 +372,38 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
   ];
 
   /* ═══════════════════════════════════════════════════════════
-     MEMORY SYSTEM v5
+     PERSONALITY & CHITCHAT DATABASE (NEVER GET STUCK)
+     ═══════════════════════════════════════════════════════════ */
+  const PERSONALITY = {
+    jokes: [
+      "Why do programmers prefer dark mode? Because light attracts bugs.",
+      "There are only 10 types of people in the world: those who understand binary and those who don't.",
+      "A SQL query walks into a bar, sees two tables, and asks... 'Can I JOIN you?'",
+      "Why was the JavaScript developer sad? Because he didn't know how to 'null' his feelings.",
+      "How many developers does it take to change a light bulb? None, that's a hardware problem."
+    ],
+    facts: [
+      "The first computer bug was an actual moth found trapped in a Harvard Mark II computer relay in 1947.",
+      "About 90% of the world's currency exists only as digital data — physical cash is becoming rare.",
+      "The Apollo 11 guidance computer had less processing power than a modern musical greeting card.",
+      "Bitcoin's creator Satoshi Nakamoto is estimated to own around 1 million BTC, making them one of the richest entities on Earth.",
+      "The term 'AI' was coined in 1956 by John McCarthy at the Dartmouth Conference."
+    ],
+    greetings: ["Hey there!", "Good to see you!", "Ready to explore?", "What's on your mind today?", "Let's get productive!"],
+    fallbacks: [
+      "I'm not sure about that, but I can search the web for you. Want me to try?",
+      "Interesting question! I don't have a direct answer, but I'd love to look it up.",
+      "Hmm, that's outside my current knowledge. Shall I run a web search?",
+      "I'm still learning! Try asking about stocks, crypto, tools, or say 'search the web for [topic]'."
+    ]
+  };
+
+  /* ═══════════════════════════════════════════════════════════
+     MEMORY SYSTEM v6
      ═══════════════════════════════════════════════════════════ */
   const Memory = {
-    key: 'dih_ai_memory_v5',
-    data: { name: null, prefs: [], history: [], briefingPrefs: [], lastIntent: null, lastTopic: null },
+    key: 'dih_ai_memory_v6',
+    data: { name: null, prefs: [], history: [], briefingPrefs: [], lastIntent: null, lastTopic: null, interactionCount: 0 },
     init() {
       try {
         const saved = localStorage.getItem(this.key);
@@ -343,7 +415,8 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
     getName() { return this.data.name; },
     addHistory(query) {
       this.data.history.unshift({ q: query, ts: Date.now() });
-      if (this.data.history.length > 30) this.data.history.pop();
+      if (this.data.history.length > 50) this.data.history.pop();
+      this.data.interactionCount++;
       this.save();
     },
     learnPreference(keyword) {
@@ -357,7 +430,8 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
       this.data.lastTopic = topic;
       this.save();
     },
-    getContext() { return { lastIntent: this.data.lastIntent, lastTopic: this.data.lastTopic }; }
+    getContext() { return { lastIntent: this.data.lastIntent, lastTopic: this.data.lastTopic }; },
+    getInteractionCount() { return this.data.interactionCount || 0; }
   };
   Memory.init();
 
@@ -366,6 +440,7 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
      ═══════════════════════════════════════════════════════════ */
   const $ = s => document.querySelector(s);
   const esc = s => { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; };
+  const pick = arr => arr[Math.floor(Math.random() * arr.length)];
 
   async function fetchRSS(url) {
     try {
@@ -404,13 +479,22 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
 
   async function fetchCrypto() {
     try {
-      const r = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd&include_24hr_change=true');
+      const r = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,ripple&vs_currencies=usd&include_24hr_change=true');
       if (!r.ok) throw new Error('CoinGecko failed');
       const data = await r.json();
-      return [
-        { symbol: 'BTC-USD', price: data.bitcoin.usd.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}), changePct: data.bitcoin.usd_24h_change.toFixed(2), change: (data.bitcoin.usd*(data.bitcoin.usd_24h_change/100)).toFixed(2), up: data.bitcoin.usd_24h_change>=0, stale:false },
-        { symbol: 'ETH-USD', price: data.ethereum.usd.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}), changePct: data.ethereum.usd_24h_change.toFixed(2), change: (data.ethereum.usd*(data.ethereum.usd_24h_change/100)).toFixed(2), up: data.ethereum.usd_24h_change>=0, stale:false }
+      const coins = [
+        { id: 'bitcoin', sym: 'BTC-USD' },
+        { id: 'ethereum', sym: 'ETH-USD' },
+        { id: 'solana', sym: 'SOL-USD' },
+        { id: 'ripple', sym: 'XRP-USD' }
       ];
+      return coins.map(c => {
+        if (data[c.id]) {
+          const d = data[c.id];
+          return { symbol: c.sym, price: d.usd.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}), changePct: (d.usd_24h_change||0).toFixed(2), change: (d.usd*((d.usd_24h_change||0)/100)).toFixed(2), up: (d.usd_24h_change||0)>=0, stale:false };
+        }
+        return { symbol: c.sym, price: '--', change: '--', changePct: '--', up: true, stale: true };
+      });
     } catch(e) {
       return [{ symbol:'BTC-USD', price:'--', change:'--', changePct:'--', up:true, stale:true }, { symbol:'ETH-USD', price:'--', change:'--', changePct:'--', up:true, stale:true }];
     }
@@ -422,19 +506,57 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
   }
 
   /* ═══════════════════════════════════════════════════════════
-     WEB SEARCH
+     MULTI-SOURCE WEB SEARCH (FALLBACK SAFE)
      ═══════════════════════════════════════════════════════════ */
   async function webSearch(query) {
+    // Source 1: DuckDuckGo Instant Answer API
     try {
       const r = await fetch(`https://api.duckduckgo.com/?q=${encodeURIComponent(query)}&format=json&no_html=1&skip_disambig=1`);
-      if (!r.ok) throw new Error('Search failed');
-      const data = await r.json();
-      const results = [];
-      if (data.Answer) results.push({ title:'Instant Answer', snippet:data.Answer, source:data.AnswerType||'Direct', url:'' });
-      if (data.AbstractText) results.push({ title:data.Heading||query, snippet:data.AbstractText, source:data.AbstractSource||'Web', url:data.AbstractURL||'' });
-      if (Array.isArray(data.RelatedTopics)) data.RelatedTopics.slice(0,4).forEach(t => { if(t.Text) results.push({ title:t.Text.split(' - ')[0]||'Related', snippet:t.Text, source:'Related', url:t.FirstURL||'' }); });
-      return results;
-    } catch(e) { return []; }
+      if (r.ok) {
+        const data = await r.json();
+        const results = [];
+        if (data.Answer) results.push({ title:'Instant Answer', snippet:data.Answer, source:data.AnswerType||'Direct', url:'' });
+        if (data.AbstractText) results.push({ title:data.Heading||query, snippet:data.AbstractText, source:data.AbstractSource||'Web', url:data.AbstractURL||'' });
+        if (Array.isArray(data.RelatedTopics)) data.RelatedTopics.slice(0,4).forEach(t => { if(t.Text) results.push({ title:t.Text.split(' - ')[0]||'Related', snippet:t.Text, source:'Related', url:t.FirstURL||'' }); });
+        if (results.length > 0) return results;
+      }
+    } catch(e) {}
+
+    // Source 2: Wikipedia Fallback
+    try {
+      const r = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(query)}`);
+      if (r.ok) {
+        const data = await r.json();
+        if (data.extract) {
+          return [{ title: data.title || query, snippet: data.extract, source: 'Wikipedia', url: data.content_urls?.desktop?.page || '' }];
+        }
+      }
+    } catch(e) {}
+
+    return [];
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     CALCULATOR ENGINE
+     ═══════════════════════════════════════════════════════════ */
+  function tryCalculate(input) {
+    // Match patterns like "calculate 5+5", "what is 100/4", "50 * 2"
+    const calcMatch = input.match(/(?:calculate|compute|solve|what is|whats)\s+([\d\s\+\-\*\/\.\(\)]+)/i) || 
+                      input.match(/^([\d\s\+\-\*\/\.\(\)]+)$/);
+    if (!calcMatch) return null;
+    
+    const expr = calcMatch[1].trim();
+    // Safety check: only allow math characters
+    if (!/^[\d\s\+\-\*\/\.\(\)]+$/.test(expr)) return null;
+    
+    try {
+      // Safe evaluation using Function constructor instead of eval
+      const result = new Function('return ' + expr)();
+      if (typeof result === 'number' && isFinite(result)) {
+        return { expression: expr, result: Number(result.toFixed(8)).toString() };
+      }
+    } catch(e) {}
+    return null;
   }
 
   /* ═══════════════════════════════════════════════════════════
@@ -466,20 +588,35 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
   };
 
   /* ═══════════════════════════════════════════════════════════
-     INTENT DETECTION
+     INTENT DETECTION (ENHANCED)
      ═══════════════════════════════════════════════════════════ */
   const Intent = {
     detect(q) {
       const lower = q.toLowerCase().trim();
       const ctx = Memory.getContext();
 
+      // Calculator
+      if (/^(?:calculate|compute|solve|what is|whats)\s+[\d\+\-\*\/\.\(\)\s]+$/i.test(lower) || /^[\d\+\-\*\/\.\(\)\s]+$/.test(lower)) {
+        const calc = tryCalculate(lower);
+        if (calc) return { type: 'calculator', ...calc };
+      }
+
+      // Time / Date
+      if (/^(?:what time|current time|time now|what'?s the time|date today|today'?s date|what day)/i.test(lower))
+        return { type: 'datetime' };
+
+      // Fun / Chitchat
+      if (/^(?:tell me a joke|joke|make me laugh|funny)/i.test(lower)) return { type: 'chitchat', subtype: 'joke' };
+      if (/^(?:tell me a fact|interesting fact|random fact|did you know|fun fact|something interesting|surprise me|tell me something)/i.test(lower)) return { type: 'chitchat', subtype: 'fact' };
+      
+      // Follow-ups
       if (/^(?:tell me more|more info|elaborate|explain more|details|go deeper)\b/i.test(lower))
         return { type: 'follow_up_elaborate', context: ctx };
       if (/^(?:why|how come|reason|cause)\b/i.test(lower) && lower.length < 30)
         return { type: 'follow_up_why', context: ctx };
       if (/^(?:and|also|plus|what about|how about)\s+/i.test(lower)) {
         const remainder = lower.replace(/^(?:and|also|plus|what about|how about)\s+/i, '').trim();
-        if (/crypto|btc|eth/i.test(remainder)) return { type: 'crypto' };
+        if (/crypto|btc|eth|sol|xrp/i.test(remainder)) return { type: 'crypto' };
         if (/stocks?|market/i.test(remainder)) return { type: 'stocks' };
         if (/news|headlines/i.test(remainder)) return { type: 'briefing' };
         if (/tools?|apps?|software/i.test(remainder)) return { type: 'search_apps' };
@@ -490,11 +627,13 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
       if (/^(?:no|nope|nah|not that|wrong|nevermind|cancel)\b/i.test(lower))
         return { type: 'dismiss' };
 
+      // Memory
       const nameMatch = lower.match(/(?:my name is|i am|call me)\s+(\w+)/i);
       if (nameMatch) return { type: 'set_name', value: nameMatch[1] };
       if (/what(?:'s| is)? my name|who am i/i.test(lower)) return { type: 'get_name' };
       if (/forget me|clear memory|reset memory/i.test(lower)) return { type: 'clear_memory' };
 
+      // Web Search
       if (/^(?:search|look up|google|find out|web search|search the web)\b/i.test(lower)) {
         const query = lower.replace(/^(?:search|look up|google|find out|web search|search the web)\s+(?:for\s+)?/i,'').trim();
         return { type: 'web_search', query: query || q };
@@ -502,10 +641,11 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
       if (/^(?:what is|who is|when did|why does|how does|define|explain)\b/i.test(lower) && lower.length > 15)
         return { type: 'web_search', query: q };
 
+      // Briefings & Markets
       if (/full briefing|complete briefing|everything|all news/i.test(lower)) return { type: 'full_briefing' };
       if (/briefing|news summary|daily update|headlines|morning brief/i.test(lower)) return { type: 'briefing' };
       if (/stocks?|market|ticker|share price|stock price|portfolio|s&p|nasdaq|dow/i.test(lower)) return { type: 'stocks' };
-      if (/crypto|bitcoin|btc|ethereum|eth|web3|blockchain/i.test(lower)) return { type: 'crypto' };
+      if (/crypto|bitcoin|btc|ethereum|eth|solana|sol|xrp|ripple|web3|blockchain/i.test(lower)) return { type: 'crypto' };
       if (/news|latest|breaking|headlines/i.test(lower)) {
         if (/crypto|bitcoin|eth|web3/i.test(lower)) return { type:'feed', key:'crypto' };
         if (/world|global|international/i.test(lower)) return { type:'feed', key:'world' };
@@ -513,12 +653,14 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
         return { type:'feed', key:'tech' };
       }
 
+      // Navigation & Tools
       if (/tool|app|software|utility|program|download/i.test(lower)) return { type: 'search_apps' };
       if (/game|play|arcade|fun/i.test(lower)) return { type:'navigate', path:'/games', label:'Games Hub' };
       if (/blog|article|post|read|write/i.test(lower)) return { type:'navigate', path:'/blog', label:'Blog' };
       if (/tech topic|guide|tutorial|learn/i.test(lower)) return { type:'navigate', path:'/techtopics', label:'Tech Topics' };
       if (/subscribe|newsletter|sign.?up/i.test(lower)) return { type:'navigate', path:'/subscribe', label:'Subscribe' };
 
+      // Social & Feedback
       if (/help|what can you do|commands|features|capabilities/i.test(lower)) return { type: 'help' };
       if (/^(?:hi|hello|hey|sup|yo|greetings|good morning|good evening)\b/i.test(lower)) return { type: 'greet' };
       if (/^(?:thanks?|thank you|thx|ty|appreciate it)\b/i.test(lower)) return { type: 'thanks' };
@@ -527,7 +669,10 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
       if (/^(?:wow|amazing|cool|nice|great|awesome|impressive)\b/i.test(lower)) return { type: 'positive_feedback' };
       if (/^(?:bad|terrible|awful|useless|broken|sucks)\b/i.test(lower)) return { type: 'negative_feedback' };
 
+      // Long questions default to web search
       if (lower.length > 25 && /\?$/.test(lower)) return { type: 'web_search', query: q };
+      
+      // Everything else goes to semantic search (which has built-in fallbacks)
       return { type: 'semantic_search', query: q };
     }
   };
@@ -560,7 +705,7 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
   }
 
   function renderWebResults(results) {
-    if (!results.length) return '<p style="color:var(--text-muted);font-size:13px;">No web results found. Try rephrasing.</p>';
+    if (!results.length) return '<p style="color:var(--text-muted);font-size:13px;">No web results found. Try rephrasing your query.</p>';
     let html = '';
     results.slice(0,4).forEach(r => { html+=`<div class="web-result"><div class="web-result-source">${esc(r.source)}</div><div class="web-result-title">${esc(r.title)}</div><div class="web-result-snippet">${esc(r.snippet)}</div>${r.url?`<a class="web-result-link" href="${esc(r.url)}" target="_blank" rel="noopener">Read more →</a>`:''}</div>`; });
     return html;
@@ -574,7 +719,7 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
   }
 
   /* ═══════════════════════════════════════════════════════════
-     AI PROCESSOR
+     AI PROCESSOR (ENHANCED WITH FALLBACKS)
      ═══════════════════════════════════════════════════════════ */
   const AI = {
     async process(input) {
@@ -582,6 +727,32 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
       Memory.addHistory(input);
 
       switch(intent.type) {
+        /* ── NEW: CALCULATOR ── */
+        case 'calculator':
+          Memory.setContext('calculator', null);
+          return `<p>🧮 <strong>${esc(intent.expression)}</strong> = <strong>${esc(intent.result)}</strong></p>` +
+            renderSuggestions(['Calculate another','Full briefing','Search the web for ']);
+
+        /* ── NEW: DATE/TIME ── */
+        case 'datetime':
+          const now = new Date();
+          const timeStr = now.toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit', second:'2-digit' });
+          const dateStr = now.toLocaleDateString('en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+          Memory.setContext('datetime', null);
+          return `<p>🕐 It's currently <strong>${esc(timeStr)}</strong><br>📅 ${esc(dateStr)}</p>` +
+            renderSuggestions(['Full briefing','Live stocks','Tell me a fact']);
+
+        /* ── NEW: CHITCHAT (JOKES & FACTS) ── */
+        case 'chitchat':
+          Memory.setContext('chitchat', intent.subtype);
+          if (intent.subtype === 'joke') {
+            return `<p>😄 ${pick(PERSONALITY.jokes)}</p>` +
+              renderSuggestions(['Another joke','Tell me a fact','Full briefing','Live stocks']);
+          }
+          return `<p>💡 <strong>Did you know?</strong> ${pick(PERSONALITY.facts)}</p>` +
+            renderSuggestions(['Another fact','Tell me a joke','Search the web for ','Full briefing']);
+
+        /* ── FOLLOW-UPS ── */
         case 'follow_up_elaborate':
           if (intent.context.lastTopic === 'stocks') {
             const data = await fetchStocks();
@@ -603,29 +774,30 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
               renderSuggestions(['Show page directories','Open InfohubGPT','Planning tools']);
           }
           return `<p>I'd love to elaborate! Could you remind me what you'd like more detail on?</p>` +
-            renderSuggestions(['Full briefing','Live stocks','Available tools','Web search']);
+            renderSuggestions(['Full briefing','Live stocks','Available tools','Web search','Tell me a fact']);
 
         case 'follow_up_why':
           if (intent.context.lastTopic === 'stocks') return `<p>Stock prices move based on earnings, macro data, Fed policy, and sentiment. Want analysis on a specific ticker?</p>` + renderSuggestions(['Search NVDA analysis','Search AAPL earnings','Full market briefing']);
           if (intent.context.lastTopic === 'crypto') return `<p>Crypto prices are driven by adoption, regulation, on-chain activity, and risk sentiment. Want me to dig deeper?</p>` + renderSuggestions(['Search Bitcoin ETF flows','Search ETH staking','Crypto news']);
-          return `<p>Could you clarify what you'd like explained? I can search the web for detailed answers.</p>` + renderSuggestions(['Search for an answer','Rephrase my question']);
+          return `<p>Could you clarify what you'd like explained? I can search the web for detailed answers.</p>` + renderSuggestions(['Search for an answer','Rephrase my question','Tell me a fact']);
 
         case 'confirm_follow_up':
           if (intent.context.lastIntent === 'stocks') { Memory.setContext('stocks','stocks'); const d=await fetchStocks(); return `<p>Updated stock prices:</p>`+renderStockGrid(d)+renderSuggestions(['Show crypto','Full briefing']); }
           if (intent.context.lastIntent === 'crypto') { Memory.setContext('crypto','crypto'); const d=await fetchCrypto(); return `<p>Updated crypto prices:</p>`+renderStockGrid(d)+renderSuggestions(['Show stocks','Crypto news']); }
           if (intent.context.lastIntent === 'briefing') { Memory.setContext('briefing','briefing'); const [t,c]=await Promise.all([fetchRSS(CONFIG.FEEDS.tech.url),fetchRSS(CONFIG.FEEDS.crypto.url)]); return `<p>Fresh headlines:</p>`+renderNewsGrid([...t.slice(0,3).map(n=>({...n,tag:'TECH'})),...c.slice(0,2).map(n=>({...n,tag:'CRYPTO'}))])+renderSuggestions(['Full briefing','Search a topic']); }
-          return `<p>Sure! What would you like me to do next?</p>` + renderSuggestions(['Full briefing','Live stocks','Tools','Web search']);
+          return `<p>Sure! What would you like me to do next?</p>` + renderSuggestions(['Full briefing','Live stocks','Tools','Web search','Tell me a joke']);
 
         case 'dismiss':
-          return `<p>No problem! Let me know if there's something else I can help with.</p>` + renderSuggestions(['Full briefing','Show tools','Help']);
+          return `<p>No problem! Let me know if there's something else I can help with.</p>` + renderSuggestions(['Full briefing','Show tools','Help','Tell me a fact']);
 
         case 'humor':
-          return `<p>😄 Glad you're enjoying yourself! Need anything useful?</p>` + renderSuggestions(['Actually show me stocks','Tell me a tech fact','Full briefing']);
+          return `<p>😄 Glad you're enjoying yourself! Need anything useful?</p>` + renderSuggestions(['Actually show me stocks','Tell me a tech fact','Full briefing','Another joke']);
         case 'positive_feedback':
-          return `<p>Thanks! Anything else you'd like to explore?</p>` + renderSuggestions(['Live stocks','Crypto prices','Web search']);
+          return `<p>Thanks! Anything else you'd like to explore?</p>` + renderSuggestions(['Live stocks','Crypto prices','Web search','Tell me a fact']);
         case 'negative_feedback':
-          return `<p>Sorry to hear that. Could you tell me what didn't work, or try rephrasing?</p>` + renderSuggestions(['Search the web for ','Show help','Try full briefing']);
+          return `<p>Sorry to hear that. Could you tell me what didn't work, or try rephrasing?</p>` + renderSuggestions(['Search the web for ','Show help','Try full briefing','Tell me a joke']);
 
+        /* ── MEMORY ── */
         case 'set_name':
           Memory.setName(intent.value);
           return `<p>Got it! I've saved your name as <strong>${esc(intent.value)}</strong>.</p>` + renderSuggestions(['Full briefing','Show tools','What can you do?']);
@@ -633,37 +805,48 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
           const n = Memory.getName();
           return n ? `<p>Your name is <strong>${esc(n)}</strong>.</p>` : `<p>No name stored yet. Type <em>"My name is [Name]"</em> to set one.</p>`;
         case 'clear_memory':
-          localStorage.removeItem(Memory.key); Memory.data={name:null,prefs:[],history:[],briefingPrefs:[],lastIntent:null,lastTopic:null};
+          localStorage.removeItem(Memory.key); Memory.data={name:null,prefs:[],history:[],briefingPrefs:[],lastIntent:null,lastTopic:null,interactionCount:0};
           return `<p>All memory cleared. Fresh start!</p>` + renderSuggestions(['Set my name','Full briefing','Help']);
 
+        /* ── SOCIAL ── */
         case 'greet':
           const userName = Memory.getName();
-          const g = userName ? `Welcome back, <strong>${esc(userName)}</strong>!` : `Hello!`;
+          const g = userName ? `Welcome back, <strong>${esc(userName)}</strong>!` : pick(PERSONALITY.greetings);
           Memory.setContext('greet', null);
-          return `<p>${g} I'm <strong>${CONFIG.BOT_NAME}</strong>. I can search the web, pull live market data, deliver briefings, and navigate site tools.</p>` +
-            renderSuggestions(['Full briefing with stocks','Search the web for ','Show available tools','What can you do?']);
-        case 'thanks': return `<p>You're welcome! Anything else?</p>` + renderSuggestions(['Live stocks','Crypto','Full briefing']);
+          return `<p>${g} I'm <strong>${CONFIG.BOT_NAME}</strong>. I can search the web, pull live market data, deliver briefings, calculate math, tell jokes, and navigate site tools.</p>` +
+            renderSuggestions(['Full briefing with stocks','Search the web for ','Show available tools','Tell me a joke','What can you do?']);
+        case 'thanks': return `<p>You're welcome! Anything else?</p>` + renderSuggestions(['Live stocks','Crypto','Full briefing','Tell me a fact']);
         case 'bye': return `<p>See you next time! 👋</p>`;
+        
         case 'help':
           Memory.setContext('help', null);
           return `<p><strong>${CONFIG.BOT_NAME}</strong> capabilities:</p>
-            <ul style="margin-left:18px;margin-top:8px;color:var(--text-sub);font-size:14px;line-height:2;">
+            <ul>
               <li>🌐 <strong>Web Search</strong> — "search quantum computing"</li>
               <li>📊 <strong>Live Stocks</strong> — "NVDA stock", "show market data"</li>
-              <li>₿ <strong>Live Crypto</strong> — "BTC price", "crypto"</li>
+              <li>₿ <strong>Live Crypto</strong> — "BTC price", "crypto" (now with SOL & XRP)</li>
               <li>📰 <strong>Briefings</strong> — "full briefing", "world headlines"</li>
+              <li>🧮 <strong>Calculator</strong> — "calculate 50*2", "what is 144/12"</li>
+              <li>🕐 <strong>Date/Time</strong> — "what time is it", "today's date"</li>
+              <li>😄 <strong>Fun</strong> — "tell me a joke", "surprise me"</li>
               <li>🛠️ <strong>Tools</strong> — "show tools", natural language search</li>
               <li>🧠 <strong>Memory</strong> — "My name is...", "clear memory"</li>
               <li>💬 <strong>Follow-ups</strong> — "tell me more", "and crypto?", "why?"</li>
-            </ul>` + renderSuggestions(['Full briefing','Live stocks','Search the web for ','Show tools']);
+            </ul>` + renderSuggestions(['Full briefing','Live stocks','Search the web for ','Tell me a joke','Show tools']);
 
+        /* ── WEB SEARCH ── */
         case 'web_search':
           Memory.setContext('web_search', intent.query);
           const searchResults = await webSearch(intent.query);
           Memory.learnPreference('web_search');
+          if (!searchResults.length) {
+            return `<p>I couldn't find direct results for "<em>${esc(intent.query)}</em>". Here are some things you can try:</p>` +
+              renderSuggestions([`Search the web for ${intent.query}`, 'Full briefing', 'Live stocks', 'Tell me a fact', 'Show tools']);
+          }
           return `<p>Here's what I found for "<em>${esc(intent.query)}</em>":</p>` + renderWebResults(searchResults) +
-            renderSuggestions(['Search related topic','Tell me more','Full briefing']);
+            renderSuggestions(['Search related topic','Tell me more','Full briefing','Tell me a fact']);
 
+        /* ── BRIEFINGS ── */
         case 'full_briefing':
           Memory.setContext('full_briefing', 'briefing');
           Memory.trackBriefingPref('full');
@@ -671,7 +854,7 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
           let fb=`<p>Your complete briefing — live markets + news:</p>`;
           fb+=`<p style="font-size:12px;color:var(--text-muted);margin-top:12px;font-family:var(--mono);text-transform:uppercase;letter-spacing:0.05em;">📈 Live Market Snapshot</p>`+renderStockGrid(fMarket);
           fb+=`<p style="font-size:12px;color:var(--text-muted);margin-top:16px;font-family:var(--mono);text-transform:uppercase;letter-spacing:0.05em;">📰 Top Stories</p>`+renderNewsGrid([...fTech.slice(0,2).map(n=>({...n,tag:'TECH'})),...fCryptoN.slice(0,2).map(n=>({...n,tag:'CRYPTO'})),...fMarkets.slice(0,2).map(n=>({...n,tag:'MARKETS'}))]);
-          return fb + renderSuggestions(['Tell me more','And crypto details?','Search a headline topic','Show tools']);
+          return fb + renderSuggestions(['Tell me more','And crypto details?','Search a headline topic','Show tools','Tell me a joke']);
 
         case 'briefing':
           Memory.setContext('briefing', 'briefing');
@@ -680,8 +863,9 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
           let b=`<p>Your daily briefing:</p>`;
           b+=`<p style="font-size:12px;color:var(--text-muted);margin-top:12px;font-family:var(--mono);text-transform:uppercase;letter-spacing:0.05em;">📈 Key Movers</p>`+renderStockGrid(bMarket.slice(0,6));
           b+=`<p style="font-size:12px;color:var(--text-muted);margin-top:16px;font-family:var(--mono);text-transform:uppercase;letter-spacing:0.05em;">📰 Headlines</p>`+renderNewsGrid([...bTech.slice(0,3).map(n=>({...n,tag:'TECH'})),...bCryptoN.slice(0,2).map(n=>({...n,tag:'CRYPTO'}))]);
-          return b + renderSuggestions(['Tell me more','And crypto?','Full briefing','Search a topic']);
+          return b + renderSuggestions(['Tell me more','And crypto?','Full briefing','Search a topic','Tell me a fact']);
 
+        /* ── MARKETS ── */
         case 'stocks':
           Memory.setContext('stocks', 'stocks');
           Memory.learnPreference('stocks');
@@ -692,27 +876,30 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
           Memory.setContext('crypto', 'crypto');
           Memory.learnPreference('crypto');
           const cd = await fetchCrypto();
-          return `<p>Live crypto prices via CoinGecko:</p>` + renderStockGrid(cd) + renderSuggestions(['Tell me more','And stocks?','Search crypto news','Full briefing']);
+          return `<p>Live crypto prices via CoinGecko (BTC, ETH, SOL, XRP):</p>` + renderStockGrid(cd) + renderSuggestions(['Tell me more','And stocks?','Search crypto news','Full briefing']);
 
         case 'feed':
           Memory.setContext('feed', intent.key);
           const feed = CONFIG.FEEDS[intent.key];
           const arts = await fetchRSS(feed.url);
           Memory.learnPreference(intent.key);
-          if (!arts.length) return `<p>Unable to fetch ${feed.name} news right now.</p>` + renderSuggestions(['Try full briefing','Search the web for '+feed.name+' news']);
+          if (!arts.length) return `<p>Unable to fetch ${feed.name} news right now.</p>` + renderSuggestions(['Try full briefing','Search the web for '+feed.name+' news','Tell me a fact']);
           return `<p>Latest from <strong>${feed.name}</strong>:</p>` + renderNewsGrid(arts.map(a=>({...a,tag:feed.name.toUpperCase()}))) +
             renderSuggestions(['Tell me more','Search a headline','Full briefing']);
 
+        /* ── NAVIGATION ── */
         case 'navigate':
           Memory.setContext('navigate', intent.label);
           setTimeout(()=>window.open(CONFIG.SITE_BASE+intent.path,'_blank'),800);
           return `<p>Opening <strong>${intent.label}</strong> in a new tab...</p>` + renderSuggestions(['Show other pages','Full briefing','Back to chat']);
 
+        /* ── TOOL SEARCH ── */
         case 'search_apps':
           Memory.setContext('tools', 'tools');
           return `<p>Available tools and directories:</p>` + renderAppGrid(APPS.filter(a=>a.cat==='ai'||a.cat==='pages')) +
             renderSuggestions(['Tell me more about TaskyGPT','Planning tools','AI assistants','Page directories']);
 
+        /* ── SEMANTIC SEARCH WITH GUARANTEED FALLBACK ── */
         case 'semantic_search':
           const scored = APPS.map(a=>({
             ...a, score: Scorer.score(intent.query, `${a.name} ${a.desc}`, a.keywords, a.triggers||[])
@@ -733,9 +920,10 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
             const topMatches = scored.slice(0,4);
             return `<p>Possible matches for "<em>${esc(intent.query)}</em>":</p>` + renderAppGrid(topMatches) +
               `<p style="font-size:12px;color:var(--text-muted);margin-top:12px;">Not quite right?</p>` +
-              renderSuggestions([...topMatches.map(m=>m.name), 'Search the web for '+intent.query, 'Show all tools']);
+              renderSuggestions([...topMatches.map(m=>m.name), 'Search the web for '+intent.query, 'Show all tools', 'Tell me a joke']);
           }
 
+          // ULTIMATE FALLBACK: Never get stuck
           const queryTokens = Scorer.tokenize(intent.query);
           const partialHints = APPS.map(a => {
             const allKw = [...a.keywords, ...(a.triggers||[])];
@@ -743,23 +931,37 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
             return { app: a, overlapCount: overlap.length };
           }).filter(h => h.overlapCount > 0).sort((a,b) => b.overlapCount - a.overlapCount).slice(0, 3);
 
-          let fallbackHtml = `<p>No exact match for "<em>${esc(intent.query)}</em>".</p>`;
+          let fallbackHtml = `<p>${pick(PERSONALITY.fallbacks)}</p>`;
+          
           if (partialHints.length > 0) {
             fallbackHtml += `<p style="margin-top:8px;">You might be interested in:</p>` + renderAppGrid(partialHints.map(h => h.app));
-            fallbackHtml += renderSuggestions([...partialHints.map(h => `Tell me about ${h.app.name}`), 'Search the web for '+intent.query, 'Full briefing', 'Show all tools']);
-          } else {
-            fallbackHtml += `<p style="margin-top:8px;">I can search the web, or try:</p>`;
-            fallbackHtml += renderSuggestions(['Search the web for '+intent.query, 'Full briefing', 'Live stocks', 'Crypto prices', 'Show tools', 'Help']);
           }
 
-          if (intent.query.length > 20) {
+          // Auto-search for longer queries
+          if (intent.query.length > 15) {
             const webResults = await webSearch(intent.query);
             if (webResults.length > 0) {
               fallbackHtml += `<p style="margin-top:16px;font-size:12px;color:var(--text-muted);font-family:var(--mono);text-transform:uppercase;letter-spacing:0.05em;">🌐 AUTO WEB RESULTS</p>`;
               fallbackHtml += renderWebResults(webResults.slice(0, 2));
             }
           }
+
+          fallbackHtml += renderSuggestions([
+            `Search the web for ${intent.query}`, 
+            'Full briefing', 
+            'Live stocks', 
+            'Crypto prices', 
+            'Tell me a joke',
+            'Tell me a fact',
+            'Show tools', 
+            'Help'
+          ]);
           return fallbackHtml;
+
+        /* ── ABSOLUTE SAFETY NET (should never reach here) ── */
+        default:
+          return `<p>I'm not sure how to handle that, but I'm here to help! Try one of these:</p>` +
+            renderSuggestions(['Full briefing','Live stocks','Crypto prices','Search the web for ','Tell me a joke','Tell me a fact','Show tools','Help']);
       }
     }
   };
@@ -806,14 +1008,20 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
     addMsg('user', esc(text));
     input.value = '';
     const typingEl = showTyping();
-    await new Promise(r => setTimeout(r, 500 + Math.random() * 700));
+    
+    // Variable delay based on complexity for natural feel
+    const delay = text.length > 50 ? 800 + Math.random() * 600 : 400 + Math.random() * 500;
+    await new Promise(r => setTimeout(r, delay));
+    
     try {
       const response = await AI.process(text.trim());
       typingEl.remove();
       addMsg('bot', response);
     } catch(err) {
+      console.error('AI Process Error:', err);
       typingEl.remove();
-      addMsg('bot', `<p>Something went wrong. Please try again.</p>` + renderSuggestions(['Retry','Help','Full briefing']));
+      addMsg('bot', `<p>Something went wrong processing that. Please try again or use a suggestion chip below.</p>` + 
+        renderSuggestions(['Retry','Help','Full briefing','Tell me a joke','Search the web for ']));
     } finally {
       isProcessing = false;
       sendBtn.disabled = false;
@@ -848,17 +1056,17 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
   (async () => {
     await new Promise(r => setTimeout(r, 400));
     const name = Memory.getName();
-    const histLen = Memory.data.history.length;
+    const interactions = Memory.getInteractionCount();
     let html;
-    if (name && histLen > 3) {
-      html = `<p>Welcome back, <strong>${esc(name)}</strong>! Ready to pick up where you left off?</p>` +
-        renderSuggestions(['Full briefing with stocks','Live crypto','Search the web for ','Show tools']);
+    if (name && interactions > 5) {
+      html = `<p>Welcome back, <strong>${esc(name)}</strong>! You've chatted ${interactions} times. Ready to continue?</p>` +
+        renderSuggestions(['Full briefing with stocks','Live crypto','Search the web for ','Tell me a joke','Show tools']);
     } else if (name) {
       html = `<p>Hello, <strong>${esc(name)}</strong>! I'm <strong>${CONFIG.BOT_NAME}</strong>. What would you like to explore?</p>` +
-        renderSuggestions(['Full briefing','Live stocks','Crypto prices','Show tools','Help']);
+        renderSuggestions(['Full briefing','Live stocks','Crypto prices','Tell me a fact','Show tools','Help']);
     } else {
-      html = `<p>Welcome to <strong>${CONFIG.BOT_NAME}</strong>. I'm your advanced dashboard assistant with live market data, web search, and adaptive memory.</p>` +
-        renderSuggestions(['Full briefing with stocks','Search the web for ','Set my name','Show tools','What can you do?']);
+      html = `<p>Welcome to <strong>${CONFIG.BOT_NAME}</strong>. I'm your advanced dashboard assistant with live market data, web search, calculator, jokes, and adaptive memory.</p>` +
+        renderSuggestions(['Full briefing with stocks','Search the web for ','Set my name','Tell me a joke','Show tools','What can you do?']);
     }
     addMsg('bot', html);
   })();
