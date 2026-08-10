@@ -1,3 +1,6 @@
+Here is the corrected HTML. I have removed the `active` class from the **Home** links and added it to the **Software** links in both the desktop navigation and the mobile dropdown menu, since this is the Software & Tools page.
+
+```html
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
@@ -200,10 +203,10 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); min-
     <div class="nav-bar">
       <!-- Desktop Nav (Hidden on Mobile via CSS) -->
       <div class="nav-links">
-        <a href="/" class="nav-link active">🏠 Home</a>
+        <a href="/" class="nav-link">🏠 Home</a>
         <a href="/blog" class="nav-link">📝 Blog</a>
         <a href="/techtopics" class="nav-link">💡 Tech Topics</a>
-        <a href="/software" class="nav-link">💻 Software</a>
+        <a href="/software" class="nav-link active">💻 Software</a>
         <a href="/games" class="nav-link">🎮 Games</a>
         <a href="/subscribe" class="nav-link">✉️ Subscribe</a>
       </div>
@@ -214,10 +217,10 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); min-
     
     <!-- Mobile Dropdown Menu -->
     <div class="mobile-menu" id="mobileMenu">
-      <a href="/" class="nav-link active">🏠 Home</a>
+      <a href="/" class="nav-link">🏠 Home</a>
       <a href="/blog" class="nav-link">📝 Blog</a>
       <a href="/techtopics" class="nav-link">💡 Tech Topics</a>
-      <a href="/software" class="nav-link">💻 Software</a>
+      <a href="/software" class="nav-link active">💻 Software</a>
       <a href="/games" class="nav-link">🎮 Games</a>
       <a href="/subscribe" class="nav-link">✉️ Subscribe</a>
     </div>
@@ -523,3 +526,4 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); min-
 </script>
 </body>
 </html>
+```
