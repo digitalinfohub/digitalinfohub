@@ -31,6 +31,8 @@
   --accent: #6366f1; --accent-soft: rgba(99,102,241,0.12);
   --shadow: 0 4px 24px -6px rgba(0,0,0,0.4);
   --green: #22c55e; --red: #ef4444;
+  --warn-bg: rgba(234,179,8,0.08); --warn-border: rgba(234,179,8,0.2); --warn-text: #eab308;
+  --base-blue: #0052ff;
 }
 
 [data-theme="light"] {
@@ -40,6 +42,8 @@
   --accent: #4f46e5; --accent-soft: rgba(79,70,229,0.08);
   --shadow: 0 4px 24px -6px rgba(0,0,0,0.08);
   --green: #16a34a; --red: #dc2626;
+  --warn-bg: rgba(234,179,8,0.06); --warn-border: rgba(234,179,8,0.15); --warn-text: #ca8a04;
+  --base-blue: #0052ff;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -109,7 +113,6 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
 .web-result-link { display: inline-block; margin-top: 10px; font-size: 12px; color: var(--accent); text-decoration: none; font-weight: 600; }
 .web-result-link:hover { text-decoration: underline; }
 
-/* Suggestion chips inside chat messages */
 .suggestion-chips { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 12px; }
 .suggestion-chip { font-size: 11px; padding: 5px 10px; background: var(--surface-3); border: 1px solid var(--border); border-radius: 99px; color: var(--text-sub); cursor: pointer; transition: all 0.2s; white-space: nowrap; user-select: none; }
 .suggestion-chip:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
@@ -130,6 +133,24 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
 .info-writeup h2 { font-size: 20px; margin-bottom: 12px; }
 .info-writeup p { color: var(--text-sub); font-size: 15px; margin-bottom: 16px; }
 
+/* ── TOKEN SECTION STYLES ── */
+.token-section { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; margin-bottom: 48px; }
+.token-header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+.token-icon { width: 32px; height: 32px; border-radius: 50%; background: var(--base-blue); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 14px; flex-shrink: 0; }
+.token-title { font-size: 20px; font-weight: 700; }
+.token-network { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--base-blue); background: rgba(0,82,255,0.1); padding: 3px 10px; border-radius: 99px; margin-bottom: 16px; }
+.token-desc { color: var(--text-sub); font-size: 15px; margin-bottom: 20px; line-height: 1.6; }
+
+.address-box { display: flex; align-items: center; gap: 10px; background: var(--surface-2); border: 1px solid var(--border-strong); border-radius: var(--radius-sm); padding: 14px 16px; margin-bottom: 20px; flex-wrap: wrap; }
+.address-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); white-space: nowrap; }
+.address-value { font-family: var(--mono); font-size: 13px; color: var(--text); word-break: break-all; flex: 1; min-width: 0; user-select: all; }
+.copy-btn { background: var(--surface-3); border: 1px solid var(--border); color: var(--text-sub); font-size: 11px; font-weight: 600; padding: 6px 14px; border-radius: 6px; cursor: pointer; transition: all 0.2s; white-space: nowrap; font-family: var(--font); }
+.copy-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+.copy-btn.copied { background: var(--green); color: #fff; border-color: var(--green); }
+
+.disclaimer { background: var(--warn-bg); border: 1px solid var(--warn-border); border-radius: var(--radius-sm); padding: 14px 16px; }
+.disclaimer-text { font-size: 11px; color: var(--text-muted); line-height: 1.6; }
+
 .nav-shell { position: sticky; top: 0; z-index: 100; background: var(--bg); border-bottom: 1px solid var(--border); backdrop-filter: blur(12px); margin: -32px -24px 32px; padding: 0 24px; }
 .nav-bar { max-width: 860px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 12px 0; gap: 16px; }
 .nav-links { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
@@ -142,7 +163,9 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
   .hamburger { display: flex; }
   .rich-grid, .stock-grid { grid-template-columns: 1fr 1fr; }
   .shell { padding: 20px 16px 60px; }
-  .chat-hero { padding: 20px; }
+  .chat-hero, .token-section { padding: 20px; }
+  .address-box { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .copy-btn { align-self: flex-start; }
 }
 @media (max-width: 480px) {
   .rich-grid, .stock-grid { grid-template-columns: 1fr; }
@@ -160,6 +183,7 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
         <a href="/techtopics" class="nav-link">💡 Tech Topics</a>
         <a href="/software" class="nav-link">💻 Software</a>
         <a href="/games" class="nav-link">🎮 Games</a>
+        <a href="#token" class="nav-link">🔵 DIGITALINFOHUB Token</a>
         <a href="/subscribe" class="nav-link">✉️ Subscribe</a>
       </div>
       <button class="hamburger" id="hamburger" aria-label="Menu">☰</button>
@@ -185,7 +209,6 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
       <button class="chat-send" id="chatSend" type="submit">→</button>
     </form>
     
-    <!-- ALL CHIPS NOW PRE-FILL INSTEAD OF SENDING BLINDLY -->
     <div class="quick-chips" id="quickChips">
       <span class="chip" data-prefill="Full briefing with stocks">📊 Full Briefing</span>
       <span class="chip" data-prefill="Search the web for ">🌐 Web Search</span>
@@ -199,11 +222,76 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
     <h2>Your Advanced Digital Dashboard</h2>
     <p><strong>Digital Infohub AI</strong> combines real-time web search, live market data, and curated productivity tools in one adaptive interface. The assistant learns your preferences and improves its responses over time.</p>
   </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       DIGITALINFOHUB TOKEN SECTION (BASE NETWORK)
+       ═══════════════════════════════════════════════════════════ -->
+  <section class="token-section" id="token">
+    <div class="token-header">
+      <div class="token-icon">D</div>
+      <h2 class="token-title">DIGITALINFOHUB Token</h2>
+    </div>
+    <div class="token-network">🔵 Base Network</div>
+    <p class="token-desc">
+      The official DIGITALINFOHUB utility token on the Base network. 
+      Use the contract address below for trading. 
+      Always verify the network matches before transferring.
+    </p>
+
+    <div class="address-box">
+      <span class="address-label">Contract Address (Base)</span>
+      <code class="address-value" id="tokenAddress">0xd51d99de87ad3433e35f43132eddb3f68f4458e4</code>
+      <button class="copy-btn" id="copyAddressBtn" type="button">📋 Copy</button>
+    </div>
+
+    <div class="disclaimer">
+      <p class="disclaimer-text">
+        ⚠️ This token is a utility asset for the Digital Infohub ecosystem and is not a security or investment product. 
+        Cryptocurrency transactions are irreversible — always confirm the Base network and verify the address before sending. 
+        Trade at your own risk. This is not financial advice.
+      </p>
+    </div>
+  </section>
+
 </div>
 
 <script>
 (function() {
   'use strict';
+
+  /* ═══════════════════════════════════════════════════════════
+     COPY ADDRESS FUNCTIONALITY
+     ═══════════════════════════════════════════════════════════ */
+  const copyBtn = document.getElementById('copyAddressBtn');
+  const addressEl = document.getElementById('tokenAddress');
+  
+  if (copyBtn && addressEl) {
+    copyBtn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(addressEl.textContent.trim());
+        copyBtn.textContent = '✅ Copied!';
+        copyBtn.classList.add('copied');
+        setTimeout(() => {
+          copyBtn.textContent = '📋 Copy';
+          copyBtn.classList.remove('copied');
+        }, 2500);
+      } catch (err) {
+        const range = document.createRange();
+        range.selectNodeContents(addressEl);
+        const sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+        document.execCommand('copy');
+        sel.removeAllRanges();
+        copyBtn.textContent = '✅ Copied!';
+        copyBtn.classList.add('copied');
+        setTimeout(() => {
+          copyBtn.textContent = '📋 Copy';
+          copyBtn.classList.remove('copied');
+        }, 2500);
+      }
+    });
+  }
 
   /* ═══════════════════════════════════════════════════════════
      CONFIG
@@ -223,9 +311,7 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
   };
 
   /* ═══════════════════════════════════════════════════════════
-     KNOWLEDGE BASE WITH CONVERSATIONAL METADATA
-     Each app now has `triggers` for fuzzy matching and
-     `followUps` for contextual suggestion generation
+     KNOWLEDGE BASE
      ═══════════════════════════════════════════════════════════ */
   const APPS = [
     { name: 'InfohubGPT', desc: 'Tech strategy & research assistant', cat: 'ai', icon: '🤖', url: 'https://chatgpt.com/g/g-6973b68a2b188191aaead719715ab703-digiinfogpt-from-digital-infohub', keywords: ['tech','strategy','gpt','ai','research','assistant','chatbot','intelligence'], triggers: ['ai assistant','tech help','research tool','strategy bot'], followUps: ['Ask it about AI trends','Get a tech strategy breakdown'] },
@@ -240,7 +326,7 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
   ];
 
   /* ═══════════════════════════════════════════════════════════
-     MEMORY SYSTEM v5 — Now tracks conversation context
+     MEMORY SYSTEM v5
      ═══════════════════════════════════════════════════════════ */
   const Memory = {
     key: 'dih_ai_memory_v5',
@@ -379,50 +465,42 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
   };
 
   /* ═══════════════════════════════════════════════════════════
-     INTENT DETECTION — Now handles conversational follow-ups
+     INTENT DETECTION
      ═══════════════════════════════════════════════════════════ */
   const Intent = {
     detect(q) {
       const lower = q.toLowerCase().trim();
-
-      // ── Conversational Follow-ups (checked FIRST) ──
       const ctx = Memory.getContext();
-      if (/^(?:tell me more|more info|elaborate|explain more|details|go deeper)\b/i.test(lower)) {
+
+      if (/^(?:tell me more|more info|elaborate|explain more|details|go deeper)\b/i.test(lower))
         return { type: 'follow_up_elaborate', context: ctx };
-      }
-      if (/^(?:why|how come|reason|cause)\b/i.test(lower) && lower.length < 30) {
+      if (/^(?:why|how come|reason|cause)\b/i.test(lower) && lower.length < 30)
         return { type: 'follow_up_why', context: ctx };
-      }
       if (/^(?:and|also|plus|what about|how about)\s+/i.test(lower)) {
         const remainder = lower.replace(/^(?:and|also|plus|what about|how about)\s+/i, '').trim();
         if (/crypto|btc|eth/i.test(remainder)) return { type: 'crypto' };
         if (/stocks?|market/i.test(remainder)) return { type: 'stocks' };
         if (/news|headlines/i.test(remainder)) return { type: 'briefing' };
         if (/tools?|apps?|software/i.test(remainder)) return { type: 'search_apps' };
-        // Treat remainder as a new semantic search but keep context
         return { type: 'semantic_search', query: remainder, isFollowUp: true };
       }
-      if (/^(?:yes|yeah|yep|sure|ok|okay|please do|go ahead)\b/i.test(lower) && ctx.lastIntent) {
+      if (/^(?:yes|yeah|yep|sure|ok|okay|please do|go ahead)\b/i.test(lower) && ctx.lastIntent)
         return { type: 'confirm_follow_up', context: ctx };
-      }
-      if (/^(?:no|nope|nah|not that|wrong|nevermind|cancel)\b/i.test(lower)) {
+      if (/^(?:no|nope|nah|not that|wrong|nevermind|cancel)\b/i.test(lower))
         return { type: 'dismiss' };
-      }
 
-      // ── Memory ──
       const nameMatch = lower.match(/(?:my name is|i am|call me)\s+(\w+)/i);
       if (nameMatch) return { type: 'set_name', value: nameMatch[1] };
       if (/what(?:'s| is)? my name|who am i/i.test(lower)) return { type: 'get_name' };
       if (/forget me|clear memory|reset memory/i.test(lower)) return { type: 'clear_memory' };
 
-      // ── Web Search ──
       if (/^(?:search|look up|google|find out|web search|search the web)\b/i.test(lower)) {
         const query = lower.replace(/^(?:search|look up|google|find out|web search|search the web)\s+(?:for\s+)?/i,'').trim();
         return { type: 'web_search', query: query || q };
       }
-      if (/^(?:what is|who is|when did|why does|how does|define|explain)\b/i.test(lower) && lower.length > 15) return { type: 'web_search', query: q };
+      if (/^(?:what is|who is|when did|why does|how does|define|explain)\b/i.test(lower) && lower.length > 15)
+        return { type: 'web_search', query: q };
 
-      // ── Briefings & News ──
       if (/full briefing|complete briefing|everything|all news/i.test(lower)) return { type: 'full_briefing' };
       if (/briefing|news summary|daily update|headlines|morning brief/i.test(lower)) return { type: 'briefing' };
       if (/stocks?|market|ticker|share price|stock price|portfolio|s&p|nasdaq|dow/i.test(lower)) return { type: 'stocks' };
@@ -434,14 +512,12 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
         return { type:'feed', key:'tech' };
       }
 
-      // ── Navigation ──
       if (/tool|app|software|utility|program|download/i.test(lower)) return { type: 'search_apps' };
       if (/game|play|arcade|fun/i.test(lower)) return { type:'navigate', path:'/games', label:'Games Hub' };
       if (/blog|article|post|read|write/i.test(lower)) return { type:'navigate', path:'/blog', label:'Blog' };
       if (/tech topic|guide|tutorial|learn/i.test(lower)) return { type:'navigate', path:'/techtopics', label:'Tech Topics' };
       if (/subscribe|newsletter|sign.?up/i.test(lower)) return { type:'navigate', path:'/subscribe', label:'Subscribe' };
 
-      // ── Meta ──
       if (/help|what can you do|commands|features|capabilities/i.test(lower)) return { type: 'help' };
       if (/^(?:hi|hello|hey|sup|yo|greetings|good morning|good evening)\b/i.test(lower)) return { type: 'greet' };
       if (/^(?:thanks?|thank you|thx|ty|appreciate it)\b/i.test(lower)) return { type: 'thanks' };
@@ -450,9 +526,7 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
       if (/^(?:wow|amazing|cool|nice|great|awesome|impressive)\b/i.test(lower)) return { type: 'positive_feedback' };
       if (/^(?:bad|terrible|awful|useless|broken|sucks)\b/i.test(lower)) return { type: 'negative_feedback' };
 
-      // ── Long questions auto-search ──
       if (lower.length > 25 && /\?$/.test(lower)) return { type: 'web_search', query: q };
-
       return { type: 'semantic_search', query: q };
     }
   };
@@ -491,17 +565,15 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
     return html;
   }
 
-  /** Renders clickable suggestion chips INSIDE a bot message */
   function renderSuggestions(suggestions) {
     if (!suggestions || !suggestions.length) return '';
     let html = '<div class="suggestion-chips">';
     suggestions.forEach(s => { html += `<span class="suggestion-chip" data-prefill="${esc(s)}">${esc(s)}</span>`; });
-    html += '</div>';
-    return html;
+    html += '</div>'; return html;
   }
 
   /* ═══════════════════════════════════════════════════════════
-     AI PROCESSOR — Now with conversational intelligence
+     AI PROCESSOR
      ═══════════════════════════════════════════════════════════ */
   const AI = {
     async process(input) {
@@ -509,8 +581,6 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
       Memory.addHistory(input);
 
       switch(intent.type) {
-
-        // ── CONVERSATIONAL FOLLOW-UPS ──
         case 'follow_up_elaborate':
           if (intent.context.lastTopic === 'stocks') {
             const data = await fetchStocks();
@@ -531,16 +601,15 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
             return `<p>Here are all available tools with details:</p>` + renderAppGrid(APPS.filter(a=>a.cat==='ai')) +
               renderSuggestions(['Show page directories','Open InfohubGPT','Planning tools']);
           }
-          return `<p>I'd love to elaborate! Could you remind me what you'd like more detail on? Or try one of these:</p>` +
+          return `<p>I'd love to elaborate! Could you remind me what you'd like more detail on?</p>` +
             renderSuggestions(['Full briefing','Live stocks','Available tools','Web search']);
 
         case 'follow_up_why':
-          if (intent.context.lastTopic === 'stocks') return `<p>Stock prices move based on earnings reports, macroeconomic data, Fed policy, and market sentiment. Want me to search for analysis on a specific ticker?</p>` + renderSuggestions(['Search NVDA analysis','Search AAPL earnings','Full market briefing']);
-          if (intent.context.lastTopic === 'crypto') return `<p>Crypto prices are driven by adoption rates, regulatory news, on-chain activity, and broader risk sentiment. Want me to dig deeper?</p>` + renderSuggestions(['Search Bitcoin ETF flows','Search ETH staking','Crypto news']);
-          return `<p>Good question! Could you clarify what specifically you'd like me to explain? I can search the web for detailed answers.</p>` + renderSuggestions(['Search for an answer','Rephrase my question']);
+          if (intent.context.lastTopic === 'stocks') return `<p>Stock prices move based on earnings, macro data, Fed policy, and sentiment. Want analysis on a specific ticker?</p>` + renderSuggestions(['Search NVDA analysis','Search AAPL earnings','Full market briefing']);
+          if (intent.context.lastTopic === 'crypto') return `<p>Crypto prices are driven by adoption, regulation, on-chain activity, and risk sentiment. Want me to dig deeper?</p>` + renderSuggestions(['Search Bitcoin ETF flows','Search ETH staking','Crypto news']);
+          return `<p>Could you clarify what you'd like explained? I can search the web for detailed answers.</p>` + renderSuggestions(['Search for an answer','Rephrase my question']);
 
         case 'confirm_follow_up':
-          // Re-execute the last intent with fresh data
           if (intent.context.lastIntent === 'stocks') { Memory.setContext('stocks','stocks'); const d=await fetchStocks(); return `<p>Updated stock prices:</p>`+renderStockGrid(d)+renderSuggestions(['Show crypto','Full briefing']); }
           if (intent.context.lastIntent === 'crypto') { Memory.setContext('crypto','crypto'); const d=await fetchCrypto(); return `<p>Updated crypto prices:</p>`+renderStockGrid(d)+renderSuggestions(['Show stocks','Crypto news']); }
           if (intent.context.lastIntent === 'briefing') { Memory.setContext('briefing','briefing'); const [t,c]=await Promise.all([fetchRSS(CONFIG.FEEDS.tech.url),fetchRSS(CONFIG.FEEDS.crypto.url)]); return `<p>Fresh headlines:</p>`+renderNewsGrid([...t.slice(0,3).map(n=>({...n,tag:'TECH'})),...c.slice(0,2).map(n=>({...n,tag:'CRYPTO'}))])+renderSuggestions(['Full briefing','Search a topic']); }
@@ -549,31 +618,28 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
         case 'dismiss':
           return `<p>No problem! Let me know if there's something else I can help with.</p>` + renderSuggestions(['Full briefing','Show tools','Help']);
 
-        // ── SOCIAL / CONVERSATIONAL ──
         case 'humor':
-          return `<p>😄 Glad you're enjoying yourself! Need anything useful, or just vibing?</p>` + renderSuggestions(['Actually show me stocks','Tell me a tech fact','Full briefing']);
+          return `<p>😄 Glad you're enjoying yourself! Need anything useful?</p>` + renderSuggestions(['Actually show me stocks','Tell me a tech fact','Full briefing']);
         case 'positive_feedback':
-          return `<p>Thanks! I appreciate that. Anything else you'd like to explore?</p>` + renderSuggestions(['Live stocks','Crypto prices','Web search']);
+          return `<p>Thanks! Anything else you'd like to explore?</p>` + renderSuggestions(['Live stocks','Crypto prices','Web search']);
         case 'negative_feedback':
-          return `<p>I'm sorry to hear that. I'm always improving. Could you tell me what didn't work, or try rephrasing? You can also search the web directly.</p>` + renderSuggestions(['Search the web for ','Show help','Try full briefing']);
+          return `<p>Sorry to hear that. Could you tell me what didn't work, or try rephrasing?</p>` + renderSuggestions(['Search the web for ','Show help','Try full briefing']);
 
-        // ── MEMORY ──
         case 'set_name':
           Memory.setName(intent.value);
-          return `<p>Got it! I've saved your name as <strong>${esc(intent.value)}</strong>. I'll personalize future interactions.</p>` + renderSuggestions(['Full briefing','Show tools','What can you do?']);
+          return `<p>Got it! I've saved your name as <strong>${esc(intent.value)}</strong>.</p>` + renderSuggestions(['Full briefing','Show tools','What can you do?']);
         case 'get_name':
           const n = Memory.getName();
-          return n ? `<p>My records show your name is <strong>${esc(n)}</strong>.</p>` : `<p>I don't have a name stored yet. Type <em>"My name is [Name]"</em> to set one.</p>`;
+          return n ? `<p>Your name is <strong>${esc(n)}</strong>.</p>` : `<p>No name stored yet. Type <em>"My name is [Name]"</em> to set one.</p>`;
         case 'clear_memory':
           localStorage.removeItem(Memory.key); Memory.data={name:null,prefs:[],history:[],briefingPrefs:[],lastIntent:null,lastTopic:null};
           return `<p>All memory cleared. Fresh start!</p>` + renderSuggestions(['Set my name','Full briefing','Help']);
 
-        // ── GREETINGS & META ──
         case 'greet':
           const userName = Memory.getName();
           const g = userName ? `Welcome back, <strong>${esc(userName)}</strong>!` : `Hello!`;
           Memory.setContext('greet', null);
-          return `<p>${g} I'm <strong>${CONFIG.BOT_NAME}</strong>. I can search the web, pull live stock & crypto prices, deliver news briefings, and navigate all site tools.</p>` +
+          return `<p>${g} I'm <strong>${CONFIG.BOT_NAME}</strong>. I can search the web, pull live market data, deliver briefings, and navigate site tools.</p>` +
             renderSuggestions(['Full briefing with stocks','Search the web for ','Show available tools','What can you do?']);
         case 'thanks': return `<p>You're welcome! Anything else?</p>` + renderSuggestions(['Live stocks','Crypto','Full briefing']);
         case 'bye': return `<p>See you next time! 👋</p>`;
@@ -590,7 +656,6 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
               <li>💬 <strong>Follow-ups</strong> — "tell me more", "and crypto?", "why?"</li>
             </ul>` + renderSuggestions(['Full briefing','Live stocks','Search the web for ','Show tools']);
 
-        // ── WEB SEARCH ──
         case 'web_search':
           Memory.setContext('web_search', intent.query);
           const searchResults = await webSearch(intent.query);
@@ -598,7 +663,6 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
           return `<p>Here's what I found for "<em>${esc(intent.query)}</em>":</p>` + renderWebResults(searchResults) +
             renderSuggestions(['Search related topic','Tell me more','Full briefing']);
 
-        // ── BRIEFINGS ──
         case 'full_briefing':
           Memory.setContext('full_briefing', 'briefing');
           Memory.trackBriefingPref('full');
@@ -648,64 +712,45 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
           return `<p>Available tools and directories:</p>` + renderAppGrid(APPS.filter(a=>a.cat==='ai'||a.cat==='pages')) +
             renderSuggestions(['Tell me more about TaskyGPT','Planning tools','AI assistants','Page directories']);
 
-        // ── SEMANTIC SEARCH WITH SMART FUZZY FALLBACK ──
         case 'semantic_search':
           const scored = APPS.map(a=>({
-            ...a,
-            score: Scorer.score(intent.query, `${a.name} ${a.desc}`, a.keywords, a.triggers||[])
+            ...a, score: Scorer.score(intent.query, `${a.name} ${a.desc}`, a.keywords, a.triggers||[])
           })).filter(a=>a.score>0).sort((a,b)=>b.score-a.score);
 
-          // Strong match → open + suggest follow-ups
           if (scored.length>0 && scored[0].score>=4) {
             const best = scored[0];
             const url = best.url.startsWith('/')?CONFIG.SITE_BASE+best.url:best.url;
             Memory.setContext('app_match', best.name);
             setTimeout(()=>window.open(url,'_blank'),800);
             let html = `<p>Best match: <strong>${esc(best.name)}</strong> — ${esc(best.desc)}. Opening now.</p>`;
-            if (scored.length>1) { html+=`<p style="font-size:12px;color:var(--text-muted);margin-top:10px;">Also relevant:</p>`+renderAppGrid(scored.slice(1,4)); }
-            const suggestions = (best.followUps||[]).concat(['Show all tools','Search the web for '+intent.query]);
-            return html + renderSuggestions(suggestions);
+            if (scored.length>1) html+=`<p style="font-size:12px;color:var(--text-muted);margin-top:10px;">Also relevant:</p>`+renderAppGrid(scored.slice(1,4));
+            return html + renderSuggestions((best.followUps||[]).concat(['Show all tools','Search the web for '+intent.query]));
           }
 
-          // Moderate match → show options + smart fallback suggestions
           if (scored.length>0 && scored[0].score>=1.5) {
             Memory.setContext('partial_match', intent.query);
             const topMatches = scored.slice(0,4);
-            // Build "Did you mean?" suggestions from matched app names
-            const didYouMean = topMatches.map(m => m.name);
-            return `<p>I found some possible matches for "<em>${esc(intent.query)}</em>":</p>` + renderAppGrid(topMatches) +
-              `<p style="font-size:12px;color:var(--text-muted);margin-top:12px;">Not quite right? Try one of these:</p>` +
-              renderSuggestions([...didYouMean, 'Search the web for '+intent.query, 'Show all tools']);
+            return `<p>Possible matches for "<em>${esc(intent.query)}</em>":</p>` + renderAppGrid(topMatches) +
+              `<p style="font-size:12px;color:var(--text-muted);margin-top:12px;">Not quite right?</p>` +
+              renderSuggestions([...topMatches.map(m=>m.name), 'Search the web for '+intent.query, 'Show all tools']);
           }
 
-          // No match → intelligent fallback with keyword-based suggestions
-          // Find apps whose keywords partially overlap with the query tokens
           const queryTokens = Scorer.tokenize(intent.query);
-          const partialHints = APPS
-            .map(a => {
-              const allKw = [...a.keywords, ...(a.triggers||[])];
-              const overlap = queryTokens.filter(qt => allKw.some(k => k.includes(qt) || qt.includes(k)));
-              return { app: a, overlapCount: overlap.length, overlapWords: overlap };
-            })
-            .filter(h => h.overlapCount > 0)
-            .sort((a,b) => b.overlapCount - a.overlapCount)
-            .slice(0, 3);
+          const partialHints = APPS.map(a => {
+            const allKw = [...a.keywords, ...(a.triggers||[])];
+            const overlap = queryTokens.filter(qt => allKw.some(k => k.includes(qt) || qt.includes(k)));
+            return { app: a, overlapCount: overlap.length };
+          }).filter(h => h.overlapCount > 0).sort((a,b) => b.overlapCount - a.overlapCount).slice(0, 3);
 
-          let fallbackHtml = `<p>I couldn't find an exact match for "<em>${esc(intent.query)}</em>".</p>`;
-
+          let fallbackHtml = `<p>No exact match for "<em>${esc(intent.query)}</em>".</p>`;
           if (partialHints.length > 0) {
-            fallbackHtml += `<p style="margin-top:8px;">But based on similar keywords, you might be interested in:</p>`;
-            fallbackHtml += renderAppGrid(partialHints.map(h => h.app));
-            fallbackHtml += `<p style="font-size:12px;color:var(--text-muted);margin-top:12px;">Or try:</p>`;
-            const hintSuggestions = partialHints.map(h => `Tell me about ${h.app.name}`);
-            fallbackHtml += renderSuggestions([...hintSuggestions, 'Search the web for '+intent.query, 'Full briefing', 'Show all tools', 'Help']);
+            fallbackHtml += `<p style="margin-top:8px;">You might be interested in:</p>` + renderAppGrid(partialHints.map(h => h.app));
+            fallbackHtml += renderSuggestions([...partialHints.map(h => `Tell me about ${h.app.name}`), 'Search the web for '+intent.query, 'Full briefing', 'Show all tools']);
           } else {
-            // Truly nothing matched → offer web search + popular actions
-            fallbackHtml += `<p style="margin-top:8px;">I can search the web for that, or try one of these popular actions:</p>`;
+            fallbackHtml += `<p style="margin-top:8px;">I can search the web, or try:</p>`;
             fallbackHtml += renderSuggestions(['Search the web for '+intent.query, 'Full briefing', 'Live stocks', 'Crypto prices', 'Show tools', 'Help']);
           }
 
-          // Auto-trigger web search for long queries as a courtesy
           if (intent.query.length > 20) {
             const webResults = await webSearch(intent.query);
             if (webResults.length > 0) {
@@ -713,7 +758,6 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
               fallbackHtml += renderWebResults(webResults.slice(0, 2));
             }
           }
-
           return fallbackHtml;
       }
     }
@@ -747,14 +791,10 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
     return div;
   }
 
-  /** Prefill input and position cursor at end */
   function prefillInput(text) {
     input.value = text;
     input.focus();
-    // Position cursor at end
-    requestAnimationFrame(() => {
-      input.setSelectionRange(text.length, text.length);
-    });
+    requestAnimationFrame(() => input.setSelectionRange(text.length, text.length));
   }
 
   async function handleSend(text) {
@@ -783,7 +823,6 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
 
   form.addEventListener('submit', e => { e.preventDefault(); handleSend(input.value); });
 
-  // ── UNIFIED CHIP HANDLER: All chips (top bar + in-message) pre-fill ──
   document.addEventListener('click', e => {
     const chip = e.target.closest('.chip, .suggestion-chip');
     if (!chip) return;
