@@ -146,7 +146,7 @@ body {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 32px;
-  margin-bottom: 48px;
+  margin-bottom: 32px; /* Reduced margin since blog/apps are gone */
   box-shadow: var(--shadow);
 }
 
@@ -335,108 +335,29 @@ body {
 .section-link:hover { color: var(--text); border-color: var(--border-strong); }
 .section-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-/* ── Blog horizontal scroll (Desktop + Mobile optimized) ── */
-.blog-row {
-  display: flex;
-  gap: 14px;
-  overflow-x: auto;
-  overflow-y: hidden;
-  padding: 4px 4px 16px;
-  -webkit-overflow-scrolling: touch;
-  scroll-snap-type: x proximity;
-  
-  scrollbar-width: thin;
-  scrollbar-color: var(--border-strong) transparent;
-  
-  cursor: grab;
-  user-select: none;
-  -webkit-user-select: none;
-}
-
-.blog-row:active {
-  cursor: grabbing;
-}
-
-.blog-row::-webkit-scrollbar {
-  height: 6px;
-}
-.blog-row::-webkit-scrollbar-track {
-  background: transparent;
-}
-.blog-row::-webkit-scrollbar-thumb {
-  background: var(--border-strong);
-  border-radius: 3px;
-}
-.blog-row::-webkit-scrollbar-thumb:hover {
-  background: var(--text-muted);
-}
-
-.blog-row .blog-card {
-  flex: 0 0 260px;
-  min-width: 260px;
-  scroll-snap-align: start;
-}
-
-.apps-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 10px;
-}
-.app-tile {
+/* ── Writeup Section ── */
+.info-writeup {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 18px 12px 14px;
-  cursor: pointer;
-  transition: all 0.2s var(--ease);
-  font-family: inherit; color: var(--text);
-  display: flex; flex-direction: column;
-  align-items: center; gap: 10px; text-align: center;
-  animation: fade 0.4s var(--ease) backwards;
-  animation-delay: var(--stagger, 0s);
-  text-decoration: none;
-}
-@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
-.app-tile:hover { border-color: var(--border-strong); background: var(--surface-2); transform: translateY(-2px); }
-.app-tile:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.app-icon {
-  width: 40px; height: 40px;
-  border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 18px; flex-shrink: 0;
-}
-.app-icon.ai { background: linear-gradient(135deg, #6366f1, #8b5cf6); }
-.app-icon.notes { background: linear-gradient(135deg, #f59e0b, #f97316); }
-.app-icon.tasks { background: linear-gradient(135deg, #10b981, #059669); }
-.app-icon.convert { background: linear-gradient(135deg, #06b6d4, #3b82f6); }
-.app-icon.games { background: linear-gradient(135deg, #ec4899, #f43f5e); }
-.app-icon.pages { background: linear-gradient(135deg, #8b5cf6, #6366f1); }
-.app-label { font-size: 12px; font-weight: 600; }
-.app-sub { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
-
-.filter-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
-.filter-btn {
-  padding: 6px 12px;
-  background: none;
-  border: 1px solid var(--border);
-  color: var(--text-sub);
-  border-radius: 999px;
-  cursor: pointer;
-  font-family: inherit; font-size: 12px;
-  transition: all 0.2s var(--ease);
-}
-.filter-btn:hover { color: var(--text); border-color: var(--border-strong); }
-.filter-btn.active { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
-.filter-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.no-results {
-  grid-column: 1 / -1;
-  text-align: center;
+  border-radius: var(--radius);
   padding: 32px;
-  color: var(--text-muted);
-  font-size: 13px;
-  border: 1px dashed var(--border);
-  border-radius: var(--radius-sm);
+  margin-bottom: 48px;
+  box-shadow: var(--shadow);
 }
+.info-writeup h2 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+}
+.info-writeup p {
+  color: var(--text-sub);
+  font-size: 15px;
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+.info-writeup p:last-child { margin-bottom: 0; }
+.info-writeup strong { color: var(--text); }
 
 .footer-ad {
   margin-top: 48px;
@@ -681,10 +602,9 @@ body {
 @media (max-width: 640px) {
   .shell { padding: 20px 16px 60px; }
   .chat-hero { padding: 24px 20px; }
+  .info-writeup { padding: 24px 20px; }
   .topbar { margin-bottom: 32px; }
   .rich-grid { grid-template-columns: 1fr; }
-  .apps-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
-  .blog-row .blog-card { flex: 0 0 220px; min-width: 220px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -708,10 +628,10 @@ body {
         <a href="https://digitalinfohub.github.io/digitalinfohub/blog" class="nav-link" aria-label="Blog">
           📝 Blog
         </a>
-        <a href="https://digitalinfohub.github.io/digitalinfohub/techtopics" class="nav-link" aria-label="Blog">
+        <a href="https://digitalinfohub.github.io/digitalinfohub/techtopics" class="nav-link" aria-label="Tech Topics">
           💡 Tech Topics
         </a>
-        <a href="https://digitalinfohub.github.io/digitalinfohub/software" class="nav-link" aria-label="Blog">
+        <a href="https://digitalinfohub.github.io/digitalinfohub/software" class="nav-link" aria-label="Tech Topics">
           💻 Software
         </a>
         <a href="https://digitalinfohub.github.io/digitalinfohub/games" class="nav-link" aria-label="Games">
@@ -737,6 +657,8 @@ body {
     <div class="nav-drawer-links">
       <a href="https://digitalinfohub.github.io/digitalinfohub/" class="nav-drawer-link">🏠 Home</a>
       <a href="https://digitalinfohub.github.io/digitalinfohub/blog" class="nav-drawer-link">📝 Blog</a>
+      <a href="https://digitalinfohub.github.io/digitalinfohub/techtopics" class="nav-drawer-link">💡 Tech Topics</a>
+      <a href="https://digitalinfohub.github.io/digitalinfohub/software" class="nav-drawer-link">💻 Software</a>
       <a href="https://digitalinfohub.github.io/digitalinfohub/games" class="nav-drawer-link">🎮 Games</a>
     </div>
   </div>
@@ -765,11 +687,21 @@ body {
     <div class="chat-thread" id="chatThread" role="log" aria-live="polite" aria-atomic="false"></div>
 
     <form class="chat-input-shell" id="chatForm" autocomplete="off">
-      <input class="chat-input" id="chatInput" type="text" placeholder="Ask anything…"show me blogs" or "news"" aria-label="Your message">
+      <input class="chat-input" id="chatInput" type="text" placeholder="Ask anything… try &quot;news&quot;, &quot;software&quot;, or &quot;what is this site&quot;" aria-label="Your message">
       <button class="chat-send" id="chatSend" type="submit" aria-label="Send message">→</button>
     </form>
   </section>
-  <br>
+
+  <!-- INFO WRITEUP -->
+  <section class="info-writeup" aria-labelledby="aboutTitle">
+    <h2 id="aboutTitle">What is Digital Infohub?</h2>
+    <p>
+      <strong>Digital Infohub</strong> is your unified dashboard for navigating the modern digital landscape. We curate the noise so you don't have to, bringing together real-time tech news, productivity tools, browser games, and deep-dive articles in one minimalist interface.
+    </p>
+    <p>
+      Whether you're looking for the latest market trends, need a quick AI assistant to break down tasks, or just want to unwind with a game, everything is accessible through our intelligent chat or streamlined navigation. No clutter, no ads blocking your view—just the information and tools you need.
+    </p>
+  </section>
 
   <!-- ADSENSE FOOTER -->
   <div class="footer-ad" role="complementary" aria-label="Advertisement">
@@ -803,7 +735,7 @@ body {
   };
 
   /* ══════════════════════════════════════════════════════════════
-     HARDCODED BLOG POSTS (3 Featured)
+     HARDCODED BLOG POSTS (Kept for Chatbot Logic Only)
      ══════════════════════════════════════════════════════════════ */
   const HARDCODED_BLOGS = [
     {
@@ -843,7 +775,12 @@ body {
   function openLink(url, title) {
     try {
       if (!url) return;
-      window.open(url, '_blank', 'noopener,noreferrer');
+      // Handle relative paths for github pages vs production
+      let finalUrl = url;
+      if (url.startsWith('/')) {
+        finalUrl = CONFIG.SITE_BASE + url;
+      }
+      window.open(finalUrl, '_blank', 'noopener,noreferrer');
     } catch (err) {
       console.error('[Open] failed:', err);
       toast('Could not open link', true);
@@ -917,149 +854,20 @@ body {
   });
 
   /* ══════════════════════════════════════════════════════════════
-     APPS DATA — GPTs + 5 new placeholders
+     APPS DATA — GPTs + Pages (Hidden from UI, used by Chat)
      ══════════════════════════════════════════════════════════════ */
   const APPS = [
     { name: 'InfohubGPT', desc: 'Tech & strategy', cat: 'ai', icon: '🤖', url: 'https://chatgpt.com/g/g-6973b68a2b188191aaead719715ab703-digiinfogpt-from-digital-infohub', keywords: ['digitalinfohub','digiinfo','tech','strategy','gpt','ai','assistant'] },
     { name: 'TaskyGPT', desc: 'Goal breakdown', cat: 'ai tasks', icon: '📋', url: 'https://chatgpt.com/g/g-6989f6b724fc8191aef0f7393ed70672-taskygpt-from-digital-infohub', keywords: ['taskygpt','goals','planning','tasks','gpt'] },
     { name: 'CookinStepGPT', desc: 'Cooking help', cat: 'ai', icon: '🍳', url: 'https://chatgpt.com/g/g-6994cb01a16c8191885299e8dbf64428-cookinstepgpt-by-digital-infohub', keywords: ['cooking','cook','recipe','recipes','food','gpt'] },
     { name: 'SaveSmartGPT', desc: 'Savings helper', cat: 'ai', icon: '💰', url: 'https://chatgpt.com/g/g-6994de10b0b08191b778d0c80a577b86-savesmartgpt-by-digital-infohub', keywords: ['save','savings','finance','money','budget','gpt'] },
-    { name: 'Games Hub', desc: 'Play games', cat: 'games', icon: '🎮', url: 'https://digitalinfohub.net/games', keywords: ['games','play','arcade','fun','hub'] },
+    { name: 'Games Hub', desc: 'Play games', cat: 'games', icon: '🎮', url: '/games', keywords: ['games','play','arcade','fun','hub'] },
+    // Virtual "Apps" for Page Navigation
+    { name: 'Tech Topics', desc: 'Deep dives & guides', cat: 'pages', icon: '💡', url: '/techtopics', keywords: ['tech','topics','guides','learn','technology','articles'] },
+    { name: 'Software', desc: 'Tools & downloads', cat: 'pages', icon: '💻', url: '/software', keywords: ['software','tools','downloads','apps','programs','utilities'] },
+    { name: 'Blog', desc: 'Latest posts', cat: 'pages', icon: '📝', url: '/blog', keywords: ['blog','posts','articles','writing','read','news'] },
+    { name: 'Subscribe', desc: 'Get updates', cat: 'pages', icon: '🔔', url: '/subscribe', keywords: ['subscribe','newsletter','updates','email','signup','notify'] }
   ];
-
-  /* ══════════════════════════════════════════════════════════════
-     APPS GRID RENDER
-     ══════════════════════════════════════════════════════════════ */
-  const appsGrid = $('#appsGrid');
-  APPS.forEach((app, i) => {
-    const el = document.createElement('a');
-    el.className = 'app-tile';
-    el.href = app.url;
-    el.target = '_blank';
-    el.rel = 'noopener noreferrer';
-    el.dataset.cats = app.cat;
-    el.setAttribute('role', 'listitem');
-    el.setAttribute('aria-label', `${app.name} — ${app.desc}`);
-    el.style.setProperty('--stagger', (i * 0.02) + 's');
-    el.innerHTML = `
-      <div class="app-icon ${app.cat.split(' ')[0]}">${app.icon}</div>
-      <div>
-        <div class="app-label">${esc(app.name)}</div>
-        <div class="app-sub">${esc(app.desc)}</div>
-      </div>`;
-    appsGrid.appendChild(el);
-  });
-
-  const filterBtns = $$('#filterRow .filter-btn');
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterBtns.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected', 'false'); });
-      btn.classList.add('active');
-      btn.setAttribute('aria-selected', 'true');
-      const filter = btn.dataset.filter;
-      let visibleCount = 0;
-      $$('.app-tile').forEach(tile => {
-        const cats = tile.dataset.cats.split(' ');
-        const show = (filter === 'all' || cats.includes(filter));
-        tile.style.display = show ? '' : 'none';
-        if (show) visibleCount++;
-      });
-      const existingNoRes = appsGrid.querySelector('.no-results');
-      if (existingNoRes) existingNoRes.remove();
-      if (visibleCount === 0) {
-        const noRes = document.createElement('div');
-        noRes.className = 'no-results';
-        noRes.textContent = 'No apps in this category.';
-        appsGrid.appendChild(noRes);
-      }
-    });
-  });
-
-  /* ══════════════════════════════════════════════════════════════
-     BLOG SHOWCASE — STATIC 3 POSTS
-     ══════════════════════════════════════════════════════════════ */
-  const blogRow = $('#blogRow');
-  const blogSection = $('#blogSection');
-  let cachedBlogs = HARDCODED_BLOGS;
-
-  function buildBlogCardEl(post, idx) {
-    const card = document.createElement('a');
-    card.className = 'blog-card';
-    card.href = post.link;
-    card.target = '_blank';
-    card.rel = 'noopener noreferrer';
-    card.setAttribute('role', 'listitem');
-    card.setAttribute('aria-label', post.title);
-    const grad = post.grad || 'linear-gradient(135deg, #6366f1, #8b5cf6)';
-    const emoji = post.emoji || '📰';
-    const coverHTML = `<div class="blog-cover-fallback" style="background:${grad}">${emoji}</div>`;
-    card.innerHTML = `
-      <div class="blog-cover">${coverHTML}</div>
-      <div class="blog-info">
-        <div class="blog-title">${esc(post.title)}</div>
-        <div class="blog-meta">${esc(post.dateFormatted || '')}</div>
-      </div>`;
-    return card;
-  }
-
-  function loadBlogs() {
-    try {
-      blogRow.innerHTML = '';
-      HARDCODED_BLOGS.forEach((post, i) => blogRow.appendChild(buildBlogCardEl(post, i)));
-      blogSection.style.display = '';
-    } catch (e) {
-      console.warn('[Blog] load failed:', e);
-      blogSection.style.display = 'none';
-    }
-  }
-  loadBlogs();
-
-  /* ══════════════════════════════════════════════════════════════
-     BLOG ROW DESKTOP SCROLL ENHANCEMENTS
-     ══════════════════════════════════════════════════════════════ */
-  const blogRowEl = $('#blogRow');
-  if (blogRowEl) {
-    blogRowEl.addEventListener('wheel', (e) => {
-      if (blogRowEl.scrollWidth > blogRowEl.clientWidth) {
-        if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-          e.preventDefault();
-          blogRowEl.scrollLeft += e.deltaY;
-        }
-      }
-    }, { passive: false });
-
-    let isDown = false;
-    let startX;
-    let scrollLeft;
-    let isDragged = false;
-
-    blogRowEl.addEventListener('mousedown', (e) => {
-      isDown = true;
-      isDragged = false;
-      startX = e.pageX - blogRowEl.offsetLeft;
-      scrollLeft = blogRowEl.scrollLeft;
-    });
-    
-    blogRowEl.addEventListener('mouseleave', () => { isDown = false; });
-    blogRowEl.addEventListener('mouseup', () => { isDown = false; });
-    
-    blogRowEl.addEventListener('mousemove', (e) => {
-      if (!isDown) return;
-      e.preventDefault();
-      const x = e.pageX - blogRowEl.offsetLeft;
-      const walk = (x - startX) * 1.5;
-      if (Math.abs(walk) > 5) isDragged = true;
-      blogRowEl.scrollLeft = scrollLeft - walk;
-    });
-
-    blogRowEl.addEventListener('click', (e) => {
-      if (isDragged) {
-        e.preventDefault();
-        e.stopPropagation();
-        isDragged = false;
-      }
-    }, true);
-  }
 
   /* ══════════════════════════════════════════════════════════════
      FEED CACHE
@@ -1150,10 +958,17 @@ body {
     if (/^(thanks|thank you|thx|ty)\b/.test(q)) return { type: 'thanks' };
     if (/^(bye|goodbye|see you|cya)\b/.test(q)) return { type: 'bye' };
     if (/who are you|what are you|your name|what's your name/i.test(q)) return { type: 'identity' };
+    if (/what is this|about this site|what is digital infohub|describe this site/i.test(q)) return { type: 'about_site' };
     if (/^(help|\?)$|what can you do|what do you do|how do you work/i.test(q)) return { type: 'help' };
     if (/subscribe|sign.?up|newsletter|notify|notifications?/i.test(q)) return { type: 'action', action: 'subscribe' };
     if (/donate|support|contribute|tip/i.test(q)) return { type: 'action', action: 'donate' };
     if (/advertise|sponsor|ad\b|promotion/i.test(q)) return { type: 'action', action: 'advertise' };
+
+    // Explicit page navigation intents
+    if (/\b(tech.?topics?|guides?)\b/i.test(q)) return { type: 'navigate', path: '/techtopics', label: 'Tech Topics' };
+    if (/\b(software|tools|downloads?|apps?)\b/i.test(q) && !/\b(gpt|ai)\b/i.test(q)) return { type: 'navigate', path: '/software', label: 'Software' };
+    if (/\b(games?|play|arcade)\b/i.test(q)) return { type: 'navigate', path: '/games', label: 'Games Hub' };
+    if (/\b(blog|posts?|articles?|written)\b/i.test(q)) return { type: 'blog_search' }; // Keep blog search for content matching
 
     const newsMatches = q.match(/\b(news|headlines?|latest|breaking|stories?)\b/i);
     if (newsMatches) {
@@ -1162,8 +977,6 @@ body {
       if (/\bcrypto|bitcoin|blockchain|nft\b/i.test(q)) return { type: 'feed', feed: 'crypto' };
       return { type: 'feed', feed: CONFIG.DEFAULT_NEWS_FEED };
     }
-
-    if (/blog|post|article|written|writing/i.test(q)) return { type: 'blog_search' };
 
     return { type: 'search' };
   }
@@ -1272,7 +1085,11 @@ body {
     if (!tools || !tools.length) return '';
     let html = '<div class="rich-grid">';
     tools.slice(0, limit).forEach(t => {
-      html += `<a class="tile" href="${escAttr(t.url)}" target="_blank" rel="noopener noreferrer" aria-label="Open ${escAttr(t.name)}">
+      // Resolve URL relative to base if needed
+      let url = t.url;
+      if (url.startsWith('/')) url = CONFIG.SITE_BASE + url;
+      
+      html += `<a class="tile" href="${escAttr(url)}" target="_blank" rel="noopener noreferrer" aria-label="Open ${escAttr(t.name)}">
         <div class="tile-name">${esc(t.icon)} ${esc(t.name)}</div>
         <div class="tile-desc">${esc(t.desc)}</div>
       </a>`;
@@ -1304,17 +1121,33 @@ body {
 
       if (intent.type === 'greet') {
         return `<p>Hey there! I'm <strong>Digital Infohub</strong> — your assistant for everything on this site.</p>
-          <p>I can show you blogs, fetch news, and help you find tools. Try a question below, or just ask naturally.</p>`;
+          <p>I can show you blogs, fetch news, navigate pages, and help you find tools. Try asking <em>"what is this site"</em>, <em>"tech topics"</em>, or <em>"news"</em>.</p>`;
       }
       if (intent.type === 'thanks') return `<p>You're welcome! Let me know if there's anything else.</p>`;
       if (intent.type === 'bye') return `<p>See you next time 👋</p>`;
-      if (intent.type === 'identity') return `<p>I'm <strong>Digital Infohub</strong> — an AI assistant built into this dashboard. I can search articles, find tools, and help you navigate everything on the site.</p>`;
+      if (intent.type === 'identity') return `<p>I'm <strong>Digital Infohub</strong> — an AI assistant built into this dashboard. I can search articles, find tools, navigate pages, and help you explore everything on the site.</p>`;
+      
+      if (intent.type === 'about_site') {
+        return `<p><strong>Digital Infohub</strong> is a unified dashboard for navigating the modern digital landscape. We bring together real-time tech news, productivity tools, browser games, and deep-dive articles in one minimalist interface.</p>
+        <p>Whether you want market trends, AI assistants, or just a quick game, everything is accessible right here. No clutter, just the info and tools you need.</p>
+        <p style="font-size:12px;color:var(--text-muted);margin-top:8px;">Explore our main sections:</p>
+        ${renderToolTiles(APPS.filter(a => a.cat === 'pages'), 4)}`;
+      }
+
       if (intent.type === 'help') {
         return `<p>Here's what I can do:</p>
-          <p>• <strong>Show blogs &amp; articles</strong> — "show me blogs"<br>
-          • <strong>Fetch news</strong> — "news", "tech news", "crypto news", "world news"<br>
-          • <strong>Find tools</strong> — ask about any app you see on the page<br>
-          • <strong>Navigation</strong> — "subscribe", "donate", "about"</p>`;
+          <p>• <strong>Navigate Pages</strong> — "go to software", "tech topics", "games"<br>
+          • <strong>Show blogs &amp; articles</strong> — "show me blogs", "design articles"<br>
+          • <strong>Fetch news</strong> — "news", "crypto news", "world news"<br>
+          • <strong>Find tools</strong> — ask about any GPT or app<br>
+          • <strong>Site Info</strong> — "what is this site", "subscribe"</p>`;
+      }
+
+      if (intent.type === 'navigate') {
+        const fullUrl = CONFIG.SITE_BASE + intent.path;
+        setTimeout(() => openLink(fullUrl, intent.label), 800);
+        return `<p>Opening <strong>${esc(intent.label)}</strong> for you in a new tab...</p>
+        <p style="font-size:12px;color:var(--text-muted);margin-top:8px;">You can also access this anytime from the navigation menu.</p>`;
       }
 
       if (intent.type === 'feed') {
@@ -1349,23 +1182,25 @@ body {
         const tokens = tokenize(queryLower).filter(t => !['blog','post','article','show','me','latest','new','the','a'].includes(t));
         let results;
         if (tokens.length) {
-          results = cachedBlogs
+          results = HARDCODED_BLOGS
             .map(b => ({ post: b, score: tokens.filter(t => (b.title + ' ' + b.keywords.join(' ')).includes(t)).length }))
             .filter(x => x.score > 0)
             .sort((a, b) => b.score - a.score)
             .map(x => x.post);
         } else {
-          results = cachedBlogs.slice(0, 3);
+          results = HARDCODED_BLOGS.slice(0, 3);
         }
         if (!results.length) {
-          return `<p>Here are the latest posts:</p>${renderBlogCards(cachedBlogs)}`;
+          return `<p>I didn't find specific matches, but here are our featured posts:</p>${renderBlogCards(HARDCODED_BLOGS)}
+          <p style="font-size:12px;color:var(--text-muted);margin-top:10px;">Or visit the <a href="${CONFIG.SITE_BASE}/blog" target="_blank">full blog</a> to browse everything.</p>`;
         }
         return `<p>Here are the blog posts I found:</p>${renderBlogCards(results)}`;
       }
 
+      // General Search across Apps/Pages and Blogs
       const toolScores = scoreQuery(query, APPS);
-      const blogScores = cachedBlogs.map(b => ({ ...b, name: b.title })).length
-        ? scoreQuery(query, cachedBlogs.map(b => ({ ...b, name: b.title })))
+      const blogScores = HARDCODED_BLOGS.map(b => ({ ...b, name: b.title })).length
+        ? scoreQuery(query, HARDCODED_BLOGS.map(b => ({ ...b, name: b.title })))
         : [];
 
       const bestTool = toolScores[0];
@@ -1373,19 +1208,22 @@ body {
 
       if (bestTool && bestTool.score >= 4) {
         const t = bestTool.item;
+        let url = t.url;
+        if (url.startsWith('/')) url = CONFIG.SITE_BASE + url;
+        
         let html = `<p>Opening <strong>${esc(t.name)}</strong> for you in a new tab. ${esc(t.desc)}.</p>`;
         const top3 = toolScores.slice(0, 3);
         if (top3.length > 1) {
           html += `<p style="font-size:12px;color:var(--text-muted);margin-top:8px;">You might also like:</p>`;
           html += renderToolTiles(top3.slice(1).map(x => x.item), 3);
         }
-        setTimeout(() => openLink(t.url, t.name), 800);
+        setTimeout(() => openLink(url, t.name), 800);
         return html;
       }
 
       if (bestTool && bestTool.score >= 2) {
         const matches = toolScores.slice(0, 4);
-        let html = `<p>I found a few tools that might match:</p>`;
+        let html = `<p>I found a few pages or tools that might match:</p>`;
         html += renderToolTiles(matches.map(x => x.item), 4);
         return html;
       }
@@ -1395,9 +1233,9 @@ body {
         return `<p>Here are matching blog posts:</p>${renderBlogCards(matches)}`;
       }
 
-      return `<p>I'm not sure what you mean. Try asking for a specific tool, blog, or news topic.</p>
-        <p style="font-size:12px;color:var(--text-muted);margin-top:8px;">Popular options:</p>
-        ${renderToolTiles(APPS.slice(0, 4), 4)}
+      return `<p>I'm not sure what you mean. Try asking for a specific page, tool, or news topic.</p>
+        <p style="font-size:12px;color:var(--text-muted);margin-top:8px;">Quick links:</p>
+        ${renderToolTiles(APPS.filter(a => a.cat === 'pages').slice(0, 4), 4)}
         <p style="font-size:12px;color:var(--text-muted);margin-top:14px;">Or try asking for <strong>"news"</strong>, <strong>"blogs"</strong>, or say <strong>"help"</strong>.</p>`;
 
     } catch (err) {
@@ -1454,11 +1292,11 @@ body {
     const msg = addMsg('bot', '');
     await new Promise(r => setTimeout(r, 300));
     try {
-      await typeBot(`<p>Welcome to <strong>Digital Infohub</strong>. I can show you blogs, fetch news, and help you find tools — just ask.</p><p>Try something like <em>"news"</em>, <em>"show me blogs"</em>, or say <em>"help"</em>.</p>`, msg);
+      await typeBot(`<p>Welcome to <strong>Digital Infohub</strong>. I can navigate pages, show blogs, fetch news, and help you find tools — just ask.</p><p>Try <em>"tech topics"</em>, <em>"software"</em>, <em>"news"</em>, or ask <em>"what is this site?"</em></p>`, msg);
     } catch (err) {
       console.error('[Welcome] error:', err);
       const contentEl = msg.querySelector('.msg-content');
-      if (contentEl) contentEl.innerHTML = `<p>Welcome to <strong>Digital Infohub</strong>. How can I help you?</p>`;
+      if (contentEl) contentEl.innerHTML = `<p>Welcome to <strong>Digital Infohub</strong>. How can I help you today?</p>`;
     }
     isTyping = false;
     chatSend.disabled = false;
