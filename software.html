@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<title>Digital Infohub | Software & Tools</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta name="theme-color" content="#0a0a0a">
+<meta name="description" content="Digital Infohub — Real online software, AI tools, and browser widgets.">
+<meta name="color-scheme" content="dark light">
+
+<link rel="icon" type="image/png" href="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png">
+<link rel="apple-touch-icon" href="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, monospace;
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --radius: 12px;
+  --radius-sm: 8px;
+  --modal-z: 1000;
+}
+
+[data-theme="dark"] {
+  --bg: #0a0a0a; --surface: #111111; --surface-2: #161616; --surface-3: #1a1a1a;
+  --border: rgba(255,255,255,0.06); --border-strong: rgba(255,255,255,0.1);
+  --text: #f5f5f5; --text-sub: #a1a1aa; --text-muted: #71717a;
+  --accent: #6366f1; --accent-soft: rgba(99,102,241,0.1);
+  --shadow: 0 4px 24px -6px rgba(0,0,0,0.4);
+}
+
+[data-theme="light"] {
+  --bg: #fafafa; --surface: #ffffff; --surface-2: #f4f4f5; --surface-3: #e4e4e7;
+  --border: rgba(0,0,0,0.06); --border-strong: rgba(0,0,0,0.12);
+  --text: #0a0a0a; --text-sub: #52525b; --text-muted: #a1a1aa;
+  --accent: #4f46e5; --accent-soft: rgba(79,70,229,0.08);
+  --shadow: 0 4px 24px -6px rgba(0,0,0,0.08);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font); background: var(--bg); color: var(--text); min-height: 100vh; line-height: 1.6; -webkit-font-smoothing: antialiased; transition: background 0.3s ease, color 0.3s ease; }
+
+.shell { max-width: 820px; margin: 0 auto; padding: 32px 24px 80px; }
+
+/* ═══ NAVIGATION ═══ */
+.nav-shell { position: sticky; top: 0; z-index: 100; background: var(--bg); border-bottom: 1px solid var(--border); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); margin: -32px -24px 32px; padding: 0 24px; }
+.nav-bar { max-width: 820px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 12px 0; gap: 16px; }
+.nav-links { display: flex; gap: 4px; align-items: center; overflow-x: auto; scrollbar-width: none; }
+.nav-links::-webkit-scrollbar { display: none; }
+.nav-link { padding: 8px 14px; background: none; border: 1px solid transparent; color: var(--text-sub); border-radius: 8px; cursor: pointer; font-family: inherit; font-size: 13px; font-weight: 500; transition: all 0.2s var(--ease); white-space: nowrap; display: flex; align-items: center; gap: 6px; text-decoration: none; }
+.nav-link:hover { color: var(--text); background: var(--surface-2); border-color: var(--border); }
+.nav-link.active { color: var(--accent); background: var(--accent-soft); border-color: var(--accent); }
+
+/* ═══ TOP BAR ═══ */
+.topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 48px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 15px; letter-spacing: -0.01em; text-decoration: none; color: var(--text); }
+.brand-logo { width: 28px; height: 28px; border-radius: 8px; background: var(--surface-2); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.brand-logo img { width: 100%; height: 100%; object-fit: cover; }
+.icon-btn { width: 36px; height: 36px; border: 1px solid var(--border); background: var(--surface); color: var(--text-sub); border-radius: var(--radius-sm); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s var(--ease); }
+.icon-btn:hover { color: var(--text); border-color: var(--border-strong); background: var(--surface-2); }
+
+/* ═══ SECTIONS & FILTERS ═══ */
+.section { margin-bottom: 48px; }
+.section-head { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px; gap: 16px; }
+.eyebrow { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); font-weight: 600; font-family: var(--mono); margin-bottom: 4px; }
+.filter-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
+.filter-btn { padding: 6px 12px; background: none; border: 1px solid var(--border); color: var(--text-sub); border-radius: 999px; cursor: pointer; font-family: inherit; font-size: 12px; transition: all 0.2s var(--ease); }
+.filter-btn:hover { color: var(--text); border-color: var(--border-strong); }
+.filter-btn.active { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
+
+/* ═══ APPS GRID ═══ */
+.apps-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
+.app-tile { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 18px 12px 14px; cursor: pointer; transition: all 0.2s var(--ease); font-family: inherit; color: var(--text); display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; text-decoration: none; position: relative; overflow: hidden; }
+.app-tile:hover { border-color: var(--border-strong); background: var(--surface-2); transform: translateY(-2px); }
+.app-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+.app-icon.ai { background: linear-gradient(135deg, #6366f1, #8b5cf6); }
+.app-icon.tasks { background: linear-gradient(135deg, #10b981, #059669); }
+.app-icon.games { background: linear-gradient(135deg, #ec4899, #f43f5e); }
+.app-icon.tools { background: linear-gradient(135deg, #06b6d4, #3b82f6); }
+.app-icon.health { background: linear-gradient(135deg, #14b8a6, #0d9488); }
+.app-icon.dev { background: linear-gradient(135deg, #f59e0b, #d97706); }
+.app-label { font-size: 12px; font-weight: 600; }
+.app-sub { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
+.app-badge { position: absolute; top: 8px; right: 8px; font-size: 9px; background: var(--surface-3); padding: 2px 6px; border-radius: 4px; color: var(--text-muted); border: 1px solid var(--border); }
+
+/* ═══ WIDGET MODAL ═══ */
+.widget-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); z-index: var(--modal-z); opacity: 0; pointer-events: none; transition: opacity 0.3s var(--ease); display: flex; align-items: center; justify-content: center; padding: 20px; }
+.widget-overlay.active { opacity: 1; pointer-events: all; }
+.widget-modal { background: var(--surface); border: 1px solid var(--border-strong); border-radius: var(--radius); width: 100%; max-width: 480px; box-shadow: var(--shadow); transform: scale(0.95) translateY(10px); transition: transform 0.3s var(--ease); display: flex; flex-direction: column; max-height: 85vh; }
+.widget-overlay.active .widget-modal { transform: scale(1) translateY(0); }
+.widget-header { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+.widget-title { font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+.widget-close { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 18px; padding: 4px; border-radius: 4px; transition: color 0.2s; }
+.widget-close:hover { color: var(--text); background: var(--surface-2); }
+.widget-body { padding: 20px; overflow-y: auto; flex: 1; }
+
+/* Widget Internals */
+.calc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 12px; }
+.calc-display { grid-column: 1 / -1; background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px; font-family: var(--mono); font-size: 24px; text-align: right; margin-bottom: 8px; color: var(--text); overflow: hidden; white-space: nowrap; }
+.calc-btn { padding: 14px; background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--text); font-family: var(--mono); font-size: 16px; cursor: pointer; transition: all 0.15s; }
+.calc-btn:hover { background: var(--surface-3); border-color: var(--border-strong); }
+.calc-btn.accent { background: var(--accent); border-color: var(--accent); color: white; }
+
+.note-area, .code-area { width: 100%; min-height: 200px; background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px; color: var(--text); font-family: var(--font); font-size: 14px; resize: vertical; outline: none; transition: border-color 0.2s; }
+.code-area { font-family: var(--mono); font-size: 12px; min-height: 160px; tab-size: 2; }
+.note-area:focus, .code-area:focus { border-color: var(--accent); }
+.note-meta { font-size: 11px; color: var(--text-muted); margin-top: 8px; font-family: var(--mono); display: flex; justify-content: space-between; }
+
+.timer-display { font-family: var(--mono); font-size: 48px; text-align: center; margin: 20px 0; font-variant-numeric: tabular-nums; }
+.timer-controls, .pw-actions { display: flex; gap: 8px; justify-content: center; }
+.timer-btn, .pw-btn { padding: 10px 24px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface-2); color: var(--text); cursor: pointer; font-weight: 600; font-size: 13px; transition: all 0.15s; }
+.timer-btn.primary, .pw-btn.primary { background: var(--accent); border-color: var(--accent); color: white; }
+
+.converter-row { display: flex; gap: 8px; align-items: center; margin-bottom: 12px; }
+.conv-input { flex: 1; background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 12px; color: var(--text); font-family: var(--mono); font-size: 14px; outline: none; }
+.conv-select { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px; color: var(--text); font-family: inherit; font-size: 13px; outline: none; cursor: pointer; }
+.conv-result { text-align: center; font-family: var(--mono); font-size: 20px; padding: 16px; background: var(--accent-soft); border-radius: var(--radius-sm); color: var(--accent); font-weight: 600; margin-top: 8px; }
+
+.pw-output { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px; font-family: var(--mono); font-size: 16px; text-align: center; word-break: break-all; margin-bottom: 12px; color: var(--text); min-height: 50px; display: flex; align-items: center; justify-content: center; }
+.pw-options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+.pw-opt { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-sub); cursor: pointer; }
+.pw-opt input { accent-color: var(--accent); }
+
+.breath-circle { width: 120px; height: 120px; border-radius: 50%; background: var(--accent-soft); margin: 20px auto; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; color: var(--accent); transition: transform 4s ease-in-out; }
+.breath-circle.inhale { transform: scale(1.5); }
+.breath-circle.exhale { transform: scale(1); }
+.breath-label { text-align: center; font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+.breath-sub { text-align: center; font-size: 12px; color: var(--text-muted); margin-bottom: 20px; }
+
+.color-preview { width: 100%; height: 80px; border-radius: var(--radius-sm); border: 1px solid var(--border); margin-bottom: 12px; transition: background 0.15s; }
+.color-values { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.color-val { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px; font-family: var(--mono); font-size: 12px; text-align: center; cursor: pointer; transition: border-color 0.15s; }
+.color-val:hover { border-color: var(--accent); }
+.color-val small { display: block; color: var(--text-muted); font-size: 10px; margin-bottom: 2px; font-family: var(--font); text-transform: uppercase; letter-spacing: 0.05em; }
+
+.md-split { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.md-preview { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px; font-size: 13px; line-height: 1.6; overflow-y: auto; max-height: 300px; }
+.md-preview h1,.md-preview h2,.md-preview h3 { margin: 8px 0 4px; color: var(--text); }
+.md-preview p { margin-bottom: 8px; }
+.md-preview code { background: var(--surface-3); padding: 1px 5px; border-radius: 3px; font-family: var(--mono); font-size: 0.9em; }
+.md-preview pre { background: var(--surface-3); padding: 10px; border-radius: var(--radius-sm); overflow-x: auto; margin-bottom: 8px; }
+.md-preview pre code { background: none; padding: 0; }
+.md-preview blockquote { border-left: 3px solid var(--accent); padding-left: 12px; color: var(--text-sub); margin: 8px 0; }
+
+.json-error { color: #ef4444; font-size: 12px; margin-top: 8px; font-family: var(--mono); }
+.json-actions { display: flex; gap: 8px; margin-top: 10px; }
+
+.no-results { grid-column: 1 / -1; text-align: center; padding: 32px; color: var(--text-muted); font-size: 13px; border: 1px dashed var(--border); border-radius: var(--radius-sm); }
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+
+@media (max-width: 640px) {
+  .shell { padding: 20px 16px 60px; }
+  .nav-shell { margin: -20px -16px 32px; padding: 0 16px; }
+  .apps-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
+  .widget-modal { max-width: 100%; margin: 10px; }
+  .md-split { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- NAVIGATION -->
+  <nav class="nav-shell" role="navigation" aria-label="Main navigation">
+    <div class="nav-bar">
+      <div class="nav-links">
+        <a href="https://digitalinfohub.net" class="nav-link">🏠 Home</a>
+        <a href="https://digitalinfohub.net/blog" class="nav-link">📝 Blog</a>
+        <a href="https://digitalinfohub.net/techtopics" class="nav-link">💡 Tech Topics</a>
+        <a href="https://digitalinfohub.net/games" class="nav-link">🎮 Games</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <a href="https://digitalinfohub.net" class="brand">
+      <span class="brand-logo"><img src="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png" alt="" loading="lazy"></span>
+      <span>Digital Infohub</span>
+    </a>
+    <button class="icon-btn" id="themeToggle" title="Toggle theme" aria-label="Toggle theme">
+      <svg id="themeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+    </button>
+  </div>
+
+  <!-- APPS SECTION -->
+  <section class="section" aria-labelledby="appsTitle">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Software Suite</div>
+        <h2 id="appsTitle" style="font-size:18px;font-weight:700;">Online Tools & AI</h2>
+      </div>
+    </div>
+    
+    <div class="filter-row" id="filterRow" role="tablist" aria-label="Filter apps">
+      <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">All</button>
+      <button class="filter-btn" data-filter="ai" role="tab" aria-selected="false">AI</button>
+      <button class="filter-btn" data-filter="tools" role="tab" aria-selected="false">Widgets</button>
+      <button class="filter-btn" data-filter="dev" role="tab" aria-selected="false">Dev</button>
+      <button class="filter-btn" data-filter="tasks" role="tab" aria-selected="false">Productivity</button>
+      <button class="filter-btn" data-filter="health" role="tab" aria-selected="false">Wellness</button>
+    </div>
+    
+    <div class="apps-grid" id="appsGrid" role="list"></div>
+  </section>
+
+</div>
+
+<!-- WIDGET MODAL -->
+<div class="widget-overlay" id="widgetOverlay" aria-hidden="true">
+  <div class="widget-modal" role="dialog" aria-modal="true" aria-labelledby="widgetTitle">
+    <div class="widget-header">
+      <div class="widget-title" id="widgetTitle">Tool</div>
+      <button class="widget-close" id="widgetClose" aria-label="Close widget">×</button>
+    </div>
+    <div class="widget-body" id="widgetBody"></div>
+  </div>
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  /* ═══ VERIFIED APP LIBRARY ═══ */
+  const APPS = [
+    // External AI (Real, Verified GPTs)
+    { name: 'InfohubGPT', desc: 'Tech Strategy', cat: 'ai', icon: '🤖', type: 'link', url: 'https://chatgpt.com/g/g-6973b68a2b188191aaead719715ab703-digiinfogpt-from-digital-infohub' },
+    { name: 'TaskyGPT', desc: 'Goal Breakdown', cat: 'ai tasks', icon: '📋', type: 'link', url: 'https://chatgpt.com/g/g-6989f6b724fc8191aef0f7393ed70672-taskygpt-from-digital-infohub' },
+    { name: 'CookinStep', desc: 'Recipe Assistant', cat: 'ai', icon: '🍳', type: 'link', url: 'https://chatgpt.com/g/g-6994cb01a16c8191885299e8dbf64428-cookinstepgpt-by-digital-infohub' },
+    { name: 'SaveSmart', desc: 'Finance Helper', cat: 'ai', icon: '💰', type: 'link', url: 'https://chatgpt.com/g/g-6994de10b0b08191b778d0c80a577b86-savesmartgpt-by-digital-infohub' },
+    
+    // In-Browser Widgets (Real, Functional)
+    { name: 'Calculator', desc: 'Quick Math', cat: 'tools', icon: '🧮', type: 'widget', widgetId: 'calc' },
+    { name: 'Quick Notes', desc: 'Local Autosave', cat: 'tools tasks', icon: '📝', type: 'widget', widgetId: 'notes' },
+    { name: 'Focus Timer', desc: 'Pomodoro Style', cat: 'tools tasks', icon: '⏱️', type: 'widget', widgetId: 'timer' },
+    { name: 'Unit Converter', desc: 'Length & Weight', cat: 'tools', icon: '📐', type: 'widget', widgetId: 'converter' },
+    { name: 'Password Gen', desc: 'Secure Random', cat: 'tools', icon: '🔐', type: 'widget', widgetId: 'password' },
+    { name: 'Breathing', desc: '4-7-8 Relax', cat: 'health tools', icon: '🫁', type: 'widget', widgetId: 'breath' },
+    { name: 'Color Picker', desc: 'HEX / RGB / HSL', cat: 'tools dev', icon: '🎨', type: 'widget', widgetId: 'color' },
+    { name: 'JSON Formatter', desc: 'Validate & Prettify', cat: 'dev tools', icon: '{ }', type: 'widget', widgetId: 'json' },
+    { name: 'Markdown Preview', desc: 'Live Render', cat: 'dev tools tasks', icon: '📄', type: 'widget', widgetId: 'markdown' },
+    
+    // External Links
+    { name: 'Games Hub', desc: 'Play Instantly', cat: 'games', icon: '🎮', type: 'link', url: 'https://digitalinfohub.net/games' },
+  ];
+
+  const $ = s => document.querySelector(s);
+  const $$ = s => Array.from(document.querySelectorAll(s));
+  const appsGrid = $('#appsGrid');
+  const overlay = $('#widgetOverlay');
+  const widgetBody = $('#widgetBody');
+  const widgetTitle = $('#widgetTitle');
+
+  /* ═══ RENDER GRID ═══ */
+  APPS.forEach((app, i) => {
+    const el = document.createElement(app.type === 'link' ? 'a' : 'button');
+    el.className = 'app-tile';
+    el.dataset.cats = app.cat;
+    el.setAttribute('role', 'listitem');
+    el.style.animation = `fade 0.4s var(--ease) backwards ${(i * 0.03)}s`;
+    if (app.type === 'link') { el.href = app.url; el.target = '_blank'; el.rel = 'noopener noreferrer'; }
+    else { el.onclick = () => openWidget(app); }
+    el.innerHTML = `${app.type === 'link' ? '<span class="app-badge">↗</span>' : '<span class="app-badge">APP</span>'}
+      <div class="app-icon ${app.cat.split(' ')[0]}">${app.icon}</div>
+      <div><div class="app-label">${app.name}</div><div class="app-sub">${app.desc}</div></div>`;
+    appsGrid.appendChild(el);
+  });
+
+  /* ═══ FILTERS ═══ */
+  $$('#filterRow .filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      $$('.filter-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected', 'false'); });
+      btn.classList.add('active'); btn.setAttribute('aria-selected', 'true');
+      const filter = btn.dataset.filter; let visible = 0;
+      $$('.app-tile').forEach(tile => { const show = filter === 'all' || tile.dataset.cats.includes(filter); tile.style.display = show ? '' : 'none'; if (show) visible++; });
+      const existing = appsGrid.querySelector('.no-results'); if (existing) existing.remove();
+      if (!visible) { const msg = document.createElement('div'); msg.className = 'no-results'; msg.textContent = 'No software found in this category.'; appsGrid.appendChild(msg); }
+    });
+  });
+
+  /* ═══ WIDGET SYSTEM ═══ */
+  function openWidget(app) {
+    widgetTitle.innerHTML = `${app.icon} ${app.name}`;
+    widgetBody.innerHTML = '';
+    overlay.classList.add('active'); overlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    const renderers = { calc: renderCalc, notes: renderNotes, timer: renderTimer, converter: renderConverter, password: renderPassword, breath: renderBreath, color: renderColor, json: renderJson, markdown: renderMarkdown };
+    if (renderers[app.widgetId]) renderers[app.widgetId](widgetBody);
+  }
+
+  function closeWidget() {
+    overlay.classList.remove('active'); overlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    setTimeout(() => { widgetBody.innerHTML = ''; }, 300);
+  }
+
+  $('#widgetClose').onclick = closeWidget;
+  overlay.addEventListener('click', e => { if (e.target === overlay) closeWidget(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && overlay.classList.contains('active')) closeWidget(); });
+
+  /* ── CALCULATOR ── */
+  function renderCalc(c) {
+    c.innerHTML = `<div class="calc-display" id="calcDisp">0</div><div class="calc-grid">
+      <button class="calc-btn" data-v="C">C</button><button class="calc-btn" data-v="/">÷</button><button class="calc-btn" data-v="*">×</button><button class="calc-btn" data-v="DEL">⌫</button>
+      <button class="calc-btn" data-v="7">7</button><button class="calc-btn" data-v="8">8</button><button class="calc-btn" data-v="9">9</button><button class="calc-btn" data-v="-">−</button>
+      <button class="calc-btn" data-v="4">4</button><button class="calc-btn" data-v="5">5</button><button class="calc-btn" data-v="6">6</button><button class="calc-btn" data-v="+">+</button>
+      <button class="calc-btn" data-v="1">1</button><button class="calc-btn" data-v="2">2</button><button class="calc-btn" data-v="3">3</button><button class="calc-btn accent" data-v="=">=</button>
+      <button class="calc-btn" data-v="0" style="grid-column:span 2">0</button><button class="calc-btn" data-v=".">.</button></div>`;
+    let expr = ''; const disp = c.querySelector('#calcDisp');
+    c.querySelectorAll('.calc-btn').forEach(b => b.onclick = () => {
+      const v = b.dataset.v;
+      if (v === 'C') expr = ''; else if (v === 'DEL') expr = expr.slice(0, -1);
+      else if (v === '=') { try { expr = String(new Function('return ' + expr)()); } catch { expr = 'Error'; } }
+      else expr += v; disp.textContent = expr || '0';
+    });
+  }
+
+  /* ── NOTES ── */
+  function renderNotes(c) {
+    const saved = localStorage.getItem('dih_notes') || '';
+    c.innerHTML = `<textarea class="note-area" id="noteArea" placeholder="Type something...">${saved}</textarea>
+      <div class="note-meta"><span id="noteStatus">Auto-saving...</span><span>${saved.length} chars</span></div>`;
+    const area = c.querySelector('#noteArea'), status = c.querySelector('#noteStatus');
+    area.oninput = () => { localStorage.setItem('dih_notes', area.value); status.textContent = 'Saved ✓';
+      c.querySelector('.note-meta span:last-child').textContent = area.value.length + ' chars';
+      clearTimeout(area._t); area._t = setTimeout(() => status.textContent = 'Auto-saving...', 1000); };
+    area.focus();
+  }
+
+  /* ── TIMER ── */
+  function renderTimer(c) {
+    c.innerHTML = `<div class="timer-display" id="timerDisp">25:00</div>
+      <div class="timer-controls"><button class="timer-btn primary" id="timerStart">Start</button><button class="timer-btn" id="timerReset">Reset</button></div>`;
+    let seconds = 25 * 60, interval = null, running = false;
+    const disp = c.querySelector('#timerDisp'), startBtn = c.querySelector('#timerStart');
+    const fmt = s => `${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;
+    const tick = () => { if (seconds <= 0) { clearInterval(interval); running = false; startBtn.textContent = 'Done'; return; } seconds--; disp.textContent = fmt(seconds); };
+    startBtn.onclick = () => { if (running) { clearInterval(interval); running = false; startBtn.textContent = 'Resume'; } else { interval = setInterval(tick, 1000); running = true; startBtn.textContent = 'Pause'; } };
+    c.querySelector('#timerReset').onclick = () => { clearInterval(interval); running = false; seconds = 25*60; disp.textContent = fmt(seconds); startBtn.textContent = 'Start'; };
+  }
+
+  /* ── UNIT CONVERTER ── */
+  function renderConverter(c) {
+    c.innerHTML = `<div class="converter-row"><input type="number" class="conv-input" id="convVal" value="1" step="any"></div>
+      <div class="converter-row"><select class="conv-select" id="convFrom"><option value="m">Meters</option><option value="ft">Feet</option><option value="km">Kilometers</option><option value="mi">Miles</option><option value="kg">Kilograms</option><option value="lb">Pounds</option></select>
+      <span style="color:var(--text-muted)">→</span>
+      <select class="conv-select" id="convTo"><option value="ft">Feet</option><option value="m">Meters</option><option value="mi">Miles</option><option value="km">Kilometers</option><option value="lb">Pounds</option><option value="kg">Kilograms</option></select></div>
+      <div class="conv-result" id="convResult">3.28 ft</div>`;
+    const rates = { m: 1, ft: 0.3048, km: 1000, mi: 1609.34, kg: 1, lb: 0.453592 };
+    const update = () => { const val = parseFloat(c.querySelector('#convVal').value) || 0; const from = c.querySelector('#convFrom').value; const to = c.querySelector('#convTo').value;
+      c.querySelector('#convResult').textContent = `${parseFloat((val * rates[from] / rates[to]).toFixed(4))} ${to}`; };
+    c.querySelectorAll('input, select').forEach(el => el.addEventListener('input', update)); update();
+  }
+
+  /* ── PASSWORD GENERATOR ── */
+  function renderPassword(c) {
+    c.innerHTML = `<div class="pw-output" id="pwOut">Click Generate</div>
+      <div class="pw-options"><label class="pw-opt"><input type="checkbox" id="pwUpper" checked> Uppercase (A-Z)</label>
+      <label class="pw-opt"><input type="checkbox" id="pwLower" checked> Lowercase (a-z)</label>
+      <label class="pw-opt"><input type="checkbox" id="pwNums" checked> Numbers (0-9)</label>
+      <label class="pw-opt"><input type="checkbox" id="pwSyms" checked> Symbols (!@#$)</label>
+      <label class="pw-opt"><input type="range" id="pwLen" min="8" max="64" value="16" style="flex:1;accent-color:var(--accent)"> <span id="pwLenVal">16 chars</span></label></div>
+      <div class="pw-actions"><button class="pw-btn primary" id="pwGen">Generate</button><button class="pw-btn" id="pwCopy">Copy</button></div>`;
+    const chars = { upper: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', lower: 'abcdefghijklmnopqrstuvwxyz', nums: '0123456789', syms: '!@#$%^&*()_+-=[]{}|;:,.<>?' };
+    const gen = () => { let pool = ''; if (c.querySelector('#pwUpper').checked) pool += chars.upper; if (c.querySelector('#pwLower').checked) pool += chars.lower;
+      if (c.querySelector('#pwNums').checked) pool += chars.nums; if (c.querySelector('#pwSyms').checked) pool += chars.syms;
+      if (!pool) { c.querySelector('#pwOut').textContent = 'Select options'; return; }
+      const len = parseInt(c.querySelector('#pwLen').value); let pw = ''; const arr = new Uint32Array(len); crypto.getRandomValues(arr);
+      for (let i = 0; i < len; i++) pw += pool[arr[i] % pool.length]; c.querySelector('#pwOut').textContent = pw; };
+    c.querySelector('#pwLen').oninput = e => c.querySelector('#pwLenVal').textContent = e.target.value + ' chars';
+    c.querySelector('#pwGen').onclick = gen;
+    c.querySelector('#pwCopy').onclick = () => { const txt = c.querySelector('#pwOut').textContent;
+      if (txt && txt !== 'Click Generate' && txt !== 'Select options') { navigator.clipboard.writeText(txt); c.querySelector('#pwCopy').textContent = 'Copied!'; setTimeout(() => c.querySelector('#pwCopy').textContent = 'Copy', 1500); } };
+    c.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.addEventListener('change', gen)); gen();
+  }
+
+  /* ── BREATHING ── */
+  function renderBreath(c) {
+    c.innerHTML = `<div class="breath-label" id="breathLabel">Ready?</div><div class="breath-sub">4-7-8 Technique</div>
+      <div class="breath-circle" id="breathCircle">Start</div>
+      <div class="timer-controls"><button class="timer-btn primary" id="breathStart">Begin</button><button class="timer-btn" id="breathStop">Stop</button></div>`;
+    let timeout = null, active = false; const label = c.querySelector('#breathLabel'), circle = c.querySelector('#breathCircle');
+    const cycle = () => { if (!active) return; label.textContent = 'Inhale'; circle.textContent = 'In'; circle.className = 'breath-circle inhale';
+      timeout = setTimeout(() => { if (!active) return; label.textContent = 'Hold'; circle.textContent = 'Hold';
+        timeout = setTimeout(() => { if (!active) return; label.textContent = 'Exhale'; circle.textContent = 'Out'; circle.className = 'breath-circle exhale'; timeout = setTimeout(cycle, 8000); }, 7000); }, 4000); };
+    c.querySelector('#breathStart').onclick = () => { if (!active) { active = true; cycle(); } };
+    c.querySelector('#breathStop').onclick = () => { active = false; clearTimeout(timeout); label.textContent = 'Paused'; circle.textContent = '||'; circle.className = 'breath-circle'; };
+  }
+
+  /* ── COLOR PICKER ── */
+  function renderColor(c) {
+    c.innerHTML = `<input type="color" id="colorInput" value="#6366f1" style="width:100%;height:48px;border:none;cursor:pointer;border-radius:var(--radius-sm);margin-bottom:12px;">
+      <div class="color-preview" id="colorPreview" style="background:#6366f1"></div>
+      <div class="color-values">
+        <div class="color-val" data-fmt="hex" id="cvHex"><small>HEX</small>#6366f1</div>
+        <div class="color-val" data-fmt="rgb" id="cvRgb"><small>RGB</small>99, 102, 241</div>
+        <div class="color-val" data-fmt="hsl" id="cvHsl"><small>HSL</small>239°, 84%, 67%</div>
+        <div class="color-val" data-fmt="css" id="cvCss"><small>CSS</small>rgb(99 102 241)</div>
+      </div>`;
+    const hexToRgb = h => { const r = parseInt(h.slice(1,3),16), g = parseInt(h.slice(3,5),16), b = parseInt(h.slice(5,7),16); return {r,g,b}; };
+    const rgbToHsl = (r,g,b) => { r/=255;g/=255;b/=255; const max=Math.max(r,g,b),min=Math.min(r,g,b); let h,s,l=(max+min)/2;
+      if(max===min){h=s=0;}else{const d=max-min;s=l>0.5?d/(2-max-min):d/(max+min);switch(max){case r:h=((g-b)/d+(g<b?6:0))/6;break;case g:h=((b-r)/d+2)/6;break;case b:h=((r-g)/d+4)/6;break;}} 
+      return {h:Math.round(h*360),s:Math.round(s*100),l:Math.round(l*100)}; };
+    const update = () => { const hex = c.querySelector('#colorInput').value; const {r,g,b} = hexToRgb(hex); const {h,s,l} = rgbToHsl(r,g,b);
+      c.querySelector('#colorPreview').style.background = hex;
+      c.querySelector('#cvHex').lastChild.textContent = hex;
+      c.querySelector('#cvRgb').lastChild.textContent = `${r}, ${g}, ${b}`;
+      c.querySelector('#cvHsl').lastChild.textContent = `${h}°, ${s}%, ${l}%`;
+      c.querySelector('#cvCss').lastChild.textContent = `rgb(${r} ${g} ${b})`; };
+    c.querySelector('#colorInput').addEventListener('input', update);
+    c.querySelectorAll('.color-val').forEach(el => el.onclick = () => {
+      const txt = el.lastChild.textContent.trim(); navigator.clipboard.writeText(txt);
+      const orig = el.querySelector('small').textContent; el.querySelector('small').textContent = 'COPIED!';
+      setTimeout(() => el.querySelector('small').textContent = orig, 1000); });
+    update();
+  }
+
+  /* ── JSON FORMATTER ── */
+  function renderJson(c) {
+    c.innerHTML = `<textarea class="code-area" id="jsonIn" placeholder='Paste JSON here...\n{"key": "value"}'></textarea>
+      <div class="json-error" id="jsonErr"></div>
+      <div class="json-actions"><button class="pw-btn primary" id="jsonFormat">Format</button><button class="pw-btn" id="jsonMinify">Minify</button><button class="pw-btn" id="jsonCopy">Copy</button></div>`;
+    const inp = c.querySelector('#jsonIn'), err = c.querySelector('#jsonErr');
+    const format = () => { try { const obj = JSON.parse(inp.value); inp.value = JSON.stringify(obj, null, 2); err.textContent = ''; } catch(e) { err.textContent = '⚠ ' + e.message; } };
+    const minify = () => { try { const obj = JSON.parse(inp.value); inp.value = JSON.stringify(obj); err.textContent = ''; } catch(e) { err.textContent = '⚠ ' + e.message; } };
+    c.querySelector('#jsonFormat').onclick = format;
+    c.querySelector('#jsonMinify').onclick = minify;
+    c.querySelector('#jsonCopy').onclick = () => { if (inp.value.trim()) { navigator.clipboard.writeText(inp.value); c.querySelector('#jsonCopy').textContent = 'Copied!'; setTimeout(() => c.querySelector('#jsonCopy').textContent = 'Copy', 1500); } };
+  }
+
+  /* ── MARKDOWN PREVIEW ── */
+  function renderMarkdown(c) {
+    c.innerHTML = `<div class="md-split"><textarea class="code-area" id="mdIn" placeholder="# Hello\n**bold** and *italic*\n- list item\n> quote" style="min-height:260px"></textarea>
+      <div class="md-preview" id="mdOut"><p style="color:var(--text-muted)">Preview appears here...</p></div></div>`;
+    const parse = md => md.replace(/^### (.+)$/gm,'<h3>$1</h3>').replace(/^## (.+)$/gm,'<h2>$1</h2>').replace(/^# (.+)$/gm,'<h1>$1</h1>')
+      .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>').replace(/`(.+?)`/g,'<code>$1</code>')
+      .replace(/^> (.+)$/gm,'<blockquote>$1</blockquote>').replace(/^- (.+)$/gm,'<li>$1</li>').replace(/(<li>.*<\/li>)/s,'<ul>$1</ul>')
+      .replace(/\n\n/g,'</p><p>').replace(/\n/g,'<br>');
+    const inp = c.querySelector('#mdIn'), out = c.querySelector('#mdOut');
+    const update = () => { const v = inp.value.trim(); out.innerHTML = v ? '<p>' + parse(v) + '</p>' : '<p style="color:var(--text-muted)">Preview appears here...</p>'; };
+    inp.addEventListener('input', update); update();
+  }
+
+  /* ═══ THEME ═══ */
+  const sunSvg = '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>';
+  const moonSvg = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+  let theme = localStorage.getItem('dih_theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', theme);
+  $('#themeIcon').innerHTML = theme === 'dark' ? sunSvg : moonSvg;
+  $('#themeToggle').onclick = () => { theme = theme === 'dark' ? 'light' : 'dark'; document.documentElement.setAttribute('data-theme', theme); localStorage.setItem('dih_theme', theme); $('#themeIcon').innerHTML = theme === 'dark' ? sunSvg : moonSvg; };
+
+})();
+</script>
+</body>
+</html>
