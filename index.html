@@ -1,1349 +1,826 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
-<meta name="p:domain_verify" content="abbcb7acffd58d96f3b4631a7966bb4f"/>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471"
+     crossorigin="anonymous"></script>
 <meta charset="UTF-8">
-<title>Digital Infohub</title>
+<title>Digital Infohub AI | Unified Intelligence</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta name="description" content="Digital Infohub AI — Advanced generative dashboard with live stocks, web search, and adaptive memory.">
 <meta name="theme-color" content="#0a0a0a">
-<meta name="description" content="Digital Infohub — a unified hub for news, tools, games, and AI.">
-<meta name="color-scheme" content="dark light">
-<meta name="apple-mobile-web-app-capable" content="yes">
-
-<!-- Social Sharing Meta Tags -->
-<meta property="og:type" content="website">
-<meta property="og:title" content="Digital Infohub">
-<meta property="og:description" content="A unified hub for news, tools, games, and AI.">
 <meta property="og:image" content="https://raw.githubusercontent.com/digitalinfohub/digitalinfohub/refs/heads/main/DigitalInfohubHOME3.png">
-<meta property="og:url" content="https://digitalinfohub.net">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Digital Infohub">
-<meta name="twitter:description" content="A unified hub for news, tools, games, and AI.">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/digitalinfohub/digitalinfohub/refs/heads/main/DigitalInfohubHOME3.png">
+<link rel="icon" href="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png">
 
-<!-- Branding: Favicon -->
-<link rel="icon" type="image/png" href="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png">
-<link rel="apple-touch-icon" href="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png">
-
-<link rel="preconnect" href="https://api.rss2json.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://pagead2.googlesyndication.com">
-<link rel="preconnect" href="https://static.wixstatic.com">
-
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471" crossorigin="anonymous"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
 :root {
-  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --mono: 'JetBrains Mono', ui-monospace, monospace;
+  --font: 'Inter', -apple-system, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
   --radius: 12px;
   --radius-sm: 8px;
-  --modal-z: 1000;
 }
 
 [data-theme="dark"] {
-  --bg: #0a0a0a;
-  --surface: #111111;
-  --surface-2: #161616;
-  --surface-3: #1a1a1a;
-  --border: rgba(255,255,255,0.06);
-  --border-strong: rgba(255,255,255,0.1);
-  --text: #f5f5f5;
-  --text-sub: #a1a1aa;
-  --text-muted: #71717a;
-  --accent: #6366f1;
-  --accent-soft: rgba(99,102,241,0.1);
+  --bg: #0a0a0a; --surface: #111111; --surface-2: #161616; --surface-3: #1a1a1a;
+  --border: rgba(255,255,255,0.06); --border-strong: rgba(255,255,255,0.12);
+  --text: #f5f5f5; --text-sub: #a1a1aa; --text-muted: #71717a;
+  --accent: #6366f1; --accent-soft: rgba(99,102,241,0.12);
   --shadow: 0 4px 24px -6px rgba(0,0,0,0.4);
-  --error: #ef4444;
-  --error-soft: rgba(239,68,68,0.1);
+  --green: #22c55e; --red: #ef4444;
 }
 
 [data-theme="light"] {
-  --bg: #fafafa;
-  --surface: #ffffff;
-  --surface-2: #f4f4f5;
-  --surface-3: #e4e4e7;
-  --border: rgba(0,0,0,0.06);
-  --border-strong: rgba(0,0,0,0.12);
-  --text: #0a0a0a;
-  --text-sub: #52525b;
-  --text-muted: #a1a1aa;
-  --accent: #4f46e5;
-  --accent-soft: rgba(79,70,229,0.08);
+  --bg: #fafafa; --surface: #ffffff; --surface-2: #f4f4f5; --surface-3: #e4e4e7;
+  --border: rgba(0,0,0,0.06); --border-strong: rgba(0,0,0,0.12);
+  --text: #0a0a0a; --text-sub: #52525b; --text-muted: #a1a1aa;
+  --accent: #4f46e5; --accent-soft: rgba(79,70,229,0.08);
   --shadow: 0 4px 24px -6px rgba(0,0,0,0.08);
-  --error: #dc2626;
-  --error-soft: rgba(220,38,38,0.08);
+  --green: #16a34a; --red: #dc2626;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body {
-  font-family: var(--font);
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-  line-height: 1.6;
-  font-feature-settings: 'cv11', 'ss01';
-  -webkit-font-smoothing: antialiased;
-  transition: background 0.3s ease, color 0.3s ease;
-}
+body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.6; transition: background 0.3s, color 0.3s; }
 
-::-webkit-scrollbar { width: 8px; height: 8px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+.shell { max-width: 860px; margin: 0 auto; padding: 32px 24px 80px; }
 
-.shell { max-width: 820px; margin: 0 auto; padding: 32px 24px 80px; }
-
-/* ═══ TOP BAR ═══ */
-.topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 48px; }
-.brand {
-  display: flex; align-items: center; gap: 10px;
-  font-weight: 700; font-size: 15px; letter-spacing: -0.01em;
-  text-decoration: none; color: var(--text);
-}
-.brand-logo {
-  width: 28px; height: 28px;
-  border-radius: 8px;
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: center;
-  overflow: hidden;
-  flex-shrink: 0;
-}
-.brand-logo img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.topbar-actions { display: flex; gap: 6px; align-items: center; }
-.icon-btn {
-  width: 36px; height: 36px;
-  border: 1px solid var(--border);
-  background: var(--surface);
-  color: var(--text-sub);
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: all 0.2s var(--ease);
-  font-family: inherit;
-}
+.topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 700; text-decoration: none; color: var(--text); }
+.brand-logo { width: 28px; height: 28px; border-radius: 8px; background: var(--surface-2); border: 1px solid var(--border); overflow: hidden; }
+.brand-logo img { width: 100%; height: 100%; object-fit: cover; }
+.topbar-actions { display: flex; gap: 8px; align-items: center; }
+.icon-btn { width: 36px; height: 36px; border: 1px solid var(--border); background: var(--surface); color: var(--text-sub); border-radius: var(--radius-sm); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
 .icon-btn:hover { color: var(--text); border-color: var(--border-strong); background: var(--surface-2); }
-.icon-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.clock {
-  font-family: var(--mono);
-  font-size: 12px;
-  color: var(--text-muted);
-  padding: 8px 12px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  background: var(--surface);
-  font-variant-numeric: tabular-nums;
-}
+.clock { font-family: var(--mono); font-size: 12px; color: var(--text-muted); padding: 8px 12px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface); }
 
-/* ═══ CHAT HERO ═══ */
-.chat-hero {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 32px;
-  margin-bottom: 32px; /* Reduced margin since blog/apps are gone */
-  box-shadow: var(--shadow);
-}
+.chat-hero { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; margin-bottom: 32px; box-shadow: var(--shadow); position: relative; }
+.chat-thread { display: flex; flex-direction: column; gap: 20px; min-height: 140px; max-height: 65vh; overflow-y: auto; margin-bottom: 20px; padding-right: 4px; scrollbar-width: thin; }
 
-.chat-thread { display: flex; flex-direction: column; gap: 20px; min-height: 60px; margin-bottom: 20px; }
-
-.msg { display: flex; gap: 12px; animation: slideUp 0.4s var(--ease); }
+.msg { display: flex; gap: 12px; animation: slideUp 0.4s var(--ease); max-width: 95%; }
+.msg.user { align-self: flex-end; flex-direction: row-reverse; }
 @keyframes slideUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
-.msg-avatar {
-  width: 28px; height: 28px;
-  border-radius: 8px;
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-  flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 11px; font-weight: 700;
-  color: var(--text-sub);
-  overflow: hidden;
-}
+.msg-avatar { width: 28px; height: 28px; border-radius: 8px; background: var(--surface-2); border: 1px solid var(--border); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; overflow: hidden; }
 .msg-avatar.bot { background: var(--accent-soft); border-color: transparent; }
-.msg-avatar.bot img { width: 100%; height: 100%; object-fit: cover; }
-.msg-avatar.user { background: var(--surface-3); }
+.msg-avatar img { width: 100%; height: 100%; object-fit: cover; }
 
-.msg-body { flex: 1; min-width: 0; padding-top: 2px; }
-.msg-role {
-  font-size: 11px; font-weight: 600;
-  color: var(--text-muted);
-  margin-bottom: 4px;
-  font-family: var(--mono);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
+.msg-body { flex: 1; min-width: 0; }
+.msg-role { font-size: 11px; font-weight: 600; color: var(--text-muted); margin-bottom: 4px; font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.05em; }
 .msg-content { font-size: 14.5px; line-height: 1.65; color: var(--text); }
 .msg-content p + p { margin-top: 10px; }
 .msg-content strong { color: var(--text); font-weight: 600; }
 .msg-content a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
-.msg-content em { color: var(--text-sub); font-style: normal; font-family: var(--mono); font-size: 0.9em; background: var(--surface-2); padding: 1px 6px; border-radius: 4px; border: 1px solid var(--border); }
+.msg-content em { font-style: normal; font-family: var(--mono); font-size: 0.9em; background: var(--surface-2); padding: 1px 6px; border-radius: 4px; border: 1px solid var(--border); }
 
-.typing-cursor::after {
-  content: '▊'; color: var(--accent); margin-left: 2px;
-  animation: blink 0.8s step-end infinite; font-weight: 400;
-}
-@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+.typing-indicator { display: flex; gap: 4px; padding: 8px 0; }
+.typing-dot { width: 6px; height: 6px; background: var(--text-muted); border-radius: 50%; animation: bounce 1.4s infinite ease-in-out both; }
+.typing-dot:nth-child(1) { animation-delay: -0.32s; }
+.typing-dot:nth-child(2) { animation-delay: -0.16s; }
+@keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
 
-/* Error state */
-.error-block {
-  margin-top: 12px;
-  padding: 14px 16px;
-  background: var(--error-soft);
-  border: 1px solid var(--error);
-  border-radius: var(--radius-sm);
-  color: var(--error);
-  font-size: 13px;
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-.error-block-text { flex: 1; min-width: 180px; }
-.error-block strong { font-weight: 600; display: block; margin-bottom: 2px; }
-.error-block-sub { font-size: 12px; opacity: 0.8; }
-.retry-btn {
-  padding: 7px 14px;
-  background: var(--error);
-  color: white;
-  border: none;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  font-family: inherit;
-  font-size: 12px;
-  font-weight: 600;
-  transition: opacity 0.2s var(--ease);
-  flex-shrink: 0;
-}
-.retry-btn:hover { opacity: 0.9; }
-.retry-btn:focus-visible { outline: 2px solid var(--error); outline-offset: 2px; }
+.rich-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin-top: 14px; }
+.tile { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px; cursor: pointer; transition: all 0.2s; display: flex; flex-direction: column; gap: 4px; text-decoration: none; color: var(--text); }
+.tile:hover { border-color: var(--border-strong); background: var(--surface-3); transform: translateY(-2px); }
+.tile-name { font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+.tile-desc { font-size: 11px; color: var(--text-muted); line-height: 1.4; }
 
-/* Rich elements */
-.rich-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 10px;
-  margin-top: 14px;
-}
+.news-card { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px; display: flex; flex-direction: column; gap: 8px; text-decoration: none; color: var(--text); transition: all 0.2s; }
+.news-card:hover { border-color: var(--accent); background: var(--surface-3); }
+.news-tag { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent); }
+.news-title { font-size: 14px; font-weight: 600; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.news-meta { font-size: 11px; color: var(--text-muted); margin-top: auto; }
 
-.blog-card {
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  overflow: hidden;
-  cursor: pointer;
-  transition: all 0.25s var(--ease);
-  display: flex; flex-direction: column;
-  text-decoration: none;
-  color: inherit;
-}
-.blog-card:hover { border-color: var(--border-strong); transform: translateY(-2px); box-shadow: var(--shadow); }
-.blog-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.blog-cover { aspect-ratio: 16 / 9; overflow: hidden; background: var(--surface-3); position: relative; }
-.blog-cover img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease; }
-.blog-card:hover .blog-cover img { transform: scale(1.04); }
-.blog-cover-fallback {
-  width: 100%; height: 100%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 36px;
-}
-.blog-info { padding: 14px; display: flex; flex-direction: column; gap: 6px; }
-.blog-title { font-size: 13px; font-weight: 600; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.blog-meta { font-size: 11px; color: var(--text-muted); font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.05em; }
+.stock-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; margin-top: 14px; }
+.stock-card { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px; display: flex; flex-direction: column; gap: 4px; }
+.stock-symbol { font-family: var(--mono); font-size: 13px; font-weight: 700; }
+.stock-price { font-size: 18px; font-weight: 700; }
+.stock-change { font-size: 12px; font-weight: 600; font-family: var(--mono); }
+.stock-change.up { color: var(--green); }
+.stock-change.down { color: var(--red); }
+.stock-stale { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
 
-.tile {
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 12px 14px;
-  cursor: pointer;
-  transition: all 0.2s var(--ease);
-  display: flex; flex-direction: column; gap: 2px;
-  font-family: inherit; color: var(--text); text-align: left;
-  text-decoration: none;
-}
-.tile:hover { border-color: var(--border-strong); background: var(--surface-3); transform: translateY(-1px); }
-.tile:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.tile-name { font-size: 13px; font-weight: 600; }
-.tile-desc { font-size: 11px; color: var(--text-muted); }
+.web-result { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 18px; margin-top: 14px; }
+.web-result-source { font-size: 11px; color: var(--text-muted); font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
+.web-result-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; line-height: 1.4; }
+.web-result-snippet { font-size: 14px; color: var(--text-sub); line-height: 1.65; }
+.web-result-link { display: inline-block; margin-top: 10px; font-size: 12px; color: var(--accent); text-decoration: none; font-weight: 600; }
+.web-result-link:hover { text-decoration: underline; }
 
-/* Chat input */
-.chat-input-shell {
-  position: relative;
-  display: flex; gap: 8px; align-items: center;
-  padding: 10px;
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  transition: border-color 0.2s var(--ease);
-}
+/* Suggestion chips inside chat messages */
+.suggestion-chips { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 12px; }
+.suggestion-chip { font-size: 11px; padding: 5px 10px; background: var(--surface-3); border: 1px solid var(--border); border-radius: 99px; color: var(--text-sub); cursor: pointer; transition: all 0.2s; white-space: nowrap; user-select: none; }
+.suggestion-chip:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+
+.chat-input-shell { position: relative; display: flex; gap: 8px; align-items: center; padding: 10px; background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); transition: border-color 0.2s; }
 .chat-input-shell:focus-within { border-color: var(--accent); }
-.chat-input {
-  flex: 1;
-  background: none; border: none; outline: none;
-  color: var(--text);
-  font-family: inherit; font-size: 14px;
-  padding: 8px 4px; line-height: 1.5;
-}
+.chat-input { flex: 1; background: none; border: none; outline: none; color: var(--text); font-family: inherit; font-size: 14px; padding: 8px 4px; }
 .chat-input::placeholder { color: var(--text-muted); }
-.chat-input:disabled { opacity: 0.5; }
-.chat-send {
-  width: 36px; height: 36px;
-  background: var(--accent); color: white;
-  border: none; border-radius: 8px;
-  cursor: pointer;
-  font-family: inherit; font-weight: 700; font-size: 14px;
-  display: flex; align-items: center; justify-content: center;
-  transition: opacity 0.2s var(--ease), transform 0.2s var(--ease);
-  flex-shrink: 0;
-}
+.chat-send { width: 36px; height: 36px; background: var(--accent); color: white; border: none; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
 .chat-send:hover:not(:disabled) { opacity: 0.9; }
-.chat-send:active:not(:disabled) { transform: scale(0.95); }
 .chat-send:disabled { opacity: 0.4; cursor: not-allowed; }
-.chat-send:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-/* Sections */
-.section { margin-bottom: 48px; }
-.section-head {
-  display: flex; justify-content: space-between; align-items: flex-end;
-  margin-bottom: 20px; gap: 16px;
-}
-.section-head h2 { font-size: 18px; font-weight: 700; letter-spacing: -0.01em; }
-.section-head .eyebrow {
-  font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em;
-  color: var(--text-muted); font-weight: 600; font-family: var(--mono);
-  margin-bottom: 4px;
-}
-.section-link {
-  font-size: 12px; color: var(--text-sub);
-  background: none;
-  border: 1px solid var(--border);
-  padding: 7px 14px;
-  border-radius: 999px;
-  cursor: pointer;
-  font-family: inherit;
-  transition: all 0.2s var(--ease);
-  text-decoration: none;
-}
-.section-link:hover { color: var(--text); border-color: var(--border-strong); }
-.section-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.quick-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+.chip { font-size: 12px; padding: 6px 12px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 99px; color: var(--text-sub); cursor: pointer; transition: all 0.2s; white-space: nowrap; user-select: none; }
+.chip:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
 
-/* ── Writeup Section ── */
-.info-writeup {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 32px;
-  margin-bottom: 48px;
-  box-shadow: var(--shadow);
-}
-.info-writeup h2 {
-  font-size: 20px;
-  font-weight: 700;
-  margin-bottom: 12px;
-  letter-spacing: -0.02em;
-}
-.info-writeup p {
-  color: var(--text-sub);
-  font-size: 15px;
-  line-height: 1.7;
-  margin-bottom: 16px;
-}
-.info-writeup p:last-child { margin-bottom: 0; }
-.info-writeup strong { color: var(--text); }
+.info-writeup { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; margin-bottom: 48px; }
+.info-writeup h2 { font-size: 20px; margin-bottom: 12px; }
+.info-writeup p { color: var(--text-sub); font-size: 15px; margin-bottom: 16px; }
 
-.footer-ad {
-  margin-top: 48px;
-  padding: 24px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  min-height: 120px;
-  display: flex; align-items: center; justify-content: center;
-}
-
-/* Toast */
-.toast-container {
-  position: fixed; bottom: 24px; right: 24px;
-  z-index: 2000;
-  display: flex; flex-direction: column; gap: 8px;
-  max-width: 320px;
-  pointer-events: none;
-}
-.toast {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 12px 18px;
-  color: var(--text);
-  font-size: 13px;
-  animation: toastIn 0.3s var(--ease);
-  box-shadow: var(--shadow);
-  pointer-events: all;
-  transition: opacity 0.3s, transform 0.3s;
-}
-.toast.error { border-color: var(--error); color: var(--error); }
-@keyframes toastIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-
-/* Skip link for a11y */
-.skip-link {
-  position: absolute; left: -9999px; top: 0;
-  background: var(--accent); color: white;
-  padding: 8px 16px; border-radius: 4px;
-  z-index: 9999; text-decoration: none;
-  font-size: 13px;
-}
-.skip-link:focus { left: 8px; top: 8px; }
-
-/* ═══ NAVIGATION ═══ */
-.nav-shell {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: var(--bg);
-  border-bottom: 1px solid var(--border);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  margin: -32px -24px 32px;
-  padding: 0 24px;
-  transition: all 0.3s var(--ease);
-}
-
-.nav-bar {
-  max-width: 820px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 0;
-  gap: 24px;
-}
-
-.nav-links {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  flex: 1;
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-
-.nav-links::-webkit-scrollbar { display: none; }
-
-.nav-link {
-  padding: 8px 14px;
-  background: none;
-  border: 1px solid transparent;
-  color: var(--text-sub);
-  border-radius: 8px;
-  cursor: pointer;
-  font-family: inherit;
-  font-size: 13px;
-  font-weight: 500;
-  transition: all 0.2s var(--ease);
-  white-space: nowrap;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  text-decoration: none;
-}
-
-.nav-link:hover {
-  color: var(--text);
-  background: var(--surface-2);
-  border-color: var(--border);
-}
-
-.nav-link.active {
-  color: var(--accent);
-  background: var(--accent-soft);
-  border-color: var(--accent);
-}
-
-.nav-link:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-}
-
-/* Hamburger menu for mobile */
-.hamburger {
-  display: none;
-  flex-direction: column;
-  gap: 4px;
-  width: 32px;
-  height: 32px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  cursor: pointer;
-  padding: 8px;
-  transition: all 0.2s var(--ease);
-}
-
-.hamburger:hover {
-  background: var(--surface-2);
-  border-color: var(--border-strong);
-}
-
-.hamburger-line {
-  width: 100%;
-  height: 2px;
-  background: var(--text-sub);
-  border-radius: 2px;
-  transition: all 0.3s var(--ease);
-}
-
-.hamburger.active .hamburger-line:nth-child(1) {
-  transform: translateY(6px) rotate(45deg);
-}
-
-.hamburger.active .hamburger-line:nth-child(2) {
-  opacity: 0;
-}
-
-.hamburger.active .hamburger-line:nth-child(3) {
-  transform: translateY(-6px) rotate(-45deg);
-}
-
-/* Mobile drawer */
-.nav-drawer {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 100%;
-  max-width: 320px;
-  height: 100vh;
-  background: var(--surface);
-  border-left: 1px solid var(--border);
-  z-index: 200;
-  transform: translateX(100%);
-  transition: transform 0.3s var(--ease);
-  overflow-y: auto;
-  box-shadow: -4px 0 24px rgba(0,0,0,0.2);
-}
-
-.nav-drawer.active {
-  transform: translateX(0);
-}
-
-.nav-drawer-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.5);
-  z-index: 199;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s var(--ease);
-}
-
-.nav-drawer-overlay.active {
-  opacity: 1;
-  pointer-events: all;
-}
-
-.nav-drawer-head {
-  padding: 20px;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.nav-drawer-title {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text);
-}
-
-.nav-drawer-links {
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.nav-drawer-link {
-  padding: 14px 16px;
-  color: var(--text-sub);
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 15px;
-  font-weight: 500;
-  transition: all 0.2s var(--ease);
-  text-decoration: none;
-  border: none;
-  background: none;
-  text-align: left;
-  font-family: inherit;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.nav-drawer-link:hover {
-  background: var(--surface-2);
-  color: var(--text);
-}
+.nav-shell { position: sticky; top: 0; z-index: 100; background: var(--bg); border-bottom: 1px solid var(--border); backdrop-filter: blur(12px); margin: -32px -24px 32px; padding: 0 24px; }
+.nav-bar { max-width: 860px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 12px 0; gap: 16px; }
+.nav-links { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
+.nav-link { padding: 8px 14px; color: var(--text-sub); border-radius: 8px; font-size: 13px; font-weight: 500; text-decoration: none; transition: all 0.2s; white-space: nowrap; }
+.nav-link:hover, .nav-link.active { color: var(--text); background: var(--surface-2); }
+.hamburger { display: none; width: 36px; height: 36px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; cursor: pointer; align-items: center; justify-content: center; }
 
 @media (max-width: 768px) {
   .nav-links { display: none; }
   .hamburger { display: flex; }
-  .nav-shell { margin: -20px -16px 32px; padding: 0 16px; }
-  .topbar { margin-bottom: 24px; }
-}
-
-@media (max-width: 640px) {
+  .rich-grid, .stock-grid { grid-template-columns: 1fr 1fr; }
   .shell { padding: 20px 16px 60px; }
-  .chat-hero { padding: 24px 20px; }
-  .info-writeup { padding: 24px 20px; }
-  .topbar { margin-bottom: 32px; }
-  .rich-grid { grid-template-columns: 1fr; }
+  .chat-hero { padding: 20px; }
 }
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+@media (max-width: 480px) {
+  .rich-grid, .stock-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
 <body>
 
-<a href="#chatInput" class="skip-link">Skip to chat</a>
-
 <div class="shell">
-
-  <!-- NAVIGATION -->
-  <nav class="nav-shell" role="navigation" aria-label="Main navigation">
+  <nav class="nav-shell">
     <div class="nav-bar">
       <div class="nav-links">
-        <a href="https://digitalinfohub.github.io/digitalinfohub/" class="nav-link active" aria-label="Home">
-          🏠 Home
-        </a>
-        <a href="https://digitalinfohub.github.io/digitalinfohub/blog" class="nav-link" aria-label="Blog">
-          📝 Blog
-        </a>
-        <a href="https://digitalinfohub.github.io/digitalinfohub/techtopics" class="nav-link" aria-label="Tech Topics">
-          💡 Tech Topics
-        </a>
-        <a href="https://digitalinfohub.github.io/digitalinfohub/software" class="nav-link" aria-label="Tech Topics">
-          💻 Software
-        </a>
-        <a href="https://digitalinfohub.github.io/digitalinfohub/games" class="nav-link" aria-label="Games">
-          🎮 Games
-        </a>
+        <a href="/" class="nav-link active">🏠 Home</a>
+        <a href="/blog" class="nav-link">📝 Blog</a>
+        <a href="/techtopics" class="nav-link">💡 Tech Topics</a>
+        <a href="/software" class="nav-link">💻 Software</a>
+        <a href="/games" class="nav-link">🎮 Games</a>
       </div>
-      
-      <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
-        <span class="hamburger-line"></span>
-        <span class="hamburger-line"></span>
-        <span class="hamburger-line"></span>
-      </button>
+      <button class="hamburger" id="hamburger" aria-label="Menu">☰</button>
     </div>
   </nav>
 
-  <!-- Mobile Drawer -->
-  <div class="nav-drawer-overlay" id="navDrawerOverlay"></div>
-  <div class="nav-drawer" id="navDrawer" role="dialog" aria-label="Navigation menu">
-    <div class="nav-drawer-head">
-      <span class="nav-drawer-title">Navigation</span>
-      <button class="modal-close" id="drawerClose" aria-label="Close menu" style="width:28px;height:28px;background:none;border:1px solid var(--border);border-radius:6px;color:var(--text-sub);cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;">×</button>
-    </div>
-    <div class="nav-drawer-links">
-      <a href="https://digitalinfohub.github.io/digitalinfohub/" class="nav-drawer-link">🏠 Home</a>
-      <a href="https://digitalinfohub.github.io/digitalinfohub/blog" class="nav-drawer-link">📝 Blog</a>
-      <a href="https://digitalinfohub.github.io/digitalinfohub/techtopics" class="nav-drawer-link">💡 Tech Topics</a>
-      <a href="https://digitalinfohub.github.io/digitalinfohub/software" class="nav-drawer-link">💻 Software</a>
-      <a href="https://digitalinfohub.github.io/digitalinfohub/games" class="nav-drawer-link">🎮 Games</a>
-    </div>
-  </div>
-
-  <!-- TOP BAR -->
   <div class="topbar">
-    <a href="#" class="brand" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;" aria-label="Digital Infohub - scroll to top">
-      <span class="brand-logo">
-        <img src="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png" alt="" loading="lazy">
-      </span>
-      <span>Digital Infohub</span>
+    <a href="#" class="brand" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">
+      <span class="brand-logo"><img src="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png" alt=""></span>
+      <span>Digital Infohub AI</span>
     </a>
     <div class="topbar-actions">
-      <button class="icon-btn" id="themeToggle" title="Toggle theme" aria-label="Toggle dark and light theme">
-        <svg id="themeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
-      </button>
-      <button class="icon-btn" id="notifToggle" title="Subscribe" aria-label="Subscribe to updates">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg>
-      </button>
-      <div class="clock" id="clock" aria-live="polite">--:--</div>
+      <button class="icon-btn" id="themeToggle" title="Toggle theme">◑</button>
+      <div class="clock" id="clock">--:--</div>
     </div>
   </div>
 
-  <!-- CHAT -->
-  <section class="chat-hero" aria-label="Chat with Digital Infohub">
-    <div class="chat-thread" id="chatThread" role="log" aria-live="polite" aria-atomic="false"></div>
-
+  <section class="chat-hero">
+    <div class="chat-thread" id="chatThread"></div>
+    
     <form class="chat-input-shell" id="chatForm" autocomplete="off">
-      <input class="chat-input" id="chatInput" type="text" placeholder="Ask anything… try &quot;news&quot;, &quot;software&quot;, or &quot;what is this site&quot;" aria-label="Your message">
-      <button class="chat-send" id="chatSend" type="submit" aria-label="Send message">→</button>
+      <input class="chat-input" id="chatInput" type="text" placeholder="Try 'stocks', 'search AI regulation', or 'full briefing'" aria-label="Message">
+      <button class="chat-send" id="chatSend" type="submit">→</button>
     </form>
+    
+    <!-- ALL CHIPS NOW PRE-FILL INSTEAD OF SENDING BLINDLY -->
+    <div class="quick-chips" id="quickChips">
+      <span class="chip" data-prefill="Full briefing with stocks">📊 Full Briefing</span>
+      <span class="chip" data-prefill="Search the web for ">🌐 Web Search</span>
+      <span class="chip" data-prefill="Show available tools">🛠️ Tools</span>
+      <span class="chip" data-prefill="My name is ">🧠 Set My Name</span>
+      <span class="chip" data-prefill="What can you do?">❓ Help</span>
+    </div>
   </section>
 
-  <!-- INFO WRITEUP -->
-  <section class="info-writeup" aria-labelledby="aboutTitle">
-    <h2 id="aboutTitle">What is Digital Infohub?</h2>
-    <p>
-      <strong>Digital Infohub</strong> is your unified dashboard for navigating the modern digital landscape. We curate the noise so you don't have to, bringing together real-time tech news, productivity tools, browser games, and deep-dive articles in one minimalist interface.
-    </p>
-    <p>
-      Whether you're looking for the latest market trends, need a quick AI assistant to break down tasks, or just want to unwind with a game, everything is accessible through our intelligent chat or streamlined navigation.
-    </p>
+  <section class="info-writeup">
+    <h2>Your Advanced Digital Dashboard</h2>
+    <p><strong>Digital Infohub AI</strong> combines real-time web search, live market data, and curated productivity tools in one adaptive interface. The assistant learns your preferences and improves its responses over time.</p>
   </section>
-
-  <!-- ADSENSE FOOTER -->
-  <div class="footer-ad" role="complementary" aria-label="Advertisement">
-    <ins class="adsbygoogle" style="display:block;width:100%;" data-ad-client="ca-pub-5443646750699471" data-ad-format="auto" data-full-width-responsive="true"></ins>
-    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-  </div>
 </div>
-
-<!-- TOAST CONTAINER -->
-<div class="toast-container" id="toastContainer" aria-live="polite"></div>
 
 <script>
 (function() {
   'use strict';
 
-  /* ══════════════════════════════════════════════════════════════
+  /* ═══════════════════════════════════════════════════════════
      CONFIG
-     ══════════════════════════════════════════════════════════════ */
+     ═══════════════════════════════════════════════════════════ */
   const CONFIG = {
     SITE_BASE: "https://digitalinfohub.net",
     LOGO_URL: "https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png",
-    DEFAULT_NEWS_FEED: 'tech',
-    FEED_TIMEOUT: 10000,
-    MAX_RETRIES: 2,
+    BOT_NAME: "Digital Infohub AI",
+    FINNHUB_KEY: "d9t07ohr01qqd5j2v6rgd9t07ohr01qqd5j2v6s0",
     FEEDS: {
-      tech: { name: 'News', url: 'https://techcrunch.com/feed/' },
-      world: { name: 'World News', url: 'https://rss.nytimes.com/services/xml/rss/nyt/World.xml' },
-      markets: { name: 'Markets', url: 'https://rss.nytimes.com/services/xml/rss/nyt/Business.xml' },
-      crypto: { name: 'Crypto', url: 'https://cointelegraph.com/rss' }
+      tech: { name: 'Tech', url: 'https://techcrunch.com/feed/' },
+      crypto: { name: 'Crypto', url: 'https://cointelegraph.com/rss' },
+      world: { name: 'World', url: 'https://rss.nytimes.com/services/xml/rss/nyt/World.xml' },
+      markets: { name: 'Markets', url: 'https://rss.nytimes.com/services/xml/rss/nyt/Business.xml' }
+    },
+    STOCK_TICKERS: ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'NVDA', 'TSLA', 'SPY', 'QQQ']
+  };
+
+  /* ═══════════════════════════════════════════════════════════
+     KNOWLEDGE BASE WITH CONVERSATIONAL METADATA
+     Each app now has `triggers` for fuzzy matching and
+     `followUps` for contextual suggestion generation
+     ═══════════════════════════════════════════════════════════ */
+  const APPS = [
+    { name: 'InfohubGPT', desc: 'Tech strategy & research assistant', cat: 'ai', icon: '🤖', url: 'https://chatgpt.com/g/g-6973b68a2b188191aaead719715ab703-digiinfogpt-from-digital-infohub', keywords: ['tech','strategy','gpt','ai','research','assistant','chatbot','intelligence'], triggers: ['ai assistant','tech help','research tool','strategy bot'], followUps: ['Ask it about AI trends','Get a tech strategy breakdown'] },
+    { name: 'TaskyGPT', desc: 'Goal breakdown & project planning', cat: 'ai', icon: '📋', url: 'https://chatgpt.com/g/g-6989f6b724fc8191aef0f7393ed70672-taskygpt-from-digital-infohub', keywords: ['tasks','goals','planning','project','productivity','organize','todo','manage'], triggers: ['plan my goals','break down tasks','project planner','to-do list'], followUps: ['Break down a big goal','Create a weekly plan'] },
+    { name: 'CookinStepGPT', desc: 'Recipe & cooking assistant', cat: 'ai', icon: '🍳', url: 'https://chatgpt.com/g/g-6994cb01a16c8191885299e8dbf64428-cookinstepgpt-by-digital-infohub', keywords: ['cook','recipe','food','kitchen','meal','chef','ingredients','dinner'], triggers: ['what should i cook','recipe helper','meal ideas','cooking guide'], followUps: ['Find a quick dinner recipe','Get meal prep ideas'] },
+    { name: 'SaveSmartGPT', desc: 'Budget & savings optimizer', cat: 'ai', icon: '💰', url: 'https://chatgpt.com/g/g-6994de10b0b08191b778d0c80a577b86-savesmartgpt-by-digital-infohub', keywords: ['save','money','budget','finance','savings','spend','invest','cost'], triggers: ['save money','budget help','cut expenses','financial tips'], followUps: ['Create a monthly budget','Find ways to save'] },
+    { name: 'Games Hub', desc: 'Browser arcade & casual games', cat: 'games', icon: '🎮', url: '/games', keywords: ['games','play','arcade','fun','casual','entertainment','puzzle','action'], triggers: ['play a game','browser games','fun stuff','kill time'], followUps: ['Browse puzzle games','See newest games'] },
+    { name: 'Software Directory', desc: 'Curated tools & utilities', cat: 'pages', icon: '💻', url: '/software', keywords: ['software','tools','downloads','apps','utilities','programs','freeware','install'], triggers: ['download software','find tools','free apps','utility programs'], followUps: ['Browse productivity tools','Find free utilities'] },
+    { name: 'Tech Topics', desc: 'Deep dive guides & tutorials', cat: 'pages', icon: '💡', url: '/techtopics', keywords: ['tech','topics','guides','learn','tutorials','education','how-to','deep dive'], triggers: ['learn about tech','tech tutorials','how does','deep dive'], followUps: ['Explore AI guides','Read about web development'] },
+    { name: 'Blog', desc: 'Latest articles & insights', cat: 'pages', icon: '📝', url: '/blog', keywords: ['blog','posts','articles','read','writing','insights','opinion','stories'], triggers: ['read articles','latest posts','blog entries','written content'], followUps: ['Read featured posts','Browse by category'] },
+    { name: 'Subscribe', desc: 'Newsletter & update notifications', cat: 'pages', icon: '🔔', url: '/subscribe', keywords: ['subscribe','newsletter','updates','email','notify','signup','alerts','digest'], triggers: ['get updates','sign up','newsletter','email alerts'], followUps: ['Choose update frequency','Manage preferences'] }
+  ];
+
+  /* ═══════════════════════════════════════════════════════════
+     MEMORY SYSTEM v5 — Now tracks conversation context
+     ═══════════════════════════════════════════════════════════ */
+  const Memory = {
+    key: 'dih_ai_memory_v5',
+    data: { name: null, prefs: [], history: [], briefingPrefs: [], lastIntent: null, lastTopic: null },
+    init() {
+      try {
+        const saved = localStorage.getItem(this.key);
+        if (saved) this.data = { ...this.data, ...JSON.parse(saved) };
+      } catch(e) {}
+    },
+    save() { try { localStorage.setItem(this.key, JSON.stringify(this.data)); } catch(e) {} },
+    setName(name) { this.data.name = name; this.save(); },
+    getName() { return this.data.name; },
+    addHistory(query) {
+      this.data.history.unshift({ q: query, ts: Date.now() });
+      if (this.data.history.length > 30) this.data.history.pop();
+      this.save();
+    },
+    learnPreference(keyword) {
+      if (!this.data.prefs.includes(keyword)) { this.data.prefs.push(keyword); this.save(); }
+    },
+    trackBriefingPref(category) {
+      if (!this.data.briefingPrefs.includes(category)) { this.data.briefingPrefs.push(category); this.save(); }
+    },
+    setContext(intent, topic) {
+      this.data.lastIntent = intent;
+      this.data.lastTopic = topic;
+      this.save();
+    },
+    getContext() { return { lastIntent: this.data.lastIntent, lastTopic: this.data.lastTopic }; }
+  };
+  Memory.init();
+
+  /* ═══════════════════════════════════════════════════════════
+     UTILITIES
+     ═══════════════════════════════════════════════════════════ */
+  const $ = s => document.querySelector(s);
+  const esc = s => { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; };
+
+  async function fetchRSS(url) {
+    try {
+      const r = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`);
+      if (!r.ok) throw new Error('Feed failed');
+      const data = await r.json();
+      return (data.items || []).slice(0, 5).map(i => ({
+        title: i.title.replace(/<[^>]*>/g, ''), link: i.link,
+        date: new Date(i.pubDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+      }));
+    } catch(e) { return []; }
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     LIVE MARKET DATA
+     ═══════════════════════════════════════════════════════════ */
+  async function fetchStocks() {
+    const stocks = [];
+    const results = await Promise.allSettled(
+      CONFIG.STOCK_TICKERS.map(sym =>
+        fetch(`https://finnhub.io/api/v1/quote?symbol=${sym}&token=${CONFIG.FINNHUB_KEY}`)
+          .then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); })
+          .then(data => ({ sym, data }))
+      )
+    );
+    results.forEach(result => {
+      if (result.status === 'fulfilled' && result.value.data.c) {
+        const d = result.value.data;
+        stocks.push({ symbol: result.value.sym, price: d.c.toFixed(2), change: (d.d||0).toFixed(2), changePct: (d.dp||0).toFixed(2), up: (d.d||0) >= 0, stale: false });
+      } else {
+        stocks.push({ symbol: 'ERR', price: '--', change: '--', changePct: '--', up: true, stale: true });
+      }
+    });
+    return stocks;
+  }
+
+  async function fetchCrypto() {
+    try {
+      const r = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd&include_24hr_change=true');
+      if (!r.ok) throw new Error('CoinGecko failed');
+      const data = await r.json();
+      return [
+        { symbol: 'BTC-USD', price: data.bitcoin.usd.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}), changePct: data.bitcoin.usd_24h_change.toFixed(2), change: (data.bitcoin.usd*(data.bitcoin.usd_24h_change/100)).toFixed(2), up: data.bitcoin.usd_24h_change>=0, stale:false },
+        { symbol: 'ETH-USD', price: data.ethereum.usd.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}), changePct: data.ethereum.usd_24h_change.toFixed(2), change: (data.ethereum.usd*(data.ethereum.usd_24h_change/100)).toFixed(2), up: data.ethereum.usd_24h_change>=0, stale:false }
+      ];
+    } catch(e) {
+      return [{ symbol:'BTC-USD', price:'--', change:'--', changePct:'--', up:true, stale:true }, { symbol:'ETH-USD', price:'--', change:'--', changePct:'--', up:true, stale:true }];
+    }
+  }
+
+  async function fetchAllMarketData() {
+    const [stocks, crypto] = await Promise.all([fetchStocks(), fetchCrypto()]);
+    return [...crypto, ...stocks];
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     WEB SEARCH
+     ═══════════════════════════════════════════════════════════ */
+  async function webSearch(query) {
+    try {
+      const r = await fetch(`https://api.duckduckgo.com/?q=${encodeURIComponent(query)}&format=json&no_html=1&skip_disambig=1`);
+      if (!r.ok) throw new Error('Search failed');
+      const data = await r.json();
+      const results = [];
+      if (data.Answer) results.push({ title:'Instant Answer', snippet:data.Answer, source:data.AnswerType||'Direct', url:'' });
+      if (data.AbstractText) results.push({ title:data.Heading||query, snippet:data.AbstractText, source:data.AbstractSource||'Web', url:data.AbstractURL||'' });
+      if (Array.isArray(data.RelatedTopics)) data.RelatedTopics.slice(0,4).forEach(t => { if(t.Text) results.push({ title:t.Text.split(' - ')[0]||'Related', snippet:t.Text, source:'Related', url:t.FirstURL||'' }); });
+      return results;
+    } catch(e) { return []; }
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     SEMANTIC SCORING ENGINE
+     ═══════════════════════════════════════════════════════════ */
+  const Scorer = {
+    STOP: new Set(['the','a','an','is','are','was','were','be','been','can','could','will','would','should','do','does','did','have','has','had','i','you','he','she','we','they','me','my','your','this','that','of','in','on','at','to','for','with','by','from','it','its','and','or','but','so','then','than','now','please','show','give','open','launch','get','find','tell','look','see','about','up','what','which','who','whom','how','where','when','why']),
+    tokenize(s) { return s.toLowerCase().replace(/[^\w\s-]/g,' ').split(/\s+/).filter(w=>w.length>1&&!this.STOP.has(w)); },
+    score(query, target, keywords=[], triggers=[]) {
+      const qTokens = this.tokenize(query);
+      const tStr = target.toLowerCase();
+      const tTokens = this.tokenize(target);
+      const trigStr = triggers.join(' ').toLowerCase();
+      if (!qTokens.length) return 0;
+      let score = 0;
+      qTokens.forEach(qt => {
+        if (keywords.some(k=>k.toLowerCase()===qt)) score += 5;
+        else if (triggers.some(t=>t.includes(qt))) score += 4.5;
+        else if (keywords.some(k=>k.toLowerCase().includes(qt)||qt.includes(k.toLowerCase()))) score += 3;
+        else if (tTokens.some(tt=>tt===qt)) score += 4;
+        else if (tTokens.some(tt=>tt.startsWith(qt)||qt.startsWith(tt))) score += 2.5;
+        else if (tStr.includes(qt)) score += 1.5;
+        else if (trigStr.includes(qt)) score += 2;
+        else { const o=[...qt].filter(c=>tStr.includes(c)).length; if(o/qt.length>0.6) score+=0.8; }
+      });
+      if (qTokens.length>=2 && score>=4) score *= 1.2;
+      return score;
     }
   };
 
-  /* ══════════════════════════════════════════════════════════════
-     HARDCODED BLOG POSTS (Kept for Chatbot Logic Only)
-     ══════════════════════════════════════════════════════════════ */
-  const HARDCODED_BLOGS = [
-    {
-      title: "GreyGrid Studio: Great Design Doesn't Need to Be Loud",
-      link: "https://www.digitalinfohub.net/post/greygrid-studio-shows-that-great-design-doesn-t-need-to-be-loud",
-      emoji: "🎨",
-      grad: "linear-gradient(135deg, #6366f1, #8b5cf6)",
-      dateFormatted: "Featured",
-      keywords: ['greygrid','studio','design','minimal','minimalist','loud','great','brand','graphic','subtle']
-    },
-    {
-      title: "Beating Syllabus Overload with Smarter Medical Learning",
-      link: "https://www.digitalinfohub.net/post/beating-syllabus-overload-with-smarter-medical-learning",
-      emoji: "🏥",
-      grad: "linear-gradient(135deg, #10b981, #06b6d4)",
-      dateFormatted: "Featured",
-      keywords: ['syllabus','overload','medical','learning','education','study','student','health','smarter','doctor']
-    },
-    {
-      title: "Small Biz Philly: A Great Resource for Local Entrepreneurs",
-      link: "https://www.digitalinfohub.net/post/small-biz-philly-a-great-resource-for-local-entrepreneurs",
-      emoji: "🏙️",
-      grad: "linear-gradient(135deg, #f59e0b, #ef4444)",
-      dateFormatted: "Featured",
-      keywords: ['small','biz','philly','philadelphia','entrepreneurs','local','business','resource','startup','community']
-    }
-  ];
+  /* ═══════════════════════════════════════════════════════════
+     INTENT DETECTION — Now handles conversational follow-ups
+     ═══════════════════════════════════════════════════════════ */
+  const Intent = {
+    detect(q) {
+      const lower = q.toLowerCase().trim();
 
-  /* ══════════════════════════════════════════════════════════════
-     UTILITIES
-     ══════════════════════════════════════════════════════════════ */
-  const $ = s => document.querySelector(s);
-  const $$ = s => Array.from(document.querySelectorAll(s));
-  const esc = s => { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; };
-  const escAttr = s => esc(s).replace(/"/g, '&quot;');
-
-  function openLink(url, title) {
-    try {
-      if (!url) return;
-      // Handle relative paths for github pages vs production
-      let finalUrl = url;
-      if (url.startsWith('/')) {
-        finalUrl = CONFIG.SITE_BASE + url;
+      // ── Conversational Follow-ups (checked FIRST) ──
+      const ctx = Memory.getContext();
+      if (/^(?:tell me more|more info|elaborate|explain more|details|go deeper)\b/i.test(lower)) {
+        return { type: 'follow_up_elaborate', context: ctx };
       }
-      window.open(finalUrl, '_blank', 'noopener,noreferrer');
-    } catch (err) {
-      console.error('[Open] failed:', err);
-      toast('Could not open link', true);
-    }
-  }
-
-  function toast(msg, isError = false) {
-    const container = $('#toastContainer');
-    if (!container) return;
-    const t = document.createElement('div');
-    t.className = 'toast' + (isError ? ' error' : '');
-    t.textContent = msg;
-    t.setAttribute('role', isError ? 'alert' : 'status');
-    container.appendChild(t);
-    while (container.children.length > 3) {
-      container.removeChild(container.firstChild);
-    }
-    setTimeout(() => {
-      t.style.opacity = '0';
-      t.style.transform = 'translateY(8px)';
-      setTimeout(() => { if (t.parentNode) t.parentNode.removeChild(t); }, 300);
-    }, 2400);
-  }
-
-  async function fetchWithTimeout(url, timeoutMs = CONFIG.FEED_TIMEOUT) {
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), timeoutMs);
-    try {
-      const r = await fetch(url, { signal: controller.signal });
-      clearTimeout(timer);
-      return r;
-    } catch (err) {
-      clearTimeout(timer);
-      throw err;
-    }
-  }
-
-  /* ══════════════════════════════════════════════════════════════
-     THEME
-     ══════════════════════════════════════════════════════════════ */
-  const sunSvg = '<circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>';
-  const moonSvg = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
-  let theme = 'dark';
-  try { theme = localStorage.getItem('dih_theme') || 'dark'; } catch(e) {}
-  document.documentElement.setAttribute('data-theme', theme);
-  $('#themeIcon').innerHTML = theme === 'dark' ? sunSvg : moonSvg;
-
-  $('#themeToggle').addEventListener('click', () => {
-    theme = theme === 'dark' ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', theme);
-    try { localStorage.setItem('dih_theme', theme); } catch(e) {}
-    $('#themeIcon').innerHTML = theme === 'dark' ? sunSvg : moonSvg;
-  });
-
-  /* ══════════════════════════════════════════════════════════════
-     CLOCK
-     ══════════════════════════════════════════════════════════════ */
-  function updateClock() {
-    try {
-      $('#clock').textContent = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
-    } catch (e) { /* ignore */ }
-  }
-  updateClock();
-  setInterval(updateClock, 30000);
-
-  /* ══════════════════════════════════════════════════════════════
-     BELL → SUBSCRIBE (opens in new tab)
-     ══════════════════════════════════════════════════════════════ */
-  $('#notifToggle').addEventListener('click', () => {
-    openLink(CONFIG.SITE_BASE + '/subscribe', 'Subscribe');
-  });
-
-  /* ══════════════════════════════════════════════════════════════
-     APPS DATA — GPTs + Pages (Hidden from UI, used by Chat)
-     ══════════════════════════════════════════════════════════════ */
-  const APPS = [
-    { name: 'InfohubGPT', desc: 'Tech & strategy', cat: 'ai', icon: '🤖', url: 'https://chatgpt.com/g/g-6973b68a2b188191aaead719715ab703-digiinfogpt-from-digital-infohub', keywords: ['digitalinfohub','digiinfo','tech','strategy','gpt','ai','assistant'] },
-    { name: 'TaskyGPT', desc: 'Goal breakdown', cat: 'ai tasks', icon: '📋', url: 'https://chatgpt.com/g/g-6989f6b724fc8191aef0f7393ed70672-taskygpt-from-digital-infohub', keywords: ['taskygpt','goals','planning','tasks','gpt'] },
-    { name: 'CookinStepGPT', desc: 'Cooking help', cat: 'ai', icon: '🍳', url: 'https://chatgpt.com/g/g-6994cb01a16c8191885299e8dbf64428-cookinstepgpt-by-digital-infohub', keywords: ['cooking','cook','recipe','recipes','food','gpt'] },
-    { name: 'SaveSmartGPT', desc: 'Savings helper', cat: 'ai', icon: '💰', url: 'https://chatgpt.com/g/g-6994de10b0b08191b778d0c80a577b86-savesmartgpt-by-digital-infohub', keywords: ['save','savings','finance','money','budget','gpt'] },
-    { name: 'Games Hub', desc: 'Play games', cat: 'games', icon: '🎮', url: '/games', keywords: ['games','play','arcade','fun','hub'] },
-    // Virtual "Apps" for Page Navigation
-    { name: 'Tech Topics', desc: 'Deep dives & guides', cat: 'pages', icon: '💡', url: '/techtopics', keywords: ['tech','topics','guides','learn','technology','articles'] },
-    { name: 'Software', desc: 'Tools', cat: 'pages', icon: '💻', url: '/software', keywords: ['software','tools','downloads','apps','programs','utilities'] },
-    { name: 'Blog', desc: 'Latest posts', cat: 'pages', icon: '📝', url: '/blog', keywords: ['blog','posts','articles','writing','read','news'] },
-    { name: 'Subscribe', desc: 'Get updates', cat: 'pages', icon: '🔔', url: '/subscribe', keywords: ['subscribe','newsletter','updates','email','signup','notify'] }
-  ];
-
-  /* ══════════════════════════════════════════════════════════════
-     FEED CACHE
-     ══════════════════════════════════════════════════════════════ */
-  const feedCache = {};
-  const feedLoading = {};
-
-  async function loadFeed(key, retries = CONFIG.MAX_RETRIES) {
-    if (feedCache[key]) return feedCache[key];
-    if (feedLoading[key]) return feedLoading[key];
-
-    feedLoading[key] = (async () => {
-      const feed = CONFIG.FEEDS[key];
-      if (!feed) return [];
-      let lastErr = null;
-      for (let attempt = 0; attempt <= retries; attempt++) {
-        try {
-          const r = await fetchWithTimeout(
-            `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feed.url)}`,
-            CONFIG.FEED_TIMEOUT
-          );
-          if (!r.ok) throw new Error('HTTP ' + r.status);
-          const data = await r.json();
-          const articles = (data.items || []).slice(0, 6).map(it => ({
-            title: (it.title || '').replace(/<[^>]*>/g, ''),
-            link: it.link || '#',
-            date: it.pubDate
-          }));
-          feedCache[key] = articles;
-          delete feedLoading[key];
-          return articles;
-        } catch (err) {
-          lastErr = err;
-          if (attempt < retries) await new Promise(r => setTimeout(r, 500 * (attempt + 1)));
-        }
+      if (/^(?:why|how come|reason|cause)\b/i.test(lower) && lower.length < 30) {
+        return { type: 'follow_up_why', context: ctx };
       }
-      delete feedLoading[key];
-      console.warn(`[Feed] ${key} failed after ${retries + 1} attempts:`, lastErr);
-      return [];
-    })();
-    return feedLoading[key];
-  }
-
-  /* ══════════════════════════════════════════════════════════════
-     CHAT — BRAIN
-     ══════════════════════════════════════════════════════════════ */
-  const chatThread = $('#chatThread');
-  const chatForm = $('#chatForm');
-  const chatInput = $('#chatInput');
-  const chatSend = $('#chatSend');
-  let isTyping = false;
-  let lastQuery = '';
-
-  const STOP = new Set(['the','a','an','is','are','was','were','be','been','can','could','will','would','should','do','does','did','have','has','had','i','you','he','she','we','they','me','my','your','this','that','of','in','on','at','to','for','with','by','from','it','its','and','or','but','so','then','than','now','please','show','give','open','launch','get','find','tell','look','see','me','about','up','what','which','who','whom']);
-
-  function tokenize(s) {
-    return s.toLowerCase().replace(/[^\w\s]/g, ' ').split(/\s+/).filter(w => w.length > 1 && !STOP.has(w));
-  }
-
-  function scoreQuery(query, items) {
-    const tokens = tokenize(query);
-    if (!tokens.length) return [];
-    return items.map(item => {
-      let score = 0;
-      const kws = (item.keywords || []).map(k => (k || '').toLowerCase());
-      tokens.forEach(qt => {
-        kws.forEach(kw => {
-          if (kw === qt) score += 3;
-          else if (kw.startsWith(qt) || qt.startsWith(kw)) score += 1.5;
-          else if (kw.includes(qt) || qt.includes(kw)) score += 0.8;
-        });
-      });
-      if (item.name) {
-        const nameL = item.name.toLowerCase();
-        tokens.forEach(qt => {
-          if (nameL === qt) score += 5;
-          else if (nameL.includes(qt)) score += 2;
-        });
+      if (/^(?:and|also|plus|what about|how about)\s+/i.test(lower)) {
+        const remainder = lower.replace(/^(?:and|also|plus|what about|how about)\s+/i, '').trim();
+        if (/crypto|btc|eth/i.test(remainder)) return { type: 'crypto' };
+        if (/stocks?|market/i.test(remainder)) return { type: 'stocks' };
+        if (/news|headlines/i.test(remainder)) return { type: 'briefing' };
+        if (/tools?|apps?|software/i.test(remainder)) return { type: 'search_apps' };
+        // Treat remainder as a new semantic search but keep context
+        return { type: 'semantic_search', query: remainder, isFollowUp: true };
       }
-      return { item, score };
-    }).filter(x => x.score > 0).sort((a, b) => b.score - a.score);
-  }
+      if (/^(?:yes|yeah|yep|sure|ok|okay|please do|go ahead)\b/i.test(lower) && ctx.lastIntent) {
+        return { type: 'confirm_follow_up', context: ctx };
+      }
+      if (/^(?:no|nope|nah|not that|wrong|nevermind|cancel)\b/i.test(lower)) {
+        return { type: 'dismiss' };
+      }
 
-  function detectIntent(query) {
-    const q = query.toLowerCase().trim();
+      // ── Memory ──
+      const nameMatch = lower.match(/(?:my name is|i am|call me)\s+(\w+)/i);
+      if (nameMatch) return { type: 'set_name', value: nameMatch[1] };
+      if (/what(?:'s| is)? my name|who am i/i.test(lower)) return { type: 'get_name' };
+      if (/forget me|clear memory|reset memory/i.test(lower)) return { type: 'clear_memory' };
 
-    if (/^(hi|hey|hello|sup|yo|greetings)\b/.test(q)) return { type: 'greet' };
-    if (/^(thanks|thank you|thx|ty)\b/.test(q)) return { type: 'thanks' };
-    if (/^(bye|goodbye|see you|cya)\b/.test(q)) return { type: 'bye' };
-    if (/who are you|what are you|your name|what's your name/i.test(q)) return { type: 'identity' };
-    if (/what is this|about this site|what is digital infohub|describe this site/i.test(q)) return { type: 'about_site' };
-    if (/^(help|\?)$|what can you do|what do you do|how do you work/i.test(q)) return { type: 'help' };
-    if (/subscribe|sign.?up|newsletter|notify|notifications?/i.test(q)) return { type: 'action', action: 'subscribe' };
-    if (/donate|support|contribute|tip/i.test(q)) return { type: 'action', action: 'donate' };
-    if (/advertise|sponsor|ad\b|promotion/i.test(q)) return { type: 'action', action: 'advertise' };
+      // ── Web Search ──
+      if (/^(?:search|look up|google|find out|web search|search the web)\b/i.test(lower)) {
+        const query = lower.replace(/^(?:search|look up|google|find out|web search|search the web)\s+(?:for\s+)?/i,'').trim();
+        return { type: 'web_search', query: query || q };
+      }
+      if (/^(?:what is|who is|when did|why does|how does|define|explain)\b/i.test(lower) && lower.length > 15) return { type: 'web_search', query: q };
 
-    // Explicit page navigation intents
-    if (/\b(tech.?topics?|guides?)\b/i.test(q)) return { type: 'navigate', path: '/techtopics', label: 'Tech Topics' };
-    if (/\b(software|tools|downloads?|apps?)\b/i.test(q) && !/\b(gpt|ai)\b/i.test(q)) return { type: 'navigate', path: '/software', label: 'Software' };
-    if (/\b(games?|play|arcade)\b/i.test(q)) return { type: 'navigate', path: '/games', label: 'Games Hub' };
-    if (/\b(blog|posts?|articles?|written)\b/i.test(q)) return { type: 'blog_search' }; // Keep blog search for content matching
+      // ── Briefings & News ──
+      if (/full briefing|complete briefing|everything|all news/i.test(lower)) return { type: 'full_briefing' };
+      if (/briefing|news summary|daily update|headlines|morning brief/i.test(lower)) return { type: 'briefing' };
+      if (/stocks?|market|ticker|share price|stock price|portfolio|s&p|nasdaq|dow/i.test(lower)) return { type: 'stocks' };
+      if (/crypto|bitcoin|btc|ethereum|eth|web3|blockchain/i.test(lower)) return { type: 'crypto' };
+      if (/news|latest|breaking|headlines/i.test(lower)) {
+        if (/crypto|bitcoin|eth|web3/i.test(lower)) return { type:'feed', key:'crypto' };
+        if (/world|global|international/i.test(lower)) return { type:'feed', key:'world' };
+        if (/market|business|finance|economy/i.test(lower)) return { type:'feed', key:'markets' };
+        return { type:'feed', key:'tech' };
+      }
 
-    const newsMatches = q.match(/\b(news|headlines?|latest|breaking|stories?)\b/i);
-    if (newsMatches) {
-      if (/\bworld|global|international\b/i.test(q)) return { type: 'feed', feed: 'world' };
-      if (/\bmarket|stock|finance|business\b/i.test(q)) return { type: 'feed', feed: 'markets' };
-      if (/\bcrypto|bitcoin|blockchain|nft\b/i.test(q)) return { type: 'feed', feed: 'crypto' };
-      return { type: 'feed', feed: CONFIG.DEFAULT_NEWS_FEED };
+      // ── Navigation ──
+      if (/tool|app|software|utility|program|download/i.test(lower)) return { type: 'search_apps' };
+      if (/game|play|arcade|fun/i.test(lower)) return { type:'navigate', path:'/games', label:'Games Hub' };
+      if (/blog|article|post|read|write/i.test(lower)) return { type:'navigate', path:'/blog', label:'Blog' };
+      if (/tech topic|guide|tutorial|learn/i.test(lower)) return { type:'navigate', path:'/techtopics', label:'Tech Topics' };
+      if (/subscribe|newsletter|sign.?up/i.test(lower)) return { type:'navigate', path:'/subscribe', label:'Subscribe' };
+
+      // ── Meta ──
+      if (/help|what can you do|commands|features|capabilities/i.test(lower)) return { type: 'help' };
+      if (/^(?:hi|hello|hey|sup|yo|greetings|good morning|good evening)\b/i.test(lower)) return { type: 'greet' };
+      if (/^(?:thanks?|thank you|thx|ty|appreciate it)\b/i.test(lower)) return { type: 'thanks' };
+      if (/^(?:bye|goodbye|see ya|cya|good night)\b/i.test(lower)) return { type: 'bye' };
+      if (/^(?:lol|haha|lmao|😂|🤣)\b/i.test(lower)) return { type: 'humor' };
+      if (/^(?:wow|amazing|cool|nice|great|awesome|impressive)\b/i.test(lower)) return { type: 'positive_feedback' };
+      if (/^(?:bad|terrible|awful|useless|broken|sucks)\b/i.test(lower)) return { type: 'negative_feedback' };
+
+      // ── Long questions auto-search ──
+      if (lower.length > 25 && /\?$/.test(lower)) return { type: 'web_search', query: q };
+
+      return { type: 'semantic_search', query: q };
     }
+  };
 
-    return { type: 'search' };
+  /* ═══════════════════════════════════════════════════════════
+     RENDERERS
+     ═══════════════════════════════════════════════════════════ */
+  function renderNewsGrid(items) {
+    if (!items.length) return '<p style="color:var(--text-muted);font-size:13px;">No articles available right now.</p>';
+    let html = '<div class="rich-grid">';
+    items.forEach(n => { html += `<a class="news-card" href="${esc(n.link)}" target="_blank" rel="noopener"><span class="news-tag">${esc(n.tag||'NEWS')}</span><span class="news-title">${esc(n.title)}</span><span class="news-meta">${esc(n.date)}</span></a>`; });
+    html += '</div>'; return html;
   }
 
-  /* ══════════════════════════════════════════════════════════════
-     RENDER HELPERS
-     ══════════════════════════════════════════════════════════════ */
+  function renderStockGrid(stocks) {
+    if (!stocks.length) return '<p style="color:var(--text-muted);font-size:13px;">Unable to load market data.</p>';
+    let html = '<div class="stock-grid">';
+    stocks.forEach(s => {
+      if (s.stale) html += `<div class="stock-card"><span class="stock-symbol">${esc(s.symbol)}</span><span class="stock-price">--</span><span class="stock-stale">Data unavailable</span></div>`;
+      else html += `<div class="stock-card"><span class="stock-symbol">${esc(s.symbol)}</span><span class="stock-price">$${esc(s.price)}</span><span class="stock-change ${s.up?'up':'down'}">${s.up?'+':''}${esc(s.change)} (${s.up?'+':''}${esc(s.changePct)}%)</span></div>`;
+    });
+    html += '</div>'; return html;
+  }
+
+  function renderAppGrid(items) {
+    if (!items.length) return '';
+    let html = '<div class="rich-grid">';
+    items.forEach(a => { const url=a.url.startsWith('/')?CONFIG.SITE_BASE+a.url:a.url; html+=`<a class="tile" href="${esc(url)}" target="_blank" rel="noopener"><span class="tile-name">${esc(a.icon)} ${esc(a.name)}</span><span class="tile-desc">${esc(a.desc)}</span></a>`; });
+    html += '</div>'; return html;
+  }
+
+  function renderWebResults(results) {
+    if (!results.length) return '<p style="color:var(--text-muted);font-size:13px;">No web results found. Try rephrasing.</p>';
+    let html = '';
+    results.slice(0,4).forEach(r => { html+=`<div class="web-result"><div class="web-result-source">${esc(r.source)}</div><div class="web-result-title">${esc(r.title)}</div><div class="web-result-snippet">${esc(r.snippet)}</div>${r.url?`<a class="web-result-link" href="${esc(r.url)}" target="_blank" rel="noopener">Read more →</a>`:''}</div>`; });
+    return html;
+  }
+
+  /** Renders clickable suggestion chips INSIDE a bot message */
+  function renderSuggestions(suggestions) {
+    if (!suggestions || !suggestions.length) return '';
+    let html = '<div class="suggestion-chips">';
+    suggestions.forEach(s => { html += `<span class="suggestion-chip" data-prefill="${esc(s)}">${esc(s)}</span>`; });
+    html += '</div>';
+    return html;
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     AI PROCESSOR — Now with conversational intelligence
+     ═══════════════════════════════════════════════════════════ */
+  const AI = {
+    async process(input) {
+      const intent = Intent.detect(input);
+      Memory.addHistory(input);
+
+      switch(intent.type) {
+
+        // ── CONVERSATIONAL FOLLOW-UPS ──
+        case 'follow_up_elaborate':
+          if (intent.context.lastTopic === 'stocks') {
+            const data = await fetchStocks();
+            return `<p>Sure! Here's a deeper look at current stock performance:</p>` + renderStockGrid(data) +
+              renderSuggestions(['Show crypto too','Search market analysis','Which stock is trending?']);
+          }
+          if (intent.context.lastTopic === 'crypto') {
+            const data = await fetchCrypto();
+            return `<p>Here's more detail on crypto markets:</p>` + renderStockGrid(data) +
+              renderSuggestions(['Show stocks too','Search crypto regulation','BTC price history']);
+          }
+          if (intent.context.lastTopic === 'briefing') {
+            const [tech, crypto] = await Promise.all([fetchRSS(CONFIG.FEEDS.tech.url), fetchRSS(CONFIG.FEEDS.crypto.url)]);
+            return `<p>Expanding on today's headlines:</p>` + renderNewsGrid([...tech.slice(0,3).map(n=>({...n,tag:'TECH'})), ...crypto.slice(0,2).map(n=>({...n,tag:'CRYPTO'}))]) +
+              renderSuggestions(['Show full briefing','Search any headline topic','World news']);
+          }
+          if (intent.context.lastTopic === 'tools') {
+            return `<p>Here are all available tools with details:</p>` + renderAppGrid(APPS.filter(a=>a.cat==='ai')) +
+              renderSuggestions(['Show page directories','Open InfohubGPT','Planning tools']);
+          }
+          return `<p>I'd love to elaborate! Could you remind me what you'd like more detail on? Or try one of these:</p>` +
+            renderSuggestions(['Full briefing','Live stocks','Available tools','Web search']);
+
+        case 'follow_up_why':
+          if (intent.context.lastTopic === 'stocks') return `<p>Stock prices move based on earnings reports, macroeconomic data, Fed policy, and market sentiment. Want me to search for analysis on a specific ticker?</p>` + renderSuggestions(['Search NVDA analysis','Search AAPL earnings','Full market briefing']);
+          if (intent.context.lastTopic === 'crypto') return `<p>Crypto prices are driven by adoption rates, regulatory news, on-chain activity, and broader risk sentiment. Want me to dig deeper?</p>` + renderSuggestions(['Search Bitcoin ETF flows','Search ETH staking','Crypto news']);
+          return `<p>Good question! Could you clarify what specifically you'd like me to explain? I can search the web for detailed answers.</p>` + renderSuggestions(['Search for an answer','Rephrase my question']);
+
+        case 'confirm_follow_up':
+          // Re-execute the last intent with fresh data
+          if (intent.context.lastIntent === 'stocks') { Memory.setContext('stocks','stocks'); const d=await fetchStocks(); return `<p>Updated stock prices:</p>`+renderStockGrid(d)+renderSuggestions(['Show crypto','Full briefing']); }
+          if (intent.context.lastIntent === 'crypto') { Memory.setContext('crypto','crypto'); const d=await fetchCrypto(); return `<p>Updated crypto prices:</p>`+renderStockGrid(d)+renderSuggestions(['Show stocks','Crypto news']); }
+          if (intent.context.lastIntent === 'briefing') { Memory.setContext('briefing','briefing'); const [t,c]=await Promise.all([fetchRSS(CONFIG.FEEDS.tech.url),fetchRSS(CONFIG.FEEDS.crypto.url)]); return `<p>Fresh headlines:</p>`+renderNewsGrid([...t.slice(0,3).map(n=>({...n,tag:'TECH'})),...c.slice(0,2).map(n=>({...n,tag:'CRYPTO'}))])+renderSuggestions(['Full briefing','Search a topic']); }
+          return `<p>Sure! What would you like me to do next?</p>` + renderSuggestions(['Full briefing','Live stocks','Tools','Web search']);
+
+        case 'dismiss':
+          return `<p>No problem! Let me know if there's something else I can help with.</p>` + renderSuggestions(['Full briefing','Show tools','Help']);
+
+        // ── SOCIAL / CONVERSATIONAL ──
+        case 'humor':
+          return `<p>😄 Glad you're enjoying yourself! Need anything useful, or just vibing?</p>` + renderSuggestions(['Actually show me stocks','Tell me a tech fact','Full briefing']);
+        case 'positive_feedback':
+          return `<p>Thanks! I appreciate that. Anything else you'd like to explore?</p>` + renderSuggestions(['Live stocks','Crypto prices','Web search']);
+        case 'negative_feedback':
+          return `<p>I'm sorry to hear that. I'm always improving. Could you tell me what didn't work, or try rephrasing? You can also search the web directly.</p>` + renderSuggestions(['Search the web for ','Show help','Try full briefing']);
+
+        // ── MEMORY ──
+        case 'set_name':
+          Memory.setName(intent.value);
+          return `<p>Got it! I've saved your name as <strong>${esc(intent.value)}</strong>. I'll personalize future interactions.</p>` + renderSuggestions(['Full briefing','Show tools','What can you do?']);
+        case 'get_name':
+          const n = Memory.getName();
+          return n ? `<p>My records show your name is <strong>${esc(n)}</strong>.</p>` : `<p>I don't have a name stored yet. Type <em>"My name is [Name]"</em> to set one.</p>`;
+        case 'clear_memory':
+          localStorage.removeItem(Memory.key); Memory.data={name:null,prefs:[],history:[],briefingPrefs:[],lastIntent:null,lastTopic:null};
+          return `<p>All memory cleared. Fresh start!</p>` + renderSuggestions(['Set my name','Full briefing','Help']);
+
+        // ── GREETINGS & META ──
+        case 'greet':
+          const userName = Memory.getName();
+          const g = userName ? `Welcome back, <strong>${esc(userName)}</strong>!` : `Hello!`;
+          Memory.setContext('greet', null);
+          return `<p>${g} I'm <strong>${CONFIG.BOT_NAME}</strong>. I can search the web, pull live stock & crypto prices, deliver news briefings, and navigate all site tools.</p>` +
+            renderSuggestions(['Full briefing with stocks','Search the web for ','Show available tools','What can you do?']);
+        case 'thanks': return `<p>You're welcome! Anything else?</p>` + renderSuggestions(['Live stocks','Crypto','Full briefing']);
+        case 'bye': return `<p>See you next time! 👋</p>`;
+        case 'help':
+          Memory.setContext('help', null);
+          return `<p><strong>${CONFIG.BOT_NAME}</strong> capabilities:</p>
+            <ul style="margin-left:18px;margin-top:8px;color:var(--text-sub);font-size:14px;line-height:2;">
+              <li>🌐 <strong>Web Search</strong> — "search quantum computing"</li>
+              <li>📊 <strong>Live Stocks</strong> — "NVDA stock", "show market data"</li>
+              <li>₿ <strong>Live Crypto</strong> — "BTC price", "crypto"</li>
+              <li>📰 <strong>Briefings</strong> — "full briefing", "world headlines"</li>
+              <li>🛠️ <strong>Tools</strong> — "show tools", natural language search</li>
+              <li>🧠 <strong>Memory</strong> — "My name is...", "clear memory"</li>
+              <li>💬 <strong>Follow-ups</strong> — "tell me more", "and crypto?", "why?"</li>
+            </ul>` + renderSuggestions(['Full briefing','Live stocks','Search the web for ','Show tools']);
+
+        // ── WEB SEARCH ──
+        case 'web_search':
+          Memory.setContext('web_search', intent.query);
+          const searchResults = await webSearch(intent.query);
+          Memory.learnPreference('web_search');
+          return `<p>Here's what I found for "<em>${esc(intent.query)}</em>":</p>` + renderWebResults(searchResults) +
+            renderSuggestions(['Search related topic','Tell me more','Full briefing']);
+
+        // ── BRIEFINGS ──
+        case 'full_briefing':
+          Memory.setContext('full_briefing', 'briefing');
+          Memory.trackBriefingPref('full');
+          const [fTech,fCryptoN,fMarkets,fMarket] = await Promise.all([fetchRSS(CONFIG.FEEDS.tech.url),fetchRSS(CONFIG.FEEDS.crypto.url),fetchRSS(CONFIG.FEEDS.markets.url),fetchAllMarketData()]);
+          let fb=`<p>Your complete briefing — live markets + news:</p>`;
+          fb+=`<p style="font-size:12px;color:var(--text-muted);margin-top:12px;font-family:var(--mono);text-transform:uppercase;letter-spacing:0.05em;">📈 Live Market Snapshot</p>`+renderStockGrid(fMarket);
+          fb+=`<p style="font-size:12px;color:var(--text-muted);margin-top:16px;font-family:var(--mono);text-transform:uppercase;letter-spacing:0.05em;">📰 Top Stories</p>`+renderNewsGrid([...fTech.slice(0,2).map(n=>({...n,tag:'TECH'})),...fCryptoN.slice(0,2).map(n=>({...n,tag:'CRYPTO'})),...fMarkets.slice(0,2).map(n=>({...n,tag:'MARKETS'}))]);
+          return fb + renderSuggestions(['Tell me more','And crypto details?','Search a headline topic','Show tools']);
+
+        case 'briefing':
+          Memory.setContext('briefing', 'briefing');
+          Memory.trackBriefingPref('standard');
+          const [bTech,bCryptoN,bMarket] = await Promise.all([fetchRSS(CONFIG.FEEDS.tech.url),fetchRSS(CONFIG.FEEDS.crypto.url),fetchAllMarketData()]);
+          let b=`<p>Your daily briefing:</p>`;
+          b+=`<p style="font-size:12px;color:var(--text-muted);margin-top:12px;font-family:var(--mono);text-transform:uppercase;letter-spacing:0.05em;">📈 Key Movers</p>`+renderStockGrid(bMarket.slice(0,6));
+          b+=`<p style="font-size:12px;color:var(--text-muted);margin-top:16px;font-family:var(--mono);text-transform:uppercase;letter-spacing:0.05em;">📰 Headlines</p>`+renderNewsGrid([...bTech.slice(0,3).map(n=>({...n,tag:'TECH'})),...bCryptoN.slice(0,2).map(n=>({...n,tag:'CRYPTO'}))]);
+          return b + renderSuggestions(['Tell me more','And crypto?','Full briefing','Search a topic']);
+
+        case 'stocks':
+          Memory.setContext('stocks', 'stocks');
+          Memory.learnPreference('stocks');
+          const sd = await fetchStocks();
+          return `<p>Live stock prices via Finnhub:</p>` + renderStockGrid(sd) + renderSuggestions(['Tell me more','And crypto?','Search market analysis','Full briefing']);
+
+        case 'crypto':
+          Memory.setContext('crypto', 'crypto');
+          Memory.learnPreference('crypto');
+          const cd = await fetchCrypto();
+          return `<p>Live crypto prices via CoinGecko:</p>` + renderStockGrid(cd) + renderSuggestions(['Tell me more','And stocks?','Search crypto news','Full briefing']);
+
+        case 'feed':
+          Memory.setContext('feed', intent.key);
+          const feed = CONFIG.FEEDS[intent.key];
+          const arts = await fetchRSS(feed.url);
+          Memory.learnPreference(intent.key);
+          if (!arts.length) return `<p>Unable to fetch ${feed.name} news right now.</p>` + renderSuggestions(['Try full briefing','Search the web for '+feed.name+' news']);
+          return `<p>Latest from <strong>${feed.name}</strong>:</p>` + renderNewsGrid(arts.map(a=>({...a,tag:feed.name.toUpperCase()}))) +
+            renderSuggestions(['Tell me more','Search a headline','Full briefing']);
+
+        case 'navigate':
+          Memory.setContext('navigate', intent.label);
+          setTimeout(()=>window.open(CONFIG.SITE_BASE+intent.path,'_blank'),800);
+          return `<p>Opening <strong>${intent.label}</strong> in a new tab...</p>` + renderSuggestions(['Show other pages','Full briefing','Back to chat']);
+
+        case 'search_apps':
+          Memory.setContext('tools', 'tools');
+          return `<p>Available tools and directories:</p>` + renderAppGrid(APPS.filter(a=>a.cat==='ai'||a.cat==='pages')) +
+            renderSuggestions(['Tell me more about TaskyGPT','Planning tools','AI assistants','Page directories']);
+
+        // ── SEMANTIC SEARCH WITH SMART FUZZY FALLBACK ──
+        case 'semantic_search':
+          const scored = APPS.map(a=>({
+            ...a,
+            score: Scorer.score(intent.query, `${a.name} ${a.desc}`, a.keywords, a.triggers||[])
+          })).filter(a=>a.score>0).sort((a,b)=>b.score-a.score);
+
+          // Strong match → open + suggest follow-ups
+          if (scored.length>0 && scored[0].score>=4) {
+            const best = scored[0];
+            const url = best.url.startsWith('/')?CONFIG.SITE_BASE+best.url:best.url;
+            Memory.setContext('app_match', best.name);
+            setTimeout(()=>window.open(url,'_blank'),800);
+            let html = `<p>Best match: <strong>${esc(best.name)}</strong> — ${esc(best.desc)}. Opening now.</p>`;
+            if (scored.length>1) { html+=`<p style="font-size:12px;color:var(--text-muted);margin-top:10px;">Also relevant:</p>`+renderAppGrid(scored.slice(1,4)); }
+            const suggestions = (best.followUps||[]).concat(['Show all tools','Search the web for '+intent.query]);
+            return html + renderSuggestions(suggestions);
+          }
+
+          // Moderate match → show options + smart fallback suggestions
+          if (scored.length>0 && scored[0].score>=1.5) {
+            Memory.setContext('partial_match', intent.query);
+            const topMatches = scored.slice(0,4);
+            // Build "Did you mean?" suggestions from matched app names
+            const didYouMean = topMatches.map(m => m.name);
+            return `<p>I found some possible matches for "<em>${esc(intent.query)}</em>":</p>` + renderAppGrid(topMatches) +
+              `<p style="font-size:12px;color:var(--text-muted);margin-top:12px;">Not quite right? Try one of these:</p>` +
+              renderSuggestions([...didYouMean, 'Search the web for '+intent.query, 'Show all tools']);
+          }
+
+          // No match → intelligent fallback with keyword-based suggestions
+          // Find apps whose keywords partially overlap with the query tokens
+          const queryTokens = Scorer.tokenize(intent.query);
+          const partialHints = APPS
+            .map(a => {
+              const allKw = [...a.keywords, ...(a.triggers||[])];
+              const overlap = queryTokens.filter(qt => allKw.some(k => k.includes(qt) || qt.includes(k)));
+              return { app: a, overlapCount: overlap.length, overlapWords: overlap };
+            })
+            .filter(h => h.overlapCount > 0)
+            .sort((a,b) => b.overlapCount - a.overlapCount)
+            .slice(0, 3);
+
+          let fallbackHtml = `<p>I couldn't find an exact match for "<em>${esc(intent.query)}</em>".</p>`;
+
+          if (partialHints.length > 0) {
+            fallbackHtml += `<p style="margin-top:8px;">But based on similar keywords, you might be interested in:</p>`;
+            fallbackHtml += renderAppGrid(partialHints.map(h => h.app));
+            fallbackHtml += `<p style="font-size:12px;color:var(--text-muted);margin-top:12px;">Or try:</p>`;
+            const hintSuggestions = partialHints.map(h => `Tell me about ${h.app.name}`);
+            fallbackHtml += renderSuggestions([...hintSuggestions, 'Search the web for '+intent.query, 'Full briefing', 'Show all tools', 'Help']);
+          } else {
+            // Truly nothing matched → offer web search + popular actions
+            fallbackHtml += `<p style="margin-top:8px;">I can search the web for that, or try one of these popular actions:</p>`;
+            fallbackHtml += renderSuggestions(['Search the web for '+intent.query, 'Full briefing', 'Live stocks', 'Crypto prices', 'Show tools', 'Help']);
+          }
+
+          // Auto-trigger web search for long queries as a courtesy
+          if (intent.query.length > 20) {
+            const webResults = await webSearch(intent.query);
+            if (webResults.length > 0) {
+              fallbackHtml += `<p style="margin-top:16px;font-size:12px;color:var(--text-muted);font-family:var(--mono);text-transform:uppercase;letter-spacing:0.05em;">🌐 AUTO WEB RESULTS</p>`;
+              fallbackHtml += renderWebResults(webResults.slice(0, 2));
+            }
+          }
+
+          return fallbackHtml;
+      }
+    }
+  };
+
+  /* ═══════════════════════════════════════════════════════════
+     CHAT UI CONTROLLER
+     ═══════════════════════════════════════════════════════════ */
+  const thread = $('#chatThread');
+  const form = $('#chatForm');
+  const input = $('#chatInput');
+  const sendBtn = $('#chatSend');
+  let isProcessing = false;
+
   function addMsg(role, html) {
-    const wrap = document.createElement('div');
-    wrap.className = 'msg';
-    wrap.setAttribute('role', 'article');
-    const avatarContent = role === 'bot'
-      ? `<img src="${CONFIG.LOGO_URL}" alt="">`
-      : esc('You').charAt(0);
-    wrap.innerHTML = `
-      <div class="msg-avatar ${role === 'bot' ? 'bot' : 'user'}" aria-hidden="true">${avatarContent}</div>
-      <div class="msg-body">
-        <div class="msg-role">${role === 'bot' ? 'Digital Infohub' : 'You'}</div>
-        <div class="msg-content">${html}</div>
-      </div>`;
-    chatThread.appendChild(wrap);
-    chatThread.scrollTop = chatThread.scrollHeight;
-    return wrap;
+    const div = document.createElement('div');
+    div.className = `msg ${role}`;
+    const avatar = role==='bot' ? `<img src="${CONFIG.LOGO_URL}" alt="">` : esc(Memory.getName()||'You').charAt(0).toUpperCase();
+    div.innerHTML = `<div class="msg-avatar ${role}">${avatar}</div><div class="msg-body"><div class="msg-role">${role==='bot'?CONFIG.BOT_NAME:(Memory.getName()||'You')}</div><div class="msg-content">${html}</div></div>`;
+    thread.appendChild(div);
+    thread.scrollTop = thread.scrollHeight;
+    return div;
   }
 
-  function addUserMsg(text) {
-    addMsg('user', `<p>${esc(text)}</p>`);
+  function showTyping() {
+    const div = document.createElement('div');
+    div.className = 'msg bot typing-msg';
+    div.innerHTML = `<div class="msg-avatar bot"><img src="${CONFIG.LOGO_URL}" alt=""></div><div class="msg-body"><div class="msg-role">${CONFIG.BOT_NAME}</div><div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div></div>`;
+    thread.appendChild(div);
+    thread.scrollTop = thread.scrollHeight;
+    return div;
   }
 
-  async function typeBot(html, el) {
-    if (!html) { html = '<p>Sorry, I have no response.</p>'; }
-    const target = el.querySelector('.msg-content');
-    if (!target) return;
-    target.classList.add('typing-cursor');
-    target.innerHTML = '';
-    let i = 0, rendered = '';
-    return new Promise(resolve => {
-      const tick = () => {
-        if (i >= html.length) { target.classList.remove('typing-cursor'); resolve(); return; }
-        if (html[i] === '<') {
-          const ci = html.indexOf('>', i);
-          if (ci !== -1) { rendered += html.substring(i, ci + 1); i = ci + 1; }
-          else { rendered += html[i]; i++; }
-          target.innerHTML = rendered;
-          requestAnimationFrame(tick);
-          return;
-        }
-        rendered += html[i]; i++;
-        target.innerHTML = rendered;
-        const ch = html[i - 1];
-        let delay = 10;
-        if (ch === ' ') delay = 4;
-        else if ('.!?'.includes(ch)) delay = 60;
-        else if (ch === ',') delay = 30;
-        delay += Math.random() * 8;
-        setTimeout(tick, delay);
-      };
-      tick();
+  /** Prefill input and position cursor at end */
+  function prefillInput(text) {
+    input.value = text;
+    input.focus();
+    // Position cursor at end
+    requestAnimationFrame(() => {
+      input.setSelectionRange(text.length, text.length);
     });
   }
 
-  function addRetryButton(msgEl, query) {
-    const existing = msgEl.querySelector('.error-block');
-    if (existing) existing.remove();
-    const errBlock = document.createElement('div');
-    errBlock.className = 'error-block';
-    errBlock.innerHTML = `
-      <div class="error-block-text">
-        <strong>Something went wrong</strong>
-        <div class="error-block-sub">I couldn't generate a response. Click below to try again.</div>
-      </div>
-      <button class="retry-btn" type="button">Try again</button>
-    `;
-    errBlock.querySelector('.retry-btn').addEventListener('click', () => {
-      chatInput.value = query;
-      handleSend();
-    });
-    msgEl.querySelector('.msg-content').appendChild(errBlock);
-  }
-
-  /* ══════════════════════════════════════════════════════════════
-     RICH RENDERERS
-     ══════════════════════════════════════════════════════════════ */
-  function renderBlogCards(blogs) {
-    if (!blogs || !blogs.length) return '<p>No blog posts found.</p>';
-    let html = '<div class="rich-grid">';
-    blogs.slice(0, 6).forEach((post, i) => {
-      const grad = post.grad || 'linear-gradient(135deg, #6366f1, #8b5cf6)';
-      const emoji = post.emoji || '📰';
-      html += `
-        <a class="blog-card" href="${escAttr(post.link)}" target="_blank" rel="noopener noreferrer" data-blog-title="${escAttr(post.title)}" role="button" aria-label="${escAttr(post.title)}">
-          <div class="blog-cover">
-            <div class="blog-cover-fallback" style="background:${grad}">${emoji}</div>
-          </div>
-          <div class="blog-info">
-            <div class="blog-title">${esc(post.title)}</div>
-            <div class="blog-meta">${esc(post.dateFormatted || '')}</div>
-          </div>
-        </a>`;
-    });
-    html += '</div>';
-    return html;
-  }
-
-  function renderToolTiles(tools, limit = 6) {
-    if (!tools || !tools.length) return '';
-    let html = '<div class="rich-grid">';
-    tools.slice(0, limit).forEach(t => {
-      // Resolve URL relative to base if needed
-      let url = t.url;
-      if (url.startsWith('/')) url = CONFIG.SITE_BASE + url;
-      
-      html += `<a class="tile" href="${escAttr(url)}" target="_blank" rel="noopener noreferrer" aria-label="Open ${escAttr(t.name)}">
-        <div class="tile-name">${esc(t.icon)} ${esc(t.name)}</div>
-        <div class="tile-desc">${esc(t.desc)}</div>
-      </a>`;
-    });
-    html += '</div>';
-    return html;
-  }
-
-  function renderFeed(articles, feedName) {
-    if (!articles || !articles.length) {
-      return `<p>Couldn't load articles from <strong>${esc(feedName)}</strong> right now. Please try again in a moment.</p>`;
-    }
-    let html = `<p style="margin-top:10px;font-size:12px;color:var(--text-muted);font-family:var(--mono);text-transform:uppercase;letter-spacing:0.05em;">${esc(feedName)} — ${articles.length} articles</p><div class="rich-card"><ul style="list-style:none;">`;
-    articles.forEach(a => {
-      html += `<li style="padding:12px 16px;border-bottom:1px solid var(--border);">
-        <a href="${escAttr(a.link)}" target="_blank" rel="noopener noreferrer" style="color:var(--text);text-decoration:none;font-size:13px;line-height:1.5;display:block;">${esc(a.title)}</a>
-      </li>`;
-    });
-    html += '</ul></div>';
-    return html;
-  }
-
-  /* ══════════════════════════════════════════════════════════════
-     RESPONSE BUILDER
-     ══════════════════════════════════════════════════════════════ */
-  async function buildResponse(query) {
+  async function handleSend(text) {
+    if (isProcessing || !text.trim()) return;
+    isProcessing = true;
+    sendBtn.disabled = true;
+    input.disabled = true;
+    addMsg('user', esc(text));
+    input.value = '';
+    const typingEl = showTyping();
+    await new Promise(r => setTimeout(r, 500 + Math.random() * 700));
     try {
-      const intent = detectIntent(query);
-
-      if (intent.type === 'greet') {
-        return `<p>Hey there! I'm <strong>Digital Infohub</strong> — your assistant for everything on this site.</p>
-          <p>I can show you blogs, fetch news, navigate pages, and help you find tools. Try asking <em>"what is this site"</em>, <em>"tech topics"</em>, or <em>"news"</em>.</p>`;
-      }
-      if (intent.type === 'thanks') return `<p>You're welcome! Let me know if there's anything else.</p>`;
-      if (intent.type === 'bye') return `<p>See you next time 👋</p>`;
-      if (intent.type === 'identity') return `<p>I'm <strong>Digital Infohub</strong> — an AI assistant built into this dashboard. I can search articles, find tools, navigate pages, and help you explore everything on the site.</p>`;
-      
-      if (intent.type === 'about_site') {
-        return `<p><strong>Digital Infohub</strong> is a unified dashboard for navigating the modern digital landscape. We bring together real-time tech news, productivity tools, browser games, and deep-dive articles in one minimalist interface.</p>
-        <p>Whether you want market trends, AI assistants, or just a quick game, everything is accessible right here. No clutter, just the info and tools you need.</p>
-        <p style="font-size:12px;color:var(--text-muted);margin-top:8px;">Explore our main sections:</p>
-        ${renderToolTiles(APPS.filter(a => a.cat === 'pages'), 4)}`;
-      }
-
-      if (intent.type === 'help') {
-        return `<p>Here's what I can do:</p>
-          <p>• <strong>Navigate Pages</strong> — "go to software", "tech topics", "games"<br>
-          • <strong>Show blogs &amp; articles</strong> — "show me blogs", "design articles"<br>
-          • <strong>Fetch news</strong> — "news", "crypto news", "world news"<br>
-          • <strong>Find tools</strong> — ask about any GPT or app<br>
-          • <strong>Site Info</strong> — "what is this site", "subscribe"</p>`;
-      }
-
-      if (intent.type === 'navigate') {
-        const fullUrl = CONFIG.SITE_BASE + intent.path;
-        setTimeout(() => openLink(fullUrl, intent.label), 800);
-        return `<p>Opening <strong>${esc(intent.label)}</strong> for you in a new tab...</p>
-        <p style="font-size:12px;color:var(--text-muted);margin-top:8px;">You can also access this anytime from the navigation menu.</p>`;
-      }
-
-      if (intent.type === 'feed') {
-        const feed = CONFIG.FEEDS[intent.feed];
-        if (!feed) return `<p>I couldn't find that news source.</p>`;
-        const articles = await loadFeed(intent.feed);
-        let html = `<p>Here are the latest from <strong>${esc(feed.name)}</strong>:</p>`;
-        html += renderFeed(articles, feed.name);
-        if (!articles || !articles.length) {
-          html += `<p style="margin-top:10px;font-size:12px;color:var(--text-muted);">Try again in a moment if articles don't appear.</p>`;
-        }
-        return html;
-      }
-
-      if (intent.type === 'action') {
-        if (intent.action === 'subscribe') {
-          setTimeout(() => openLink(CONFIG.SITE_BASE + '/subscribe', 'Subscribe'), 400);
-          return `<p>Opening the subscription page in a new tab…</p>`;
-        }
-        if (intent.action === 'donate') {
-          return `<p>Thank you for supporting Digital Infohub!</p>
-            <div class="rich-grid"><a class="tile" href="https://www.paypal.com/ncp/payment/QTX8WWTX8SBAG" target="_blank" rel="noopener noreferrer"><div class="tile-name">☕ Donate via PayPal</div><div class="tile-desc">Opens in new tab</div></a></div>`;
-        }
-        if (intent.action === 'advertise') {
-          return `<p>Interested in advertising with us?</p>
-            <div class="rich-grid"><a class="tile" href="mailto:services@digitalinfohub.net?subject=Advertising%20Inquiry"><div class="tile-name">📢 Email us</div><div class="tile-desc">services@digitalinfohub.net</div></a></div>`;
-        }
-      }
-
-      if (intent.type === 'blog_search') {
-        const queryLower = query.toLowerCase();
-        const tokens = tokenize(queryLower).filter(t => !['blog','post','article','show','me','latest','new','the','a'].includes(t));
-        let results;
-        if (tokens.length) {
-          results = HARDCODED_BLOGS
-            .map(b => ({ post: b, score: tokens.filter(t => (b.title + ' ' + b.keywords.join(' ')).includes(t)).length }))
-            .filter(x => x.score > 0)
-            .sort((a, b) => b.score - a.score)
-            .map(x => x.post);
-        } else {
-          results = HARDCODED_BLOGS.slice(0, 3);
-        }
-        if (!results.length) {
-          return `<p>I didn't find specific matches, but here are our featured posts:</p>${renderBlogCards(HARDCODED_BLOGS)}
-          <p style="font-size:12px;color:var(--text-muted);margin-top:10px;">Or visit the <a href="${CONFIG.SITE_BASE}/blog" target="_blank">full blog</a> to browse everything.</p>`;
-        }
-        return `<p>Here are the blog posts I found:</p>${renderBlogCards(results)}`;
-      }
-
-      // General Search across Apps/Pages and Blogs
-      const toolScores = scoreQuery(query, APPS);
-      const blogScores = HARDCODED_BLOGS.map(b => ({ ...b, name: b.title })).length
-        ? scoreQuery(query, HARDCODED_BLOGS.map(b => ({ ...b, name: b.title })))
-        : [];
-
-      const bestTool = toolScores[0];
-      const bestBlog = blogScores[0];
-
-      if (bestTool && bestTool.score >= 4) {
-        const t = bestTool.item;
-        let url = t.url;
-        if (url.startsWith('/')) url = CONFIG.SITE_BASE + url;
-        
-        let html = `<p>Opening <strong>${esc(t.name)}</strong> for you in a new tab. ${esc(t.desc)}.</p>`;
-        const top3 = toolScores.slice(0, 3);
-        if (top3.length > 1) {
-          html += `<p style="font-size:12px;color:var(--text-muted);margin-top:8px;">You might also like:</p>`;
-          html += renderToolTiles(top3.slice(1).map(x => x.item), 3);
-        }
-        setTimeout(() => openLink(url, t.name), 800);
-        return html;
-      }
-
-      if (bestTool && bestTool.score >= 2) {
-        const matches = toolScores.slice(0, 4);
-        let html = `<p>I found a few pages or tools that might match:</p>`;
-        html += renderToolTiles(matches.map(x => x.item), 4);
-        return html;
-      }
-
-      if (bestBlog && bestBlog.score >= 2) {
-        const matches = blogScores.slice(0, 3).map(x => x.item);
-        return `<p>Here are matching blog posts:</p>${renderBlogCards(matches)}`;
-      }
-
-      return `<p>I'm not sure what you mean. Try asking for a specific page, tool, or news topic.</p>
-        <p style="font-size:12px;color:var(--text-muted);margin-top:8px;">Quick links:</p>
-        ${renderToolTiles(APPS.filter(a => a.cat === 'pages').slice(0, 4), 4)}
-        <p style="font-size:12px;color:var(--text-muted);margin-top:14px;">Or try asking for <strong>"news"</strong>, <strong>"blogs"</strong>, or say <strong>"help"</strong>.</p>`;
-
-    } catch (err) {
-      console.error('[AI] buildResponse error:', err);
-      return `<p>I'm sorry, something went wrong while processing your request.</p>
-        <p style="font-size:12px;color:var(--text-muted);margin-top:8px;">Please try rephrasing your question, or click the button below to retry.</p>`;
-    }
-  }
-
-  /* ══════════════════════════════════════════════════════════════
-     SEND HANDLER
-     ══════════════════════════════════════════════════════════════ */
-  async function handleSend() {
-    if (isTyping) return;
-    const text = chatInput.value.trim();
-    if (!text) return;
-
-    lastQuery = text;
-    addUserMsg(text);
-    chatInput.value = '';
-    isTyping = true;
-    chatSend.disabled = true;
-    chatInput.disabled = true;
-
-    const botMsg = addMsg('bot', '<p style="color:var(--text-muted);">Thinking…</p>');
-
-    try {
-      const html = await buildResponse(text);
-      const contentEl = botMsg.querySelector('.msg-content');
-      if (contentEl) contentEl.innerHTML = '';
-
-      if (!html) {
-        addRetryButton(botMsg, text);
-      } else {
-        await typeBot(html, botMsg);
-      }
-    } catch (err) {
-      console.error('[Chat] error:', err);
-      addRetryButton(botMsg, text);
+      const response = await AI.process(text.trim());
+      typingEl.remove();
+      addMsg('bot', response);
+    } catch(err) {
+      typingEl.remove();
+      addMsg('bot', `<p>Something went wrong. Please try again.</p>` + renderSuggestions(['Retry','Help','Full briefing']));
     } finally {
-      isTyping = false;
-      chatSend.disabled = false;
-      chatInput.disabled = false;
-      chatInput.focus();
+      isProcessing = false;
+      sendBtn.disabled = false;
+      input.disabled = false;
+      input.focus();
     }
   }
 
-  chatForm.addEventListener('submit', e => { e.preventDefault(); handleSend(); });
+  form.addEventListener('submit', e => { e.preventDefault(); handleSend(input.value); });
 
-  /* Welcome message */
+  // ── UNIFIED CHIP HANDLER: All chips (top bar + in-message) pre-fill ──
+  document.addEventListener('click', e => {
+    const chip = e.target.closest('.chip, .suggestion-chip');
+    if (!chip) return;
+    const text = chip.dataset.prefill;
+    if (text) prefillInput(text);
+  });
+
+  // Theme
+  const themeBtn = $('#themeToggle');
+  let theme = localStorage.getItem('dih_theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', theme);
+  themeBtn.addEventListener('click', () => {
+    theme = theme==='dark'?'light':'dark';
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('dih_theme', theme);
+  });
+
+  // Clock
+  setInterval(() => { $('#clock').textContent = new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'}); }, 1000);
+
+  // Smart Welcome
   (async () => {
-    isTyping = true;
-    chatSend.disabled = true;
-    const msg = addMsg('bot', '');
-    await new Promise(r => setTimeout(r, 300));
-    try {
-      await typeBot(`<p>Welcome to <strong>Digital Infohub</strong>. I can navigate pages, show blogs, fetch news, and help you find tools — just ask.</p><p>Try <em>"tech topics"</em>, <em>"software"</em>, <em>"news"</em>, or ask <em>"what is this site?"</em></p>`, msg);
-    } catch (err) {
-      console.error('[Welcome] error:', err);
-      const contentEl = msg.querySelector('.msg-content');
-      if (contentEl) contentEl.innerHTML = `<p>Welcome to <strong>Digital Infohub</strong>. How can I help you today?</p>`;
+    await new Promise(r => setTimeout(r, 400));
+    const name = Memory.getName();
+    const histLen = Memory.data.history.length;
+    let html;
+    if (name && histLen > 3) {
+      html = `<p>Welcome back, <strong>${esc(name)}</strong>! Ready to pick up where you left off?</p>` +
+        renderSuggestions(['Full briefing with stocks','Live crypto','Search the web for ','Show tools']);
+    } else if (name) {
+      html = `<p>Hello, <strong>${esc(name)}</strong>! I'm <strong>${CONFIG.BOT_NAME}</strong>. What would you like to explore?</p>` +
+        renderSuggestions(['Full briefing','Live stocks','Crypto prices','Show tools','Help']);
+    } else {
+      html = `<p>Welcome to <strong>${CONFIG.BOT_NAME}</strong>. I'm your advanced dashboard assistant with live market data, web search, and adaptive memory.</p>` +
+        renderSuggestions(['Full briefing with stocks','Search the web for ','Set my name','Show tools','What can you do?']);
     }
-    isTyping = false;
-    chatSend.disabled = false;
+    addMsg('bot', html);
   })();
-
-  /* ══════════════════════════════════════════════════════════════
-     GLOBAL ERROR HANDLERS
-     ══════════════════════════════════════════════════════════════ */
-  window.addEventListener('error', e => {
-    console.error('[Global] Uncaught error:', e.error || e.message);
-  });
-  window.addEventListener('unhandledrejection', e => {
-    console.error('[Global] Unhandled rejection:', e.reason);
-  });
-  window.addEventListener('offline', () => toast('You appear to be offline', true));
-  window.addEventListener('online', () => toast('Back online'));
-
-  /* ══════════════════════════════════════════════════════════════
-     NAVIGATION
-     ══════════════════════════════════════════════════════════════ */
-  const hamburger = $('#hamburger');
-  const navDrawer = $('#navDrawer');
-  const navDrawerOverlay = $('#navDrawerOverlay');
-  const drawerClose = $('#drawerClose');
-
-  function toggleDrawer(show) {
-    const isOpen = show !== undefined ? show : !navDrawer.classList.contains('active');
-    navDrawer.classList.toggle('active', isOpen);
-    navDrawerOverlay.classList.toggle('active', isOpen);
-    hamburger.classList.toggle('active', isOpen);
-    hamburger.setAttribute('aria-expanded', isOpen);
-    document.body.style.overflow = isOpen ? 'hidden' : '';
-    
-    if (isOpen) {
-      setTimeout(() => drawerClose.focus(), 100);
-    }
-  }
-
-  hamburger.addEventListener('click', () => toggleDrawer());
-  drawerClose.addEventListener('click', () => toggleDrawer(false));
-  navDrawerOverlay.addEventListener('click', () => toggleDrawer(false));
-
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && navDrawer.classList.contains('active')) {
-      toggleDrawer(false);
-    }
-  });
 
 })();
 </script>
