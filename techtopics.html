@@ -319,16 +319,19 @@ body {
 <body>
 
 <div class="shell">
-  
-  <!-- NAVIGATION (Tech Topics removed since user is already on this page) -->
-  <nav class="nav-shell" aria-label="Main navigation">
+  <nav class="nav-shell">
     <div class="nav-bar">
-      <a href="https://digitalinfohub.net" class="nav-link" aria-label="Home">🏠 Home</a>
-      <a href="https://digitalinfohub.net/blog" class="nav-link" aria-label="Blog">📝 Blog</a>
-      <a href="https://digitalinfohub.net/games" class="nav-link" aria-label="Games">🎮 Games</a>
+      <div class="nav-links">
+        <a href="/" class="nav-link active">🏠 Home</a>
+        <a href="/blog" class="nav-link">📝 Blog</a>
+        <a href="/techtopics" class="nav-link">💡 Tech Topics</a>
+        <a href="/software" class="nav-link">💻 Software</a>
+        <a href="/games" class="nav-link">🎮 Games</a>
+        <a href="/subscribe" class="nav-link">✉️ Subscribe</a>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Menu">☰</button>
     </div>
   </nav>
-
   <!-- TOP BAR -->
   <div class="topbar">
     <a href="https://digitalinfohub.net" class="brand" aria-label="Digital Infohub Home">
@@ -350,18 +353,7 @@ body {
     <p class="page-desc">Explore the core concepts shaping our digital world. Click any card below to learn more and dive deeper via Wikipedia.</p>
   </header>
 
-  <!-- TOP AD -->
-  <div class="ad-box" role="complementary" aria-label="Advertisement">
-    <div>
-      <div class="ad-label">Sponsored</div>
-      <ins class="adsbygoogle ad-box-ins"
-           style="display:block"
-           data-ad-client="ca-pub-5443646750699471"
-           data-ad-format="auto"
-           data-full-width-responsive="true"></ins>
-      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-    </div>
-  </div>
+  <!-- TOP AD REMOVED AS REQUESTED -->
 
   <div class="topics-grid" id="topicsGrid" role="list">
     <!-- Cards injected via JS -->
@@ -380,7 +372,7 @@ body {
     </div>
   </div>
 
-  <!-- FOOTER AD (with specific manual slot) -->
+  <!-- FOOTER AD -->
   <div class="ad-box" role="complementary" aria-label="Advertisement">
     <div style="width:100%;">
       <div class="ad-label">Sponsored</div>
@@ -421,7 +413,7 @@ body {
 (function() {
   'use strict';
 
-  /* ═══ DATA: COMMON TECH TOPICS (expanded) ═══ */
+  /* ═══ DATA: EXPANDED TECH TOPICS ═══ */
   const TOPICS = [
     {
       id: 'ai',
@@ -550,6 +542,71 @@ body {
       brief: 'Decentralized web built on blockchain.',
       body: '<p>Web3 refers to an iteration of the World Wide Web based on public blockchains, smart contracts, and decentralized technologies. It envisions a web where users own their data, identity, and digital assets.</p><p>Core components include decentralized apps (dApps), tokens, NFTs, and decentralized autonomous organizations (DAOs).</p>',
       wiki: 'https://en.wikipedia.org/wiki/Web3'
+    },
+    // NEW TOPICS ADDED BELOW
+    {
+      id: 'semiconductors',
+      name: 'Semiconductors',
+      icon: '💽',
+      brief: 'The foundational chips powering all electronics.',
+      body: '<p>Semiconductors are materials with electrical conductivity between conductors and insulators. They are the foundation of modern electronics, including transistors, diodes, and integrated circuits.</p><p>The global semiconductor industry drives innovation in computing, telecommunications, automotive, and defense sectors, making chip manufacturing a critical geopolitical asset.</p>',
+      wiki: 'https://en.wikipedia.org/wiki/Semiconductor'
+    },
+    {
+      id: '3dprinting',
+      name: '3D Printing',
+      icon: '🖨️',
+      brief: 'Additive manufacturing of physical objects.',
+      body: '<p>3D printing, or additive manufacturing, constructs three-dimensional objects from CAD models by depositing material layer by layer. Unlike subtractive manufacturing, it builds up material only where needed.</p><p>Applications range from rapid prototyping and custom prosthetics to aerospace components and even bio-printed tissues.</p>',
+      wiki: 'https://en.wikipedia.org/wiki/3D_printing'
+    },
+    {
+      id: 'biotech',
+      name: 'Biotechnology',
+      icon: '🧬',
+      brief: 'Using biological systems for technological advances.',
+      body: '<p>Biotechnology uses living systems and organisms to develop or make products. Modern biotech includes genetic engineering, CRISPR gene editing, synthetic biology, and bioinformatics.</p><p>It has transformative applications in medicine (gene therapy), agriculture (GMOs), environmental cleanup, and industrial fermentation.</p>',
+      wiki: 'https://en.wikipedia.org/wiki/Biotechnology'
+    },
+    {
+      id: 'greentech',
+      name: 'Green Technology',
+      icon: '🌱',
+      brief: 'Tech solutions for environmental sustainability.',
+      body: '<p>Green technology encompasses renewable energy, energy storage, carbon capture, sustainable materials, and circular economy platforms designed to reduce environmental impact.</p><p>Innovations include solar photovoltaics, wind turbines, green hydrogen production, electric vehicle infrastructure, and smart grid management systems.</p>',
+      wiki: 'https://en.wikipedia.org/wiki/Green_technology'
+    },
+    {
+      id: 'digitaltwins',
+      name: 'Digital Twins',
+      icon: '🪞',
+      brief: 'Virtual replicas of physical systems.',
+      body: '<p>A digital twin is a virtual representation of a physical object or system that spans its lifecycle, updated from real-time data, and uses simulation, machine learning, and reasoning to help decision-making.</p><p>Used extensively in manufacturing, urban planning, healthcare, and aerospace to predict failures, optimize performance, and test scenarios before physical implementation.</p>',
+      wiki: 'https://en.wikipedia.org/wiki/Digital_twin'
+    },
+    {
+      id: 'zerotrust',
+      name: 'Zero Trust Security',
+      icon: '🔒',
+      brief: 'Never trust, always verify security model.',
+      body: '<p>Zero Trust is a cybersecurity framework that requires strict identity verification for every person and device trying to access resources on a private network, regardless of whether they are sitting within or outside of the network perimeter.</p><p>Unlike traditional perimeter-based security, Zero Trust assumes breach and continuously validates trust levels through micro-segmentation and least-privilege access.</p>',
+      wiki: 'https://en.wikipedia.org/wiki/Zero_trust_security_model'
+    },
+    {
+      id: 'serverless',
+      name: 'Serverless Computing',
+      icon: '⚡',
+      brief: 'Event-driven cloud execution without server management.',
+      body: '<p>Serverless computing is a cloud-native execution model where the cloud provider dynamically manages the allocation and provisioning of servers. Developers write and deploy code without worrying about underlying infrastructure.</p><p>Common implementations include AWS Lambda, Azure Functions, and Google Cloud Functions, enabling highly scalable, cost-efficient architectures billed per execution rather than reserved capacity.</p>',
+      wiki: 'https://en.wikipedia.org/wiki/Serverless_computing'
+    },
+    {
+      id: 'neuromorphic',
+      name: 'Neuromorphic Computing',
+      icon: '🧩',
+      brief: 'Hardware inspired by biological brain architecture.',
+      body: '<p>Neuromorphic computing uses artificial neural networks implemented directly in hardware to mimic the neuro-biological architectures of the human nervous system.</p><p>These systems process information using spikes rather than continuous values, enabling ultra-low power consumption and real-time sensory processing ideal for edge AI and robotics.</p>',
+      wiki: 'https://en.wikipedia.org/wiki/Neuromorphic_engineering'
     }
   ];
 
