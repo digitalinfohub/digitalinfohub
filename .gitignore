@@ -1,4 +1,4 @@
-```
+```gitignore
 # Compiled and build artifacts
 *.pyc
 __pycache__/
@@ -23,32 +23,24 @@ venv/
 dist/
 build/
 target/
-*.egg-info/
+coverage/
+htmlcov/
+.mypy_cache/
+.pytest_cache/
 
-# Logs and temporary files
-*.log
-*.tmp
-*.swp
-*.swo
-
-# Editor/IDE files
+# Editors and IDEs
 .vscode/
 .idea/
 *.swp
 *.swo
+*.tmp
 
 # System files
 .DS_Store
 Thumbs.db
+*.log
 
-# Coverage and testing
-coverage/
-htmlcov/
-.coverage
-.pytest_cache/
-.mypy_cache/
-
-# Compressed files
+# Compression and archives
 *.zip
 *.gz
 *.tar
@@ -71,4 +63,13 @@ htmlcov/
 *.tar.bz2
 *.tar.xz
 *.tar.zst
+
+# Gradle
+.gradle/
+
+# Julia
+julia-*/
+
+# Zig
+zig*/
 ```
