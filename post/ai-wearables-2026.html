@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471"
+     crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Wearables in 2026: The Screen Is Finally Disappearing</title>
+<meta name="description" content="Smart glasses, screenless pins, ambient hearables — 2026 is the year AI wearables stop being a gimmick. Here's what's actually shipping, the numbers behind the hype, and where it's headed.">
+<meta property="og:title" content="AI Wearables in 2026: The Screen Is Finally Disappearing">
+<meta property="og:description" content="From a 167% smart-glasses surge to always-on ambient memory devices, AI is moving off the screen and onto your face, ears, and clothes.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://image.qwenlm.ai/public_source/8d80acba-d179-4412-ac2a-ca448c8ca443/0cc407ab5-494e-407b-985a-e22e28937f6d8979.png">
+
+<style>
+:root, [data-theme="light"] {
+  --bg: #fafaf9;
+  --surface: #ffffff;
+  --ink: #1c1917;
+  --ink-muted: #78716c;
+  --accent: #292524;
+  --border: #e7e5e4;
+  --toggle-icon: #1c1917;
+}
+
+[data-theme="dark"] {
+  --bg: #0c0a09;
+  --surface: #1c1917;
+  --ink: #e7e5e4;
+  --ink-muted: #a8a29e;
+  --accent: #d6d3d1;
+  --border: #292524;
+  --toggle-icon: #e7e5e4;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ---------- Controls ---------- */
+.controls {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.25rem;
+  z-index: 100;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.lang-switch {
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  overflow: hidden;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.lang-switch button {
+  border: none;
+  background: transparent;
+  color: var(--ink-muted);
+  font-family: inherit;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  padding: 0.55em 0.95em;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.lang-switch button:hover { color: var(--ink); }
+
+.lang-switch button.active {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.theme-toggle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle:hover { border-color: var(--ink-muted); }
+
+.theme-toggle svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: var(--toggle-icon);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke 0.3s ease;
+}
+
+.theme-toggle .icon-moon { display: block; }
+.theme-toggle .icon-sun { display: none; }
+
+[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+
+/* ---------- Language content ---------- */
+.lang-content { display: none; }
+.lang-content.active { display: block; }
+
+/* ---------- Header ---------- */
+header {
+  padding: 4rem 0 2rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2.5rem;
+  transition: border-color 0.3s ease;
+}
+
+.meta {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 1rem;
+  transition: color 0.3s ease;
+}
+
+h1 {
+  font-family: "Georgia", "Times New Roman", serif;
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin-bottom: 1rem;
+  transition: color 0.3s ease;
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  color: var(--ink-muted);
+  line-height: 1.6;
+  transition: color 0.3s ease;
+}
+
+/* CJK typography */
+html[lang="ja"] body { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", "Inter", sans-serif; }
+html[lang="ja"] h1 { font-family: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", Georgia, serif; line-height: 1.4; }
+html[lang="ja"] article p, html[lang="ja"] .subtitle { line-height: 1.95; }
+
+html[lang="zh-Hans"] body { font-family: "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", "Inter", sans-serif; }
+html[lang="zh-Hans"] h1 { font-family: "Songti SC", "Noto Serif SC", "SimSun", Georgia, serif; line-height: 1.4; }
+html[lang="zh-Hans"] article p, html[lang="zh-Hans"] .subtitle { line-height: 1.95; }
+
+/* ---------- Content ---------- */
+article p {
+  margin-bottom: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+article strong { font-weight: 600; }
+
+figure { margin: 2.5rem 0; }
+
+figure img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 2px;
+}
+
+figcaption {
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+  margin-top: 0.75rem;
+  letter-spacing: 0.02em;
+  transition: color 0.3s ease;
+}
+
+/* ---------- Links ---------- */
+a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--border);
+  transition: text-decoration-color 0.2s, color 0.3s ease;
+}
+
+a:hover { text-decoration-color: var(--ink); }
+
+.link-block {
+  display: block;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  text-decoration: none;
+  margin: 1.5rem 0;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.link-block:hover {
+  border-color: var(--ink-muted);
+  background: var(--surface);
+}
+
+.link-block .label {
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 0.25rem;
+  transition: color 0.3s ease;
+}
+
+.link-block .url {
+  font-size: 0.875rem;
+  word-break: break-all;
+  transition: color 0.3s ease;
+}
+
+/* ---------- Section headings ---------- */
+h2, h3 {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin: 3rem 0 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+/* ---------- Tags ---------- */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+  transition: border-color 0.3s ease;
+}
+
+.tag {
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+  text-decoration: none;
+  padding: 0.375rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  transition: all 0.2s;
+}
+
+.tag:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+@media (max-width: 600px) {
+  header { padding: 2.5rem 0 1.5rem; }
+  .controls { top: 1rem; right: 1rem; }
+  .theme-toggle { width: 36px; height: 36px; }
+  .theme-toggle svg { width: 16px; height: 16px; }
+  .lang-switch button { padding: 0.5em 0.7em; font-size: 0.68rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="controls">
+  <div class="lang-switch" role="group" aria-label="Language selection">
+    <button type="button" data-lang-btn="en" class="active">EN</button>
+    <button type="button" data-lang-btn="ja">日本語</button>
+    <button type="button" data-lang-btn="zh">中文</button>
+  </div>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+    <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+  </button>
+</div>
+
+<div class="container">
+
+  <!-- ================= ENGLISH ================= -->
+  <div class="lang-content active" data-lang="en" lang="en">
+    <header>
+      <p class="meta">6 min read</p>
+      <h1>AI Wearables in 2026: The Screen Is Finally Disappearing</h1>
+      <p class="subtitle">Smart glasses shipments are exploding, screenless ambient devices are going mainstream, and Apple is entering the race. Based on IDC, Gartner, and CES 2026 signals, here's what the post-smartphone era actually looks like.</p>
+    </header>
+
+    <article>
+<p>The smartphone has owned our attention for nearly two decades. In 2026, that monopoly is finally cracking — not because phones are dying, but because AI is migrating to devices we barely notice we're wearing.<a href="#src-1" class="ref">[1]</a> At CES 2026, Forbes declared the new interface obvious: "AI's next interface is you."<a href="#src-2" class="ref">[2]</a></p>
+
+<h2>1. Smart Glasses Are Having a Real Moment</h2>
+<p>This is no longer vaporware. Smart glasses shipments grew 167% year over year, and IDC forecasts roughly 13.6 million units in 2026, climbing toward 27 million.<a href="#src-3" class="ref">[3]</a> The category has split into clear tiers — AI-only audio frames, camera glasses, and full AR display models — with the Ray-Ban Meta line anchoring the mainstream.<a href="#src-4" class="ref">[4]</a> Even Apple is preparing its first smart glasses for a late-2026 entry.<a href="#src-5" class="ref">[5]</a></p>
+
+<h2>2. The Rise of Screenless "Ambient" Wearables</h2>
+<p>The most radical shift is devices with no screen at all. Always-on ambient wearables like Limitless and Bee quietly listen through your day, then hand you automatic summaries, reminders, and searchable memory — computing that runs in the background of your life rather than demanding your eyes.<a href="#src-6" class="ref">[6]</a> This is the practical arrival of "ambient computing," a market projected to grow from about $71 billion in 2026 to over $364 billion by 2034.<a href="#src-7" class="ref">[7]</a></p>
+
+<h2>3. Health Is Still the Quiet Juggernaut</h2>
+<p>Beneath the flashy glasses, health remains the largest wedge. The wearable fitness-tracker market alone is projected at $70.3 billion in 2026, up 17% year over year, as sensors and on-device AI turn passive monitors into proactive coaches.<a href="#src-8" class="ref">[8]</a> Gartner notes the strongest enterprise use cases cluster around medical monitoring and frontline workers.<a href="#src-9" class="ref">[9]</a></p>
+
+<h2>4. A $56 Billion Race, and Counting</h2>
+<p>The money confirms the momentum. The wearable AI market is projected to reach roughly $56.6 billion in 2026 on its way past $300 billion by the early 2030s, while global wearable shipments hit 145.7 million units in just the first quarter of 2026.<a href="#src-10" class="ref">[10]</a><a href="#src-11" class="ref">[11]</a> When that much capital chases your earlobes and temples, the form factor settles fast.</p>
+
+<h2>The Outlook</h2>
+<p>The winners of the next five years won't be the gadgets with the brightest display, but the ones you forget you're wearing — ambient, voice-first, and genuinely useful without a screen. The smartphone isn't going away; it's just finally sharing the job.</p>
+      <div class="tags">
+        <a class="tag" href="#">#AIWearables</a>
+        <a class="tag" href="#">#SmartGlasses</a>
+        <a class="tag" href="#">#AmbientComputing</a>
+        <a class="tag" href="#">#FutureOfTech</a>
+        <a class="tag" href="#">#DigitalInfohub</a>
+      </div>
+    </article>
+  </div>
+
+  <!-- ================= 日本語 ================= -->
+  <div class="lang-content" data-lang="ja" lang="ja">
+    <header>
+      <p class="meta">読了時間 6分</p>
+      <h1>2026年のAIウェアラブル：ついにスクリーンが消える</h1>
+      <p class="subtitle">スマートグラスの出荷が急増し、スクリーンレスのアンビエント端末が主流になり、Appleも参戦しようとしています。IDC、Gartner、CES 2026のシグナルに基づき、ポスト・スマートフォン時代の姿を考察します。</p>
+    </header>
+
+    <article>
+<p>スマートフォンは約20年にわたり私たちの注意を支配してきました。2026年、その独占がついに崩れつつあります。電話が死ぬからではなく、AIが「身につけていることすら意識しない」端末へ移行しているからです。<a href="#src-1-ja" class="ref">[1]</a> CES 2026でForbesは新たなインターフェースをこう断言しました。「AIの次のインターフェースは、あなた自身だ。」<a href="#src-2-ja" class="ref">[2]</a></p>
+
+<h2>1. スマートグラスが本格的な局面へ</h2>
+<p>これはもはや絵空事ではありません。スマートグラスの出荷台数は前年比167%増となり、IDCは2026年に約1,360万台、やがて2,700万台へ達すると予測しています。<a href="#src-3-ja" class="ref">[3]</a> カテゴリは、AI専用のオーディオフレーム、カメラ付きグラス、フルAR表示モデルへと明確に分かれ、Ray-Ban Metaシリーズが主流を支えています。<a href="#src-4-ja" class="ref">[4]</a> Appleすら2026年後半に初のスマートグラス投入を準備しています。<a href="#src-5-ja" class="ref">[5]</a></p>
+
+<h2>2. スクリーンレス「アンビエント」端末の台頭</h2>
+<p>最も過激な変化は、スクリーンを一切持たない端末です。LimitlessやBeeのような常時オンのアンビエントウェアラブルは、一日中静かに聞き取り、自動の要約・リマインダー・検索可能な記憶を手渡します。目を奪うのではなく、生活の背景で走るコンピューティングです。<a href="#src-6-ja" class="ref">[6]</a> これは「アンビエントコンピューティング」の実用的な到来であり、その市場は2026年の約710億ドルから2034年には3,640億ドル超へ成長すると予測されています。<a href="#src-7-ja" class="ref">[7]</a></p>
+
+<h2>3. ヘルスケアは依然として静かな巨人</h2>
+<p>派手なグラスの下で、ヘルスケアは依然として最大の領域です。ウェアラブルフィットネストラッカー市場だけでも2026年に703億ドルと前年比17%増が見込まれ、センサーとオンデバイスAIが受動的なモニターを能動的なコーチへ変えています。<a href="#src-8-ja" class="ref">[8]</a> Gartnerは、企業用途では医療モニタリングと現場作業員への集中が最も強いと指摘します。<a href="#src-9-ja" class="ref">[9]</a></p>
+
+<h2>4. 560億ドルの競争、そしてその先へ</h2>
+<p>資金の流れがこの勢いを裏付けています。ウェアラブルAI市場は2026年に約566億ドルに達し、2030年代初頭には3,000億ドルを超えると予測され、世界のウェアラブル出荷台数は2026年第1四半期だけで1億4,570万台に達しました。<a href="#src-10-ja" class="ref">[10]</a><a href="#src-11-ja" class="ref">[11]</a> これほどの資本が耳たぶとこめかみを狙うとき、フォームファクターは急速に定まります。</p>
+
+<h2>将来の展望</h2>
+<p>今後5年の勝者は、最も明るいディスプレイを持つガジェットではなく、「身につけていることを忘れる」端末——アンビエントで、音声優先で、スクリーンなしでも本当に役立つもの——になるでしょう。スマートフォンが消えるわけではありません。ようやく仕事を分け合うようになったのです。</p>
+      <div class="tags">
+        <a class="tag" href="#">#AIWearables</a>
+        <a class="tag" href="#">#SmartGlasses</a>
+        <a class="tag" href="#">#AmbientComputing</a>
+        <a class="tag" href="#">#FutureOfTech</a>
+        <a class="tag" href="#">#DigitalInfohub</a>
+      </div>
+    </article>
+  </div>
+
+  <!-- ================= 中文 ================= -->
+  <div class="lang-content" data-lang="zh" lang="zh-Hans">
+    <header>
+      <p class="meta">阅读时间 6 分钟</p>
+      <h1>2026 年的 AI 可穿戴设备：屏幕终于要消失了</h1>
+      <p class="subtitle">智能眼镜出货量激增，无屏环境设备走向主流，苹果也即将入局。基于 IDC、Gartner 和 CES 2026 的信号，以下是后智能手机时代的真实面貌。</p>
+    </header>
+
+    <article>
+<p>近二十年来，智能手机一直占据着我们的注意力。到 2026 年，这种垄断终于开始瓦解——不是因为手机要消亡，而是因为 AI 正在迁移到我们几乎意识不到自己正佩戴着的设备上。<a href="#src-1-zh" class="ref">[1]</a> 在 CES 2026 上，《福布斯》直言新的界面已显而易见：“AI 的下一个界面，就是你自己。”<a href="#src-2-zh" class="ref">[2]</a></p>
+
+<h2>1. 智能眼镜迎来真正的时刻</h2>
+<p>这不再是纸上谈兵。智能眼镜出货量同比增长 167%，IDC 预测 2026 年约为 1,360 万台，并将攀升至 2,700 万台。<a href="#src-3-zh" class="ref">[3]</a> 该品类已清晰分层——纯 AI 音频镜框、带摄像头眼镜和全 AR 显示型号——其中 Ray-Ban Meta 系列稳据主流。<a href="#src-4-zh" class="ref">[4]</a> 就连苹果也在为 2026 年底推出首款智能眼镜做准备。<a href="#src-5-zh" class="ref">[5]</a></p>
+
+<h2>2. 无屏“环境”可穿戴设备的崛起</h2>
+<p>最激进的转变来自完全没有屏幕的设备。Limitless、Bee 这类始终在线的环境可穿戴设备静静地聆听你的一天，然后交给你自动摘要、提醒和可搜索的记忆——计算在你的生活背景中运行，而不是争夺你的视线。<a href="#src-6-zh" class="ref">[6]</a> 这是“环境计算”的真正落地，该市场预计将从 2026 年的约 710 亿美元增长到 2034 年的超过 3,640 亿美元。<a href="#src-7-zh" class="ref">[7]</a></p>
+
+<h2>3. 健康依旧是沉默的巨头</h2>
+<p>在炫目的眼镜之下，健康依然是最大的板块。仅可穿戴健身追踪器市场预计在 2026 年就达 703 亿美元，同比增长 17%，传感器与端侧 AI 正把被动监测器变成主动教练。<a href="#src-8-zh" class="ref">[8]</a> Gartner 指出，最强的企业用例集中在医疗监测和一线员工。<a href="#src-9-zh" class="ref">[9]</a></p>
+
+<h2>4. 一场 560 亿美元的竞赛，且仍在加速</h2>
+<p>资金印证了这股势头。可穿戴 AI 市场预计在 2026 年达到约 566 亿美元，并在 2030 年代初突破 3,000 亿美元；而仅在 2026 年第一季度，全球可穿戴出货量就达 1.457 亿台。<a href="#src-10-zh" class="ref">[10]</a><a href="#src-11-zh" class="ref">[11]</a> 当如此多的资本涌向你的耳垂和太阳穴，形态会迅速定型。</p>
+
+<h2>未来展望</h2>
+<p>未来五年的赢家，不会是屏幕最亮的 gadget，而是那些你会忘记自己正佩戴着的设备——环境式、语音优先、无需屏幕也真正有用。智能手机不会消失；它只是终于开始分担这份工作了。</p>
+      <div class="tags">
+        <a class="tag" href="#">#AIWearables</a>
+        <a class="tag" href="#">#SmartGlasses</a>
+        <a class="tag" href="#">#AmbientComputing</a>
+        <a class="tag" href="#">#FutureOfTech</a>
+        <a class="tag" href="#">#DigitalInfohub</a>
+      </div>
+    </article>
+  </div>
+
+</div>
+
+<script>
+(function() {
+  var html = document.documentElement;
+
+  /* ---------- Theme ---------- */
+  var toggle = document.getElementById('themeToggle');
+  var storedTheme = localStorage.getItem('theme');
+
+  if (storedTheme) {
+    html.setAttribute('data-theme', storedTheme);
+  } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    html.setAttribute('data-theme', 'dark');
+  }
+
+  toggle.addEventListener('click', function() {
+    var current = html.getAttribute('data-theme');
+    var next = current === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+
+  /* ---------- Language ---------- */
+  var titles = {
+    en: "AI Wearables in 2026: The Screen Is Finally Disappearing",
+    ja: "2026年のAIウェアラブル：ついにスクリーンが消える",
+    zh: "2026 年的 AI 可穿戴设备：屏幕终于要消失了"
+  };
+
+  var htmlLang = { en: 'en', ja: 'ja', zh: 'zh-Hans' };
+
+  function detectLang() {
+    var nav = (navigator.language || 'en').toLowerCase();
+    if (nav.indexOf('ja') === 0) return 'ja';
+    if (nav.indexOf('zh') === 0) return 'zh';
+    return 'en';
+  }
+
+  function setLang(lang) {
+    document.querySelectorAll('.lang-content').forEach(function(block) {
+      block.classList.toggle('active', block.getAttribute('data-lang') === lang);
+    });
+    document.querySelectorAll('[data-lang-btn]').forEach(function(btn) {
+      var isActive = btn.getAttribute('data-lang-btn') === lang;
+      btn.classList.toggle('active', isActive);
+      btn.setAttribute('aria-pressed', isActive);
+    });
+    html.setAttribute('lang', htmlLang[lang]);
+    document.title = titles[lang];
+    localStorage.setItem('lang', lang);
+  }
+
+  document.querySelectorAll('[data-lang-btn]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      setLang(btn.getAttribute('data-lang-btn'));
+    });
+  });
+
+  setLang(localStorage.getItem('lang') || detectLang());
+})();
+</script>
+
+</body>
+</html>
