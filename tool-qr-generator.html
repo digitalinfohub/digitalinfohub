@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator | Digital Infohub</title>
+    <style>
+        :root { --primary: #2563eb; --bg: #f8fafc; --card-bg: #ffffff; --text: #1e293b; --border: #e2e8f0; }
+        [data-theme="dark"] { --bg: #0f172a; --card-bg: #1e293b; --text: #f1f5f9; --border: #334155; }
+        body { font-family: system-ui, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 0; }
+        .container { max-width: 800px; margin: 0 auto; padding: 2rem; }
+        header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+        h1 { margin: 0; font-size: 1.8rem; }
+        .badge { background: var(--primary); color: white; padding: 0.25rem 0.75rem; border-radius: 99px; font-size: 0.8rem; font-weight: bold; }
+        .tool-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); text-align: center; }
+        
+        .input-group { margin-bottom: 1.5rem; }
+        input[type="text"] { width: 100%; padding: 1rem; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); font-size: 1rem; box-sizing: border-box; }
+        button { background: var(--primary); color: white; border: none; padding: 1rem 2rem; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 1rem; transition: opacity 0.2s; }
+        button:hover { opacity: 0.9; }
+        
+        #qrContainer { margin: 2rem 0; min-height: 256px; display: flex; align-items: center; justify-content: center; background: var(--bg); border-radius: 8px; padding: 2rem; }
+        #qrCode { max-width: 256px; max-height: 256px; }
+        .placeholder { color: var(--text); opacity: 0.5; }
+        
+        .back-link { display: inline-block; margin-bottom: 1rem; color: var(--primary); text-decoration: none; font-weight: 500; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="software.html" class="back-link">← Back to Software Hub</a>
+        <header>
+            <div>
+                <h1>QR Code Generator</h1>
+                <p style="opacity: 0.7; margin-top: 0.5rem;">Create QR codes for URLs, text, and more.</p>
+            </div>
+            <span class="badge">✨ Digital Infohub Tool</span>
+        </header>
+
+        <div class="tool-card">
+            <div class="input-group">
+                <input type="text" id="qrInput" placeholder="Enter URL or text to generate QR code..." value="https://digitalinfohub.com">
+            </div>
+            <button onclick="generateQR()">Generate QR Code</button>
+            
+            <div id="qrContainer">
+                <div class="placeholder">QR code will appear here</div>
+            </div>
+            
+            <button id="downloadBtn" style="display:none;" onclick="downloadQR()">Download QR Code</button>
+        </div>
+    </div>
+
+    <script>
+        function generateQR() {
+            const text = document.getElementById('qrInput').value.trim();
+            const container = document.getElementById('qrContainer');
+            const downloadBtn = document.getElementById('downloadBtn');
+            
+            if (!text) { alert('Please enter text or URL'); return; }
+            
+            const apiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=${encodeURIComponent(text)}`;
+            
+            container.innerHTML = '<div class="placeholder">Generating...</div>';
+            
+            const img = new Image();
+            img.crossOrigin = "anonymous";
+            img.onload = () => {
+                container.innerHTML = '';
+                img.id = 'qrCode';
+                container.appendChild(img);
+                downloadBtn.style.display = 'inline-block';
+            };
+            img.onerror = () => {
+                container.innerHTML = '<div class="placeholder">Error generating QR code</div>';
+                downloadBtn.style.display = 'none';
+            };
+            img.src = apiUrl;
+        }
+
+        function downloadQR() {
+            const img = document.getElementById('qrCode');
+            if (!img) return;
+            
+            const link = document.createElement('a');
+            link.download = 'qrcode-digitalinfohub.png';
+            link.href = img.src;
+            link.click();
+        }
+
+        document.getElementById('qrInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') generateQR();
+        });
+    </script>
+</body>
+</html>
