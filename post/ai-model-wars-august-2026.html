@@ -1,293 +1,736 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The AI Model Wars Heat Up: DeepSeek V4 Pro, Grok 4.6 and Qwen3.8 | Digital Info Hub</title>
-    <meta name="description" content="DeepSeek V4 Pro, Grok 4.6, and Qwen3.8 represent three different approaches to building more capable AI while competing on performance, cost, scale and accessibility.">
-    <meta name="keywords" content="AI, DeepSeek, Grok, xAI, Qwen, Alibaba, AI models, machine learning, artificial intelligence, tech news">
-    <meta name="author" content="Digital Info Hub">
-    <meta property="og:title" content="The AI Model Wars Heat Up: DeepSeek V4 Pro, Grok 4.6 and Qwen3.8">
-    <meta property="og:description" content="The AI model race is accelerating. This week, DeepSeek, xAI and Alibaba's Qwen team have all made significant moves.">
-    <meta property="og:type" content="article">
-    <meta property="og:url" content="https://digitalinfohub.net/post/ai-model-wars-august-2026.html">
-    <meta name="twitter:card" content="summary_large_image">
-    <style>
-        :root {
-            --bg-primary: #ffffff;
-            --bg-secondary: #f8f9fa;
-            --text-primary: #1a1a1a;
-            --text-secondary: #4a5568;
-            --accent: #2563eb;
-            --accent-hover: #1d4ed8;
-            --border: #e2e8f0;
-            --code-bg: #f1f5f9;
-        }
-        [data-theme="dark"] {
-            --bg-primary: #0f172a;
-            --bg-secondary: #1e293b;
-            --text-primary: #f1f5f9;
-            --text-secondary: #94a3b8;
-            --accent: #3b82f6;
-            --accent-hover: #60a5fa;
-            --border: #334155;
-            --code-bg: #1e293b;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.7;
-            color: var(--text-primary);
-            background: var(--bg-primary);
-            transition: background-color 0.3s, color 0.3s;
-        }
-        .container { max-width: 800px; margin: 0 auto; padding: 2rem 1rem; }
-        header {
-            text-align: center;
-            padding: 3rem 0;
-            border-bottom: 1px solid var(--border);
-            margin-bottom: 2rem;
-        }
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            line-height: 1.2;
-        }
-        .meta {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            margin-bottom: 1.5rem;
-        }
-        h2 {
-            font-size: 1.75rem;
-            margin: 2.5rem 0 1rem;
-            font-weight: 700;
-        }
-        h3 {
-            font-size: 1.4rem;
-            margin: 2rem 0 0.75rem;
-            font-weight: 600;
-        }
-        p { margin-bottom: 1.25rem; }
-        ul, ol { margin-bottom: 1.25rem; padding-left: 2rem; }
-        li { margin-bottom: 0.5rem; }
-        strong { font-weight: 600; }
-        a {
-            color: var(--accent);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-        a:hover { color: var(--accent-hover); text-decoration: underline; }
-        .theme-toggle {
-            position: fixed;
-            top: 1rem;
-            right: 1rem;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: all 0.2s;
-        }
-        .theme-toggle:hover { background: var(--accent); color: white; }
-        .cta-box {
-            background: var(--bg-secondary);
-            border: 2px solid var(--accent);
-            border-radius: 12px;
-            padding: 2rem;
-            margin: 3rem 0;
-            text-align: center;
-        }
-        .cta-box h3 {
-            margin-top: 0;
-            color: var(--accent);
-        }
-        .cta-button {
-            display: inline-block;
-            background: var(--accent);
-            color: white;
-            padding: 0.75rem 2rem;
-            border-radius: 8px;
-            font-weight: 600;
-            margin-top: 1rem;
-            transition: all 0.2s;
-        }
-        .cta-button:hover {
-            background: var(--accent-hover);
-            color: white;
-            text-decoration: none;
-            transform: translateY(-2px);
-        }
-        .sources {
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid var(--border);
-        }
-        .sources h3 {
-            margin-bottom: 1rem;
-        }
-        .sources ul {
-            list-style: none;
-            padding: 0;
-        }
-        .sources li {
-            margin-bottom: 0.75rem;
-            word-break: break-word;
-        }
-        code {
-            background: var(--code-bg);
-            padding: 0.2rem 0.4rem;
-            border-radius: 4px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9em;
-        }
-        @media (max-width: 600px) {
-            h1 { font-size: 2rem; }
-            h2 { font-size: 1.5rem; }
-            .container { padding: 1rem; }
-        }
-    </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471"
+     crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The AI Model Wars Heat Up: DeepSeek V4 Pro, Grok 4.6 and Qwen3.8</title>
+<meta name="description" content="DeepSeek V4 Pro, Grok 4.6, and Qwen3.8 represent three different approaches to building more capable AI while competing on performance, cost, scale and accessibility.">
+<meta property="og:title" content="The AI Model Wars Heat Up: DeepSeek V4 Pro, Grok 4.6 and Qwen3.8">
+<meta property="og:description" content="The AI model race is accelerating. This week, DeepSeek, xAI and Alibaba's Qwen team have all made significant moves.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://digitalinfohub.net/images/ai-models-comparison.png">
+
+<style>
+:root, [data-theme="light"] {
+  --bg: #fafaf9;
+  --surface: #ffffff;
+  --ink: #1c1917;
+  --ink-muted: #78716c;
+  --accent: #292524;
+  --border: #e7e5e4;
+  --toggle-icon: #1c1917;
+}
+
+[data-theme="dark"] {
+  --bg: #0c0a09;
+  --surface: #1c1917;
+  --ink: #e7e5e4;
+  --ink-muted: #a8a29e;
+  --accent: #d6d3d1;
+  --border: #292524;
+  --toggle-icon: #e7e5e4;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ---------- Controls ---------- */
+.controls {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.25rem;
+  z-index: 100;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.lang-switch {
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  overflow: hidden;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.lang-switch button {
+  border: none;
+  background: transparent;
+  color: var(--ink-muted);
+  font-family: inherit;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  padding: 0.55em 0.95em;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.lang-switch button:hover { color: var(--ink); }
+
+.lang-switch button.active {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.theme-toggle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle:hover { border-color: var(--ink-muted); }
+
+.theme-toggle svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: var(--toggle-icon);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke 0.3s ease;
+}
+
+.theme-toggle .icon-moon { display: block; }
+.theme-toggle .icon-sun { display: none; }
+
+[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+
+/* ---------- Language content ---------- */
+.lang-content { display: none; }
+.lang-content.active { display: block; }
+
+/* ---------- Header ---------- */
+header {
+  padding: 4rem 0 2rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2.5rem;
+  transition: border-color 0.3s ease;
+}
+
+.meta {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 1rem;
+  transition: color 0.3s ease;
+}
+
+h1 {
+  font-family: "Georgia", "Times New Roman", serif;
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin-bottom: 1rem;
+  transition: color 0.3s ease;
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  color: var(--ink-muted);
+  line-height: 1.6;
+  transition: color 0.3s ease;
+}
+
+/* CJK typography */
+html[lang="ja"] body { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", "Inter", sans-serif; }
+html[lang="ja"] h1 { font-family: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", Georgia, serif; line-height: 1.4; }
+html[lang="ja"] article p, html[lang="ja"] .subtitle { line-height: 1.95; }
+
+html[lang="zh-Hans"] body { font-family: "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", "Inter", sans-serif; }
+html[lang="zh-Hans"] h1 { font-family: "Songti SC", "Noto Serif SC", "SimSun", Georgia, serif; line-height: 1.4; }
+html[lang="zh-Hans"] article p, html[lang="zh-Hans"] .subtitle { line-height: 1.95; }
+
+/* ---------- Content ---------- */
+article p {
+  margin-bottom: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+article strong { font-weight: 600; }
+
+figure { margin: 2.5rem 0; }
+
+figure img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 2px;
+}
+
+figcaption {
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+  margin-top: 0.75rem;
+  letter-spacing: 0.02em;
+  transition: color 0.3s ease;
+}
+
+/* ---------- Links ---------- */
+a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--border);
+  transition: text-decoration-color 0.2s, color 0.3s ease;
+}
+
+a:hover { text-decoration-color: var(--ink); }
+
+.link-block {
+  display: block;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  text-decoration: none;
+  margin: 1.5rem 0;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.link-block:hover {
+  border-color: var(--ink-muted);
+  background: var(--surface);
+}
+
+.link-block .label {
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 0.25rem;
+  transition: color 0.3s ease;
+}
+
+.link-block .url {
+  font-size: 0.875rem;
+  word-break: break-all;
+  transition: color 0.3s ease;
+}
+
+/* ---------- Section headings ---------- */
+h2, h3 {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin: 3rem 0 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+/* ---------- Tags ---------- */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+  transition: border-color 0.3s ease;
+}
+
+.tag {
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+  text-decoration: none;
+  padding: 0.375rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  transition: all 0.2s;
+}
+
+.tag:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+@media (max-width: 600px) {
+  header { padding: 2.5rem 0 1.5rem; }
+  .controls { top: 1rem; right: 1rem; }
+  .theme-toggle { width: 36px; height: 36px; }
+  .theme-toggle svg { width: 16px; height: 16px; }
+  .lang-switch button { padding: 0.5em 0.7em; font-size: 0.68rem; }
+}
+</style>
 </head>
 <body>
-    <button class="theme-toggle" onclick="toggleTheme()">🌓 Theme</button>
-    <div class="container">
-        <header>
-            <h1>The AI Model Wars Heat Up: DeepSeek V4 Pro, Grok 4.6 and Qwen3.8</h1>
-            <div class="meta">
-                <span>Published: August 2026</span> | 
-                <span>Reading time: ~5 min</span>
-            </div>
-        </header>
 
-        <article>
-            <p>The AI model race is accelerating.</p>
+<div class="controls">
+  <div class="lang-switch" role="group" aria-label="Language selection">
+    <button type="button" data-lang-btn="en" class="active">EN</button>
+    <button type="button" data-lang-btn="ja">日本語</button>
+    <button type="button" data-lang-btn="zh">中文</button>
+  </div>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+    <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+  </button>
+</div>
 
-            <p>This week, DeepSeek, xAI and Alibaba's Qwen team have all made significant moves, giving developers a fresh selection of increasingly capable models.</p>
+<div class="container">
 
-            <p><strong>DeepSeek V4 Pro 0813, Grok 4.6 and Qwen3.8-2.4T-A95B</strong> represent three different approaches to the same challenge: building more capable AI while competing on performance, cost, scale and accessibility.</p>
+  <!-- ================= ENGLISH ================= -->
+  <div class="lang-content active" data-lang="en" lang="en">
+    <header>
+      <p class="meta">5 min read</p>
+      <h1>The AI Model Wars Heat Up: DeepSeek V4 Pro, Grok 4.6 and Qwen3.8</h1>
+      <p class="subtitle">The AI model race is accelerating. This week, DeepSeek, xAI and Alibaba's Qwen team have all made significant moves, giving developers a fresh selection of increasingly capable models.</p>
+    </header>
 
-            <h2>DeepSeek V4 Pro: Leaving Preview Behind</h2>
+    <article>
+      <p>The AI model race is accelerating.</p>
 
-            <p>DeepSeek has moved <strong>DeepSeek V4 Pro</strong> out of preview, with the production <strong>V4 Pro 0813</strong> release becoming available on August 12.</p>
+      <p>This week, DeepSeek, xAI and Alibaba's Qwen team have all made significant moves, giving developers a fresh selection of increasingly capable models.</p>
 
-            <p>The model features a <strong>1-million-token context window</strong> and is designed for demanding workloads including coding, reasoning and agentic tasks. It is also available through platforms such as OpenRouter.</p>
+      <p><strong>DeepSeek V4 Pro 0813, Grok 4.6 and Qwen3.8-2.4T-A95B</strong> represent three different approaches to the same challenge: building more capable AI while competing on performance, cost, scale and accessibility.</p>
 
-            <p>One of DeepSeek's biggest advantages has been pricing. The model launched with particularly low API rates compared with many competing frontier models, although that advantage is about to change.</p>
+      <h2>DeepSeek V4 Pro: Leaving Preview Behind</h2>
 
-            <p>DeepSeek has announced a new peak and off-peak pricing structure for its V4 models, taking effect on <strong>August 16 at 16:00 UTC</strong>. Reuters reports that the changes represent increases of between <strong>50% and 1,100%</strong>, depending on the model, token type and usage period.</p>
+      <p>DeepSeek has moved <strong>DeepSeek V4 Pro</strong> out of preview, with the production <strong>V4 Pro 0813</strong> release becoming available on August 12.</p>
 
-            <p>That makes the V4 Pro release particularly interesting: developers get a more mature production model, but its long-term cost advantage will need to be reassessed once the new pricing takes effect.</p>
+      <p>The model features a <strong>1-million-token context window</strong> and is designed for demanding workloads including coding, reasoning and agentic tasks. It is also available through platforms such as OpenRouter.</p>
 
-            <h2>Grok 4.6: xAI Focuses on AI Agents</h2>
+      <p>One of DeepSeek's biggest advantages has been pricing. The model launched with particularly low API rates compared with many competing frontier models, although that advantage is about to change.</p>
 
-            <p>xAI also announced <strong>Grok 4.6 on August 12</strong>.</p>
+      <p>DeepSeek has announced a new peak and off-peak pricing structure for its V4 models, taking effect on <strong>August 16 at 16:00 UTC</strong>. <a href="https://www.reuters.com/technology/deepseek-raises-prices-new-ai-models-up-to-1100-percent-2025-08-14/" target="_blank" rel="noopener">Reuters</a> reports that the changes represent increases of between <strong>50% and 1,100%</strong>, depending on the model, token type and usage period.</p>
 
-            <p>The company says the new model builds on Grok 4.5 with a particular focus on <strong>long-running agents, coding, knowledge work and more ambitious interactive and visual tasks</strong>.</p>
+      <p>That makes the V4 Pro release particularly interesting: developers get a more mature production model, but its long-term cost advantage will need to be reassessed once the new pricing takes effect.</p>
 
-            <p>This reflects a wider change across the AI industry.</p>
+      <h2>Grok 4.6: xAI Focuses on AI Agents</h2>
 
-            <p>The competition is increasingly moving beyond traditional chatbots. Companies are building models that can work through longer tasks, interact with tools and assist with complex workflows.</p>
+      <p>xAI also announced <strong>Grok 4.6 on August 12</strong>.</p>
 
-            <p>Independent testing has placed Grok 4.6 at <strong>61 on Artificial Analysis' Intelligence Index</strong>, putting it among the current frontier models.</p>
+      <p>The company says the new model builds on Grok 4.5 with a particular focus on <strong>long-running agents, coding, knowledge work and more ambitious interactive and visual tasks</strong>.</p>
 
-            <h2>Qwen3.8: Alibaba Opens a 2.4 Trillion-Parameter Model</h2>
+      <p>This reflects a wider change across the AI industry.</p>
 
-            <p>Alibaba's Qwen team has made one of the most striking moves in terms of raw model scale.</p>
+      <p>The competition is increasingly moving beyond traditional chatbots. Companies are building models that can work through longer tasks, interact with tools and assist with complex workflows.</p>
 
-            <p><strong>Qwen3.8-2.4T-A95B</strong> is an open-weight mixture-of-experts model with <strong>2.4 trillion total parameters and 95 billion active parameters</strong>. The model weights were released publicly this week, giving developers access to a model at an enormous scale.</p>
+      <p>Independent testing has placed Grok 4.6 at <strong>61 on Artificial Analysis' Intelligence Index</strong>, putting it among the current frontier models. <a href="https://artificialanalysis.ai" target="_blank" rel="noopener">Artificial Analysis</a></p>
 
-            <p>The model uses a sparse mixture-of-experts architecture, meaning that although the model contains 2.4 trillion parameters overall, only a portion is activated for each token.</p>
+      <h2>Qwen3.8: Alibaba Opens a 2.4 Trillion-Parameter Model</h2>
 
-            <p>That distinction is important. A 2.4-trillion-parameter model does not require all 2.4 trillion parameters to be processed for every piece of text.</p>
+      <p>Alibaba's Qwen team has made one of the most striking moves in terms of raw model scale.</p>
 
-            <p>Qwen3.8 is particularly notable because it brings a model of this scale into the open-weight ecosystem, giving researchers and developers another option beyond closed commercial AI systems.</p>
+      <p><strong>Qwen3.8-2.4T-A95B</strong> is an open-weight mixture-of-experts model with <strong>2.4 trillion total parameters and 95 billion active parameters</strong>. The model weights were released publicly this week, giving developers access to a model at an enormous scale. <a href="https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B" target="_blank" rel="noopener">Hugging Face</a></p>
 
-            <h2>Why This Matters</h2>
+      <p>The model uses a sparse mixture-of-experts architecture, meaning that although the model contains 2.4 trillion parameters overall, only a portion is activated for each token.</p>
 
-            <p>These releases highlight how competitive the AI market has become.</p>
+      <p>That distinction is important. A 2.4-trillion-parameter model does not require all 2.4 trillion parameters to be processed for every piece of text.</p>
 
-            <p>The race is no longer simply about building the largest model. Companies are competing across several areas:</p>
+      <p>Qwen3.8 is particularly notable because it brings a model of this scale into the open-weight ecosystem, giving researchers and developers another option beyond closed commercial AI systems.</p>
 
-            <ul>
-                <li><strong>Performance:</strong> Better reasoning, coding and knowledge capabilities</li>
-                <li><strong>Cost:</strong> More competitive pricing for developers and businesses</li>
-                <li><strong>Context:</strong> The ability to process increasingly large amounts of information</li>
-                <li><strong>Agents:</strong> Models capable of handling longer, multi-step tasks</li>
-                <li><strong>Open weights:</strong> Greater access for developers and researchers</li>
-                <li><strong>Infrastructure:</strong> More efficient ways to deploy increasingly large models</li>
-            </ul>
+      <h2>Why This Matters</h2>
 
-            <p>For developers, this competition creates more choice.</p>
+      <p>These releases highlight how competitive the AI market has become.</p>
 
-            <p>A project that previously required an expensive proprietary model may now have several alternatives. Open-weight models such as Qwen3.8 also give developers greater flexibility for experimentation and deployment.</p>
+      <p>The race is no longer simply about building the largest model. Companies are competing across several areas:</p>
 
-            <h2>The Developer Perspective</h2>
+      <ul>
+        <li><strong>Performance:</strong> Better reasoning, coding and knowledge capabilities</li>
+        <li><strong>Cost:</strong> More competitive pricing for developers and businesses</li>
+        <li><strong>Context:</strong> The ability to process increasingly large amounts of information</li>
+        <li><strong>Agents:</strong> Models capable of handling longer, multi-step tasks</li>
+        <li><strong>Open weights:</strong> Greater access for developers and researchers</li>
+        <li><strong>Infrastructure:</strong> More efficient ways to deploy increasingly large models</li>
+      </ul>
 
-            <p>There is no single model that is automatically the best choice for every application.</p>
+      <p>For developers, this competition creates more choice.</p>
 
-            <p>Developers increasingly need to consider:</p>
+      <p>A project that previously required an expensive proprietary model may now have several alternatives. Open-weight models such as Qwen3.8 also give developers greater flexibility for experimentation and deployment.</p>
 
-            <ul>
-                <li><strong>What does the model cost?</strong></li>
-                <li><strong>How large is its context window?</strong></li>
-                <li><strong>How well does it perform on the specific task?</strong></li>
-                <li><strong>Can it use tools or operate as an agent?</strong></li>
-                <li><strong>Can it be deployed independently?</strong></li>
-                <li><strong>How reliable is it in real-world use?</strong></li>
-            </ul>
+      <h2>The Developer Perspective</h2>
 
-            <p>Those factors can matter more than a model's position on a general benchmark.</p>
+      <p>There is no single model that is automatically the best choice for every application.</p>
 
-            <h2>What Comes Next?</h2>
+      <p>Developers increasingly need to consider:</p>
 
-            <p>The pace of development shows little sign of slowing.</p>
+      <p><strong>What does the model cost?</strong></p>
+      <p><strong>How large is its context window?</strong></p>
+      <p><strong>How well does it perform on the specific task?</strong></p>
+      <p><strong>Can it use tools or operate as an agent?</strong></p>
+      <p><strong>Can it be deployed independently?</strong></p>
+      <p><strong>How reliable is it in real-world use?</strong></p>
 
-            <p>DeepSeek is pushing further into the frontier while maintaining a strong focus on efficiency. xAI is developing Grok around increasingly capable agents and complex knowledge work. Alibaba is expanding the open-weight ecosystem with a model operating at an enormous scale.</p>
+      <p>Those factors can matter more than a model's position on a general benchmark.</p>
 
-            <p>And the competition extends far beyond these three companies. OpenAI, Anthropic, Google, Meta, Mistral and other AI developers are continuing to improve their own systems.</p>
+      <h2>What Comes Next?</h2>
 
-            <p>For developers and businesses, the result is a rapidly expanding selection of AI models.</p>
+      <p>The pace of development shows little sign of slowing.</p>
 
-            <p>The question is becoming less about <strong>"Which company has the best AI?"</strong></p>
+      <p>DeepSeek is pushing further into the frontier while maintaining a strong focus on efficiency. xAI is developing Grok around increasingly capable agents and complex knowledge work. <a href="https://x.ai/blog/grok-4-6" target="_blank" rel="noopener">xAI Blog</a></p>
 
-            <p>Instead, it is:</p>
+      <p>Alibaba is expanding the open-weight ecosystem with a model operating at an enormous scale.</p>
 
-            <p><strong>"Which model is best for what I need to build?"</strong></p>
+      <p>And the competition extends far beyond these three companies. OpenAI, Anthropic, Google, Meta, Mistral and other AI developers are continuing to improve their own systems. <a href="https://openrouter.ai/models/deepseek/deepseek-v4-pro-0813" target="_blank" rel="noopener">OpenRouter</a></p>
 
-            <p>As the AI frontier continues moving, that answer could change much faster than it did even a year ago.</p>
+      <p>For developers and businesses, the result is a rapidly expanding selection of AI models.</p>
 
-            <div class="cta-box">
-                <h3>Stay Updated with Digital Info Hub</h3>
-                <p>Want more insights on AI, tech trends, and developer news? Visit Digital Info Hub for the latest updates and in-depth analysis.</p>
-                <a href="https://digitalinfohub.net" class="cta-button">Visit Digital Info Hub →</a>
-            </div>
+      <p>The question is becoming less about <strong>"Which company has the best AI?"</strong></p>
 
-            <div class="sources">
-                <h3>Sources</h3>
-                <ul>
-                    <li>1. <a href="https://www.reuters.com/technology/deepseek-raises-prices-new-ai-models-up-to-1100-percent-2025-08-14/" target="_blank" rel="noopener noreferrer">Reuters - DeepSeek raises prices for new AI models by up to 1,100 percent</a></li>
-                    <li>2. <a href="https://www.artificialanalysis.ai/models/grok-4-6" target="_blank" rel="noopener noreferrer">Artificial Analysis - Grok 4.6 Model Intelligence Index</a></li>
-                    <li>3. <a href="https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B" target="_blank" rel="noopener noreferrer">Hugging Face - Qwen3.8-2.4T-A95B Model Page</a></li>
-                    <li>4. <a href="https://openrouter.ai/deepseek/deepseek-proter-v4-0813" target="_blank" rel="noopener noreferrer">OpenRouter - DeepSeek V4 Pro 0813</a></li>
-                    <li>5. <a href="https://x.ai/blog/grok-4-6" target="_blank" rel="noopener noreferrer">xAI Blog - Grok 4.6 Announcement</a></li>
-                </ul>
-            </div>
-        </article>
-    </div>
+      <p>Instead, it is:</p>
 
-    <script>
-        function toggleTheme() {
-            const html = document.documentElement;
-            const currentTheme = html.getAttribute('data-theme');
-            html.setAttribute('data-theme', currentTheme === 'dark' ? 'light' : 'dark');
-            localStorage.setItem('theme', currentTheme === 'dark' ? 'light' : 'dark');
-        }
-        
-        // Load saved theme
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        document.documentElement.setAttribute('data-theme', savedTheme);
-    </script>
+      <p><strong>"Which model is best for what I need to build?"</strong></p>
+
+      <p>As the AI frontier continues moving, that answer could change much faster than it did even a year ago.</p>
+
+      <p><strong>Discover more technology, AI, software, and digital content at Digital Infohub:</strong></p>
+
+      <a class="link-block" href="https://digitalinfohub.net/" target="_blank" rel="noopener">
+        <div class="label">Digital Infohub</div>
+        <div class="url">digitalinfohub.net</div>
+      </a>
+
+      <div class="tags">
+        <a class="tag" href="#">#AI</a>
+        <a class="tag" href="#">#DeepSeek</a>
+        <a class="tag" href="#">#Grok</a>
+        <a class="tag" href="#">#Qwen</a>
+        <a class="tag" href="#">#MachineLearning</a>
+        <a class="tag" href="#">#DigitalInfohub</a>
+      </div>
+    </article>
+  </div>
+
+  <!-- ================= 日本語 ================= -->
+  <div class="lang-content" data-lang="ja" lang="ja">
+    <header>
+      <p class="meta">読了時間 5 分</p>
+      <h1>AI モデル戦争が激化：DeepSeek V4 Pro、Grok 4.6、Qwen3.8</h1>
+      <p class="subtitle">AI モデル競争が加速しています。今週、DeepSeek、xAI、アリババの Qwen チームがすべて重要な動きを見せ、開発者にますます高性能なモデルの新たな選択肢を提供しました。</p>
+    </header>
+
+    <article>
+      <p>AI モデル競争は加速しています。</p>
+
+      <p>今週、DeepSeek、xAI、アリババの Qwen チームがすべて重要な動きを見せ、開発者にますます高性能なモデルの新たな選択肢を提供しました。</p>
+
+      <p><strong>DeepSeek V4 Pro 0813、Grok 4.6、Qwen3.8-2.4T-A95B</strong>は、パフォーマンス、コスト、スケール、アクセシビリティで競争しながら、より有能な AI を構築するという同じ課題に対する 3 つの異なるアプローチを表しています。</p>
+
+      <h2>DeepSeek V4 Pro：プレビューを卒業</h2>
+
+      <p>DeepSeek は<strong>DeepSeek V4 Pro</strong>をプレビューから移行し、本番用の<strong>V4 Pro 0813</strong>リリースが 8 月 12 日に利用可能になりました。</p>
+
+      <p>このモデルは<strong>100 万トークンのコンテキストウィンドウ</strong>を備え、コーディング、推論、エージェントタスクなどの要求の厳しいワークロード向けに設計されています。OpenRouter などのプラットフォームでも利用可能です。</p>
+
+      <p>DeepSeek の最大の利点の 1 つは価格でした。このモデルは多くの競合するフロンティアモデルと比較して特に低い API レートで起動しましたが、その利点はまもなく変わろうとしています。</p>
+
+      <p>DeepSeek は V4 モデル向けの新しいピークおよびオフピーク価格構造を発表し、<strong>8 月 16 日 16:00 UTC</strong>に発効します。<a href="https://www.reuters.com/technology/deepseek-raises-prices-new-ai-models-up-to-1100-percent-2025-08-14/" target="_blank" rel="noopener">ロイター</a>によると、変更はモデル、トークンタイプ、使用期間に応じて<strong>50% から 1,100%</strong>の増加を表しています。</p>
+
+      <p>これにより、V4 Pro リリースは特に興味深いものになります：開発者はより成熟した本番モデルを取得しますが、新しい価格が適用されると、長期的なコスト優位性を再評価する必要があります。</p>
+
+      <h2>Grok 4.6：xAI は AI エージェントに注力</h2>
+
+      <p>xAI も<strong>8 月 12 日に Grok 4.6</strong>を発表しました。</p>
+
+      <p>同社によると、新しいモデルは Grok 4.5 をベースにし、<strong>長時間実行されるエージェント、コーディング、知識作業、より野心的なインタラクティブおよび視覚タスク</strong>に特に焦点を当てています。</p>
+
+      <p>これは AI 業界全体のより広い変化を反映しています。</p>
+
+      <p>競争は従来のチャットボットを超えて進化しています。企業は、より長いタスクを処理し、ツールと対話し、複雑なワークフローを支援できるモデルを構築しています。</p>
+
+      <p>独立したテストでは、Grok 4.6 は<strong>Artificial Analysis のインテリジェンスインデックスで 61</strong>にランクされ、現在のフロンティアモデルの中に位置づけられています。<a href="https://artificialanalysis.ai" target="_blank" rel="noopener">Artificial Analysis</a></p>
+
+      <h2>Qwen3.8：アリババが 2.4 兆パラメータモデルを公開</h2>
+
+      <p>アリババの Qwen チームは、生モデルスケールの面で最も注目すべき動きの 1 つを行いました。</p>
+
+      <p><strong>Qwen3.8-2.4T-A95B</strong>は、<strong>総計 2.4 兆パラメータ、アクティブパラメータ 950 億</strong>を持つオープンウェイトのエキスパート混合モデルです。モデル重みは今週公開され、開発者が膨大なスケールのモデルにアクセスできるようになりました。<a href="https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B" target="_blank" rel="noopener">Hugging Face</a></p>
+
+      <p>このモデルはスパースエキスパート混合アーキテクチャを使用しており、モデル全体で 2.4 兆のパラメータを含んでいますが、各トークンに対して一部のみが活性化されます。</p>
+
+      <p>その区別は重要です。2.4 兆パラメータモデルは、すべてのテキストに対して 2.4 兆すべてのパラメータを処理する必要はありません。</p>
+
+      <p>Qwen3.8 が特に注目すべきなのは、このスケールのモデルをオープンウェイトエコシステムにもたらし、研究者と開発者に閉鎖された商業 AI システム以外の別のオプションを提供することです。</p>
+
+      <h2>これが重要な理由</h2>
+
+      <p>これらのリリースは、AI 市場がどのように競争的になっているかを浮き彫りにしています。</p>
+
+      <p>競争は単に最大のモデルを構築することだけではなくなりました。企業はいくつかの領域で競争しています：</p>
+
+      <ul>
+        <li><strong>パフォーマンス：</strong>より優れた推論、コーディング、知識機能</li>
+        <li><strong>コスト：</strong>開発者と企業のためのより競争力のある価格</li>
+        <li><strong>コンテキスト：</strong>ますます大量の情報を処理する能力</li>
+        <li><strong>エージェント：</strong>より長く、マルチステップのタスクを処理できるモデル</li>
+        <li><strong>オープンウェイト：</strong>開発者と研究者へのより大きなアクセス</li>
+        <li><strong>インフラストラクチャ：</strong>ますます大規模なモデルをデプロイするためのより効率的な方法</li>
+      </ul>
+
+      <p>開発者にとって、この競争はより多くの選択肢を生み出します。</p>
+
+      <p>以前は高価な専有モデルが必要だったプロジェクトには、 теперьいくつかの代替手段があります。Qwen3.8 などのオープンウェイトモデルは、実験とデプロイメントのためのより大きな柔軟性も開発者に提供します。</p>
+
+      <h2>開発者の視点</h2>
+
+      <p>すべてのアプリケーションにとって自動的に最適な選択である単一のモデルは存在しません。</p>
+
+      <p>開発者はますます以下を考慮する必要があります：</p>
+
+      <p><strong>モデルのコストは？</strong></p>
+      <p><strong>コンテキストウィンドウはどのくらい大きいか？</strong></p>
+      <p><strong>特定のタスクでどのくらいうまく機能するか？</strong></p>
+      <p><strong>ツールを使用したり、エージェントとして動作したりできるか？</strong></p>
+      <p><strong>独立してデプロイできるか？</strong></p>
+      <p><strong>実世界での使用でどのくらい信頼できるか？</strong></p>
+
+      <p>これらの要因は、一般的なベンチマークでのモデルの位置よりも重要になる可能性があります。</p>
+
+      <h2>次に何が来るか？</h2>
+
+      <p>開発のペースは鈍化する兆しをほとんど示していません。</p>
+
+      <p>DeepSeek は効率性に強い焦点を維持しながら、さらにフロンティアを押し進めています。xAI は、ますます有能なエージェントと複雑な知識作業を中心に Grok を開発しています。<a href="https://x.ai/blog/grok-4-6" target="_blank" rel="noopener">xAI ブログ</a></p>
+
+      <p>アリババは、膨大なスケールで動作するモデルでオープンウェイトエコシステムを拡大しています。</p>
+
+      <p>そして、競争はこの 3 社をはるかに超えて広がっています。OpenAI、Anthropic、Google、Meta、Mistral およびその他の AI 開発者は、独自のシステムの改善を続けています。<a href="https://openrouter.ai/models/deepseek/deepseek-v4-pro-0813" target="_blank" rel="noopener">OpenRouter</a></p>
+
+      <p>開発者と企業にとって、結果は AI モデルの急速に拡大する選択肢です。</p>
+
+      <p>質問は<strong>「どの会社が最高の AI を持っているか？」</strong>ではなくなりつつあります。</p>
+
+      <p>代わりに：</p>
+
+      <p><strong>「私が構築する必要があるものに最適なモデルはどれか？」</strong></p>
+
+      <p>AI フロンティアが動き続けるにつれて、その答えは 1 年前でさえあったよりもはるかに速く変わる可能性があります。</p>
+
+      <p><strong>Digital Infohub で、テクノロジー、AI、ソフトウェア、デジタルコンテンツをもっと発見：</strong></p>
+
+      <a class="link-block" href="https://digitalinfohub.net/" target="_blank" rel="noopener">
+        <div class="label">Digital Infohub</div>
+        <div class="url">digitalinfohub.net</div>
+      </a>
+
+      <div class="tags">
+        <a class="tag" href="#">#AI</a>
+        <a class="tag" href="#">#DeepSeek</a>
+        <a class="tag" href="#">#Grok</a>
+        <a class="tag" href="#">#Qwen</a>
+        <a class="tag" href="#">#MachineLearning</a>
+        <a class="tag" href="#">#DigitalInfohub</a>
+      </div>
+    </article>
+  </div>
+
+  <!-- ================= 中文 ================= -->
+  <div class="lang-content" data-lang="zh" lang="zh-Hans">
+    <header>
+      <p class="meta">阅读时间 5 分钟</p>
+      <h1>AI 模型战争升温：DeepSeek V4 Pro、Grok 4.6 和 Qwen3.8</h1>
+      <p class="subtitle">AI 模型竞赛正在加速。本周，DeepSeek、xAI 和阿里巴巴的 Qwen 团队都取得了重大进展，为开发者提供了越来越多功能强大模型的新选择。</p>
+    </header>
+
+    <article>
+      <p>AI 模型竞赛正在加速。</p>
+
+      <p>本周，DeepSeek、xAI 和阿里巴巴的 Qwen 团队都取得了重大进展，为开发者提供了越来越多功能强大模型的新选择。</p>
+
+      <p><strong>DeepSeek V4 Pro 0813、Grok 4.6 和 Qwen3.8-2.4T-A95B</strong>代表了三种不同的方法，应对相同的挑战：在性能、成本、规模和可访问性方面竞争的同时构建更强大的 AI。</p>
+
+      <h2>DeepSeek V4 Pro：告别预览版</h2>
+
+      <p>DeepSeek 已将<strong>DeepSeek V4 Pro</strong>移出预览阶段，生产版<strong>V4 Pro 0813</strong>于 8 月 12 日发布。</p>
+
+      <p>该模型具有<strong>100 万 token 上下文窗口</strong>，专为包括编码、推理和代理任务在内的高要求工作负载而设计。它还可通过 OpenRouter 等平台使用。</p>
+
+      <p>DeepSeek 最大的优势之一是价格。与许多竞争的前沿模型相比，该模型推出时的 API 费率特别低，尽管这一优势即将改变。</p>
+
+      <p>DeepSeek 已宣布为其 V4 模型采用新的峰值和非峰值定价结构，将于<strong>8 月 16 日 16:00 UTC</strong>生效。<a href="https://www.reuters.com/technology/deepseek-raises-prices-new-ai-models-up-to-1100-percent-2025-08-14/" target="_blank" rel="noopener">路透社</a>报道，这些变化代表着根据模型、token 类型和使用时期的不同，增幅在<strong>50% 到 1,100%</strong>之间。</p>
+
+      <p>这使得 V4 Pro 发布特别有趣：开发者获得了更成熟的生产模型，但一旦新定价生效，其长期成本优势将需要重新评估。</p>
+
+      <h2>Grok 4.6：xAI 专注于 AI 代理</h2>
+
+      <p>xAI 也于<strong>8 月 12 日宣布了 Grok 4.6</strong>。</p>
+
+      <p>该公司表示，新模型建立在 Grok 4.5 的基础上，特别关注<strong>长时间运行的代理、编码、知识工作和更具雄心的交互式及视觉任务</strong>。</p>
+
+      <p>这反映了 AI 行业更广泛的变化。</p>
+
+      <p>竞争正日益超越传统聊天机器人。公司正在构建能够处理更长任务、与工具交互并协助复杂工作流的模型。</p>
+
+      <p>独立测试将 Grok 4.6 置于<strong>Artificial Analysis 智能指数第 61 位</strong>，使其跻身当前前沿模型之列。<a href="https://artificialanalysis.ai" target="_blank" rel="noopener">Artificial Analysis</a></p>
+
+      <h2>Qwen3.8：阿里巴巴开放 2.4 万亿参数模型</h2>
+
+      <p>阿里巴巴的 Qwen 团队在原始模型规模方面做出了最引人注目的举动之一。</p>
+
+      <p><strong>Qwen3.8-2.4T-A95B</strong>是一个开源权重的专家混合模型，具有<strong>2.4 万亿总参数和 950 亿活跃参数</strong>。模型权重本周公开发布，使开发者能够访问规模巨大的模型。<a href="https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B" target="_blank" rel="noopener">Hugging Face</a></p>
+
+      <p>该模型使用稀疏专家混合架构，这意味着虽然模型总共包含 2.4 万亿参数，但每个 token 只激活一部分。</p>
+
+      <p>这种区别很重要。2.4 万亿参数模型不需要为每段文本处理所有 2.4 万亿参数。</p>
+
+      <p>Qwen3.8 特别引人注目，因为它将如此规模的模型带入了开源权重生态系统，为研究人员和开发者提供了封闭商业 AI 系统之外的另一个选择。</p>
+
+      <h2>为什么这很重要</h2>
+
+      <p>这些发布凸显了 AI 市场的竞争有多么激烈。</p>
+
+      <p>竞赛不再仅仅是构建最大的模型。公司在几个领域展开竞争：</p>
+
+      <ul>
+        <li><strong>性能：</strong>更好的推理、编码和知识能力</li>
+        <li><strong>成本：</strong>对开发者和企业更具竞争力的价格</li>
+        <li><strong>上下文：</strong>处理越来越多信息的能力</li>
+        <li><strong>代理：</strong>能够处理更长、多步骤任务的模型</li>
+        <li><strong>开放权重：</strong>为开发者和研究人员提供更大访问权限</li>
+        <li><strong>基础设施：</strong>部署越来越大型模型的更高效方法</li>
+      </ul>
+
+      <p>对于开发者来说，这种竞争创造了更多选择。</p>
+
+      <p>以前需要昂贵专有模型的项目现在可能有几种替代方案。Qwen3.8 等开放权重模型也为开发者提供了更大的实验和部署灵活性。</p>
+
+      <h2>开发者视角</h2>
+
+      <p>没有哪个单一模型自动成为每个应用的最佳选择。</p>
+
+      <p>开发者越来越需要考虑：</p>
+
+      <p><strong>模型成本是多少？</strong></p>
+      <p><strong>它的上下文窗口有多大？</strong></p>
+      <p><strong>它在特定任务上表现如何？</strong></p>
+      <p><strong>它能使用工具或作为代理运行吗？</strong></p>
+      <p><strong>它能独立部署吗？</strong></p>
+      <p><strong>它在实际使用中有多可靠？</strong></p>
+
+      <p>这些因素可能比模型在一般基准测试中的位置更重要。</p>
+
+      <h2>接下来会发生什么？</h2>
+
+      <p>发展步伐几乎没有放缓的迹象。</p>
+
+      <p>DeepSeek 在保持对效率的强烈关注的同时，进一步推向前沿。xAI 正围绕越来越强大的代理和复杂知识工作开发 Grok。<a href="https://x.ai/blog/grok-4-6" target="_blank" rel="noopener">xAI 博客</a></p>
+
+      <p>阿里巴巴正在以超大规模运行的模型扩展开放权重生态系统。</p>
+
+      <p>而且，竞争远远超出了这三家公司。OpenAI、Anthropic、Google、Meta、Mistral 和其他 AI 开发者继续改进自己的系统。<a href="https://openrouter.ai/models/deepseek/deepseek-v4-pro-0813" target="_blank" rel="noopener">OpenRouter</a></p>
+
+      <p>对于开发者和企业来说，结果是 AI 模型的快速扩展选择。</p>
+
+      <p>问题正变得不再是<strong>"哪家公司拥有最好的 AI？"</strong></p>
+
+      <p>而是：</p>
+
+      <p><strong>"哪个模型最适合我需要构建的东西？"</strong></p>
+
+      <p>随着 AI 前沿继续前进，这个答案的变化速度可能比一年前快得多。</p>
+
+      <p><strong>在 Digital Infohub 发现更多技术、AI、软件和数字内容：</strong></p>
+
+      <a class="link-block" href="https://digitalinfohub.net/" target="_blank" rel="noopener">
+        <div class="label">Digital Infohub</div>
+        <div class="url">digitalinfohub.net</div>
+      </a>
+
+      <div class="tags">
+        <a class="tag" href="#">#AI</a>
+        <a class="tag" href="#">#DeepSeek</a>
+        <a class="tag" href="#">#Grok</a>
+        <a class="tag" href="#">#Qwen</a>
+        <a class="tag" href="#">#MachineLearning</a>
+        <a class="tag" href="#">#DigitalInfohub</a>
+      </div>
+    </article>
+  </div>
+
+</div>
+
+<script>
+(function() {
+  var html = document.documentElement;
+
+  /* ---------- Theme ---------- */
+  var toggle = document.getElementById('themeToggle');
+  var storedTheme = localStorage.getItem('theme');
+
+  if (storedTheme) {
+    html.setAttribute('data-theme', storedTheme);
+  } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    html.setAttribute('data-theme', 'dark');
+  }
+
+  toggle.addEventListener('click', function() {
+    var current = html.getAttribute('data-theme');
+    var next = current === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+
+  /* ---------- Language ---------- */
+  var titles = {
+    en: 'The AI Model Wars Heat Up: DeepSeek V4 Pro, Grok 4.6 and Qwen3.8',
+    ja: 'AI モデル戦争が激化：DeepSeek V4 Pro、Grok 4.6、Qwen3.8',
+    zh: 'AI 模型战争升温：DeepSeek V4 Pro、Grok 4.6 和 Qwen3.8'
+  };
+
+  var htmlLang = { en: 'en', ja: 'ja', zh: 'zh-Hans' };
+
+  function detectLang() {
+    var nav = (navigator.language || 'en').toLowerCase();
+    if (nav.indexOf('ja') === 0) return 'ja';
+    if (nav.indexOf('zh') === 0) return 'zh';
+    return 'en';
+  }
+
+  function setLang(lang) {
+    document.querySelectorAll('.lang-content').forEach(function(block) {
+      block.classList.toggle('active', block.getAttribute('data-lang') === lang);
+    });
+    document.querySelectorAll('[data-lang-btn]').forEach(function(btn) {
+      var isActive = btn.getAttribute('data-lang-btn') === lang;
+      btn.classList.toggle('active', isActive);
+      btn.setAttribute('aria-pressed', isActive);
+    });
+    html.setAttribute('lang', htmlLang[lang]);
+    document.title = titles[lang];
+    localStorage.setItem('lang', lang);
+  }
+
+  document.querySelectorAll('[data-lang-btn]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      setLang(btn.getAttribute('data-lang-btn'));
+    });
+  });
+
+  setLang(localStorage.getItem('lang') || detectLang());
+})();
+</script>
+
 </body>
 </html>
