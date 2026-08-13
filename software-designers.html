@@ -1,0 +1,614 @@
+
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471"
+     crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<title>Designer Tools | Digital Infohub</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta name="theme-color" content="#0a0a0a">
+<meta name="description" content="Essential software tools for designers: graphic design, UI/UX, prototyping, 3D modeling, and more.">
+<meta name="color-scheme" content="dark light">
+
+<!-- Sharing Meta Tags -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Designer Tools | Digital Infohub">
+<meta property="og:description" content="Essential software tools for designers: graphic design, UI/UX, prototyping, 3D modeling, and more.">
+<meta property="og:url" content="https://digitalinfohub.github.io/digitalinfohub/software-designers">
+<meta property="og:image" content="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1200&h=630&fit=crop&q=80">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Designer Tools | Digital Infohub">
+<meta name="twitter:description" content="Essential software tools for designers: graphic design, UI/UX, prototyping, 3D modeling, and more.">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1200&h=630&fit=crop&q=80">
+
+<link rel="icon" type="image/png" href="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png">
+<link rel="apple-touch-icon" href="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, monospace;
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+
+[data-theme="dark"] {
+  --bg: #0a0a0a; --surface: #111111; --surface-2: #161616; --surface-3: #1a1a1a;
+  --border: rgba(255,255,255,0.06); --border-strong: rgba(255,255,255,0.1);
+  --text: #f5f5f5; --text-sub: #a1a1aa; --text-muted: #71717a;
+  --accent: #ec4899; --accent-soft: rgba(236,72,153,0.1);
+  --shadow: 0 4px 24px -6px rgba(0,0,0,0.4);
+}
+
+[data-theme="light"] {
+  --bg: #fafafa; --surface: #ffffff; --surface-2: #f4f4f5; --surface-3: #e4e4e7;
+  --border: rgba(0,0,0,0.06); --border-strong: rgba(0,0,0,0.12);
+  --text: #0a0a0a; --text-sub: #52525b; --text-muted: #a1a1aa;
+  --accent: #db2777; --accent-soft: rgba(219,39,119,0.08);
+  --shadow: 0 4px 24px -6px rgba(0,0,0,0.08);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font); background: var(--bg); color: var(--text); min-height: 100vh; line-height: 1.6; -webkit-font-smoothing: antialiased; transition: background 0.3s ease, color 0.3s ease; }
+
+.shell { max-width: 1000px; margin: 0 auto; padding: 32px 24px 80px; }
+
+.nav-shell { position: sticky; top: 0; z-index: 100; background: var(--bg); border-bottom: 1px solid var(--border); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); margin: -32px -24px 32px; padding: 0 24px; }
+.nav-bar { max-width: 1000px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 12px 0; gap: 16px; }
+.nav-links { display: flex; gap: 4px; align-items: center; overflow-x: auto; scrollbar-width: none; }
+.nav-links::-webkit-scrollbar { display: none; }
+.nav-link { padding: 8px 14px; background: none; border: 1px solid transparent; color: var(--text-sub); border-radius: 8px; cursor: pointer; font-family: inherit; font-size: 13px; font-weight: 500; transition: all 0.2s var(--ease); white-space: nowrap; display: flex; align-items: center; gap: 6px; text-decoration: none; }
+.nav-link:hover { color: var(--text); background: var(--surface-2); border-color: var(--border); }
+.nav-link.active { color: var(--accent); background: var(--accent-soft); border-color: var(--accent); }
+
+.hamburger { display: none; width: 36px; height: 36px; border: 1px solid var(--border); background: var(--surface); color: var(--text); border-radius: var(--radius-sm); cursor: pointer; align-items: center; justify-content: center; font-size: 18px; transition: all 0.2s var(--ease); flex-shrink: 0; }
+.hamburger:hover { background: var(--surface-2); border-color: var(--border-strong); }
+
+.mobile-menu { display: none; position: absolute; top: 100%; left: 0; right: 0; background: var(--surface); border-bottom: 1px solid var(--border); padding: 8px 16px 16px; flex-direction: column; gap: 4px; box-shadow: var(--shadow); animation: slideDown 0.2s var(--ease); }
+.mobile-menu.active { display: flex; }
+.mobile-menu .nav-link { width: 100%; justify-content: flex-start; padding: 12px 14px; font-size: 14px; }
+
+@keyframes slideDown { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+
+.topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 15px; letter-spacing: -0.01em; text-decoration: none; color: var(--text); }
+.brand-logo { width: 28px; height: 28px; border-radius: 8px; background: var(--surface-2); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.brand-logo img { width: 100%; height: 100%; object-fit: cover; }
+.icon-btn { width: 36px; height: 36px; border: 1px solid var(--border); background: var(--surface); color: var(--text-sub); border-radius: var(--radius-sm); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s var(--ease); }
+.icon-btn:hover { color: var(--text); border-color: var(--border-strong); background: var(--surface-2); }
+
+.page-header { text-align: center; margin-bottom: 48px; }
+.page-header h1 { font-size: 28px; font-weight: 700; margin-bottom: 12px; }
+.page-header p { font-size: 15px; color: var(--text-sub); max-width: 600px; margin: 0 auto; }
+.back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--text-sub); text-decoration: none; font-size: 13px; margin-bottom: 16px; padding: 6px 12px; border-radius: 8px; transition: all 0.2s; }
+.back-link:hover { color: var(--text); background: var(--surface-2); }
+.dih-badge-external { display: inline-block; background: #f59e0b; color: white; font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 99px; margin-top: 12px; text-transform: uppercase; letter-spacing: 0.05em; }
+
+.software-section { margin-bottom: 48px; }
+.section-title { font-size: 18px; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+.section-title span { font-size: 20px; }
+
+.tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+.tool-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; transition: all 0.2s var(--ease); text-decoration: none; color: var(--text); display: flex; flex-direction: column; gap: 12px; }
+.tool-card:hover { border-color: var(--border-strong); background: var(--surface-2); transform: translateY(-2px); }
+.tool-header { display: flex; align-items: center; gap: 12px; }
+.tool-icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+.tool-icon.graphic { background: linear-gradient(135deg, #ec4899, #f43f5e); }
+.tool-icon.ui { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+.tool-icon.three { background: linear-gradient(135deg, #06b6d4, #3b82f6); }
+.tool-icon.photo { background: linear-gradient(135deg, #f97316, #ea580c); }
+.tool-icon.color { background: linear-gradient(135deg, #10b981, #059669); }
+.tool-icon.font { background: linear-gradient(135deg, #6366f1, #8b5cf6); }
+.tool-name { font-weight: 600; font-size: 15px; }
+.tool-tag { font-size: 11px; color: var(--text-muted); background: var(--surface-2); padding: 2px 8px; border-radius: 4px; border: 1px solid var(--border); }
+.tool-desc { font-size: 13px; color: var(--text-sub); line-height: 1.5; flex: 1; }
+.tool-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; padding-top: 12px; border-top: 1px solid var(--border); }
+.tool-price { font-size: 12px; color: var(--text-muted); }
+.tool-price.free { color: #10b981; }
+.tool-link { font-size: 12px; color: var(--accent); text-decoration: none; font-weight: 500; display: flex; align-items: center; gap: 4px; }
+.tool-link:hover { text-decoration: underline; }
+
+@media (max-width: 640px) {
+  .shell { padding: 20px 16px 60px; }
+  .nav-shell { margin: -20px -16px 24px; }
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .tools-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <nav class="nav-shell">
+    <div class="nav-bar">
+      <div class="nav-links">
+        <a href="/" class="nav-link">🏠 Home</a>
+        <a href="/blog" class="nav-link">📝 Blog</a>
+        <a href="/techtopics" class="nav-link">💡 Tech Topics</a>
+        <a href="/software" class="nav-link active">💻 Software</a>
+        <a href="/games" class="nav-link">🎮 Games</a>
+        <a href="/subscribe" class="nav-link">✉️ Subscribe</a>
+      </div>
+      
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">☰</button>
+    </div>
+    
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="/" class="nav-link">🏠 Home</a>
+      <a href="/blog" class="nav-link">📝 Blog</a>
+      <a href="/techtopics" class="nav-link">💡 Tech Topics</a>
+      <a href="/software" class="nav-link active">💻 Software</a>
+      <a href="/games" class="nav-link">🎮 Games</a>
+      <a href="/subscribe" class="nav-link">✉️ Subscribe</a>
+    </div>
+  </nav>
+
+  <div class="topbar">
+    <a href="https://digitalinfohub.net" class="brand">
+      <span class="brand-logo"><img src="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png" alt="" loading="lazy"></span>
+      <span>Digital Infohub</span>
+    </a>
+    <button class="icon-btn" id="themeToggle" title="Toggle theme" aria-label="Toggle theme">
+      <svg id="themeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/></svg>
+    </button>
+  </div>
+
+  <div class="page-header">
+    <a href="/software" class="back-link">← Back to Software</a>
+    <h1>🎨 Designer Tools</h1>
+    <p>Professional software for graphic design, UI/UX, 3D modeling, and creative work. Curated third-party tools to bring your vision to life.</p>
+    <span class="dih-badge-external">⚠️ Third-Party Software</span>
+  </div>
+
+  <section class="software-section">
+    <h2 class="section-title"><span>🖌️</span> Graphic Design</h2>
+    <div class="tools-grid">
+      <a href="https://www.adobe.com/products/illustrator.html" target="_blank" rel="noopener noreferrer" class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon graphic">Ai</div>
+          <div>
+            <div class="tool-name">Adobe Illustrator</div>
+            <span class="tool-tag">Paid</span>
+          </div>
+        </div>
+        <div class="tool-desc">Industry-standard vector graphics software for logos, icons, illustrations, and typography. Part of Adobe Creative Cloud.</div>
+        <div class="tool-footer">
+          <span class="tool-price">From $22.99/mo</span>
+          <span class="tool-link">Visit →</span>
+        </div>
+      </a>
+
+      <a href="https://www.figma.com/" target="_blank" rel="noopener noreferrer" class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon graphic">🧩</div>
+          <div>
+            <div class="tool-name">Figma</div>
+            <span class="tool-tag">Freemium</span>
+          </div>
+        </div>
+        <div class="tool-desc">Collaborative interface design tool with powerful vector editing. Design, prototype, and gather feedback all in one place.</div>
+        <div class="tool-footer">
+          <span class="tool-price free">Free starter plan</span>
+          <span class="tool-link">Visit →</span>
+        </div>
+      </a>
+
+      <a href="https://www.canva.com/" target="_blank" rel="noopener noreferrer" class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon graphic">✨</div>
+          <div>
+            <div class="tool-name">Canva</div>
+            <span class="tool-tag">Freemium</span>
+          </div>
+        </div>
+        <div class="tool-desc">User-friendly graphic design platform with templates for social media, presentations, posters, and more. Perfect for non-designers.</div>
+        <div class="tool-footer">
+          <span class="tool-price free">Free tier available</span>
+          <span class="tool-link">Visit →</span>
+        </div>
+      </a>
+
+      <a href="https://inkscape.org/" target="_blank" rel="noopener noreferrer" class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon graphic">🅸</div>
+          <div>
+            <div class="tool-name">Inkscape</div>
+            <span class="tool-tag">Open Source</span>
+          </div>
+        </div>
+        <div class="tool-desc">Professional vector graphics editor for Windows, Mac, and Linux. Powerful alternative to Illustrator with SVG support.</div>
+        <div class="tool-footer">
+          <span class="tool-price free">Free</span>
+          <span class="tool-link">Visit →</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <section class="software-section">
+    <h2 class="section-title"><span>🖥️</span> UI/UX Design</h2>
+    <div class="tools-grid">
+      <a href="https://www.sketch.com/" target="_blank" rel="noopener noreferrer" class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon ui">💎</div>
+          <div>
+            <div class="tool-name">Sketch</div>
+            <span class="tool-tag">Paid</span>
+          </div>
+        </div>
+        <div class="tool-desc">Digital design toolkit for Mac. Vector-based design with reusable symbols, shared styles, and powerful plugins.</div>
+        <div class="tool-footer">
+          <span class="tool-price">$9/mo or $99/yr</span>
+          <span class="tool-link">Visit →</span>
+        </div>
+      </a>
+
+      <a href="https://www.adobe.com/products/xd.html" target="_blank" rel="noopener noreferrer" class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon ui">Xd</div>
+          <div>
+            <div class="tool-name">Adobe XD</div>
+            <span class="tool-tag">Freemium</span>
+          </div>
+        </div>
+        <div class="tool-desc">All-in-one UX solution for designing and sharing websites, mobile apps, and more. Voice prototyping and coediting features.</div>
+        <div class="tool-footer">
+          <span class="tool-price free">Starter plan free</span>
+          <span class="tool-link">Visit →</span>
+        </div>
+      </a>
+
+      <a href="https://www.invisionapp.com/" target="_blank" rel="noopener noreferrer" class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon ui">⚡</div>
+          <div>
+            <div class="tool-name">InVision</div>
+            <span class="tool-tag">Freemium</span>
+          </div>
+        </div>
+        <div class="tool-desc">Interactive prototyping tool for web and mobile apps. Turn static designs into clickable prototypes with animations.</div>
+        <div class="tool-footer">
+          <span class="tool-price free">Free for 1 prototype</span>
+          <span class="tool-link">Visit →</span>
+        </div>
+      </a>
+
+      <a href="https://www.axure.com/" target="_blank" rel="noopener noreferrer" class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon ui">📊</div>
+          <div>
+            <div class="tool-name">Axure RP</div>
+            <span class="tool-tag">Paid</span>
+          </div>
+        </div>
+        <div class="tool-desc">Powerful prototyping tool for creating complex, interactive wireframes and prototypes with conditional logic.</div>
+        <div class="tool-footer">
+          <span class="tool-price">$29/mo</span>
+          <span class="tool-link">Visit →</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <section class="software-section">
+    <h2 class="section-title"><span>🎭</span> 3D & Animation</h2>
+    <div class="tools-grid">
+      <a href="https://www.blender.org/" target="_blank" rel="noopener noreferrer" class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon three">🟠</div>
+          <div>
+            <div class="tool-name">Blender</div>
+            <span class="tool-tag">Open Source</span>
+          </div>
+        </div>
+        <div class="tool-desc">Free and open source 3D creation suite. Modeling, rigging, animation, simulation, rendering, compositing, and motion tracking.</div>
+        <div class="tool-footer">
+          <span class="tool-price free">Free</span>
+          <span class="tool-link">Visit →</span>
+        </div>
+      </a>
+
+      <a href="https://www.autodesk.com/products/cinema-4d/overview" target="_blank" rel="noopener noreferrer" class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon three">C4D</div>
+          <div>
+            <div class="tool-name">Cinema 4D</div>
+            <span class="tool-tag">Paid</span>
+          </div>
+        </div>
+        <div class="tool-desc">Professional 3D modeling, animation, and rendering software. Known for ease of use and motion graphics capabilities.</div>
+        <div class="tool-footer">
+          <span class="tool-price">From $59.88/mo</span>
+          <span class="tool-link">Visit →</span>
+        </div>
+      </a>
+
+      <a href="https://www.substance3d.com/" target="_blank" rel="noopener noreferrer" class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon three">🎨</div>
+          <div>
+            <div class="tool-name">Substance Painter</div>
+            <span class="tool-tag">Paid</span>
+          </div>
+        </div>
+        <div class="tool-desc">Industry-standard 3D texture painting software. Realistic materials and smart masks for game assets and product visualization.</div>
+        <div class="tool-footer">
+          <span class="tool-price">$19.99/mo</span>
+          <span class="tool-link">Visit →</span>
+        </div>
+      </a>
+
+      <a href="https://www.zbrush.com/" target="_blank" rel="noopener noreferrer" class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon three">🗿</div>
+          <div>
+            <div class="tool-name">ZBrush</div>
+            <span class="tool-tag">Paid</span>
+          </div>
+        </div>
+        <div class="tool-desc">Digital sculpting tool combining 3D/2.5D modeling, texturing and painting. Industry standard for character and creature design.</div>
+        <div class="tool-footer">
+          <span class="tool-price">$39.95/mo</span>
+          <span class="tool-link">Visit →</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <section class="software-section">
+    <h2 class="section-title"><span>📷</span> Photo Editing</h2>
+    <div class="tools-grid">
+      <a href="https://www.adobe.com/products/photoshop.html" target="_blank" rel="noopener noreferrer" class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon photo">Ps</div>
+          <div>
+            <div class="tool-name">Adobe Photoshop</div>
+            <span class="tool-tag">Paid</span>
+          </div>
+        </div>
+        <div class="tool-desc">World's best imaging and graphic design software. Photo editing, compositing, digital painting, and more.</div>
+        <div class="tool-footer">
+          <span class="tool-price">From $22.99/mo</span>
+          <span class="tool-link">Visit →</span>
+        </div>
+      </a>
+
+      <a href="https://affinity.serif.com/en-us/photo/" target="_blank" rel="noopener noreferrer" class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon photo">📸</div>
+          <div>
+            <div class="tool-name">Affinity Photo</div>
+            <span class="tool-tag">Paid</span>
+          </div>
+        </div>
+        <div class="tool-desc">Professional photo editing software with no subscription. RAW editing, retouching, and compositing at a fraction of the cost.</div>
+        <div class="tool-footer">
+          <span class="tool-price">$69.99 one-time</span>
+          <span class="tool-link">Visit →</span>
+        </div>
+      </a>
+
+      <a href="https://www.gimp.org/" target="_blank" rel="noopener noreferrer" class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon photo">🐾</div>
+          <div>
+            <div class="tool-name">GIMP</div>
+            <span class="tool-tag">Open Source</span>
+          </div>
+        </div>
+        <div class="tool-desc">GNU Image Manipulation Program. Freely distributed raster graphics editor for photo retouching and image composition.</div>
+        <div class="tool-footer">
+          <span class="tool-price free">Free</span>
+          <span class="tool-link">Visit →</span>
+        </div>
+      </a>
+
+      <a href="https://lightroom.adobe.com/" target="_blank" rel="noopener noreferrer" class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon photo">Lr</div>
+          <div>
+            <div class="tool-name">Adobe Lightroom</div>
+            <span class="tool-tag">Paid</span>
+          </div>
+        </div>
+        <div class="tool-desc">Cloud-based photo service for capturing, editing, organizing, and sharing photos from anywhere. Professional presets included.</div>
+        <div class="tool-footer">
+          <span class="tool-price">From $9.99/mo</span>
+          <span class="tool-link">Visit →</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <section class="software-section">
+    <h2 class="section-title"><span>🎨</span> Color & Inspiration</h2>
+    <div class="tools-grid">
+      <a href="https://coolors.co/" target="_blank" rel="noopener noreferrer" class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon color">🌈</div>
+          <div>
+            <div class="tool-name">Coolors</div>
+            <span class="tool-tag">Freemium</span>
+          </div>
+        </div>
+        <div class="tool-desc">Super fast color scheme generator. Create perfect palettes with keyboard shortcuts, export options, and trending colors.</div>
+        <div class="tool-footer">
+          <span class="tool-price free">Free core features</span>
+          <span class="tool-link">Visit →</span>
+        </div>
+      </a>
+
+      <a href="https://dribbble.com/" target="_blank" rel="noopener noreferrer" class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon color">🏀</div>
+          <div>
+            <div class="tool-name">Dribbble</div>
+            <span class="tool-tag">Freemium</span>
+          </div>
+        </div>
+        <div class="tool-desc">Discover the world's top designers and creatives. Get inspired by millions of shots of graphic design, web design, and illustration.</div>
+        <div class="tool-footer">
+          <span class="tool-price free">Free to browse</span>
+          <span class="tool-link">Visit →</span>
+        </div>
+      </a>
+
+      <a href="https://www.behance.net/" target="_blank" rel="noopener noreferrer" class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon color">Be</div>
+          <div>
+            <div class="tool-name">Behance</div>
+            <span class="tool-tag">Free</span>
+          </div>
+        </div>
+        <div class="tool-desc">Showcase and discover creative work from Adobe. The leading online platform for creative portfolios across all disciplines.</div>
+        <div class="tool-footer">
+          <span class="tool-price free">Free</span>
+          <span class="tool-link">Visit →</span>
+        </div>
+      </a>
+
+      <a href="https://www.pinterest.com/" target="_blank" rel="noopener noreferrer" class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon color">📌</div>
+          <div>
+            <div class="tool-name">Pinterest</div>
+            <span class="tool-tag">Free</span>
+          </div>
+        </div>
+        <div class="tool-desc">Visual discovery engine for finding ideas like recipes, home and style inspiration, and design mood boards.</div>
+        <div class="tool-footer">
+          <span class="tool-price free">Free</span>
+          <span class="tool-link">Visit →</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <section class="software-section">
+    <h2 class="section-title"><span>🔤</span> Typography & Fonts</h2>
+    <div class="tools-grid">
+      <a href="https://fonts.google.com/" target="_blank" rel="noopener noreferrer" class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon font">G</div>
+          <div>
+            <div class="tool-name">Google Fonts</div>
+            <span class="tool-tag">Free</span>
+          </div>
+        </div>
+        <div class="tool-desc">Library of over 1,000 free open source fonts. Easy integration with websites and apps. Variable fonts supported.</div>
+        <div class="tool-footer">
+          <span class="tool-price free">Free</span>
+          <span class="tool-link">Visit →</span>
+        </div>
+      </a>
+
+      <a href="https://www.dafont.com/" target="_blank" rel="noopener noreferrer" class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon font">🔤</div>
+          <div>
+            <div class="tool-name">DaFont</div>
+            <span class="tool-tag">Free</span>
+          </div>
+        </div>
+        <div class="tool-desc">Archive of freely downloadable fonts. Browse by alphabetical listing, category, or popularity. Great for personal projects.</div>
+        <div class="tool-footer">
+          <span class="tool-price free">Free</span>
+          <span class="tool-link">Visit →</span>
+        </div>
+      </a>
+
+      <a href="https://www.fontsquirrel.com/" target="_blank" rel="noopener noreferrer" class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon font">🐿️</div>
+          <div>
+            <div class="tool-name">Font Squirrel</div>
+            <span class="tool-tag">Free</span>
+          </div>
+        </div>
+        <div class="tool-desc">High-quality free fonts for commercial use. Hand-selected typefaces with generous licenses. Includes webfont generator.</div>
+        <div class="tool-footer">
+          <span class="tool-price free">Free</span>
+          <span class="tool-link">Visit →</span>
+        </div>
+      </a>
+
+      <a href="https://www.myfonts.com/" target="_blank" rel="noopener noreferrer" class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon font">M</div>
+          <div>
+            <div class="tool-name">MyFonts</div>
+            <span class="tool-tag">Marketplace</span>
+          </div>
+        </div>
+        <div class="tool-desc">Massive collection of premium fonts from independent foundries. Advanced search and font identification tools.</div>
+        <div class="tool-footer">
+          <span class="tool-price">Varies by font</span>
+          <span class="tool-link">Visit →</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  
+  hamburger.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('active');
+    hamburger.textContent = isOpen ? '×' : '☰';
+    hamburger.setAttribute('aria-expanded', isOpen);
+  });
+
+  mobileMenu.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.remove('active');
+      hamburger.textContent = '☰';
+      hamburger.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  const sunSvg = '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>';
+  const moonSvg = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+  let theme = localStorage.getItem('dih_theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', theme);
+  document.getElementById('themeIcon').innerHTML = theme === 'dark' ? sunSvg : moonSvg;
+  document.getElementById('themeToggle').onclick = () => { 
+    theme = theme === 'dark' ? 'light' : 'dark'; 
+    document.documentElement.setAttribute('data-theme', theme); 
+    localStorage.setItem('dih_theme', theme); 
+    document.getElementById('themeIcon').innerHTML = theme === 'dark' ? sunSvg : moonSvg; 
+  };
+
+})();
+</script>
+
+<!-- AD UNIT: Designer Tools Footer -->
+<div style="margin: 40px auto; max-width: 728px; text-align: center;">
+  <div style="font-size: 10px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em;">Sponsored</div>
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-5443646750699471"
+       data-ad-slot="8451723433"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+</body>
+</html>

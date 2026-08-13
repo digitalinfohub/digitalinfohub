@@ -1,0 +1,556 @@
+
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471"
+     crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<title>Developer Tools | Digital Infohub</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta name="theme-color" content="#0a0a0a">
+<meta name="description" content="Essential software tools for developers: IDEs, version control, debugging, APIs, and more.">
+<meta name="color-scheme" content="dark light">
+
+<!-- Sharing Meta Tags -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Developer Tools | Digital Infohub">
+<meta property="og:description" content="Essential software tools for developers: IDEs, version control, debugging, APIs, and more.">
+<meta property="og:url" content="https://digitalinfohub.github.io/digitalinfohub/software-developers">
+<meta property="og:image" content="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1200&h=630&fit=crop&q=80">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Developer Tools | Digital Infohub">
+<meta name="twitter:description" content="Essential software tools for developers: IDEs, version control, debugging, APIs, and more.">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1200&h=630&fit=crop&q=80">
+
+<link rel="icon" type="image/png" href="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png">
+<link rel="apple-touch-icon" href="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, monospace;
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+
+[data-theme="dark"] {
+  --bg: #0a0a0a; --surface: #111111; --surface-2: #161616; --surface-3: #1a1a1a;
+  --border: rgba(255,255,255,0.06); --border-strong: rgba(255,255,255,0.1);
+  --text: #f5f5f5; --text-sub: #a1a1aa; --text-muted: #71717a;
+  --accent: #6366f1; --accent-soft: rgba(99,102,241,0.1);
+  --shadow: 0 4px 24px -6px rgba(0,0,0,0.4);
+}
+
+[data-theme="light"] {
+  --bg: #fafafa; --surface: #ffffff; --surface-2: #f4f4f5; --surface-3: #e4e4e7;
+  --border: rgba(0,0,0,0.06); --border-strong: rgba(0,0,0,0.12);
+  --text: #0a0a0a; --text-sub: #52525b; --text-muted: #a1a1aa;
+  --accent: #4f46e5; --accent-soft: rgba(79,70,229,0.08);
+  --shadow: 0 4px 24px -6px rgba(0,0,0,0.08);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font); background: var(--bg); color: var(--text); min-height: 100vh; line-height: 1.6; -webkit-font-smoothing: antialiased; transition: background 0.3s ease, color 0.3s ease; }
+
+.shell { max-width: 1000px; margin: 0 auto; padding: 32px 24px 80px; }
+
+/* ═══ NAVIGATION ═══ */
+.nav-shell { position: sticky; top: 0; z-index: 100; background: var(--bg); border-bottom: 1px solid var(--border); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); margin: -32px -24px 32px; padding: 0 24px; }
+.nav-bar { max-width: 1000px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 12px 0; gap: 16px; }
+.nav-links { display: flex; gap: 4px; align-items: center; overflow-x: auto; scrollbar-width: none; }
+.nav-links::-webkit-scrollbar { display: none; }
+.nav-link { padding: 8px 14px; background: none; border: 1px solid transparent; color: var(--text-sub); border-radius: 8px; cursor: pointer; font-family: inherit; font-size: 13px; font-weight: 500; transition: all 0.2s var(--ease); white-space: nowrap; display: flex; align-items: center; gap: 6px; text-decoration: none; }
+.nav-link:hover { color: var(--text); background: var(--surface-2); border-color: var(--border); }
+.nav-link.active { color: var(--accent); background: var(--accent-soft); border-color: var(--accent); }
+
+.hamburger { display: none; width: 36px; height: 36px; border: 1px solid var(--border); background: var(--surface); color: var(--text); border-radius: var(--radius-sm); cursor: pointer; align-items: center; justify-content: center; font-size: 18px; transition: all 0.2s var(--ease); flex-shrink: 0; }
+.hamburger:hover { background: var(--surface-2); border-color: var(--border-strong); }
+
+.mobile-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 8px 16px 16px;
+  flex-direction: column;
+  gap: 4px;
+  box-shadow: var(--shadow);
+  animation: slideDown 0.2s var(--ease);
+}
+.mobile-menu.active { display: flex; }
+.mobile-menu .nav-link { width: 100%; justify-content: flex-start; padding: 12px 14px; font-size: 14px; }
+
+@keyframes slideDown { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ═══ TOP BAR ═══ */
+.topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 15px; letter-spacing: -0.01em; text-decoration: none; color: var(--text); }
+.brand-logo { width: 28px; height: 28px; border-radius: 8px; background: var(--surface-2); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.brand-logo img { width: 100%; height: 100%; object-fit: cover; }
+.icon-btn { width: 36px; height: 36px; border: 1px solid var(--border); background: var(--surface); color: var(--text-sub); border-radius: var(--radius-sm); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s var(--ease); }
+.icon-btn:hover { color: var(--text); border-color: var(--border-strong); background: var(--surface-2); }
+
+/* ═══ PAGE HEADER ═══ */
+.page-header { text-align: center; margin-bottom: 48px; }
+.page-header h1 { font-size: 28px; font-weight: 700; margin-bottom: 12px; }
+.page-header p { font-size: 15px; color: var(--text-sub); max-width: 600px; margin: 0 auto; }
+.back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--text-sub); text-decoration: none; font-size: 13px; margin-bottom: 16px; padding: 6px 12px; border-radius: 8px; transition: all 0.2s; }
+.back-link:hover { color: var(--text); background: var(--surface-2); }
+.dih-badge-external { display: inline-block; background: #f59e0b; color: white; font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 99px; margin-top: 12px; text-transform: uppercase; letter-spacing: 0.05em; }
+
+/* ═══ SOFTWARE GRID ═══ */
+.software-section { margin-bottom: 48px; }
+.section-title { font-size: 18px; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+.section-title span { font-size: 20px; }
+
+.tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+.tool-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; transition: all 0.2s var(--ease); text-decoration: none; color: var(--text); display: flex; flex-direction: column; gap: 12px; }
+.tool-card:hover { border-color: var(--border-strong); background: var(--surface-2); transform: translateY(-2px); }
+.tool-header { display: flex; align-items: center; gap: 12px; }
+.tool-icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+.tool-icon.ide { background: linear-gradient(135deg, #6366f1, #8b5cf6); }
+.tool-icon.vcs { background: linear-gradient(135deg, #f97316, #ea580c); }
+.tool-icon.debug { background: linear-gradient(135deg, #10b981, #059669); }
+.tool-icon.api { background: linear-gradient(135deg, #ec4899, #f43f5e); }
+.tool-icon.database { background: linear-gradient(135deg, #06b6d4, #3b82f6); }
+.tool-icon.deploy { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+.tool-name { font-weight: 600; font-size: 15px; }
+.tool-tag { font-size: 11px; color: var(--text-muted); background: var(--surface-2); padding: 2px 8px; border-radius: 4px; border: 1px solid var(--border); }
+.tool-desc { font-size: 13px; color: var(--text-sub); line-height: 1.5; flex: 1; }
+.tool-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; padding-top: 12px; border-top: 1px solid var(--border); }
+.tool-price { font-size: 12px; color: var(--text-muted); }
+.tool-price.free { color: #10b981; }
+.tool-link { font-size: 12px; color: var(--accent); text-decoration: none; font-weight: 500; display: flex; align-items: center; gap: 4px; }
+.tool-link:hover { text-decoration: underline; }
+
+@media (max-width: 640px) {
+  .shell { padding: 20px 16px 60px; }
+  .nav-shell { margin: -20px -16px 24px; }
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .tools-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <nav class="nav-shell">
+    <div class="nav-bar">
+      <div class="nav-links">
+        <a href="/" class="nav-link">🏠 Home</a>
+        <a href="/blog" class="nav-link">📝 Blog</a>
+        <a href="/techtopics" class="nav-link">💡 Tech Topics</a>
+        <a href="/software" class="nav-link active">💻 Software</a>
+        <a href="/games" class="nav-link">🎮 Games</a>
+        <a href="/subscribe" class="nav-link">✉️ Subscribe</a>
+      </div>
+      
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">☰</button>
+    </div>
+    
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="/" class="nav-link">🏠 Home</a>
+      <a href="/blog" class="nav-link">📝 Blog</a>
+      <a href="/techtopics" class="nav-link">💡 Tech Topics</a>
+      <a href="/software" class="nav-link active">💻 Software</a>
+      <a href="/games" class="nav-link">🎮 Games</a>
+      <a href="/subscribe" class="nav-link">✉️ Subscribe</a>
+    </div>
+  </nav>
+
+  <div class="topbar">
+    <a href="https://digitalinfohub.net" class="brand">
+      <span class="brand-logo"><img src="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png" alt="" loading="lazy"></span>
+      <span>Digital Infohub</span>
+    </a>
+    <button class="icon-btn" id="themeToggle" title="Toggle theme" aria-label="Toggle theme">
+      <svg id="themeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/></svg>
+    </button>
+  </div>
+
+  <div class="page-header">
+    <a href="/software" class="back-link">← Back to Software</a>
+    <h1>👨‍💻 Developer Tools</h1>
+    <p>Essential software for coding, debugging, version control, and deployment. Curated third-party tools to boost your development workflow.</p>
+    <span class="dih-badge-external">⚠️ Third-Party Software</span>
+  </div>
+
+  <section class="software-section">
+    <h2 class="section-title"><span>💻</span> IDEs & Code Editors</h2>
+    <div class="tools-grid">
+      <a href="https://code.visualstudio.com/" target="_blank" rel="noopener noreferrer" class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon ide">⚡</div>
+          <div>
+            <div class="tool-name">Visual Studio Code</div>
+            <span class="tool-tag">Free</span>
+          </div>
+        </div>
+        <div class="tool-desc">Lightweight but powerful source code editor with built-in support for JavaScript, TypeScript, and Node.js. Extensible with thousands of extensions.</div>
+        <div class="tool-footer">
+          <span class="tool-price free">Free</span>
+          <span class="tool-link">Visit →</span>
+        </div>
+      </a>
+
+      <a href="https://www.jetbrains.com/idea/" target="_blank" rel="noopener noreferrer" class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon ide">🔷</div>
+          <div>
+            <div class="tool-name">IntelliJ IDEA</div>
+            <span class="tool-tag">Freemium</span>
+          </div>
+        </div>
+        <div class="tool-desc">Leading Java IDE with intelligent code completion, refactoring tools, and deep framework support. Community Edition available for free.</div>
+        <div class="tool-footer">
+          <span class="tool-price">From $16.90/mo</span>
+          <span class="tool-link">Visit →</span>
+        </div>
+      </a>
+
+      <a href="https://neovim.io/" target="_blank" rel="noopener noreferrer" class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon ide">📝</div>
+          <div>
+            <div class="tool-name">Neovim</div>
+            <span class="tool-tag">Open Source</span>
+          </div>
+        </div>
+        <div class="tool-desc">Hyper-extensible Vim-based text editor with modern features, Lua scripting, and excellent plugin ecosystem for terminal lovers.</div>
+        <div class="tool-footer">
+          <span class="tool-price free">Free</span>
+          <span class="tool-link">Visit →</span>
+        </div>
+      </a>
+
+      <a href="https://sublimetext.com/" target="_blank" rel="noopener noreferrer" class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon ide">✨</div>
+          <div>
+            <div class="tool-name">Sublime Text</div>
+            <span class="tool-tag">Paid</span>
+          </div>
+        </div>
+        <div class="tool-desc">Sophisticated text editor for code, markup and prose. Lightning fast with powerful search and multiple selections.</div>
+        <div class="tool-footer">
+          <span class="tool-price">$99 one-time</span>
+          <span class="tool-link">Visit →</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <section class="software-section">
+    <h2 class="section-title"><span>🔀</span> Version Control</h2>
+    <div class="tools-grid">
+      <a href="https://github.com/" target="_blank" rel="noopener noreferrer" class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon vcs">🐙</div>
+          <div>
+            <div class="tool-name">GitHub</div>
+            <span class="tool-tag">Freemium</span>
+          </div>
+        </div>
+        <div class="tool-desc">The world's leading platform for version control and collaboration. Host code, manage projects, and build software together.</div>
+        <div class="tool-footer">
+          <span class="tool-price free">Free for individuals</span>
+          <span class="tool-link">Visit →</span>
+        </div>
+      </a>
+
+      <a href="https://gitlab.com/" target="_blank" rel="noopener noreferrer" class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon vcs">🦊</div>
+          <div>
+            <div class="tool-name">GitLab</div>
+            <span class="tool-tag">Freemium</span>
+          </div>
+        </div>
+        <div class="tool-desc">Complete DevOps platform with Git repository management, CI/CD pipelines, issue tracking, and more in a single application.</div>
+        <div class="tool-footer">
+          <span class="tool-price free">Free tier available</span>
+          <span class="tool-link">Visit →</span>
+        </div>
+      </a>
+
+      <a href="https://desktop.github.com/" target="_blank" rel="noopener noreferrer" class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon vcs">🖥️</div>
+          <div>
+            <div class="tool-name">GitHub Desktop</div>
+            <span class="tool-tag">Free</span>
+          </div>
+        </div>
+        <div class="tool-desc">Simple, intuitive Git client for Windows and Mac. Visual interface for managing repositories without command line.</div>
+        <div class="tool-footer">
+          <span class="tool-price free">Free</span>
+          <span class="tool-link">Visit →</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <section class="software-section">
+    <h2 class="section-title"><span>🐛</span> Debugging & Testing</h2>
+    <div class="tools-grid">
+      <a href="https://www.postman.com/" target="_blank" rel="noopener noreferrer" class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon debug">📮</div>
+          <div>
+            <div class="tool-name">Postman</div>
+            <span class="tool-tag">Freemium</span>
+          </div>
+        </div>
+        <div class="tool-desc">API platform for building and using APIs. Simplify each step of the API lifecycle with testing, documentation, and monitoring.</div>
+        <div class="tool-footer">
+          <span class="tool-price free">Free tier available</span>
+          <span class="tool-link">Visit →</span>
+        </div>
+      </a>
+
+      <a href="https://chromedevtools.github.io/devtools-protocol/" target="_blank" rel="noopener noreferrer" class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon debug">🔍</div>
+          <div>
+            <div class="tool-name">Chrome DevTools</div>
+            <span class="tool-tag">Free</span>
+          </div>
+        </div>
+        <div class="tool-desc">Built-in web developer tools in Google Chrome. Debug JavaScript, analyze performance, and inspect DOM elements.</div>
+        <div class="tool-footer">
+          <span class="tool-price free">Free</span>
+          <span class="tool-link">Visit →</span>
+        </div>
+      </a>
+
+      <a href="https://www.wireshark.org/" target="_blank" rel="noopener noreferrer" class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon debug">📡</div>
+          <div>
+            <div class="tool-name">Wireshark</div>
+            <span class="tool-tag">Open Source</span>
+          </div>
+        </div>
+        <div class="tool-desc">World's foremost network protocol analyzer. Deep inspection of hundreds of protocols, live capture and offline analysis.</div>
+        <div class="tool-footer">
+          <span class="tool-price free">Free</span>
+          <span class="tool-link">Visit →</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <section class="software-section">
+    <h2 class="section-title"><span>🔌</span> API Development</h2>
+    <div class="tools-grid">
+      <a href="https://insomnia.rest/" target="_blank" rel="noopener noreferrer" class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon api">😴</div>
+          <div>
+            <div class="tool-name">Insomnia</div>
+            <span class="tool-tag">Freemium</span>
+          </div>
+        </div>
+        <div class="tool-desc">Powerful REST and GraphQL API client. Clean interface for testing endpoints, managing environments, and collaborating.</div>
+        <div class="tool-footer">
+          <span class="tool-price free">Free core features</span>
+          <span class="tool-link">Visit →</span>
+        </div>
+      </a>
+
+      <a href="https://swagger.io/" target="_blank" rel="noopener noreferrer" class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon api">📄</div>
+          <div>
+            <div class="tool-name">Swagger</div>
+            <span class="tool-tag">Freemium</span>
+          </div>
+        </div>
+        <div class="tool-desc">Framework for designing, building, documenting, and consuming RESTful web services with OpenAPI Specification.</div>
+        <div class="tool-footer">
+          <span class="tool-price free">Open source tools</span>
+          <span class="tool-link">Visit →</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <section class="software-section">
+    <h2 class="section-title"><span>🗄️</span> Database Tools</h2>
+    <div class="tools-grid">
+      <a href="https://dbeaver.io/" target="_blank" rel="noopener noreferrer" class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon database">🐘</div>
+          <div>
+            <div class="tool-name">DBeaver</div>
+            <span class="tool-tag">Freemium</span>
+          </div>
+        </div>
+        <div class="tool-desc">Universal database tool supporting MySQL, PostgreSQL, SQLite, Oracle, DB2, SQL Server, and many more. ER diagrams and data export.</div>
+        <div class="tool-footer">
+          <span class="tool-price free">Community Edition free</span>
+          <span class="tool-link">Visit →</span>
+        </div>
+      </a>
+
+      <a href="https://www.mongodb.com/products/compass" target="_blank" rel="noopener noreferrer" class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon database">🍃</div>
+          <div>
+            <div class="tool-name">MongoDB Compass</div>
+            <span class="tool-tag">Free</span>
+          </div>
+        </div>
+        <div class="tool-desc">Official GUI for MongoDB. Visually explore data, optimize queries, analyze performance, and manage indexes.</div>
+        <div class="tool-footer">
+          <span class="tool-price free">Free</span>
+          <span class="tool-link">Visit →</span>
+        </div>
+      </a>
+
+      <a href="https://redis.com/redis-enterprise/redis-insight/" target="_blank" rel="noopener noreferrer" class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon database">🔴</div>
+          <div>
+            <div class="tool-name">Redis Insight</div>
+            <span class="tool-tag">Free</span>
+          </div>
+        </div>
+        <div class="tool-desc">Visual tool for Redis. Browse data, run commands, analyze performance, and debug applications using Redis.</div>
+        <div class="tool-footer">
+          <span class="tool-price free">Free</span>
+          <span class="tool-link">Visit →</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <section class="software-section">
+    <h2 class="section-title"><span>🚀</span> Deployment & DevOps</h2>
+    <div class="tools-grid">
+      <a href="https://www.docker.com/" target="_blank" rel="noopener noreferrer" class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon deploy">🐳</div>
+          <div>
+            <div class="tool-name">Docker</div>
+            <span class="tool-tag">Freemium</span>
+          </div>
+        </div>
+        <div class="tool-desc">Platform for developing, shipping, and running applications in containers. Standardize development environments.</div>
+        <div class="tool-footer">
+          <span class="tool-price free">Desktop free for personal use</span>
+          <span class="tool-link">Visit →</span>
+        </div>
+      </a>
+
+      <a href="https://kubernetes.io/" target="_blank" rel="noopener noreferrer" class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon deploy">⎈</div>
+          <div>
+            <div class="tool-name">Kubernetes</div>
+            <span class="tool-tag">Open Source</span>
+          </div>
+        </div>
+        <div class="tool-desc">Production-grade container orchestration. Automate deployment, scaling, and management of containerized applications.</div>
+        <div class="tool-footer">
+          <span class="tool-price free">Free</span>
+          <span class="tool-link">Visit →</span>
+        </div>
+      </a>
+
+      <a href="https://vercel.com/" target="_blank" rel="noopener noreferrer" class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon deploy">▲</div>
+          <div>
+            <div class="tool-name">Vercel</div>
+            <span class="tool-tag">Freemium</span>
+          </div>
+        </div>
+        <div class="tool-desc">Deploy frontend frameworks and static sites instantly. Automatic CI/CD, edge functions, and global CDN.</div>
+        <div class="tool-footer">
+          <span class="tool-price free">Free for hobby projects</span>
+          <span class="tool-link">Visit →</span>
+        </div>
+      </a>
+
+      <a href="https://netlify.com/" target="_blank" rel="noopener noreferrer" class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon deploy">◆</div>
+          <div>
+            <div class="tool-name">Netlify</div>
+            <span class="tool-tag">Freemium</span>
+          </div>
+        </div>
+        <div class="tool-desc">Build, deploy, and scale modern web projects. Continuous deployment from Git, serverless functions, and forms.</div>
+        <div class="tool-footer">
+          <span class="tool-price free">Free tier available</span>
+          <span class="tool-link">Visit →</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  
+  hamburger.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('active');
+    hamburger.textContent = isOpen ? '×' : '☰';
+    hamburger.setAttribute('aria-expanded', isOpen);
+  });
+
+  mobileMenu.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.remove('active');
+      hamburger.textContent = '☰';
+      hamburger.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  const sunSvg = '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>';
+  const moonSvg = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+  let theme = localStorage.getItem('dih_theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', theme);
+  document.getElementById('themeIcon').innerHTML = theme === 'dark' ? sunSvg : moonSvg;
+  document.getElementById('themeToggle').onclick = () => { 
+    theme = theme === 'dark' ? 'light' : 'dark'; 
+    document.documentElement.setAttribute('data-theme', theme); 
+    localStorage.setItem('dih_theme', theme); 
+    document.getElementById('themeIcon').innerHTML = theme === 'dark' ? sunSvg : moonSvg; 
+  };
+
+})();
+</script>
+
+<!-- AD UNIT: Developer Tools Footer -->
+<div style="margin: 40px auto; max-width: 728px; text-align: center;">
+  <div style="font-size: 10px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em;">Sponsored</div>
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-5443646750699471"
+       data-ad-slot="8451723433"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+</body>
+</html>
