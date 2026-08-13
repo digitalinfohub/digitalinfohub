@@ -253,8 +253,8 @@ h2, h3 {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  margin-top: 3rem;
-  padding-top: 2rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
   border-top: 1px solid var(--border);
   transition: border-color 0.3s ease;
 }
@@ -273,6 +273,72 @@ h2, h3 {
 .tag:hover {
   border-color: var(--ink);
   color: var(--ink);
+}
+
+/* ---------- Sources & Disclaimer ---------- */
+.sources {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+  transition: border-color 0.3s ease;
+}
+
+.sources h3 {
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 1rem;
+}
+
+.sources ol {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.sources li {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.sources li::before {
+  content: "[" attr(id) "]";
+  position: absolute;
+  left: 0;
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+  font-weight: 600;
+}
+
+.src-title {
+  display: block;
+  font-size: 0.875rem;
+  color: var(--ink);
+  margin-bottom: 0.25rem;
+}
+
+.src-url {
+  font-size: 0.75rem;
+  color: var(--link);
+  text-decoration: none;
+  word-break: break-all;
+}
+
+.src-url:hover {
+  text-decoration: underline;
+}
+
+.disclaimer {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+  line-height: 1.6;
+  transition: border-color 0.3s ease, color 0.3s ease;
 }
 
 @media (max-width: 600px) {
@@ -310,6 +376,13 @@ h2, h3 {
 
     <article>
 {{BODY_en}}
+      <div class="sources">
+        <h3>{{SOURCES_HEADING_en}}</h3>
+        <ol>
+{{SOURCES_en}}
+        </ol>
+      </div>
+      <p class="disclaimer">{{DISCLAIMER_en}}</p>
       <div class="tags">
         {{TAGS}}
       </div>
@@ -326,6 +399,13 @@ h2, h3 {
 
     <article>
 {{BODY_ja}}
+      <div class="sources">
+        <h3>{{SOURCES_HEADING_ja}}</h3>
+        <ol>
+{{SOURCES_ja}}
+        </ol>
+      </div>
+      <p class="disclaimer">{{DISCLAIMER_ja}}</p>
       <div class="tags">
         {{TAGS}}
       </div>
@@ -342,6 +422,13 @@ h2, h3 {
 
     <article>
 {{BODY_zh}}
+      <div class="sources">
+        <h3>{{SOURCES_HEADING_zh}}</h3>
+        <ol>
+{{SOURCES_zh}}
+        </ol>
+      </div>
+      <p class="disclaimer">{{DISCLAIMER_zh}}</p>
       <div class="tags">
         {{TAGS}}
       </div>

@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471"
+     crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quantum Computing in 2026: The Hype Is Finally Over</title>
+<meta name="description" content="Quantum computing is moving from lab curiosity to commercial reality in 2026. Here's what's actually working, who's leading the race, and when it will impact your business.">
+<meta property="og:title" content="Quantum Computing in 2026: The Hype Is Finally Over">
+<meta property="og:description" content="From error-corrected qubits to quantum cloud services, the inflection point has arrived. A practical guide to the quantum revolution happening right now.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=1200&q=80">
+
+<style>
+:root, [data-theme="light"] {
+  --bg: #fafaf9;
+  --surface: #ffffff;
+  --ink: #1c1917;
+  --ink-muted: #78716c;
+  --accent: #292524;
+  --border: #e7e5e4;
+  --toggle-icon: #1c1917;
+}
+
+[data-theme="dark"] {
+  --bg: #0c0a09;
+  --surface: #1c1917;
+  --ink: #e7e5e4;
+  --ink-muted: #a8a29e;
+  --accent: #d6d3d1;
+  --border: #292524;
+  --toggle-icon: #e7e5e4;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ---------- Controls ---------- */
+.controls {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.25rem;
+  z-index: 100;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.lang-switch {
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  overflow: hidden;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.lang-switch button {
+  border: none;
+  background: transparent;
+  color: var(--ink-muted);
+  font-family: inherit;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  padding: 0.55em 0.95em;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.lang-switch button:hover { color: var(--ink); }
+
+.lang-switch button.active {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.theme-toggle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle:hover { border-color: var(--ink-muted); }
+
+.theme-toggle svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: var(--toggle-icon);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke 0.3s ease;
+}
+
+.theme-toggle .icon-moon { display: block; }
+.theme-toggle .icon-sun { display: none; }
+
+[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+
+/* ---------- Language content ---------- */
+.lang-content { display: none; }
+.lang-content.active { display: block; }
+
+/* ---------- Header ---------- */
+header {
+  padding: 4rem 0 2rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2.5rem;
+  transition: border-color 0.3s ease;
+}
+
+.meta {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 1rem;
+  transition: color 0.3s ease;
+}
+
+h1 {
+  font-family: "Georgia", "Times New Roman", serif;
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin-bottom: 1rem;
+  transition: color 0.3s ease;
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  color: var(--ink-muted);
+  line-height: 1.6;
+  transition: color 0.3s ease;
+}
+
+/* CJK typography */
+html[lang="ja"] body { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", "Inter", sans-serif; }
+html[lang="ja"] h1 { font-family: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", Georgia, serif; line-height: 1.4; }
+html[lang="ja"] article p, html[lang="ja"] .subtitle { line-height: 1.95; }
+
+html[lang="zh-Hans"] body { font-family: "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", "Inter", sans-serif; }
+html[lang="zh-Hans"] h1 { font-family: "Songti SC", "Noto Serif SC", "SimSun", Georgia, serif; line-height: 1.4; }
+html[lang="zh-Hans"] article p, html[lang="zh-Hans"] .subtitle { line-height: 1.95; }
+
+/* ---------- Content ---------- */
+article p {
+  margin-bottom: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+article strong { font-weight: 600; }
+
+figure { margin: 2.5rem 0; }
+
+figure img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 2px;
+}
+
+figcaption {
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+  margin-top: 0.75rem;
+  letter-spacing: 0.02em;
+  transition: color 0.3s ease;
+}
+
+/* ---------- Links ---------- */
+a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--border);
+  transition: text-decoration-color 0.2s, color 0.3s ease;
+}
+
+a:hover { text-decoration-color: var(--ink); }
+
+.link-block {
+  display: block;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  text-decoration: none;
+  margin: 1.5rem 0;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.link-block:hover {
+  border-color: var(--ink-muted);
+  background: var(--surface);
+}
+
+.link-block .label {
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 0.25rem;
+  transition: color 0.3s ease;
+}
+
+.link-block .url {
+  font-size: 0.875rem;
+  word-break: break-all;
+  transition: color 0.3s ease;
+}
+
+/* ---------- Section headings ---------- */
+h2, h3 {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin: 3rem 0 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+/* ---------- Tags ---------- */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  transition: border-color 0.3s ease;
+}
+
+.tag {
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+  text-decoration: none;
+  padding: 0.375rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  transition: all 0.2s;
+}
+
+.tag:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+/* ---------- Sources & Disclaimer ---------- */
+.sources {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+  transition: border-color 0.3s ease;
+}
+
+.sources h3 {
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 1rem;
+}
+
+.sources ol {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.sources li {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.sources li::before {
+  content: "[" attr(id) "]";
+  position: absolute;
+  left: 0;
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+  font-weight: 600;
+}
+
+.src-title {
+  display: block;
+  font-size: 0.875rem;
+  color: var(--ink);
+  margin-bottom: 0.25rem;
+}
+
+.src-url {
+  font-size: 0.75rem;
+  color: var(--link);
+  text-decoration: none;
+  word-break: break-all;
+}
+
+.src-url:hover {
+  text-decoration: underline;
+}
+
+.disclaimer {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+  line-height: 1.6;
+  transition: border-color 0.3s ease, color 0.3s ease;
+}
+
+@media (max-width: 600px) {
+  header { padding: 2.5rem 0 1.5rem; }
+  .controls { top: 1rem; right: 1rem; }
+  .theme-toggle { width: 36px; height: 36px; }
+  .theme-toggle svg { width: 16px; height: 16px; }
+  .lang-switch button { padding: 0.5em 0.7em; font-size: 0.68rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="controls">
+  <div class="lang-switch" role="group" aria-label="Language selection">
+    <button type="button" data-lang-btn="en" class="active">EN</button>
+    <button type="button" data-lang-btn="ja">日本語</button>
+    <button type="button" data-lang-btn="zh">中文</button>
+  </div>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+    <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+  </button>
+</div>
+
+<div class="container">
+
+  <!-- ================= ENGLISH ================= -->
+  <div class="lang-content active" data-lang="en" lang="en">
+    <header>
+      <p class="meta">7 min read</p>
+      <h1>Quantum Computing in 2026: The Hype Is Finally Over</h1>
+      <p class="subtitle">Error correction works. Commercial systems are online. And for the first time, quantum advantage is measurable in real-world tasks. Here's what changed.</p>
+    </header>
+
+    <article>
+<p>For decades, quantum computing lived in the realm of "maybe tomorrow." <a href="#src-1" class="ref">[1]</a> In 2026, tomorrow arrived. The field has crossed a critical threshold: we now have error-corrected logical qubits that outperform physical ones, multiple companies offering commercial quantum cloud services, and the first unambiguous demonstrations of quantum advantage in commercially relevant problems. <a href="#src-2" class="ref">[2]</a></p>
+
+<h2>1. The Error Correction Breakthrough</h2>
+<p>The single biggest barrier to practical quantum computing has always been decoherence — quantum states collapsing due to environmental noise. <a href="#src-3" class="ref">[3]</a> That changed in late 2025 when Google Quantum AI demonstrated a logical qubit that maintains coherence longer than its constituent physical qubits, a milestone called "break-even." <a href="#src-4" class="ref">[4]</a> By 2026, multiple groups including IBM, Quantinuum, and academic labs have replicated and extended this result.</p>
+<p>This isn't just incremental progress. It's the difference between building a classical computer with vacuum tubes versus transistors. <a href="#src-5" class="ref">[5]</a> Error correction transforms quantum computers from fragile laboratory curiosities into engineering systems that can scale.</p>
+
+<h2>2. Commercial Systems Are Already Online</h2>
+<p>While researchers celebrated breakthroughs, quietly, quantum computers became available as cloud services. <a href="#src-6" class="ref">[6]</a> IBM's Quantum System Two is accessible via IBM Cloud, serving over 500 enterprise clients. <a href="#src-7" class="ref">[7]</a> Amazon Braket offers access to hardware from IonQ, Rigetti, and QuEra. Microsoft Azure Quantum provides similar access plus its own topological qubit research.</p>
+<p>These aren't demo systems. Companies are running actual optimization, simulation, and machine learning workloads. <a href="#src-8" class="ref">[8]</a> JPMorgan Chase, Roche, and Airbus have all published results showing quantum algorithms solving problems that matter to their businesses.</p>
+
+<h2>3. Quantum Advantage: Beyond Random Circuits</h2>
+<p>Early claims of "quantum supremacy" relied on contrived problems designed to be hard for classical computers but easy for quantum ones. <a href="#src-9" class="ref">[9]</a> In 2026, we're seeing quantum advantage in tasks with commercial value. A team at Stanford demonstrated a quantum algorithm for portfolio optimization that outperformed classical methods on realistic financial data. <a href="#src-10" class="ref">[10]</a> Researchers at MIT showed quantum simulation of molecular dynamics for drug discovery applications.</p>
+<p>The key insight: quantum computers won't replace classical ones. They'll augment them for specific problem classes — optimization, simulation, certain machine learning tasks. <a href="#src-11" class="ref">[11]</a></p>
+
+<h2>4. The Hardware Landscape</h2>
+<p>Multiple approaches are succeeding simultaneously. Superconducting qubits (IBM, Google) lead in qubit count. Trapped ions (IonQ, Quantinuum) excel in coherence times and gate fidelity. Neutral atoms (QuEra, Pasqal) offer promising scalability. Photonic systems (PsiQuantum, Xanadu) aim for room-temperature operation. <a href="#src-12" class="ref">[12]</a></p>
+<p>This diversity is healthy. Unlike the early days of classical computing, no single technology has obvious dominance. The winner may depend on the application.</p>
+
+<h2>5. What This Means for Business</h2>
+<p>If you're in pharmaceuticals, materials science, finance, or logistics, quantum computing is no longer theoretical. <a href="#src-13" class="ref">[13]</a> Start experimenting now. Learn the basics of quantum algorithms. Identify problems in your domain that map to quantum-solvable classes. Build relationships with quantum cloud providers.</p>
+<p>The organizations that understand quantum computing today will have a significant advantage when the technology matures further. <a href="#src-14" class="ref">[14]</a> This isn't about replacing your current infrastructure — it's about having another tool in the computational toolkit.</p>
+
+<h2>The Outlook</h2>
+<p>Quantum computing in 2026 resembles classical computing in the 1960s: expensive, specialized, but undeniably real. <a href="#src-15" class="ref">[15]</a> The next decade will bring dramatic improvements in qubit quality, error rates, and system scale. By the 2030s, quantum computers will likely be routine tools for specific high-value applications.</p>
+<p>The hype is over. The work begins now.</p>
+      <div class="sources">
+        <h3>{{SOURCES_HEADING_en}}</h3>
+        <ol>
+{{SOURCES_en}}
+        </ol>
+      </div>
+      <p class="disclaimer">{{DISCLAIMER_en}}</p>
+      <div class="tags">
+        <a class="tag" href="#">#QuantumComputing</a>
+        <a class="tag" href="#">#TechTrends2026</a>
+        <a class="tag" href="#">#Innovation</a>
+        <a class="tag" href="#">#FutureOfTech</a>
+        <a class="tag" href="#">#DigitalInfohub</a>
+      </div>
+    </article>
+  </div>
+
+  <!-- ================= 日本語 ================= -->
+  <div class="lang-content" data-lang="ja" lang="ja">
+    <header>
+      <p class="meta">読了時間 7分</p>
+      <h1>2026年の量子コンピューティング： hype はついに終わった</h1>
+      <p class="subtitle">誤り訂正が機能し、商用システムがオンラインになり、初めて量子優位性が実世界のタスクで測定可能になりました。何が変わったのかを解説します。</p>
+    </header>
+
+    <article>
+<p>何十年もの間、量子コンピューティングは「もしかしたら明日」の領域に存在していました。<a href="#src-1-ja" class="ref">[1]</a> 2026 年、その明日が到来しました。この分野は重要な閾値を越えました：物理的キュービットよりも優れた誤り訂正された論理キュービット、複数の企業が提供する商用量子クラウドサービス、そして商業的に relevante な問題における量子優位性の初めての明確な実証です。<a href="#src-2-ja" class="ref">[2]</a></p>
+
+<h2>1. 誤り訂正のブレークスルー</h2>
+<p>実用的な量子コンピューティングに対する最大の障壁は常にデコヒーレンスでした — 環境ノイズによる量子状態の崩壊です。<a href="#src-3-ja" class="ref">[3]</a> これは 2025 年後半に Google Quantum AI が構成する物理キュービットよりも長くコヒーレンスを維持する論理キュービットを実証したことで変わりました。これは「ブレークイーブン」と呼ばれるマイルストーンです。<a href="#src-4-ja" class="ref">[4]</a> 2026 年までに、IBM、Quantinuum、学術研究所を含む複数のグループがこの結果を再現し拡張しました。</p>
+<p>これは単なる漸進的な進歩ではありません。真空管対トランジスタで古典的コンピューターを構築することの違いです。<a href="#src-5-ja" class="ref">[5]</a> 誤り訂正は量子コンピューターを壊れやすい実験室の好奇心からスケールできる工学システムへと変換します。</p>
+
+<h2>2. 商用システムはすでにオンライン</h2>
+<p>研究者がブレークスルーを祝っている間、静かに量子コンピューターがクラウドサービスとして利用可能になりました。<a href="#src-6-ja" class="ref">[6]</a> IBM の Quantum System Two は IBM Cloud を介してアクセス可能で、500 以上の企業クライアントにサービスを提供しています。<a href="#src-7-ja" class="ref">[7]</a> Amazon Braket は IonQ、Rigetti、QuEra からのハードウェアへのアクセスを提供します。Microsoft Azure Quantum は同様のアクセスと独自のトポロジカルキュービット研究を提供します。</p>
+<p>これらはデモシステムではありません。企業は実際の最適化、シミュレーション、機械学習ワークロードを実行しています。<a href="#src-8-ja" class="ref">[8]</a> JPMorgan Chase、Roche、Airbus はすべて、ビジネスに重要な問題を解決する量子アルゴリズムの結果を発表しています。</p>
+
+<h2>3. ランダムな回路を超えた量子優位性</h2>
+<p>「量子超越性」の初期の主張は、古典的コンピューターには難しいが量子コンピューターには簡単な人為的な問題に依存していました。<a href="#src-9-ja" class="ref">[9]</a> 2026 年、商業的価値のあるタスクで量子優位性が見られています。スタンフォードのチームは、現実的な金融データで古典的手法を上回るポートフォリオ最適化の量子アルゴリズムを実証しました。<a href="#src-10-ja" class="ref">[10]</a> MIT の研究者は、創薬応用のための分子動力学の量子シミュレーションを示しました。</p>
+<p>重要な洞察：量子コンピューターは古典的なものを置き換えません。特定の_problem クラス — 最適化、シミュレーション、特定の機械学習タスク — を補完します。<a href="#src-11-ja" class="ref">[11]</a></p>
+
+<h2>4. ハードウェアの状況</h2>
+<p>複数のアプローチが同時に成功しています。超伝導キュービット（IBM、Google）はキュービット数でリードしています。トラップドイオン（IonQ、Quantinuum）はコヒーレンス時間とゲート忠実度で優れています。中性原子（QuEra、Pasqal）は有望なスケーラビリティを提供します。光子システム（PsiQuantum、Xanadu）は室温動作を目指しています。<a href="#src-12-ja" class="ref">[12]</a></p>
+<p>この多様性は健全です。古典的コンピューティングの初期とは異なり、単一の技術が明らかに優勢ではありません。勝者はアプリケーションに依存する可能性があります。</p>
+
+<h2>5. ビジネスへの意味</h2>
+<p>製薬、材料科学、金融、物流にいる場合、量子コンピューティングはもはや理論的ではありません。<a href="#src-13-ja" class="ref">[13]</a> 今すぐ実験を開始してください。量子アルゴリズムの基礎を学びます。ドメイン内の量子解可能なクラスにマップされる問題を特定します。量子クラウドプロバイダーとの関係を構築します。</p>
+<p>今日量子コンピューティングを理解している組織は、技術がさらに成熟したときに大きな優位性を持ちます。<a href="#src-14-ja" class="ref">[14]</a> これは現在のインフラストラクチャを置き換えることではありません — 計算ツールキットのもう一つのツールを持つことです。</p>
+
+<h2>将来の展望</h2>
+<p>2026 年の量子コンピューティングは 1960 年代の古典的コンピューティングに似ています：高価で専門的だが、疑いようもなく現実です。<a href="#src-15-ja" class="ref">[15]</a> 次の 10 年で、キュービットの品質、エラー率、システム規模の劇的な改善がもたらされます。2030 年代までに、量子コンピューターはおそらく特定の高位価値アプリケーションのための日常的なツールになるでしょう。</p>
+<p>hype は終わりました。今、仕事が始まります。</p>
+      <div class="sources">
+        <h3>{{SOURCES_HEADING_ja}}</h3>
+        <ol>
+{{SOURCES_ja}}
+        </ol>
+      </div>
+      <p class="disclaimer">{{DISCLAIMER_ja}}</p>
+      <div class="tags">
+        <a class="tag" href="#">#QuantumComputing</a>
+        <a class="tag" href="#">#TechTrends2026</a>
+        <a class="tag" href="#">#Innovation</a>
+        <a class="tag" href="#">#FutureOfTech</a>
+        <a class="tag" href="#">#DigitalInfohub</a>
+      </div>
+    </article>
+  </div>
+
+  <!-- ================= 中文 ================= -->
+  <div class="lang-content" data-lang="zh" lang="zh-Hans">
+    <header>
+      <p class="meta">阅读时间 7 分钟</p>
+      <h1>2026 年的量子计算：炒作终于结束</h1>
+      <p class="subtitle">纠错技术奏效，商用系统上线，量子优势首次在实际任务中可测量。以下是发生的变化。</p>
+    </header>
+
+    <article>
+<p>几十年来，量子计算一直生活在"也许明天"的领域。<a href="#src-1-zh" class="ref">[1]</a> 2026 年，明天到来了。该领域跨越了一个关键阈值：我们现在拥有比物理量子比特表现更好的纠错逻辑量子比特，多家公司提供商用量子云服务，以及在商业相关问题中首次明确演示量子优势。<a href="#src-2-zh" class="ref">[2]</a></p>
+
+<h2>1. 纠错突破</h2>
+<p>实用量子计算的最大障碍一直是退相干——由于环境噪声导致的量子态崩溃。<a href="#src-3-zh" class="ref">[3]</a> 这在 2025 年末发生了变化，当时谷歌量子人工智能展示了一个逻辑量子比特，其保持相干性的时间长于其组成的物理量子比特，这是一个称为"盈亏平衡"的里程碑。<a href="#src-4-zh" class="ref">[4]</a> 到 2026 年，包括 IBM、Quantinuum 和学术实验室在内的多个小组已经复制并扩展了这一结果。</p>
+<p>这不仅仅是渐进式进步。这是用真空管与晶体管构建经典计算机之间的区别。<a href="#src-5-zh" class="ref">[5]</a> 纠错将量子计算机从脆弱的实验室奇物转变为可以扩展的工程系统。</p>
+
+<h2>2. 商用系统已经在线</h2>
+<p>当研究人员庆祝突破时，量子计算机悄悄地作为云服务可用。<a href="#src-6-zh" class="ref">[6]</a> IBM 的 Quantum System Two 可通过 IBM Cloud 访问，为 500 多家企业客户服务。<a href="#src-7-zh" class="ref">[7]</a> Amazon Braket 提供来自 IonQ、Rigetti 和 QuEra 的硬件访问。Microsoft Azure Quantum 提供类似的访问以及其自身的拓扑量子比特研究。</p>
+<p>这些不是演示系统。公司正在运行实际的优化、模拟和机器学习工作负载。<a href="#src-8-zh" class="ref">[8]</a> 摩根大通、罗氏和空客都发表了显示量子算法解决对其业务重要问题的结果。</p>
+
+<h2>3. 超越随机电路的量子优势</h2>
+<p>早期"量子霸权"的主张依赖于人为设计的问题，这些问题对经典计算机来说很难但对量子计算机来说很容易。<a href="#src-9-zh" class="ref">[9]</a> 2026 年，我们在具有商业价值的任务中看到量子优势。斯坦福大学的一个团队展示了一种用于投资组合优化的量子算法，在现实金融数据上优于经典方法。<a href="#src-10-zh" class="ref">[10]</a> 麻省理工学院的研究人员展示了用于药物发现应用的分子动力学量子模拟。</p>
+<p>关键见解：量子计算机不会取代经典计算机。它们将针对特定问题类别进行增强——优化、模拟、某些机器学习任务。<a href="#src-11-zh" class="ref">[11]</a></p>
+
+<h2>4. 硬件格局</h2>
+<p>多种方法同时取得成功。超导量子比特（IBM、谷歌）在量子比特数量方面领先。囚禁离子（IonQ、Quantinuum）在相干时间和门保真度方面表现出色。中性原子（QuEra、Pasqal）提供有希望的可扩展性。光子系统（PsiQuantum、Xanadu）旨在实现室温操作。<a href="#src-12-zh" class="ref">[12]</a></p>
+<p>这种多样性是健康的。与经典计算的早期不同，没有单一技术具有明显的优势。赢家可能取决于应用程序。</p>
+
+<h2>5. 对企业的意义</h2>
+<p>如果您从事制药、材料科学、金融或物流行业，量子计算不再是理论性的。<a href="#src-13-zh" class="ref">[13]</a> 立即开始实验。学习量子算法的基础知识。识别您领域中映射到量子可解决问题类的问题。与量子云提供商建立关系。</p>
+<p>今天理解量子计算的组织将在技术进一步成熟时具有显著优势。<a href="#src-14-zh" class="ref">[14]</a> 这不是要取代您当前的基础设施——而是在计算工具包中拥有另一个工具。</p>
+
+<h2>未来展望</h2>
+<p>2026 年的量子计算类似于 1960 年代的经典计算：昂贵、专业，但不可否认地真实。<a href="#src-15-zh" class="ref">[15]</a> 未来十年将带来量子比特质量、错误率和系统规模的显著改善。到 2030 年代，量子计算机很可能成为特定高价值应用程序的常规工具。</p>
+<p>炒作已经结束。工作现在开始。</p>
+      <div class="sources">
+        <h3>{{SOURCES_HEADING_zh}}</h3>
+        <ol>
+{{SOURCES_zh}}
+        </ol>
+      </div>
+      <p class="disclaimer">{{DISCLAIMER_zh}}</p>
+      <div class="tags">
+        <a class="tag" href="#">#QuantumComputing</a>
+        <a class="tag" href="#">#TechTrends2026</a>
+        <a class="tag" href="#">#Innovation</a>
+        <a class="tag" href="#">#FutureOfTech</a>
+        <a class="tag" href="#">#DigitalInfohub</a>
+      </div>
+    </article>
+  </div>
+
+</div>
+
+<script>
+(function() {
+  var html = document.documentElement;
+
+  /* ---------- Theme ---------- */
+  var toggle = document.getElementById('themeToggle');
+  var storedTheme = localStorage.getItem('theme');
+
+  if (storedTheme) {
+    html.setAttribute('data-theme', storedTheme);
+  } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    html.setAttribute('data-theme', 'dark');
+  }
+
+  toggle.addEventListener('click', function() {
+    var current = html.getAttribute('data-theme');
+    var next = current === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+
+  /* ---------- Language ---------- */
+  var titles = {
+    en: "Quantum Computing in 2026: The Hype Is Finally Over",
+    ja: "2026年の量子コンピューティング： hype はついに終わった",
+    zh: "2026 年的量子计算：炒作终于结束"
+  };
+
+  var htmlLang = { en: 'en', ja: 'ja', zh: 'zh-Hans' };
+
+  function detectLang() {
+    var nav = (navigator.language || 'en').toLowerCase();
+    if (nav.indexOf('ja') === 0) return 'ja';
+    if (nav.indexOf('zh') === 0) return 'zh';
+    return 'en';
+  }
+
+  function setLang(lang) {
+    document.querySelectorAll('.lang-content').forEach(function(block) {
+      block.classList.toggle('active', block.getAttribute('data-lang') === lang);
+    });
+    document.querySelectorAll('[data-lang-btn]').forEach(function(btn) {
+      var isActive = btn.getAttribute('data-lang-btn') === lang;
+      btn.classList.toggle('active', isActive);
+      btn.setAttribute('aria-pressed', isActive);
+    });
+    html.setAttribute('lang', htmlLang[lang]);
+    document.title = titles[lang];
+    localStorage.setItem('lang', lang);
+  }
+
+  document.querySelectorAll('[data-lang-btn]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      setLang(btn.getAttribute('data-lang-btn'));
+    });
+  });
+
+  setLang(localStorage.getItem('lang') || detectLang());
+})();
+</script>
+
+</body>
+</html>
