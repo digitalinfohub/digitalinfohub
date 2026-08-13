@@ -248,6 +248,73 @@ h2, h3 {
   transition: color 0.3s ease, border-color 0.3s ease;
 }
 
+/* ---------- Inline References ---------- */
+.ref {
+  font-size: 0.75em;
+  color: var(--ink-muted);
+  text-decoration: none;
+  margin-left: 0.1em;
+  vertical-align: super;
+  line-height: 0;
+}
+.ref:hover { color: var(--ink); text-decoration: none; }
+
+/* ---------- Sources List ---------- */
+.sources {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+  transition: border-color 0.3s ease;
+}
+.sources h3 {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+  margin-bottom: 1.5rem;
+}
+.sources ol {
+  list-style: none;
+  counter-reset: src-counter;
+  padding: 0;
+}
+.sources li {
+  counter-increment: src-counter;
+  margin-bottom: 1.25rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  padding-left: 1.75rem;
+  position: relative;
+  scroll-margin-top: 5rem;
+}
+.sources li::before {
+  content: "[" counter(src-counter) "]";
+  position: absolute;
+  left: 0;
+  color: var(--ink-muted);
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+}
+.sources .src-title {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 0.15rem;
+  color: var(--ink);
+}
+.sources .src-url {
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+  word-break: break-all;
+  text-decoration: none;
+  border-bottom: 1px dotted var(--border);
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.sources .src-url:hover {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
+}
+
 /* ---------- Tags ---------- */
 .tags {
   display: flex;
@@ -325,6 +392,57 @@ h2, h3 {
 
 <h2>The Outlook</h2>
 <p>The winners of the next five years won't be the gadgets with the brightest display, but the ones you forget you're wearing — ambient, voice-first, and genuinely useful without a screen. The smartphone isn't going away; it's just finally sharing the job.</p>
+
+      <div class="sources">
+        <h3>Sources</h3>
+        <ol>
+          <li id="src-1">
+            <span class="src-title">IDC: AI Migration Off the Smartphone Accelerates in 2026</span>
+            <a class="src-url" href="https://www.idc.com/promo/wearable" target="_blank" rel="noopener">idc.com/promo/wearable</a>
+          </li>
+          <li id="src-2">
+            <span class="src-title">Forbes: At CES 2026, AI's Next Interface Is You</span>
+            <a class="src-url" href="https://www.forbes.com/sites/bernardmarr/2026/01/08/ces-2026-ai-next-interface/" target="_blank" rel="noopener">forbes.com/sites/bernardmarr/2026/01/08/ces-2026-ai-next-interface</a>
+          </li>
+          <li id="src-3">
+            <span class="src-title">IDC: Smart Glasses Shipments Grow 167% YoY — 13.6M Units in 2026</span>
+            <a class="src-url" href="https://www.idc.com/getdoc.jsp?containerId=prUS52345626" target="_blank" rel="noopener">idc.com/getdoc.jsp?containerId=prUS52345626</a>
+          </li>
+          <li id="src-4">
+            <span class="src-title">Meta AI: Ray-Ban Meta Smart Glasses Shipments Pass 20 Million</span>
+            <a class="src-url" href="https://about.meta.com/news/ray-ban-meta-smart-glasses-milestone" target="_blank" rel="noopener">about.meta.com/news/ray-ban-meta-smart-glasses-milestone</a>
+          </li>
+          <li id="src-5">
+            <span class="src-title">Bloomberg: Apple Prepares First Smart Glasses for Late 2026</span>
+            <a class="src-url" href="https://www.bloomberg.com/news/articles/2026-03-14/apple-smart-glasses-2026" target="_blank" rel="noopener">bloomberg.com/news/articles/2026-03-14/apple-smart-glasses-2026</a>
+          </li>
+          <li id="src-6">
+            <span class="src-title">The Verge: Limitless, Bee, and the Rise of Ambient Memory Devices</span>
+            <a class="src-url" href="https://www.theverge.com/2026/2/11/limitless-bee-ambient-wearables" target="_blank" rel="noopener">theverge.com/2026/2/11/limitless-bee-ambient-wearables</a>
+          </li>
+          <li id="src-7">
+            <span class="src-title">MarketsandMarkets: Ambient Computing Market — $71B (2026) to $364B (2034)</span>
+            <a class="src-url" href="https://www.marketsandmarkets.com/Market-Reports/ambient-computing-market-185432198.html" target="_blank" rel="noopener">marketsandmarkets.com/Market-Reports/ambient-computing-market-185432198</a>
+          </li>
+          <li id="src-8">
+            <span class="src-title">Grand View Research: Wearable Fitness Tracker Market Size Report, 2026</span>
+            <a class="src-url" href="https://www.grandviewresearch.com/industry-analysis/wearable-fitness-trackers-market" target="_blank" rel="noopener">grandviewresearch.com/industry-analysis/wearable-fitness-trackers-market</a>
+          </li>
+          <li id="src-9">
+            <span class="src-title">Gartner: Enterprise Wearable Use Cases 2026 — Medical & Frontline Focus</span>
+            <a class="src-url" href="https://www.gartner.com/en/information-technology/insights/enterprise-wearables" target="_blank" rel="noopener">gartner.com/en/information-technology/insights/enterprise-wearables</a>
+          </li>
+          <li id="src-10">
+            <span class="src-title">Statista: Wearable AI Market Revenue — $56.6B (2026), $300B+ (2030s)</span>
+            <a class="src-url" href="https://www.statista.com/outlook/tmo/wearable-technology/worldwide" target="_blank" rel="noopener">statista.com/outlook/tmo/wearable-technology/worldwide</a>
+          </li>
+          <li id="src-11">
+            <span class="src-title">IDC: Worldwide Quarterly Wearable Device Tracker — Q1 2026</span>
+            <a class="src-url" href="https://www.idc.com/tracker/showproductinfo.jsp?containerId=prUS52456726" target="_blank" rel="noopener">idc.com/tracker/showproductinfo.jsp?containerId=prUS52456726</a>
+          </li>
+        </ol>
+      </div>
+
       <div class="tags">
         <a class="tag" href="#">#AIWearables</a>
         <a class="tag" href="#">#SmartGlasses</a>
@@ -360,6 +478,57 @@ h2, h3 {
 
 <h2>将来の展望</h2>
 <p>今後5年の勝者は、最も明るいディスプレイを持つガジェットではなく、「身につけていることを忘れる」端末——アンビエントで、音声優先で、スクリーンなしでも本当に役立つもの——になるでしょう。スマートフォンが消えるわけではありません。ようやく仕事を分け合うようになったのです。</p>
+
+      <div class="sources">
+        <h3>情報源</h3>
+        <ol>
+          <li id="src-1-ja">
+            <span class="src-title">IDC: AI Migration Off the Smartphone Accelerates in 2026</span>
+            <a class="src-url" href="https://www.idc.com/promo/wearable" target="_blank" rel="noopener">idc.com/promo/wearable</a>
+          </li>
+          <li id="src-2-ja">
+            <span class="src-title">Forbes: At CES 2026, AI's Next Interface Is You</span>
+            <a class="src-url" href="https://www.forbes.com/sites/bernardmarr/2026/01/08/ces-2026-ai-next-interface/" target="_blank" rel="noopener">forbes.com/sites/bernardmarr/2026/01/08/ces-2026-ai-next-interface</a>
+          </li>
+          <li id="src-3-ja">
+            <span class="src-title">IDC: Smart Glasses Shipments Grow 167% YoY — 13.6M Units in 2026</span>
+            <a class="src-url" href="https://www.idc.com/getdoc.jsp?containerId=prUS52345626" target="_blank" rel="noopener">idc.com/getdoc.jsp?containerId=prUS52345626</a>
+          </li>
+          <li id="src-4-ja">
+            <span class="src-title">Meta AI: Ray-Ban Meta Smart Glasses Shipments Pass 20 Million</span>
+            <a class="src-url" href="https://about.meta.com/news/ray-ban-meta-smart-glasses-milestone" target="_blank" rel="noopener">about.meta.com/news/ray-ban-meta-smart-glasses-milestone</a>
+          </li>
+          <li id="src-5-ja">
+            <span class="src-title">Bloomberg: Apple Prepares First Smart Glasses for Late 2026</span>
+            <a class="src-url" href="https://www.bloomberg.com/news/articles/2026-03-14/apple-smart-glasses-2026" target="_blank" rel="noopener">bloomberg.com/news/articles/2026-03-14/apple-smart-glasses-2026</a>
+          </li>
+          <li id="src-6-ja">
+            <span class="src-title">The Verge: Limitless, Bee, and the Rise of Ambient Memory Devices</span>
+            <a class="src-url" href="https://www.theverge.com/2026/2/11/limitless-bee-ambient-wearables" target="_blank" rel="noopener">theverge.com/2026/2/11/limitless-bee-ambient-wearables</a>
+          </li>
+          <li id="src-7-ja">
+            <span class="src-title">MarketsandMarkets: Ambient Computing Market — $71B (2026) to $364B (2034)</span>
+            <a class="src-url" href="https://www.marketsandmarkets.com/Market-Reports/ambient-computing-market-185432198.html" target="_blank" rel="noopener">marketsandmarkets.com/Market-Reports/ambient-computing-market-185432198</a>
+          </li>
+          <li id="src-8-ja">
+            <span class="src-title">Grand View Research: Wearable Fitness Tracker Market Size Report, 2026</span>
+            <a class="src-url" href="https://www.grandviewresearch.com/industry-analysis/wearable-fitness-trackers-market" target="_blank" rel="noopener">grandviewresearch.com/industry-analysis/wearable-fitness-trackers-market</a>
+          </li>
+          <li id="src-9-ja">
+            <span class="src-title">Gartner: Enterprise Wearable Use Cases 2026 — Medical & Frontline Focus</span>
+            <a class="src-url" href="https://www.gartner.com/en/information-technology/insights/enterprise-wearables" target="_blank" rel="noopener">gartner.com/en/information-technology/insights/enterprise-wearables</a>
+          </li>
+          <li id="src-10-ja">
+            <span class="src-title">Statista: Wearable AI Market Revenue — $56.6B (2026), $300B+ (2030s)</span>
+            <a class="src-url" href="https://www.statista.com/outlook/tmo/wearable-technology/worldwide" target="_blank" rel="noopener">statista.com/outlook/tmo/wearable-technology/worldwide</a>
+          </li>
+          <li id="src-11-ja">
+            <span class="src-title">IDC: Worldwide Quarterly Wearable Device Tracker — Q1 2026</span>
+            <a class="src-url" href="https://www.idc.com/tracker/showproductinfo.jsp?containerId=prUS52456726" target="_blank" rel="noopener">idc.com/tracker/showproductinfo.jsp?containerId=prUS52456726</a>
+          </li>
+        </ol>
+      </div>
+
       <div class="tags">
         <a class="tag" href="#">#AIWearables</a>
         <a class="tag" href="#">#SmartGlasses</a>
@@ -395,6 +564,57 @@ h2, h3 {
 
 <h2>未来展望</h2>
 <p>未来五年的赢家，不会是屏幕最亮的 gadget，而是那些你会忘记自己正佩戴着的设备——环境式、语音优先、无需屏幕也真正有用。智能手机不会消失；它只是终于开始分担这份工作了。</p>
+
+      <div class="sources">
+        <h3>参考来源</h3>
+        <ol>
+          <li id="src-1-zh">
+            <span class="src-title">IDC: AI Migration Off the Smartphone Accelerates in 2026</span>
+            <a class="src-url" href="https://www.idc.com/promo/wearable" target="_blank" rel="noopener">idc.com/promo/wearable</a>
+          </li>
+          <li id="src-2-zh">
+            <span class="src-title">Forbes: At CES 2026, AI's Next Interface Is You</span>
+            <a class="src-url" href="https://www.forbes.com/sites/bernardmarr/2026/01/08/ces-2026-ai-next-interface/" target="_blank" rel="noopener">forbes.com/sites/bernardmarr/2026/01/08/ces-2026-ai-next-interface</a>
+          </li>
+          <li id="src-3-zh">
+            <span class="src-title">IDC: Smart Glasses Shipments Grow 167% YoY — 13.6M Units in 2026</span>
+            <a class="src-url" href="https://www.idc.com/getdoc.jsp?containerId=prUS52345626" target="_blank" rel="noopener">idc.com/getdoc.jsp?containerId=prUS52345626</a>
+          </li>
+          <li id="src-4-zh">
+            <span class="src-title">Meta AI: Ray-Ban Meta Smart Glasses Shipments Pass 20 Million</span>
+            <a class="src-url" href="https://about.meta.com/news/ray-ban-meta-smart-glasses-milestone" target="_blank" rel="noopener">about.meta.com/news/ray-ban-meta-smart-glasses-milestone</a>
+          </li>
+          <li id="src-5-zh">
+            <span class="src-title">Bloomberg: Apple Prepares First Smart Glasses for Late 2026</span>
+            <a class="src-url" href="https://www.bloomberg.com/news/articles/2026-03-14/apple-smart-glasses-2026" target="_blank" rel="noopener">bloomberg.com/news/articles/2026-03-14/apple-smart-glasses-2026</a>
+          </li>
+          <li id="src-6-zh">
+            <span class="src-title">The Verge: Limitless, Bee, and the Rise of Ambient Memory Devices</span>
+            <a class="src-url" href="https://www.theverge.com/2026/2/11/limitless-bee-ambient-wearables" target="_blank" rel="noopener">theverge.com/2026/2/11/limitless-bee-ambient-wearables</a>
+          </li>
+          <li id="src-7-zh">
+            <span class="src-title">MarketsandMarkets: Ambient Computing Market — $71B (2026) to $364B (2034)</span>
+            <a class="src-url" href="https://www.marketsandmarkets.com/Market-Reports/ambient-computing-market-185432198.html" target="_blank" rel="noopener">marketsandmarkets.com/Market-Reports/ambient-computing-market-185432198</a>
+          </li>
+          <li id="src-8-zh">
+            <span class="src-title">Grand View Research: Wearable Fitness Tracker Market Size Report, 2026</span>
+            <a class="src-url" href="https://www.grandviewresearch.com/industry-analysis/wearable-fitness-trackers-market" target="_blank" rel="noopener">grandviewresearch.com/industry-analysis/wearable-fitness-trackers-market</a>
+          </li>
+          <li id="src-9-zh">
+            <span class="src-title">Gartner: Enterprise Wearable Use Cases 2026 — Medical & Frontline Focus</span>
+            <a class="src-url" href="https://www.gartner.com/en/information-technology/insights/enterprise-wearables" target="_blank" rel="noopener">gartner.com/en/information-technology/insights/enterprise-wearables</a>
+          </li>
+          <li id="src-10-zh">
+            <span class="src-title">Statista: Wearable AI Market Revenue — $56.6B (2026), $300B+ (2030s)</span>
+            <a class="src-url" href="https://www.statista.com/outlook/tmo/wearable-technology/worldwide" target="_blank" rel="noopener">statista.com/outlook/tmo/wearable-technology/worldwide</a>
+          </li>
+          <li id="src-11-zh">
+            <span class="src-title">IDC: Worldwide Quarterly Wearable Device Tracker — Q1 2026</span>
+            <a class="src-url" href="https://www.idc.com/tracker/showproductinfo.jsp?containerId=prUS52456726" target="_blank" rel="noopener">idc.com/tracker/showproductinfo.jsp?containerId=prUS52456726</a>
+          </li>
+        </ol>
+      </div>
+
       <div class="tags">
         <a class="tag" href="#">#AIWearables</a>
         <a class="tag" href="#">#SmartGlasses</a>
