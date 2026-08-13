@@ -24,20 +24,20 @@
 }
 
 [data-theme="dark"] {
-  --bg: #0a0a0a; --surface: #111111; --surface-2: #161616; --surface-3: #1a1a1a;
+  --bg: #09090b; --surface: #111113; --surface-2: #18181b; --surface-3: #27272a;
   --border: rgba(255,255,255,0.06); --border-strong: rgba(255,255,255,0.12);
-  --text: #f5f5f5; --text-sub: #a1a1aa; --text-muted: #71717a;
-  --accent: #6366f1; --accent-soft: rgba(99,102,241,0.12);
-  --shadow: 0 4px 24px -6px rgba(0,0,0,0.4);
-  --green: #22c55e; --red: #ef4444;
-  --warn-bg: rgba(234,179,8,0.08); --warn-border: rgba(234,179,8,0.2); --warn-text: #eab308;
+  --text: #fafafa; --text-sub: #a1a1aa; --text-muted: #71717a;
+  --accent: #818cf8; --accent-soft: rgba(129,140,248,0.12);
+  --shadow: 0 4px 24px -6px rgba(0,0,0,0.6);
+  --green: #4ade80; --red: #f87171;
+  --warn-bg: rgba(234,179,8,0.08); --warn-border: rgba(234,179,8,0.2); --warn-text: #facc15;
   --base-blue: #0052ff;
 }
 
 [data-theme="light"] {
   --bg: #fafafa; --surface: #ffffff; --surface-2: #f4f4f5; --surface-3: #e4e4e7;
   --border: rgba(0,0,0,0.06); --border-strong: rgba(0,0,0,0.12);
-  --text: #0a0a0a; --text-sub: #52525b; --text-muted: #a1a1aa;
+  --text: #09090b; --text-sub: #52525b; --text-muted: #a1a1aa;
   --accent: #4f46e5; --accent-soft: rgba(79,70,229,0.08);
   --shadow: 0 4px 24px -6px rgba(0,0,0,0.08);
   --green: #16a34a; --red: #dc2626;
@@ -46,46 +46,93 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.6; transition: background 0.3s, color 0.3s; }
+body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.6; transition: background 0.3s, color 0.3s; -webkit-font-smoothing: antialiased; }
 
 .shell { max-width: 860px; margin: 0 auto; padding: 32px 24px 80px; }
 
-/* ── NAVIGATION & MOBILE MENU FIX ── */
-.nav-shell { position: sticky; top: 0; z-index: 100; background: var(--bg); border-bottom: 1px solid var(--border); backdrop-filter: blur(12px); margin: -32px -24px 32px; padding: 0 24px; }
+/* ── NAVIGATION ── */
+.nav-shell { position: sticky; top: 0; z-index: 100; background: color-mix(in srgb, var(--bg) 80%, transparent); border-bottom: 1px solid var(--border); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); margin: -32px -24px 0; padding: 0 24px; }
 .nav-bar { max-width: 860px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 12px 0; gap: 16px; position: relative; }
 .nav-links { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
 .nav-link { padding: 8px 14px; color: var(--text-sub); border-radius: 8px; font-size: 13px; font-weight: 500; text-decoration: none; transition: all 0.2s; white-space: nowrap; }
 .nav-link:hover, .nav-link.active { color: var(--text); background: var(--surface-2); }
 .hamburger { display: none; width: 36px; height: 36px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; cursor: pointer; align-items: center; justify-content: center; font-size: 18px; color: var(--text); }
 
+/* ── LIVE TICKER ── */
+.ticker-shell { background: var(--surface); border-bottom: 1px solid var(--border); overflow: hidden; white-space: nowrap; position: relative; margin-bottom: 32px; border-radius: 0 0 var(--radius) var(--radius); }
+.ticker-bar { display: inline-flex; animation: scroll 60s linear infinite; padding: 10px 0; }
+.ticker-shell:hover .ticker-bar { animation-play-state: paused; }
+.ticker-item { display: inline-flex; align-items: center; gap: 8px; padding: 0 24px; font-size: 12px; font-family: var(--mono); color: var(--text-sub); border-right: 1px solid var(--border); }
+.ticker-item strong { color: var(--text); font-weight: 600; }
+.ticker-item .up { color: var(--green); }
+.ticker-item .down { color: var(--red); }
+@keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
 .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; }
 .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; text-decoration: none; color: var(--text); }
-.brand-logo { width: 28px; height: 28px; border-radius: 8px; background: var(--surface-2); border: 1px solid var(--border); overflow: hidden; }
+.brand-logo { width: 32px; height: 32px; border-radius: 10px; background: var(--surface-2); border: 1px solid var(--border); overflow: hidden; }
 .brand-logo img { width: 100%; height: 100%; object-fit: cover; }
 .topbar-actions { display: flex; gap: 8px; align-items: center; }
 .icon-btn { width: 36px; height: 36px; border: 1px solid var(--border); background: var(--surface); color: var(--text-sub); border-radius: var(--radius-sm); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
-.icon-btn:hover { color: var(--text); border-color: var(--border-strong); background: var(--surface-2); }
+.icon-btn:hover { color: var(--text); border-color: var(--border-strong); background: var(--surface-2); transform: translateY(-1px); }
+.icon-btn:active { transform: translateY(0) scale(0.95); }
 .clock { font-family: var(--mono); font-size: 12px; color: var(--text-muted); padding: 8px 12px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface); }
 
+/* ── CHAT HERO ── */
 .chat-hero { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; margin-bottom: 32px; box-shadow: var(--shadow); position: relative; }
-.chat-thread { display: flex; flex-direction: column; gap: 20px; min-height: 140px; max-height: 65vh; overflow-y: auto; margin-bottom: 20px; padding-right: 4px; scrollbar-width: thin; }
+.chat-thread { display: flex; flex-direction: column; gap: 20px; min-height: 140px; max-height: 65vh; overflow-y: auto; margin-bottom: 20px; padding-right: 4px; scrollbar-width: thin; scroll-behavior: smooth; }
 
 .msg { display: flex; gap: 12px; animation: slideUp 0.4s var(--ease); max-width: 95%; }
 .msg.user { align-self: flex-end; flex-direction: row-reverse; }
-@keyframes slideUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes slideUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 
-.msg-avatar { width: 28px; height: 28px; border-radius: 8px; background: var(--surface-2); border: 1px solid var(--border); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; overflow: hidden; }
-.msg-avatar.bot { background: var(--accent-soft); border-color: transparent; }
+.msg-avatar { width: 32px; height: 32px; border-radius: 10px; background: var(--surface-2); border: 1px solid var(--border); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; overflow: hidden; }
+.msg-avatar.bot { background: var(--accent-soft); border-color: transparent; color: var(--accent); }
 .msg-avatar img { width: 100%; height: 100%; object-fit: cover; }
 
 .msg-body { flex: 1; min-width: 0; }
-.msg-role { font-size: 11px; font-weight: 600; color: var(--text-muted); margin-bottom: 4px; font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.05em; }
+.msg-role { font-size: 11px; font-weight: 600; color: var(--text-muted); margin-bottom: 6px; font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.05em; }
 .msg-content { font-size: 14.5px; line-height: 1.65; color: var(--text); }
 .msg-content p + p { margin-top: 10px; }
 .msg-content strong { color: var(--text); font-weight: 600; }
-.msg-content a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+.msg-content a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; text-decoration-thickness: 1px; }
 .msg-content em { font-style: normal; font-family: var(--mono); font-size: 0.9em; background: var(--surface-2); padding: 1px 6px; border-radius: 4px; border: 1px solid var(--border); }
 .msg-content ul { margin-left: 18px; margin-top: 8px; color: var(--text-sub); font-size: 14px; line-height: 2; }
+
+/* ── WEATHER CARD ── */
+.weather-card {
+  background: linear-gradient(135deg, var(--surface-2), var(--surface-3));
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin: 12px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  animation: slideUp 0.4s var(--ease);
+}
+.weather-header { display: flex; align-items: center; gap: 16px; }
+.weather-icon { font-size: 48px; line-height: 1; }
+.weather-info { display: flex; flex-direction: column; }
+.weather-temp { font-size: 32px; font-weight: 700; font-family: var(--mono); letter-spacing: -1px; }
+.weather-city { font-size: 14px; color: var(--text-sub); font-weight: 500; }
+.weather-details { display: flex; gap: 16px; font-size: 13px; color: var(--text-muted); font-family: var(--mono); padding-top: 8px; border-top: 1px solid var(--border); }
+
+/* ── SENTIMENT CARD ── */
+.sentiment-card {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin: 12px 0;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.sentiment-value { font-size: 48px; font-weight: 800; font-family: var(--mono); line-height: 1; }
+.sentiment-info { display: flex; flex-direction: column; gap: 4px; }
+.sentiment-label { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; }
+.sentiment-class { font-size: 18px; font-weight: 700; text-transform: capitalize; }
 
 .typing-indicator { display: flex; gap: 4px; padding: 8px 0; }
 .typing-dot { width: 6px; height: 6px; background: var(--text-muted); border-radius: 50%; animation: bounce 1.4s infinite ease-in-out both; }
@@ -94,94 +141,129 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
 @keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
 
 .rich-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin-top: 14px; }
-.tile { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px; cursor: pointer; transition: all 0.2s; display: flex; flex-direction: column; gap: 4px; text-decoration: none; color: var(--text); }
-.tile:hover { border-color: var(--border-strong); background: var(--surface-3); transform: translateY(-2px); }
-.tile-name { font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
-.tile-desc { font-size: 11px; color: var(--text-muted); line-height: 1.4; }
+.tile { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px; cursor: pointer; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column; gap: 6px; text-decoration: none; color: var(--text); }
+.tile:hover { border-color: var(--border-strong); background: var(--surface-3); transform: translateY(-2px); box-shadow: var(--shadow); }
+.tile-name { font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+.tile-desc { font-size: 12px; color: var(--text-muted); line-height: 1.4; }
 
-.news-card { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px; display: flex; flex-direction: column; gap: 8px; text-decoration: none; color: var(--text); transition: all 0.2s; }
-.news-card:hover { border-color: var(--accent); background: var(--surface-3); }
+.news-card { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px; display: flex; flex-direction: column; gap: 8px; text-decoration: none; color: var(--text); transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); }
+.news-card:hover { border-color: var(--accent); background: var(--surface-3); transform: translateY(-2px); }
 .news-tag { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent); }
 .news-title { font-size: 14px; font-weight: 600; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .news-meta { font-size: 11px; color: var(--text-muted); margin-top: auto; }
 
 .stock-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; margin-top: 14px; }
-.stock-card { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px; display: flex; flex-direction: column; gap: 4px; }
+.stock-card { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px; display: flex; flex-direction: column; gap: 4px; transition: all 0.2s; }
+.stock-card:hover { border-color: var(--border-strong); background: var(--surface-3); }
 .stock-symbol { font-family: var(--mono); font-size: 13px; font-weight: 700; }
-.stock-price { font-size: 18px; font-weight: 700; }
+.stock-price { font-size: 18px; font-weight: 700; font-family: var(--mono); }
 .stock-change { font-size: 12px; font-weight: 600; font-family: var(--mono); }
 .stock-change.up { color: var(--green); }
 .stock-change.down { color: var(--red); }
 .stock-stale { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
 
-.web-result { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 18px; margin-top: 14px; }
+.web-result { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 18px; margin-top: 14px; transition: all 0.2s; }
+.web-result:hover { border-color: var(--border-strong); }
 .web-result-source { font-size: 11px; color: var(--text-muted); font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
 .web-result-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; line-height: 1.4; }
 .web-result-snippet { font-size: 14px; color: var(--text-sub); line-height: 1.65; }
 .web-result-link { display: inline-block; margin-top: 10px; font-size: 12px; color: var(--accent); text-decoration: none; font-weight: 600; }
 .web-result-link:hover { text-decoration: underline; }
 
-.suggestion-chips { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 12px; }
-.suggestion-chip { font-size: 11px; padding: 5px 10px; background: var(--surface-3); border: 1px solid var(--border); border-radius: 99px; color: var(--text-sub); cursor: pointer; transition: all 0.2s; white-space: nowrap; user-select: none; }
-.suggestion-chip:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+/* ── BUTTONS & CHIPS (FIXED & ENHANCED) ── */
+.suggestion-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+.chip, .suggestion-chip {
+  font-size: 13px;
+  padding: 8px 16px;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 99px;
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+  user-select: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+.chip:hover, .suggestion-chip:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-soft);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(99,102,241,0.15);
+}
+.chip:active, .suggestion-chip:active {
+  transform: translateY(0) scale(0.97);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  transition: all 0.1s;
+}
 
-.chat-input-shell { position: relative; display: flex; gap: 8px; align-items: center; padding: 10px; background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); transition: border-color 0.2s; }
-.chat-input-shell:focus-within { border-color: var(--accent); }
+.chat-input-shell { position: relative; display: flex; gap: 8px; align-items: center; padding: 10px; background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); transition: border-color 0.2s, box-shadow 0.2s; }
+.chat-input-shell:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
 .chat-input { flex: 1; background: none; border: none; outline: none; color: var(--text); font-family: inherit; font-size: 14px; padding: 8px 4px; }
 .chat-input::placeholder { color: var(--text-muted); }
 .chat-send { width: 36px; height: 36px; background: var(--accent); color: white; border: none; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
-.chat-send:hover:not(:disabled) { opacity: 0.9; }
+.chat-send:hover:not(:disabled) { opacity: 0.9; transform: scale(1.05); }
+.chat-send:active:not(:disabled) { transform: scale(0.95); }
 .chat-send:disabled { opacity: 0.4; cursor: not-allowed; }
 
-.quick-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
-.chip { font-size: 12px; padding: 6px 12px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 99px; color: var(--text-sub); cursor: pointer; transition: all 0.2s; white-space: nowrap; user-select: none; }
-.chip:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+.quick-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
 
 .info-writeup { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; margin-bottom: 48px; }
 .info-writeup h2 { font-size: 20px; margin-bottom: 12px; }
 .info-writeup p { color: var(--text-sub); font-size: 15px; margin-bottom: 16px; }
+.info-writeup kbd { font-family: var(--mono); font-size: 12px; background: var(--surface-2); border: 1px solid var(--border); padding: 2px 6px; border-radius: 4px; color: var(--text); }
 
 .token-section { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; margin-bottom: 48px; }
 .token-header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
-.token-icon { width: 32px; height: 32px; border-radius: 50%; background: var(--base-blue); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 14px; flex-shrink: 0; }
+.token-icon { width: 36px; height: 36px; border-radius: 50%; background: var(--base-blue); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 16px; flex-shrink: 0; box-shadow: 0 4px 12px rgba(0,82,255,0.3); }
 .token-title { font-size: 20px; font-weight: 700; }
-.token-network { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--base-blue); background: rgba(0,82,255,0.1); padding: 3px 10px; border-radius: 99px; margin-bottom: 16px; }
+.token-network { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--base-blue); background: rgba(0,82,255,0.1); padding: 4px 12px; border-radius: 99px; margin-bottom: 16px; }
 .token-desc { color: var(--text-sub); font-size: 15px; margin-bottom: 20px; line-height: 1.6; }
 
 .address-box { display: flex; align-items: center; gap: 10px; background: var(--surface-2); border: 1px solid var(--border-strong); border-radius: var(--radius-sm); padding: 14px 16px; margin-bottom: 20px; flex-wrap: wrap; }
 .address-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); white-space: nowrap; }
 .address-value { font-family: var(--mono); font-size: 13px; color: var(--text); word-break: break-all; flex: 1; min-width: 0; user-select: all; }
 .copy-btn { background: var(--surface-3); border: 1px solid var(--border); color: var(--text-sub); font-size: 11px; font-weight: 600; padding: 6px 14px; border-radius: 6px; cursor: pointer; transition: all 0.2s; white-space: nowrap; font-family: var(--font); }
-.copy-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+.copy-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); transform: translateY(-1px); }
+.copy-btn:active { transform: translateY(0) scale(0.95); }
 .copy-btn.copied { background: var(--green); color: #fff; border-color: var(--green); }
+
+.token-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+.action-btn { padding: 10px 18px; background: var(--surface-2); border: 1px solid var(--border-strong); color: var(--text); border-radius: var(--radius-sm); font-size: 13px; font-weight: 600; text-decoration: none; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); display: inline-flex; align-items: center; gap: 8px; }
+.action-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+.action-btn:active { transform: translateY(0) scale(0.98); }
+.zora-btn { background: rgba(168, 85, 247, 0.08); border-color: rgba(168, 85, 247, 0.3); color: #a855f7; }
+.zora-btn:hover { background: #a855f7; color: #fff; border-color: #a855f7; }
+.basescan-btn:hover { background: var(--base-blue); color: #fff; border-color: var(--base-blue); }
 
 .disclaimer { background: var(--warn-bg); border: 1px solid var(--warn-border); border-radius: var(--radius-sm); padding: 14px 16px; }
 .disclaimer-text { font-size: 11px; color: var(--text-muted); line-height: 1.6; }
 
-/* ── RESPONSIVE & MOBILE MENU STATES ── */
+/* ── COMMAND PALETTE ── */
+.cmd-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 1000; display: none; align-items: flex-start; justify-content: center; padding-top: 15vh; }
+.cmd-overlay.active { display: flex; animation: fadeIn 0.2s ease; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.cmd-modal { width: 100%; max-width: 560px; background: var(--surface); border: 1px solid var(--border-strong); border-radius: 16px; box-shadow: 0 24px 48px -12px rgba(0,0,0,0.25); overflow: hidden; margin: 0 20px; animation: cmdPop 0.25s cubic-bezier(0.16, 1, 0.3, 1); }
+@keyframes cmdPop { from { opacity: 0; transform: scale(0.96) translateY(-10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+.cmd-input-shell { display: flex; align-items: center; gap: 12px; padding: 16px 20px; border-bottom: 1px solid var(--border); }
+.cmd-input { flex: 1; background: none; border: none; outline: none; color: var(--text); font-size: 16px; font-family: var(--font); }
+.cmd-icon { color: var(--text-muted); font-size: 18px; }
+.cmd-kbd { font-family: var(--mono); font-size: 10px; background: var(--surface-2); border: 1px solid var(--border); padding: 2px 6px; border-radius: 4px; color: var(--text-muted); }
+.cmd-results { max-height: 320px; overflow-y: auto; padding: 8px; }
+.cmd-result-item { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 8px; cursor: pointer; color: var(--text-sub); font-size: 14px; transition: all 0.1s; }
+.cmd-result-item:hover, .cmd-result-item.selected { background: var(--surface-2); color: var(--text); }
+.cmd-result-item .cmd-emoji { font-size: 16px; width: 24px; text-align: center; }
+
+/* ── RESPONSIVE ── */
 @media (max-width: 768px) {
-  .nav-links { 
-    display: none; 
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    flex-direction: column;
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    padding: 12px 24px;
-    gap: 4px;
-    z-index: 99;
-    box-shadow: var(--shadow);
-  }
-  .nav-links.active {
-    display: flex;
-    animation: slideDown 0.3s var(--ease);
-  }
-  @keyframes slideDown {
-    from { opacity: 0; transform: translateY(-8px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+  .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; background: var(--surface); border-bottom: 1px solid var(--border); padding: 12px 24px; gap: 4px; z-index: 99; box-shadow: var(--shadow); }
+  .nav-links.active { display: flex; animation: slideDown 0.3s var(--ease); }
+  @keyframes slideDown { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
   .hamburger { display: flex; }
   .rich-grid, .stock-grid { grid-template-columns: 1fr 1fr; }
   .shell { padding: 20px 16px 60px; }
@@ -189,9 +271,7 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
   .address-box { flex-direction: column; align-items: flex-start; gap: 8px; }
   .copy-btn { align-self: flex-start; }
 }
-@media (max-width: 480px) {
-  .rich-grid, .stock-grid { grid-template-columns: 1fr; }
-}
+@media (max-width: 480px) { .rich-grid, .stock-grid { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
@@ -212,12 +292,17 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
     </div>
   </nav>
 
+  <div class="ticker-shell">
+    <div class="ticker-bar" id="tickerBar"></div>
+  </div>
+
   <div class="topbar">
     <a href="#" class="brand" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">
       <span class="brand-logo"><img src="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png" alt=""></span>
       <span>Digital Infohub</span>
     </a>
     <div class="topbar-actions">
+      <button class="icon-btn" id="clearChatBtn" title="Clear Chat">🗑️</button>
       <button class="icon-btn" id="themeToggle" title="Toggle theme">◑</button>
       <div class="clock" id="clock">--:--</div>
     </div>
@@ -227,22 +312,21 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
     <div class="chat-thread" id="chatThread"></div>
     
     <form class="chat-input-shell" id="chatForm" autocomplete="off">
-      <input class="chat-input" id="chatInput" type="text" placeholder="Try 'stocks', 'calculate 50*2', or 'tell me a joke'" aria-label="Message">
+      <input class="chat-input" id="chatInput" type="text" placeholder="Try 'weather in Tokyo', 'sentiment', 'stocks', or press ⌘K" aria-label="Message">
       <button class="chat-send" id="chatSend" type="submit">→</button>
     </form>
     
     <div class="quick-chips" id="quickChips">
       <span class="chip" data-prefill="Full briefing with stocks">📊 Full Briefing</span>
+      <span class="chip" data-prefill="market sentiment">🧠 Sentiment</span>
+      <span class="chip" data-prefill="weather">⛅ Weather</span>
       <span class="chip" data-prefill="Search the web for ">🌐 Web Search</span>
-      <span class="chip" data-prefill="Show available tools">🛠️ Tools</span>
-      <span class="chip" data-prefill="Tell me something interesting">✨ Surprise Me</span>
-      <span class="chip" data-prefill="What can you do?">❓ Help</span>
     </div>
   </section>
 
   <section class="info-writeup">
     <h2>Your Advanced Digital Dashboard</h2>
-    <p><strong>Digital Infohub</strong> combines real-time web search, live market data, and curated productivity tools in one adaptive interface. The assistant learns your preferences and improves its responses over time.</p>
+    <p><strong>Digital Infohub</strong> combines real-time web search, live market data, global weather tracking, and curated productivity tools in one adaptive interface. <em>Press <kbd>⌘K</kbd> or <kbd>Ctrl+K</kbd> to open the Command Palette.</em></p>
   </section>
 
   <section class="token-section" id="token">
@@ -264,6 +348,15 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
       <button class="copy-btn" id="copyAddressBtn" type="button">📋 Copy</button>
     </div>
 
+    <div class="token-actions">
+      <a href="https://zora.co/coin/base:0xd51d99de87ad3433e35f43132eddb3f68f4458e4" target="_blank" rel="noopener noreferrer" class="action-btn zora-btn">
+        🪙 Trade & View on Zora
+      </a>
+      <a href="https://basescan.org/address/0xd51d99de87ad3433e35f43132eddb3f68f4458e4" target="_blank" rel="noopener noreferrer" class="action-btn basescan-btn">
+        🔍 Verify on BaseScan
+      </a>
+    </div>
+
     <div class="disclaimer">
       <p class="disclaimer-text">
         ⚠️ DIGITALINFOHUB is not a security or investment product. 
@@ -273,6 +366,17 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
     </div>
   </section>
 
+</div>
+
+<div class="cmd-overlay" id="cmdOverlay">
+  <div class="cmd-modal">
+    <div class="cmd-input-shell">
+      <span class="cmd-icon">⌘</span>
+      <input type="text" id="cmdInput" class="cmd-input" placeholder="Search tools, pages, or type a command..." autocomplete="off">
+      <kbd class="cmd-kbd">ESC</kbd>
+    </div>
+    <div class="cmd-results" id="cmdResults"></div>
+  </div>
 </div>
 
 <script>
@@ -372,7 +476,7 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
   ];
 
   /* ═══════════════════════════════════════════════════════════
-     PERSONALITY & CHITCHAT DATABASE (NEVER GET STUCK)
+     PERSONALITY & CHITCHAT DATABASE
      ═══════════════════════════════════════════════════════════ */
   const PERSONALITY = {
     jokes: [
@@ -506,10 +610,80 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
   }
 
   /* ═══════════════════════════════════════════════════════════
-     MULTI-SOURCE WEB SEARCH (FALLBACK SAFE)
+     TICKER & COMMAND PALETTE INIT
+     ═══════════════════════════════════════════════════════════ */
+  async function initTicker() {
+    const tickerBar = $('#tickerBar');
+    if(!tickerBar) return;
+    const [crypto, stocks] = await Promise.all([fetchCrypto(), fetchStocks()]);
+    const allAssets = [...crypto, ...stocks].filter(a => !a.stale);
+    if(allAssets.length === 0) { tickerBar.style.display = 'none'; return; }
+    let html = '';
+    const items = [...allAssets, ...allAssets]; 
+    items.forEach(asset => {
+      const changeClass = asset.up ? 'up' : 'down';
+      const arrow = asset.up ? '▲' : '▼';
+      html += `<div class="ticker-item"><strong>${asset.symbol}</strong> <span>$${asset.price}</span> <span class="${changeClass}">${arrow} ${asset.changePct}%</span></div>`;
+    });
+    tickerBar.innerHTML = html;
+  }
+
+  const cmdOverlay = $('#cmdOverlay');
+  const cmdInput = $('#cmdInput');
+  const cmdResults = $('#cmdResults');
+  let cmdSelectedIndex = 0;
+  let cmdCurrentItems = [];
+
+  function openCmdPalette() { cmdOverlay.classList.add('active'); cmdInput.value = ''; updateCmdResults(''); setTimeout(() => cmdInput.focus(), 50); }
+  function closeCmdPalette() { cmdOverlay.classList.remove('active'); }
+
+  function updateCmdResults(query) {
+    const q = query.toLowerCase().trim();
+    let items = [];
+    const navItems = [ { name: 'Home', path: '/', emoji: '🏠', type: 'nav' }, { name: 'Blog', path: '/blog', emoji: '📝', type: 'nav' }, { name: 'Tech Topics', path: '/techtopics', emoji: '💡', type: 'nav' }, { name: 'Software', path: '/software', emoji: '💻', type: 'nav' }, { name: 'Games', path: '/games', emoji: '🎮', type: 'nav' }, { name: 'Token Info', path: '#token', emoji: '🔵', type: 'nav' } ];
+    const tools = APPS.map(a => ({ name: a.name, desc: a.desc, url: a.url, emoji: a.icon, type: 'tool' }));
+    const commands = [ { name: 'Full Briefing', action: 'full briefing', emoji: '📰', type: 'cmd' }, { name: 'Live Stocks', action: 'stocks', emoji: '📈', type: 'cmd' }, { name: 'Crypto Prices', action: 'crypto', emoji: '₿', type: 'cmd' }, { name: 'Market Sentiment', action: 'market sentiment', emoji: '🧠', type: 'cmd' }, { name: 'Weather', action: 'weather', emoji: '⛅', type: 'cmd' }, { name: 'Clear Chat', action: 'clear chat', emoji: '🗑️', type: 'cmd' } ];
+    const allItems = [...navItems, ...tools, ...commands];
+    if (!q) items = allItems.slice(0, 8);
+    else items = allItems.filter(item => item.name.toLowerCase().includes(q) || (item.desc && item.desc.toLowerCase().includes(q)) || (item.action && item.action.toLowerCase().includes(q))).slice(0, 8);
+    cmdCurrentItems = items; cmdSelectedIndex = 0; renderCmdResults();
+  }
+
+  function renderCmdResults() {
+    if (cmdCurrentItems.length === 0) { cmdResults.innerHTML = '<div style="padding:16px;text-align:center;color:var(--text-muted);font-size:13px;">No results found</div>'; return; }
+    cmdResults.innerHTML = cmdCurrentItems.map((item, i) => {
+      let subtext = '';
+      if (item.type === 'tool') subtext = `<span style="color:var(--text-muted);font-size:12px;margin-left:auto;">${item.desc}</span>`;
+      if (item.type === 'cmd') subtext = `<span style="color:var(--accent);font-size:12px;margin-left:auto;">Run command</span>`;
+      return `<div class="cmd-result-item ${i === cmdSelectedIndex ? 'selected' : ''}" data-index="${i}"><span class="cmd-emoji">${item.emoji}</span><span>${item.name}</span>${subtext}</div>`;
+    }).join('');
+    cmdResults.querySelectorAll('.cmd-result-item').forEach(el => { el.addEventListener('click', () => executeCmdItem(cmdCurrentItems[parseInt(el.dataset.index)])); });
+  }
+
+  function executeCmdItem(item) {
+    closeCmdPalette();
+    if (item.type === 'nav') { if (item.path.startsWith('#')) document.querySelector(item.path).scrollIntoView({ behavior: 'smooth' }); else window.location.href = item.path; }
+    else if (item.type === 'tool') { const url = item.url.startsWith('/') ? CONFIG.SITE_BASE + item.url : item.url; window.open(url, '_blank'); }
+    else if (item.type === 'cmd') { handleSend(item.action); }
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); openCmdPalette(); }
+    if (e.key === 'Escape' && cmdOverlay.classList.contains('active')) closeCmdPalette();
+    if (cmdOverlay.classList.contains('active')) {
+      if (e.key === 'ArrowDown') { e.preventDefault(); cmdSelectedIndex = (cmdSelectedIndex + 1) % cmdCurrentItems.length; renderCmdResults(); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); cmdSelectedIndex = (cmdSelectedIndex - 1 + cmdCurrentItems.length) % cmdCurrentItems.length; renderCmdResults(); }
+      else if (e.key === 'Enter') { e.preventDefault(); if (cmdCurrentItems[cmdSelectedIndex]) executeCmdItem(cmdCurrentItems[cmdSelectedIndex]); }
+    }
+  });
+
+  cmdOverlay.addEventListener('click', (e) => { if (e.target === cmdOverlay) closeCmdPalette(); });
+  cmdInput.addEventListener('input', (e) => updateCmdResults(e.target.value));
+
+  /* ═══════════════════════════════════════════════════════════
+     MULTI-SOURCE WEB SEARCH
      ═══════════════════════════════════════════════════════════ */
   async function webSearch(query) {
-    // Source 1: DuckDuckGo Instant Answer API
     try {
       const r = await fetch(`https://api.duckduckgo.com/?q=${encodeURIComponent(query)}&format=json&no_html=1&skip_disambig=1`);
       if (r.ok) {
@@ -521,42 +695,77 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
         if (results.length > 0) return results;
       }
     } catch(e) {}
-
-    // Source 2: Wikipedia Fallback
     try {
       const r = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(query)}`);
       if (r.ok) {
         const data = await r.json();
-        if (data.extract) {
-          return [{ title: data.title || query, snippet: data.extract, source: 'Wikipedia', url: data.content_urls?.desktop?.page || '' }];
-        }
+        if (data.extract) return [{ title: data.title || query, snippet: data.extract, source: 'Wikipedia', url: data.content_urls?.desktop?.page || '' }];
       }
     } catch(e) {}
-
     return [];
   }
 
   /* ═══════════════════════════════════════════════════════════
-     CALCULATOR ENGINE
+     NEW: GLOBAL WEATHER & SENTIMENT & MATH
      ═══════════════════════════════════════════════════════════ */
   function tryCalculate(input) {
-    // Match patterns like "calculate 5+5", "what is 100/4", "50 * 2"
-    const calcMatch = input.match(/(?:calculate|compute|solve|what is|whats)\s+([\d\s\+\-\*\/\.\(\)]+)/i) || 
-                      input.match(/^([\d\s\+\-\*\/\.\(\)]+)$/);
+    const calcMatch = input.match(/(?:calculate|compute|solve|what is|whats)\s+([\d\s\+\-\*\/\.\(\)]+)/i) || input.match(/^([\d\s\+\-\*\/\.\(\)]+)$/);
     if (!calcMatch) return null;
-    
     const expr = calcMatch[1].trim();
-    // Safety check: only allow math characters
     if (!/^[\d\s\+\-\*\/\.\(\)]+$/.test(expr)) return null;
-    
     try {
-      // Safe evaluation using Function constructor instead of eval
       const result = new Function('return ' + expr)();
-      if (typeof result === 'number' && isFinite(result)) {
-        return { expression: expr, result: Number(result.toFixed(8)).toString() };
-      }
+      if (typeof result === 'number' && isFinite(result)) return { expression: expr, result: Number(result.toFixed(8)).toString() };
     } catch(e) {}
     return null;
+  }
+
+  async function fetchWeather(cityName) {
+    try {
+      let lat, lon, city;
+      if (cityName) {
+        // Use Open-Meteo Geocoding API for any city worldwide
+        const geoRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(cityName)}&count=1&language=en&format=json`);
+        if (!geoRes.ok) throw new Error('Geo failed');
+        const geoData = await geoRes.json();
+        if (geoData.results && geoData.results.length > 0) {
+          const r = geoData.results[0];
+          lat = r.latitude; lon = r.longitude;
+          city = r.name + (r.admin1 ? `, ${r.admin1}` : '') + (r.country_code ? `, ${r.country_code}` : '');
+        } else {
+          return { error: `Could not find location: "${cityName}"` };
+        }
+      } else {
+        // Fallback to IP geolocation
+        try {
+           const ipRes = await fetch('https://ipapi.co/json/');
+           if(ipRes.ok) { const ipData = await ipRes.json(); if (ipData.latitude && ipData.longitude) { lat = ipData.latitude; lon = ipData.longitude; city = ipData.city || "Your Location"; } }
+        } catch(e) {}
+        if (!lat) { lat = 40.71; lon = -74.00; city = "New York"; } // Ultimate fallback
+      }
+      const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`);
+      if (!res.ok) throw new Error('Weather failed');
+      const data = await res.json();
+      return { city, temp: data.current_weather.temperature, code: data.current_weather.weathercode, windspeed: data.current_weather.windspeed };
+    } catch(e) { 
+      console.error(e);
+      return { error: "Failed to fetch weather data." }; 
+    }
+  }
+
+  function getWeatherEmoji(code) {
+    if (code === 0) return '☀️'; if (code <= 3) return '⛅'; if (code >= 45 && code <= 48) return '🌫️';
+    if (code >= 51 && code <= 67) return '🌦️'; if (code >= 71 && code <= 77) return '❄️'; if (code >= 80 && code <= 82) return '🌧️'; if (code >= 95) return '⛈️';
+    return '🌡️';
+  }
+
+  async function fetchFearGreed() {
+    try {
+      const res = await fetch('https://api.alternative.me/fng/?limit=1');
+      if(!res.ok) return null;
+      const data = await res.json(); const item = data.data[0];
+      return { value: item.value, classification: item.value_classification }; 
+    } catch(e) { return null; }
   }
 
   /* ═══════════════════════════════════════════════════════════
@@ -566,20 +775,13 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
     STOP: new Set(['the','a','an','is','are','was','were','be','been','can','could','will','would','should','do','does','did','have','has','had','i','you','he','she','we','they','me','my','your','this','that','of','in','on','at','to','for','with','by','from','it','its','and','or','but','so','then','than','now','please','show','give','open','launch','get','find','tell','look','see','about','up','what','which','who','whom','how','where','when','why']),
     tokenize(s) { return s.toLowerCase().replace(/[^\w\s-]/g,' ').split(/\s+/).filter(w=>w.length>1&&!this.STOP.has(w)); },
     score(query, target, keywords=[], triggers=[]) {
-      const qTokens = this.tokenize(query);
-      const tStr = target.toLowerCase();
-      const tTokens = this.tokenize(target);
-      const trigStr = triggers.join(' ').toLowerCase();
+      const qTokens = this.tokenize(query); const tStr = target.toLowerCase(); const tTokens = this.tokenize(target); const trigStr = triggers.join(' ').toLowerCase();
       if (!qTokens.length) return 0;
       let score = 0;
       qTokens.forEach(qt => {
-        if (keywords.some(k=>k.toLowerCase()===qt)) score += 5;
-        else if (triggers.some(t=>t.includes(qt))) score += 4.5;
-        else if (keywords.some(k=>k.toLowerCase().includes(qt)||qt.includes(k.toLowerCase()))) score += 3;
-        else if (tTokens.some(tt=>tt===qt)) score += 4;
-        else if (tTokens.some(tt=>tt.startsWith(qt)||qt.startsWith(tt))) score += 2.5;
-        else if (tStr.includes(qt)) score += 1.5;
-        else if (trigStr.includes(qt)) score += 2;
+        if (keywords.some(k=>k.toLowerCase()===qt)) score += 5; else if (triggers.some(t=>t.includes(qt))) score += 4.5;
+        else if (keywords.some(k=>k.toLowerCase().includes(qt)||qt.includes(k.toLowerCase()))) score += 3; else if (tTokens.some(tt=>tt===qt)) score += 4;
+        else if (tTokens.some(tt=>tt.startsWith(qt)||qt.startsWith(tt))) score += 2.5; else if (tStr.includes(qt)) score += 1.5; else if (trigStr.includes(qt)) score += 2;
         else { const o=[...qt].filter(c=>tStr.includes(c)).length; if(o/qt.length>0.6) score+=0.8; }
       });
       if (qTokens.length>=2 && score>=4) score *= 1.2;
@@ -588,32 +790,28 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
   };
 
   /* ═══════════════════════════════════════════════════════════
-     INTENT DETECTION (ENHANCED)
+     INTENT DETECTION (EXPANDED)
      ═══════════════════════════════════════════════════════════ */
   const Intent = {
     detect(q) {
       const lower = q.toLowerCase().trim();
       const ctx = Memory.getContext();
 
-      // Calculator
-      if (/^(?:calculate|compute|solve|what is|whats)\s+[\d\+\-\*\/\.\(\)\s]+$/i.test(lower) || /^[\d\+\-\*\/\.\(\)\s]+$/.test(lower)) {
-        const calc = tryCalculate(lower);
-        if (calc) return { type: 'calculator', ...calc };
-      }
-
-      // Time / Date
-      if (/^(?:what time|current time|time now|what'?s the time|date today|today'?s date|what day)/i.test(lower))
-        return { type: 'datetime' };
-
-      // Fun / Chitchat
+      if (/^(?:calculate|compute|solve|what is|whats)\s+[\d\+\-\*\/\.\(\)\s]+$/i.test(lower) || /^[\d\+\-\*\/\.\(\)\s]+$/.test(lower)) { const calc = tryCalculate(lower); if (calc) return { type: 'calculator', ...calc }; }
+      if (/^(?:what time|current time|time now|what'?s the time|date today|today'?s date|what day)/i.test(lower)) return { type: 'datetime' };
       if (/^(?:tell me a joke|joke|make me laugh|funny)/i.test(lower)) return { type: 'chitchat', subtype: 'joke' };
       if (/^(?:tell me a fact|interesting fact|random fact|did you know|fun fact|something interesting|surprise me|tell me something)/i.test(lower)) return { type: 'chitchat', subtype: 'fact' };
       
-      // Follow-ups
-      if (/^(?:tell me more|more info|elaborate|explain more|details|go deeper)\b/i.test(lower))
-        return { type: 'follow_up_elaborate', context: ctx };
-      if (/^(?:why|how come|reason|cause)\b/i.test(lower) && lower.length < 30)
-        return { type: 'follow_up_why', context: ctx };
+      // NEW WEATHER INTENT WITH CITY CAPTURE
+      const weatherMatch = lower.match(/^(?:weather|temperature|forecast|is it raining)(?:\s+in\s+(.+))?$/i);
+      if (weatherMatch) return { type: 'weather', city: weatherMatch[1] ? weatherMatch[1].trim() : null };
+      
+      if (/^(?:market sentiment|fear and greed|fear & greed|crypto sentiment|greed index)\b/i.test(lower)) return { type: 'sentiment' };
+      if (/^(?:site stats|how many tools|site information|about this site)\b/i.test(lower)) return { type: 'site_stats' };
+      if (/^(?:clear chat|reset chat|delete history|empty chat)\b/i.test(lower)) return { type: 'clear_chat' };
+
+      if (/^(?:tell me more|more info|elaborate|explain more|details|go deeper)\b/i.test(lower)) return { type: 'follow_up_elaborate', context: ctx };
+      if (/^(?:why|how come|reason|cause)\b/i.test(lower) && lower.length < 30) return { type: 'follow_up_why', context: ctx };
       if (/^(?:and|also|plus|what about|how about)\s+/i.test(lower)) {
         const remainder = lower.replace(/^(?:and|also|plus|what about|how about)\s+/i, '').trim();
         if (/crypto|btc|eth|sol|xrp/i.test(remainder)) return { type: 'crypto' };
@@ -622,26 +820,17 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
         if (/tools?|apps?|software/i.test(remainder)) return { type: 'search_apps' };
         return { type: 'semantic_search', query: remainder, isFollowUp: true };
       }
-      if (/^(?:yes|yeah|yep|sure|ok|okay|please do|go ahead)\b/i.test(lower) && ctx.lastIntent)
-        return { type: 'confirm_follow_up', context: ctx };
-      if (/^(?:no|nope|nah|not that|wrong|nevermind|cancel)\b/i.test(lower))
-        return { type: 'dismiss' };
-
-      // Memory
+      if (/^(?:yes|yeah|yep|sure|ok|okay|please do|go ahead)\b/i.test(lower) && ctx.lastIntent) return { type: 'confirm_follow_up', context: ctx };
+      if (/^(?:no|nope|nah|not that|wrong|nevermind|cancel)\b/i.test(lower)) return { type: 'dismiss' };
       const nameMatch = lower.match(/(?:my name is|i am|call me)\s+(\w+)/i);
       if (nameMatch) return { type: 'set_name', value: nameMatch[1] };
       if (/what(?:'s| is)? my name|who am i/i.test(lower)) return { type: 'get_name' };
       if (/forget me|clear memory|reset memory/i.test(lower)) return { type: 'clear_memory' };
-
-      // Web Search
       if (/^(?:search|look up|google|find out|web search|search the web)\b/i.test(lower)) {
         const query = lower.replace(/^(?:search|look up|google|find out|web search|search the web)\s+(?:for\s+)?/i,'').trim();
         return { type: 'web_search', query: query || q };
       }
-      if (/^(?:what is|who is|when did|why does|how does|define|explain)\b/i.test(lower) && lower.length > 15)
-        return { type: 'web_search', query: q };
-
-      // Briefings & Markets
+      if (/^(?:what is|who is|when did|why does|how does|define|explain)\b/i.test(lower) && lower.length > 15) return { type: 'web_search', query: q };
       if (/full briefing|complete briefing|everything|all news/i.test(lower)) return { type: 'full_briefing' };
       if (/briefing|news summary|daily update|headlines|morning brief/i.test(lower)) return { type: 'briefing' };
       if (/stocks?|market|ticker|share price|stock price|portfolio|s&p|nasdaq|dow/i.test(lower)) return { type: 'stocks' };
@@ -652,15 +841,11 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
         if (/market|business|finance|economy/i.test(lower)) return { type:'feed', key:'markets' };
         return { type:'feed', key:'tech' };
       }
-
-      // Navigation & Tools
       if (/tool|app|software|utility|program|download/i.test(lower)) return { type: 'search_apps' };
       if (/game|play|arcade|fun/i.test(lower)) return { type:'navigate', path:'/games', label:'Games Hub' };
       if (/blog|article|post|read|write/i.test(lower)) return { type:'navigate', path:'/blog', label:'Blog' };
       if (/tech topic|guide|tutorial|learn/i.test(lower)) return { type:'navigate', path:'/techtopics', label:'Tech Topics' };
       if (/subscribe|newsletter|sign.?up/i.test(lower)) return { type:'navigate', path:'/subscribe', label:'Subscribe' };
-
-      // Social & Feedback
       if (/help|what can you do|commands|features|capabilities/i.test(lower)) return { type: 'help' };
       if (/^(?:hi|hello|hey|sup|yo|greetings|good morning|good evening)\b/i.test(lower)) return { type: 'greet' };
       if (/^(?:thanks?|thank you|thx|ty|appreciate it)\b/i.test(lower)) return { type: 'thanks' };
@@ -668,11 +853,7 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
       if (/^(?:lol|haha|lmao|😂|🤣)\b/i.test(lower)) return { type: 'humor' };
       if (/^(?:wow|amazing|cool|nice|great|awesome|impressive)\b/i.test(lower)) return { type: 'positive_feedback' };
       if (/^(?:bad|terrible|awful|useless|broken|sucks)\b/i.test(lower)) return { type: 'negative_feedback' };
-
-      // Long questions default to web search
       if (lower.length > 25 && /\?$/.test(lower)) return { type: 'web_search', query: q };
-      
-      // Everything else goes to semantic search (which has built-in fallbacks)
       return { type: 'semantic_search', query: q };
     }
   };
@@ -719,7 +900,7 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
   }
 
   /* ═══════════════════════════════════════════════════════════
-     AI PROCESSOR (ENHANCED WITH FALLBACKS)
+     AI PROCESSOR
      ═══════════════════════════════════════════════════════════ */
   const AI = {
     async process(input) {
@@ -727,54 +908,50 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
       Memory.addHistory(input);
 
       switch(intent.type) {
-        /* ── NEW: CALCULATOR ── */
         case 'calculator':
           Memory.setContext('calculator', null);
-          return `<p>🧮 <strong>${esc(intent.expression)}</strong> = <strong>${esc(intent.result)}</strong></p>` +
-            renderSuggestions(['Calculate another','Full briefing','Search the web for ']);
-
-        /* ── NEW: DATE/TIME ── */
+          return `<p>🧮 <strong>${esc(intent.expression)}</strong> = <strong>${esc(intent.result)}</strong></p>` + renderSuggestions(['Calculate another','Full briefing','Search the web for ']);
         case 'datetime':
           const now = new Date();
           const timeStr = now.toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit', second:'2-digit' });
           const dateStr = now.toLocaleDateString('en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
           Memory.setContext('datetime', null);
-          return `<p>🕐 It's currently <strong>${esc(timeStr)}</strong><br>📅 ${esc(dateStr)}</p>` +
-            renderSuggestions(['Full briefing','Live stocks','Tell me a fact']);
+          return `<p>🕐 It's currently <strong>${esc(timeStr)}</strong><br>📅 ${esc(dateStr)}</p>` + renderSuggestions(['Full briefing','Live stocks','Tell me a fact']);
 
-        /* ── NEW: CHITCHAT (JOKES & FACTS) ── */
+        case 'weather':
+          Memory.setContext('weather', null);
+          const weatherData = await fetchWeather(intent.city);
+          if (weatherData.error) return `<p>⚠️ ${esc(weatherData.error)}</p>` + renderSuggestions(['Try "weather in Tokyo"', 'Live stocks', 'Full briefing']);
+          const weatherEmojis = getWeatherEmoji(weatherData.code);
+          return `<div class="weather-card"><div class="weather-header"><div class="weather-icon">${weatherEmojis}</div><div class="weather-info"><div class="weather-temp">${weatherData.temp}°C</div><div class="weather-city">${esc(weatherData.city)}</div></div></div><div class="weather-details"><span>💨 ${weatherData.windspeed} km/h</span></div></div>` + renderSuggestions(['weather in London', 'weather in New York', 'Live crypto', 'Full briefing']);
+
+        case 'sentiment':
+          Memory.setContext('sentiment', null);
+          const fg = await fetchFearGreed();
+          if (!fg) return `<p>Unable to fetch market sentiment right now.</p>` + renderSuggestions(['Live crypto', 'Full briefing']);
+          let sentimentColor = fg.value > 60 ? 'var(--green)' : (fg.value < 40 ? 'var(--red)' : 'var(--warn-text)');
+          return `<div class="sentiment-card"><div class="sentiment-value" style="color:${sentimentColor};">${fg.value}</div><div class="sentiment-info"><div class="sentiment-label">Crypto Fear & Greed Index</div><div class="sentiment-class" style="color:${sentimentColor};">${fg.classification.toLowerCase()}</div><div style="font-size:12px;color:var(--text-muted);margin-top:4px;">Current market emotion</div></div></div>` + renderSuggestions(['Live crypto prices', 'Why is the market ' + fg.classification + '?', 'Full briefing']);
+
+        case 'site_stats':
+          const aiTools = APPS.filter(a => a.cat === 'ai').length;
+          const pages = APPS.filter(a => a.cat === 'pages').length;
+          return `<p>📊 <strong>Digital Infohub Stats:</strong></p><ul><li>🤖 <strong>${aiTools}</strong> Custom AI GPTs available</li><li>📄 <strong>${pages}</strong> Core directories & pages</li><li>🎮 <strong>1</strong> Browser Games Hub</li><li>💬 <strong>${Memory.getInteractionCount()}</strong> Messages sent this session</li></ul>` + renderSuggestions(['Show AI tools', 'Open Games', 'Full briefing']);
+
+        case 'clear_chat':
+          thread.innerHTML = ''; Memory.data.history = []; Memory.save();
+          return `<p>Chat history cleared! Ready for a fresh start.</p>` + renderSuggestions(['Full briefing', 'Show tools', 'Tell me a joke']);
+
         case 'chitchat':
           Memory.setContext('chitchat', intent.subtype);
-          if (intent.subtype === 'joke') {
-            return `<p>😄 ${pick(PERSONALITY.jokes)}</p>` +
-              renderSuggestions(['Another joke','Tell me a fact','Full briefing','Live stocks']);
-          }
-          return `<p>💡 <strong>Did you know?</strong> ${pick(PERSONALITY.facts)}</p>` +
-            renderSuggestions(['Another fact','Tell me a joke','Search the web for ','Full briefing']);
+          if (intent.subtype === 'joke') return `<p>😄 ${pick(PERSONALITY.jokes)}</p>` + renderSuggestions(['Another joke','Tell me a fact','Full briefing','Live stocks']);
+          return `<p>💡 <strong>Did you know?</strong> ${pick(PERSONALITY.facts)}</p>` + renderSuggestions(['Another fact','Tell me a joke','Search the web for ','Full briefing']);
 
-        /* ── FOLLOW-UPS ── */
         case 'follow_up_elaborate':
-          if (intent.context.lastTopic === 'stocks') {
-            const data = await fetchStocks();
-            return `<p>Sure! Here's a deeper look at current stock performance:</p>` + renderStockGrid(data) +
-              renderSuggestions(['Show crypto too','Search market analysis','Which stock is trending?']);
-          }
-          if (intent.context.lastTopic === 'crypto') {
-            const data = await fetchCrypto();
-            return `<p>Here's more detail on crypto markets:</p>` + renderStockGrid(data) +
-              renderSuggestions(['Show stocks too','Search crypto regulation','BTC price history']);
-          }
-          if (intent.context.lastTopic === 'briefing') {
-            const [tech, crypto] = await Promise.all([fetchRSS(CONFIG.FEEDS.tech.url), fetchRSS(CONFIG.FEEDS.crypto.url)]);
-            return `<p>Expanding on today's headlines:</p>` + renderNewsGrid([...tech.slice(0,3).map(n=>({...n,tag:'TECH'})), ...crypto.slice(0,2).map(n=>({...n,tag:'CRYPTO'}))]) +
-              renderSuggestions(['Show full briefing','Search any headline topic','World news']);
-          }
-          if (intent.context.lastTopic === 'tools') {
-            return `<p>Here are all available tools with details:</p>` + renderAppGrid(APPS.filter(a=>a.cat==='ai')) +
-              renderSuggestions(['Show page directories','Open InfohubGPT','Planning tools']);
-          }
-          return `<p>I'd love to elaborate! Could you remind me what you'd like more detail on?</p>` +
-            renderSuggestions(['Full briefing','Live stocks','Available tools','Web search','Tell me a fact']);
+          if (intent.context.lastTopic === 'stocks') { const data = await fetchStocks(); return `<p>Sure! Here's a deeper look at current stock performance:</p>` + renderStockGrid(data) + renderSuggestions(['Show crypto too','Search market analysis','Which stock is trending?']); }
+          if (intent.context.lastTopic === 'crypto') { const data = await fetchCrypto(); return `<p>Here's more detail on crypto markets:</p>` + renderStockGrid(data) + renderSuggestions(['Show stocks too','Search crypto regulation','BTC price history']); }
+          if (intent.context.lastTopic === 'briefing') { const [tech, crypto] = await Promise.all([fetchRSS(CONFIG.FEEDS.tech.url), fetchRSS(CONFIG.FEEDS.crypto.url)]); return `<p>Expanding on today's headlines:</p>` + renderNewsGrid([...tech.slice(0,3).map(n=>({...n,tag:'TECH'})), ...crypto.slice(0,2).map(n=>({...n,tag:'CRYPTO'}))]) + renderSuggestions(['Show full briefing','Search any headline topic','World news']); }
+          if (intent.context.lastTopic === 'tools') return `<p>Here are all available tools with details:</p>` + renderAppGrid(APPS.filter(a=>a.cat==='ai')) + renderSuggestions(['Show page directories','Open InfohubGPT','Planning tools']);
+          return `<p>I'd love to elaborate! Could you remind me what you'd like more detail on?</p>` + renderSuggestions(['Full briefing','Live stocks','Available tools','Web search','Tell me a fact']);
 
         case 'follow_up_why':
           if (intent.context.lastTopic === 'stocks') return `<p>Stock prices move based on earnings, macro data, Fed policy, and sentiment. Want analysis on a specific ticker?</p>` + renderSuggestions(['Search NVDA analysis','Search AAPL earnings','Full market briefing']);
@@ -787,69 +964,35 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
           if (intent.context.lastIntent === 'briefing') { Memory.setContext('briefing','briefing'); const [t,c]=await Promise.all([fetchRSS(CONFIG.FEEDS.tech.url),fetchRSS(CONFIG.FEEDS.crypto.url)]); return `<p>Fresh headlines:</p>`+renderNewsGrid([...t.slice(0,3).map(n=>({...n,tag:'TECH'})),...c.slice(0,2).map(n=>({...n,tag:'CRYPTO'}))])+renderSuggestions(['Full briefing','Search a topic']); }
           return `<p>Sure! What would you like me to do next?</p>` + renderSuggestions(['Full briefing','Live stocks','Tools','Web search','Tell me a joke']);
 
-        case 'dismiss':
-          return `<p>No problem! Let me know if there's something else I can help with.</p>` + renderSuggestions(['Full briefing','Show tools','Help','Tell me a fact']);
+        case 'dismiss': return `<p>No problem! Let me know if there's something else I can help with.</p>` + renderSuggestions(['Full briefing','Show tools','Help','Tell me a fact']);
+        case 'humor': return `<p>😄 Glad you're enjoying yourself! Need anything useful?</p>` + renderSuggestions(['Actually show me stocks','Tell me a tech fact','Full briefing','Another joke']);
+        case 'positive_feedback': return `<p>Thanks! Anything else you'd like to explore?</p>` + renderSuggestions(['Live stocks','Crypto prices','Web search','Tell me a fact']);
+        case 'negative_feedback': return `<p>Sorry to hear that. Could you tell me what didn't work, or try rephrasing?</p>` + renderSuggestions(['Search the web for ','Show help','Try full briefing','Tell me a joke']);
 
-        case 'humor':
-          return `<p>😄 Glad you're enjoying yourself! Need anything useful?</p>` + renderSuggestions(['Actually show me stocks','Tell me a tech fact','Full briefing','Another joke']);
-        case 'positive_feedback':
-          return `<p>Thanks! Anything else you'd like to explore?</p>` + renderSuggestions(['Live stocks','Crypto prices','Web search','Tell me a fact']);
-        case 'negative_feedback':
-          return `<p>Sorry to hear that. Could you tell me what didn't work, or try rephrasing?</p>` + renderSuggestions(['Search the web for ','Show help','Try full briefing','Tell me a joke']);
+        case 'set_name': Memory.setName(intent.value); return `<p>Got it! I've saved your name as <strong>${esc(intent.value)}</strong>.</p>` + renderSuggestions(['Full briefing','Show tools','What can you do?']);
+        case 'get_name': const n = Memory.getName(); return n ? `<p>Your name is <strong>${esc(n)}</strong>.</p>` : `<p>No name stored yet. Type <em>"My name is [Name]"</em> to set one.</p>`;
+        case 'clear_memory': localStorage.removeItem(Memory.key); Memory.data={name:null,prefs:[],history:[],briefingPrefs:[],lastIntent:null,lastTopic:null,interactionCount:0}; return `<p>All memory cleared. Fresh start!</p>` + renderSuggestions(['Set my name','Full briefing','Help']);
 
-        /* ── MEMORY ── */
-        case 'set_name':
-          Memory.setName(intent.value);
-          return `<p>Got it! I've saved your name as <strong>${esc(intent.value)}</strong>.</p>` + renderSuggestions(['Full briefing','Show tools','What can you do?']);
-        case 'get_name':
-          const n = Memory.getName();
-          return n ? `<p>Your name is <strong>${esc(n)}</strong>.</p>` : `<p>No name stored yet. Type <em>"My name is [Name]"</em> to set one.</p>`;
-        case 'clear_memory':
-          localStorage.removeItem(Memory.key); Memory.data={name:null,prefs:[],history:[],briefingPrefs:[],lastIntent:null,lastTopic:null,interactionCount:0};
-          return `<p>All memory cleared. Fresh start!</p>` + renderSuggestions(['Set my name','Full briefing','Help']);
-
-        /* ── SOCIAL ── */
         case 'greet':
-          const userName = Memory.getName();
-          const g = userName ? `Welcome back, <strong>${esc(userName)}</strong>!` : pick(PERSONALITY.greetings);
+          const userName = Memory.getName(); const g = userName ? `Welcome back, <strong>${esc(userName)}</strong>!` : pick(PERSONALITY.greetings);
           Memory.setContext('greet', null);
-          return `<p>${g} I'm <strong>${CONFIG.BOT_NAME}</strong>. I can search the web, pull live market data, deliver briefings, calculate math, tell jokes, and navigate site tools.</p>` +
-            renderSuggestions(['Full briefing with stocks','Search the web for ','Show available tools','Tell me a joke','What can you do?']);
+          return `<p>${g} I'm <strong>${CONFIG.BOT_NAME}</strong>. I can search the web, pull live market data, check global weather, calculate math, and navigate site tools.</p>` + renderSuggestions(['Full briefing with stocks','Search the web for ','Show available tools','Tell me a joke','What can you do?']);
         case 'thanks': return `<p>You're welcome! Anything else?</p>` + renderSuggestions(['Live stocks','Crypto','Full briefing','Tell me a fact']);
         case 'bye': return `<p>See you next time! 👋</p>`;
         
         case 'help':
           Memory.setContext('help', null);
-          return `<p><strong>${CONFIG.BOT_NAME}</strong> capabilities:</p>
-            <ul>
-              <li>🌐 <strong>Web Search</strong> — "search quantum computing"</li>
-              <li>📊 <strong>Live Stocks</strong> — "NVDA stock", "show market data"</li>
-              <li>₿ <strong>Live Crypto</strong> — "BTC price", "crypto" (now with SOL & XRP)</li>
-              <li>📰 <strong>Briefings</strong> — "full briefing", "world headlines"</li>
-              <li>🧮 <strong>Calculator</strong> — "calculate 50*2", "what is 144/12"</li>
-              <li>🕐 <strong>Date/Time</strong> — "what time is it", "today's date"</li>
-              <li>😄 <strong>Fun</strong> — "tell me a joke", "surprise me"</li>
-              <li>🛠️ <strong>Tools</strong> — "show tools", natural language search</li>
-              <li>🧠 <strong>Memory</strong> — "My name is...", "clear memory"</li>
-              <li>💬 <strong>Follow-ups</strong> — "tell me more", "and crypto?", "why?"</li>
-            </ul>` + renderSuggestions(['Full briefing','Live stocks','Search the web for ','Tell me a joke','Show tools']);
+          return `<p><strong>${CONFIG.BOT_NAME}</strong> capabilities:</p><ul><li>🌐 <strong>Web Search</strong> — "search quantum computing"</li><li>📊 <strong>Live Stocks</strong> — "NVDA stock", "show market data"</li><li>₿ <strong>Live Crypto</strong> — "BTC price", "crypto"</li><li>🧠 <strong>Sentiment</strong> — "market sentiment", "fear and greed"</li><li>⛅ <strong>Global Weather</strong> — "weather in Tokyo", "weather"</li><li>📰 <strong>Briefings</strong> — "full briefing", "world headlines"</li><li>🧮 <strong>Calculator</strong> — "calculate 50*2"</li><li>🛠️ <strong>Tools</strong> — "show tools", natural language search</li><li>⌘K <strong>Palette</strong> — Quick navigate</li></ul>` + renderSuggestions(['Full briefing','Live stocks','Search the web for ','Tell me a joke','Show tools']);
 
-        /* ── WEB SEARCH ── */
         case 'web_search':
           Memory.setContext('web_search', intent.query);
           const searchResults = await webSearch(intent.query);
           Memory.learnPreference('web_search');
-          if (!searchResults.length) {
-            return `<p>I couldn't find direct results for "<em>${esc(intent.query)}</em>". Here are some things you can try:</p>` +
-              renderSuggestions([`Search the web for ${intent.query}`, 'Full briefing', 'Live stocks', 'Tell me a fact', 'Show tools']);
-          }
-          return `<p>Here's what I found for "<em>${esc(intent.query)}</em>":</p>` + renderWebResults(searchResults) +
-            renderSuggestions(['Search related topic','Tell me more','Full briefing','Tell me a fact']);
+          if (!searchResults.length) return `<p>I couldn't find direct results for "<em>${esc(intent.query)}</em>". Here are some things you can try:</p>` + renderSuggestions([`Search the web for ${intent.query}`, 'Full briefing', 'Live stocks', 'Tell me a fact', 'Show tools']);
+          return `<p>Here's what I found for "<em>${esc(intent.query)}</em>":</p>` + renderWebResults(searchResults) + renderSuggestions(['Search related topic','Tell me more','Full briefing','Tell me a fact']);
 
-        /* ── BRIEFINGS ── */
         case 'full_briefing':
-          Memory.setContext('full_briefing', 'briefing');
-          Memory.trackBriefingPref('full');
+          Memory.setContext('full_briefing', 'briefing'); Memory.trackBriefingPref('full');
           const [fTech,fCryptoN,fMarkets,fMarket] = await Promise.all([fetchRSS(CONFIG.FEEDS.tech.url),fetchRSS(CONFIG.FEEDS.crypto.url),fetchRSS(CONFIG.FEEDS.markets.url),fetchAllMarketData()]);
           let fb=`<p>Your complete briefing — live markets + news:</p>`;
           fb+=`<p style="font-size:12px;color:var(--text-muted);margin-top:12px;font-family:var(--mono);text-transform:uppercase;letter-spacing:0.05em;">📈 Live Market Snapshot</p>`+renderStockGrid(fMarket);
@@ -857,111 +1000,44 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
           return fb + renderSuggestions(['Tell me more','And crypto details?','Search a headline topic','Show tools','Tell me a joke']);
 
         case 'briefing':
-          Memory.setContext('briefing', 'briefing');
-          Memory.trackBriefingPref('standard');
+          Memory.setContext('briefing', 'briefing'); Memory.trackBriefingPref('standard');
           const [bTech,bCryptoN,bMarket] = await Promise.all([fetchRSS(CONFIG.FEEDS.tech.url),fetchRSS(CONFIG.FEEDS.crypto.url),fetchAllMarketData()]);
           let b=`<p>Your daily briefing:</p>`;
           b+=`<p style="font-size:12px;color:var(--text-muted);margin-top:12px;font-family:var(--mono);text-transform:uppercase;letter-spacing:0.05em;">📈 Key Movers</p>`+renderStockGrid(bMarket.slice(0,6));
           b+=`<p style="font-size:12px;color:var(--text-muted);margin-top:16px;font-family:var(--mono);text-transform:uppercase;letter-spacing:0.05em;">📰 Headlines</p>`+renderNewsGrid([...bTech.slice(0,3).map(n=>({...n,tag:'TECH'})),...bCryptoN.slice(0,2).map(n=>({...n,tag:'CRYPTO'}))]);
           return b + renderSuggestions(['Tell me more','And crypto?','Full briefing','Search a topic','Tell me a fact']);
 
-        /* ── MARKETS ── */
-        case 'stocks':
-          Memory.setContext('stocks', 'stocks');
-          Memory.learnPreference('stocks');
-          const sd = await fetchStocks();
-          return `<p>Live stock prices via Finnhub:</p>` + renderStockGrid(sd) + renderSuggestions(['Tell me more','And crypto?','Search market analysis','Full briefing']);
-
-        case 'crypto':
-          Memory.setContext('crypto', 'crypto');
-          Memory.learnPreference('crypto');
-          const cd = await fetchCrypto();
-          return `<p>Live crypto prices via CoinGecko (BTC, ETH, SOL, XRP):</p>` + renderStockGrid(cd) + renderSuggestions(['Tell me more','And stocks?','Search crypto news','Full briefing']);
-
+        case 'stocks': Memory.setContext('stocks', 'stocks'); Memory.learnPreference('stocks'); const sd = await fetchStocks(); return `<p>Live stock prices via Finnhub:</p>` + renderStockGrid(sd) + renderSuggestions(['Tell me more','And crypto?','Search market analysis','Full briefing']);
+        case 'crypto': Memory.setContext('crypto', 'crypto'); Memory.learnPreference('crypto'); const cd = await fetchCrypto(); return `<p>Live crypto prices via CoinGecko (BTC, ETH, SOL, XRP):</p>` + renderStockGrid(cd) + renderSuggestions(['Tell me more','And stocks?','Search crypto news','Full briefing']);
         case 'feed':
-          Memory.setContext('feed', intent.key);
-          const feed = CONFIG.FEEDS[intent.key];
-          const arts = await fetchRSS(feed.url);
-          Memory.learnPreference(intent.key);
+          Memory.setContext('feed', intent.key); const feed = CONFIG.FEEDS[intent.key]; const arts = await fetchRSS(feed.url); Memory.learnPreference(intent.key);
           if (!arts.length) return `<p>Unable to fetch ${feed.name} news right now.</p>` + renderSuggestions(['Try full briefing','Search the web for '+feed.name+' news','Tell me a fact']);
-          return `<p>Latest from <strong>${feed.name}</strong>:</p>` + renderNewsGrid(arts.map(a=>({...a,tag:feed.name.toUpperCase()}))) +
-            renderSuggestions(['Tell me more','Search a headline','Full briefing']);
+          return `<p>Latest from <strong>${feed.name}</strong>:</p>` + renderNewsGrid(arts.map(a=>({...a,tag:feed.name.toUpperCase()}))) + renderSuggestions(['Tell me more','Search a headline','Full briefing']);
 
-        /* ── NAVIGATION ── */
-        case 'navigate':
-          Memory.setContext('navigate', intent.label);
-          setTimeout(()=>window.open(CONFIG.SITE_BASE+intent.path,'_blank'),800);
-          return `<p>Opening <strong>${intent.label}</strong> in a new tab...</p>` + renderSuggestions(['Show other pages','Full briefing','Back to chat']);
+        case 'navigate': Memory.setContext('navigate', intent.label); setTimeout(()=>window.open(CONFIG.SITE_BASE+intent.path,'_blank'),800); return `<p>Opening <strong>${intent.label}</strong> in a new tab...</p>` + renderSuggestions(['Show other pages','Full briefing','Back to chat']);
+        case 'search_apps': Memory.setContext('tools', 'tools'); return `<p>Available tools and directories:</p>` + renderAppGrid(APPS.filter(a=>a.cat==='ai'||a.cat==='pages')) + renderSuggestions(['Tell me more about TaskyGPT','Planning tools','AI assistants','Page directories']);
 
-        /* ── TOOL SEARCH ── */
-        case 'search_apps':
-          Memory.setContext('tools', 'tools');
-          return `<p>Available tools and directories:</p>` + renderAppGrid(APPS.filter(a=>a.cat==='ai'||a.cat==='pages')) +
-            renderSuggestions(['Tell me more about TaskyGPT','Planning tools','AI assistants','Page directories']);
-
-        /* ── SEMANTIC SEARCH WITH GUARANTEED FALLBACK ── */
         case 'semantic_search':
-          const scored = APPS.map(a=>({
-            ...a, score: Scorer.score(intent.query, `${a.name} ${a.desc}`, a.keywords, a.triggers||[])
-          })).filter(a=>a.score>0).sort((a,b)=>b.score-a.score);
-
+          const scored = APPS.map(a=>({ ...a, score: Scorer.score(intent.query, `${a.name} ${a.desc}`, a.keywords, a.triggers||[]) })).filter(a=>a.score>0).sort((a,b)=>b.score-a.score);
           if (scored.length>0 && scored[0].score>=4) {
-            const best = scored[0];
-            const url = best.url.startsWith('/')?CONFIG.SITE_BASE+best.url:best.url;
-            Memory.setContext('app_match', best.name);
-            setTimeout(()=>window.open(url,'_blank'),800);
+            const best = scored[0]; const url = best.url.startsWith('/')?CONFIG.SITE_BASE+best.url:best.url; Memory.setContext('app_match', best.name); setTimeout(()=>window.open(url,'_blank'),800);
             let html = `<p>Best match: <strong>${esc(best.name)}</strong> — ${esc(best.desc)}. Opening now.</p>`;
             if (scored.length>1) html+=`<p style="font-size:12px;color:var(--text-muted);margin-top:10px;">Also relevant:</p>`+renderAppGrid(scored.slice(1,4));
             return html + renderSuggestions((best.followUps||[]).concat(['Show all tools','Search the web for '+intent.query]));
           }
-
           if (scored.length>0 && scored[0].score>=1.5) {
-            Memory.setContext('partial_match', intent.query);
-            const topMatches = scored.slice(0,4);
-            return `<p>Possible matches for "<em>${esc(intent.query)}</em>":</p>` + renderAppGrid(topMatches) +
-              `<p style="font-size:12px;color:var(--text-muted);margin-top:12px;">Not quite right?</p>` +
-              renderSuggestions([...topMatches.map(m=>m.name), 'Search the web for '+intent.query, 'Show all tools', 'Tell me a joke']);
+            Memory.setContext('partial_match', intent.query); const topMatches = scored.slice(0,4);
+            return `<p>Possible matches for "<em>${esc(intent.query)}</em>":</p>` + renderAppGrid(topMatches) + `<p style="font-size:12px;color:var(--text-muted);margin-top:12px;">Not quite right?</p>` + renderSuggestions([...topMatches.map(m=>m.name), 'Search the web for '+intent.query, 'Show all tools', 'Tell me a joke']);
           }
-
-          // ULTIMATE FALLBACK: Never get stuck
           const queryTokens = Scorer.tokenize(intent.query);
-          const partialHints = APPS.map(a => {
-            const allKw = [...a.keywords, ...(a.triggers||[])];
-            const overlap = queryTokens.filter(qt => allKw.some(k => k.includes(qt) || qt.includes(k)));
-            return { app: a, overlapCount: overlap.length };
-          }).filter(h => h.overlapCount > 0).sort((a,b) => b.overlapCount - a.overlapCount).slice(0, 3);
-
+          const partialHints = APPS.map(a => { const allKw = [...a.keywords, ...(a.triggers||[])]; const overlap = queryTokens.filter(qt => allKw.some(k => k.includes(qt) || qt.includes(k))); return { app: a, overlapCount: overlap.length }; }).filter(h => h.overlapCount > 0).sort((a,b) => b.overlapCount - a.overlapCount).slice(0, 3);
           let fallbackHtml = `<p>${pick(PERSONALITY.fallbacks)}</p>`;
-          
-          if (partialHints.length > 0) {
-            fallbackHtml += `<p style="margin-top:8px;">You might be interested in:</p>` + renderAppGrid(partialHints.map(h => h.app));
-          }
-
-          // Auto-search for longer queries
-          if (intent.query.length > 15) {
-            const webResults = await webSearch(intent.query);
-            if (webResults.length > 0) {
-              fallbackHtml += `<p style="margin-top:16px;font-size:12px;color:var(--text-muted);font-family:var(--mono);text-transform:uppercase;letter-spacing:0.05em;">🌐 AUTO WEB RESULTS</p>`;
-              fallbackHtml += renderWebResults(webResults.slice(0, 2));
-            }
-          }
-
-          fallbackHtml += renderSuggestions([
-            `Search the web for ${intent.query}`, 
-            'Full briefing', 
-            'Live stocks', 
-            'Crypto prices', 
-            'Tell me a joke',
-            'Tell me a fact',
-            'Show tools', 
-            'Help'
-          ]);
+          if (partialHints.length > 0) fallbackHtml += `<p style="margin-top:8px;">You might be interested in:</p>` + renderAppGrid(partialHints.map(h => h.app));
+          if (intent.query.length > 15) { const webResults = await webSearch(intent.query); if (webResults.length > 0) { fallbackHtml += `<p style="margin-top:16px;font-size:12px;color:var(--text-muted);font-family:var(--mono);text-transform:uppercase;letter-spacing:0.05em;">🌐 AUTO WEB RESULTS</p>`; fallbackHtml += renderWebResults(webResults.slice(0, 2)); } }
+          fallbackHtml += renderSuggestions([ `Search the web for ${intent.query}`, 'Full briefing', 'Live stocks', 'Crypto prices', 'Tell me a joke', 'Tell me a fact', 'Show tools', 'Help' ]);
           return fallbackHtml;
 
-        /* ── ABSOLUTE SAFETY NET (should never reach here) ── */
-        default:
-          return `<p>I'm not sure how to handle that, but I'm here to help! Try one of these:</p>` +
-            renderSuggestions(['Full briefing','Live stocks','Crypto prices','Search the web for ','Tell me a joke','Tell me a fact','Show tools','Help']);
+        default: return `<p>I'm not sure how to handle that, but I'm here to help! Try one of these:</p>` + renderSuggestions(['Full briefing','Live stocks','Crypto prices','Search the web for ','Tell me a joke','Tell me a fact','Show tools','Help']);
       }
     }
   };
@@ -976,97 +1052,78 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
   let isProcessing = false;
 
   function addMsg(role, html) {
-    const div = document.createElement('div');
-    div.className = `msg ${role}`;
+    const div = document.createElement('div'); div.className = `msg ${role}`;
     const avatar = role==='bot' ? `<img src="${CONFIG.LOGO_URL}" alt="">` : esc(Memory.getName()||'You').charAt(0).toUpperCase();
     div.innerHTML = `<div class="msg-avatar ${role}">${avatar}</div><div class="msg-body"><div class="msg-role">${role==='bot'?CONFIG.BOT_NAME:(Memory.getName()||'You')}</div><div class="msg-content">${html}</div></div>`;
-    thread.appendChild(div);
-    thread.scrollTop = thread.scrollHeight;
-    return div;
+    thread.appendChild(div); thread.scrollTop = thread.scrollHeight; return div;
   }
 
   function showTyping() {
-    const div = document.createElement('div');
-    div.className = 'msg bot typing-msg';
+    const div = document.createElement('div'); div.className = 'msg bot typing-msg';
     div.innerHTML = `<div class="msg-avatar bot"><img src="${CONFIG.LOGO_URL}" alt=""></div><div class="msg-body"><div class="msg-role">${CONFIG.BOT_NAME}</div><div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div></div>`;
-    thread.appendChild(div);
-    thread.scrollTop = thread.scrollHeight;
-    return div;
+    thread.appendChild(div); thread.scrollTop = thread.scrollHeight; return div;
   }
 
-  function prefillInput(text) {
-    input.value = text;
-    input.focus();
-    requestAnimationFrame(() => input.setSelectionRange(text.length, text.length));
-  }
+  function prefillInput(text) { input.value = text; input.focus(); requestAnimationFrame(() => input.setSelectionRange(text.length, text.length)); }
 
   async function handleSend(text) {
     if (isProcessing || !text.trim()) return;
-    isProcessing = true;
-    sendBtn.disabled = true;
-    input.disabled = true;
-    addMsg('user', esc(text));
-    input.value = '';
+    isProcessing = true; sendBtn.disabled = true; input.disabled = true;
+    addMsg('user', esc(text)); input.value = '';
     const typingEl = showTyping();
-    
-    // Variable delay based on complexity for natural feel
     const delay = text.length > 50 ? 800 + Math.random() * 600 : 400 + Math.random() * 500;
     await new Promise(r => setTimeout(r, delay));
-    
     try {
       const response = await AI.process(text.trim());
-      typingEl.remove();
-      addMsg('bot', response);
+      typingEl.remove(); addMsg('bot', response);
     } catch(err) {
-      console.error('AI Process Error:', err);
-      typingEl.remove();
-      addMsg('bot', `<p>Something went wrong processing that. Please try again or use a suggestion chip below.</p>` + 
-        renderSuggestions(['Retry','Help','Full briefing','Tell me a joke','Search the web for ']));
-    } finally {
-      isProcessing = false;
-      sendBtn.disabled = false;
-      input.disabled = false;
-      input.focus();
-    }
+      console.error('AI Process Error:', err); typingEl.remove();
+      addMsg('bot', `<p>Something went wrong processing that. Please try again or use a suggestion chip below.</p>` + renderSuggestions(['Retry','Help','Full briefing','Tell me a joke','Search the web for ']));
+    } finally { isProcessing = false; sendBtn.disabled = false; input.disabled = false; input.focus(); }
   }
 
   form.addEventListener('submit', e => { e.preventDefault(); handleSend(input.value); });
-
-  document.addEventListener('click', e => {
-    const chip = e.target.closest('.chip, .suggestion-chip');
-    if (!chip) return;
-    const text = chip.dataset.prefill;
-    if (text) prefillInput(text);
+  
+  // FIXED: Chip click handler to actually work and send immediately if it's a complete command
+  document.addEventListener('click', e => { 
+    const chip = e.target.closest('.chip, .suggestion-chip'); 
+    if (!chip) return; 
+    const text = chip.dataset.prefill; 
+    if (text) {
+      // If it's an incomplete prompt (ends with space or 'for'), just prefill
+      if (text.endsWith(' ') || text.endsWith('for')) {
+         prefillInput(text);
+      } else {
+         // Otherwise, send it immediately for a fluid experience
+         handleSend(text);
+      }
+    }
   });
 
   // Theme
-  const themeBtn = $('#themeToggle');
-  let theme = localStorage.getItem('dih_theme') || 'dark';
-  document.documentElement.setAttribute('data-theme', theme);
-  themeBtn.addEventListener('click', () => {
-    theme = theme==='dark'?'light':'dark';
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('dih_theme', theme);
-  });
+  const themeBtn = $('#themeToggle'); let theme = localStorage.getItem('dih_theme') || 'dark'; document.documentElement.setAttribute('data-theme', theme);
+  themeBtn.addEventListener('click', () => { theme = theme==='dark'?'light':'dark'; document.documentElement.setAttribute('data-theme', theme); localStorage.setItem('dih_theme', theme); });
+
+  // Clear Chat
+  $('#clearChatBtn').addEventListener('click', () => { if(confirm('Clear all chat messages?')) { thread.innerHTML = ''; Memory.data.history = []; Memory.save(); addMsg('bot', '<p>Chat cleared! Ready for a fresh start.</p>' + renderSuggestions(['Full briefing', 'Show tools', 'Tell me a joke'])); } });
 
   // Clock
   setInterval(() => { $('#clock').textContent = new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'}); }, 1000);
 
+  // Init Features
+  initTicker();
+
   // Smart Welcome
   (async () => {
     await new Promise(r => setTimeout(r, 400));
-    const name = Memory.getName();
-    const interactions = Memory.getInteractionCount();
+    const name = Memory.getName(); const interactions = Memory.getInteractionCount();
     let html;
     if (name && interactions > 5) {
-      html = `<p>Welcome back, <strong>${esc(name)}</strong>! You've chatted ${interactions} times. Ready to continue?</p>` +
-        renderSuggestions(['Full briefing with stocks','Live crypto','Search the web for ','Tell me a joke','Show tools']);
+      html = `<p>Welcome back, <strong>${esc(name)}</strong>! You've chatted ${interactions} times. Ready to continue?</p>` + renderSuggestions(['Full briefing with stocks','Live crypto','Search the web for ','Tell me a joke','Show tools']);
     } else if (name) {
-      html = `<p>Hello, <strong>${esc(name)}</strong>! I'm <strong>${CONFIG.BOT_NAME}</strong>. What would you like to explore?</p>` +
-        renderSuggestions(['Full briefing','Live stocks','Crypto prices','Tell me a fact','Show tools','Help']);
+      html = `<p>Hello, <strong>${esc(name)}</strong>! I'm <strong>${CONFIG.BOT_NAME}</strong>. What would you like to explore?</p>` + renderSuggestions(['Full briefing','Live stocks','Crypto prices','Tell me a fact','Show tools','Help']);
     } else {
-      html = `<p>Welcome to <strong>${CONFIG.BOT_NAME}</strong>. I'm your advanced dashboard assistant with live market data, web search, calculator, jokes, and adaptive memory.</p>` +
-        renderSuggestions(['Full briefing with stocks','Search the web for ','Set my name','Tell me a joke','Show tools','What can you do?']);
+      html = `<p>Welcome to <strong>${CONFIG.BOT_NAME}</strong>. I'm your advanced dashboard assistant with live market data, global web search, worldwide weather tracking, and adaptive memory.</p>` + renderSuggestions(['Full briefing with stocks','Search the web for ','Set my name','Tell me a joke','Show tools','What can you do?']);
     }
     addMsg('bot', html);
   })();
