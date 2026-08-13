@@ -1031,9 +1031,24 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
           }
           const queryTokens = Scorer.tokenize(intent.query);
           const partialHints = APPS.map(a => { const allKw = [...a.keywords, ...(a.triggers||[])]; const overlap = queryTokens.filter(qt => allKw.some(k => k.includes(qt) || qt.includes(k))); return { app: a, overlapCount: overlap.length }; }).filter(h => h.overlapCount > 0).sort((a,b) => b.overlapCount - a.overlapCount).slice(0, 3);
-          let fallbackHtml = `<p>${pick(PERSONALITY.fallbacks)}</p>`;
-          if (partialHints.length > 0) fallbackHtml += `<p style="margin-top:8px;">You might be interested in:</p>` + renderAppGrid(partialHints.map(h => h.app));
-          if (intent.query.length > 15) { const webResults = await webSearch(intent.query); if (webResults.length > 0) { fallbackHtml += `<p style="margin-top:16px;font-size:12px;color:var(--text-muted);font-family:var(--mono);text-transform:uppercase;letter-spacing:0.05em;">🌐 AUTO WEB RESULTS</p>`; fallbackHtml += renderWebResults(webResults.slice(0, 2)); } }
+          
+          // ALWAYS try web search as a fallback for semantic queries - makes the bot more helpful
+          let fallbackHtml = '';
+          const webResults = await webSearch(intent.query);
+          if (webResults.length > 0) {
+            // We found web results - show them!
+            fallbackHtml += `<p>I found some information on the web for "<em>${esc(intent.query)}</em>":</p>`;
+            fallbackHtml += renderWebResults(webResults.slice(0, 3));
+          } else if (partialHints.length > 0) {
+            // No web results but we have app hints
+            fallbackHtml += `<p>I'm not certain about that, but you might be interested in:</p>`;
+            fallbackHtml += renderAppGrid(partialHints.map(h => h.app));
+          } else {
+            // Complete fallback - offer to search
+            fallbackHtml += `<p>${pick(PERSONALITY.fallbacks)}</p>`;
+          }
+          
+          // Always provide comprehensive suggestions including web search
           fallbackHtml += renderSuggestions([ `Search the web for ${intent.query}`, 'Full briefing', 'Live stocks', 'Crypto prices', 'Tell me a joke', 'Tell me a fact', 'Show tools', 'Help' ]);
           return fallbackHtml;
 
@@ -1084,18 +1099,28 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
 
   form.addEventListener('submit', e => { e.preventDefault(); handleSend(input.value); });
   
-  // FIXED: Chip click handler to actually work and send immediately if it's a complete command
+  // FIXED: Chip click handler to actually work and send immediately with smarter logic
   document.addEventListener('click', e => { 
     const chip = e.target.closest('.chip, .suggestion-chip'); 
     if (!chip) return; 
     const text = chip.dataset.prefill; 
     if (text) {
-      // If it's an incomplete prompt (ends with space or 'for'), just prefill
-      if (text.endsWith(' ') || text.endsWith('for')) {
-         prefillInput(text);
+      // Smart detection: send immediately if it's a complete command/query
+      const trimmedText = text.trim();
+      const shouldSendImmediately = 
+        !trimmedText.endsWith(' ') && 
+        !trimmedText.endsWith('for') &&
+        !trimmedText.toLowerCase().endsWith('the web for') &&
+        trimmedText.length > 0 &&
+        // Complete commands/queries
+        (/^(full briefing|market sentiment|weather|live stocks|crypto prices|tell me|show|search|calculate|what|how|why|when|who)/i.test(trimmedText) ||
+         /\?$/i.test(trimmedText) ||
+         trimmedText.split(' ').length >= 2);
+      
+      if (shouldSendImmediately) {
+        handleSend(trimmedText);
       } else {
-         // Otherwise, send it immediately for a fluid experience
-         handleSend(text);
+        prefillInput(trimmedText);
       }
     }
   });
