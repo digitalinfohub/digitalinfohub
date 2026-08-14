@@ -15,64 +15,55 @@
         h1 { margin: 0; font-size: 1.8rem; }
         .badge { background: var(--primary); color: white; padding: 0.25rem 0.75rem; border-radius: 99px; font-size: 0.8rem; font-weight: bold; }
         .tool-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
-        
+
         .tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
         .tab { padding: 0.75rem 1.5rem; border: 1px solid var(--border); border-radius: 8px; cursor: pointer; background: transparent; color: var(--text); font-weight: 600; transition: all 0.2s; }
         .tab.active { background: var(--primary); color: white; border-color: var(--primary); }
-        
+
         .converter-grid { display: grid; grid-template-columns: 1fr auto 1fr; gap: 1rem; align-items: end; margin-bottom: 1.5rem; }
         @media (max-width: 600px) { .converter-grid { grid-template-columns: 1fr; } }
         .input-group { display: flex; flex-direction: column; gap: 0.5rem; }
         label { font-weight: 600; font-size: 0.9rem; }
         input, select { padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px; background: var(--bg); color: var(--text); font-size: 1rem; width: 100%; box-sizing: border-box; }
         .equals { font-size: 2rem; text-align: center; padding-bottom: 0.5rem; }
-        
-        .back-link { display: inline-block; margin-bottom: 1rem; color: var(--primary); text-decoration: none; font-weight: 500; }
-/* Tool Animations */
-.timer-btn, .add-btn, .timer-btn.primary, .mode-tab, .action-btn, .generate-btn, .convert-btn {
-    transition: all 0.2s ease;
-}
-.timer-btn:hover, .add-btn:hover, .mode-tab:hover, .action-btn:hover, .generate-btn:hover, .convert-btn:hover {
-    transform: translateY(-2px);
-}
-.setting-input, .form-input, .form-select, textarea, input[type="text"], input[type="number"] {
-    transition: all 0.2s ease;
-}
-.setting-input:focus, .form-input:focus, .form-select:focus, textarea:focus, input[type="text"]:focus, input[type="number"]:focus {
-    transform: scale(1.02);
-}
-.transaction-item, .task-item, .note-item, .calendar-event, .output-line {
-    animation: slideIn 0.3s ease-out;
-}
-@keyframes slideIn {
-    from { opacity: 0; transform: translateX(-10px); }
-    to { opacity: 1; transform: translateX(0); }
-}
-.summary-card {
-    animation: fadeInUp 0.5s ease-out;
-}
-.summary-card:nth-child(1) { animation-delay: 0.1s; }
-.summary-card:nth-child(2) { animation-delay: 0.2s; }
-.summary-card:nth-child(3) { animation-delay: 0.3s; }
-@keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(15px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-.tool-card {
-    transition: all 0.3s ease;
-}
-.tool-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 24px rgba(99, 102, 241, 0.2);
-}
-.card, .panel, .output-area, .result-box, .output-container {
-    animation: fadeIn 0.4s ease-out;
-}
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
 
+        .back-link { display: inline-block; margin-bottom: 1rem; color: var(--primary); text-decoration: none; font-weight: 500; }
+
+        /* ===== FIXED DONATE SECTION ===== */
+        .donate-card {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            text-align: center;               /* centers the button without flexbox */
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        .donate-title { font-size: 1.1rem; font-weight: 600; color: var(--text); margin: 0 0 0.5rem; }
+        .donate-text  { font-size: 0.9rem; color: var(--text); opacity: 0.8; margin: 0 0 1.5rem; }
+        /* Real width + margin auto = button can never collapse into vertical text */
+        #paypal-container-HTT66RW4Z3GLQ {
+            width: min(320px, 100%);
+            min-height: 55px;
+            margin: 0 auto;
+        }
+
+        /* Tool Animations */
+        .timer-btn, .add-btn, .timer-btn.primary, .mode-tab, .action-btn, .generate-btn, .convert-btn { transition: all 0.2s ease; }
+        .timer-btn:hover, .add-btn:hover, .mode-tab:hover, .action-btn:hover, .generate-btn:hover, .convert-btn:hover { transform: translateY(-2px); }
+        .setting-input, .form-input, .form-select, textarea, input[type="text"], input[type="number"] { transition: all 0.2s ease; }
+        .setting-input:focus, .form-input:focus, .form-select:focus, textarea:focus, input[type="text"]:focus, input[type="number"]:focus { transform: scale(1.02); }
+        .transaction-item, .task-item, .note-item, .calendar-event, .output-line { animation: slideIn 0.3s ease-out; }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
+        .summary-card { animation: fadeInUp 0.5s ease-out; }
+        .summary-card:nth-child(1) { animation-delay: 0.1s; }
+        .summary-card:nth-child(2) { animation-delay: 0.2s; }
+        .summary-card:nth-child(3) { animation-delay: 0.3s; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        .tool-card { transition: all 0.3s ease; }
+        .tool-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(99, 102, 241, 0.2); }
+        .card, .panel, .output-area, .result-box, .output-container { animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
@@ -109,6 +100,13 @@
                 </div>
             </div>
         </div>
+
+        <!-- PayPal Button - Part 2 (FIXED: inside container, no flex collapse) -->
+        <div class="donate-card">
+            <p class="donate-title">💜 Love this tool?</p>
+            <p class="donate-text">Your support keeps these tools free and ad-free for everyone.</p>
+            <div id="paypal-container-HTT66RW4Z3GLQ"></div>
+        </div>
     </div>
 
     <script>
@@ -118,25 +116,29 @@
             data: { B: 1, KB: 1024, MB: 1048576, GB: 1073741824, TB: 1099511627776 },
             time: { s: 1, min: 60, h: 3600, day: 86400, week: 604800 }
         };
-        
+
         let currentCat = 'length';
 
         function setCategory(cat) {
             currentCat = cat;
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            event.target.classList.add('active');
-            
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(t => t.classList.remove('active'));
+            // Guard: `event` is undefined on the initial programmatic call
+            const clicked = (typeof event !== 'undefined' && event && event.target && event.target.classList.contains('tab'))
+                ? event.target : tabs[0];
+            clicked.classList.add('active');
+
             const fromSel = document.getElementById('fromUnit');
             const toSel = document.getElementById('toUnit');
             fromSel.innerHTML = '';
             toSel.innerHTML = '';
-            
-            const keys = Object.keys(units[cat]);
-            keys.forEach((k, i) => {
+
+            const keys = Object.keys(units[cat] || { c: 1, f: 1, k: 1 });
+            keys.forEach((k) => {
                 fromSel.add(new Option(k.toUpperCase(), k));
                 toSel.add(new Option(k.toUpperCase(), k));
             });
-            if(keys.length > 1) toSel.selectedIndex = 1;
+            if (keys.length > 1) toSel.selectedIndex = 1;
             convert();
         }
 
@@ -144,7 +146,8 @@
             const val = parseFloat(document.getElementById('inputVal').value) || 0;
             const from = document.getElementById('fromUnit').value;
             const to = document.getElementById('toUnit').value;
-            
+            if (!from || !to) return;
+
             let result;
             if (currentCat === 'temp') {
                 result = convertTemp(val, from, to);
@@ -152,7 +155,7 @@
                 const base = val * units[currentCat][from];
                 result = base / units[currentCat][to];
             }
-            
+
             document.getElementById('outputVal').value = Number(result.toPrecision(10));
         }
 
@@ -160,26 +163,22 @@
             if (from === to) return val;
             let celsius;
             if (from === 'c') celsius = val;
-            else if (from === 'f') celsius = (val - 32) * 5/9;
+            else if (from === 'f') celsius = (val - 32) * 5 / 9;
             else if (from === 'k') celsius = val - 273.15;
-            
+
             if (to === 'c') return celsius;
-            if (to === 'f') return celsius * 9/5 + 32;
+            if (to === 'f') return celsius * 9 / 5 + 32;
             if (to === 'k') return celsius + 273.15;
         }
 
         setCategory('length');
+
+        // PayPal Button render (guarded so page doesn't break if SDK is blocked)
+        if (window.paypal && paypal.HostedButtons) {
+            paypal.HostedButtons({
+                hostedButtonId: "HTT66RW4Z3GLQ",
+            }).render("#paypal-container-HTT66RW4Z3GLQ");
+        }
     </script>
-    <!-- PayPal Button - Part 2 -->
-    <div style="margin-top: 3rem; padding: 2rem; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; text-align: center;">
-        <p style="font-size: 1.1rem; font-weight: 600; color: var(--text); margin-bottom: 0.5rem;">💜 Love this tool?</p>
-        <p style="font-size: 0.9rem; color: var(--text); opacity: 0.8; margin-bottom: 1.5rem;">Your support keeps these tools free and ad-free for everyone.</p>
-        <div id="paypal-container-HTT66RW4Z3GLQ" style="display: flex; justify-content: center;"></div>
-        <script>
-          paypal.HostedButtons({
-            hostedButtonId: "HTT66RW4Z3GLQ",
-          }).render("#paypal-container-HTT66RW4Z3GLQ")
-        </script>
-    </div>
 </body>
 </html>
