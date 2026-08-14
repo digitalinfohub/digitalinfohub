@@ -28,51 +28,56 @@
         .equals { font-size: 2rem; text-align: center; padding-bottom: 0.5rem; }
         
         .back-link { display: inline-block; margin-bottom: 1rem; color: var(--primary); text-decoration: none; font-weight: 500; }
-/* Tool Animations */
-.timer-btn, .add-btn, .timer-btn.primary, .mode-tab, .action-btn, .generate-btn, .convert-btn {
-    transition: all 0.2s ease;
-}
-.timer-btn:hover, .add-btn:hover, .mode-tab:hover, .action-btn:hover, .generate-btn:hover, .convert-btn:hover {
-    transform: translateY(-2px);
-}
-.setting-input, .form-input, .form-select, textarea, input[type="text"], input[type="number"] {
-    transition: all 0.2s ease;
-}
-.setting-input:focus, .form-input:focus, .form-select:focus, textarea:focus, input[type="text"]:focus, input[type="number"]:focus {
-    transform: scale(1.02);
-}
-.transaction-item, .task-item, .note-item, .calendar-event, .output-line {
-    animation: slideIn 0.3s ease-out;
-}
-@keyframes slideIn {
-    from { opacity: 0; transform: translateX(-10px); }
-    to { opacity: 1; transform: translateX(0); }
-}
-.summary-card {
-    animation: fadeInUp 0.5s ease-out;
-}
-.summary-card:nth-child(1) { animation-delay: 0.1s; }
-.summary-card:nth-child(2) { animation-delay: 0.2s; }
-.summary-card:nth-child(3) { animation-delay: 0.3s; }
-@keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(15px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-.tool-card {
-    transition: all 0.3s ease;
-}
-.tool-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 24px rgba(99, 102, 241, 0.2);
-}
-.card, .panel, .output-area, .result-box, .output-container {
-    animation: fadeIn 0.4s ease-out;
-}
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
 
+        /* ===== FIXED DONATE SECTION ===== */
+        .donate-card {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        .donate-title { font-size: 1.1rem; font-weight: 600; color: var(--text); margin: 0 0 0.5rem; }
+        .donate-text  { font-size: 0.9rem; color: var(--text); opacity: 0.8; margin: 0 0 1.5rem; }
+        #paypal-container-HTT66RW4Z3GLQ {
+            width: min(320px, 100%);
+            min-height: 55px;
+            margin: 0 auto;
+        }
+        .zora-link {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .zora-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(99, 102, 241, 0.3);
+        }
+
+        /* Tool Animations */
+        .timer-btn, .add-btn, .timer-btn.primary, .mode-tab, .action-btn, .generate-btn, .convert-btn { transition: all 0.2s ease; }
+        .timer-btn:hover, .add-btn:hover, .mode-tab:hover, .action-btn:hover, .generate-btn:hover, .convert-btn:hover { transform: translateY(-2px); }
+        .setting-input, .form-input, .form-select, textarea, input[type="text"], input[type="number"] { transition: all 0.2s ease; }
+        .setting-input:focus, .form-input:focus, .form-select:focus, textarea:focus, input[type="text"]:focus, input[type="number"]:focus { transform: scale(1.02); }
+        .transaction-item, .task-item, .note-item, .calendar-event, .output-line { animation: slideIn 0.3s ease-out; }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
+        .summary-card { animation: fadeInUp 0.5s ease-out; }
+        .summary-card:nth-child(1) { animation-delay: 0.1s; }
+        .summary-card:nth-child(2) { animation-delay: 0.2s; }
+        .summary-card:nth-child(3) { animation-delay: 0.3s; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        .tool-card { transition: all 0.3s ease; }
+        .tool-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(99, 102, 241, 0.2); }
+        .card, .panel, .output-area, .result-box, .output-container { animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
@@ -83,7 +88,7 @@
                 <h1>Universal Unit Converter</h1>
                 <p style="opacity: 0.7; margin-top: 0.5rem;">Convert between different units instantly.</p>
             </div>
-            <span class="badge">✨ Digital Infohub Tool</span>
+            <span class="badge">Digital Infohub Tool</span>
         </header>
 
         <div class="tool-card">
@@ -109,6 +114,16 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- PayPal Button - Part 2 (FIXED) -->
+    <div class="donate-card">
+        <p class="donate-title">💜 Love this tool?</p>
+        <p class="donate-text">Your support keeps these tools free and ad-free for everyone.</p>
+        <div id="paypal-container-HTT66RW4Z3GLQ"></div>
+        <a href="https://zora.co/coin/base:0xd51d99de87ad3433e35f43132eddb3f68f4458e4" target="_blank" class="zora-link">
+            🪙 Support with Digital Infohub Token on Zora
+        </a>
     </div>
 
     <script>
@@ -169,17 +184,13 @@
         }
 
         setCategory('length');
+
+        // PayPal Button render (guarded so page doesn't break if SDK is blocked)
+        if (window.paypal && paypal.HostedButtons) {
+            paypal.HostedButtons({
+                hostedButtonId: "HTT66RW4Z3GLQ",
+            }).render("#paypal-container-HTT66RW4Z3GLQ");
+        }
     </script>
-    <!-- PayPal Button - Part 2 -->
-    <div style="margin-top: 3rem; padding: 2rem; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; text-align: center;">
-        <p style="font-size: 1.1rem; font-weight: 600; color: var(--text); margin-bottom: 0.5rem;">💜 Love this tool?</p>
-        <p style="font-size: 0.9rem; color: var(--text); opacity: 0.8; margin-bottom: 1.5rem;">Your support keeps these tools free and ad-free for everyone.</p>
-        <div id="paypal-container-HTT66RW4Z3GLQ" style="display: flex; justify-content: center;"></div>
-        <script>
-          paypal.HostedButtons({
-            hostedButtonId: "HTT66RW4Z3GLQ",
-          }).render("#paypal-container-HTT66RW4Z3GLQ")
-        </script>
-    </div>
 </body>
 </html>
