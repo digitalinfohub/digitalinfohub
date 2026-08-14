@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar App | Digital Infohub</title>
+    <style>
+        :root { --primary: #2563eb; --bg: #f8fafc; --card-bg: #ffffff; --text: #1e293b; --border: #e2e8f0; }
+        [data-theme="dark"] { --bg: #0f172a; --card-bg: #1e293b; --text: #f1f5f9; --border: #334155; }
+        body { font-family: system-ui, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 0; }
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+        header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+        h1 { margin: 0; font-size: 1.8rem; }
+        .badge { background: var(--primary); color: white; padding: 0.25rem 0.75rem; border-radius: 99px; font-size: 0.8rem; font-weight: bold; }
+        .tool-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+        
+        .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+        .calendar-nav { display: flex; gap: 0.5rem; align-items: center; }
+        .calendar-nav button { background: transparent; border: 1px solid var(--border); color: var(--text); padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; }
+        .calendar-nav button:hover { background: var(--primary); color: white; border-color: var(--primary); }
+        .current-month { font-size: 1.4rem; font-weight: 700; }
+        
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+        .weekday { text-align: center; font-weight: 600; padding: 0.75rem; font-size: 0.85rem; opacity: 0.7; }
+        .day { aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 8px; cursor: pointer; transition: all 0.2s; position: relative; min-height: 50px; }
+        .day:hover { background: var(--primary); color: white; }
+        .day.selected { background: var(--primary); color: white; }
+        .day.today { border: 2px solid var(--primary); }
+        .day.other-month { opacity: 0.3; }
+        .day.has-event::after { content: ''; width: 6px; height: 6px; background: #ef4444; border-radius: 50%; position: absolute; bottom: 4px; }
+        
+        .event-section { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+        .event-section h3 { margin-bottom: 1rem; }
+        .event-form { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+        .event-form input { flex: 1; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px; background: var(--bg); color: var(--text); }
+        .event-form button { padding: 0.75rem 1.5rem; background: var(--primary); color: white; border: none; border-radius: 6px; cursor: pointer; }
+        .events-list { list-style: none; padding: 0; }
+        .events-list li { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px; margin-bottom: 0.5rem; }
+        .events-list li button { background: transparent; border: none; color: #ef4444; cursor: pointer; font-size: 1.2rem; }
+        
+        .back-link { display: inline-block; margin-bottom: 1rem; color: var(--primary); text-decoration: none; font-weight: 500; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="software.html" class="back-link">← Back to Software Hub</a>
+        <header>
+            <div>
+                <h1>Calendar App</h1>
+                <p style="opacity: 0.7; margin-top: 0.5rem;">Manage your schedule and events.</p>
+            </div>
+            <span class="badge">✨ Tool</span>
+        </header>
+
+        <div class="tool-card">
+            <div class="calendar-header">
+                <div class="calendar-nav">
+                    <button onclick="previousMonth()">◀</button>
+                    <span class="current-month" id="currentMonth"></span>
+                    <button onclick="nextMonth()">▶</button>
+                </div>
+                <button onclick="goToToday()" style="padding: 0.5rem 1rem; background: var(--primary); color: white; border: none; border-radius: 6px; cursor: pointer;">Today</button>
+            </div>
+            
+            <div class="calendar-grid" id="calendarGrid"></div>
+            
+            <div class="event-section">
+                <h3>Events for <span id="selectedDate"></span></h3>
+                <div class="event-form">
+                    <input type="text" id="eventInput" placeholder="Add new event...">
+                    <button onclick="addEvent()">Add Event</button>
+                </div>
+                <ul class="events-list" id="eventsList"></ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentDate = new Date();
+        let selectedDate = new Date();
+        const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        let events = JSON.parse(localStorage.getItem('calendarEvents')) || {};
+
+        function getEventsKey(date) {
+            return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+        }
+
+        function renderCalendar() {
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+            
+            document.getElementById('currentMonth').textContent = `${monthNames[month]} ${year}`;
+            document.getElementById('selectedDate').textContent = selectedDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            
+            const grid = document.getElementById('calendarGrid');
+            grid.innerHTML = '';
+            
+            weekdays.forEach(day => {
+                const weekdayEl = document.createElement('div');
+                weekdayEl.className = 'weekday';
+                weekdayEl.textContent = day;
+                grid.appendChild(weekdayEl);
+            });
+            
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const daysInPrevMonth = new Date(year, month, 0).getDate();
+            
+            const today = new Date();
+            
+            for (let i = firstDay - 1; i >= 0; i--) {
+                const dayEl = document.createElement('div');
+                dayEl.className = 'day other-month';
+                dayEl.textContent = daysInPrevMonth - i;
+                grid.appendChild(dayEl);
+            }
+            
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayEl = document.createElement('div');
+                dayEl.className = 'day';
+                dayEl.textContent = day;
+                
+                const checkDate = new Date(year, month, day);
+                if (checkDate.toDateString() === today.toDateString()) {
+                    dayEl.classList.add('today');
+                }
+                if (checkDate.toDateString() === selectedDate.toDateString()) {
+                    dayEl.classList.add('selected');
+                }
+                if (events[getEventsKey(checkDate)]) {
+                    dayEl.classList.add('has-event');
+                }
+                
+                dayEl.onclick = () => selectDate(day);
+                grid.appendChild(dayEl);
+            }
+            
+            const remainingDays = 42 - (firstDay + daysInMonth);
+            for (let i = 1; i <= remainingDays; i++) {
+                const dayEl = document.createElement('div');
+                dayEl.className = 'day other-month';
+                dayEl.textContent = i;
+                grid.appendChild(dayEl);
+            }
+            
+            renderEvents();
+        }
+
+        function selectDate(day) {
+            selectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+            renderCalendar();
+        }
+
+        function previousMonth() {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            renderCalendar();
+        }
+
+        function nextMonth() {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            renderCalendar();
+        }
+
+        function goToToday() {
+            currentDate = new Date();
+            selectedDate = new Date();
+            renderCalendar();
+        }
+
+        function addEvent() {
+            const input = document.getElementById('eventInput');
+            const eventText = input.value.trim();
+            if (!eventText) return;
+            
+            const key = getEventsKey(selectedDate);
+            if (!events[key]) events[key] = [];
+            events[key].push(eventText);
+            localStorage.setItem('calendarEvents', JSON.stringify(events));
+            
+            input.value = '';
+            renderCalendar();
+        }
+
+        function deleteEvent(index) {
+            const key = getEventsKey(selectedDate);
+            if (events[key]) {
+                events[key].splice(index, 1);
+                if (events[key].length === 0) delete events[key];
+                localStorage.setItem('calendarEvents', JSON.stringify(events));
+                renderCalendar();
+            }
+        }
+
+        function renderEvents() {
+            const list = document.getElementById('eventsList');
+            const key = getEventsKey(selectedDate);
+            const dayEvents = events[key] || [];
+            
+            list.innerHTML = '';
+            if (dayEvents.length === 0) {
+                list.innerHTML = '<li style="opacity: 0.5; justify-content: center;">No events for this day</li>';
+                return;
+            }
+            
+            dayEvents.forEach((event, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = `<span>${event}</span><button onclick="deleteEvent(${index})">×</button>`;
+                list.appendChild(li);
+            });
+        }
+
+        document.getElementById('eventInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') addEvent();
+        });
+
+        renderCalendar();
+    </script>
+</body>
+</html>
