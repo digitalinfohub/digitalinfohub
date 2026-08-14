@@ -7,13 +7,32 @@
     <!-- PayPal SDK - Part 1 -->
     <script src="https://www.paypal.com/sdk/js?client-id=BAAWPO7p_oIMxRK7-euIX6su8WnqCJLuHdvvNOwh3Fc7ycnF1ripj2YSUbBdZVy8DfoJN6E-AJeUfSESRM&components=hosted-buttons&disable-funding=venmo&currency=GBP"></script>
     <style>
-        :root { --primary: #2563eb; --bg: #f8fafc; --card-bg: #ffffff; --text: #1e293b; --border: #e2e8f0; }
-        [data-theme="dark"] { --bg: #0f172a; --card-bg: #1e293b; --text: #f1f5f9; --border: #334155; }
+        :root { --primary: #2563eb; --bg: #f8fafc; --card-bg: #ffffff; --text: #1e293b; --border: #e2e8f0; --accent: #6366f1; --accent-soft: rgba(99,102,241,0.08); --surface-2: #f1f5f9; }
+        [data-theme="dark"] { --bg: #0f172a; --card-bg: #1e293b; --text: #f1f5f9; --border: #334155; --surface-2: #1e293b; --accent-soft: rgba(99,102,241,0.15); }
         body { font-family: system-ui, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 0; }
         .container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
         header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
         h1 { margin: 0; font-size: 1.8rem; }
         .badge { background: var(--primary); color: white; padding: 0.25rem 0.75rem; border-radius: 99px; font-size: 0.8rem; font-weight: bold; }
+        
+        /* Ad Container */
+        .ad-container { margin: 24px 0; padding: 16px; background: var(--surface-2); border: 1px dashed var(--border); border-radius: 8px; text-align: center; }
+        .ad-label { font-size: 10px; color: var(--text); opacity: 0.6; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; }
+        
+        /* Enhanced Donate Section */
+        .donate-section { margin: 48px 0; padding: 40px 24px; background: linear-gradient(135deg, var(--surface-2) 0%, var(--card-bg) 100%); border: 2px solid var(--primary); border-radius: 16px; text-align: center; position: relative; overflow: hidden; }
+        .donate-section::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, var(--accent-soft) 0%, transparent 70%); opacity: 0.3; animation: pulse 3s ease-in-out infinite; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.3; } 50% { transform: scale(1.1); opacity: 0.5; } }
+        .donate-content { position: relative; z-index: 1; }
+        .donate-title { font-size: 22px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+        .donate-subtitle { font-size: 15px; opacity: 0.8; margin-bottom: 24px; line-height: 1.6; }
+        .donate-perks { display: flex; justify-content: center; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
+        .perk-item { display: flex; align-items: center; gap: 6px; font-size: 13px; opacity: 0.8; background: var(--bg); padding: 8px 14px; border-radius: 999px; border: 1px solid var(--border); }
+        .crypto-section { margin-top: 28px; padding-top: 28px; border-top: 1px solid var(--border); }
+        .crypto-title { font-size: 13px; font-weight: 600; opacity: 0.7; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.05em; }
+        .crypto-link { display: inline-flex; align-items: center; gap: 8px; color: var(--primary); text-decoration: none; font-size: 14px; font-weight: 600; padding: 12px 24px; background: var(--accent-soft); border-radius: 8px; border: 1px solid var(--primary); transition: all 0.2s; }
+        .crypto-link:hover { background: var(--primary); color: white; transform: translateY(-2px); }
+        .paypal-container { display: flex; justify-content: center; align-items: center; min-height: 150px; }
         
         .editor-container { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; height: 70vh; }
         @media (max-width: 900px) { .editor-container { grid-template-columns: 1fr; height: auto; } textarea, #preview { height: 400px; } }
@@ -38,7 +57,7 @@
 </head>
 <body>
     <div class="container">
-        <a href="software.html" class="back-link">← Back to Software Hub</a>
+        <a href="/software" class="back-link">← Back to Software Hub</a>
         <header>
             <div>
                 <h1>Markdown Editor</h1>
@@ -58,6 +77,18 @@
             <button onclick="insert('> ', '')">Quote</button>
             <button onclick="copyResult()">Copy HTML</button>
             <button onclick="clearEditor()">Clear</button>
+        </div>
+
+        <!-- AdSense Top -->
+        <div class="ad-container">
+            <div class="ad-label">Advertisement</div>
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-5443646750699471"
+                 data-ad-slot="YOUR_AD_SLOT_ID"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         </div>
 
         <div class="editor-container">
@@ -133,17 +164,33 @@ console.log("Hello World");
         }
 
         document.getElementById('markdown').value = defaultText;
-    <!-- PayPal Button - Part 2 -->
-    <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border); text-align: center;">
-        <p style="font-size: 0.9rem; color: var(--text); margin-bottom: 1rem;">If this tool helps you, consider supporting us!</p>
-        <div id="paypal-container-HTT66RW4Z3GLQ"></div>
-        <script>
-          paypal.HostedButtons({
-            hostedButtonId: "HTT66RW4Z3GLQ",
-          }).render("#paypal-container-HTT66RW4Z3GLQ")
-        </script>
-    </div>
         render();
     </script>
+    
+    <!-- Enhanced Donate Section -->
+    <div class="donate-section">
+        <div class="donate-content">
+            <p class="donate-title">💜 Love this Markdown Editor?</p>
+            <p class="donate-subtitle">Your support helps keep these tools free, ad-free, and continuously improved for everyone.</p>
+            <div class="donate-perks">
+                <div class="perk-item"><span class="perk-icon">✨</span> Support Development</div>
+                <div class="perk-item"><span class="perk-icon">🚀</span> Faster Features</div>
+                <div class="perk-item"><span class="perk-icon">💎</span> Ad-Free Experience</div>
+            </div>
+            <div class="paypal-container" id="paypal-container-HTT66RW4Z3GLQ"></div>
+            <script>
+              paypal.HostedButtons({
+                hostedButtonId: "HTT66RW4Z3GLQ",
+              }).render("#paypal-container-HTT66RW4Z3GLQ")
+            </script>
+            <div class="crypto-section">
+                <p class="crypto-title">Prefer Crypto?</p>
+                <a href="https://zora.co/coin/base:0xd51d99de87ad3433e35f43132eddb3f68f4458e4" target="_blank" rel="noopener" class="crypto-link">
+                    <span>🪙</span> Digital Infohub Token on Zora
+                </a>
+            </div>
+        </div>
+    </div>
+    </div>
 </body>
 </html>

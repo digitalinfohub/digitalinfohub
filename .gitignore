@@ -1,12 +1,51 @@
-```html
-<!-- Do not ignore HTML files as they appear to be the main source code for this web-based project -->
-<!-- No build artifacts, dependency directories, or temporary files detected in the changes -->
-<!-- Only preserving original rule if it was meaningful, but .gitignore was empty -->
 ```
+# Logs and temp files
+*.log
+*.tmp
+*.swp
 
-Actually, since the current .gitignore is empty and only HTML files are being tracked (which are source files), no .gitignore content is needed.
+# Environment
+.env
+.env.local
+*.env.*
 
-```
+# Editors
+.vscode/
+.idea/
 
+# Dependencies
+node_modules/
+vendor/
 
+# Build artifacts
+dist/
+build/
+*.min.js
+*.min.css
+*.bundle.js
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.git/modules/
 ```

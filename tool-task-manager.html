@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task Manager | Digital Infohub</title>
-    <style>
-        :root { --primary: #2563eb; --bg: #f8fafc; --card-bg: #ffffff; --text: #1e293b; --border: #e2e8f0; }
-        [data-theme="dark"] { --bg: #0f172a; --card-bg: #1e293b; --text: #f1f5f9; --border: #334155; }
-        body { font-family: system-ui, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 0; }
+<!-- PayPal SDK - Part 1 -->
+<script src="https://www.paypal.com/sdk/js?client-id=BAAWPO7p_oIMxRK7-euIX6su8WnqCJLuHdvvNOwh3Fc7ycnF1ripj2YSUbBdZVy8DfoJN6E-AJeUfSESRM&components=hosted-buttons&disable-funding=venmo&currency=GBP"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Task Manager | Digital Infohub</title>
+<style>
+:root { --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; --primary: #6366f1; --bg: #0a0a0a; --card-bg: #111111; --text: #f5f5f5; --border: rgba(255,255,255,0.06); --text-sub: #a1a1aa; }
+[data-theme="light"] { --bg: #fafafa; --card-bg: #ffffff; --text: #0a0a0a; --border: rgba(0,0,0,0.06); --text-sub: #52525b; }
+body { font-family: var(--font); background: var(--bg); color: var(--text); margin: 0; padding: 0; }
         .container { max-width: 800px; margin: 0 auto; padding: 2rem; }
         header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
         h1 { margin: 0; font-size: 1.8rem; }
@@ -39,13 +41,12 @@
 </head>
 <body>
     <div class="container">
-        <a href="software.html" class="back-link">← Back to Software Hub</a>
+        <a href="/software" class="back-link">← Back to Software Hub</a>
         <header>
             <div>
                 <h1>Task Manager</h1>
                 <p style="opacity: 0.7; margin-top: 0.5rem;">Organize your to-do lists and stay productive.</p>
             </div>
-            <span class="badge">✨ Tool</span>
         </header>
 
         <div class="tool-card">
