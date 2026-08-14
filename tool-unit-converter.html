@@ -36,6 +36,7 @@
             background: var(--card-bg);
             border: 1px solid var(--border);
             border-radius: 12px;
+            text-align: center;
             text-align: center;               /* centers the button without flexbox */
             box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
         }
@@ -46,6 +47,21 @@
             width: min(320px, 100%);
             min-height: 55px;
             margin: 0 auto;
+        }
+        .zora-link {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .zora-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(99, 102, 241, 0.3);
         }
 
         /* Tool Animations */
@@ -74,7 +90,7 @@
                 <h1>Universal Unit Converter</h1>
                 <p style="opacity: 0.7; margin-top: 0.5rem;">Convert between different units instantly.</p>
             </div>
-            <span class="badge">✨ Digital Infohub Tool</span>
+            <span class="badge">Digital Infohub Tool</span>
         </header>
 
         <div class="tool-card">
@@ -107,6 +123,16 @@
             <p class="donate-text">Your support keeps these tools free and ad-free for everyone.</p>
             <div id="paypal-container-HTT66RW4Z3GLQ"></div>
         </div>
+    </div>
+
+    <!-- PayPal Button - Part 2 (FIXED) -->
+    <div class="donate-card">
+        <p class="donate-title">💜 Love this tool?</p>
+        <p class="donate-text">Your support keeps these tools free and ad-free for everyone.</p>
+        <div id="paypal-container-HTT66RW4Z3GLQ"></div>
+        <a href="https://zora.co/coin/base:0xd51d99de87ad3433e35f43132eddb3f68f4458e4" target="_blank" class="zora-link">
+            🪙 Support with Digital Infohub Token on Zora
+        </a>
     </div>
 
     <script>
