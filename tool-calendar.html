@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar App | Digital Infohub</title>
+    <script src="https://www.paypal.com/sdk/js?client-id=BAAWPO7p_oIMxRK7-euIX6su8WnqCJLuHdvvNOwh3Fc7ycnF1ripj2YSUbBdZVy8DfoJN6E-AJeUfSESRM&components=hosted-buttons&disable-funding=venmo&currency=GBP"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471" crossorigin="anonymous"></script>
+    <style>
+        :root { --primary: #8b5cf6; --bg: #f8fafc; --card-bg: #ffffff; --text: #1e293b; --border: #e2e8f0; }
+        [data-theme="dark"] { --bg: #0f172a; --card-bg: #1e293b; --text: #f1f5f9; --border: #334155; }
+        body { font-family: system-ui, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 0; transition: background 0.3s; }
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+        header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+        h1 { margin: 0; font-size: 1.8rem; }
+        .badge { background: var(--primary); color: white; padding: 0.25rem 0.75rem; border-radius: 99px; font-size: 0.8rem; font-weight: bold; }
+        .tool-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+        
+        .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.5rem; }
+        .day-name { text-align: center; font-weight: bold; padding: 0.5rem; opacity: 0.7; }
+        .day-cell { min-height: 80px; border: 1px solid var(--border); border-radius: 6px; padding: 0.5rem; cursor: pointer; transition: all 0.2s; position: relative; }
+        .day-cell:hover { background: var(--bg); transform: scale(1.02); }
+        .day-cell.today { border-color: var(--primary); background: rgba(139, 92, 246, 0.1); }
+        .day-cell.other-month { opacity: 0.3; }
+        .day-number { font-weight: bold; margin-bottom: 0.25rem; }
+        .event-dot { width: 8px; height: 8px; background: var(--primary); border-radius: 50%; display: inline-block; margin: 2px; }
+        
+        button { padding: 0.75rem 1.5rem; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 1rem; transition: all 0.2s; }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-secondary { background: transparent; border: 1px solid var(--border); color: var(--text); }
+        button:hover { transform: translateY(-2px); opacity: 0.9; }
+        
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; }
+        .modal-content { background: var(--card-bg); max-width: 500px; margin: 10% auto; padding: 2rem; border-radius: 12px; }
+        .input-group { margin-bottom: 1rem; }
+        label { display: block; margin-bottom: 0.5rem; font-weight: 600; }
+        input, textarea { width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px; background: var(--bg); color: var(--text); box-sizing: border-box; }
+        
+        .back-link { display: inline-block; margin-bottom: 1rem; color: var(--primary); text-decoration: none; font-weight: 500; }
+        .donate-card { margin-top: 3rem; padding: 2rem; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; text-align: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+        .donate-title { font-size: 1.1rem; font-weight: 600; color: var(--text); margin: 0 0 0.5rem; }
+        .donate-text { font-size: 0.9rem; color: var(--text); opacity: 0.8; margin: 0 0 1.5rem; }
+        #paypal-container-HTT66RW4Z3GLQ { width: min(320px, 100%); min-height: 55px; margin: 0 auto; }
+        .zora-link { display: inline-block; margin-top: 1rem; padding: 0.75rem 1.5rem; background: linear-gradient(45deg, #6d28d9, #ec4899); color: white; text-decoration: none; border-radius: 8px; font-weight: 600; transition: transform 0.2s; }
+        .zora-link:hover { transform: scale(1.05); }
+        
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .day-cell, .modal-content { animation: fadeIn 0.3s ease-out; }
+        button { transition: all 0.2s ease; }
+        button:hover { transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/software" class="back-link">← Back to Software Hub</a>
+        <header>
+            <div><h1>Calendar App</h1><p style="opacity: 0.7; margin-top: 0.5rem;">Organize your schedule and events.</p></div>
+            <span class="badge">✨ Digital Infohub Tool</span>
+        </header>
+
+        <div class="tool-card">
+            <div class="calendar-header">
+                <button class="btn-secondary" onclick="changeMonth(-1)">← Prev</button>
+                <h2 id="monthYear"></h2>
+                <button class="btn-secondary" onclick="changeMonth(1)">Next →</button>
+            </div>
+            <div class="calendar-grid">
+                <div class="day-name">Sun</div><div class="day-name">Mon</div><div class="day-name">Tue</div>
+                <div class="day-name">Wed</div><div class="day-name">Thu</div><div class="day-name">Fri</div><div class="day-name">Sat</div>
+            </div>
+            <div class="calendar-grid" id="days"></div>
+        </div>
+
+        <div style="margin: 2rem 0; text-align: center;">
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5443646750699471" data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <div class="donate-card">
+            <p class="donate-title">💜 Love this tool?</p>
+            <p class="donate-text">Your support keeps these tools free and ad-free for everyone.</p>
+            <div id="paypal-container-HTT66RW4Z3GLQ"></div><br>
+            <a href="https://zora.co/coin/base:0xd51d99de87ad3433e35f43132eddb3f68f4458e4" target="_blank" class="zora-link">Support with Crypto (Zora)</a>
+        </div>
+    </div>
+
+    <div class="modal" id="eventModal">
+        <div class="modal-content">
+            <h3 id="modalDate"></h3>
+            <div class="input-group"><label>Event Title</label><input type="text" id="eventTitle" placeholder="Meeting, Birthday, etc."></div>
+            <div class="input-group"><label>Description</label><textarea id="eventDesc" rows="3" placeholder="Details..."></textarea></div>
+            <button class="btn-primary" onclick="saveEvent()">Save Event</button>
+            <button class="btn-secondary" onclick="closeModal()">Cancel</button>
+            <button class="btn-secondary" style="background:#ef4444;color:white;margin-left:0.5rem;" onclick="deleteEvents()">Delete All</button>
+        </div>
+    </div>
+
+    <script>
+        let currentDate = new Date();
+        let selectedDate = null;
+        let events = JSON.parse(localStorage.getItem('calendarEvents')) || {};
+
+        function renderCalendar() {
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+            document.getElementById('monthYear').textContent = new Date(year, month).toLocaleString('default', { month: 'long', year: 'numeric' });
+            
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const daysInPrevMonth = new Date(year, month, 0).getDate();
+            
+            const daysContainer = document.getElementById('days');
+            daysContainer.innerHTML = '';
+            
+            const today = new Date();
+            
+            for (let i = firstDay - 1; i >= 0; i--) {
+                const day = daysInPrevMonth - i;
+                daysContainer.innerHTML += `<div class="day-cell other-month"><div class="day-number">${day}</div></div>`;
+            }
+            
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                const isToday = day === today.getDate() && month === today.getMonth() && year === today.getFullYear();
+                const hasEvents = events[dateStr] && events[dateStr].length > 0;
+                
+                let eventDots = '';
+                if (hasEvents) {
+                    eventDots = events[dateStr].map(() => '<span class="event-dot"></span>').join('');
+                }
+                
+                daysContainer.innerHTML += `
+                    <div class="day-cell ${isToday ? 'today' : ''}" onclick="openModal('${dateStr}')">
+                        <div class="day-number">${day}</div>
+                        ${eventDots}
+                    </div>`;
+            }
+            
+            const remaining = 42 - (firstDay + daysInMonth);
+            for (let i = 1; i <= remaining; i++) {
+                daysContainer.innerHTML += `<div class="day-cell other-month"><div class="day-number">${i}</div></div>`;
+            }
+        }
+
+        function changeMonth(delta) {
+            currentDate.setMonth(currentDate.getMonth() + delta);
+            renderCalendar();
+        }
+
+        function openModal(dateStr) {
+            selectedDate = dateStr;
+            document.getElementById('modalDate').textContent = `Events for ${dateStr}`;
+            const existingEvents = events[dateStr] || [];
+            if (existingEvents.length > 0) {
+                document.getElementById('eventTitle').value = existingEvents[0].title;
+                document.getElementById('eventDesc').value = existingEvents[0].desc || '';
+            } else {
+                document.getElementById('eventTitle').value = '';
+                document.getElementById('eventDesc').value = '';
+            }
+            document.getElementById('eventModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('eventModal').style.display = 'none';
+        }
+
+        function saveEvent() {
+            const title = document.getElementById('eventTitle').value.trim();
+            const desc = document.getElementById('eventDesc').value.trim();
+            if (!title) return alert('Please enter a title');
+            
+            events[selectedDate] = [{ title, desc }];
+            localStorage.setItem('calendarEvents', JSON.stringify(events));
+            closeModal();
+            renderCalendar();
+        }
+
+        function deleteEvents() {
+            if (confirm('Delete all events for this date?')) {
+                delete events[selectedDate];
+                localStorage.setItem('calendarEvents', JSON.stringify(events));
+                closeModal();
+                renderCalendar();
+            }
+        }
+
+        renderCalendar();
+
+        if (window.paypal && paypal.HostedButtons) {
+            paypal.HostedButtons({ hostedButtonId: "HTT66RW4Z3GLQ" }).render("#paypal-container-HTT66RW4Z3GLQ");
+        }
+    </script>
+</body>
+</html>

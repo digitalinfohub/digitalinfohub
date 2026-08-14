@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator | Digital Infohub</title>
+    <script src="https://www.paypal.com/sdk/js?client-id=BAAWPO7p_oIMxRK7-euIX6su8WnqCJLuHdvvNOwh3Fc7ycnF1ripj2YSUbBdZVy8DfoJN6E-AJeUfSESRM&components=hosted-buttons&disable-funding=venmo&currency=GBP"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471" crossorigin="anonymous"></script>
+    <style>
+        :root { --primary: #10b981; --bg: #f8fafc; --card-bg: #ffffff; --text: #1e293b; --border: #e2e8f0; }
+        [data-theme="dark"] { --bg: #0f172a; --card-bg: #1e293b; --text: #f1f5f9; --border: #334155; }
+        body { font-family: system-ui, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 0; transition: background 0.3s; }
+        .container { max-width: 600px; margin: 0 auto; padding: 2rem; }
+        header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+        h1 { margin: 0; font-size: 1.8rem; }
+        .badge { background: var(--primary); color: white; padding: 0.25rem 0.75rem; border-radius: 99px; font-size: 0.8rem; font-weight: bold; }
+        .tool-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); text-align: center; }
+        
+        input[type="text"] { width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); font-size: 1rem; margin-bottom: 1rem; box-sizing: border-box; }
+        #qr-container { margin: 2rem 0; min-height: 256px; display: flex; align-items: center; justify-content: center; }
+        #qr-code { max-width: 100%; }
+        
+        button { padding: 0.75rem 1.5rem; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 1rem; transition: all 0.2s; margin: 0.5rem; }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-secondary { background: transparent; border: 1px solid var(--border); color: var(--text); }
+        button:hover { transform: translateY(-2px); opacity: 0.9; }
+        
+        .back-link { display: inline-block; margin-bottom: 1rem; color: var(--primary); text-decoration: none; font-weight: 500; }
+        .donate-card { margin-top: 3rem; padding: 2rem; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; text-align: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+        .donate-title { font-size: 1.1rem; font-weight: 600; color: var(--text); margin: 0 0 0.5rem; }
+        .donate-text { font-size: 0.9rem; color: var(--text); opacity: 0.8; margin: 0 0 1.5rem; }
+        #paypal-container-HTT66RW4Z3GLQ { width: min(320px, 100%); min-height: 55px; margin: 0 auto; }
+        .zora-link { display: inline-block; margin-top: 1rem; padding: 0.75rem 1.5rem; background: linear-gradient(45deg, #6d28d9, #ec4899); color: white; text-decoration: none; border-radius: 8px; font-weight: 600; transition: transform 0.2s; }
+        .zora-link:hover { transform: scale(1.05); }
+        
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        #qr-code { animation: fadeIn 0.3s ease-out; }
+        button { transition: all 0.2s ease; }
+        button:hover { transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/software" class="back-link">← Back to Software Hub</a>
+        <header>
+            <div><h1>QR Code Generator</h1><p style="opacity: 0.7; margin-top: 0.5rem;">Create QR codes instantly.</p></div>
+            <span class="badge">✨ Digital Infohub Tool</span>
+        </header>
+
+        <div class="tool-card">
+            <input type="text" id="qr-text" placeholder="Enter URL or text here..." value="https://digitalinfohub.co.uk">
+            <button class="btn-primary" onclick="generateQR()">Generate QR Code</button>
+            <button class="btn-secondary" onclick="downloadQR()">Download</button>
+            
+            <div id="qr-container">
+                <img id="qr-code" src="" alt="QR Code will appear here" style="display:none;">
+            </div>
+        </div>
+
+        <div style="margin: 2rem 0; text-align: center;">
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5443646750699471" data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <div class="donate-card">
+            <p class="donate-title">💜 Love this tool?</p>
+            <p class="donate-text">Your support keeps these tools free and ad-free for everyone.</p>
+            <div id="paypal-container-HTT66RW4Z3GLQ"></div><br>
+            <a href="https://zora.co/coin/base:0xd51d99de87ad3433e35f43132eddb3f68f4458e4" target="_blank" class="zora-link">Support with Crypto (Zora)</a>
+        </div>
+    </div>
+
+    <script>
+        function generateQR() {
+            const text = document.getElementById('qr-text').value.trim();
+            if (!text) { alert('Please enter text or URL'); return; }
+            const qrImg = document.getElementById('qr-code');
+            qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=${encodeURIComponent(text)}`;
+            qrImg.style.display = 'block';
+        }
+
+        function downloadQR() {
+            const qrImg = document.getElementById('qr-code');
+            if (qrImg.style.display === 'none' || !qrImg.src) { alert('Generate a QR code first'); return; }
+            const link = document.createElement('a');
+            link.download = 'qrcode.png';
+            link.href = qrImg.src;
+            link.click();
+        }
+
+        generateQR();
+
+        if (window.paypal && paypal.HostedButtons) {
+            paypal.HostedButtons({ hostedButtonId: "HTT66RW4Z3GLQ" }).render("#paypal-container-HTT66RW4Z3GLQ");
+        }
+    </script>
+</body>
+</html>

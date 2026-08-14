@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro Timer | Digital Infohub</title>
+    <!-- PayPal SDK -->
+    <script src="https://www.paypal.com/sdk/js?client-id=BAAWPO7p_oIMxRK7-euIX6su8WnqCJLuHdvvNOwh3Fc7ycnF1ripj2YSUbBdZVy8DfoJN6E-AJeUfSESRM&components=hosted-buttons&disable-funding=venmo&currency=GBP"></script>
+    <!-- AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471" crossorigin="anonymous"></script>
+    <style>
+        :root { --primary: #ef4444; --bg: #f8fafc; --card-bg: #ffffff; --text: #1e293b; --border: #e2e8f0; }
+        [data-theme="dark"] { --bg: #0f172a; --card-bg: #1e293b; --text: #f1f5f9; --border: #334155; }
+        body { font-family: system-ui, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 0; transition: background 0.3s; }
+        .container { max-width: 600px; margin: 0 auto; padding: 2rem; }
+        header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+        h1 { margin: 0; font-size: 1.8rem; }
+        .badge { background: var(--primary); color: white; padding: 0.25rem 0.75rem; border-radius: 99px; font-size: 0.8rem; font-weight: bold; }
+        .tool-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); text-align: center; }
+        
+        .timer-display { font-size: 5rem; font-weight: bold; font-variant-numeric: tabular-nums; margin: 1.5rem 0; color: var(--primary); }
+        .controls { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        button { padding: 0.75rem 1.5rem; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 1rem; transition: all 0.2s; }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-secondary { background: transparent; border: 1px solid var(--border); color: var(--text); }
+        button:hover { transform: translateY(-2px); opacity: 0.9; }
+        
+        .modes { display: flex; justify-content: center; gap: 0.5rem; margin-bottom: 1.5rem; }
+        .mode-btn { padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; background: transparent; border: 1px solid var(--border); color: var(--text); }
+        .mode-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+
+        .back-link { display: inline-block; margin-bottom: 1rem; color: var(--primary); text-decoration: none; font-weight: 500; }
+        
+        /* Donate Section */
+        .donate-card { margin-top: 3rem; padding: 2rem; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; text-align: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+        .donate-title { font-size: 1.1rem; font-weight: 600; color: var(--text); margin: 0 0 0.5rem; }
+        .donate-text { font-size: 0.9rem; color: var(--text); opacity: 0.8; margin: 0 0 1.5rem; }
+        #paypal-container-HTT66RW4Z3GLQ { width: min(320px, 100%); min-height: 55px; margin: 0 auto; }
+        .zora-link { display: inline-block; margin-top: 1rem; padding: 0.75rem 1.5rem; background: linear-gradient(45deg, #6d28d9, #ec4899); color: white; text-decoration: none; border-radius: 8px; font-weight: 600; transition: transform 0.2s; }
+        .zora-link:hover { transform: scale(1.05); }
+
+        /* Animations */
+        .timer-display { animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.8; } 100% { opacity: 1; } }
+        button { transition: all 0.2s ease; }
+        button:hover { transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/software" class="back-link">← Back to Software Hub</a>
+        <header>
+            <div>
+                <h1>Pomodoro Timer</h1>
+                <p style="opacity: 0.7; margin-top: 0.5rem;">Focus better with the Pomodoro technique.</p>
+            </div>
+            <span class="badge">✨ Digital Infohub Tool</span>
+        </header>
+
+        <div class="tool-card">
+            <div class="modes">
+                <button class="mode-btn active" onclick="setMode('work')">Work (25m)</button>
+                <button class="mode-btn" onclick="setMode('short')">Short Break (5m)</button>
+                <button class="mode-btn" onclick="setMode('long')">Long Break (15m)</button>
+            </div>
+            
+            <div class="timer-display" id="timer">25:00</div>
+            
+            <div class="controls">
+                <button class="btn-primary" id="startBtn" onclick="toggleTimer()">Start</button>
+                <button class="btn-secondary" onclick="resetTimer()">Reset</button>
+            </div>
+        </div>
+
+        <!-- AdSense -->
+        <div style="margin: 2rem 0; text-align: center;">
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5443646750699471" data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <!-- Donation -->
+        <div class="donate-card">
+            <p class="donate-title">💜 Love this tool?</p>
+            <p class="donate-text">Your support keeps these tools free and ad-free for everyone.</p>
+            <div id="paypal-container-HTT66RW4Z3GLQ"></div>
+            <br>
+            <a href="https://zora.co/coin/base:0xd51d99de87ad3433e35f43132eddb3f68f4458e4" target="_blank" class="zora-link">Support with Crypto (Zora)</a>
+        </div>
+    </div>
+
+    <script>
+        let timeLeft = 25 * 60;
+        let timerId = null;
+        let isRunning = false;
+        let currentMode = 'work';
+        
+        const modes = {
+            work: 25 * 60,
+            short: 5 * 60,
+            long: 15 * 60
+        };
+
+        function updateDisplay() {
+            const m = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+            const s = (timeLeft % 60).toString().padStart(2, '0');
+            document.getElementById('timer').textContent = `${m}:${s}`;
+            document.title = `${m}:${s} - Pomodoro`;
+        }
+
+        function toggleTimer() {
+            const btn = document.getElementById('startBtn');
+            if (isRunning) {
+                clearInterval(timerId);
+                btn.textContent = 'Start';
+                btn.classList.remove('btn-secondary');
+                btn.classList.add('btn-primary');
+            } else {
+                timerId = setInterval(() => {
+                    if (timeLeft > 0) {
+                        timeLeft--;
+                        updateDisplay();
+                    } else {
+                        clearInterval(timerId);
+                        new Audio('https://actions.google.com/sounds/v1/alarms/beep_short.ogg').play();
+                        alert('Time\'s up!');
+                        resetTimer();
+                    }
+                }, 1000);
+                btn.textContent = 'Pause';
+                btn.classList.remove('btn-primary');
+                btn.classList.add('btn-secondary');
+            }
+            isRunning = !isRunning;
+        }
+
+        function resetTimer() {
+            clearInterval(timerId);
+            isRunning = false;
+            timeLeft = modes[currentMode];
+            document.getElementById('startBtn').textContent = 'Start';
+            document.getElementById('startBtn').classList.remove('btn-secondary');
+            document.getElementById('startBtn').classList.add('btn-primary');
+            updateDisplay();
+        }
+
+        function setMode(mode) {
+            currentMode = mode;
+            document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            resetTimer();
+        }
+
+        // PayPal
+        if (window.paypal && paypal.HostedButtons) {
+            paypal.HostedButtons({ hostedButtonId: "HTT66RW4Z3GLQ" }).render("#paypal-container-HTT66RW4Z3GLQ");
+        }
+    </script>
+</body>
+</html>
