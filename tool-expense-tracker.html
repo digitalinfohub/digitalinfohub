@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471"
+crossorigin="anonymous"></script>
+<!-- PayPal SDK - Part 1 -->
+<script src="https://www.paypal.com/sdk/js?client-id=BAAWPO7p_oIMxRK7-euIX6su8WnqCJLuHdvvNOwh3Fc7ycnF1ripj2YSUbBdZVy8DfoJN6E-AJeUfSESRM&components=hosted-buttons&disable-funding=venmo&currency=GBP"></script>
+<meta charset="UTF-8">
+<title>Expense Tracker | Digital Infohub</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta name="theme-color" content="#0a0a0a">
+<meta name="description" content="Free online expense tracker to monitor your spending and manage your budget.">
+<meta name="color-scheme" content="dark light">
+<link rel="icon" type="image/png" href="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png">
+<link rel="apple-touch-icon" href="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+--font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+--mono: 'JetBrains Mono', ui-monospace, monospace;
+--ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+--radius: 12px;
+--radius-sm: 8px;
+}
+[data-theme="dark"] {
+--bg: #0a0a0a; --surface: #111111; --surface-2: #161616; --surface-3: #1a1a1a;
+--border: rgba(255,255,255,0.06); --border-strong: rgba(255,255,255,0.1);
+--text: #f5f5f5; --text-sub: #a1a1aa; --text-muted: #71717a;
+--accent: #6366f1; --accent-soft: rgba(99,102,241,0.1);
+--shadow: 0 4px 24px -6px rgba(0,0,0,0.4);
+--success: #10b981; --danger: #ef4444; --warning: #f59e0b;
+}
+[data-theme="light"] {
+--bg: #fafafa; --surface: #ffffff; --surface-2: #f4f4f5; --surface-3: #e4e4e7;
+--border: rgba(0,0,0,0.06); --border-strong: rgba(0,0,0,0.12);
+--text: #0a0a0a; --text-sub: #52525b; --text-muted: #a1a1aa;
+--accent: #4f46e5; --accent-soft: rgba(79,70,229,0.08);
+--shadow: 0 4px 24px -6px rgba(0,0,0,0.08);
+--success: #059669; --danger: #dc2626; --warning: #d97706;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font); background: var(--bg); color: var(--text); min-height: 100vh; line-height: 1.6; -webkit-font-smoothing: antialiased; transition: background 0.3s ease, color 0.3s ease; }
+.shell { max-width: 700px; margin: 0 auto; padding: 32px 24px 80px; }
+.back-link { display: inline-flex; align-items: center; gap: 8px; color: var(--text-sub); text-decoration: none; font-size: 13px; font-weight: 500; margin-bottom: 24px; padding: 8px 0; transition: color 0.2s; }
+.back-link:hover { color: var(--text); }
+.tool-header { text-align: center; margin-bottom: 32px; }
+.tool-title { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+.tool-desc { font-size: 14px; color: var(--text-sub); }
+.summary-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px; }
+.summary-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px; text-align: center; }
+.summary-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+.summary-value { font-size: 20px; font-weight: 700; font-family: var(--mono); }
+.summary-value.income { color: var(--success); }
+.summary-value.expense { color: var(--danger); }
+.summary-value.balance { color: var(--accent); }
+.add-form { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; margin-bottom: 24px; }
+.form-row { display: grid; grid-template-columns: 2fr 1fr 1fr auto; gap: 12px; align-items: end; }
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-label { font-size: 12px; color: var(--text-sub); font-weight: 500; }
+.form-input, .form-select { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 12px; color: var(--text); font-family: var(--font); font-size: 13px; outline: none; transition: border-color 0.2s; }
+.form-input:focus, .form-select:focus { border-color: var(--accent); }
+.add-btn { background: var(--accent); border: 1px solid var(--accent); color: white; padding: 10px 20px; border-radius: var(--radius-sm); font-weight: 600; font-size: 13px; cursor: pointer; transition: opacity 0.2s; }
+.add-btn:hover { opacity: 0.9; }
+.transactions-list { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+.transaction-item { display: grid; grid-template-columns: 1fr auto auto auto; gap: 16px; align-items: center; padding: 14px 16px; border-bottom: 1px solid var(--border); }
+.transaction-item:last-child { border-bottom: none; }
+.transaction-info { display: flex; flex-direction: column; gap: 4px; }
+.transaction-name { font-size: 14px; font-weight: 500; }
+.transaction-category { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+.transaction-amount { font-family: var(--mono); font-size: 14px; font-weight: 600; }
+.transaction-amount.income { color: var(--success); }
+.transaction-amount.expense { color: var(--danger); }
+.transaction-date { font-size: 12px; color: var(--text-muted); }
+.delete-btn { background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px 8px; border-radius: 4px; font-size: 16px; transition: all 0.2s; }
+.delete-btn:hover { color: var(--danger); background: rgba(239, 68, 68, 0.1); }
+.empty-state { padding: 40px; text-align: center; color: var(--text-muted); font-size: 14px; }
+.filter-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; gap: 12px; flex-wrap: wrap; }
+.filter-select { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 8px 12px; color: var(--text); font-size: 13px; outline: none; }
+.clear-all-btn { background: var(--surface-2); border: 1px solid var(--border); color: var(--text-sub); padding: 8px 16px; border-radius: var(--radius-sm); font-size: 12px; cursor: pointer; transition: all 0.2s; }
+.clear-all-btn:hover { color: var(--danger); border-color: var(--danger); }
+.theme-toggle { position: fixed; top: 20px; right: 20px; width: 40px; height: 40px; border: 1px solid var(--border); background: var(--surface); color: var(--text-sub); border-radius: var(--radius-sm); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 18px; transition: all 0.2s; z-index: 100; }
+.theme-toggle:hover { background: var(--surface-2); border-color: var(--border-strong); color: var(--text); }
+@media (max-width: 640px) {
+.shell { padding: 20px 16px 60px; }
+.summary-cards { grid-template-columns: 1fr; }
+.form-row { grid-template-columns: 1fr; }
+.transaction-item { grid-template-columns: 1fr auto; gap: 8px; }
+.transaction-date, .delete-btn { grid-column: 2; }
+.delete-btn { justify-self: end; }
+}
+</style>
+</head>
+<body>
+<div class="shell">
+<a href="/software.html" class="back-link">← Back to Software Hub</a>
+<div class="tool-header">
+<h1 class="tool-title">💵 Expense Tracker</h1>
+<p class="tool-desc">Track your income and expenses</p>
+</div>
+<div class="summary-cards">
+<div class="summary-card">
+<div class="summary-label">Income</div>
+<div class="summary-value income" id="totalIncome">$0.00</div>
+</div>
+<div class="summary-card">
+<div class="summary-label">Expenses</div>
+<div class="summary-value expense" id="totalExpense">$0.00</div>
+</div>
+<div class="summary-card">
+<div class="summary-label">Balance</div>
+<div class="summary-value balance" id="balance">$0.00</div>
+</div>
+</div>
+<div class="add-form">
+<div class="form-row">
+<div class="form-group">
+<label class="form-label">Description</label>
+<input type="text" class="form-input" id="descInput" placeholder="Enter description">
+</div>
+<div class="form-group">
+<label class="form-label">Amount</label>
+<input type="number" class="form-input" id="amountInput" placeholder="0.00" step="0.01" min="0">
+</div>
+<div class="form-group">
+<label class="form-label">Type</label>
+<select class="form-select" id="typeSelect">
+<option value="income">Income</option>
+<option value="expense">Expense</option>
+</select>
+</div>
+<button class="add-btn" id="addBtn">Add</button>
+</div>
+</div>
+<div class="filter-bar">
+<select class="filter-select" id="filterSelect">
+<option value="all">All Transactions</option>
+<option value="income">Income Only</option>
+<option value="expense">Expenses Only</option>
+</select>
+<button class="clear-all-btn" id="clearAllBtn">Clear All</button>
+</div>
+<div class="transactions-list" id="transactionsList">
+<div class="empty-state">No transactions yet. Add your first one above!</div>
+</div>
+<!-- PayPal Button - Part 2 -->
+<div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border); text-align: center;">
+<p style="font-size: 13px; color: var(--text-sub); margin-bottom: 12px;">If this tool helps you, consider supporting us!</p>
+<div id="paypal-container-HTT66RW4Z3GLQ"></div>
+<script>
+  paypal.HostedButtons({
+    hostedButtonId: "HTT66RW4Z3GLQ",
+  }).render("#paypal-container-HTT66RW4Z3GLQ")
+</script>
+</div>
+</div>
+<button class="theme-toggle" id="themeToggle" title="Toggle theme">◑</button>
+<script>
+// Theme Toggle
+const themeToggle = document.getElementById('themeToggle');
+const html = document.documentElement;
+const savedTheme = localStorage.getItem('theme') || 'dark';
+html.setAttribute('data-theme', savedTheme);
+themeToggle.addEventListener('click', () => {
+const current = html.getAttribute('data-theme');
+const next = current === 'dark' ? 'light' : 'dark';
+html.setAttribute('data-theme', next);
+localStorage.setItem('theme', next);
+});
+// Expense Tracker Logic
+const descInput = document.getElementById('descInput');
+const amountInput = document.getElementById('amountInput');
+const typeSelect = document.getElementById('typeSelect');
+const addBtn = document.getElementById('addBtn');
+const transactionsList = document.getElementById('transactionsList');
+const totalIncomeEl = document.getElementById('totalIncome');
+const totalExpenseEl = document.getElementById('totalExpense');
+const balanceEl = document.getElementById('balance');
+const filterSelect = document.getElementById('filterSelect');
+const clearAllBtn = document.getElementById('clearAllBtn');
+let transactions = JSON.parse(localStorage.getItem('expenses')) || [];
+function saveTransactions() {
+localStorage.setItem('expenses', JSON.stringify(transactions));
+}
+function formatCurrency(amount) {
+return '$' + amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+}
+function formatDate(dateStr) {
+const date = new Date(dateStr);
+return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+function updateSummary() {
+const income = transactions.filter(t => t.type === 'income').reduce((sum, t) => sum + t.amount, 0);
+const expense = transactions.filter(t => t.type === 'expense').reduce((sum, t) => sum + t.amount, 0);
+const balance = income - expense;
+totalIncomeEl.textContent = formatCurrency(income);
+totalExpenseEl.textContent = formatCurrency(expense);
+balanceEl.textContent = formatCurrency(balance);
+}
+function renderTransactions(filter = 'all') {
+if (transactions.length === 0) {
+transactionsList.innerHTML = '<div class="empty-state">No transactions yet. Add your first one above!</div>';
+return;
+}
+const filtered = filter === 'all' ? transactions : transactions.filter(t => t.type === filter);
+if (filtered.length === 0) {
+transactionsList.innerHTML = '<div class="empty-state">No transactions match this filter.</div>';
+return;
+}
+transactionsList.innerHTML = filtered.map((t, index) => {
+const originalIndex = transactions.indexOf(t);
+return `
+<div class="transaction-item">
+<div class="transaction-info">
+<div class="transaction-name">${escapeHtml(t.description)}</div>
+<div class="transaction-category">${t.category}</div>
+</div>
+<div class="transaction-amount ${t.type}">${t.type === 'expense' ? '-' : '+'}${formatCurrency(t.amount)}</div>
+<div class="transaction-date">${formatDate(t.date)}</div>
+<button class="delete-btn" onclick="deleteTransaction(${originalIndex})" title="Delete">×</button>
+</div>
+`;
+}).join('');
+}
+function escapeHtml(text) {
+const div = document.createElement('div');
+div.textContent = text;
+return div.innerHTML;
+}
+function addTransaction() {
+const description = descInput.value.trim();
+const amount = parseFloat(amountInput.value);
+const type = typeSelect.value;
+if (!description || isNaN(amount) || amount <= 0) {
+alert('Please enter a valid description and amount');
+return;
+}
+const category = type === 'income' ? 'Income' : 'General';
+const transaction = {
+description,
+amount,
+type,
+category,
+date: new Date().toISOString()
+};
+transactions.unshift(transaction);
+saveTransactions();
+updateSummary();
+renderTransactions(filterSelect.value);
+descInput.value = '';
+amountInput.value = '';
+descInput.focus();
+}
+window.deleteTransaction = function(index) {
+if (confirm('Delete this transaction?')) {
+transactions.splice(index, 1);
+saveTransactions();
+updateSummary();
+renderTransactions(filterSelect.value);
+}
+};
+clearAllBtn.addEventListener('click', () => {
+if (confirm('Are you sure you want to delete all transactions? This cannot be undone.')) {
+transactions = [];
+saveTransactions();
+updateSummary();
+renderTransactions();
+}
+});
+addBtn.addEventListener('click', addTransaction);
+descInput.addEventListener('keypress', (e) => {
+if (e.key === 'Enter') addTransaction();
+});
+amountInput.addEventListener('keypress', (e) => {
+if (e.key === 'Enter') addTransaction();
+});
+filterSelect.addEventListener('change', () => {
+renderTransactions(filterSelect.value);
+});
+// Initialize
+updateSummary();
+renderTransactions();
+</script>
+</body>
+</html>
