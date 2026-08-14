@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JSON Formatter | Digital Infohub</title>
+    <!-- PayPal SDK - Part 1 -->
+    <script src="https://www.paypal.com/sdk/js?client-id=BAAWPO7p_oIMxRK7-euIX6su8WnqCJLuHdvvNOwh3Fc7ycnF1ripj2YSUbBdZVy8DfoJN6E-AJeUfSESRM&components=hosted-buttons&disable-funding=venmo&currency=GBP"></script>
     <style>
         :root {
             --primary: #2563eb;
@@ -117,5 +119,15 @@
             document.getElementById('status').innerHTML = '';
         }
     </script>
+    <!-- PayPal Button - Part 2 -->
+    <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border); text-align: center;">
+        <p style="font-size: 0.9rem; color: var(--text); margin-bottom: 1rem;">If this tool helps you, consider supporting us!</p>
+        <div id="paypal-container-HTT66RW4Z3GLQ"></div>
+        <script>
+          paypal.HostedButtons({
+            hostedButtonId: "HTT66RW4Z3GLQ",
+          }).render("#paypal-container-HTT66RW4Z3GLQ")
+        </script>
+    </div>
 </body>
 </html>

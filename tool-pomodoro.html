@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471"
+crossorigin="anonymous"></script>
+<!-- PayPal SDK - Part 1 -->
+<script src="https://www.paypal.com/sdk/js?client-id=BAAWPO7p_oIMxRK7-euIX6su8WnqCJLuHdvvNOwh3Fc7ycnF1ripj2YSUbBdZVy8DfoJN6E-AJeUfSESRM&components=hosted-buttons&disable-funding=venmo&currency=GBP"></script>
+<meta charset="UTF-8">
+<title>Pomodoro Timer | Digital Infohub</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta name="theme-color" content="#0a0a0a">
+<meta name="description" content="Free online Pomodoro timer for focused work sessions. Customize work and break intervals.">
+<meta name="color-scheme" content="dark light">
+<link rel="icon" type="image/png" href="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png">
+<link rel="apple-touch-icon" href="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+--font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+--mono: 'JetBrains Mono', ui-monospace, monospace;
+--ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+--radius: 12px;
+--radius-sm: 8px;
+}
+[data-theme="dark"] {
+--bg: #0a0a0a; --surface: #111111; --surface-2: #161616; --surface-3: #1a1a1a;
+--border: rgba(255,255,255,0.06); --border-strong: rgba(255,255,255,0.1);
+--text: #f5f5f5; --text-sub: #a1a1aa; --text-muted: #71717a;
+--accent: #6366f1; --accent-soft: rgba(99,102,241,0.1);
+--shadow: 0 4px 24px -6px rgba(0,0,0,0.4);
+}
+[data-theme="light"] {
+--bg: #fafafa; --surface: #ffffff; --surface-2: #f4f4f5; --surface-3: #e4e4e7;
+--border: rgba(0,0,0,0.06); --border-strong: rgba(0,0,0,0.12);
+--text: #0a0a0a; --text-sub: #52525b; --text-muted: #a1a1aa;
+--accent: #4f46e5; --accent-soft: rgba(79,70,229,0.08);
+--shadow: 0 4px 24px -6px rgba(0,0,0,0.08);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font); background: var(--bg); color: var(--text); min-height: 100vh; line-height: 1.6; -webkit-font-smoothing: antialiased; transition: background 0.3s ease, color 0.3s ease; }
+.shell { max-width: 600px; margin: 0 auto; padding: 32px 24px 80px; }
+/* Navigation */
+.back-link { display: inline-flex; align-items: center; gap: 8px; color: var(--text-sub); text-decoration: none; font-size: 13px; font-weight: 500; margin-bottom: 24px; padding: 8px 0; transition: color 0.2s; }
+.back-link:hover { color: var(--text); }
+/* Header */
+.tool-header { text-align: center; margin-bottom: 32px; }
+.tool-title { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+.tool-desc { font-size: 14px; color: var(--text-sub); }
+/* Timer Card */
+.timer-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; text-align: center; }
+.mode-tabs { display: flex; justify-content: center; gap: 8px; margin-bottom: 24px; }
+.mode-tab { padding: 8px 16px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 999px; color: var(--text-sub); font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+.mode-tab:hover { background: var(--surface-3); border-color: var(--border-strong); }
+.mode-tab.active { background: var(--accent); border-color: var(--accent); color: white; }
+.timer-display { font-family: var(--mono); font-size: 64px; font-weight: 700; margin: 24px 0; color: var(--text); font-variant-numeric: tabular-nums; }
+.timer-status { font-size: 14px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.1em; }
+.timer-controls { display: flex; justify-content: center; gap: 12px; margin-bottom: 24px; }
+.timer-btn { padding: 12px 32px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface-2); color: var(--text); cursor: pointer; font-weight: 600; font-size: 14px; transition: all 0.15s; }
+.timer-btn:hover { background: var(--surface-3); border-color: var(--border-strong); }
+.timer-btn.primary { background: var(--accent); border-color: var(--accent); color: white; }
+.timer-btn.primary:hover { opacity: 0.9; }
+.settings-panel { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 20px; margin-top: 24px; }
+.settings-title { font-size: 13px; font-weight: 600; margin-bottom: 16px; color: var(--text-sub); text-transform: uppercase; letter-spacing: 0.05em; }
+.setting-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.setting-row:last-child { margin-bottom: 0; }
+.setting-label { font-size: 13px; color: var(--text-sub); }
+.setting-input { width: 80px; background: var(--surface-3); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 8px 12px; color: var(--text); font-family: var(--mono); font-size: 14px; text-align: center; outline: none; }
+.setting-input:focus { border-color: var(--accent); }
+.session-count { margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border); }
+.session-dots { display: flex; justify-content: center; gap: 8px; margin-top: 12px; }
+.session-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--surface-3); border: 1px solid var(--border); }
+.session-dot.completed { background: var(--accent); border-color: var(--accent); }
+.theme-toggle { position: fixed; top: 20px; right: 20px; width: 40px; height: 40px; border: 1px solid var(--border); background: var(--surface); color: var(--text-sub); border-radius: var(--radius-sm); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 18px; transition: all 0.2s; z-index: 100; }
+.theme-toggle:hover { background: var(--surface-2); border-color: var(--border-strong); color: var(--text); }
+@media (max-width: 640px) {
+.shell { padding: 20px 16px 60px; }
+.timer-display { font-size: 48px; }
+.timer-card { padding: 24px 16px; }
+}
+</style>
+</head>
+<body>
+<div class="shell">
+<a href="/software.html" class="back-link">← Back to Software Hub</a>
+<div class="tool-header">
+<h1 class="tool-title">🍅 Pomodoro Timer</h1>
+<p class="tool-desc">Boost productivity with focused work sessions</p>
+</div>
+<div class="timer-card">
+<div class="mode-tabs">
+<button class="mode-tab active" data-mode="work">Work</button>
+<button class="mode-tab" data-mode="short">Short Break</button>
+<button class="mode-tab" data-mode="long">Long Break</button>
+</div>
+<div class="timer-status" id="timerStatus">Focus Time</div>
+<div class="timer-display" id="timerDisplay">25:00</div>
+<div class="timer-controls">
+<button class="timer-btn primary" id="startBtn">Start</button>
+<button class="timer-btn" id="resetBtn">Reset</button>
+</div>
+<div class="settings-panel">
+<div class="settings-title">Timer Settings (minutes)</div>
+<div class="setting-row">
+<span class="setting-label">Work Duration</span>
+<input type="number" class="setting-input" id="workDuration" value="25" min="1" max="60">
+</div>
+<div class="setting-row">
+<span class="setting-label">Short Break</span>
+<input type="number" class="setting-input" id="shortBreakDuration" value="5" min="1" max="30">
+</div>
+<div class="setting-row">
+<span class="setting-label">Long Break</span>
+<input type="number" class="setting-input" id="longBreakDuration" value="15" min="1" max="60">
+</div>
+</div>
+<div class="session-count">
+<div class="setting-label">Completed Sessions: <span id="sessionCount">0</span></div>
+<div class="session-dots" id="sessionDots"></div>
+</div>
+<!-- PayPal Button - Part 2 -->
+<div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border); text-align: center;">
+<p style="font-size: 13px; color: var(--text-sub); margin-bottom: 12px;">If this tool helps you, consider supporting us!</p>
+<div id="paypal-container-HTT66RW4Z3GLQ"></div>
+<script>
+  paypal.HostedButtons({
+    hostedButtonId: "HTT66RW4Z3GLQ",
+  }).render("#paypal-container-HTT66RW4Z3GLQ")
+</script>
+</div>
+</div>
+</div>
+<button class="theme-toggle" id="themeToggle" title="Toggle theme">◑</button>
+<script>
+// Theme Toggle
+const themeToggle = document.getElementById('themeToggle');
+const html = document.documentElement;
+const savedTheme = localStorage.getItem('theme') || 'dark';
+html.setAttribute('data-theme', savedTheme);
+themeToggle.addEventListener('click', () => {
+const current = html.getAttribute('data-theme');
+const next = current === 'dark' ? 'light' : 'dark';
+html.setAttribute('data-theme', next);
+localStorage.setItem('theme', next);
+});
+// Timer Logic
+const timerDisplay = document.getElementById('timerDisplay');
+const timerStatus = document.getElementById('timerStatus');
+const startBtn = document.getElementById('startBtn');
+const resetBtn = document.getElementById('resetBtn');
+const modeTabs = document.querySelectorAll('.mode-tab');
+const workDurationInput = document.getElementById('workDuration');
+const shortBreakInput = document.getElementById('shortBreakDuration');
+const longBreakInput = document.getElementById('longBreakDuration');
+const sessionCountEl = document.getElementById('sessionCount');
+const sessionDotsEl = document.getElementById('sessionDots');
+let timerInterval = null;
+let isRunning = false;
+let currentTime = 25 * 60;
+let currentMode = 'work';
+let completedSessions = parseInt(localStorage.getItem('pomodoroSessions')) || 0;
+const durations = {
+work: parseInt(workDurationInput.value) * 60,
+short: parseInt(shortBreakInput.value) * 60,
+long: parseInt(longBreakInput.value) * 60
+};
+updateSessionDots();
+function formatTime(seconds) {
+const mins = Math.floor(seconds / 60);
+const secs = seconds % 60;
+return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+}
+function updateDisplay() {
+timerDisplay.textContent = formatTime(currentTime);
+document.title = `${formatTime(currentTime)} - Pomodoro Timer`;
+}
+function updateStatus() {
+const statusText = {
+work: 'Focus Time',
+short: 'Short Break',
+long: 'Long Break'
+};
+timerStatus.textContent = statusText[currentMode];
+}
+function startTimer() {
+if (isRunning) {
+clearInterval(timerInterval);
+startBtn.textContent = 'Start';
+isRunning = false;
+} else {
+startBtn.textContent = 'Pause';
+isRunning = true;
+timerInterval = setInterval(() => {
+currentTime--;
+updateDisplay();
+if (currentTime <= 0) {
+clearInterval(timerInterval);
+playNotification();
+if (currentMode === 'work') {
+completedSessions++;
+localStorage.setItem('pomodoroSessions', completedSessions);
+sessionCountEl.textContent = completedSessions;
+updateSessionDots();
+if (completedSessions % 4 === 0) {
+currentMode = 'long';
+} else {
+currentMode = 'short';
+}
+} else {
+currentMode = 'work';
+}
+durations[currentMode] = getDurationForMode(currentMode) * 60;
+currentTime = durations[currentMode];
+updateModeTabs();
+updateStatus();
+updateDisplay();
+startBtn.textContent = 'Start';
+isRunning = false;
+}
+}, 1000);
+}
+}
+function resetTimer() {
+clearInterval(timerInterval);
+isRunning = false;
+startBtn.textContent = 'Start';
+currentTime = getDurationForMode(currentMode) * 60;
+updateDisplay();
+}
+function getDurationForMode(mode) {
+switch(mode) {
+case 'work': return parseInt(workDurationInput.value);
+case 'short': return parseInt(shortBreakInput.value);
+case 'long': return parseInt(longBreakInput.value);
+default: return 25;
+}
+}
+function playNotification() {
+// Simple beep using AudioContext
+try {
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+const oscillator = audioCtx.createOscillator();
+const gainNode = audioCtx.createGain();
+oscillator.connect(gainNode);
+gainNode.connect(audioCtx.destination);
+oscillator.frequency.value = 800;
+oscillator.type = 'sine';
+gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
+gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
+oscillator.start(audioCtx.currentTime);
+oscillator.stop(audioCtx.currentTime + 0.5);
+} catch(e) {
+console.log('Audio not supported');
+}
+}
+function updateModeTabs() {
+modeTabs.forEach(tab => {
+tab.classList.toggle('active', tab.dataset.mode === currentMode);
+});
+}
+modeTabs.forEach(tab => {
+tab.addEventListener('click', () => {
+currentMode = tab.dataset.mode;
+clearInterval(timerInterval);
+isRunning = false;
+startBtn.textContent = 'Start';
+currentTime = getDurationForMode(currentMode) * 60;
+updateModeTabs();
+updateStatus();
+updateDisplay();
+});
+});
+startBtn.addEventListener('click', startTimer);
+resetBtn.addEventListener('click', resetTimer);
+[workDurationInput, shortBreakInput, longBreakInput].forEach(input => {
+input.addEventListener('change', () => {
+durations.work = parseInt(workDurationInput.value) * 60;
+durations.short = parseInt(shortBreakInput.value) * 60;
+durations.long = parseInt(longBreakInput.value) * 60;
+if (!isRunning) {
+currentTime = getDurationForMode(currentMode) * 60;
+updateDisplay();
+}
+});
+});
+function updateSessionDots() {
+sessionCountEl.textContent = completedSessions;
+sessionDotsEl.innerHTML = '';
+for (let i = 0; i < Math.min(completedSessions, 8); i++) {
+const dot = document.createElement('div');
+dot.className = 'session-dot completed';
+sessionDotsEl.appendChild(dot);
+}
+}
+// Initialize
+updateDisplay();
+updateStatus();
+</script>
+</body>
+</html>
