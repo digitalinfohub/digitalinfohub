@@ -17,6 +17,122 @@ crossorigin="anonymous"></script>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
+/* Ad Container Styles */
+.ad-container { 
+    margin: 24px 0; 
+    padding: 16px; 
+    background: var(--surface-2); 
+    border: 1px dashed var(--border-strong); 
+    border-radius: var(--radius-sm); 
+    text-align: center;
+}
+.ad-label { 
+    font-size: 10px; 
+    color: var(--text-muted); 
+    text-transform: uppercase; 
+    letter-spacing: 0.1em; 
+    margin-bottom: 8px;
+}
+/* Enhanced Donate Section */
+.donate-section { 
+    margin: 32px 0; 
+    padding: 32px 24px; 
+    background: linear-gradient(135deg, var(--surface-2) 0%, var(--surface) 100%); 
+    border: 2px solid var(--accent); 
+    border-radius: var(--radius); 
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+.donate-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, var(--accent-soft) 0%, transparent 70%);
+    opacity: 0.3;
+    animation: pulse 3s ease-in-out infinite;
+}
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.3; }
+    50% { transform: scale(1.1); opacity: 0.5; }
+}
+.donate-content {
+    position: relative;
+    z-index: 1;
+}
+.donate-title { 
+    font-size: 20px; 
+    font-weight: 700; 
+    color: var(--text); 
+    margin-bottom: 8px;
+}
+.donate-subtitle { 
+    font-size: 14px; 
+    color: var(--text-sub); 
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+.donate-perks {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+.perk-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--text-sub);
+    background: var(--surface-2);
+    padding: 6px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+}
+.perk-icon { font-size: 14px; }
+.crypto-section {
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+}
+.crypto-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-sub);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+.crypto-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 20px;
+    background: var(--accent-soft);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--accent);
+    transition: all 0.2s;
+}
+.crypto-link:hover {
+    background: var(--accent);
+    color: white;
+    transform: translateY(-2px);
+}
+.paypal-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 150px;
+}
+</style>
 :root {
 --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 --mono: 'JetBrains Mono', ui-monospace, monospace;
@@ -95,7 +211,7 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); min-
 </head>
 <body>
 <div class="shell">
-<a href="/software.html" class="back-link">← Back to Software Hub</a>
+<a href="/software" class="back-link">← Back to Software Hub</a>
 <div class="tool-header">
 <h1 class="tool-title">💵 Expense Tracker</h1>
 <p class="tool-desc">Track your income and expenses</p>
@@ -115,6 +231,21 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); min-
 </div>
 </div>
 <div class="add-form">
+<!-- AdSense Top -->
+<div class="ad-container">
+<div class="ad-label">Advertisement</div>
+<!-- Google AdSense Unit - Replace with your actual ad unit code -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5443646750699471"
+     data-ad-slot="YOUR_AD_SLOT_ID"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+
 <div class="form-row">
 <div class="form-group">
 <label class="form-label">Description</label>
@@ -145,15 +276,30 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); min-
 <div class="transactions-list" id="transactionsList">
 <div class="empty-state">No transactions yet. Add your first one above!</div>
 </div>
-<!-- PayPal Button - Part 2 -->
-<div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border); text-align: center;">
-<p style="font-size: 13px; color: var(--text-sub); margin-bottom: 12px;">If this tool helps you, consider supporting us!</p>
-<div id="paypal-container-HTT66RW4Z3GLQ"></div>
+
+<!-- Enhanced Donate Section -->
+<div class="donate-section">
+<div class="donate-content">
+<p class="donate-title">💜 Love this Expense Tracker?</p>
+<p class="donate-subtitle">Your support helps keep these tools free, ad-free, and continuously improved for everyone.</p>
+<div class="donate-perks">
+<div class="perk-item"><span class="perk-icon">✨</span> Support Development</div>
+<div class="perk-item"><span class="perk-icon">🚀</span> Faster Features</div>
+<div class="perk-item"><span class="perk-icon">💎</span> Ad-Free Experience</div>
+</div>
+<div class="paypal-container" id="paypal-container-HTT66RW4Z3GLQ"></div>
 <script>
   paypal.HostedButtons({
     hostedButtonId: "HTT66RW4Z3GLQ",
   }).render("#paypal-container-HTT66RW4Z3GLQ")
 </script>
+<div class="crypto-section">
+<p class="crypto-title">Prefer Crypto?</p>
+<a href="https://zora.co/coin/base:0xd51d99de87ad3433e35f43132eddb3f68f4458e4" target="_blank" rel="noopener" class="crypto-link">
+<span>🪙</span> Digital Infohub Token on Zora
+</a>
+</div>
+</div>
 </div>
 </div>
 <button class="theme-toggle" id="themeToggle" title="Toggle theme">◑</button>
