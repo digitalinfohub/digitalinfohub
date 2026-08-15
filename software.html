@@ -199,6 +199,7 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); min-
 <a href="/blog" class="nav-link">📝 Blog</a>
 <a href="/techtopics" class="nav-link">💡 Tech Topics</a>
 <a href="/software" class="nav-link active">💻 Software</a>
+<a href="/services" class="nav-link">🛠️ Services</a>
 <a href="/games" class="nav-link">🎮 Games</a>
 <a href="/subscribe" class="nav-link">✉️ Subscribe</a>
 </div>
@@ -211,6 +212,7 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); min-
 <a href="/blog" class="nav-link">📝 Blog</a>
 <a href="/techtopics" class="nav-link">💡 Tech Topics</a>
 <a href="/software" class="nav-link active">💻 Software</a>
+<a href="/services" class="nav-link">🛠️ Services</a>
 <a href="/games" class="nav-link">🎮 Games</a>
 <a href="/subscribe" class="nav-link">✉️ Subscribe</a>
 </div>
@@ -381,6 +383,7 @@ appsGrid.appendChild(el);
 /* ═══ MOBILE MENU TOGGLE ═══ */
 const hamburger = $('#hamburger');
 const mobileMenu = $('#mobileMenu');
+if (hamburger && mobileMenu) {
 hamburger.addEventListener('click', () => {
 const isOpen = mobileMenu.classList.toggle('active');
 hamburger.textContent = isOpen ? '×' : '☰';
@@ -394,6 +397,7 @@ hamburger.textContent = '☰';
 hamburger.setAttribute('aria-expanded', 'false');
 });
 });
+}
 /* ═══ WIDGET SYSTEM ═══ */
 function openWidget(app) {
 widgetTitle.innerHTML = `${app.icon} ${app.name}`;
