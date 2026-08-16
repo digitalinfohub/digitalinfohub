@@ -9,7 +9,7 @@
 
   <meta
     name="description"
-    content="Digital Infohub — online software, AI tools and browser utilities."
+    content="Digital Infohub — useful AI resources, productivity tools and browser utilities."
   >
 
   <link
@@ -33,14 +33,14 @@
       --ease: cubic-bezier(.22, .61, .36, 1);
       --radius: 12px;
       --radius-sm: 8px;
-      --modal-z: 2000;
+      --modal-z: 3000;
     }
 
     [data-theme="dark"] {
       --bg: #0a0a0a;
       --surface: #111111;
       --surface-2: #161616;
-      --surface-3: #1d1d1d;
+      --surface-3: #1e1e1e;
       --border: rgba(255,255,255,.08);
       --border-strong: rgba(255,255,255,.16);
       --text: #f5f5f5;
@@ -49,7 +49,7 @@
       --accent: #6366f1;
       --accent-hover: #818cf8;
       --accent-soft: rgba(99,102,241,.14);
-      --shadow: 0 15px 50px rgba(0,0,0,.45);
+      --shadow: 0 18px 55px rgba(0,0,0,.48);
     }
 
     [data-theme="light"] {
@@ -65,7 +65,7 @@
       --accent: #4f46e5;
       --accent-hover: #6366f1;
       --accent-soft: rgba(79,70,229,.1);
-      --shadow: 0 15px 50px rgba(0,0,0,.12);
+      --shadow: 0 18px 55px rgba(0,0,0,.12);
     }
 
     *,
@@ -115,7 +115,7 @@
     }
 
     .shell {
-      width: min(100%, 900px);
+      width: min(100%, 920px);
       margin: 0 auto;
       padding: 32px 24px 80px;
     }
@@ -137,7 +137,7 @@
     .nav-bar {
       position: relative;
       z-index: 1001;
-      width: min(100%, 900px);
+      width: min(100%, 920px);
       min-height: 64px;
       margin: 0 auto;
       display: flex;
@@ -172,10 +172,7 @@
       font-size: 13px;
       font-weight: 500;
       cursor: pointer;
-      transition:
-        color .2s var(--ease),
-        background .2s var(--ease),
-        border-color .2s var(--ease);
+      transition: .2s ease;
     }
 
     .nav-link:hover {
@@ -204,10 +201,6 @@
       font-size: 21px;
       line-height: 1;
       cursor: pointer;
-      transition:
-        background .2s ease,
-        border-color .2s ease,
-        color .2s ease;
     }
 
     .hamburger:hover,
@@ -230,7 +223,6 @@
       background: var(--surface);
       border-bottom: 1px solid var(--border);
       box-shadow: var(--shadow);
-
       visibility: hidden;
       opacity: 0;
       pointer-events: none;
@@ -255,14 +247,14 @@
       font-size: 14px;
     }
 
-    /* TOP BAR */
+    /* HEADER */
 
     .topbar {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 16px;
-      margin-bottom: 48px;
+      margin-bottom: 42px;
     }
 
     .brand {
@@ -316,7 +308,7 @@
     /* CONTENT */
 
     .section {
-      margin-bottom: 52px;
+      margin-bottom: 50px;
     }
 
     .section-head {
@@ -324,7 +316,7 @@
       align-items: flex-end;
       justify-content: space-between;
       gap: 16px;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
 
     .eyebrow {
@@ -354,10 +346,42 @@
     }
 
     .section-description {
-      max-width: 650px;
+      max-width: 720px;
       margin-top: 8px;
       color: var(--text-sub);
       font-size: 13px;
+    }
+
+    .toolbar {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .search-box,
+    .category-filter {
+      min-height: 44px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      color: var(--text);
+      outline: none;
+    }
+
+    .search-box {
+      width: 100%;
+      padding: 10px 13px;
+    }
+
+    .category-filter {
+      min-width: 150px;
+      padding: 10px 12px;
+    }
+
+    .search-box:focus,
+    .category-filter:focus {
+      border-color: var(--accent);
     }
 
     .apps-grid {
@@ -368,7 +392,7 @@
 
     .app-tile {
       position: relative;
-      min-height: 140px;
+      min-height: 145px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -383,10 +407,7 @@
       text-align: center;
       text-decoration: none;
       cursor: pointer;
-      transition:
-        transform .2s var(--ease),
-        border-color .2s var(--ease),
-        background .2s var(--ease);
+      transition: .2s var(--ease);
     }
 
     .app-tile:hover,
@@ -395,6 +416,10 @@
       border-color: var(--border-strong);
       transform: translateY(-2px);
       outline: none;
+    }
+
+    .app-tile.hidden {
+      display: none;
     }
 
     .app-icon {
@@ -427,20 +452,26 @@
       background: linear-gradient(135deg, #f59e0b, #d97706);
     }
 
-    .app-icon.business {
-      background: linear-gradient(135deg, #8b5cf6, #6366f1);
-    }
-
     .app-icon.games {
       background: linear-gradient(135deg, #ec4899, #f43f5e);
     }
 
+    .app-icon.media {
+      background: linear-gradient(135deg, #f97316, #ef4444);
+    }
+
+    .app-icon.finance {
+      background: linear-gradient(135deg, #8b5cf6, #6366f1);
+    }
+
     .app-label {
+      display: block;
       font-size: 12px;
       font-weight: 600;
     }
 
     .app-sub {
+      display: block;
       margin-top: 2px;
       color: var(--text-muted);
       font-size: 10px;
@@ -456,6 +487,21 @@
       background: var(--surface-3);
       color: var(--text-muted);
       font-size: 9px;
+    }
+
+    .no-results {
+      display: none;
+      grid-column: 1 / -1;
+      padding: 32px;
+      border: 1px dashed var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text-muted);
+      text-align: center;
+      font-size: 13px;
+    }
+
+    .no-results.visible {
+      display: block;
     }
 
     /* MODAL */
@@ -860,56 +906,6 @@
       text-align: center;
     }
 
-    /* LIST WIDGETS */
-
-    .item-list {
-      display: grid;
-      gap: 8px;
-      max-height: 280px;
-      overflow-y: auto;
-    }
-
-    .list-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px;
-      border-radius: var(--radius-sm);
-      background: var(--surface-2);
-      font-size: 13px;
-    }
-
-    .list-item-content {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .list-item.done .list-item-content {
-      color: var(--text-muted);
-      text-decoration: line-through;
-    }
-
-    .list-item-delete {
-      background: transparent;
-      color: var(--text-muted);
-      font-size: 18px;
-      cursor: pointer;
-    }
-
-    .list-item-delete:hover {
-      color: #ef4444;
-    }
-
-    .add-row {
-      display: flex;
-      gap: 8px;
-      margin-top: 12px;
-    }
-
-    .add-row input {
-      flex: 1;
-    }
-
     /* MOBILE */
 
     @media (max-width: 680px) {
@@ -931,12 +927,20 @@
         display: flex;
       }
 
+      .toolbar {
+        grid-template-columns: 1fr;
+      }
+
+      .category-filter {
+        width: 100%;
+      }
+
       .apps-grid {
         grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
       }
 
       .app-tile {
-        min-height: 130px;
+        min-height: 132px;
         padding-inline: 8px;
       }
 
@@ -962,8 +966,7 @@
         flex-wrap: wrap;
       }
 
-      .converter-row .control,
-      .converter-row select {
+      .converter-row .control {
         flex: 1 1 40%;
       }
     }
@@ -985,7 +988,6 @@
 
     <nav class="nav-shell" aria-label="Primary navigation">
       <div class="nav-bar">
-
         <div class="nav-links">
           <a class="nav-link" href="/">🏠 Home</a>
           <a class="nav-link" href="/blog">📝 Blog</a>
@@ -1010,7 +1012,6 @@
         class="mobile-menu"
         id="mobileMenu"
         aria-hidden="true">
-
         <a class="nav-link" href="/">🏠 Home</a>
         <a class="nav-link" href="/blog">📝 Blog</a>
         <a class="nav-link" href="/techtopics">💡 Tech Topics</a>
@@ -1066,9 +1067,33 @@
             <div class="eyebrow">Software Suite</div>
             <h1 id="pageTitle">Online Tools & AI</h1>
             <p class="section-description">
-              Useful browser-based tools, productivity apps and AI resources.
+              AI assistants, productivity utilities and practical browser tools.
             </p>
           </div>
+        </div>
+
+        <div class="toolbar">
+          <input
+            class="search-box"
+            id="appSearch"
+            type="search"
+            placeholder="Search apps and tools…"
+            aria-label="Search apps and tools">
+
+          <select
+            class="category-filter"
+            id="categoryFilter"
+            aria-label="Filter by category">
+            <option value="all">All categories</option>
+            <option value="ai">AI</option>
+            <option value="tools">Tools</option>
+            <option value="tasks">Productivity</option>
+            <option value="dev">Development</option>
+            <option value="health">Health</option>
+            <option value="media">Media</option>
+            <option value="finance">Finance</option>
+            <option value="games">Games</option>
+          </select>
         </div>
 
         <div
@@ -1076,109 +1101,9 @@
           id="appsGrid"
           role="list">
         </div>
-      </section>
 
-      <section class="section" aria-labelledby="builtToolsTitle">
-        <div class="section-head">
-          <div>
-            <div class="eyebrow">Built by Digital Infohub</div>
-            <h2 id="builtToolsTitle">Digital Infohub Software Tools</h2>
-            <p class="section-description">
-              Free browser tools with no downloads required.
-            </p>
-          </div>
-        </div>
-
-        <div class="apps-grid">
-          <a class="app-tile" href="/tool-json-formatter">
-            <span class="app-badge">↗</span>
-            <span class="app-icon dev">{ }</span>
-            <span>
-              <span class="app-label">JSON Formatter</span>
-              <span class="app-sub">Validate & beautify</span>
-            </span>
-          </a>
-
-          <a class="app-tile" href="/tool-password-generator">
-            <span class="app-badge">↗</span>
-            <span class="app-icon tools">🔐</span>
-            <span>
-              <span class="app-label">Password Generator</span>
-              <span class="app-sub">Secure passwords</span>
-            </span>
-          </a>
-
-          <a class="app-tile" href="/tool-unit-converter">
-            <span class="app-badge">↗</span>
-            <span class="app-icon tools">📐</span>
-            <span>
-              <span class="app-label">Unit Converter</span>
-              <span class="app-sub">Length & weight</span>
-            </span>
-          </a>
-
-          <a class="app-tile" href="/tool-qr-generator">
-            <span class="app-badge">↗</span>
-            <span class="app-icon tools">📱</span>
-            <span>
-              <span class="app-label">QR Generator</span>
-              <span class="app-sub">Create QR codes</span>
-            </span>
-          </a>
-
-          <a class="app-tile" href="/tool-markdown-editor">
-            <span class="app-badge">↗</span>
-            <span class="app-icon dev">📝</span>
-            <span>
-              <span class="app-label">Markdown Editor</span>
-              <span class="app-sub">Live preview</span>
-            </span>
-          </a>
-
-          <a class="app-tile" href="/tool-calendar">
-            <span class="app-badge">↗</span>
-            <span class="app-icon tasks">📅</span>
-            <span>
-              <span class="app-label">Calendar App</span>
-              <span class="app-sub">Schedule events</span>
-            </span>
-          </a>
-
-          <a class="app-tile" href="/tool-task-manager">
-            <span class="app-badge">↗</span>
-            <span class="app-icon tasks">✅</span>
-            <span>
-              <span class="app-label">Task Manager</span>
-              <span class="app-sub">To-do lists</span>
-            </span>
-          </a>
-
-          <a class="app-tile" href="/tool-quick-notes">
-            <span class="app-badge">↗</span>
-            <span class="app-icon tools">📝</span>
-            <span>
-              <span class="app-label">Quick Notes</span>
-              <span class="app-sub">Auto-save notes</span>
-            </span>
-          </a>
-
-          <a class="app-tile" href="/pomodoro">
-            <span class="app-badge">↗</span>
-            <span class="app-icon tools">🍅</span>
-            <span>
-              <span class="app-label">Pomodoro Timer</span>
-              <span class="app-sub">Focus sessions</span>
-            </span>
-          </a>
-
-          <a class="app-tile" href="/expense-tracker">
-            <span class="app-badge">↗</span>
-            <span class="app-icon business">💵</span>
-            <span>
-              <span class="app-label">Expense Tracker</span>
-              <span class="app-sub">Track spending</span>
-            </span>
-          </a>
+        <div class="no-results" id="noResults">
+          No matching apps found.
         </div>
       </section>
     </main>
@@ -1226,6 +1151,10 @@
       const widgetTitle = $("#widgetTitle");
       const widgetClose = $("#widgetClose");
       const themeToggle = $("#themeToggle");
+      const appsGrid = $("#appsGrid");
+      const appSearch = $("#appSearch");
+      const categoryFilter = $("#categoryFilter");
+      const noResults = $("#noResults");
 
       /* MOBILE NAVIGATION */
 
@@ -1302,24 +1231,48 @@
         localStorage.setItem("dih_theme", nextTheme);
       });
 
-      /* APP LIBRARY */
+      /* APP DATA */
 
       const APPS = [
         {
           name: "InfohubGPT",
-          desc: "Tech strategy",
+          desc: "Tech strategy assistant",
           icon: "🤖",
           category: "ai",
           type: "link",
-          url: "https://chatgpt.com/"
+          url: "https://chatgpt.com/g/g-6973b68a2b188191aaead719715ab703-infohubgpt-by-digital-infohub"
         },
         {
           name: "TaskyGPT",
-          desc: "Goal breakdown",
+          desc: "Break down your goals",
           icon: "📋",
-          category: "tasks",
+          category: "ai",
           type: "link",
-          url: "https://chatgpt.com/"
+          url: "https://chatgpt.com/g/g-6989f6b724fc8191aef0f7393ed70672-taskygpt-by-digital-infohub"
+        },
+        {
+          name: "Build Engine",
+          desc: "Build, fix & optimise code",
+          icon: "⚙️",
+          category: "dev",
+          type: "link",
+          url: "https://chatgpt.com/g/g-6a5cf83ef9ac8191808e0530e843bf55-digital-infohub-build-engine"
+        },
+        {
+          name: "MarketLens",
+          desc: "Markets & crypto briefing",
+          icon: "📈",
+          category: "finance",
+          type: "link",
+          url: "https://chatgpt.com/g/g-6a7ce7ab23988191bec905b74ec53adf-marketlensgpt"
+        },
+        {
+          name: "KayakMe Ocean",
+          desc: "Local ocean conditions",
+          icon: "🌊",
+          category: "health",
+          type: "link",
+          url: "https://chatgpt.com/g/g-6a4ef0ab79388191a95edb5bcbbc7c80-kayakme-ocean-by-digital-infohub"
         },
         {
           name: "CookinStep",
@@ -1333,7 +1286,7 @@
           name: "SaveSmart",
           desc: "Finance helper",
           icon: "💰",
-          category: "business",
+          category: "finance",
           type: "link",
           url: "https://chatgpt.com/"
         },
@@ -1347,7 +1300,7 @@
         },
         {
           name: "Unit Converter",
-          desc: "Length & weight",
+          desc: "Length, weight & temperature",
           icon: "📐",
           category: "tools",
           type: "widget",
@@ -1355,23 +1308,15 @@
         },
         {
           name: "Password Generator",
-          desc: "Secure random",
+          desc: "Secure random passwords",
           icon: "🔐",
           category: "tools",
           type: "widget",
           widgetId: "password"
         },
         {
-          name: "Breathing",
-          desc: "4-7-8 relaxation",
-          icon: "🫁",
-          category: "health",
-          type: "widget",
-          widgetId: "breathing"
-        },
-        {
           name: "Color Picker",
-          desc: "HEX / RGB / HSL",
+          desc: "HEX, RGB & HSL values",
           icon: "🎨",
           category: "tools",
           type: "widget",
@@ -1379,7 +1324,7 @@
         },
         {
           name: "JSON Formatter",
-          desc: "Validate & format",
+          desc: "Validate and format JSON",
           icon: "{ }",
           category: "dev",
           type: "widget",
@@ -1387,23 +1332,63 @@
         },
         {
           name: "Markdown Preview",
-          desc: "Live rendering",
+          desc: "Write with live preview",
           icon: "📄",
           category: "dev",
           type: "widget",
           widgetId: "markdown"
         },
         {
+          name: "Base64 Encoder",
+          desc: "Encode and decode text",
+          icon: "🔄",
+          category: "dev",
+          type: "widget",
+          widgetId: "base64"
+        },
+        {
+          name: "Regex Tester",
+          desc: "Test regular expressions",
+          icon: "🔍",
+          category: "dev",
+          type: "widget",
+          widgetId: "regex"
+        },
+        {
           name: "Word Counter",
-          desc: "Text analytics",
+          desc: "Analyse words and characters",
           icon: "📝",
           category: "tools",
           type: "widget",
           widgetId: "wordcount"
         },
         {
+          name: "Lorem Ipsum",
+          desc: "Generate placeholder text",
+          icon: "📜",
+          category: "tools",
+          type: "widget",
+          widgetId: "lorem"
+        },
+        {
+          name: "Pomodoro",
+          desc: "Focus and break cycles",
+          icon: "🍅",
+          category: "tasks",
+          type: "widget",
+          widgetId: "pomodoro"
+        },
+        {
+          name: "Breathing",
+          desc: "4-7-8 relaxation timer",
+          icon: "🫁",
+          category: "health",
+          type: "widget",
+          widgetId: "breathing"
+        },
+        {
           name: "Contrast Checker",
-          desc: "Accessibility",
+          desc: "Check colour accessibility",
           icon: "👁️",
           category: "dev",
           type: "widget",
@@ -1411,73 +1396,115 @@
         },
         {
           name: "CSS Shadow Generator",
-          desc: "Box-shadow maker",
+          desc: "Create box-shadow CSS",
           icon: "🌑",
           category: "dev",
           type: "widget",
           widgetId: "shadow"
         },
         {
-          name: "Lorem Ipsum",
-          desc: "Placeholder text",
-          icon: "📜",
-          category: "tools",
-          type: "widget",
-          widgetId: "lorem"
-        },
-        {
-          name: "Base64 Encoder",
-          desc: "Encode & decode",
-          icon: "🔄",
-          category: "dev",
-          type: "widget",
-          widgetId: "base64"
-        },
-        {
-          name: "Pomodoro",
-          desc: "Focus cycles",
-          icon: "🍅",
+          name: "Quick Notes",
+          desc: "Save notes in your browser",
+          icon: "🗒️",
           category: "tasks",
           type: "widget",
-          widgetId: "pomodoro"
+          widgetId: "notes"
+        },
+        {
+          name: "Task List",
+          desc: "Manage simple tasks",
+          icon: "✅",
+          category: "tasks",
+          type: "widget",
+          widgetId: "tasks"
+        },
+        {
+          name: "Habit Tracker",
+          desc: "Track weekly habits",
+          icon: "📊",
+          category: "health",
+          type: "widget",
+          widgetId: "habits"
+        },
+        {
+          name: "Meeting Notes",
+          desc: "Capture meeting details",
+          icon: "🗣️",
+          category: "tasks",
+          type: "widget",
+          widgetId: "meeting"
+        },
+        {
+          name: "Font Preview",
+          desc: "Test typography quickly",
+          icon: "🔤",
+          category: "tools",
+          type: "widget",
+          widgetId: "font"
+        },
+        {
+          name: "Time Zone Converter",
+          desc: "Compare world times",
+          icon: "🌍",
+          category: "tools",
+          type: "widget",
+          widgetId: "timezone"
+        },
+        {
+          name: "Color Palette",
+          desc: "Generate colour harmonies",
+          icon: "🌈",
+          category: "tools",
+          type: "widget",
+          widgetId: "palette"
+        },
+        {
+          name: "API Request Tester",
+          desc: "Test GET API requests",
+          icon: "🔌",
+          category: "dev",
+          type: "widget",
+          widgetId: "api"
+        },
+        {
+          name: "Invoice Calculator",
+          desc: "Calculate invoice totals",
+          icon: "🧾",
+          category: "finance",
+          type: "widget",
+          widgetId: "invoice"
+        },
+        {
+          name: "Budget Calculator",
+          desc: "Plan income and spending",
+          icon: "💷",
+          category: "finance",
+          type: "widget",
+          widgetId: "budget"
+        },
+        {
+          name: "Image Data Viewer",
+          desc: "Inspect image dimensions",
+          icon: "🖼️",
+          category: "media",
+          type: "widget",
+          widgetId: "image"
         },
         {
           name: "Games Hub",
-          desc: "Play instantly",
+          desc: "Play browser games",
           icon: "🎮",
           category: "games",
           type: "link",
           url: "/games"
-        },
-        {
-          name: "Designer Tools",
-          desc: "For creatives",
-          icon: "🎨",
-          category: "tools",
-          type: "link",
-          url: "/software-designers.html"
-        },
-        {
-          name: "Developer Tools",
-          desc: "For coders",
-          icon: "💻",
-          category: "dev",
-          type: "link",
-          url: "/software-developers.html"
-        },
-        {
-          name: "Business Tools",
-          desc: "For entrepreneurs",
-          icon: "💼",
-          category: "business",
-          type: "link",
-          url: "/software-business.html"
         }
       ];
 
-      const appsGrid = $("#appsGrid");
+      /* APP GRID */
 
       function renderApps() {
+        appsGrid.innerHTML = "";
+
         APPS.forEach((app, index) => {
           const element = document.createElement(
             app.type === "link" ? "a" : "button"
@@ -1485,10 +1512,14 @@
 
           element.className = "app-tile";
           element.setAttribute("role", "listitem");
-          element.style.animationDelay = `${index * 25}ms`;
+          element.dataset.name = `${app.name} ${app.desc}`.toLowerCase();
+          element.dataset.category = app.category;
+          element.style.animationDelay = `${index * 20}ms`;
 
           if (app.type === "link") {
             element.href = app.url;
+            element.target = "_blank";
+            element.rel = "noopener noreferrer";
           } else {
             element.type = "button";
             element.addEventListener("click", () => openWidget(app));
@@ -1498,9 +1529,11 @@
             <span class="app-badge">
               ${app.type === "link" ? "↗" : "APP"}
             </span>
-            <span class="app-icon ${app.category}">
+
+            <span class="app-icon ${escapeHtml(app.category)}">
               ${app.icon}
             </span>
+
             <span>
               <span class="app-label">${escapeHtml(app.name)}</span>
               <span class="app-sub">${escapeHtml(app.desc)}</span>
@@ -1509,7 +1542,37 @@
 
           appsGrid.appendChild(element);
         });
+
+        updateFilters();
       }
+
+      function updateFilters() {
+        const query = appSearch.value.trim().toLowerCase();
+        const category = categoryFilter.value;
+        let visibleCount = 0;
+
+        $$(".app-tile", appsGrid).forEach(tile => {
+          const matchesText =
+            !query || tile.dataset.name.includes(query);
+
+          const matchesCategory =
+            category === "all" ||
+            tile.dataset.category === category;
+
+          const visible = matchesText && matchesCategory;
+
+          tile.classList.toggle("hidden", !visible);
+
+          if (visible) {
+            visibleCount++;
+          }
+        });
+
+        noResults.classList.toggle("visible", visibleCount === 0);
+      }
+
+      appSearch.addEventListener("input", updateFilters);
+      categoryFilter.addEventListener("change", updateFilters);
 
       /* MODAL */
 
@@ -1533,9 +1596,8 @@
         }
 
         setTimeout(() => {
-          const firstInput = $("input, textarea, select, button", widgetBody);
-          firstInput?.focus();
-        }, 50);
+          $("input, textarea, select, button", widgetBody)?.focus();
+        }, 40);
       }
 
       function closeWidget() {
@@ -1660,7 +1722,7 @@
         const toInput = $("#convertTo", container);
         const result = $("#convertResult", container);
 
-        const lengthWeightRates = {
+        const rates = {
           m: 1,
           ft: .3048,
           km: 1000,
@@ -1686,10 +1748,7 @@
           ) {
             converted = NaN;
           } else {
-            converted =
-              value *
-              lengthWeightRates[from] /
-              lengthWeightRates[to];
+            converted = value * rates[from] / rates[to];
           }
 
           result.textContent = Number.isFinite(converted)
@@ -1740,12 +1799,8 @@
           </div>
 
           <div class="center-actions">
-            <button class="tool-btn primary" id="generatePassword">
-              Generate
-            </button>
-            <button class="tool-btn" id="copyPassword">
-              Copy
-            </button>
+            <button class="tool-btn primary" id="generatePassword">Generate</button>
+            <button class="tool-btn" id="copyPassword">Copy</button>
           </div>
 
           <div class="tool-message" id="passwordMessage"></div>
@@ -1772,31 +1827,19 @@
         function generate() {
           let pool = "";
 
-          if ($("#passwordUpper", container).checked) {
-            pool += groups.upper;
-          }
-
-          if ($("#passwordLower", container).checked) {
-            pool += groups.lower;
-          }
-
-          if ($("#passwordNumbers", container).checked) {
-            pool += groups.numbers;
-          }
-
-          if ($("#passwordSymbols", container).checked) {
-            pool += groups.symbols;
-          }
+          if ($("#passwordUpper", container).checked) pool += groups.upper;
+          if ($("#passwordLower", container).checked) pool += groups.lower;
+          if ($("#passwordNumbers", container).checked) pool += groups.numbers;
+          if ($("#passwordSymbols", container).checked) pool += groups.symbols;
 
           if (!pool) {
             output.textContent = "Select at least one option";
             return;
           }
 
-          const count = Number(length.value);
           let password = "";
 
-          for (let index = 0; index < count; index++) {
+          for (let index = 0; index < Number(length.value); index++) {
             password += randomCharacter(pool);
           }
 
@@ -1812,9 +1855,7 @@
         $("#generatePassword", container).addEventListener("click", generate);
 
         $("#copyPassword", container).addEventListener("click", async () => {
-          if (!output.textContent || output.textContent.includes("Select")) {
-            return;
-          }
+          if (!output.textContent || output.textContent.includes("Select")) return;
 
           try {
             await navigator.clipboard.writeText(output.textContent);
@@ -1829,89 +1870,6 @@
         });
 
         generate();
-      }
-
-      function renderBreathing(container) {
-        container.innerHTML = `
-          <div style="text-align:center">
-            <h3 id="breathingLabel">Ready?</h3>
-            <p style="color:var(--text-muted);font-size:12px">
-              4 seconds inhale · 7 seconds hold · 8 seconds exhale
-            </p>
-
-            <div
-              id="breathingCircle"
-              style="
-                width:120px;
-                height:120px;
-                display:grid;
-                place-items:center;
-                margin:28px auto;
-                border-radius:50%;
-                background:var(--accent-soft);
-                color:var(--accent-hover);
-                font-weight:700;
-                transition:transform 4s ease-in-out;
-              ">
-              Start
-            </div>
-
-            <div class="center-actions">
-              <button class="tool-btn primary" id="startBreathing">
-                Begin
-              </button>
-              <button class="tool-btn" id="stopBreathing">
-                Stop
-              </button>
-            </div>
-          </div>
-        `;
-
-        const label = $("#breathingLabel", container);
-        const circle = $("#breathingCircle", container);
-
-        let active = false;
-        let timeoutId;
-
-        function cycle() {
-          if (!active) return;
-
-          label.textContent = "Inhale";
-          circle.textContent = "In";
-          circle.style.transform = "scale(1.45)";
-
-          timeoutId = setTimeout(() => {
-            if (!active) return;
-
-            label.textContent = "Hold";
-            circle.textContent = "Hold";
-
-            timeoutId = setTimeout(() => {
-              if (!active) return;
-
-              label.textContent = "Exhale";
-              circle.textContent = "Out";
-              circle.style.transform = "scale(1)";
-
-              timeoutId = setTimeout(cycle, 8000);
-            }, 7000);
-          }, 4000);
-        }
-
-        $("#startBreathing", container).addEventListener("click", () => {
-          if (!active) {
-            active = true;
-            cycle();
-          }
-        });
-
-        $("#stopBreathing", container).addEventListener("click", () => {
-          active = false;
-          clearTimeout(timeoutId);
-          label.textContent = "Paused";
-          circle.textContent = "Start";
-          circle.style.transform = "scale(1)";
-        });
       }
 
       function renderColor(container) {
@@ -2015,8 +1973,8 @@
         $$(".color-value", container).forEach(button => {
           button.addEventListener("click", async () => {
             const type = button.dataset.colorValue;
-            const value = $(`#color${type[0].toUpperCase()}${type.slice(1)}`, container)
-              .textContent;
+            const id = `color${type[0].toUpperCase()}${type.slice(1)}`;
+            const value = $(`#${id}`, container).textContent;
 
             try {
               await navigator.clipboard.writeText(value);
@@ -2061,19 +2019,13 @@
           }
         }
 
-        $("#formatJson", container).addEventListener("click", () => {
-          process(false);
-        });
-
-        $("#minifyJson", container).addEventListener("click", () => {
-          process(true);
-        });
+        $("#formatJson", container).addEventListener("click", () => process(false));
+        $("#minifyJson", container).addEventListener("click", () => process(true));
 
         $("#copyJson", container).addEventListener("click", async () => {
           try {
             await navigator.clipboard.writeText(input.value);
             message.textContent = "Copied to clipboard";
-            message.style.color = "#10b981";
           } catch {
             message.textContent = "Copy was not available";
           }
@@ -2307,7 +2259,6 @@
           const y = $("#shadowY", container).value;
           const blur = $("#shadowBlur", container).value;
           const opacity = Number($("#shadowOpacity", container).value) / 100;
-
           const shadow = `${x}px ${y}px ${blur}px rgba(0,0,0,${opacity})`;
 
           preview.style.boxShadow = shadow;
@@ -2356,7 +2307,10 @@
             Math.max(1, Number($("#loremAmount", container).value) || 3)
           );
 
-          output.value = Array.from({ length: amount }, () => sentence).join("\n\n");
+          output.value = Array.from(
+            { length: amount },
+            () => sentence
+          ).join("\n\n");
         }
 
         $("#generateLorem", container).addEventListener("click", generate);
@@ -2364,9 +2318,7 @@
         $("#copyLorem", container).addEventListener("click", async () => {
           try {
             await navigator.clipboard.writeText(output.value);
-          } catch {
-            // Clipboard may be unavailable on insecure pages.
-          }
+          } catch {}
         });
 
         generate();
@@ -2409,6 +2361,59 @@
             output.value = "Invalid Base64";
           }
         });
+      }
+
+      function renderRegex(container) {
+        container.innerHTML = `
+          <input
+            class="control"
+            id="regexPattern"
+            placeholder="Pattern, for example: \\\\d+">
+
+          <textarea
+            class="code-area"
+            id="regexText"
+            placeholder="Text to test…"
+            style="margin-top:10px"></textarea>
+
+          <div
+            id="regexResult"
+            style="
+              margin-top:10px;
+              padding:12px;
+              border-radius:8px;
+              background:var(--surface-2);
+              font-family:var(--mono);
+              font-size:12px;
+              white-space:pre-wrap">
+            Enter a pattern and some text.
+          </div>
+        `;
+
+        const pattern = $("#regexPattern", container);
+        const text = $("#regexText", container);
+        const result = $("#regexResult", container);
+
+        function test() {
+          if (!pattern.value) {
+            result.textContent = "Enter a pattern and some text.";
+            return;
+          }
+
+          try {
+            const regex = new RegExp(pattern.value, "g");
+            const matches = text.value.match(regex) || [];
+
+            result.textContent = matches.length
+              ? `${matches.length} match(es):\n${matches.join("\n")}`
+              : "No matches found.";
+          } catch (error) {
+            result.textContent = `Invalid regular expression: ${error.message}`;
+          }
+        }
+
+        pattern.addEventListener("input", test);
+        text.addEventListener("input", test);
       }
 
       function renderPomodoro(container) {
@@ -2487,11 +2492,722 @@
         update();
       }
 
+      function renderNotes(container) {
+        container.innerHTML = `
+          <textarea class="note-area" id="notesInput" placeholder="Write notes here…"></textarea>
+          <div class="tool-actions">
+            <button class="tool-btn" id="clearNotes">Clear</button>
+          </div>
+          <div class="tool-message" id="notesMessage">Auto-saving locally</div>
+        `;
+
+        const input = $("#notesInput", container);
+        const message = $("#notesMessage", container);
+        const saved = localStorage.getItem("dih_notes") || "";
+
+        input.value = saved;
+
+        input.addEventListener("input", () => {
+          localStorage.setItem("dih_notes", input.value);
+          message.textContent = "Saved locally";
+        });
+
+        $("#clearNotes", container).addEventListener("click", () => {
+          input.value = "";
+          localStorage.removeItem("dih_notes");
+          message.textContent = "Notes cleared";
+        });
+      }
+
+      function renderTasks(container) {
+        container.innerHTML = `
+          <div class="add-row">
+            <input class="control" id="taskInput" placeholder="Add a task">
+            <button class="tool-btn primary" id="addTask">Add</button>
+          </div>
+
+          <div class="task-list" id="taskList" style="display:grid;gap:8px;margin-top:12px"></div>
+        `;
+
+        const input = $("#taskInput", container);
+        const list = $("#taskList", container);
+        let tasks = JSON.parse(localStorage.getItem("dih_tasks") || "[]");
+
+        function save() {
+          localStorage.setItem("dih_tasks", JSON.stringify(tasks));
+        }
+
+        function render() {
+          list.innerHTML = "";
+
+          if (!tasks.length) {
+            list.innerHTML = `
+              <p style="color:var(--text-muted);font-size:13px">
+                No tasks yet.
+              </p>
+            `;
+            return;
+          }
+
+          tasks.forEach((task, index) => {
+            const row = document.createElement("div");
+
+            row.style.cssText = `
+              display:flex;
+              align-items:center;
+              gap:10px;
+              padding:10px;
+              border-radius:8px;
+              background:var(--surface-2);
+            `;
+
+            row.innerHTML = `
+              <input type="checkbox" ${task.done ? "checked" : ""}>
+              <span style="flex:1;${task.done ? "text-decoration:line-through;color:var(--text-muted)" : ""}">
+                ${escapeHtml(task.text)}
+              </span>
+              <button class="task-delete" style="background:none;color:var(--text-muted);font-size:18px;cursor:pointer">×</button>
+            `;
+
+            $("input", row).addEventListener("change", event => {
+              tasks[index].done = event.target.checked;
+              save();
+              render();
+            });
+
+            $(".task-delete", row).addEventListener("click", () => {
+              tasks.splice(index, 1);
+              save();
+              render();
+            });
+
+            list.appendChild(row);
+          });
+        }
+
+        function addTask() {
+          if (!input.value.trim()) return;
+
+          tasks.push({
+            text: input.value.trim(),
+            done: false
+          });
+
+          input.value = "";
+          save();
+          render();
+        }
+
+        $("#addTask", container).addEventListener("click", addTask);
+
+        input.addEventListener("keydown", event => {
+          if (event.key === "Enter") addTask();
+        });
+
+        render();
+      }
+
+      function renderHabits(container) {
+        container.innerHTML = `
+          <div class="add-row">
+            <input class="control" id="habitInput" placeholder="Add a habit">
+            <button class="tool-btn primary" id="addHabit">Add</button>
+          </div>
+
+          <div id="habitList" style="display:grid;gap:10px;margin-top:12px"></div>
+        `;
+
+        const input = $("#habitInput", container);
+        const list = $("#habitList", container);
+        let habits = JSON.parse(localStorage.getItem("dih_habits") || "[]");
+
+        function save() {
+          localStorage.setItem("dih_habits", JSON.stringify(habits));
+        }
+
+        function render() {
+          list.innerHTML = "";
+
+          habits.forEach((habit, index) => {
+            const row = document.createElement("div");
+
+            row.style.cssText = `
+              padding:12px;
+              border-radius:8px;
+              background:var(--surface-2);
+            `;
+
+            row.innerHTML = `
+              <div style="display:flex;justify-content:space-between;gap:8px;margin-bottom:8px">
+                <strong>${escapeHtml(habit.name)}</strong>
+                <button class="habit-delete" style="background:none;color:var(--text-muted);font-size:18px;cursor:pointer">×</button>
+              </div>
+
+              <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px">
+                ${["M","T","W","T","F","S","S"].map((day, dayIndex) => `
+                  <button
+                    class="habit-day"
+                    data-day="${dayIndex}"
+                    style="
+                      padding:6px 2px;
+                      border:0;
+                      border-radius:5px;
+                      cursor:pointer;
+                      background:${habit.days?.includes(dayIndex) ? "var(--accent)" : "var(--surface-3)"};
+                      color:${habit.days?.includes(dayIndex) ? "white" : "var(--text-sub)"};
+                      font-size:11px">
+                    ${day}
+                  </button>
+                `).join("")}
+              </div>
+            `;
+
+            $(".habit-delete", row).addEventListener("click", () => {
+              habits.splice(index, 1);
+              save();
+              render();
+            });
+
+            $$(".habit-day", row).forEach(dayButton => {
+              dayButton.addEventListener("click", () => {
+                habit.days ||= [];
+
+                const dayIndex = Number(dayButton.dataset.day);
+                const position = habit.days.indexOf(dayIndex);
+
+                if (position >= 0) {
+                  habit.days.splice(position, 1);
+                } else {
+                  habit.days.push(dayIndex);
+                }
+
+                save();
+                render();
+              });
+            });
+
+            list.appendChild(row);
+          });
+        }
+
+        function addHabit() {
+          if (!input.value.trim()) return;
+
+          habits.push({
+            name: input.value.trim(),
+            days: []
+          });
+
+          input.value = "";
+          save();
+          render();
+        }
+
+        $("#addHabit", container).addEventListener("click", addHabit);
+
+        input.addEventListener("keydown", event => {
+          if (event.key === "Enter") addHabit();
+        });
+
+        render();
+      }
+
+      function renderMeeting(container) {
+        container.innerHTML = `
+          <input class="control" id="meetingTitle" placeholder="Meeting title">
+
+          <div style="height:10px"></div>
+
+          <textarea
+            class="note-area"
+            id="meetingNotes"
+            placeholder="Agenda, discussion points and actions…"></textarea>
+
+          <div class="tool-actions">
+            <button class="tool-btn primary" id="saveMeeting">Save notes</button>
+            <button class="tool-btn" id="clearMeeting">Clear</button>
+          </div>
+
+          <div class="tool-message" id="meetingMessage"></div>
+        `;
+
+        const title = $("#meetingTitle", container);
+        const notes = $("#meetingNotes", container);
+        const message = $("#meetingMessage", container);
+        const saved = JSON.parse(
+          localStorage.getItem("dih_meeting") || "null"
+        );
+
+        if (saved) {
+          title.value = saved.title || "";
+          notes.value = saved.notes || "";
+        }
+
+        $("#saveMeeting", container).addEventListener("click", () => {
+          localStorage.setItem("dih_meeting", JSON.stringify({
+            title: title.value,
+            notes: notes.value
+          }));
+
+          message.textContent = "Meeting notes saved";
+        });
+
+        $("#clearMeeting", container).addEventListener("click", () => {
+          title.value = "";
+          notes.value = "";
+          localStorage.removeItem("dih_meeting");
+          message.textContent = "Meeting notes cleared";
+        });
+      }
+
+      function renderFont(container) {
+        container.innerHTML = `
+          <input class="control" id="fontText" value="The quick brown fox jumps over the lazy dog">
+
+          <div style="height:10px"></div>
+
+          <select class="control" id="fontFamily">
+            <option value="Inter, sans-serif">Inter</option>
+            <option value="Arial, sans-serif">Arial</option>
+            <option value="Georgia, serif">Georgia</option>
+            <option value="Verdana, sans-serif">Verdana</option>
+            <option value="'Courier New', monospace">Courier New</option>
+          </select>
+
+          <label style="display:block;margin-top:12px;color:var(--text-muted);font-size:12px">
+            Font size
+            <input id="fontSize" type="range" min="12" max="72" value="26" style="width:100%">
+          </label>
+
+          <div
+            id="fontPreview"
+            style="
+              margin-top:14px;
+              padding:22px;
+              border-radius:8px;
+              background:var(--surface-2);
+              text-align:center;
+              font-size:26px">
+            The quick brown fox jumps over the lazy dog
+          </div>
+        `;
+
+        const text = $("#fontText", container);
+        const family = $("#fontFamily", container);
+        const size = $("#fontSize", container);
+        const preview = $("#fontPreview", container);
+
+        function update() {
+          preview.textContent = text.value || "Preview text";
+          preview.style.fontFamily = family.value;
+          preview.style.fontSize = `${size.value}px`;
+        }
+
+        text.addEventListener("input", update);
+        family.addEventListener("change", update);
+        size.addEventListener("input", update);
+      }
+
+      function renderTimezone(container) {
+        container.innerHTML = `
+          <select class="control" id="timezoneSelect">
+            <option value="Europe/London">London</option>
+            <option value="Asia/Tokyo">Tokyo</option>
+            <option value="America/New_York">New York</option>
+            <option value="America/Los_Angeles">Los Angeles</option>
+            <option value="Australia/Sydney">Sydney</option>
+            <option value="Europe/Paris">Paris</option>
+          </select>
+
+          <div
+            id="timezoneClock"
+            style="
+              margin-top:16px;
+              padding:20px;
+              border-radius:8px;
+              background:var(--accent-soft);
+              color:var(--accent-hover);
+              font-family:var(--mono);
+              font-size:24px;
+              text-align:center">
+          </div>
+        `;
+
+        const select = $("#timezoneSelect", container);
+        const clock = $("#timezoneClock", container);
+
+        function update() {
+          clock.textContent = new Intl.DateTimeFormat("en-GB", {
+            timeZone: select.value,
+            dateStyle: "medium",
+            timeStyle: "medium"
+          }).format(new Date());
+        }
+
+        select.addEventListener("change", update);
+        update();
+
+        const interval = setInterval(() => {
+          if (!overlay.classList.contains("active")) {
+            clearInterval(interval);
+            return;
+          }
+
+          update();
+        }, 1000);
+      }
+
+      function renderPalette(container) {
+        container.innerHTML = `
+          <input
+            id="paletteColor"
+            type="color"
+            value="#6366f1"
+            style="width:100%;height:48px;border:0;background:transparent;cursor:pointer">
+
+          <select class="control" id="paletteMode" style="margin-top:10px">
+            <option value="analogous">Analogous</option>
+            <option value="triadic">Triadic</option>
+            <option value="complementary">Complementary</option>
+          </select>
+
+          <div
+            id="palettePreview"
+            style="
+              display:grid;
+              grid-template-columns:repeat(5,1fr);
+              height:72px;
+              margin-top:14px;
+              border-radius:8px;
+              overflow:hidden">
+          </div>
+
+          <div id="paletteValues" style="display:grid;gap:6px;margin-top:12px"></div>
+        `;
+
+        const color = $("#paletteColor", container);
+        const mode = $("#paletteMode", container);
+        const preview = $("#palettePreview", container);
+        const values = $("#paletteValues", container);
+
+        function hexToHsl(hex) {
+          let r = parseInt(hex.slice(1, 3), 16) / 255;
+          let g = parseInt(hex.slice(3, 5), 16) / 255;
+          let b = parseInt(hex.slice(5, 7), 16) / 255;
+
+          const max = Math.max(r, g, b);
+          const min = Math.min(r, g, b);
+          const difference = max - min;
+
+          let h = 0;
+          let s = 0;
+          const l = (max + min) / 2;
+
+          if (difference) {
+            s = difference / (1 - Math.abs(2 * l - 1));
+
+            switch (max) {
+              case r:
+                h = 60 * (((g - b) / difference) % 6);
+                break;
+              case g:
+                h = 60 * ((b - r) / difference + 2);
+                break;
+              default:
+                h = 60 * ((r - g) / difference + 4);
+            }
+          }
+
+          if (h < 0) h += 360;
+
+          return [h, s * 100, l * 100];
+        }
+
+        function hslToHex(h, s, l) {
+          s /= 100;
+          l /= 100;
+
+          const chroma = (1 - Math.abs(2 * l - 1)) * s;
+          const x = chroma * (1 - Math.abs((h / 60) % 2 - 1));
+          const match = l - chroma / 2;
+
+          let r = 0;
+          let g = 0;
+          let b = 0;
+
+          if (h < 60) [r, g, b] = [chroma, x, 0];
+          else if (h < 120) [r, g, b] = [x, chroma, 0];
+          else if (h < 180) [r, g, b] = [0, chroma, x];
+          else if (h < 240) [r, g, b] = [0, x, chroma];
+          else if (h < 300) [r, g, b] = [x, 0, chroma];
+          else [r, g, b] = [chroma, 0, x];
+
+          return "#" + [r, g, b]
+            .map(value => Math.round((value + match) * 255)
+            .toString(16)
+            .padStart(2, "0"))
+            .join("");
+        }
+
+        function update() {
+          const [h, s, l] = hexToHsl(color.value);
+          let offsets;
+
+          if (mode.value === "triadic") {
+            offsets = [0, 120, 240, 60, 300];
+          } else if (mode.value === "complementary") {
+            offsets = [0, 180, 25, 205, 335];
+          } else {
+            offsets = [0, 30, 60, 330, 300];
+          }
+
+          const colours = offsets.map(offset =>
+            hslToHex((h + offset) % 360, s, l)
+          );
+
+          preview.innerHTML = colours
+            .map(value => `<div style="background:${value}"></div>`)
+            .join("");
+
+          values.innerHTML = colours
+            .map(value => `
+              <button
+                class="color-value"
+                data-palette-value="${value}">
+                ${value}
+              </button>
+            `)
+            .join("");
+
+          $$(".color-value", values).forEach(button => {
+            button.addEventListener("click", async () => {
+              try {
+                await navigator.clipboard.writeText(button.dataset.paletteValue);
+              } catch {}
+            });
+          });
+        }
+
+        color.addEventListener("input", update);
+        mode.addEventListener("change", update);
+        update();
+      }
+
+      function renderApi(container) {
+        container.innerHTML = `
+          <input
+            class="control"
+            id="apiUrl"
+            type="url"
+            value="https://jsonplaceholder.typicode.com/todos/1"
+            placeholder="https://example.com/api">
+
+          <div class="tool-actions">
+            <button class="tool-btn primary" id="sendApi">Send GET request</button>
+          </div>
+
+          <textarea class="code-area" id="apiOutput" readonly placeholder="Response…"></textarea>
+        `;
+
+        const url = $("#apiUrl", container);
+        const output = $("#apiOutput", container);
+
+        $("#sendApi", container).addEventListener("click", async () => {
+          output.value = "Loading…";
+
+          try {
+            const response = await fetch(url.value);
+            const data = await response.json();
+            output.value = JSON.stringify(data, null, 2);
+          } catch (error) {
+            output.value = `Request failed: ${error.message}`;
+          }
+        });
+      }
+
+      function renderInvoice(container) {
+        container.innerHTML = `
+          <div id="invoiceRows" style="display:grid;gap:8px"></div>
+
+          <div class="tool-actions">
+            <button class="tool-btn" id="addInvoiceRow">Add item</button>
+          </div>
+
+          <div
+            style="
+              margin-top:14px;
+              padding:14px;
+              border-radius:8px;
+              background:var(--accent-soft);
+              color:var(--accent-hover);
+              font-family:var(--mono);
+              text-align:right">
+            Total: <span id="invoiceTotal">£0.00</span>
+          </div>
+        `;
+
+        const rows = $("#invoiceRows", container);
+        const total = $("#invoiceTotal", container);
+        let items = [];
+
+        function render() {
+          rows.innerHTML = items.map((item, index) => `
+            <div style="display:grid;grid-template-columns:1fr 80px 80px 34px;gap:6px">
+              <input class="control invoice-description" data-index="${index}" value="${escapeHtml(item.description)}" placeholder="Description">
+              <input class="control invoice-quantity" data-index="${index}" type="number" min="0" value="${item.quantity}">
+              <input class="control invoice-price" data-index="${index}" type="number" min="0" step="0.01" value="${item.price}">
+              <button class="tool-btn invoice-delete" data-index="${index}">×</button>
+            </div>
+          `).join("");
+
+          const sum = items.reduce(
+            (amount, item) => amount + item.quantity * item.price,
+            0
+          );
+
+          total.textContent = `£${sum.toFixed(2)}`;
+
+          $$(".invoice-description", rows).forEach(input => {
+            input.addEventListener("input", event => {
+              items[Number(event.target.dataset.index)].description = event.target.value;
+            });
+          });
+
+          $$(".invoice-quantity", rows).forEach(input => {
+            input.addEventListener("input", event => {
+              items[Number(event.target.dataset.index)].quantity =
+                Number(event.target.value) || 0;
+              render();
+            });
+          });
+
+          $$(".invoice-price", rows).forEach(input => {
+            input.addEventListener("input", event => {
+              items[Number(event.target.dataset.index)].price =
+                Number(event.target.value) || 0;
+              render();
+            });
+          });
+
+          $$(".invoice-delete", rows).forEach(button => {
+            button.addEventListener("click", () => {
+              items.splice(Number(button.dataset.index), 1);
+              render();
+            });
+          });
+        }
+
+        $("#addInvoiceRow", container).addEventListener("click", () => {
+          items.push({
+            description: "",
+            quantity: 1,
+            price: 0
+          });
+
+          render();
+        });
+
+        items.push({
+          description: "",
+          quantity: 1,
+          price: 0
+        });
+
+        render();
+      }
+
+      function renderBudget(container) {
+        container.innerHTML = `
+          <input class="control" id="budgetIncome" type="number" placeholder="Monthly income">
+
+          <div style="height:8px"></div>
+
+          <input class="control" id="budgetHousing" type="number" placeholder="Housing">
+
+          <div style="height:8px"></div>
+
+          <input class="control" id="budgetBills" type="number" placeholder="Bills">
+
+          <div style="height:8px"></div>
+
+          <input class="control" id="budgetFood" type="number" placeholder="Food">
+
+          <div style="height:8px"></div>
+
+          <input class="control" id="budgetOther" type="number" placeholder="Other spending">
+
+          <div
+            id="budgetResult"
+            style="
+              margin-top:14px;
+              padding:16px;
+              border-radius:8px;
+              background:var(--accent-soft);
+              color:var(--accent-hover);
+              font-family:var(--mono);
+              text-align:center">
+            Enter your figures
+          </div>
+        `;
+
+        const fields = $$("input", container);
+        const result = $("#budgetResult", container);
+
+        function update() {
+          const income = Number($("#budgetIncome", container).value) || 0;
+          const expenses = fields
+            .filter(field => field.id !== "budgetIncome")
+            .reduce((sum, field) => sum + (Number(field.value) || 0), 0);
+
+          const remaining = income - expenses;
+
+          result.textContent =
+            `Remaining: £${remaining.toFixed(2)}`;
+        }
+
+        fields.forEach(field => field.addEventListener("input", update));
+      }
+
+      function renderImage(container) {
+        container.innerHTML = `
+          <input id="imageInput" type="file" accept="image/*">
+
+          <div
+            id="imageResult"
+            style="
+              margin-top:14px;
+              padding:18px;
+              border-radius:8px;
+              background:var(--surface-2);
+              color:var(--text-sub);
+              text-align:center">
+            Select an image
+          </div>
+        `;
+
+        const input = $("#imageInput", container);
+        const result = $("#imageResult", container);
+
+        input.addEventListener("change", () => {
+          const file = input.files[0];
+
+          if (!file) return;
+
+          const image = new Image();
+
+          image.onload = () => {
+            result.textContent =
+              `${file.name} — ${image.width} × ${image.height}px`;
+          };
+
+          image.src = URL.createObjectURL(file);
+        });
+      }
+
       const RENDERERS = {
         calculator: renderCalculator,
         converter: renderConverter,
         password: renderPassword,
-        breathing: renderBreathing,
         color: renderColor,
         json: renderJson,
         markdown: renderMarkdown,
@@ -2500,8 +3216,99 @@
         shadow: renderShadow,
         lorem: renderLorem,
         base64: renderBase64,
-        pomodoro: renderPomodoro
+        regex: renderRegex,
+        pomodoro: renderPomodoro,
+        notes: renderNotes,
+        tasks: renderTasks,
+        habits: renderHabits,
+        meeting: renderMeeting,
+        font: renderFont,
+        timezone: renderTimezone,
+        palette: renderPalette,
+        api: renderApi,
+        invoice: renderInvoice,
+        budget: renderBudget,
+        image: renderImage,
+        breathing: renderBreathing
       };
+
+      function renderBreathing(container) {
+        container.innerHTML = `
+          <div style="text-align:center">
+            <h3 id="breathingLabel">Ready?</h3>
+
+            <p style="color:var(--text-muted);font-size:12px">
+              4 seconds inhale · 7 seconds hold · 8 seconds exhale
+            </p>
+
+            <div
+              id="breathingCircle"
+              style="
+                width:120px;
+                height:120px;
+                display:grid;
+                place-items:center;
+                margin:28px auto;
+                border-radius:50%;
+                background:var(--accent-soft);
+                color:var(--accent-hover);
+                font-weight:700;
+                transition:transform 4s ease-in-out">
+              Start
+            </div>
+
+            <div class="center-actions">
+              <button class="tool-btn primary" id="startBreathing">Begin</button>
+              <button class="tool-btn" id="stopBreathing">Stop</button>
+            </div>
+          </div>
+        `;
+
+        const label = $("#breathingLabel", container);
+        const circle = $("#breathingCircle", container);
+        let active = false;
+        let timeoutId;
+
+        function cycle() {
+          if (!active) return;
+
+          label.textContent = "Inhale";
+          circle.textContent = "In";
+          circle.style.transform = "scale(1.45)";
+
+          timeoutId = setTimeout(() => {
+            if (!active) return;
+
+            label.textContent = "Hold";
+            circle.textContent = "Hold";
+
+            timeoutId = setTimeout(() => {
+              if (!active) return;
+
+              label.textContent = "Exhale";
+              circle.textContent = "Out";
+              circle.style.transform = "scale(1)";
+
+              timeoutId = setTimeout(cycle, 8000);
+            }, 7000);
+          }, 4000);
+        }
+
+        $("#startBreathing", container).addEventListener("click", () => {
+          if (!active) {
+            active = true;
+            cycle();
+          }
+        });
+
+        $("#stopBreathing", container).addEventListener("click", () => {
+          active = false;
+          clearTimeout(timeoutId);
+          label.textContent = "Paused";
+          circle.textContent = "Start";
+          circle.style.transform = "scale(1)";
+        });
+      }
 
       function escapeHtml(value) {
         return String(value)
