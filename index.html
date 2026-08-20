@@ -298,7 +298,8 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
         <a href="/techtopics" class="nav-link">💡 Tech Topics</a>
         <a href="/software" class="nav-link">💻 Software</a>
         <a href="/games" class="nav-link">🎮 Games</a>
-        <a href="#token" class="nav-link">🔵 Token</a>
+        <!-- Token link temporarily hidden -->
+        <!-- <a href="#token" class="nav-link">🔵 Token</a> -->
         <a href="/subscribe" class="nav-link">✉️ Subscribe</a>
       </div>
       <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">☰</button>
@@ -342,6 +343,7 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
     <p><strong>Digital Infohub</strong> combines real-time web search, live market data, global weather tracking, and curated productivity tools in one adaptive interface. <em>Press <kbd>⌘K</kbd> or <kbd>Ctrl+K</kbd> to open the Command Palette.</em></p>
   </section>
 
+  <!-- Token section temporarily hidden (can be restored by uncommenting)
   <section class="token-section" id="token">
     <div class="token-header">
       <div class="token-icon">D</div>
@@ -378,6 +380,7 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
       </p>
     </div>
   </section>
+  -->
 
 </div>
 
@@ -397,11 +400,13 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
   'use strict';
 
   /* ═══════════════════════════════════════════════════════════
-     COPY ADDRESS FUNCTIONALITY
+     COPY ADDRESS FUNCTIONALITY (Token section - currently hidden)
+     This code is preserved for when the Token section is restored.
      ═══════════════════════════════════════════════════════════ */
   const copyBtn = document.getElementById('copyAddressBtn');
   const addressEl = document.getElementById('tokenAddress');
   
+  // Only attach handler if token section exists (currently commented out)
   if (copyBtn && addressEl) {
     copyBtn.addEventListener('click', async () => {
       try {
@@ -653,7 +658,7 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
   function updateCmdResults(query) {
     const q = query.toLowerCase().trim();
     let items = [];
-    const navItems = [ { name: 'Home', path: '/', emoji: '🏠', type: 'nav' }, { name: 'Blog', path: '/blog', emoji: '📝', type: 'nav' }, { name: 'Tech Topics', path: '/techtopics', emoji: '💡', type: 'nav' }, { name: 'Software', path: '/software', emoji: '💻', type: 'nav' }, { name: 'Games', path: '/games', emoji: '🎮', type: 'nav' }, { name: 'Token Info', path: '#token', emoji: '🔵', type: 'nav' } ];
+    const navItems = [ { name: 'Home', path: '/', emoji: '🏠', type: 'nav' }, { name: 'Blog', path: '/blog', emoji: '📝', type: 'nav' }, { name: 'Tech Topics', path: '/techtopics', emoji: '💡', type: 'nav' }, { name: 'Software', path: '/software', emoji: '💻', type: 'nav' }, { name: 'Games', path: '/games', emoji: '🎮', type: 'nav' } ];
     const tools = APPS.map(a => ({ name: a.name, desc: a.desc, url: a.url, emoji: a.icon, type: 'tool' }));
     const commands = [ { name: 'Full Briefing', action: 'full briefing', emoji: '📰', type: 'cmd' }, { name: 'Live Stocks', action: 'stocks', emoji: '📈', type: 'cmd' }, { name: 'Crypto Prices', action: 'crypto', emoji: '₿', type: 'cmd' }, { name: 'Market Sentiment', action: 'market sentiment', emoji: '🧠', type: 'cmd' }, { name: 'Weather', action: 'weather', emoji: '⛅', type: 'cmd' }, { name: 'Clear Chat', action: 'clear chat', emoji: '🗑️', type: 'cmd' } ];
     const allItems = [...navItems, ...tools, ...commands];
