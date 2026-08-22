@@ -1,3 +1,31 @@
-(post/quantum-computing-breakthroughs-2026.html is a source file, so no need to ignore it)
+```
+# Web artifacts
+*.html
 
-Nothing to ignore.
+# Dependencies
+node_modules/
+
+# Editors
+.vscode/
+.idea/
+
+# Logs and temp files
+*.log
+*.tmp
+*.swp
+
+# Environment
+.env
+.env.local
+*.env.*
+
+# Coverage reports
+coverage/
+htmlcov/
+*.coverage
+
+# Build outputs
+dist/
+build/
+target/
+```
