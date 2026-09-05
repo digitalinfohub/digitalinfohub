@@ -32,8 +32,10 @@
   --font: 'Inter', -apple-system, sans-serif;
   --mono: 'JetBrains Mono', monospace;
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --radius: 16px;
   --radius-sm: 10px;
+  --glow-color: 129, 140, 248;
 }
 
 [data-theme="dark"] {
@@ -48,6 +50,7 @@
   --text-muted: #71717a;
   --accent: #818cf8; 
   --accent-soft: rgba(129,140,248,0.1);
+  --accent-glow: rgba(129,140,248,0.4);
   --shadow: 0 10px 40px -10px rgba(0,0,0,0.5);
   --green: #4ade80; 
   --red: #f87171;
@@ -55,6 +58,8 @@
   --warn-border: rgba(234,179,8,0.2); 
   --warn-text: #facc15;
   --base-blue: #0052ff;
+  --chat-glow: 0 0 40px rgba(var(--glow-color), 0.15), 0 0 80px rgba(var(--glow-color), 0.08);
+  --chat-glow-active: 0 0 60px rgba(var(--glow-color), 0.3), 0 0 120px rgba(var(--glow-color), 0.15);
 }
 
 [data-theme="light"] {
@@ -69,6 +74,7 @@
   --text-muted: #a1a1aa;
   --accent: #4f46e5; 
   --accent-soft: rgba(79,70,229,0.08);
+  --accent-glow: rgba(79,70,229,0.3);
   --shadow: 0 10px 40px -10px rgba(0,0,0,0.1);
   --green: #16a34a; 
   --red: #dc2626;
@@ -76,6 +82,8 @@
   --warn-border: rgba(234,179,8,0.15); 
   --warn-text: #ca8a04;
   --base-blue: #0052ff;
+  --chat-glow: 0 0 40px rgba(var(--glow-color), 0.1), 0 0 80px rgba(var(--glow-color), 0.05);
+  --chat-glow-active: 0 0 60px rgba(var(--glow-color), 0.2), 0 0 120px rgba(var(--glow-color), 0.1);
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -88,11 +96,11 @@ body {
   transition: background 0.3s, color 0.3s; 
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
-  /* Subtle background gradient for depth */
   background-image: radial-gradient(circle at 50% 0%, var(--surface) 0%, transparent 70%);
+  overflow-x: hidden;
 }
 
-.shell { max-width: 800px; margin: 0 auto; padding: 40px 24px 100px; position: relative; z-index: 1; }
+.shell { max-width: 900px; margin: 0 auto; padding: 40px 24px 100px; position: relative; z-index: 1; }
 
 /* ── NAVIGATION ── */
 .nav-shell { 
@@ -102,7 +110,7 @@ body {
   backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); 
   margin: -40px -24px 40px; padding: 0 24px; 
 }
-.nav-bar { max-width: 800px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 16px 0; gap: 16px; position: relative; }
+.nav-bar { max-width: 900px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 16px 0; gap: 16px; position: relative; }
 .nav-links { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
 .nav-link { 
   padding: 8px 16px; 
@@ -127,7 +135,7 @@ body {
 .ticker-item .down { color: var(--red); }
 @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-.topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+.topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
 .brand { display: flex; align-items: center; gap: 12px; font-weight: 700; text-decoration: none; color: var(--text); font-size: 18px; letter-spacing: -0.02em; }
 .brand-logo { width: 36px; height: 36px; border-radius: 12px; background: var(--surface-2); border: 1px solid var(--border); overflow: hidden; }
 .brand-logo img { width: 100%; height: 100%; object-fit: cover; }
@@ -146,177 +154,551 @@ body {
 .icon-btn:hover { color: var(--text); border-color: var(--border-strong); background: var(--surface-2); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
 .clock { font-family: var(--mono); font-size: 13px; color: var(--text-muted); padding: 8px 16px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); font-weight: 500; }
 
-/* ── CHAT HERO ── */
+/* ── CHAT HERO (MAIN STAR) ── */
 .chat-hero { 
   background: var(--surface); 
   border: 1px solid var(--border); 
   border-radius: var(--radius); 
-  padding: 40px; 
-  margin-bottom: 40px; 
-  box-shadow: var(--shadow); 
+  padding: 32px; 
+  margin-bottom: 24px; 
+  box-shadow: var(--chat-glow);
   position: relative; 
-  min-height: 400px;
+  min-height: 500px;
   display: flex;
   flex-direction: column;
+  transition: box-shadow 0.4s ease, border-color 0.4s ease;
+  animation: heroAppear 0.6s var(--ease-out);
 }
+
+@keyframes heroAppear {
+  from { opacity: 0; transform: translateY(20px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Glow border animation */
+.chat-hero::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: var(--radius);
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    transparent 20%,
+    rgba(var(--glow-color), 0.3) 40%,
+    rgba(var(--glow-color), 0.5) 50%,
+    rgba(var(--glow-color), 0.3) 60%,
+    transparent 80%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: glowRotate 4s linear infinite;
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes glowRotate {
+  0% { background-position: 0% 0%, 0 0; }
+  100% { background-position: 200% 200%, 0 0; }
+}
+
+.chat-hero:focus-within {
+  box-shadow: var(--chat-glow-active);
+  border-color: rgba(var(--glow-color), 0.3);
+}
+
+.chat-hero:focus-within::before {
+  opacity: 1;
+  animation-duration: 2s;
+}
+
+/* Ambient pulse */
+.chat-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius);
+  background: radial-gradient(ellipse at 50% 0%, rgba(var(--glow-color), 0.05) 0%, transparent 60%);
+  pointer-events: none;
+  animation: ambientPulse 3s ease-in-out infinite;
+}
+
+@keyframes ambientPulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+.chat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  z-index: 2;
+}
+
+.chat-title-area {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.chat-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--green);
+  animation: pulse 2s ease-in-out infinite;
+  box-shadow: 0 0 8px rgba(74, 222, 128, 0.6);
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(0.9); }
+}
+
+.chat-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.chat-subtitle {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 2px;
+  font-family: var(--mono);
+}
+
+.chat-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.chat-action-btn {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text-muted);
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
+  font-size: 15px;
+  position: relative;
+  overflow: hidden;
+}
+
+.chat-action-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, currentColor 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.chat-action-btn:hover::before {
+  opacity: 0.05;
+}
+
+.chat-action-btn:hover {
+  color: var(--text);
+  border-color: var(--border-strong);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.chat-action-btn.danger:hover {
+  color: var(--red);
+  border-color: var(--red);
+  box-shadow: 0 0 20px rgba(248, 113, 113, 0.2), 0 4px 12px rgba(0,0,0,0.1);
+  animation: shake 0.4s ease;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateY(-1px) rotate(0deg); }
+  25% { transform: translateY(-1px) rotate(-3deg); }
+  75% { transform: translateY(-1px) rotate(3deg); }
+}
+
+.chat-action-btn .tooltip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  background: var(--surface-3);
+  color: var(--text);
+  font-size: 11px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.2s;
+  font-weight: 500;
+  border: 1px solid var(--border);
+}
+
+.chat-action-btn:hover .tooltip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ── CHAT THREAD ── */
 .chat-thread { 
   display: flex; 
   flex-direction: column; 
-  gap: 24px; 
+  gap: 20px; 
   flex: 1;
   overflow-y: auto; 
-  margin-bottom: 24px; 
-  padding-right: 8px; 
+  margin-bottom: 20px; 
+  padding: 8px; 
   scrollbar-width: thin; 
   scrollbar-color: var(--surface-3) transparent;
   scroll-behavior: smooth; 
+  position: relative;
+  z-index: 2;
 }
 
-.msg { display: flex; gap: 16px; animation: slideUp 0.5s var(--ease); max-width: 90%; }
-.msg.user { align-self: flex-end; flex-direction: row-reverse; }
-@keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.chat-thread::-webkit-scrollbar { width: 6px; }
+.chat-thread::-webkit-scrollbar-track { background: transparent; }
+.chat-thread::-webkit-scrollbar-thumb { background: var(--surface-3); border-radius: 3px; }
+
+.msg { 
+  display: flex; 
+  gap: 14px; 
+  animation: msgAppear 0.4s var(--ease-out);
+  max-width: 92%;
+}
+
+@keyframes msgAppear {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.msg.user { 
+  align-self: flex-end; 
+  flex-direction: row-reverse;
+  max-width: 85%;
+}
 
 .msg-avatar { 
   width: 36px; height: 36px; 
-  border-radius: 12px; 
+  border-radius: 10px; 
   background: var(--surface-2); 
   border: 1px solid var(--border); 
   flex-shrink: 0; 
   display: flex; align-items: center; justify-content: center; 
   font-size: 14px; font-weight: 700; 
-  overflow: hidden; 
+  overflow: hidden;
+  transition: all 0.3s;
 }
-.msg-avatar.bot { background: var(--accent-soft); border-color: transparent; color: var(--accent); }
+
+.msg-avatar.bot { 
+  background: linear-gradient(135deg, var(--accent-soft), rgba(var(--glow-color), 0.15)); 
+  border-color: rgba(var(--glow-color), 0.3); 
+  color: var(--accent); 
+  box-shadow: 0 0 16px rgba(var(--glow-color), 0.2);
+}
+
 .msg-avatar img { width: 100%; height: 100%; object-fit: cover; }
 
 .msg-body { flex: 1; min-width: 0; }
-.msg-role { font-size: 11px; font-weight: 600; color: var(--text-muted); margin-bottom: 8px; font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.08em; }
-.msg-content { font-size: 15px; line-height: 1.7; color: var(--text); font-weight: 400; }
+
+.msg-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.msg-role { 
+  font-size: 12px; 
+  font-weight: 600; 
+  color: var(--text);
+  font-family: var(--font);
+}
+
+.msg-time {
+  font-size: 10px;
+  color: var(--text-muted);
+  font-family: var(--mono);
+}
+
+.msg-content { 
+  font-size: 14.5px; 
+  line-height: 1.75; 
+  color: var(--text); 
+  font-weight: 400;
+  padding: 14px 18px;
+  border-radius: 14px;
+  border-radius: 4px 14px 14px 14px;
+  transition: background 0.2s;
+}
+
+.msg.user .msg-content {
+  background: linear-gradient(135deg, rgba(var(--glow-color), 0.15), rgba(var(--glow-color), 0.08));
+  border: 1px solid rgba(var(--glow-color), 0.2);
+  border-radius: 14px 4px 14px 14px;
+}
+
+.msg.bot .msg-content {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+}
+
 .msg-content p + p { margin-top: 12px; }
 .msg-content strong { color: var(--text); font-weight: 600; }
 .msg-content a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent-soft); transition: all 0.2s; }
 .msg-content a:hover { border-bottom-color: var(--accent); }
-.msg-content em { font-style: normal; font-family: var(--mono); font-size: 0.9em; background: var(--surface-2); padding: 2px 8px; border-radius: 6px; border: 1px solid var(--border); color: var(--text-sub); }
-.msg-content ul { margin-left: 20px; margin-top: 12px; color: var(--text-sub); font-size: 14px; line-height: 2; }
+.msg-content em { font-style: normal; font-family: var(--mono); font-size: 0.88em; background: var(--surface-3); padding: 2px 8px; border-radius: 6px; border: 1px solid var(--border); color: var(--text-sub); }
+.msg-content ul { margin-left: 20px; margin-top: 12px; color: var(--text-sub); font-size: 13.5px; line-height: 2; }
+.msg-content ul li { margin-bottom: 4px; }
+
+/* Typing cursor for in-progress messages */
+.typing-cursor::after {
+  content: '▊';
+  animation: blink 0.8s infinite;
+  color: var(--accent);
+  font-weight: 300;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* ── TYPING INDICATOR ── */
+.typing-indicator { 
+  display: flex; 
+  gap: 5px; 
+  padding: 14px 18px;
+  align-items: center; 
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 4px 14px 14px 14px;
+  width: fit-content;
+}
+
+.typing-dot { 
+  width: 7px; height: 7px; 
+  background: var(--accent);
+  border-radius: 50%; 
+  animation: typingBounce 1.4s infinite ease-in-out both;
+  opacity: 0.7;
+  box-shadow: 0 0 8px rgba(var(--glow-color), 0.4);
+}
+
+.typing-dot:nth-child(1) { animation-delay: -0.32s; }
+.typing-dot:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes typingBounce { 
+  0%, 80%, 100% { transform: scale(0.6); opacity: 0.3; } 
+  40% { transform: scale(1); opacity: 1; } 
+}
+
+/* Model loading indicator */
+.model-loading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  font-size: 13px;
+  color: var(--text-sub);
+}
+
+.model-loading-bar {
+  flex: 1;
+  height: 4px;
+  background: var(--surface-3);
+  border-radius: 2px;
+  overflow: hidden;
+  max-width: 120px;
+}
+
+.model-loading-progress {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), rgba(var(--glow-color), 0.6));
+  border-radius: 2px;
+  animation: loadProgress 2s ease-in-out infinite;
+  box-shadow: 0 0 8px rgba(var(--glow-color), 0.5);
+}
+
+@keyframes loadProgress {
+  0% { width: 0%; }
+  50% { width: 70%; }
+  100% { width: 100%; }
+}
+
+/* ── SUGGESTION CHIPS ── */
+.suggestions-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+  animation: chipsAppear 0.4s var(--ease-out) 0.2s both;
+}
+
+@keyframes chipsAppear {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--text-sub);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.chip:hover {
+  color: var(--text);
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  box-shadow: 0 0 16px rgba(var(--glow-color), 0.15);
+  transform: translateY(-1px);
+}
+
+.chip:active {
+  transform: translateY(0) scale(0.98);
+}
 
 /* ── WEATHER CARD ── */
 .weather-card {
   background: linear-gradient(145deg, var(--surface-2), var(--surface));
   border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 24px;
-  margin: 16px 0;
+  border-radius: var(--radius-sm);
+  padding: 20px;
+  margin: 12px 0;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
   animation: slideUp 0.5s var(--ease);
   box-shadow: 0 4px 20px rgba(0,0,0,0.05);
 }
-.weather-header { display: flex; align-items: center; gap: 20px; }
-.weather-icon { font-size: 56px; line-height: 1; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1)); }
+.weather-header { display: flex; align-items: center; gap: 16px; }
+.weather-icon { font-size: 48px; line-height: 1; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1)); }
 .weather-info { display: flex; flex-direction: column; }
-.weather-temp { font-size: 36px; font-weight: 700; font-family: var(--mono); letter-spacing: -1px; }
-.weather-city { font-size: 15px; color: var(--text-sub); font-weight: 500; margin-top: 4px; }
-.weather-details { display: flex; gap: 20px; font-size: 13px; color: var(--text-muted); font-family: var(--mono); padding-top: 12px; border-top: 1px solid var(--border); }
+.weather-temp { font-size: 32px; font-weight: 700; font-family: var(--mono); letter-spacing: -1px; }
+.weather-city { font-size: 14px; color: var(--text-sub); font-weight: 500; margin-top: 4px; }
+.weather-details { display: flex; gap: 16px; font-size: 12px; color: var(--text-muted); font-family: var(--mono); padding-top: 12px; border-top: 1px solid var(--border); }
 
 /* ── SENTIMENT CARD ── */
 .sentiment-card {
   background: var(--surface-2);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 24px;
-  margin: 16px 0;
+  border-radius: var(--radius-sm);
+  padding: 20px;
+  margin: 12px 0;
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 20px;
 }
-.sentiment-value { font-size: 52px; font-weight: 800; font-family: var(--mono); line-height: 1; }
-.sentiment-info { display: flex; flex-direction: column; gap: 6px; }
-.sentiment-label { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
-.sentiment-class { font-size: 20px; font-weight: 700; text-transform: capitalize; }
+.sentiment-value { font-size: 44px; font-weight: 800; font-family: var(--mono); line-height: 1; }
+.sentiment-info { display: flex; flex-direction: column; gap: 4px; }
+.sentiment-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+.sentiment-class { font-size: 18px; font-weight: 700; text-transform: capitalize; }
 
-.typing-indicator { display: flex; gap: 6px; padding: 12px 0; align-items: center; height: 24px; }
-.typing-dot { width: 8px; height: 8px; background: var(--text-muted); border-radius: 50%; animation: bounce 1.4s infinite ease-in-out both; opacity: 0.6; }
-.typing-dot:nth-child(1) { animation-delay: -0.32s; }
-.typing-dot:nth-child(2) { animation-delay: -0.16s; }
-@keyframes bounce { 0%, 80%, 100% { transform: scale(0.6); opacity: 0.3; } 40% { transform: scale(1); opacity: 1; } }
-
-.rich-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; margin-top: 20px; }
+/* ── GRIDS ── */
+.rich-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin-top: 16px; }
 .tile { 
   background: var(--surface-2); 
   border: 1px solid var(--border); 
   border-radius: var(--radius-sm); 
-  padding: 20px; 
+  padding: 16px; 
   cursor: pointer; 
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
-  display: flex; flex-direction: column; gap: 8px; 
+  display: flex; flex-direction: column; gap: 6px; 
   text-decoration: none; color: var(--text); 
 }
-.tile:hover { border-color: var(--accent); background: var(--surface-3); transform: translateY(-4px); box-shadow: var(--shadow); }
-.tile-name { font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 10px; }
-.tile-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+.tile:hover { border-color: var(--accent); background: var(--surface-3); transform: translateY(-3px); box-shadow: var(--shadow); }
+.tile-name { font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+.tile-desc { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
 
 .news-card { 
   background: var(--surface-2); 
   border: 1px solid var(--border); 
   border-radius: var(--radius-sm); 
-  padding: 20px; 
-  display: flex; flex-direction: column; gap: 10px; 
+  padding: 16px; 
+  display: flex; flex-direction: column; gap: 8px; 
   text-decoration: none; color: var(--text); 
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
 }
-.news-card:hover { border-color: var(--accent); background: var(--surface-3); transform: translateY(-4px); box-shadow: var(--shadow); }
-.news-tag { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); background: var(--accent-soft); padding: 4px 8px; border-radius: 4px; width: fit-content; }
-.news-title { font-size: 15px; font-weight: 600; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.news-meta { font-size: 12px; color: var(--text-muted); margin-top: auto; padding-top: 12px; border-top: 1px solid var(--border); }
+.news-card:hover { border-color: var(--accent); background: var(--surface-3); transform: translateY(-3px); box-shadow: var(--shadow); }
+.news-tag { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); background: var(--accent-soft); padding: 3px 6px; border-radius: 4px; width: fit-content; }
+.news-title { font-size: 13.5px; font-weight: 600; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.news-meta { font-size: 11px; color: var(--text-muted); margin-top: auto; padding-top: 8px; border-top: 1px solid var(--border); }
 
-.stock-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; margin-top: 20px; }
+.stock-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; margin-top: 16px; }
 .stock-card { 
   background: var(--surface-2); 
   border: 1px solid var(--border); 
   border-radius: var(--radius-sm); 
-  padding: 16px; 
-  display: flex; flex-direction: column; gap: 6px; 
+  padding: 14px; 
+  display: flex; flex-direction: column; gap: 4px; 
   transition: all 0.2s; 
 }
 .stock-card:hover { border-color: var(--border-strong); background: var(--surface-3); transform: translateY(-2px); }
-.stock-symbol { font-family: var(--mono); font-size: 13px; font-weight: 700; color: var(--text-sub); }
-.stock-price { font-size: 20px; font-weight: 700; font-family: var(--mono); letter-spacing: -0.5px; }
-.stock-change { font-size: 13px; font-weight: 600; font-family: var(--mono); }
+.stock-symbol { font-family: var(--mono); font-size: 12px; font-weight: 700; color: var(--text-sub); }
+.stock-price { font-size: 18px; font-weight: 700; font-family: var(--mono); letter-spacing: -0.5px; }
+.stock-change { font-size: 12px; font-weight: 600; font-family: var(--mono); }
 .stock-change.up { color: var(--green); }
 .stock-change.down { color: var(--red); }
-.stock-stale { font-size: 10px; color: var(--text-muted); margin-top: 4px; }
+.stock-stale { font-size: 9px; color: var(--text-muted); margin-top: 4px; }
 
 .web-result { 
   background: var(--surface-2); 
   border: 1px solid var(--border); 
   border-radius: var(--radius-sm); 
-  padding: 24px; 
-  margin-top: 20px; 
+  padding: 18px; 
+  margin-top: 14px; 
   transition: all 0.2s; 
 }
 .web-result:hover { border-color: var(--border-strong); }
-.web-result-source { font-size: 11px; color: var(--accent); font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; font-weight: 700; }
-.web-result-title { font-size: 18px; font-weight: 700; margin-bottom: 10px; line-height: 1.4; }
-.web-result-snippet { font-size: 14px; color: var(--text-sub); line-height: 1.7; }
-.web-result-link { display: inline-block; margin-top: 12px; font-size: 13px; color: var(--text); text-decoration: none; font-weight: 600; border-bottom: 1px solid var(--border); padding-bottom: 2px; }
+.web-result-source { font-size: 10px; color: var(--accent); font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; font-weight: 700; }
+.web-result-title { font-size: 15px; font-weight: 700; margin-bottom: 8px; line-height: 1.4; }
+.web-result-snippet { font-size: 13px; color: var(--text-sub); line-height: 1.6; }
+.web-result-link { display: inline-block; margin-top: 10px; font-size: 12px; color: var(--text); text-decoration: none; font-weight: 600; border-bottom: 1px solid var(--border); padding-bottom: 2px; }
 .web-result-link:hover { border-bottom-color: var(--accent); color: var(--accent); }
 
 /* ── INPUT AREA ── */
 .chat-input-shell { 
   position: relative; 
-  display: flex; gap: 12px; align-items: center; 
-  padding: 8px; 
+  display: flex; gap: 10px; align-items: center; 
+  padding: 6px 8px; 
   background: var(--surface-2); 
   border: 1px solid var(--border); 
-  border-radius: 16px; 
+  border-radius: 14px; 
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
   box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+  z-index: 2;
 }
 .chat-input-shell:focus-within { 
   border-color: var(--accent); 
-  box-shadow: 0 0 0 4px var(--accent-soft), 0 8px 30px rgba(0,0,0,0.1); 
-  transform: translateY(-2px);
+  box-shadow: 0 0 0 3px var(--accent-soft), 0 0 24px rgba(var(--glow-color), 0.2), 0 8px 30px rgba(0,0,0,0.1); 
+  transform: translateY(-1px);
 }
 .chat-input { 
   flex: 1; 
@@ -325,36 +707,63 @@ body {
   outline: none; 
   color: var(--text); 
   font-family: inherit; 
-  font-size: 15px; 
-  padding: 12px 16px; 
+  font-size: 14.5px; 
+  padding: 12px 14px; 
   font-weight: 500;
 }
 .chat-input::placeholder { color: var(--text-muted); font-weight: 400; }
 .chat-send { 
-  width: 44px; height: 44px; 
+  width: 40px; height: 40px; 
   background: var(--accent); 
   color: white; 
   border: none; 
-  border-radius: 12px; 
+  border-radius: 10px; 
   cursor: pointer; 
   display: flex; align-items: center; justify-content: center; 
   transition: all 0.2s; 
-  font-size: 18px;
+  font-size: 17px;
+  box-shadow: 0 0 16px rgba(var(--glow-color), 0.3);
 }
-.chat-send:hover:not(:disabled) { opacity: 0.9; transform: scale(1.05) rotate(-5deg); }
+.chat-send:hover:not(:disabled) { opacity: 0.9; transform: scale(1.05); box-shadow: 0 0 24px rgba(var(--glow-color), 0.5); }
 .chat-send:active:not(:disabled) { transform: scale(0.95); }
-.chat-send:disabled { opacity: 0.4; cursor: not-allowed; background: var(--surface-3); }
+.chat-send:disabled { opacity: 0.4; cursor: not-allowed; background: var(--surface-3); box-shadow: none; }
 
-.info-writeup { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 40px; margin-bottom: 60px; }
-.info-writeup h2 { font-size: 22px; margin-bottom: 16px; font-weight: 700; }
-.info-writeup p { color: var(--text-sub); font-size: 16px; margin-bottom: 20px; line-height: 1.7; }
-.info-writeup kbd { font-family: var(--mono); font-size: 12px; background: var(--surface-2); border: 1px solid var(--border); padding: 4px 8px; border-radius: 6px; color: var(--text); font-weight: 600; }
+/* ── AD SECTION ── */
+.ad-section {
+  margin: 24px 0 40px;
+  padding: 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  text-align: center;
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+
+.ad-section:hover { opacity: 1; }
+
+.ad-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-family: var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.info-writeup { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; margin-bottom: 60px; }
+.info-writeup h2 { font-size: 20px; margin-bottom: 14px; font-weight: 700; }
+.info-writeup p { color: var(--text-sub); font-size: 15px; margin-bottom: 16px; line-height: 1.7; }
+.info-writeup kbd { font-family: var(--mono); font-size: 11px; background: var(--surface-2); border: 1px solid var(--border); padding: 4px 8px; border-radius: 6px; color: var(--text); font-weight: 600; }
 
 /* ── COMMAND PALETTE ── */
 .cmd-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); z-index: 1000; display: none; align-items: flex-start; justify-content: center; padding-top: 20vh; }
 .cmd-overlay.active { display: flex; animation: fadeIn 0.2s ease; }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-.cmd-modal { width: 100%; max-width: 600px; background: var(--surface); border: 1px solid var(--border-strong); border-radius: 20px; box-shadow: 0 24px 60px -12px rgba(0,0,0,0.5); overflow: hidden; margin: 0 20px; animation: cmdPop 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+.cmd-modal { width: 100%; max-width: 600px; background: var(--surface); border: 1px solid var(--border-strong); border-radius: 20px; box-shadow: 0 24px 60px -12px rgba(0,0,0,0.5), 0 0 60px rgba(var(--glow-color), 0.1); overflow: hidden; margin: 0 20px; animation: cmdPop 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
 @keyframes cmdPop { from { opacity: 0; transform: scale(0.95) translateY(-10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
 .cmd-input-shell { display: flex; align-items: center; gap: 16px; padding: 20px 24px; border-bottom: 1px solid var(--border); }
 .cmd-input { flex: 1; background: none; border: none; outline: none; color: var(--text); font-size: 18px; font-family: var(--font); font-weight: 500; }
@@ -373,12 +782,16 @@ body {
   .hamburger { display: flex; }
   .rich-grid, .stock-grid { grid-template-columns: 1fr 1fr; }
   .shell { padding: 24px 16px 80px; }
-  .chat-hero, .info-writeup { padding: 24px; }
+  .chat-hero { padding: 20px; min-height: 450px; }
+  .info-writeup { padding: 24px; }
+  .msg { max-width: 95%; }
+  .msg.user { max-width: 90%; }
 }
 @media (max-width: 480px) { 
   .rich-grid, .stock-grid { grid-template-columns: 1fr; } 
   .topbar { flex-direction: column; gap: 16px; align-items: flex-start; }
   .brand { font-size: 20px; }
+  .chat-hero { padding: 16px; min-height: 400px; }
 }
 </style>
 </head>
@@ -393,8 +806,6 @@ body {
         <a href="/techtopics" class="nav-link">💡 Tech Topics</a>
         <a href="/software" class="nav-link">💻 Software</a>
         <a href="/games" class="nav-link">🎮 Games</a>
-        <!-- Token link temporarily hidden -->
-        <!-- <a href="#token" class="nav-link">🔵 Token</a> -->
         <a href="/subscribe" class="nav-link">✉️ Subscribe</a>
       </div>
       <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">☰</button>
@@ -411,25 +822,55 @@ body {
       <span>Digital Infohub</span>
     </a>
     <div class="topbar-actions">
-      <button class="icon-btn" id="clearChatBtn" title="Clear Chat">🗑️</button>
       <button class="icon-btn" id="themeToggle" title="Toggle theme">◑</button>
       <div class="clock" id="clock">--:--</div>
     </div>
   </div>
 
-  <section class="chat-hero">
+  <!-- MAIN CHAT INTERFACE (STAR OF THE SITE) -->
+  <section class="chat-hero" id="chatHero">
+    <div class="chat-header">
+      <div class="chat-title-area">
+        <div class="chat-status-dot" id="chatStatus"></div>
+        <div>
+          <div class="chat-title">Infohub AI</div>
+          <div class="chat-subtitle" id="chatSubtitle">Online • Ready to assist</div>
+        </div>
+      </div>
+      <div class="chat-actions">
+        <button class="chat-action-btn" id="exportChatBtn" title="Export chat">
+          <span>📋</span>
+          <span class="tooltip">Export Chat</span>
+        </button>
+        <button class="chat-action-btn danger" id="clearChatBtn" title="Clear conversation">
+          <span>🗑️</span>
+          <span class="tooltip">Clear Chat</span>
+        </button>
+      </div>
+    </div>
+    
     <div class="chat-thread" id="chatThread"></div>
     
     <form class="chat-input-shell" id="chatForm" autocomplete="off">
-      <!-- Placeholder will be set by JS based on OS -->
-      <input class="chat-input" id="chatInput" type="text" placeholder="Type a message..." aria-label="Message">
+      <input class="chat-input" id="chatInput" type="text" placeholder="Ask me anything..." aria-label="Message">
       <button class="chat-send" id="chatSend" type="submit">→</button>
     </form>
   </section>
 
+  <!-- AD SECTION BELOW CHAT -->
+  <div class="ad-section">
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-5443646750699471"
+         data-ad-slot="auto"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
   <section class="info-writeup">
     <h2>Your Advanced Digital Dashboard</h2>
-    <p><strong>Digital Infohub</strong> combines real-time web search, live market data, global weather tracking, and curated productivity tools in one adaptive interface. <br><em>Press <kbd id="cmdKeyDisplay">⌘K</kbd> to open the Command Palette.</em></p>
+    <p><strong>Digital Infohub</strong> combines real-time web search, live market data, global weather tracking, and an on-device AI model in one adaptive interface. <br><em>Press <kbd id="cmdKeyDisplay">⌘K</kbd> to open the Command Palette.</em></p>
   </section>
 
 </div>
@@ -456,45 +897,15 @@ body {
   const cmdChar = isMac ? '⌘' : 'Ctrl';
   const cmdKey = isMac ? 'metaKey' : 'ctrlKey';
   
-  // Update placeholders and info text
   const chatInput = document.getElementById('chatInput');
   const cmdKeyDisplay = document.getElementById('cmdKeyDisplay');
+  const chatSubtitle = document.getElementById('chatSubtitle');
   
-  if (chatInput) chatInput.placeholder = `Try 'weather', 'stocks', or press ${cmdChar}+K`;
+  if (chatInput) chatInput.placeholder = `Ask anything, or press ${cmdChar}+K for commands`;
   if (cmdKeyDisplay) cmdKeyDisplay.textContent = `${cmdChar}K`;
 
   /* ═══════════════════════════════════════════════════════════
-     COPY ADDRESS FUNCTIONALITY (Token section - currently hidden)
-     This code is preserved for when the Token section is restored.
-     ═══════════════════════════════════════════════════════════ */
-  const copyBtn = document.getElementById('copyAddressBtn');
-  const addressEl = document.getElementById('tokenAddress');
-  
-  // Only attach handler if token section exists (currently commented out)
-  if (copyBtn && addressEl) {
-    copyBtn.addEventListener('click', async () => {
-      try {
-        await navigator.clipboard.writeText(addressEl.textContent.trim());
-        copyBtn.textContent = '✅ Copied!';
-        copyBtn.classList.add('copied');
-        setTimeout(() => { copyBtn.textContent = '📋 Copy'; copyBtn.classList.remove('copied'); }, 2500);
-      } catch (err) {
-        const range = document.createRange();
-        range.selectNodeContents(addressEl);
-        const sel = window.getSelection();
-        sel.removeAllRanges();
-        sel.addRange(range);
-        document.execCommand('copy');
-        sel.removeAllRanges();
-        copyBtn.textContent = '✅ Copied!';
-        copyBtn.classList.add('copied');
-        setTimeout(() => { copyBtn.textContent = '📋 Copy'; copyBtn.classList.remove('copied'); }, 2500);
-      }
-    });
-  }
-
-  /* ═══════════════════════════════════════════════════════════
-     MOBILE MENU TOGGLE (FIXED)
+     MOBILE MENU TOGGLE
      ═══════════════════════════════════════════════════════════ */
   const hamburger = document.getElementById('hamburger');
   const navLinks = document.querySelector('.nav-links');
@@ -531,7 +942,7 @@ body {
   const CONFIG = {
     SITE_BASE: "https://digitalinfohub.net",
     LOGO_URL: "https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png",
-    BOT_NAME: "Digital Infohub",
+    BOT_NAME: "Infohub AI",
     FINNHUB_KEY: "d9t07ohr01qqd5j2v6rgd9t07ohr01qqd5j2v6s0",
     FEEDS: {
       tech: { name: 'Tech', url: 'https://techcrunch.com/feed/' },
@@ -566,30 +977,37 @@ body {
       "There are only 10 types of people in the world: those who understand binary and those who don't.",
       "A SQL query walks into a bar, sees two tables, and asks... 'Can I JOIN you?'",
       "Why was the JavaScript developer sad? Because he didn't know how to 'null' his feelings.",
-      "How many developers does it take to change a light bulb? None, that's a hardware problem."
+      "How many developers does it take to change a light bulb? None, that's a hardware problem.",
+      "I told my wife she was drawing her eyebrows too high. She looked surprised."
     ],
     facts: [
       "The first computer bug was an actual moth found trapped in a Harvard Mark II computer relay in 1947.",
       "About 90% of the world's currency exists only as digital data — physical cash is becoming rare.",
       "The Apollo 11 guidance computer had less processing power than a modern musical greeting card.",
-      "Bitcoin's creator Satoshi Nakamoto is estimated to own around 1 million BTC, making them one of the richest entities on Earth.",
-      "The term 'AI' was coined in 1956 by John McCarthy at the Dartmouth Conference."
+      "Bitcoin's creator Satoshi Nakamoto is estimated to own around 1 million BTC.",
+      "The term 'AI' was coined in 1956 by John McCarthy at the Dartmouth Conference.",
+      "The entire internet weighs about the same as a single strawberry — roughly 50 grams of electrons in motion."
     ],
-    greetings: ["Hey there!", "Good to see you!", "Ready to explore?", "What's on your mind today?", "Let's get productive!"],
+    greetings: [
+      "Hey there! What can I help you explore today?", 
+      "Good to see you! Ready to dive in?", 
+      "Welcome! I've got live markets, news, and AI all loaded up.", 
+      "What's on your mind? I can search, analyze, or just chat.", 
+      "Let's get productive! What would you like to tackle?"
+    ],
     fallbacks: [
-      "I'm not sure about that, but I can search the web for you. Want me to try?",
-      "Interesting question! I don't have a direct answer, but I'd love to look it up.",
-      "Hmm, that's outside my current knowledge. Shall I run a web search?",
-      "I'm still learning! Try asking about stocks, crypto, tools, or say 'search the web for [topic]'."
+      "Interesting question! Let me think about that with my local AI...",
+      "Let me process that for you...",
+      "Good question — I'll use my on-device model to give you a thoughtful answer.",
     ]
   };
 
   /* ═══════════════════════════════════════════════════════════
-     MEMORY SYSTEM v6
+     MEMORY SYSTEM
      ═══════════════════════════════════════════════════════════ */
   const Memory = {
-    key: 'dih_ai_memory_v6',
-    data: { name: null, prefs: [], history: [], briefingPrefs: [], lastIntent: null, lastTopic: null, interactionCount: 0 },
+    key: 'dih_ai_memory_v7',
+    data: { name: null, prefs: [], history: [], conversationContext: [], briefingPrefs: [], lastIntent: null, lastTopic: null, interactionCount: 0 },
     init() {
       try {
         const saved = localStorage.getItem(this.key);
@@ -605,18 +1023,24 @@ body {
       this.data.interactionCount++;
       this.save();
     },
+    addContext(role, text) {
+      this.data.conversationContext.push({ role, text, ts: Date.now() });
+      if (this.data.conversationContext.length > 20) this.data.conversationContext.shift();
+      this.save();
+    },
+    getContext() { return this.data.conversationContext.slice(-6); },
     learnPreference(keyword) {
       if (!this.data.prefs.includes(keyword)) { this.data.prefs.push(keyword); this.save(); }
     },
     trackBriefingPref(category) {
       if (!this.data.briefingPrefs.includes(category)) { this.data.briefingPrefs.push(category); this.save(); }
     },
-    setContext(intent, topic) {
+    setLastIntent(intent, topic) {
       this.data.lastIntent = intent;
       this.data.lastTopic = topic;
       this.save();
     },
-    getContext() { return { lastIntent: this.data.lastIntent, lastTopic: this.data.lastTopic }; },
+    getLastContext() { return { lastIntent: this.data.lastIntent, lastTopic: this.data.lastTopic }; },
     getInteractionCount() { return this.data.interactionCount || 0; }
   };
   Memory.init();
@@ -692,7 +1116,7 @@ body {
   }
 
   /* ═══════════════════════════════════════════════════════════
-     TICKER & COMMAND PALETTE INIT
+     TICKER INIT
      ═══════════════════════════════════════════════════════════ */
   async function initTicker() {
     const tickerBar = $('#tickerBar');
@@ -710,6 +1134,9 @@ body {
     tickerBar.innerHTML = html;
   }
 
+  /* ═══════════════════════════════════════════════════════════
+     COMMAND PALETTE
+     ═══════════════════════════════════════════════════════════ */
   const cmdOverlay = $('#cmdOverlay');
   const cmdInput = $('#cmdInput');
   const cmdResults = $('#cmdResults');
@@ -788,7 +1215,7 @@ body {
   }
 
   /* ═══════════════════════════════════════════════════════════
-     NEW: GLOBAL WEATHER & SENTIMENT & MATH
+     WEATHER & SENTIMENT & MATH
      ═══════════════════════════════════════════════════════════ */
   function tryCalculate(input) {
     const calcMatch = input.match(/(?:calculate|compute|solve|what is|whats)\s+([\d\s\+\-\*\/\.\(\)]+)/i) || input.match(/^([\d\s\+\-\*\/\.\(\)]+)$/);
@@ -806,7 +1233,6 @@ body {
     try {
       let lat, lon, city;
       if (cityName) {
-        // Use Open-Meteo Geocoding API for any city worldwide
         const geoRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(cityName)}&count=1&language=en&format=json`);
         if (!geoRes.ok) throw new Error('Geo failed');
         const geoData = await geoRes.json();
@@ -818,19 +1244,17 @@ body {
           return { error: `Could not find location: "${cityName}"` };
         }
       } else {
-        // Fallback to IP geolocation
         try {
            const ipRes = await fetch('https://ipapi.co/json/');
            if(ipRes.ok) { const ipData = await ipRes.json(); if (ipData.latitude && ipData.longitude) { lat = ipData.latitude; lon = ipData.longitude; city = ipData.city || "Your Location"; } }
         } catch(e) {}
-        if (!lat) { lat = 40.71; lon = -74.00; city = "New York"; } // Ultimate fallback
+        if (!lat) { lat = 40.71; lon = -74.00; city = "New York"; }
       }
       const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`);
       if (!res.ok) throw new Error('Weather failed');
       const data = await res.json();
       return { city, temp: data.current_weather.temperature, code: data.current_weather.weathercode, windspeed: data.current_weather.windspeed };
     } catch(e) { 
-      console.error(e);
       return { error: "Failed to fetch weather data." }; 
     }
   }
@@ -848,6 +1272,80 @@ body {
       const data = await res.json(); const item = data.data[0];
       return { value: item.value, classification: item.value_classification }; 
     } catch(e) { return null; }
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     LOCAL AI MODEL (Transformers.js)
+     ═══════════════════════════════════════════════════════════ */
+  let localText2Text = null;
+  let modelLoadPromise = null;
+  let modelLoadProgress = 0;
+
+  async function loadLocalModel(onProgress) {
+    if (localText2Text) return localText2Text;
+    if (modelLoadPromise) return modelLoadPromise;
+    
+    modelLoadPromise = (async () => {
+      try {
+        const transformers = await import('https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.2');
+        const { pipeline, env } = transformers;
+        env.allowLocalModels = false;
+        env.useBrowserCache = true;
+        
+        localText2Text = await pipeline('text2text-generation', 'Xenova/LaMini-Flan-T5-77M', {
+          progress_callback: (progress) => {
+            if (progress.status === 'progress' && progress.progress) {
+              modelLoadProgress = Math.round(progress.progress);
+              if (onProgress) onProgress(modelLoadProgress);
+            }
+          }
+        });
+        return localText2Text;
+      } catch(e) {
+        console.error('Model load error:', e);
+        modelLoadPromise = null;
+        return null;
+      }
+    })();
+    
+    return modelLoadPromise;
+  }
+
+  async function generateLocalResponse(input) {
+    try {
+      const generator = await loadLocalModel();
+      if (!generator) return null;
+      
+      // Craft a smart prompt
+      const context = Memory.getContext();
+      let prompt = '';
+      if (context.length > 0) {
+        const recentContext = context.slice(-3).map(c => `${c.role}: ${c.text}`).join('\n');
+        prompt = `${recentContext}\nUser: ${input}\nAssistant:`;
+      } else {
+        prompt = `You are Infohub AI, a helpful digital assistant on a tech dashboard. Respond concisely and helpfully.\n\nUser: ${input}\nAssistant:`;
+      }
+      
+      const output = await generator(prompt, {
+        max_new_tokens: 100,
+        temperature: 0.7,
+        top_k: 50,
+        do_sample: true,
+      });
+      
+      let response = output[0].generated_text || '';
+      // Clean up the response - remove the prompt part
+      if (response.includes('Assistant:')) {
+        response = response.split('Assistant:').pop().trim();
+      }
+      // Remove any trailing "User:" or other artifacts
+      response = response.replace(/\nUser:.*/s, '').replace(/\nAssistant:.*/s, '').trim();
+      
+      return response || null;
+    } catch(e) {
+      console.error('Local generation error:', e);
+      return null;
+    }
   }
 
   /* ═══════════════════════════════════════════════════════════
@@ -872,19 +1370,18 @@ body {
   };
 
   /* ═══════════════════════════════════════════════════════════
-     INTENT DETECTION (EXPANDED)
+     INTENT DETECTION
      ═══════════════════════════════════════════════════════════ */
   const Intent = {
     detect(q) {
       const lower = q.toLowerCase().trim();
-      const ctx = Memory.getContext();
+      const ctx = Memory.getLastContext();
 
       if (/^(?:calculate|compute|solve|what is|whats)\s+[\d\+\-\*\/\.\(\)\s]+$/i.test(lower) || /^[\d\+\-\*\/\.\(\)\s]+$/.test(lower)) { const calc = tryCalculate(lower); if (calc) return { type: 'calculator', ...calc }; }
       if (/^(?:what time|current time|time now|what'?s the time|date today|today'?s date|what day)/i.test(lower)) return { type: 'datetime' };
       if (/^(?:tell me a joke|joke|make me laugh|funny)/i.test(lower)) return { type: 'chitchat', subtype: 'joke' };
       if (/^(?:tell me a fact|interesting fact|random fact|did you know|fun fact|something interesting|surprise me|tell me something)/i.test(lower)) return { type: 'chitchat', subtype: 'fact' };
       
-      // NEW WEATHER INTENT WITH CITY CAPTURE
       const weatherMatch = lower.match(/^(?:weather|temperature|forecast|is it raining)(?:\s+in\s+(.+))?$/i);
       if (weatherMatch) return { type: 'weather', city: weatherMatch[1] ? weatherMatch[1].trim() : null };
       
@@ -975,8 +1472,13 @@ body {
   }
 
   function renderSuggestions(suggestions) {
-    // REMOVED SUGGESTIONS AS REQUESTED
-    return '';
+    if (!suggestions || !suggestions.length) return '';
+    let html = '<div class="suggestions-wrap">';
+    suggestions.forEach(s => {
+      html += `<button class="chip" data-prefill="${esc(s)}">${esc(s)}</button>`;
+    });
+    html += '</div>';
+    return html;
   }
 
   /* ═══════════════════════════════════════════════════════════
@@ -986,27 +1488,29 @@ body {
     async process(input) {
       const intent = Intent.detect(input);
       Memory.addHistory(input);
+      Memory.addContext('user', input);
+      Memory.setLastIntent(intent.type, intent.type);
 
       switch(intent.type) {
         case 'calculator':
-          Memory.setContext('calculator', null);
-          return `<p>🧮 <strong>${esc(intent.expression)}</strong> = <strong>${esc(intent.result)}</strong></p>` + renderSuggestions(['Calculate another','Full briefing','Search the web for ']);
+          Memory.setLastIntent('calculator', null);
+          return `<p>🧮 <strong>${esc(intent.expression)}</strong> = <strong>${esc(intent.result)}</strong></p>` + renderSuggestions(['Calculate another','Full briefing','Ask me anything']);
         case 'datetime':
           const now = new Date();
           const timeStr = now.toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit', second:'2-digit' });
           const dateStr = now.toLocaleDateString('en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
-          Memory.setContext('datetime', null);
+          Memory.setLastIntent('datetime', null);
           return `<p>🕐 It's currently <strong>${esc(timeStr)}</strong><br>📅 ${esc(dateStr)}</p>` + renderSuggestions(['Full briefing','Live stocks','Tell me a fact']);
 
         case 'weather':
-          Memory.setContext('weather', null);
+          Memory.setLastIntent('weather', 'weather');
           const weatherData = await fetchWeather(intent.city);
           if (weatherData.error) return `<p>⚠️ ${esc(weatherData.error)}</p>` + renderSuggestions(['Try "weather in Tokyo"', 'Live stocks', 'Full briefing']);
           const weatherEmojis = getWeatherEmoji(weatherData.code);
           return `<div class="weather-card"><div class="weather-header"><div class="weather-icon">${weatherEmojis}</div><div class="weather-info"><div class="weather-temp">${weatherData.temp}°C</div><div class="weather-city">${esc(weatherData.city)}</div></div></div><div class="weather-details"><span>💨 ${weatherData.windspeed} km/h</span></div></div>` + renderSuggestions(['weather in London', 'weather in New York', 'Live crypto', 'Full briefing']);
 
         case 'sentiment':
-          Memory.setContext('sentiment', null);
+          Memory.setLastIntent('sentiment', 'sentiment');
           const fg = await fetchFearGreed();
           if (!fg) return `<p>Unable to fetch market sentiment right now.</p>` + renderSuggestions(['Live crypto', 'Full briefing']);
           let sentimentColor = fg.value > 60 ? 'var(--green)' : (fg.value < 40 ? 'var(--red)' : 'var(--warn-text)');
@@ -1018,11 +1522,11 @@ body {
           return `<p>📊 <strong>Digital Infohub Stats:</strong></p><ul><li>🤖 <strong>${aiTools}</strong> Custom AI GPTs available</li><li>📄 <strong>${pages}</strong> Core directories & pages</li><li>🎮 <strong>1</strong> Browser Games Hub</li><li>💬 <strong>${Memory.getInteractionCount()}</strong> Messages sent this session</li></ul>` + renderSuggestions(['Show AI tools', 'Open Games', 'Full briefing']);
 
         case 'clear_chat':
-          thread.innerHTML = ''; Memory.data.history = []; Memory.save();
-          return `<p>Chat history cleared! Ready for a fresh start.</p>` + renderSuggestions(['Full briefing', 'Show tools', 'Tell me a joke']);
+          thread.innerHTML = ''; Memory.data.history = []; Memory.data.conversationContext = []; Memory.save();
+          return `<p>✨ Chat history cleared! Fresh start.</p>` + renderSuggestions(['Full briefing', 'Show tools', 'Tell me a joke']);
 
         case 'chitchat':
-          Memory.setContext('chitchat', intent.subtype);
+          Memory.setLastIntent('chitchat', intent.subtype);
           if (intent.subtype === 'joke') return `<p>😄 ${pick(PERSONALITY.jokes)}</p>` + renderSuggestions(['Another joke','Tell me a fact','Full briefing','Live stocks']);
           return `<p>💡 <strong>Did you know?</strong> ${pick(PERSONALITY.facts)}</p>` + renderSuggestions(['Another fact','Tell me a joke','Search the web for ','Full briefing']);
 
@@ -1031,108 +1535,110 @@ body {
           if (intent.context.lastTopic === 'crypto') { const data = await fetchCrypto(); return `<p>Here's more detail on crypto markets:</p>` + renderStockGrid(data) + renderSuggestions(['Show stocks too','Search crypto regulation','BTC price history']); }
           if (intent.context.lastTopic === 'briefing') { const [tech, crypto] = await Promise.all([fetchRSS(CONFIG.FEEDS.tech.url), fetchRSS(CONFIG.FEEDS.crypto.url)]); return `<p>Expanding on today's headlines:</p>` + renderNewsGrid([...tech.slice(0,3).map(n=>({...n,tag:'TECH'})), ...crypto.slice(0,2).map(n=>({...n,tag:'CRYPTO'}))]) + renderSuggestions(['Show full briefing','Search any headline topic','World news']); }
           if (intent.context.lastTopic === 'tools') return `<p>Here are all available tools with details:</p>` + renderAppGrid(APPS.filter(a=>a.cat==='ai')) + renderSuggestions(['Show page directories','Open InfohubGPT','Planning tools']);
-          return `<p>I'd love to elaborate! Could you remind me what you'd like more detail on?</p>` + renderSuggestions(['Full briefing','Live stocks','Available tools','Web search','Tell me a fact']);
+          return `<p>I'd love to elaborate! Could you remind me what you'd like more detail on?</p>` + renderSuggestions(['Full briefing','Live stocks','Available tools','Ask me anything']);
 
         case 'follow_up_why':
           if (intent.context.lastTopic === 'stocks') return `<p>Stock prices move based on earnings, macro data, Fed policy, and sentiment. Want analysis on a specific ticker?</p>` + renderSuggestions(['Search NVDA analysis','Search AAPL earnings','Full market briefing']);
           if (intent.context.lastTopic === 'crypto') return `<p>Crypto prices are driven by adoption, regulation, on-chain activity, and risk sentiment. Want me to dig deeper?</p>` + renderSuggestions(['Search Bitcoin ETF flows','Search ETH staking','Crypto news']);
-          return `<p>Could you clarify what you'd like explained? I can search the web for detailed answers.</p>` + renderSuggestions(['Search for an answer','Rephrase my question','Tell me a fact']);
+          return `<p>Could you clarify what you'd like explained? I can search the web for detailed answers.</p>` + renderSuggestions(['Search for an answer','Ask me anything','Tell me a fact']);
 
         case 'confirm_follow_up':
-          if (intent.context.lastIntent === 'stocks') { Memory.setContext('stocks','stocks'); const d=await fetchStocks(); return `<p>Updated stock prices:</p>`+renderStockGrid(d)+renderSuggestions(['Show crypto','Full briefing']); }
-          if (intent.context.lastIntent === 'crypto') { Memory.setContext('crypto','crypto'); const d=await fetchCrypto(); return `<p>Updated crypto prices:</p>`+renderStockGrid(d)+renderSuggestions(['Show stocks','Crypto news']); }
-          if (intent.context.lastIntent === 'briefing') { Memory.setContext('briefing','briefing'); const [t,c]=await Promise.all([fetchRSS(CONFIG.FEEDS.tech.url),fetchRSS(CONFIG.FEEDS.crypto.url)]); return `<p>Fresh headlines:</p>`+renderNewsGrid([...t.slice(0,3).map(n=>({...n,tag:'TECH'})),...c.slice(0,2).map(n=>({...n,tag:'CRYPTO'}))])+renderSuggestions(['Full briefing','Search a topic']); }
-          return `<p>Sure! What would you like me to do next?</p>` + renderSuggestions(['Full briefing','Live stocks','Tools','Web search','Tell me a joke']);
+          if (intent.context.lastIntent === 'stocks') { Memory.setLastIntent('stocks','stocks'); const d=await fetchStocks(); return `<p>Updated stock prices:</p>`+renderStockGrid(d)+renderSuggestions(['Show crypto','Full briefing']); }
+          if (intent.context.lastIntent === 'crypto') { Memory.setLastIntent('crypto','crypto'); const d=await fetchCrypto(); return `<p>Updated crypto prices:</p>`+renderStockGrid(d)+renderSuggestions(['Show stocks','Crypto news']); }
+          if (intent.context.lastIntent === 'briefing') { Memory.setLastIntent('briefing','briefing'); const [t,c]=await Promise.all([fetchRSS(CONFIG.FEEDS.tech.url),fetchRSS(CONFIG.FEEDS.crypto.url)]); return `<p>Fresh headlines:</p>`+renderNewsGrid([...t.slice(0,3).map(n=>({...n,tag:'TECH'})),...c.slice(0,2).map(n=>({...n,tag:'CRYPTO'}))])+renderSuggestions(['Full briefing','Search a topic']); }
+          return `<p>Sure! What would you like me to do next?</p>` + renderSuggestions(['Full briefing','Live stocks','Tools','Ask me anything']);
 
         case 'dismiss': return `<p>No problem! Let me know if there's something else I can help with.</p>` + renderSuggestions(['Full briefing','Show tools','Help','Tell me a fact']);
         case 'humor': return `<p>😄 Glad you're enjoying yourself! Need anything useful?</p>` + renderSuggestions(['Actually show me stocks','Tell me a tech fact','Full briefing','Another joke']);
-        case 'positive_feedback': return `<p>Thanks! Anything else you'd like to explore?</p>` + renderSuggestions(['Live stocks','Crypto prices','Web search','Tell me a fact']);
-        case 'negative_feedback': return `<p>Sorry to hear that. Could you tell me what didn't work, or try rephrasing?</p>` + renderSuggestions(['Search the web for ','Show help','Try full briefing','Tell me a joke']);
+        case 'positive_feedback': return `<p>Thanks! Anything else you'd like to explore?</p>` + renderSuggestions(['Live stocks','Crypto prices','Ask me anything','Tell me a fact']);
+        case 'negative_feedback': return `<p>Sorry to hear that. Could you tell me what didn't work, or try rephrasing?</p>` + renderSuggestions(['Ask me anything','Show help','Try full briefing','Tell me a joke']);
 
         case 'set_name': Memory.setName(intent.value); return `<p>Got it! I've saved your name as <strong>${esc(intent.value)}</strong>.</p>` + renderSuggestions(['Full briefing','Show tools','What can you do?']);
         case 'get_name': const n = Memory.getName(); return n ? `<p>Your name is <strong>${esc(n)}</strong>.</p>` : `<p>No name stored yet. Type <em>"My name is [Name]"</em> to set one.</p>`;
-        case 'clear_memory': localStorage.removeItem(Memory.key); Memory.data={name:null,prefs:[],history:[],briefingPrefs:[],lastIntent:null,lastTopic:null,interactionCount:0}; return `<p>All memory cleared. Fresh start!</p>` + renderSuggestions(['Set my name','Full briefing','Help']);
+        case 'clear_memory': localStorage.removeItem(Memory.key); Memory.data={name:null,prefs:[],history:[],conversationContext:[],briefingPrefs:[],lastIntent:null,lastTopic:null,interactionCount:0}; return `<p>All memory cleared. Fresh start!</p>` + renderSuggestions(['Set my name','Full briefing','Help']);
 
         case 'greet':
           const userName = Memory.getName(); const g = userName ? `Welcome back, <strong>${esc(userName)}</strong>!` : pick(PERSONALITY.greetings);
-          Memory.setContext('greet', null);
-          return `<p>${g} I'm <strong>${CONFIG.BOT_NAME}</strong>. I can search the web, pull live market data, check global weather, calculate math, and navigate site tools.</p>` + renderSuggestions(['Full briefing with stocks','Search the web for ','Show available tools','Tell me a joke','What can you do?']);
-        case 'thanks': return `<p>You're welcome! Anything else?</p>` + renderSuggestions(['Live stocks','Crypto','Full briefing','Tell me a fact']);
-        case 'bye': return `<p>See you next time! 👋</p>`;
+          Memory.setLastIntent('greet', null);
+          return `<p>${g} I'm <strong>${CONFIG.BOT_NAME}</strong>. I can search the web, pull live market data, check global weather, and even have intelligent conversations using my on-device AI model.</p>` + renderSuggestions(['Full briefing','Ask me anything','Show tools','Tell me a joke','What can you do?']);
+        case 'thanks': return `<p>You're welcome! Anything else?</p>` + renderSuggestions(['Live stocks','Crypto','Full briefing','Ask me anything']);
+        case 'bye': return `<p>See you next time! 👋 Have a great day.</p>`;
         
         case 'help':
-          Memory.setContext('help', null);
-          return `<p><strong>${CONFIG.BOT_NAME}</strong> capabilities:</p><ul><li>🌐 <strong>Web Search</strong> — "search quantum computing"</li><li>📊 <strong>Live Stocks</strong> — "NVDA stock", "show market data"</li><li>₿ <strong>Live Crypto</strong> — "BTC price", "crypto"</li><li>🧠 <strong>Sentiment</strong> — "market sentiment", "fear and greed"</li><li>⛅ <strong>Global Weather</strong> — "weather in Tokyo", "weather"</li><li>📰 <strong>Briefings</strong> — "full briefing", "world headlines"</li><li>🧮 <strong>Calculator</strong> — "calculate 50*2"</li><li>🛠️ <strong>Tools</strong> — "show tools", natural language search</li><li>⌘K <strong>Palette</strong> — Quick navigate</li></ul>` + renderSuggestions(['Full briefing','Live stocks','Search the web for ','Tell me a joke','Show tools']);
+          Memory.setLastIntent('help', null);
+          return `<p><strong>${CONFIG.BOT_NAME}</strong> capabilities:</p><ul><li>🌐 <strong>Web Search</strong> — "search quantum computing"</li><li>📊 <strong>Live Stocks</strong> — "NVDA stock", "show market data"</li><li>₿ <strong>Live Crypto</strong> — "BTC price", "crypto"</li><li>🧠 <strong>Sentiment</strong> — "market sentiment", "fear and greed"</li><li>⛅ <strong>Global Weather</strong> — "weather in Tokyo", "weather"</li><li>📰 <strong>Briefings</strong> — "full briefing", "world headlines"</li><li>🧮 <strong>Calculator</strong> — "calculate 50*2"</li><li>🤖 <strong>On-device AI</strong> — ask anything for intelligent conversation</li><li>🛠️ <strong>Tools</strong> — "show tools", natural language search</li><li>⌘K <strong>Palette</strong> — Quick navigate</li></ul>` + renderSuggestions(['Full briefing','Live stocks','Ask me anything','Tell me a joke','Show tools']);
 
         case 'web_search':
-          Memory.setContext('web_search', intent.query);
+          Memory.setLastIntent('web_search', intent.query);
           const searchResults = await webSearch(intent.query);
           Memory.learnPreference('web_search');
           if (!searchResults.length) return `<p>I couldn't find direct results for "<em>${esc(intent.query)}</em>". Here are some things you can try:</p>` + renderSuggestions([`Search the web for ${intent.query}`, 'Full briefing', 'Live stocks', 'Tell me a fact', 'Show tools']);
-          return `<p>Here's what I found for "<em>${esc(intent.query)}</em>":</p>` + renderWebResults(searchResults) + renderSuggestions(['Search related topic','Tell me more','Full briefing','Tell me a fact']);
+          return `<p>Here's what I found for "<em>${esc(intent.query)}</em>":</p>` + renderWebResults(searchResults) + renderSuggestions(['Search related topic','Ask me anything','Full briefing','Tell me a fact']);
 
         case 'full_briefing':
-          Memory.setContext('full_briefing', 'briefing'); Memory.trackBriefingPref('full');
+          Memory.setLastIntent('full_briefing', 'briefing'); Memory.trackBriefingPref('full');
           const [fTech,fCryptoN,fMarkets,fMarket] = await Promise.all([fetchRSS(CONFIG.FEEDS.tech.url),fetchRSS(CONFIG.FEEDS.crypto.url),fetchRSS(CONFIG.FEEDS.markets.url),fetchAllMarketData()]);
           let fb=`<p>Your complete briefing — live markets + news:</p>`;
-          fb+=`<p style="font-size:12px;color:var(--text-muted);margin-top:12px;font-family:var(--mono);text-transform:uppercase;letter-spacing:0.05em;">📈 Live Market Snapshot</p>`+renderStockGrid(fMarket);
-          fb+=`<p style="font-size:12px;color:var(--text-muted);margin-top:16px;font-family:var(--mono);text-transform:uppercase;letter-spacing:0.05em;">📰 Top Stories</p>`+renderNewsGrid([...fTech.slice(0,2).map(n=>({...n,tag:'TECH'})),...fCryptoN.slice(0,2).map(n=>({...n,tag:'CRYPTO'})),...fMarkets.slice(0,2).map(n=>({...n,tag:'MARKETS'}))]);
-          return fb + renderSuggestions(['Tell me more','And crypto details?','Search a headline topic','Show tools','Tell me a joke']);
+          fb+=`<p style="font-size:11px;color:var(--text-muted);margin-top:12px;font-family:var(--mono);text-transform:uppercase;letter-spacing:0.05em;">📈 Live Market Snapshot</p>`+renderStockGrid(fMarket);
+          fb+=`<p style="font-size:11px;color:var(--text-muted);margin-top:14px;font-family:var(--mono);text-transform:uppercase;letter-spacing:0.05em;">📰 Top Stories</p>`+renderNewsGrid([...fTech.slice(0,2).map(n=>({...n,tag:'TECH'})),...fCryptoN.slice(0,2).map(n=>({...n,tag:'CRYPTO'})),...fMarkets.slice(0,2).map(n=>({...n,tag:'MARKETS'}))]);
+          return fb + renderSuggestions(['Tell me more','And crypto details?','Search a headline topic','Show tools','Ask me anything']);
 
         case 'briefing':
-          Memory.setContext('briefing', 'briefing'); Memory.trackBriefingPref('standard');
+          Memory.setLastIntent('briefing', 'briefing'); Memory.trackBriefingPref('standard');
           const [bTech,bCryptoN,bMarket] = await Promise.all([fetchRSS(CONFIG.FEEDS.tech.url),fetchRSS(CONFIG.FEEDS.crypto.url),fetchAllMarketData()]);
           let b=`<p>Your daily briefing:</p>`;
-          b+=`<p style="font-size:12px;color:var(--text-muted);margin-top:12px;font-family:var(--mono);text-transform:uppercase;letter-spacing:0.05em;">📈 Key Movers</p>`+renderStockGrid(bMarket.slice(0,6));
-          b+=`<p style="font-size:12px;color:var(--text-muted);margin-top:16px;font-family:var(--mono);text-transform:uppercase;letter-spacing:0.05em;">📰 Headlines</p>`+renderNewsGrid([...bTech.slice(0,3).map(n=>({...n,tag:'TECH'})),...bCryptoN.slice(0,2).map(n=>({...n,tag:'CRYPTO'}))]);
-          return b + renderSuggestions(['Tell me more','And crypto?','Full briefing','Search a topic','Tell me a fact']);
+          b+=`<p style="font-size:11px;color:var(--text-muted);margin-top:12px;font-family:var(--mono);text-transform:uppercase;letter-spacing:0.05em;">📈 Key Movers</p>`+renderStockGrid(bMarket.slice(0,6));
+          b+=`<p style="font-size:11px;color:var(--text-muted);margin-top:14px;font-family:var(--mono);text-transform:uppercase;letter-spacing:0.05em;">📰 Headlines</p>`+renderNewsGrid([...bTech.slice(0,3).map(n=>({...n,tag:'TECH'})),...bCryptoN.slice(0,2).map(n=>({...n,tag:'CRYPTO'}))]);
+          return b + renderSuggestions(['Tell me more','And crypto?','Full briefing','Ask me anything','Tell me a fact']);
 
-        case 'stocks': Memory.setContext('stocks', 'stocks'); Memory.learnPreference('stocks'); const sd = await fetchStocks(); return `<p>Live stock prices via Finnhub:</p>` + renderStockGrid(sd) + renderSuggestions(['Tell me more','And crypto?','Search market analysis','Full briefing']);
-        case 'crypto': Memory.setContext('crypto', 'crypto'); Memory.learnPreference('crypto'); const cd = await fetchCrypto(); return `<p>Live crypto prices via CoinGecko (BTC, ETH, SOL, XRP):</p>` + renderStockGrid(cd) + renderSuggestions(['Tell me more','And stocks?','Search crypto news','Full briefing']);
+        case 'stocks': Memory.setLastIntent('stocks', 'stocks'); Memory.learnPreference('stocks'); const sd = await fetchStocks(); return `<p>Live stock prices via Finnhub:</p>` + renderStockGrid(sd) + renderSuggestions(['Tell me more','And crypto?','Search market analysis','Full briefing']);
+        case 'crypto': Memory.setLastIntent('crypto', 'crypto'); Memory.learnPreference('crypto'); const cd = await fetchCrypto(); return `<p>Live crypto prices via CoinGecko (BTC, ETH, SOL, XRP):</p>` + renderStockGrid(cd) + renderSuggestions(['Tell me more','And stocks?','Search crypto news','Full briefing']);
         case 'feed':
-          Memory.setContext('feed', intent.key); const feed = CONFIG.FEEDS[intent.key]; const arts = await fetchRSS(feed.url); Memory.learnPreference(intent.key);
+          Memory.setLastIntent('feed', intent.key); const feed = CONFIG.FEEDS[intent.key]; const arts = await fetchRSS(feed.url); Memory.learnPreference(intent.key);
           if (!arts.length) return `<p>Unable to fetch ${feed.name} news right now.</p>` + renderSuggestions(['Try full briefing','Search the web for '+feed.name+' news','Tell me a fact']);
           return `<p>Latest from <strong>${feed.name}</strong>:</p>` + renderNewsGrid(arts.map(a=>({...a,tag:feed.name.toUpperCase()}))) + renderSuggestions(['Tell me more','Search a headline','Full briefing']);
 
-        case 'navigate': Memory.setContext('navigate', intent.label); setTimeout(()=>window.open(CONFIG.SITE_BASE+intent.path,'_blank'),800); return `<p>Opening <strong>${intent.label}</strong> in a new tab...</p>` + renderSuggestions(['Show other pages','Full briefing','Back to chat']);
-        case 'search_apps': Memory.setContext('tools', 'tools'); return `<p>Available tools and directories:</p>` + renderAppGrid(APPS.filter(a=>a.cat==='ai'||a.cat==='pages')) + renderSuggestions(['Tell me more about TaskyGPT','Planning tools','AI assistants','Page directories']);
+        case 'navigate': Memory.setLastIntent('navigate', intent.label); setTimeout(()=>window.open(CONFIG.SITE_BASE+intent.path,'_blank'),800); return `<p>Opening <strong>${intent.label}</strong> in a new tab...</p>` + renderSuggestions(['Show other pages','Full briefing','Back to chat']);
+        case 'search_apps': Memory.setLastIntent('tools', 'tools'); return `<p>Available tools and directories:</p>` + renderAppGrid(APPS.filter(a=>a.cat==='ai'||a.cat==='pages')) + renderSuggestions(['Tell me more about TaskyGPT','Planning tools','AI assistants','Page directories']);
 
         case 'semantic_search':
           const scored = APPS.map(a=>({ ...a, score: Scorer.score(intent.query, `${a.name} ${a.desc}`, a.keywords, a.triggers||[]) })).filter(a=>a.score>0).sort((a,b)=>b.score-a.score);
           if (scored.length>0 && scored[0].score>=4) {
-            const best = scored[0]; const url = best.url.startsWith('/')?CONFIG.SITE_BASE+best.url:best.url; Memory.setContext('app_match', best.name); setTimeout(()=>window.open(url,'_blank'),800);
+            const best = scored[0]; const url = best.url.startsWith('/')?CONFIG.SITE_BASE+best.url:best.url; Memory.setLastIntent('app_match', best.name); setTimeout(()=>window.open(url,'_blank'),800);
             let html = `<p>Best match: <strong>${esc(best.name)}</strong> — ${esc(best.desc)}. Opening now.</p>`;
             if (scored.length>1) html+=`<p style="font-size:12px;color:var(--text-muted);margin-top:10px;">Also relevant:</p>`+renderAppGrid(scored.slice(1,4));
-            return html + renderSuggestions((best.followUps||[]).concat(['Show all tools','Search the web for '+intent.query]));
+            return html + renderSuggestions((best.followUps||[]).concat(['Show all tools','Ask me anything']));
           }
           if (scored.length>0 && scored[0].score>=1.5) {
-            Memory.setContext('partial_match', intent.query); const topMatches = scored.slice(0,4);
-            return `<p>Possible matches for "<em>${esc(intent.query)}</em>":</p>` + renderAppGrid(topMatches) + `<p style="font-size:12px;color:var(--text-muted);margin-top:12px;">Not quite right?</p>` + renderSuggestions([...topMatches.map(m=>m.name), 'Search the web for '+intent.query, 'Show all tools', 'Tell me a joke']);
+            Memory.setLastIntent('partial_match', intent.query); const topMatches = scored.slice(0,4);
+            return `<p>Possible matches for "<em>${esc(intent.query)}</em>":</p>` + renderAppGrid(topMatches) + `<p style="font-size:12px;color:var(--text-muted);margin-top:10px;">Not quite right? Ask me directly:</p>` + renderSuggestions([...topMatches.map(m=>m.name), 'Ask me anything', 'Show all tools', 'Tell me a joke']);
           }
-          const queryTokens = Scorer.tokenize(intent.query);
-          const partialHints = APPS.map(a => { const allKw = [...a.keywords, ...(a.triggers||[])]; const overlap = queryTokens.filter(qt => allKw.some(k => k.includes(qt) || qt.includes(k))); return { app: a, overlapCount: overlap.length }; }).filter(h => h.overlapCount > 0).sort((a,b) => b.overlapCount - a.overlapCount).slice(0, 3);
           
-          // ALWAYS try web search as a fallback for semantic queries - makes the bot more helpful
-          let fallbackHtml = '';
+          // USE LOCAL AI MODEL for intelligent conversation
+          Memory.setLastIntent('local_ai', intent.query);
+          updateSubtitle('Thinking with on-device AI...');
+          
+          const localResponse = await generateLocalResponse(intent.query);
+          
+          if (localResponse && localResponse.length > 5) {
+            Memory.addContext('assistant', localResponse);
+            return `<p>${esc(localResponse)}</p>` + renderSuggestions(['Tell me more', 'Ask something else', 'Full briefing', 'Search the web for ' + intent.query]);
+          }
+          
+          // Final fallback: web search
+          updateSubtitle('Searching the web...');
           const webResults = await webSearch(intent.query);
+          let fallbackHtml = '';
           if (webResults.length > 0) {
-            // We found web results - show them!
-            fallbackHtml += `<p>I found some information on the web for "<em>${esc(intent.query)}</em>":</p>`;
+            fallbackHtml += `<p>I searched the web for "<em>${esc(intent.query)}</em>":</p>`;
             fallbackHtml += renderWebResults(webResults.slice(0, 3));
-          } else if (partialHints.length > 0) {
-            // No web results but we have app hints
-            fallbackHtml += `<p>I'm not certain about that, but you might be interested in:</p>`;
-            fallbackHtml += renderAppGrid(partialHints.map(h => h.app));
           } else {
-            // Complete fallback - offer to search
-            fallbackHtml += `<p>${pick(PERSONALITY.fallbacks)}</p>`;
+            fallbackHtml += `<p>${pick(PERSONALITY.fallbacks)} I'm still learning! Here's what I can help with:</p>`;
           }
-          
-          // Always provide comprehensive suggestions including web search
-          fallbackHtml += renderSuggestions([ `Search the web for ${intent.query}`, 'Full briefing', 'Live stocks', 'Crypto prices', 'Tell me a joke', 'Tell me a fact', 'Show tools', 'Help' ]);
+          fallbackHtml += renderSuggestions(['Ask me something else', 'Full briefing', 'Live stocks', 'Show tools', 'Help']);
           return fallbackHtml;
 
-        default: return `<p>I'm not sure how to handle that, but I'm here to help! Try one of these:</p>` + renderSuggestions(['Full briefing','Live stocks','Crypto prices','Search the web for ','Tell me a joke','Tell me a fact','Show tools','Help']);
+        default: return `<p>I'm here to help! Try asking about stocks, weather, news, or just chat with me.</p>` + renderSuggestions(['Full briefing','Live stocks','Ask me anything','Tell me a joke','Show tools','Help']);
       }
     }
   };
@@ -1144,56 +1650,188 @@ body {
   const form = $('#chatForm');
   const input = $('#chatInput');
   const sendBtn = $('#chatSend');
+  const chatHero = $('#chatHero');
   let isProcessing = false;
 
-  function addMsg(role, html) {
-    const div = document.createElement('div'); div.className = `msg ${role}`;
-    const avatar = role==='bot' ? `<img src="${CONFIG.LOGO_URL}" alt="">` : esc(Memory.getName()||'You').charAt(0).toUpperCase();
-    div.innerHTML = `<div class="msg-avatar ${role}">${avatar}</div><div class="msg-body"><div class="msg-role">${role==='bot'?CONFIG.BOT_NAME:(Memory.getName()||'You')}</div><div class="msg-content">${html}</div></div>`;
-    thread.appendChild(div); thread.scrollTop = thread.scrollHeight; return div;
+  function updateSubtitle(text) {
+    if (chatSubtitle) chatSubtitle.textContent = text;
+  }
+
+  function getTimeString() {
+    return new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+  }
+
+  function addMsg(role, html, instant = false) {
+    const div = document.createElement('div'); 
+    div.className = `msg ${role}`;
+    const avatar = role==='bot' 
+      ? `<img src="${CONFIG.LOGO_URL}" alt="">` 
+      : esc(Memory.getName()||'You').charAt(0).toUpperCase();
+    
+    const time = getTimeString();
+    const contentId = 'msg-content-' + Date.now() + Math.random().toString(36).substr(2,5);
+    
+    div.innerHTML = `
+      <div class="msg-avatar ${role}">${avatar}</div>
+      <div class="msg-body">
+        <div class="msg-header">
+          <span class="msg-role">${role==='bot'?CONFIG.BOT_NAME:(Memory.getName()||'You')}</span>
+          <span class="msg-time">${time}</span>
+        </div>
+        <div class="msg-content" id="${contentId}">${instant ? html : ''}</div>
+      </div>`;
+    thread.appendChild(div); 
+    thread.scrollTop = thread.scrollHeight; 
+    
+    return { element: div, contentEl: div.querySelector(`#${contentId}`) };
   }
 
   function showTyping() {
-    const div = document.createElement('div'); div.className = 'msg bot typing-msg';
-    div.innerHTML = `<div class="msg-avatar bot"><img src="${CONFIG.LOGO_URL}" alt=""></div><div class="msg-body"><div class="msg-role">${CONFIG.BOT_NAME}</div><div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div></div>`;
-    thread.appendChild(div); thread.scrollTop = thread.scrollHeight; return div;
+    const div = document.createElement('div'); 
+    div.className = 'msg bot typing-msg';
+    div.innerHTML = `
+      <div class="msg-avatar bot"><img src="${CONFIG.LOGO_URL}" alt=""></div>
+      <div class="msg-body">
+        <div class="msg-header">
+          <span class="msg-role">${CONFIG.BOT_NAME}</span>
+        </div>
+        <div class="typing-indicator">
+          <div class="typing-dot"></div>
+          <div class="typing-dot"></div>
+          <div class="typing-dot"></div>
+        </div>
+      </div>`;
+    thread.appendChild(div); 
+    thread.scrollTop = thread.scrollHeight; 
+    return div;
+  }
+
+  function showModelLoading() {
+    const div = document.createElement('div'); 
+    div.className = 'msg bot';
+    div.innerHTML = `
+      <div class="msg-avatar bot"><img src="${CONFIG.LOGO_URL}" alt=""></div>
+      <div class="msg-body">
+        <div class="msg-header">
+          <span class="msg-role">${CONFIG.BOT_NAME}</span>
+        </div>
+        <div class="model-loading">
+          <span>🧠</span>
+          <span class="model-loading-text">Loading AI model...</span>
+          <div class="model-loading-bar">
+            <div class="model-loading-progress"></div>
+          </div>
+        </div>
+      </div>`;
+    thread.appendChild(div); 
+    thread.scrollTop = thread.scrollHeight; 
+    return div;
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     TYPING ANIMATION (Character-by-character reveal)
+     ═══════════════════════════════════════════════════════════ */
+  async function typeMessage(element, html) {
+    return new Promise(resolve => {
+      let i = 0;
+      let inTag = false;
+      element.classList.add('typing-cursor');
+      
+      function step() {
+        if (i >= html.length) {
+          element.classList.remove('typing-cursor');
+          element.innerHTML = html;
+          thread.scrollTop = thread.scrollHeight;
+          resolve();
+          return;
+        }
+        
+        const char = html[i];
+        if (char === '<') inTag = true;
+        if (char === '>' && inTag) inTag = false;
+        
+        i++;
+        
+        if (!inTag && char !== '<' && char !== '>') {
+          element.innerHTML = html.substring(0, i);
+          thread.scrollTop = thread.scrollHeight;
+          
+          // Variable delay for natural feel
+          let delay;
+          if (/[.!?]$/.test(char)) delay = 60 + Math.random() * 80;
+          else if (/[,;:]$/.test(char)) delay = 30 + Math.random() * 40;
+          else if (char === ' ') delay = 8 + Math.random() * 12;
+          else if (char === '\n') delay = 25 + Math.random() * 35;
+          else delay = 6 + Math.random() * 12;
+          
+          // Occasional "thinking" pause
+          if (Math.random() < 0.03 && char !== ' ' && i > 20) {
+            delay += 80 + Math.random() * 120;
+          }
+          
+          setTimeout(step, delay);
+        } else {
+          // Process tag characters instantly
+          requestAnimationFrame(step);
+        }
+      }
+      step();
+    });
   }
 
   function prefillInput(text) { input.value = text; input.focus(); requestAnimationFrame(() => input.setSelectionRange(text.length, text.length)); }
 
   async function handleSend(text) {
     if (isProcessing || !text.trim()) return;
-    isProcessing = true; sendBtn.disabled = true; input.disabled = true;
-    addMsg('user', esc(text)); input.value = '';
+    isProcessing = true; 
+    sendBtn.disabled = true; 
+    input.disabled = true;
+    addMsg('user', esc(text), true); 
+    input.value = '';
+    
+    updateSubtitle('Processing...');
     const typingEl = showTyping();
-    const delay = text.length > 50 ? 800 + Math.random() * 600 : 400 + Math.random() * 500;
+    
+    // Slight delay before processing for natural feel
+    const delay = 300 + Math.random() * 400;
     await new Promise(r => setTimeout(r, delay));
+    
     try {
       const response = await AI.process(text.trim());
-      typingEl.remove(); addMsg('bot', response);
+      typingEl.remove();
+      
+      const { contentEl } = addMsg('bot', '');
+      updateSubtitle('Responding...');
+      await typeMessage(contentEl, response);
+      updateSubtitle('Online • Ready to assist');
     } catch(err) {
-      console.error('AI Process Error:', err); typingEl.remove();
-      addMsg('bot', `<p>Something went wrong processing that. Please try again.</p>` + renderSuggestions(['Retry','Help','Full briefing','Tell me a joke','Search the web for ']));
-    } finally { isProcessing = false; sendBtn.disabled = false; input.disabled = false; input.focus(); }
+      console.error('AI Process Error:', err); 
+      typingEl.remove();
+      const { contentEl } = addMsg('bot', '');
+      contentEl.innerHTML = `<p>Something went wrong processing that. Please try again.</p>` + renderSuggestions(['Retry','Help','Full briefing','Ask me anything']);
+      updateSubtitle('Online • Ready to assist');
+    } finally { 
+      isProcessing = false; 
+      sendBtn.disabled = false; 
+      input.disabled = false; 
+      input.focus(); 
+    }
   }
 
   form.addEventListener('submit', e => { e.preventDefault(); handleSend(input.value); });
   
-  // FIXED: Chip click handler to actually work and send immediately with smarter logic
+  // Chip click handler
   document.addEventListener('click', e => { 
     const chip = e.target.closest('.chip, .suggestion-chip'); 
     if (!chip) return; 
     const text = chip.dataset.prefill; 
     if (text) {
-      // Smart detection: send immediately if it's a complete command/query
       const trimmedText = text.trim();
       const shouldSendImmediately = 
         !trimmedText.endsWith(' ') && 
-        !trimmedText.endsWith('for') &&
         !trimmedText.toLowerCase().endsWith('the web for') &&
         trimmedText.length > 0 &&
-        // Complete commands/queries
-        (/^(full briefing|market sentiment|weather|live stocks|crypto prices|tell me|show|search|calculate|what|how|why|when|who)/i.test(trimmedText) ||
+        (/^(full briefing|market sentiment|weather|live stocks|crypto prices|tell me|show|search|calculate|what|how|why|when|who|ask)/i.test(trimmedText) ||
          /\?$/i.test(trimmedText) ||
          trimmedText.split(' ').length >= 2);
       
@@ -1206,11 +1844,37 @@ body {
   });
 
   // Theme
-  const themeBtn = $('#themeToggle'); let theme = localStorage.getItem('dih_theme') || 'dark'; document.documentElement.setAttribute('data-theme', theme);
-  themeBtn.addEventListener('click', () => { theme = theme==='dark'?'light':'dark'; document.documentElement.setAttribute('data-theme', theme); localStorage.setItem('dih_theme', theme); });
+  const themeBtn = $('#themeToggle'); 
+  let theme = localStorage.getItem('dih_theme') || 'dark'; 
+  document.documentElement.setAttribute('data-theme', theme);
+  themeBtn.addEventListener('click', () => { 
+    theme = theme==='dark'?'light':'dark'; 
+    document.documentElement.setAttribute('data-theme', theme); 
+    localStorage.setItem('dih_theme', theme); 
+  });
 
   // Clear Chat
-  $('#clearChatBtn').addEventListener('click', () => { if(confirm('Clear all chat messages?')) { thread.innerHTML = ''; Memory.data.history = []; Memory.save(); addMsg('bot', '<p>Chat cleared! Ready for a fresh start.</p>' + renderSuggestions(['Full briefing', 'Show tools', 'Tell me a joke'])); } });
+  $('#clearChatBtn').addEventListener('click', () => { 
+    if(confirm('Clear all chat messages and start fresh?')) { 
+      thread.innerHTML = ''; 
+      Memory.data.history = []; 
+      Memory.data.conversationContext = [];
+      Memory.save(); 
+      addMsg('bot', '<p>✨ Chat cleared! Ready for a fresh start.</p>' + renderSuggestions(['Full briefing', 'Show tools', 'Ask me anything']), true); 
+    } 
+  });
+
+  // Export Chat
+  $('#exportChatBtn').addEventListener('click', () => {
+    const messages = Memory.data.history.map(h => `[${new Date(h.ts).toLocaleString()}] You: ${h.q}`).join('\n');
+    const blob = new Blob([`Digital Infohub Chat Export\n${'='.repeat(40)}\n\n${messages}`], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `infohub-chat-${new Date().toISOString().split('T')[0]}.txt`;
+    a.click();
+    URL.revokeObjectURL(url);
+  });
 
   // Clock
   setInterval(() => { $('#clock').textContent = new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'}); }, 1000);
@@ -1220,17 +1884,19 @@ body {
 
   // Smart Welcome
   (async () => {
-    await new Promise(r => setTimeout(r, 400));
-    const name = Memory.getName(); const interactions = Memory.getInteractionCount();
+    await new Promise(r => setTimeout(r, 500));
+    const name = Memory.getName(); 
+    const interactions = Memory.getInteractionCount();
     let html;
     if (name && interactions > 5) {
-      html = `<p>Welcome back, <strong>${esc(name)}</strong>! You've chatted ${interactions} times. Ready to continue?</p>` + renderSuggestions(['Full briefing with stocks','Live crypto','Search the web for ','Tell me a joke','Show tools']);
+      html = `<p>Welcome back, <strong>${esc(name)}</strong>! You've chatted ${interactions} times. I've got my on-device AI ready for any question, plus live markets and news at your fingertips.</p>` + renderSuggestions(['Full briefing','Live crypto','Ask me anything','Tell me a joke','Show tools']);
     } else if (name) {
-      html = `<p>Hello, <strong>${esc(name)}</strong>! I'm <strong>${CONFIG.BOT_NAME}</strong>. What would you like to explore?</p>` + renderSuggestions(['Full briefing','Live stocks','Crypto prices','Tell me a fact','Show tools','Help']);
+      html = `<p>Hello, <strong>${esc(name)}</strong>! I'm <strong>${CONFIG.BOT_NAME}</strong> — your intelligent dashboard assistant. I can pull live data, search the web, and even have conversations using my local AI model.</p>` + renderSuggestions(['Full briefing','Live stocks','Ask me anything','Tell me a fact','Show tools','Help']);
     } else {
-      html = `<p>Welcome to <strong>${CONFIG.BOT_NAME}</strong>. I'm your advanced dashboard assistant with live market data, global web search, worldwide weather tracking, and adaptive memory.</p>` + renderSuggestions(['Full briefing with stocks','Search the web for ','Set my name','Tell me a joke','Show tools','What can you do?']);
+      html = `<p>Welcome to <strong>${CONFIG.BOT_NAME}</strong>. I'm your advanced AI dashboard assistant with:</p><ul><li>🌐 Real-time web search</li><li>📊 Live stock & crypto data</li><li>⛅ Global weather tracking</li><li>🤖 On-device AI for intelligent conversation</li></ul><p>Ask me anything or try a command below!</p>` + renderSuggestions(['Full briefing with stocks','Ask me anything','Tell me a joke','Show tools','What can you do?']);
     }
-    addMsg('bot', html);
+    const { contentEl } = addMsg('bot', '', false);
+    await typeMessage(contentEl, html);
   })();
 
 })();
