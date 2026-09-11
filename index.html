@@ -337,7 +337,6 @@ body {
   border-radius: 4px 10px 10px 10px;
 }
 
-/* Instant fade-in for data responses (stocks, weather, news) */
 .msg-content.content-fade { animation: contentFade 0.45s var(--ease-out); }
 @keyframes contentFade {
   from { opacity: 0; transform: translateY(6px); }
@@ -508,7 +507,7 @@ body {
 .chat-send:active:not(:disabled) { transform: scale(0.95); }
 .chat-send:disabled { opacity: 0.35; cursor: not-allowed; background: var(--surface-3); box-shadow: none; }
 
-/* ── TRENDING SECTION (centered, full-width) ── */
+/* ── TRENDING SECTION ── */
 .trending-section { margin-top: 8px; animation: fadeUp 0.6s var(--ease-out); }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -526,7 +525,6 @@ body {
 }
 .section-timestamp { font-size: 10px; color: var(--text-muted); font-family: var(--mono); white-space: nowrap; }
 
-/* Live market strip — horizontal, scrollable on mobile */
 .market-strip {
   display: flex; gap: 8px; overflow-x: auto;
   padding: 2px 2px 8px; margin-bottom: 14px;
@@ -543,7 +541,6 @@ body {
 .strip-chip .up { color: var(--green); }
 .strip-chip .down { color: var(--red); }
 
-/* Balanced, centered card grid */
 .trending-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -570,6 +567,200 @@ body {
   animation: shimmer 1.5s infinite;
 }
 @keyframes shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+
+/* ── AFFILIATE COMPONENTS (AUDITED & FIXED) ── */
+.affiliate-section {
+  margin: 28px 0 32px;
+  animation: fadeUp 0.6s var(--ease-out);
+}
+.affiliate-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+.affiliate-card-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-start;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.affiliate-card-item:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+  border-color: var(--border-strong);
+}
+.affiliate-card-item .affiliate-card-info {
+  flex: 1;
+  width: 100%;
+}
+.affiliate-card-item .affiliate-card-info h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+.affiliate-card-item .affiliate-card-info p {
+  font-size: 13px;
+  color: var(--text-sub);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+.affiliate-card-creative {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.affiliate-card-creative img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius-sm);
+}
+
+/* CRITICAL FIX: Force visibility of affiliate buttons, overriding global link styles */
+.msg-content .affiliate-btn,
+.affiliate-card-item .affiliate-btn,
+.affiliate-popup .affiliate-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  padding: 10px 18px !important;
+  background: var(--accent) !important;
+  color: #ffffff !important;
+  border-radius: var(--radius-sm) !important;
+  text-decoration: none !important;
+  font-weight: 600 !important;
+  font-size: 13px !important;
+  border: none !important;
+  box-shadow: 0 0 10px rgba(var(--glow-color), 0.25);
+  transition: all 0.2s ease !important;
+  cursor: pointer !important;
+}
+
+.msg-content .affiliate-btn:hover,
+.affiliate-card-item .affiliate-btn:hover,
+.affiliate-popup .affiliate-btn:hover {
+  opacity: 0.9 !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 0 16px rgba(var(--glow-color), 0.4) !important;
+  color: #ffffff !important;
+}
+
+.affiliate-disclosure {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: 12px;
+  font-style: italic;
+}
+.affiliate-disclosure-small {
+  font-size: 10px;
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: 8px;
+}
+
+/* Chatbot Affiliate */
+.chatbot-affiliate {
+  margin-top: 12px;
+  padding: 12px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  animation: msgAppear 0.35s var(--ease-out);
+}
+.chatbot-affiliate-header {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.chatbot-affiliate-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+}
+.chatbot-affiliate-desc {
+  font-size: 12px;
+  color: var(--text-sub);
+  line-height: 1.5;
+}
+.chatbot-affiliate .affiliate-btn {
+  align-self: flex-start;
+  padding: 8px 14px !important;
+  font-size: 12px !important;
+}
+
+/* Affiliate Popup */
+.affiliate-popup {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  animation: slideUp 0.4s var(--ease-out);
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.affiliate-popup-content {
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  padding: 20px;
+  width: 340px;
+  max-width: calc(100vw - 40px);
+  box-shadow: 0 20px 50px -10px rgba(0,0,0,0.5);
+  position: relative;
+}
+.affiliate-popup-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 20px;
+  cursor: pointer;
+  line-height: 1;
+  padding: 4px;
+}
+.affiliate-popup-close:hover { color: var(--text); }
+.affiliate-popup-content h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--text);
+  padding-right: 20px;
+}
+.affiliate-popup-content p {
+  font-size: 13px;
+  color: var(--text-sub);
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+.affiliate-popup-creative {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+.affiliate-popup-creative img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius-sm);
+}
 
 /* ── AD SECTION ── */
 .ad-section {
@@ -624,8 +815,15 @@ body {
   .rich-grid, .stock-grid { grid-template-columns: 1fr 1fr; } 
   .topbar { flex-direction: column; gap: 10px; align-items: flex-start; }
   .chat-hero { padding: 12px; }
-  .chat-input { font-size: 16px; } /* prevent iOS zoom */
+  .chat-input { font-size: 16px; }
   .section-header { flex-direction: column; align-items: flex-start; gap: 4px; }
+  
+  .affiliate-grid { grid-template-columns: 1fr; }
+  .affiliate-card-item { text-align: center; align-items: center; }
+  .affiliate-card-item .affiliate-btn { width: 100%; justify-content: center; }
+  
+  .affiliate-popup { bottom: 10px; right: 10px; left: 10px; width: auto; }
+  .affiliate-popup-content { width: 100%; }
 }
 @media (max-width: 380px) {
   .rich-grid, .stock-grid { grid-template-columns: 1fr; }
@@ -713,6 +911,17 @@ body {
     </div>
   </section>
 
+  <!-- AFFILIATE RECOMMENDATION SECTION -->
+  <section class="affiliate-section" id="affiliateHomepageSection" style="display: none;">
+    <div class="section-header">
+      <h2 class="section-title">Recommended Tech & Tools</h2>
+    </div>
+    <div class="affiliate-grid" id="affiliateHomepageGrid">
+      <!-- Populated by JS -->
+    </div>
+    <p class="affiliate-disclosure">Some links on Digital Infohub are affiliate links (including Amazon Associates). We may earn a commission if you purchase through them, at no additional cost to you.</p>
+  </section>
+
   <div class="ad-section">
     <ins class="adsbygoogle"
          style="display:block"
@@ -753,6 +962,229 @@ body {
 <script>
 (function() {
   'use strict';
+
+  /* ═══════════════ DIGITAL INFOHUB MONETISATION SETTINGS ═══════════════ */
+  /* RYAN: EDIT THESE VALUES TO ADD OR UPDATE AFFILIATE PROGRAMMES */
+  const affiliateSettings = {
+    isinwheel: {
+      id: "isinwheel",
+      name: "isinwheel",
+      product: "isinwheel M50 27.5\" Full Suspension e-MTB",
+      affiliateUrl: "https://isinwheel.pxf.io/c/6347824/3901839/15800",
+      assetCode: `<a rel="sponsored noopener" href="https://isinwheel.pxf.io/c/6347824/3901839/15800" target="_blank" id="3901839" class="affiliate-asset-link"><img src="https://a.impactradius-go.com/display-ad/15800-3901839" border="0" alt="isinwheel M50 27.5 Full Suspension e-MTB" width="300" height="250" loading="lazy" class="affiliate-asset-img"/></a><img height="0" width="0" src="https://imp.pxf.io/i/6347824/3901839/15800" style="position:absolute;visibility:hidden;" border="0" alt="" />`,
+      cta: "View the M50 →",
+      description: "Full-suspension electric mountain bike. Check the manufacturer's current specifications and UK rules before riding on public roads.",
+      keywords: ["electric bike", "e-bike", "electric mountain bike", "mountain bike", "isinwheel", "electric bicycle", "emtb"],
+      categories: ["technology", "gadgets", "electric-vehicles", "bikes"],
+      showOnHomepage: true,
+      showInArticles: true,
+      showInChatbot: true,
+      showInPopup: true,
+      priority: 1
+    },
+    logitech_mk270: {
+      id: "logitech_mk270",
+      name: "Logitech",
+      product: "Logitech MK270 Wireless Keyboard and Mouse Combo",
+      affiliateUrl: "https://amzn.to/4r2E0FQ",
+      assetCode: null,
+      cta: "View on Amazon →",
+      description: "Reliable wireless keyboard and mouse combo for Windows. A staple for clean desktop and office setups.",
+      keywords: ["keyboard", "mouse", "wireless keyboard", "wireless mouse", "keyboard and mouse", "logitech", "computer accessories", "pc accessories", "desktop setup", "office setup"],
+      categories: ["computers", "accessories", "gadgets", "peripherals", "productivity"],
+      showOnHomepage: true,
+      showInArticles: true,
+      showInChatbot: true,
+      showInPopup: true,
+      priority: 2
+    },
+    ai_smart_glasses: {
+      id: "ai_smart_glasses",
+      name: "AI Smart Glasses",
+      product: "AI Smart Glasses with Camera & Translation",
+      affiliateUrl: "https://amzn.to/4cF49Vr",
+      assetCode: null,
+      cta: "View on Amazon →",
+      description: "800W Camera, 1080P Video Record, 164 Language Translate, Bluetooth, Voice Assistant, Object Recognition, Photochromic Lenses.",
+      keywords: ["smart glasses", "ai glasses", "ai smart glasses", "camera glasses", "translation glasses", "wearable ai", "ai wearable", "bluetooth glasses", "smart eyewear", "object recognition"],
+      categories: ["ai", "gadgets", "wearables", "smart devices", "technology"],
+      showOnHomepage: true,
+      showInArticles: true,
+      showInChatbot: true,
+      showInPopup: true,
+      priority: 3
+    },
+    iniu_charger: {
+      id: "iniu_charger",
+      name: "INIU",
+      product: "INIU Wireless Charger Stand, 15W Fast Charging Dock",
+      affiliateUrl: "https://amzn.to/4A6eWBP",
+      assetCode: null,
+      cta: "View on Amazon →",
+      description: "15W fast charging dock phone charger with LED. A sleek, reliable charging stand for your smartphone.",
+      keywords: ["wireless charger", "wireless charging", "charging stand", "phone charger", "15w charger", "charging dock", "phone stand", "iniu", "smartphone accessories"],
+      categories: ["gadgets", "mobile", "accessories", "charging", "smartphones"],
+      showOnHomepage: true,
+      showInArticles: true,
+      showInChatbot: true,
+      showInPopup: true,
+      priority: 4
+    }
+    // FUTURE AFFILIATES: Copy a block above, change the ID, and set enabled: false until you have real links.
+  };
+
+  function trackAffiliateClick(affiliateId, product, placement) {
+    const eventData = {
+      event: 'affiliate_click',
+      affiliateId: affiliateId,
+      product: product,
+      page: window.location.pathname,
+      placement: placement
+    };
+    if (window.dataLayer) {
+      window.dataLayer.push(eventData);
+    } else {
+      console.log('[Affiliate Tracking]', eventData);
+    }
+  }
+
+  function getRelevantAffiliate(query) {
+    const lowerQuery = query.toLowerCase();
+    let bestMatch = null;
+    let highestScore = 0;
+
+    for (const key in affiliateSettings) {
+      const aff = affiliateSettings[key];
+      if (!aff.enabled && aff.enabled !== undefined ? !aff.enabled : false) continue; // Skip if explicitly disabled
+      if (!aff.showInChatbot) continue;
+      
+      let score = 0;
+      aff.keywords.forEach(k => {
+        if (lowerQuery.includes(k.toLowerCase())) {
+          score += k.length; // Longer keyword match = higher relevance score
+        }
+      });
+      
+      if (score > highestScore) {
+        highestScore = score;
+        bestMatch = aff;
+      }
+    }
+    return highestScore > 0 ? bestMatch : null;
+  }
+
+  function getPopupAffiliate() {
+    const path = window.location.pathname.toLowerCase();
+    // Try to find a product whose categories match the current URL path
+    for (const key in affiliateSettings) {
+      const aff = affiliateSettings[key];
+      if ((!aff.enabled && aff.enabled !== undefined ? !aff.enabled : false) || !aff.showInPopup) continue;
+      if (aff.categories.some(cat => path.includes(cat))) {
+        return aff;
+      }
+    }
+    // Fallback to highest priority enabled popup product
+    return Object.values(affiliateSettings)
+      .filter(a => (a.enabled || a.enabled === undefined) && a.showInPopup)
+      .sort((a, b) => (a.priority || 99) - (b.priority || 99))[0] || null;
+  }
+
+  function renderChatbotAffiliate(aff) {
+    return `
+      <div class="chatbot-affiliate">
+        <div class="chatbot-affiliate-header">
+          <span>★</span> Recommended Product
+        </div>
+        <div class="chatbot-affiliate-title">${esc(aff.product)}</div>
+        <div class="chatbot-affiliate-desc">${esc(aff.description)}</div>
+        <a href="${esc(aff.affiliateUrl)}" target="_blank" rel="sponsored noopener" class="affiliate-btn" 
+           onclick="trackAffiliateClick('${aff.id}', '${aff.name}', 'chatbot')" aria-label="View ${esc(aff.product)} on external site">
+          ${esc(aff.cta)}
+        </a>
+        <div class="affiliate-disclosure-small">Affiliate link</div>
+      </div>
+    `;
+  }
+
+  function initAffiliateHomepage() {
+    const section = document.getElementById('affiliateHomepageSection');
+    const grid = document.getElementById('affiliateHomepageGrid');
+    if (!section || !grid) return;
+
+    // UPDATED: Show ALL enabled products instead of slicing to 2
+    const enabledProducts = Object.values(affiliateSettings)
+      .filter(a => (a.enabled || a.enabled === undefined) && a.showOnHomepage)
+      .sort((a, b) => (a.priority || 99) - (b.priority || 99));
+
+    if (enabledProducts.length === 0) {
+      section.style.display = 'none';
+      return;
+    }
+
+    section.style.display = 'block';
+    grid.innerHTML = enabledProducts.map(aff => `
+      <div class="affiliate-card-item">
+        <div class="affiliate-card-info">
+          <h3>${esc(aff.product)}</h3>
+          <p>${esc(aff.description)}</p>
+          <a href="${esc(aff.affiliateUrl)}" target="_blank" rel="sponsored noopener" class="affiliate-btn" 
+             onclick="trackAffiliateClick('${aff.id}', '${aff.name}', 'homepage')" aria-label="View ${esc(aff.product)}">
+            ${esc(aff.cta)}
+          </a>
+        </div>
+        ${aff.assetCode ? `<div class="affiliate-card-creative">${aff.assetCode}</div>` : ''}
+      </div>
+    `).join('');
+  }
+
+  function initAffiliatePopup() {
+    const popupKey = 'dih_affiliate_popup_shown';
+    const lastShown = localStorage.getItem(popupKey);
+    const now = Date.now();
+    const cooldown = 24 * 60 * 60 * 1000; // 24 hours
+
+    if (lastShown && (now - parseInt(lastShown, 10)) < cooldown) return;
+
+    const aff = getPopupAffiliate();
+    if (!aff) return;
+
+    setTimeout(() => {
+      if (document.getElementById('affiliatePopup')) return;
+      
+      const popup = document.createElement('div');
+      popup.id = 'affiliatePopup';
+      popup.className = 'affiliate-popup';
+      popup.innerHTML = `
+        <div class="affiliate-popup-content">
+          <button class="affiliate-popup-close" aria-label="Close popup">&times;</button>
+          <h3>Looking for tech essentials?</h3>
+          <p><strong>${esc(aff.product)}</strong><br>${esc(aff.description)}</p>
+          ${aff.assetCode ? `<div class="affiliate-popup-creative">${aff.assetCode}</div>` : ''}
+          <a href="${esc(aff.affiliateUrl)}" target="_blank" rel="sponsored noopener" class="affiliate-btn" 
+             onclick="trackAffiliateClick('${aff.id}', '${aff.name}', 'popup')" aria-label="View ${esc(aff.product)}">
+            ${esc(aff.cta)}
+          </a>
+          <p class="affiliate-disclosure-small">Affiliate link: We may earn a commission at no extra cost to you.</p>
+        </div>
+      `;
+      document.body.appendChild(popup);
+
+      const closeBtn = popup.querySelector('.affiliate-popup-close');
+      closeBtn.addEventListener('click', () => {
+        popup.remove();
+        localStorage.setItem(popupKey, now.toString());
+      });
+      
+      const links = popup.querySelectorAll('a');
+      links.forEach(link => {
+        link.addEventListener('click', () => {
+          trackAffiliateClick(aff.id, aff.name, 'popup');
+          popup.remove();
+          localStorage.setItem(popupKey, now.toString());
+        });
+      });
+    }, 45000); // 45 seconds
+  }
 
   /* ═══════════════ OS DETECTION ═══════════════ */
   const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
@@ -886,7 +1318,6 @@ body {
     } catch(e) { return []; }
   }
 
-  /* Real trending topics: Hacker News front page (live points + timestamps) */
   async function fetchTrending() {
     try {
       const r = await fetch('https://hn.algolia.com/api/v1/search?tags=front_page&hitsPerPage=6');
@@ -906,7 +1337,6 @@ body {
     }
   }
 
-  /* Real news search: Google News RSS via rss2json */
   async function fetchNewsSearch(query) {
     try {
       const feedUrl = 'https://news.google.com/rss/search?q=' + encodeURIComponent(query);
@@ -973,7 +1403,6 @@ body {
     return [...crypto, ...stocks];
   }
 
-  /* Shared market cache: ticker + strip use one fetch cycle */
   let marketCache = null;
   async function loadMarketsOnce() {
     if (marketCache) return marketCache;
@@ -1214,7 +1643,7 @@ body {
     }
   };
 
-  /* ═══════════════ INTENT DETECTION (fixed) ═══════════════ */
+  /* ═══════════════ INTENT DETECTION ═══════════════ */
   const Intent = {
     detect(q) {
       const lower = q.toLowerCase().trim();
@@ -1225,7 +1654,6 @@ body {
       if (/^(?:tell me a joke|joke|make me laugh|funny)/i.test(lower)) return { type: 'chitchat', subtype: 'joke' };
       if (/^(?:tell me a fact|interesting fact|random fact|did you know|fun fact|something interesting|surprise me|tell me something)/i.test(lower)) return { type: 'chitchat', subtype: 'fact' };
 
-      /* FIXED weather: matches "weather in X", "what's the weather in X?", "check weather" */
       const weatherMatch = lower.match(/^(?:weather|temperature|forecast|is it raining|is it snowing)(?:\s+(?:in|for|at)\s+(.+?))?\s*\??$/i)
         || lower.match(/(?:what'?s|whats|how'?s|check|show|tell me)\s+(?:the\s+)?(?:weather|temperature|forecast)(?:\s+(?:in|for|at)\s+(.+?))?\s*(?:\?|today|tonight|right now|$)/i);
       if (weatherMatch) return { type: 'weather', city: ((weatherMatch[1] || weatherMatch[2] || '') + '').trim() || null };
@@ -1234,11 +1662,8 @@ body {
       if (/^(?:site stats|how many tools|site information|about this site)\b/i.test(lower)) return { type: 'site_stats' };
       if (/^(?:clear chat|reset chat|delete history|empty chat)\b/i.test(lower)) return { type: 'clear_chat' };
 
-      /* NEW: trending */
       if (/\b(trending|trends|what'?s hot|going viral)\b/i.test(lower)) return { type: 'trending' };
-      /* NEW: AI news */
       if (/(ai|artificial intelligence|machine learning|llm|openai|anthropic|gemini|chatgpt).{0,40}(news|today|happening|updates|latest)|(news|today|happening|updates|latest).{0,40}\b(ai|artificial intelligence|machine learning|llm|openai|anthropic|gemini|chatgpt)\b/i.test(lower)) return { type: 'ai_news' };
-      /* NEW: tech today */
       if (/what'?s happening (in )?(tech|technology)|\b(tech|technology) (news|today|updates)\b/i.test(lower)) return { type: 'feed', key: 'tech' };
 
       if (/^(?:tell me more|more info|elaborate|explain more|details|go deeper)\b/i.test(lower)) return { type: 'follow_up_elaborate', context: ctx };
@@ -1265,7 +1690,6 @@ body {
       if (/^(?:what is|who is|when did|why does|how does|define|explain)\b/i.test(lower) && lower.length > 15) return { type: 'web_search', query: q };
 
       if (/full briefing|complete briefing|everything|all news/i.test(lower)) return { type: 'full_briefing' };
-      /* NEW: market briefing (before generic stocks/briefing) */
       if (/(market|stocks?|crypto)\s+(briefing|brief|update|summary|report|overview|snapshot)\b/i.test(lower) || /briefing\s+(on|for|about)\s+(the\s+)?(market|stocks|crypto)/i.test(lower)) return { type: 'market_briefing' };
       if (/briefing|news summary|daily update|headlines|morning brief/i.test(lower)) return { type: 'briefing' };
 
@@ -1375,7 +1799,6 @@ body {
           if (intent.subtype === 'joke') return `<p>😄 ${pick(PERSONALITY.jokes)}</p>` + renderSuggestions(['Another joke','Tell me a fact','What\'s trending?']);
           return `<p>💡 <strong>Did you know?</strong> ${pick(PERSONALITY.facts)}</p>` + renderSuggestions(['Another fact','Tell me a joke','What\'s trending?']);
 
-        /* NEW: real trending topics */
         case 'trending': {
           updateSubtitle('Fetching live trends...');
           const trends = await fetchTrending();
@@ -1383,7 +1806,6 @@ body {
           return `<p>🔥 <strong>Trending now</strong> — live from the Hacker News front page:</p>` + renderNewsGrid(trends) + renderSuggestions(['What\'s happening in AI today?','Give me a market briefing']);
         }
 
-        /* NEW: real AI news */
         case 'ai_news': {
           updateSubtitle('Fetching AI news...');
           const arts = await fetchRSS(CONFIG.FEEDS.ai.url);
@@ -1391,7 +1813,6 @@ body {
           return `<p>🤖 <strong>Latest in AI</strong> — fresh from the wire:</p>` + renderNewsGrid(arts.slice(0,4).map(n => ({...n, tag:'AI'}))) + renderSuggestions(['What\'s trending?','Give me a market briefing']);
         }
 
-        /* NEW: real market briefing */
         case 'market_briefing': {
           updateSubtitle('Building market briefing...');
           const [stocks, crypto, fg] = await Promise.all([fetchStocks(), fetchCrypto(), fetchFearGreed()]);
@@ -1446,7 +1867,6 @@ body {
 
         case 'web_search': {
           const query = intent.query;
-          /* News-aware search: real Google News results for news-style queries */
           if (/news|latest|headline|today|announcement|launch/i.test(query)) {
             updateSubtitle('Searching the news...');
             const newsResults = await fetchNewsSearch(query);
@@ -1571,7 +1991,6 @@ body {
     return div;
   }
 
-  /* Typing animation — conversational replies only */
   async function typeMessage(element, html) {
     return new Promise(resolve => {
       let i = 0; let inTag = false;
@@ -1606,9 +2025,8 @@ body {
     });
   }
 
-  /* Data responses (grids, cards) render instantly with a fade */
   function isDataResponse(html) {
-    return /stock-grid|weather-card|sentiment-card|rich-grid|web-result/.test(html);
+    return /stock-grid|weather-card|sentiment-card|rich-grid|web-result|chatbot-affiliate/.test(html);
   }
 
   function prefillInput(text) { input.value = text; input.focus(); requestAnimationFrame(() => input.setSelectionRange(text.length, text.length)); }
@@ -1627,13 +2045,20 @@ body {
       const response = await AI.process(text.trim());
       typingEl.remove();
       const { contentEl } = addMsg('bot', '');
-      if (isDataResponse(response)) {
-        contentEl.innerHTML = response;
+      
+      let finalHtml = response;
+      const relevantAffiliate = getRelevantAffiliate(text.trim());
+      if (relevantAffiliate) {
+        finalHtml += renderChatbotAffiliate(relevantAffiliate);
+      }
+      
+      if (isDataResponse(finalHtml)) {
+        contentEl.innerHTML = finalHtml;
         contentEl.classList.add('content-fade');
         thread.scrollTop = thread.scrollHeight;
       } else {
         updateSubtitle('Responding...');
-        await typeMessage(contentEl, response);
+        await typeMessage(contentEl, finalHtml);
       }
       updateSubtitle('Online • Ready');
     } catch(err) {
@@ -1670,7 +2095,6 @@ body {
     }
   });
 
-  // Theme
   const themeBtn = $('#themeToggle'); 
   let theme = localStorage.getItem('dih_theme') || 'dark'; 
   document.documentElement.setAttribute('data-theme', theme);
@@ -1680,7 +2104,6 @@ body {
     localStorage.setItem('dih_theme', theme); 
   });
 
-  // Clear / Export
   $('#clearChatBtn').addEventListener('click', () => { 
     if(confirm('Clear all chat messages and start fresh?')) { 
       thread.innerHTML = ''; 
@@ -1702,15 +2125,12 @@ body {
     URL.revokeObjectURL(url);
   });
 
-  // Clock
   setInterval(() => { $('#clock').textContent = new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'}); }, 1000);
 
-  /* ═══════════════ TRENDING SECTION LOADER ═══════════════ */
   async function loadTrendingSection() {
     const ts = $('#dashTimestamp');
     if (ts) ts.textContent = 'Updated ' + new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
 
-    // Market strip (shares cache with ticker — one fetch cycle)
     try {
       const { crypto, stocks } = await loadMarketsOnce();
       renderMarketStrip(crypto, stocks);
@@ -1719,7 +2139,6 @@ body {
       if (el) el.innerHTML = '<span class="strip-chip" style="color:var(--text-muted)">Market data unavailable right now</span>';
     }
 
-    // Cards: trending + AI + tech + markets (only real sources)
     const [trends, ai, tech, mkts] = await Promise.all([
       fetchTrending(),
       fetchRSS(CONFIG.FEEDS.ai.url).then(a => a.map(n => ({ ...n, tag: 'AI' }))),
@@ -1745,6 +2164,8 @@ body {
 
   /* ═══════════════ INIT ═══════════════ */
   initTicker();
+  initAffiliateHomepage();
+  initAffiliatePopup();
 
   (async () => {
     await new Promise(r => setTimeout(r, 350));
