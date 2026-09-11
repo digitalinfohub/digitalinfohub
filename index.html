@@ -792,6 +792,35 @@ body {
 .cmd-result-item:hover, .cmd-result-item.selected { background: var(--surface-2); color: var(--text); }
 .cmd-result-item .cmd-emoji { font-size: 16px; width: 24px; text-align: center; }
 
+/* ── SUPPORT MODAL & UI ── */
+.support-overlay { 
+  position: fixed; inset: 0; background: rgba(0,0,0,0.65); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 1000; display: none; align-items: center; justify-content: center; padding: 16px; 
+}
+.support-overlay.active { display: flex; animation: fadeIn 0.15s ease; }
+.support-modal { 
+  width: 100%; max-width: 480px; background: var(--surface); border: 1px solid var(--border-strong); border-radius: 14px; box-shadow: 0 20px 50px -10px rgba(0,0,0,0.4); overflow: hidden; animation: cmdPop 0.25s cubic-bezier(0.16, 1, 0.3, 1); 
+}
+.btn-support {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 10px 20px; background: var(--accent); color: #ffffff;
+  border-radius: var(--radius-sm); text-decoration: none; font-weight: 600;
+  font-size: 13px; border: none; cursor: pointer;
+  box-shadow: 0 0 10px rgba(var(--glow-color), 0.25);
+  transition: all 0.2s ease;
+}
+.btn-support:hover {
+  opacity: 0.9; transform: translateY(-1px);
+  box-shadow: 0 0 16px rgba(var(--glow-color), 0.4);
+}
+.support-prompt {
+  position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 12px 20px;
+  box-shadow: var(--shadow); display: none; align-items: center; gap: 16px;
+  z-index: 900; font-size: 13px; color: var(--text-sub);
+  animation: slideUp 0.4s var(--ease-out);
+}
+
 /* ── RESPONSIVE ── */
 @media (max-width: 900px) {
   .trending-grid { grid-template-columns: repeat(2, 1fr); }
@@ -824,6 +853,8 @@ body {
   
   .affiliate-popup { bottom: 10px; right: 10px; left: 10px; width: auto; }
   .affiliate-popup-content { width: 100%; }
+  
+  .support-prompt { left: 16px; right: 16px; transform: none; width: auto; flex-direction: column; text-align: center; gap: 8px; }
 }
 @media (max-width: 380px) {
   .rich-grid, .stock-grid { grid-template-columns: 1fr; }
@@ -857,6 +888,9 @@ body {
       <span>Digital Infohub</span>
     </a>
     <div class="topbar-actions">
+      <button class="icon-btn" id="supportTopBtn" title="Support Digital Infohub" style="color: var(--accent);">
+        <span>❤️</span>
+      </button>
       <button class="icon-btn" id="themeToggle" title="Toggle theme">◑</button>
       <div class="clock" id="clock">--:--</div>
     </div>
@@ -873,6 +907,9 @@ body {
         </div>
       </div>
       <div class="chat-actions">
+        <button class="chat-action-btn" id="supportChatBtn" title="Support Digital Infohub">
+          <span>☕</span><span class="tooltip">Support</span>
+        </button>
         <button class="chat-action-btn" id="exportChatBtn" title="Export chat">
           <span>📋</span><span class="tooltip">Export</span>
         </button>
@@ -932,6 +969,17 @@ body {
     <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
   </div>
 
+  <!-- SUPPORT SECTION -->
+  <section class="support-section" style="background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; margin: 32px 0; text-align: center; animation: fadeUp 0.6s var(--ease-out);">
+    <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 8px; color: var(--text);">Keep Digital Infohub Free</h3>
+    <p style="font-size: 13px; color: var(--text-sub); margin-bottom: 16px; max-width: 500px; margin-left: auto; margin-right: auto; line-height: 1.6;">
+      Your support helps cover hosting, development and new tools while keeping the platform free to use.
+    </p>
+    <button class="btn-support" id="supportHomeBtn">
+      <span>❤️</span> Support Digital Infohub
+    </button>
+  </section>
+
   <section class="info-writeup">
     <h2>Your Advanced Digital Dashboard</h2>
     <p><strong>Digital Infohub</strong> combines real-time web & news search, live market data, global weather tracking, and an on-device AI model in one adaptive interface. Press <kbd id="cmdKeyDisplay">⌘K</kbd> for the Command Palette.</p>
@@ -949,6 +997,55 @@ body {
     <div class="cmd-results" id="cmdResults"></div>
   </div>
 </div>
+
+<!-- SUPPORT MODAL -->
+<div class="support-overlay" id="supportOverlay" role="dialog" aria-modal="true" aria-labelledby="supportTitle">
+  <div class="support-modal">
+    <div style="padding: 24px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <h2 id="supportTitle" style="font-size: 18px; font-weight: 700; margin: 0; color: var(--text);">Support Digital Infohub</h2>
+        <button class="chat-action-btn" id="closeSupportBtn" aria-label="Close support modal" style="width: 32px; height: 32px;">✕</button>
+      </div>
+      <p style="font-size: 14px; color: var(--text-sub); line-height: 1.6; margin-bottom: 20px;">
+        Digital Infohub is free to use. If you find the tools, AI, news and other resources useful, you can help support the development, hosting and ongoing improvement of the site.
+      </p>
+      
+      <div style="display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap;">
+        <span style="font-size: 12px; color: var(--text); font-weight: 600; background: var(--surface-2); padding: 6px 12px; border-radius: 99px; border: 1px solid var(--border);">£2</span>
+        <span style="font-size: 12px; color: var(--text); font-weight: 600; background: var(--surface-2); padding: 6px 12px; border-radius: 99px; border: 1px solid var(--border);">£5</span>
+        <span style="font-size: 12px; color: var(--text); font-weight: 600; background: var(--surface-2); padding: 6px 12px; border-radius: 99px; border: 1px solid var(--border);">£10</span>
+        <span style="font-size: 12px; color: var(--text); font-weight: 600; background: var(--surface-2); padding: 6px 12px; border-radius: 99px; border: 1px solid var(--border);">£25</span>
+      </div>
+
+      <a href="https://www.paypal.com/ncp/payment/T7DTEU8HG54PJ" target="_blank" rel="noopener noreferrer" class="btn-support" style="width: 100%; text-align: center; margin-bottom: 12px; padding: 12px 20px; font-size: 14px;">
+        Support via PayPal
+      </a>
+      
+      <p style="font-size: 11px; color: var(--text-muted); text-align: center; margin: 0;">
+        No account required where PayPal/card checkout allows it.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- OPTIONAL RETURN SUPPORT PROMPT -->
+<div class="support-prompt" id="supportPrompt" role="alert">
+  <span>Finding Digital Infohub useful? <a href="#" id="promptSupportBtn" style="color: var(--accent); font-weight: 600; text-decoration: none;">Support the project →</a></span>
+  <button id="dismissPromptBtn" style="background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 18px; line-height: 1; padding: 0 4px;" aria-label="Dismiss support prompt">×</button>
+</div>
+
+<footer style="border-top: 1px solid var(--border); margin-top: 48px; padding: 32px 24px; text-align: center;">
+  <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 24px; margin-bottom: 16px; font-size: 13px; color: var(--text-sub);">
+    <a href="#" class="footer-support-link" style="color: var(--accent); text-decoration: none; font-weight: 500;">Support Digital Infohub</a>
+    <a href="/advertise" style="color: var(--text-sub); text-decoration: none;">Advertise</a>
+    <a href="/services" style="color: var(--text-sub); text-decoration: none;">Services</a>
+    <a href="/about" style="color: var(--text-sub); text-decoration: none;">About</a>
+  </div>
+  <p style="font-size: 11px; color: var(--text-muted);">
+    &copy; 2026 Digital Infohub. All rights reserved.
+  </p>
+</footer>
+
 <center>
 <script async src="https://e-zeeinternet.com/t.js"
   data-site="ezi_992ceef652fd"
@@ -1030,7 +1127,6 @@ body {
       showInPopup: true,
       priority: 4
     }
-    // FUTURE AFFILIATES: Copy a block above, change the ID, and set enabled: false until you have real links.
   };
 
   function trackAffiliateClick(affiliateId, product, placement) {
@@ -1055,13 +1151,13 @@ body {
 
     for (const key in affiliateSettings) {
       const aff = affiliateSettings[key];
-      if (!aff.enabled && aff.enabled !== undefined ? !aff.enabled : false) continue; // Skip if explicitly disabled
+      if (!aff.enabled && aff.enabled !== undefined ? !aff.enabled : false) continue;
       if (!aff.showInChatbot) continue;
       
       let score = 0;
       aff.keywords.forEach(k => {
         if (lowerQuery.includes(k.toLowerCase())) {
-          score += k.length; // Longer keyword match = higher relevance score
+          score += k.length;
         }
       });
       
@@ -1075,7 +1171,6 @@ body {
 
   function getPopupAffiliate() {
     const path = window.location.pathname.toLowerCase();
-    // Try to find a product whose categories match the current URL path
     for (const key in affiliateSettings) {
       const aff = affiliateSettings[key];
       if ((!aff.enabled && aff.enabled !== undefined ? !aff.enabled : false) || !aff.showInPopup) continue;
@@ -1083,7 +1178,6 @@ body {
         return aff;
       }
     }
-    // Fallback to highest priority enabled popup product
     return Object.values(affiliateSettings)
       .filter(a => (a.enabled || a.enabled === undefined) && a.showInPopup)
       .sort((a, b) => (a.priority || 99) - (b.priority || 99))[0] || null;
@@ -1111,7 +1205,6 @@ body {
     const grid = document.getElementById('affiliateHomepageGrid');
     if (!section || !grid) return;
 
-    // UPDATED: Show ALL enabled products instead of slicing to 2
     const enabledProducts = Object.values(affiliateSettings)
       .filter(a => (a.enabled || a.enabled === undefined) && a.showOnHomepage)
       .sort((a, b) => (a.priority || 99) - (b.priority || 99));
@@ -1141,7 +1234,7 @@ body {
     const popupKey = 'dih_affiliate_popup_shown';
     const lastShown = localStorage.getItem(popupKey);
     const now = Date.now();
-    const cooldown = 24 * 60 * 60 * 1000; // 24 hours
+    const cooldown = 24 * 60 * 60 * 1000;
 
     if (lastShown && (now - parseInt(lastShown, 10)) < cooldown) return;
 
@@ -1183,7 +1276,63 @@ body {
           localStorage.setItem(popupKey, now.toString());
         });
       });
-    }, 45000); // 45 seconds
+    }, 45000);
+  }
+
+  /* ═══════════════ SUPPORT MODAL LOGIC ═══════════════ */
+  const supportOverlay = document.getElementById('supportOverlay');
+  const closeSupportBtn = document.getElementById('closeSupportBtn');
+
+  function openSupportModal() {
+    if (supportOverlay) {
+      supportOverlay.classList.add('active');
+      setTimeout(() => closeSupportBtn.focus(), 50);
+    }
+  }
+
+  function closeSupportModal() {
+    if (supportOverlay) {
+      supportOverlay.classList.remove('active');
+    }
+  }
+
+  if (closeSupportBtn) closeSupportBtn.addEventListener('click', closeSupportModal);
+  if (supportOverlay) {
+    supportOverlay.addEventListener('click', (e) => {
+      if (e.target === supportOverlay) closeSupportModal();
+    });
+  }
+
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('#supportTopBtn, #supportChatBtn, #supportHomeBtn, #promptSupportBtn, .footer-support-link');
+    if (btn) {
+      e.preventDefault();
+      openSupportModal();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && supportOverlay && supportOverlay.classList.contains('active')) {
+      closeSupportModal();
+    }
+  });
+
+  function checkSupportPrompt() {
+    const interactions = Memory.getInteractionCount();
+    const dismissed = localStorage.getItem('dih_support_prompt_dismissed_v1');
+    const prompt = document.getElementById('supportPrompt');
+    if (interactions >= 5 && !dismissed && prompt) {
+      prompt.style.display = 'flex';
+    }
+  }
+
+  const dismissPromptBtn = document.getElementById('dismissPromptBtn');
+  if (dismissPromptBtn) {
+    dismissPromptBtn.addEventListener('click', () => {
+      const prompt = document.getElementById('supportPrompt');
+      if (prompt) prompt.style.display = 'none';
+      localStorage.setItem('dih_support_prompt_dismissed_v1', 'true');
+    });
   }
 
   /* ═══════════════ OS DETECTION ═══════════════ */
@@ -1653,6 +1802,7 @@ body {
       if (/^(?:what time|current time|time now|what'?s the time|date today|today'?s date|what day)/i.test(lower)) return { type: 'datetime' };
       if (/^(?:tell me a joke|joke|make me laugh|funny)/i.test(lower)) return { type: 'chitchat', subtype: 'joke' };
       if (/^(?:tell me a fact|interesting fact|random fact|did you know|fun fact|something interesting|surprise me|tell me something)/i.test(lower)) return { type: 'chitchat', subtype: 'fact' };
+      if (/how is this funded|why is this free|support|donate|cost|price|pay for this/i.test(lower)) return { type: 'support_info' };
 
       const weatherMatch = lower.match(/^(?:weather|temperature|forecast|is it raining|is it snowing)(?:\s+(?:in|for|at)\s+(.+?))?\s*\??$/i)
         || lower.match(/(?:what'?s|whats|how'?s|check|show|tell me)\s+(?:the\s+)?(?:weather|temperature|forecast)(?:\s+(?:in|for|at)\s+(.+?))?\s*(?:\?|today|tonight|right now|$)/i);
@@ -1865,6 +2015,9 @@ body {
         case 'help':
           return `<p><strong>${CONFIG.BOT_NAME}</strong> — try any of these:</p><ul><li>🔥 <strong>Trending</strong> — "what's trending?"</li><li>📊 <strong>Markets</strong> — "give me a market briefing"</li><li>🤖 <strong>AI news</strong> — "what's happening in AI today?"</li><li>⛅ <strong>Weather</strong> — "what's the weather in London?"</li><li>📰 <strong>News search</strong> — "search for the latest Nvidia news"</li><li>🧮 <strong>Calculator</strong> — "calculate 50*2"</li><li>🧠 <strong>Sentiment</strong> — "market sentiment"</li><li>⌘K <strong>Palette</strong> — quick navigate</li></ul>` + renderSuggestions(['What\'s trending?','Give me a market briefing']);
 
+        case 'support_info':
+          return `<p>Digital Infohub is completely free to use! It's funded by community support and optional affiliate links. If you find the tools valuable, you can help keep the servers running and new features coming.</p>` + renderSuggestions(['Support Digital Infohub', 'What\'s trending?']);
+
         case 'web_search': {
           const query = intent.query;
           if (/news|latest|headline|today|announcement|launch/i.test(query)) {
@@ -2061,6 +2214,7 @@ body {
         await typeMessage(contentEl, finalHtml);
       }
       updateSubtitle('Online • Ready');
+      checkSupportPrompt();
     } catch(err) {
       console.error('AI Process Error:', err); 
       typingEl.remove();
@@ -2082,6 +2236,10 @@ body {
     if (!chip) return; 
     const text = chip.dataset.prefill; 
     if (text) {
+      if (text === 'Support Digital Infohub') {
+        openSupportModal();
+        return;
+      }
       const trimmedText = text.trim();
       const shouldSendImmediately = 
         !trimmedText.endsWith(' ') && 
