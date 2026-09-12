@@ -9,7 +9,6 @@
 <meta name="theme-color" content="#0a0a0a">
 <meta name="description" content="Digital Infohub Blog — Latest articles and insights">
 <meta name="color-scheme" content="dark light">
-<meta name="apple-mobile-web-app-capable" content="yes">
 
 <!-- Social Sharing Meta Tags -->
 <meta property="og:type" content="website">
@@ -17,16 +16,8 @@
 <meta property="og:description" content="Latest articles and insights from Digital Infohub.">
 <meta property="og:url" content="https://digitalinfohub.github.io/digitalinfohub/blog">
 <meta property="og:image" content="https://images.unsplash.com/photo-1625297673326-14790108da55?w=1200&h=630&fit=crop&q=80">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Digital Infohub - Blog">
-<meta name="twitter:description" content="Latest articles and insights from Digital Infohub.">
-<meta name="twitter:image" content="https://images.unsplash.com/photo-1625297673326-14790108da55?w=1200&h=630&fit=crop&q=80">
 
 <link rel="icon" type="image/png" href="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png">
-<link rel="apple-touch-icon" href="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png">
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -88,10 +79,10 @@ body {
 ::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
 
-.shell { max-width: 1100px; margin: 0 auto; padding: 32px 32px 80px; }
+.shell { max-width: 1200px; margin: 0 auto; padding: 32px 32px 80px; }
 
 /* ═══ TOP BAR ═══ */
-.topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 48px; }
+.topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; }
 .brand {
   display: flex; align-items: center; gap: 12px;
   font-weight: 700; font-size: 16px; letter-spacing: -0.02em;
@@ -122,22 +113,22 @@ body {
 /* ═══ NAVIGATION ═══ */
 .nav-shell {
   position: sticky; top: 0; z-index: 100;
-  background: rgba(5, 5, 5, 0.8); /* Fallback */
-  background: color-mix(in srgb, var(--bg) 80%, transparent);
+  background: color-mix(in srgb, var(--bg) 85%, transparent);
   border-bottom: 1px solid var(--border);
   backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
   margin: -32px -32px 40px;
   padding: 0 32px;
 }
-[data-theme="light"] .nav-shell { background: rgba(255, 255, 255, 0.8); }
+[data-theme="light"] .nav-shell { background: rgba(255, 255, 255, 0.85); }
 
 .nav-bar {
-  max-width: 1100px; margin: 0 auto;
+  max-width: 1200px; margin: 0 auto;
   display: flex; align-items: center; justify-content: space-between;
   padding: 14px 0; gap: 24px;
 }
 
-.nav-links { display: flex; gap: 6px; align-items: center; flex: 1; }
+.nav-left { display: flex; align-items: center; gap: 24px; flex: 1; }
+.nav-links { display: flex; gap: 6px; align-items: center; }
 .nav-link {
   padding: 8px 16px;
   background: none; border: 1px solid transparent;
@@ -148,6 +139,40 @@ body {
 }
 .nav-link:hover { color: var(--text); background: var(--surface-2); }
 .nav-link.active { color: var(--accent); background: var(--accent-glow); border-color: rgba(99,102,241,0.2); }
+
+/* Search Bar Styles */
+.search-wrapper {
+  position: relative;
+  margin-left: auto;
+  margin-right: 16px;
+}
+.search-input {
+  width: 240px;
+  padding: 8px 12px 8px 36px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 14px;
+  transition: all 0.2s var(--ease);
+}
+.search-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: var(--surface-2);
+  width: 280px;
+}
+.search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  color: var(--text-muted);
+  pointer-events: none;
+}
 
 /* Hamburger */
 .hamburger {
@@ -186,107 +211,181 @@ body {
 }
 .nav-drawer-link:hover { background: var(--surface-2); color: var(--text); }
 .nav-drawer-link.active { color: var(--accent); background: var(--accent-glow); }
+.nav-drawer-search { padding: 16px; border-bottom: 1px solid var(--border); }
+.nav-drawer-search input { width: 100%; }
 
 /* ═══ BLOG HEADER ═══ */
-.blog-header { text-align: center; margin-bottom: 64px; animation: fadeInDown 0.6s var(--ease); }
+.blog-header { text-align: center; margin-bottom: 48px; animation: fadeInDown 0.6s var(--ease); }
 .blog-header h1 {
   font-size: clamp(36px, 6vw, 56px); font-weight: 800;
   letter-spacing: -0.04em; line-height: 1.1; margin-bottom: 16px;
   background: linear-gradient(180deg, var(--text) 0%, var(--text-sub) 120%);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
 }
-.blog-header p { color: var(--text-sub); font-size: 18px; max-width: 500px; margin: 0 auto; line-height: 1.6; }
+.blog-header p { color: var(--text-sub); font-size: 18px; max-width: 600px; margin: 0 auto; line-height: 1.6; }
 
 @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
 
-/* ═══ FEATURED POST CARD (IMPROVED) ═══ */
-.blog-carousel { position: relative; max-width: 1000px; margin: 0 auto; }
-.blog-post-wrapper { min-height: 400px; position: relative; perspective: 1000px; }
+/* ═══ FILTERS & CATEGORIES ═══ */
+.filter-bar {
+  display: flex; justify-content: center; flex-wrap: wrap; gap: 10px;
+  margin-bottom: 40px;
+}
+.filter-chip {
+  padding: 8px 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--text-sub);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s var(--ease);
+}
+.filter-chip:hover { border-color: var(--border-strong); color: var(--text); }
+.filter-chip.active { background: var(--accent); color: white; border-color: var(--accent); }
 
-.blog-post {
+/* ═══ GRID LAYOUT ═══ */
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 32px;
+  margin-bottom: 60px;
+}
+
+.month-section {
+  grid-column: 1 / -1;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.month-title {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+.month-count {
+  font-size: 12px;
+  color: var(--text-muted);
+  background: var(--surface-2);
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+/* Card Style */
+.blog-card {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.3s;
+  height: 100%;
+}
+.blog-card:hover {
+  transform: translateY(-4px);
   box-shadow: var(--shadow);
-  opacity: 0; transform: translateY(20px) scale(0.98);
-  transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
-  
-  /* DESKTOP GRID LAYOUT */
-  display: grid;
-  grid-template-columns: 1.2fr 1fr; /* Image slightly wider */
-  min-height: 420px;
+  border-color: var(--border-strong);
 }
 
-.blog-post.active { opacity: 1; transform: translateY(0) scale(1); }
-
-.blog-post-link { display: contents; text-decoration: none; color: inherit; }
-
-.blog-post-image {
-  width: 100%; height: 100%; min-height: 300px;
-  overflow: hidden; background: var(--surface-3); position: relative;
+.card-image {
+  width: 100%;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  background: var(--surface-3);
 }
-.blog-post-image img {
-  width: 100%; height: 100%; object-fit: cover; display: block;
-  transition: transform 0.7s var(--ease);
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--ease);
 }
-.blog-post-link:hover .blog-post-image img { transform: scale(1.05); }
+.blog-card:hover .card-image img { transform: scale(1.05); }
 
-.blog-post-content {
-  padding: 48px; display: flex; flex-direction: column; justify-content: center;
-}
-
-.blog-post-meta {
-  display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
-  font-size: 12px; color: var(--text-muted); font-family: var(--mono);
-  text-transform: uppercase; letter-spacing: 0.05em;
-}
-.blog-post-tag {
-  padding: 6px 12px; background: var(--accent-glow); color: var(--accent);
-  border-radius: 999px; font-size: 11px; font-weight: 700; letter-spacing: 0.02em;
+.card-content {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
-.blog-post-title {
-  font-size: 32px; font-weight: 700; letter-spacing: -0.03em;
-  line-height: 1.2; margin-bottom: 20px; transition: color 0.2s var(--ease);
+.card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
 }
-.blog-post-link:hover .blog-post-title { color: var(--accent); }
-
-.blog-post-excerpt {
-  color: var(--text-sub); font-size: 16px; line-height: 1.7;
-  margin-bottom: 32px;
-  display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden;
+.card-tag {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--accent);
+  letter-spacing: 0.05em;
+}
+.card-date {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-family: var(--mono);
 }
 
-.blog-post-read-more {
-  display: inline-flex; align-items: center; gap: 8px;
-  color: var(--accent); font-weight: 600; font-size: 14px;
-  margin-top: auto; transition: gap 0.3s var(--ease);
+.card-title {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 12px;
+  color: var(--text);
+  transition: color 0.2s;
 }
-.blog-post-link:hover .blog-post-read-more { gap: 14px; }
-.blog-post-read-more::after { content: '→'; font-size: 16px; transition: transform 0.3s var(--ease); }
-.blog-post-link:hover .blog-post-read-more::after { transform: translateX(4px); }
+.blog-card:hover .card-title { color: var(--accent); }
 
-/* ═══ CONTROLS ═══ */
-.blog-nav { display: flex; justify-content: center; gap: 16px; margin-top: 40px; }
-.nav-btn {
-  padding: 12px 24px; background: var(--surface); border: 1px solid var(--border);
-  color: var(--text); border-radius: var(--radius-sm); cursor: pointer;
-  font-size: 14px; font-weight: 600; transition: all 0.2s var(--ease);
-  display: flex; align-items: center; gap: 8px;
+.card-excerpt {
+  font-size: 14px;
+  color: var(--text-sub);
+  line-height: 1.6;
+  margin-bottom: 20px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex: 1;
 }
-.nav-btn:hover:not(:disabled) { background: var(--surface-2); border-color: var(--border-strong); transform: translateY(-2px); }
-.nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
-.nav-btn svg { width: 16px; height: 16px; }
 
-.post-indicators { display: flex; justify-content: center; gap: 8px; margin-top: 24px; }
-.indicator {
-  width: 8px; height: 8px; border-radius: 50%; background: var(--border-strong);
-  cursor: pointer; transition: all 0.3s var(--ease); border: none; padding: 0;
+.card-footer {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
 }
-.indicator.active { background: var(--accent); width: 24px; border-radius: 4px; }
+.read-more {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.read-more:hover { color: var(--accent); }
+.read-more svg { width: 16px; height: 16px; transition: transform 0.2s; }
+.read-more:hover svg { transform: translateX(4px); }
 
-.post-counter { text-align: center; margin-top: 12px; font-size: 12px; color: var(--text-muted); font-family: var(--mono); }
+/* No Results */
+.no-results {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-muted);
+}
+.no-results h3 { font-size: 20px; color: var(--text); margin-bottom: 8px; }
 
 /* ═══ FOOTER ═══ */
 .blog-footer { text-align: center; margin-top: 80px; padding-top: 40px; border-top: 1px solid var(--border); }
@@ -294,58 +393,46 @@ body {
 .blog-footer a { color: var(--accent); text-decoration: none; font-weight: 600; }
 .blog-footer a:hover { text-decoration: underline; }
 
-/* ═══ RESPONSIVE (MOBILE OPTIMIZED) ═══ */
+/* ═══ RESPONSIVE ═══ */
 @media (max-width: 850px) {
   .shell { padding: 20px 16px 60px; }
   .nav-shell { margin: -20px -16px 32px; padding: 0 16px; }
+  .nav-left { width: 100%; justify-content: space-between; }
   .nav-links { display: none; }
+  .search-wrapper { display: none; } /* Hide desktop search on mobile */
   .hamburger { display: flex; }
   
-  .blog-header { margin-bottom: 40px; }
+  .blog-grid { grid-template-columns: 1fr; gap: 24px; }
   .blog-header h1 { font-size: 32px; }
-  .blog-header p { font-size: 16px; }
-  
-  /* Stack layout for mobile */
-  .blog-post { grid-template-columns: 1fr; min-height: auto; }
-  .blog-post-image { aspect-ratio: 16/9; min-height: auto; }
-  .blog-post-content { padding: 24px 20px 28px; }
-  
-  .blog-post-title { font-size: 24px; margin-bottom: 12px; line-height: 1.3; }
-  .blog-post-excerpt { font-size: 15px; margin-bottom: 24px; -webkit-line-clamp: 3; }
-  
-  .blog-nav { gap: 12px; margin-top: 32px; }
-  .nav-btn { flex: 1; justify-content: center; padding: 14px; } /* Full width buttons for easy tap */
-  
-  .indicator { width: 6px; height: 6px; }
-  .indicator.active { width: 20px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
-
-.skip-link {
-  position: absolute; left: -9999px; top: 0; background: var(--accent); color: white;
-  padding: 8px 16px; border-radius: 4px; z-index: 9999; text-decoration: none; font-size: 13px;
-}
-.skip-link:focus { left: 16px; top: 16px; }
 </style>
 </head>
 <body>
 
-<a href="#blogContent" class="skip-link">Skip to blog posts</a>
-
 <div class="shell">
   <nav class="nav-shell">
     <div class="nav-bar">
-      <div class="nav-links">
-        <a href="/" class="nav-link">🏠 Home</a>
-        <a href="/blog" class="nav-link active">📝 Blog</a>
-        <a href="/techtopics" class="nav-link">💡 Tech Topics</a>
-        <a href="/software" class="nav-link">💻 Software</a>
-        <a href="/games" class="nav-link">🎮 Games</a>
-        <a href="/subscribe" class="nav-link">✉️ Subscribe</a>
+      <div class="nav-left">
+        <div class="nav-links">
+          <a href="/" class="nav-link">🏠 Home</a>
+          <a href="/blog" class="nav-link active">📝 Blog</a>
+          <a href="/techtopics" class="nav-link">💡 Tech Topics</a>
+          <a href="/software" class="nav-link">💻 Software</a>
+          <a href="/games" class="nav-link">🎮 Games</a>
+          <a href="/subscribe" class="nav-link">✉️ Subscribe</a>
+        </div>
+        
+        <!-- Desktop Search -->
+        <div class="search-wrapper">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input type="text" id="desktopSearch" class="search-input" placeholder="Search articles..." aria-label="Search articles">
+        </div>
       </div>
+
       <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
         <span class="hamburger-line"></span>
         <span class="hamburger-line"></span>
@@ -361,6 +448,15 @@ body {
       <span class="nav-drawer-title">Menu</span>
       <button class="icon-btn" id="drawerClose" aria-label="Close menu" style="width:32px;height:32px;">×</button>
     </div>
+    
+    <!-- Mobile Search -->
+    <div class="nav-drawer-search">
+       <div style="position:relative;">
+         <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+         <input type="text" id="mobileSearch" class="search-input" placeholder="Search articles..." style="width:100%; padding-left:36px;" aria-label="Search articles">
+       </div>
+    </div>
+
     <div class="nav-drawer-links">
       <a href="/" class="nav-drawer-link">🏠 Home</a>
       <a href="/blog" class="nav-drawer-link active">📝 Blog</a>
@@ -392,26 +488,16 @@ body {
     <p>Deep dives into technology, design systems, AI tools, and digital culture.</p>
   </div>
 
-  <!-- BLOG CONTENT -->
-  <div id="blogContent" class="blog-carousel" role="main">
-    <div class="blog-post-wrapper" id="blogPosts"></div>
+  <!-- CATEGORY FILTERS -->
+  <div class="filter-bar" id="categoryFilters">
+    <button class="filter-chip active" data-category="all">All Posts</button>
+    <!-- Categories injected via JS -->
+  </div>
 
-    <!-- INDICATORS -->
-    <div class="post-indicators" id="indicators" role="tablist" aria-label="Post navigation"></div>
-    
-    <!-- COUNTER -->
-    <div class="post-counter" id="postCounter" aria-live="polite"></div>
-
-    <!-- NAVIGATION BUTTONS -->
-    <div class="blog-nav">
-      <button class="nav-btn" id="prevBtn" aria-label="Previous post">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-        <span>Prev</span>
-      </button>
-      <button class="nav-btn" id="nextBtn" aria-label="Next post">
-        <span>Next</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </button>
+  <!-- BLOG GRID CONTENT -->
+  <div id="blogContent" role="main">
+    <div class="blog-grid" id="blogGrid">
+      <!-- Posts injected via JS -->
     </div>
   </div>
 
@@ -439,6 +525,14 @@ body {
 
   const BLOG_POSTS = [
     {
+      title: 'AI, Mathematics, Robotics and Security: The Stories Shaping Tech Right Now',
+      link: '/post/ai-math-robotics-security-sept-2026',
+      excerpt: 'Fields Medalists warn of AI misalignment, RubyGems attacked by AI agent swarm, Mecka AI nears $500M valuation, and debates on model distillation.',
+      tag: 'Tech Analysis',
+      date: 'September 2026',
+      image: 'https://images.unsplash.com/photo-1737644467636-6b0053476bb2?q=80&w=1072&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+    },
+    {
       title: 'Top Tech Headlines: Nvidia, OpenAI, Tesla and AI Copyright Battles',
       link: '/post/top-tech-headlines-sept-2026',
       excerpt: 'Major developments in AI and tech: Nvidia acquires Hugging Face, OpenAI agents incident, Tesla Cybercab investigation, and new copyright lawsuits.',
@@ -457,7 +551,7 @@ body {
     {
       title: 'The AI Model Wars Heat Up: DeepSeek V4 Pro, Grok 4.6 and Qwen3.8',
       link: '/post/ai-model-wars-august-2026',
-      excerpt: 'DeepSeek, xAI and Alibaba\'s Qwen team have all made significant moves this week. Explore the latest releases including DeepSeek V4 Pro 0813, Grok 4.6, and Qwen3.8-2.4T-A95B, and what they mean for developers.',
+      excerpt: 'DeepSeek, xAI and Alibaba\'s Qwen team have all made significant moves this week. Explore the latest releases including DeepSeek V4 Pro 0813, Grok 4.6, and Qwen3.8-2.4T-A95B.',
       tag: 'AI News',
       date: 'August 2026',
       image: 'https://images.unsplash.com/photo-1697577418970-95d99b5a55cf?q=80&w=996&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
@@ -512,12 +606,15 @@ body {
     }
   ];
 
-  let currentPostIndex = 0;
-  const postsContainer = document.getElementById('blogPosts');
-  const prevBtn = document.getElementById('prevBtn');
-  const nextBtn = document.getElementById('nextBtn');
-  const indicatorsContainer = document.getElementById('indicators');
-  const postCounter = document.getElementById('postCounter');
+  // State
+  let currentCategory = 'all';
+  let searchQuery = '';
+
+  // DOM Elements
+  const blogGrid = document.getElementById('blogGrid');
+  const categoryFilters = document.getElementById('categoryFilters');
+  const desktopSearch = document.getElementById('desktopSearch');
+  const mobileSearch = document.getElementById('mobileSearch');
 
   // Theme Logic
   const sunSvg = '<circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>';
@@ -554,97 +651,121 @@ body {
   navDrawerOverlay.addEventListener('click', () => toggleDrawer(false));
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && navDrawer.classList.contains('active')) toggleDrawer(false); });
 
-  // Carousel Logic
-  function createIndicators() {
-    indicatorsContainer.innerHTML = '';
-    BLOG_POSTS.forEach((_, index) => {
-      const indicator = document.createElement('button');
-      indicator.className = 'indicator' + (index === currentPostIndex ? ' active' : '');
-      indicator.setAttribute('role', 'tab');
-      indicator.setAttribute('aria-selected', index === currentPostIndex);
-      indicator.setAttribute('aria-label', `Go to post ${index + 1}`);
-      indicator.addEventListener('click', () => showPost(index));
-      indicatorsContainer.appendChild(indicator);
-    });
+  // Helper: Get Unique Categories
+  function getCategories() {
+    const cats = new Set(BLOG_POSTS.map(p => p.tag));
+    return Array.from(cats).sort();
   }
 
-  function updateUI() {
-    // Indicators
-    const indicators = indicatorsContainer.querySelectorAll('.indicator');
-    indicators.forEach((ind, idx) => {
-      ind.classList.toggle('active', idx === currentPostIndex);
-      ind.setAttribute('aria-selected', idx === currentPostIndex);
+  // Render Category Filters
+  function renderCategories() {
+    const categories = getCategories();
+    categories.forEach(cat => {
+      const btn = document.createElement('button');
+      btn.className = 'filter-chip';
+      btn.textContent = cat;
+      btn.dataset.category = cat;
+      btn.addEventListener('click', () => setCategory(cat));
+      categoryFilters.appendChild(btn);
     });
-    // Counter
-    postCounter.textContent = `${currentPostIndex + 1} / ${BLOG_POSTS.length}`;
-    // Buttons
-    prevBtn.disabled = currentPostIndex === 0;
-    nextBtn.disabled = currentPostIndex === BLOG_POSTS.length - 1;
+
+    // Add click handler to "All"
+    categoryFilters.querySelector('[data-category="all"]').addEventListener('click', () => setCategory('all'));
   }
 
-  function showPost(index) {
-    if (index < 0 || index >= BLOG_POSTS.length) return;
+  function setCategory(cat) {
+    currentCategory = cat;
     
-    // Fade out existing
-    const existing = postsContainer.querySelector('.blog-post');
-    if (existing) existing.classList.remove('active');
+    // Update UI
+    document.querySelectorAll('.filter-chip').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.category === cat);
+    });
 
-    setTimeout(() => {
-      const post = BLOG_POSTS[index];
-      postsContainer.innerHTML = `
-        <article class="blog-post">
-          <a href="${post.link}" target="_blank" rel="noopener noreferrer" class="blog-post-link" aria-label="Read: ${post.title}">
-            <div class="blog-post-image">
-              <img src="${post.image}" alt="${post.title}" loading="lazy" onerror="this.parentElement.style.background='var(--surface-3)'">
+    renderPosts();
+  }
+
+  // Search Handler
+  function handleSearch(query) {
+    searchQuery = query.toLowerCase().trim();
+    renderPosts();
+  }
+
+  desktopSearch.addEventListener('input', (e) => handleSearch(e.target.value));
+  mobileSearch.addEventListener('input', (e) => handleSearch(e.target.value));
+
+  // Main Render Function
+  function renderPosts() {
+    blogGrid.innerHTML = '';
+
+    // Filter Posts
+    let filtered = BLOG_POSTS.filter(post => {
+      const matchesCat = currentCategory === 'all' || post.tag === currentCategory;
+      const matchesSearch = post.title.toLowerCase().includes(searchQuery) || 
+                            post.excerpt.toLowerCase().includes(searchQuery) ||
+                            post.tag.toLowerCase().includes(searchQuery);
+      return matchesCat && matchesSearch;
+    });
+
+    if (filtered.length === 0) {
+      blogGrid.innerHTML = `
+        <div class="no-results">
+          <h3>No posts found</h3>
+          <p>Try adjusting your search or category filter.</p>
+        </div>
+      `;
+      return;
+    }
+
+    // Group by Month/Date for "History" feel
+    // We'll group by the 'date' string exactly as provided (e.g., "September 2026")
+    const grouped = {};
+    filtered.forEach(post => {
+      if (!grouped[post.date]) grouped[post.date] = [];
+      grouped[post.date].push(post);
+    });
+
+    // Render Groups
+    Object.keys(grouped).forEach(dateHeader => {
+      // Section Header
+      const sectionDiv = document.createElement('div');
+      sectionDiv.className = 'month-section';
+      sectionDiv.innerHTML = `
+        <span class="month-title">${dateHeader}</span>
+        <span class="month-count">${grouped[dateHeader].length} posts</span>
+      `;
+      blogGrid.appendChild(sectionDiv);
+
+      // Cards in this group
+      grouped[dateHeader].forEach(post => {
+        const card = document.createElement('article');
+        card.className = 'blog-card';
+        card.innerHTML = `
+          <a href="${post.link}" target="_blank" rel="noopener noreferrer" style="text-decoration:none; color:inherit; display:flex; flex-direction:column; height:100%;">
+            <div class="card-image">
+              <img src="${post.image}" alt="${post.title}" loading="lazy">
             </div>
-            <div class="blog-post-content">
-              <div class="blog-post-meta">
-                <span class="blog-post-tag">${post.tag}</span>
-                <span>${post.date}</span>
+            <div class="card-content">
+              <div class="card-meta">
+                <span class="card-tag">${post.tag}</span>
+                <span class="card-date">${post.date}</span>
               </div>
-              <h2 class="blog-post-title">${post.title}</h2>
-              <p class="blog-post-excerpt">${post.excerpt}</p>
-              <span class="blog-post-read-more">Read Article</span>
+              <h3 class="card-title">${post.title}</h3>
+              <p class="card-excerpt">${post.excerpt}</p>
+              <div class="card-footer">
+                <span class="read-more">Read Article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+              </div>
             </div>
           </a>
-        </article>
-      `;
-      
-      // Trigger reflow for animation
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          postsContainer.querySelector('.blog-post').classList.add('active');
-        });
+        `;
+        blogGrid.appendChild(card);
       });
-
-      currentPostIndex = index;
-      updateUI();
-    }, existing ? 300 : 0);
+    });
   }
 
-  prevBtn.addEventListener('click', () => showPost(currentPostIndex - 1));
-  nextBtn.addEventListener('click', () => showPost(currentPostIndex + 1));
-
-  // Keyboard Nav
-  document.addEventListener('keydown', (e) => {
-    if (navDrawer.classList.contains('active')) return;
-    if (e.key === 'ArrowLeft') showPost(currentPostIndex - 1);
-    if (e.key === 'ArrowRight') showPost(currentPostIndex + 1);
-  });
-
-  // Touch Swipe
-  let touchStartX = 0;
-  postsContainer.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX, {passive:true});
-  postsContainer.addEventListener('touchend', e => {
-    const diff = touchStartX - e.changedTouches[0].screenX;
-    if (Math.abs(diff) > 50) {
-      diff > 0 ? showPost(currentPostIndex + 1) : showPost(currentPostIndex - 1);
-    }
-  }, {passive:true});
-
   // Init
-  createIndicators();
-  showPost(0);
+  renderCategories();
+  renderPosts();
+
 })();
 </script>
 </body>
