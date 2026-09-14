@@ -102,27 +102,67 @@ body {
 
 .shell { max-width: var(--shell-w); margin: 0 auto; padding: 32px 24px 80px; position: relative; z-index: 1; }
 
-/* ── NAVIGATION ── */
-.nav-shell { 
-  position: sticky; top: 0; z-index: 100; 
-  background: color-mix(in srgb, var(--bg) 85%, transparent); 
-  border-bottom: 1px solid var(--border); 
-  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); 
-  margin: -32px -24px 32px; padding: 0 24px; 
+/* ── NAVIGATION (UPDATED) ── */
+.nav-shell {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(5, 5, 5, 0.85);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  margin: -32px -24px 32px; 
+  padding: 0 32px;
 }
-.nav-bar { max-width: var(--shell-w); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 14px 0; gap: 16px; position: relative; }
-.nav-links { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
-.nav-link { 
-  padding: 7px 14px; 
-  color: var(--text-sub); 
-  border-radius: 99px; 
-  font-size: 13px; 
-  font-weight: 500; 
-  text-decoration: none; 
-  transition: all 0.2s; 
-  white-space: nowrap; 
+
+.nav-bar {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 0;
+  gap: 24px;
 }
-.nav-link:hover, .nav-link.active { color: var(--text); background: var(--surface-2); }
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex: 1;
+}
+
+.nav-links {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.nav-link {
+  padding: 8px 16px;
+  background: none;
+  border: 1px solid transparent;
+  color: #a1a1aa;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+  white-space: nowrap;
+}
+
+.nav-link:hover {
+  color: #fafafa;
+  background: #18181b;
+}
+
+.nav-link.active {
+  color: #818cf8;
+  background: rgba(129, 140, 248, 0.15);
+  border-color: rgba(99, 102, 241, 0.2);
+}
+
 .hamburger { display: none; width: 38px; height: 38px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; cursor: pointer; align-items: center; justify-content: center; font-size: 17px; color: var(--text); }
 
 /* ── LIVE TICKER ── */
@@ -568,14 +608,15 @@ body {
 }
 @keyframes shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
 
-/* ── AFFILIATE COMPONENTS (AUDITED & FIXED) ── */
+/* ── AFFILIATE COMPONENTS (UPDATED FOR SINGLE ROW) ── */
 .affiliate-section {
   margin: 28px 0 32px;
   animation: fadeUp 0.6s var(--ease-out);
 }
 .affiliate-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  /* Force 4 columns in one row on desktop */
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
 }
 .affiliate-card-item {
@@ -588,6 +629,7 @@ body {
   gap: 16px;
   align-items: flex-start;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  height: 100%;
 }
 .affiliate-card-item:hover {
   transform: translateY(-2px);
@@ -822,9 +864,14 @@ body {
 }
 
 /* ── RESPONSIVE ── */
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
+  /* Tablet: 2x2 Grid for Affiliates */
+  .affiliate-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
   .trending-grid { grid-template-columns: repeat(2, 1fr); }
 }
+
 @media (max-width: 768px) {
   .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; background: var(--surface); border-bottom: 1px solid var(--border); padding: 14px 20px; gap: 6px; z-index: 99; box-shadow: var(--shadow); }
   .nav-links.active { display: flex; animation: slideDown 0.25s var(--ease); }
@@ -838,6 +885,7 @@ body {
   .msg { max-width: 96%; }
   .msg.user { max-width: 92%; }
 }
+
 @media (max-width: 560px) { 
   .trending-grid { grid-template-columns: 1fr; }
   .trending-grid .news-card { min-height: 0; }
@@ -847,6 +895,7 @@ body {
   .chat-input { font-size: 16px; }
   .section-header { flex-direction: column; align-items: flex-start; gap: 4px; }
   
+  /* Mobile: Single Column Stack for Affiliates */
   .affiliate-grid { grid-template-columns: 1fr; }
   .affiliate-card-item { text-align: center; align-items: center; }
   .affiliate-card-item .affiliate-btn { width: 100%; justify-content: center; }
@@ -866,13 +915,20 @@ body {
 <div class="shell">
   <nav class="nav-shell">
     <div class="nav-bar">
-      <div class="nav-links">
-        <a href="/" class="nav-link active">🏠 Home</a>
-        <a href="/blog" class="nav-link">📝 Blog</a>
-        <a href="/techtopics" class="nav-link">💡 Tech Topics</a>
-        <a href="/software" class="nav-link">💻 Software</a>
-        <a href="/games" class="nav-link">🎮 Games</a>
-        <a href="/subscribe" class="nav-link">✉️ Subscribe</a>
+      <div class="nav-left">
+        <a href="#" class="brand" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">
+          <span class="brand-logo"><img src="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png" alt=""></span>
+          <span>Digital Infohub</span>
+        </a>
+        <div class="nav-links">
+          <a href="/" class="nav-link active">🏠 Home</a>
+          <a href="/blog" class="nav-link">📝 Blog</a>
+          <a href="/techtopics" class="nav-link">💡 Tech Topics</a>
+          <a href="/software" class="nav-link">💻 Software</a>
+          <a href="/games" class="nav-link">🎮 Games</a>
+          <a href="/techproducts" class="nav-link">🛍️ Tech Products</a>
+          <a href="/subscribe" class="nav-link">✉️ Subscribe</a>
+        </div>
       </div>
       <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">☰</button>
     </div>
@@ -883,10 +939,11 @@ body {
   </div>
 
   <div class="topbar">
-    <a href="#" class="brand" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">
-      <span class="brand-logo"><img src="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png" alt=""></span>
-      <span>Digital Infohub</span>
-    </a>
+    <!-- Brand moved to nav-left, keeping actions here or moving based on preference. 
+         Keeping actions here for balance as per original design, but nav-left handles brand now. 
+         To strictly follow your nav snippet, brand is in nav-left. 
+         We keep topbar actions separate for layout balance. -->
+    <div></div> <!-- Spacer if needed -->
     <div class="topbar-actions">
       <button class="icon-btn" id="supportTopBtn" title="Support Digital Infohub" style="color: var(--accent);">
         <span>❤️</span>
@@ -948,13 +1005,13 @@ body {
     </div>
   </section>
 
-  <!-- AFFILIATE RECOMMENDATION SECTION -->
-  <section class="affiliate-section" id="affiliateHomepageSection" style="display: none;">
+  <!-- AFFILIATE RECOMMENDATION SECTION (UPDATED WITH IMAGES & SINGLE ROW) -->
+  <section class="affiliate-section" id="affiliateHomepageSection">
     <div class="section-header">
       <h2 class="section-title">Recommended Tech & Tools</h2>
     </div>
     <div class="affiliate-grid" id="affiliateHomepageGrid">
-      <!-- Populated by JS -->
+      <!-- Populated by JS below with Unsplash Images -->
     </div>
     <p class="affiliate-disclosure">Some links on Digital Infohub are affiliate links (including Amazon Associates). We may earn a commission if you purchase through them, at no additional cost to you.</p>
   </section>
@@ -1061,14 +1118,13 @@ body {
   'use strict';
 
   /* ═══════════════ DIGITAL INFOHUB MONETISATION SETTINGS ═══════════════ */
-  /* RYAN: EDIT THESE VALUES TO ADD OR UPDATE AFFILIATE PROGRAMMES */
   const affiliateSettings = {
     isinwheel: {
       id: "isinwheel",
       name: "isinwheel",
       product: "isinwheel M50 27.5\" Full Suspension e-MTB",
       affiliateUrl: "https://isinwheel.pxf.io/c/6347824/3901839/15800",
-      assetCode: `<a rel="sponsored noopener" href="https://isinwheel.pxf.io/c/6347824/3901839/15800" target="_blank" id="3901839" class="affiliate-asset-link"><img src="https://a.impactradius-go.com/display-ad/15800-3901839" border="0" alt="isinwheel M50 27.5 Full Suspension e-MTB" width="300" height="250" loading="lazy" class="affiliate-asset-img"/></a><img height="0" width="0" src="https://imp.pxf.io/i/6347824/3901839/15800" style="position:absolute;visibility:hidden;" border="0" alt="" />`,
+      image: "https://images.unsplash.com/photo-1622772526703-2e3f1e4e444b?q=80&w=1469&auto=format&fit=crop",
       cta: "View the M50 →",
       description: "Full-suspension electric mountain bike. Check the manufacturer's current specifications and UK rules before riding on public roads.",
       keywords: ["electric bike", "e-bike", "electric mountain bike", "mountain bike", "isinwheel", "electric bicycle", "emtb"],
@@ -1084,7 +1140,7 @@ body {
       name: "Logitech",
       product: "Logitech MK270 Wireless Keyboard and Mouse Combo",
       affiliateUrl: "https://amzn.to/4r2E0FQ",
-      assetCode: null,
+      image: "https://images.unsplash.com/photo-1547394765-185e1e68f34e?q=80&w=1470&auto=format&fit=crop",
       cta: "View on Amazon →",
       description: "Reliable wireless keyboard and mouse combo for Windows. A staple for clean desktop and office setups.",
       keywords: ["keyboard", "mouse", "wireless keyboard", "wireless mouse", "keyboard and mouse", "logitech", "computer accessories", "pc accessories", "desktop setup", "office setup"],
@@ -1100,7 +1156,7 @@ body {
       name: "AI Smart Glasses",
       product: "AI Smart Glasses with Camera & Translation",
       affiliateUrl: "https://amzn.to/4cF49Vr",
-      assetCode: null,
+      image: "https://images.unsplash.com/photo-1556306510-31ca015374b0?q=80&w=1470&auto=format&fit=crop",
       cta: "View on Amazon →",
       description: "800W Camera, 1080P Video Record, 164 Language Translate, Bluetooth, Voice Assistant, Object Recognition, Photochromic Lenses.",
       keywords: ["smart glasses", "ai glasses", "ai smart glasses", "camera glasses", "translation glasses", "wearable ai", "ai wearable", "bluetooth glasses", "smart eyewear", "object recognition"],
@@ -1116,7 +1172,7 @@ body {
       name: "INIU",
       product: "INIU Wireless Charger Stand, 15W Fast Charging Dock",
       affiliateUrl: "https://amzn.to/4A6eWBP",
-      assetCode: null,
+      image: "https://images.unsplash.com/photo-1737882171913-f4ced0ce73d8?q=80&w=688&auto=format&fit=crop",
       cta: "View on Amazon →",
       description: "15W fast charging dock phone charger with LED. A sleek, reliable charging stand for your smartphone.",
       keywords: ["wireless charger", "wireless charging", "charging stand", "phone charger", "15w charger", "charging dock", "phone stand", "iniu", "smartphone accessories"],
@@ -1217,6 +1273,9 @@ body {
     section.style.display = 'block';
     grid.innerHTML = enabledProducts.map(aff => `
       <div class="affiliate-card-item">
+        <div class="affiliate-card-creative" style="margin-bottom:12px;">
+            <img src="${aff.image}" alt="${esc(aff.product)}" loading="lazy" style="border-radius:var(--radius-sm); width:100%; height:160px; object-fit:cover;">
+        </div>
         <div class="affiliate-card-info">
           <h3>${esc(aff.product)}</h3>
           <p>${esc(aff.description)}</p>
@@ -1225,7 +1284,6 @@ body {
             ${esc(aff.cta)}
           </a>
         </div>
-        ${aff.assetCode ? `<div class="affiliate-card-creative">${aff.assetCode}</div>` : ''}
       </div>
     `).join('');
   }
@@ -1252,7 +1310,6 @@ body {
           <button class="affiliate-popup-close" aria-label="Close popup">&times;</button>
           <h3>Looking for tech essentials?</h3>
           <p><strong>${esc(aff.product)}</strong><br>${esc(aff.description)}</p>
-          ${aff.assetCode ? `<div class="affiliate-popup-creative">${aff.assetCode}</div>` : ''}
           <a href="${esc(aff.affiliateUrl)}" target="_blank" rel="sponsored noopener" class="affiliate-btn" 
              onclick="trackAffiliateClick('${aff.id}', '${aff.name}', 'popup')" aria-label="View ${esc(aff.product)}">
             ${esc(aff.cta)}
