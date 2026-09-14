@@ -2010,7 +2010,7 @@ body {
           updateSubtitle('Fetching live trends...');
           const trends = await fetchTrending();
           if (!trends.length) return `<p>Unable to load trending topics right now. Please try again in a moment.</p>` + renderSuggestions(['Retry trending','Full briefing']);
-          return `<p>🔥 <strong>Trending now</strong> — live from the Hacker News front page:</p>` + renderNewsGrid(trends) + renderSuggestions(['What\'s happening in AI today?','Give me a market briefing']);
+          return `<p>🔥 <strong>Trending now</strong></p>` + renderNewsGrid(trends) + renderSuggestions(['What\'s happening in AI today?','Give me a market briefing']);
         }
 
         case 'ai_news': {
