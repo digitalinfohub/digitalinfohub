@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <!-- Impact Radius Tracking -->
+  <script type="text/javascript">(function(i,m,p,a,c,t){c.ire_o=p;c[p]=c[p]||function(){(c[p].a=c[p].a||[]).push(arguments)};t=a.createElement(m);var z=a.getElementsByTagName(m)[0];t.async=1;t.src=i;z.parentNode.insertBefore(t,z)})('https://utt.impactcdn.com/P-A7758864-2bef-4dd1-ac43-5d83fb132afb1.js','script','impactStat',document,window);impactStat('transformLinks');impactStat('trackImpression');</script>
+  
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471" crossorigin="anonymous"></script>
+
+<meta charset="UTF-8">
+<title>Tech Products & Tools | Digital Infohub</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta name="description" content="Discover useful tech products, gadgets, AI devices, accessories and tools recommended by Digital Infohub.">
+<meta name="theme-color" content="#0a0a0a">
+
+<!-- Open Graph / Social Sharing -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Tech Products & Tools | Digital Infohub">
+<meta property="og:description" content="Curated tech products, gadgets, AI devices and tools recommended by Digital Infohub.">
+<meta property="og:url" content="https://digitalinfohub.net/techproducts">
+<meta property="og:image" content="https://images.unsplash.com/photo-1684610527413-66eec7828690?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Tech Products & Tools | Digital Infohub">
+<meta name="twitter:description" content="Curated tech products, gadgets, AI devices and tools recommended by Digital Infohub.">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1684610527413-66eec7828690?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0">
+
+<link rel="icon" href="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ═══════════════ DESIGN TOKENS (REUSED FROM MAIN SITE) ═══════════════ */
+:root {
+  --font: 'Inter', -apple-system, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --radius: 16px;
+  --radius-sm: 10px;
+  --glow-color: 129, 140, 248;
+  --shell-w: 1080px;
+}
+
+[data-theme="dark"] {
+  --bg: #09090b; 
+  --surface: #111113; 
+  --surface-2: #18181b; 
+  --surface-3: #27272a;
+  --border: rgba(255,255,255,0.08); 
+  --border-strong: rgba(255,255,255,0.15);
+  --text: #fafafa; 
+  --text-sub: #a1a1aa; 
+  --text-muted: #71717a;
+  --accent: #818cf8; 
+  --accent-soft: rgba(129,140,248,0.1);
+  --accent-glow: rgba(129,140,248,0.4);
+  --shadow: 0 10px 40px -10px rgba(0,0,0,0.5);
+  --green: #4ade80; 
+  --red: #f87171;
+  --chat-glow: 0 0 30px rgba(var(--glow-color), 0.12), 0 0 60px rgba(var(--glow-color), 0.06);
+}
+
+[data-theme="light"] {
+  --bg: #fafafa; 
+  --surface: #ffffff; 
+  --surface-2: #f4f4f5; 
+  --surface-3: #e4e4e7;
+  --border: rgba(0,0,0,0.08); 
+  --border-strong: rgba(0,0,0,0.15);
+  --text: #09090b; 
+  --text-sub: #52525b; 
+  --text-muted: #a1a1aa;
+  --accent: #4f46e5; 
+  --accent-soft: rgba(79,70,229,0.08);
+  --accent-glow: rgba(79,70,229,0.3);
+  --shadow: 0 10px 40px -10px rgba(0,0,0,0.1);
+  --green: #16a34a; 
+  --red: #dc2626;
+  --chat-glow: 0 0 30px rgba(var(--glow-color), 0.08), 0 0 60px rgba(var(--glow-color), 0.04);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body { 
+  font-family: var(--font); 
+  background: var(--bg); 
+  color: var(--text); 
+  line-height: 1.6; 
+  transition: background 0.3s, color 0.3s; 
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  background-image: radial-gradient(circle at 50% 0%, var(--surface) 0%, transparent 70%);
+  overflow-x: hidden;
+}
+
+.shell { max-width: var(--shell-w); margin: 0 auto; padding: 32px 24px 80px; position: relative; z-index: 1; }
+
+/* ── NAVIGATION (REUSED) ── */
+.nav-shell { 
+  position: sticky; top: 0; z-index: 100; 
+  background: color-mix(in srgb, var(--bg) 85%, transparent); 
+  border-bottom: 1px solid var(--border); 
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); 
+  margin: -32px -24px 32px; padding: 0 24px; 
+}
+.nav-bar { max-width: var(--shell-w); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 14px 0; gap: 16px; position: relative; }
+.nav-links { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+.nav-link { 
+  padding: 7px 14px; 
+  color: var(--text-sub); 
+  border-radius: 99px; 
+  font-size: 13px; 
+  font-weight: 500; 
+  text-decoration: none; 
+  transition: all 0.2s; 
+  white-space: nowrap; 
+}
+.nav-link:hover, .nav-link.active { color: var(--text); background: var(--surface-2); }
+.hamburger { display: none; width: 38px; height: 38px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; cursor: pointer; align-items: center; justify-content: center; font-size: 17px; color: var(--text); }
+
+.topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 700; text-decoration: none; color: var(--text); font-size: 17px; letter-spacing: -0.02em; }
+.brand-logo { width: 34px; height: 34px; border-radius: 10px; background: var(--surface-2); border: 1px solid var(--border); overflow: hidden; }
+.brand-logo img { width: 100%; height: 100%; object-fit: cover; }
+.topbar-actions { display: flex; gap: 10px; align-items: center; }
+.icon-btn { 
+  width: 38px; height: 38px; 
+  border: 1px solid var(--border); 
+  background: var(--surface); 
+  color: var(--text-sub); 
+  border-radius: 10px; 
+  cursor: pointer; 
+  display: flex; align-items: center; justify-content: center; 
+  transition: all 0.2s; 
+  font-size: 15px;
+}
+.icon-btn:hover { color: var(--text); border-color: var(--border-strong); background: var(--surface-2); transform: translateY(-1px); }
+.clock { font-family: var(--mono); font-size: 12px; color: var(--text-muted); padding: 7px 14px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); font-weight: 500; }
+
+/* ── HERO SECTION ── */
+.hero-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 48px 32px;
+  margin-bottom: 32px;
+  box-shadow: var(--chat-glow);
+  position: relative;
+  overflow: hidden;
+  animation: heroAppear 0.5s var(--ease-out);
+}
+
+@keyframes heroAppear {
+  from { opacity: 0; transform: translateY(16px) scale(0.99); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: var(--radius);
+  padding: 1px;
+  background: linear-gradient(135deg, transparent 30%, rgba(var(--glow-color), 0.25) 50%, transparent 70%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: glowRotate 6s linear infinite;
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes glowRotate {
+  0% { background-position: 0% 0%, 0 0; }
+  100% { background-position: 200% 200%, 0 0; }
+}
+
+.hero-content { position: relative; z-index: 2; text-align: center; }
+
+.hero-title {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.hero-subtitle {
+  font-size: 18px;
+  color: var(--text-sub);
+  margin-bottom: 16px;
+  font-weight: 500;
+}
+
+.hero-description {
+  font-size: 14px;
+  color: var(--text-muted);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ── CATEGORY SECTIONS ── */
+.category-section {
+  margin-bottom: 40px;
+  animation: fadeUp 0.6s var(--ease-out);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.section-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.section-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  letter-spacing: -0.01em;
+}
+
+.section-title::before {
+  content: '';
+  display: block;
+  width: 4px;
+  height: 20px;
+  background: var(--accent);
+  border-radius: 2px;
+  box-shadow: 0 0 8px var(--accent);
+}
+
+.section-count {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-family: var(--mono);
+  background: var(--surface-2);
+  padding: 4px 10px;
+  border-radius: 99px;
+  border: 1px solid var(--border);
+}
+
+/* ── PRODUCT CARDS (UPDATED FOR SINGLE ROW) ── */
+.product-grid {
+  display: grid;
+  /* Force 4 columns in one row on desktop */
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.product-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  height: 100%; /* Ensure equal height */
+}
+
+.product-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), rgba(var(--glow-color), 0.5));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow);
+  border-color: var(--border-strong);
+}
+
+.product-card:hover::before { opacity: 1; }
+
+.product-image-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--surface-2);
+  border-radius: var(--radius-sm);
+  padding: 20px;
+  min-height: 180px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.product-image-wrap img {
+  max-width: 100%;
+  max-height: 160px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-image-wrap img { transform: scale(1.05); }
+
+.product-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.product-category {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  background: var(--accent-soft);
+  padding: 4px 10px;
+  border-radius: 99px;
+  width: fit-content;
+  border: 1px solid rgba(var(--glow-color), 0.15);
+}
+
+.product-name {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+}
+
+.product-description {
+  font-size: 13px;
+  color: var(--text-sub);
+  line-height: 1.6;
+  flex: 1;
+}
+
+.product-cta {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  padding: 12px 20px !important;
+  background: var(--accent) !important;
+  color: #ffffff !important;
+  border-radius: var(--radius-sm) !important;
+  text-decoration: none !important;
+  font-weight: 600 !important;
+  font-size: 13px !important;
+  border: none !important;
+  box-shadow: 0 0 10px rgba(var(--glow-color), 0.25);
+  transition: all 0.2s ease !important;
+  cursor: pointer !important;
+  margin-top: 8px;
+  width: 100%;
+}
+
+.product-cta:hover {
+  opacity: 0.9 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 0 16px rgba(var(--glow-color), 0.4) !important;
+  color: #ffffff !important;
+}
+
+/* ── AFFILIATE DISCLOSURE ── */
+.affiliate-disclosure {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: 40px;
+  padding: 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-style: italic;
+  line-height: 1.6;
+}
+
+/* ── AD SECTION ── */
+.ad-section {
+  margin: 32px 0;
+  padding: 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  text-align: center;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.6;
+  transition: opacity 0.3s;
+}
+.ad-section:hover { opacity: 1; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  /* Tablet: 2x2 Grid */
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%; left: 0; right: 0;
+    flex-direction: column;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 20px;
+    gap: 6px;
+    z-index: 99;
+    box-shadow: var(--shadow);
+  }
+  .nav-links.active { display: flex; animation: slideDown 0.25s var(--ease); }
+  @keyframes slideDown { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+  .hamburger { display: flex; }
+  .shell { padding: 20px 16px 60px; }
+  .nav-shell { margin: -20px -16px 24px; padding: 0 16px; }
+  .hero-section { padding: 32px 20px; }
+  .hero-title { font-size: 26px; }
+  .hero-subtitle { font-size: 16px; }
+  .topbar { flex-direction: column; gap: 10px; align-items: flex-start; }
+}
+
+@media (max-width: 560px) {
+  /* Mobile: Single Column Stack */
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+  .hero-section { padding: 24px 16px; }
+  .hero-title { font-size: 22px; }
+  .section-title { font-size: 18px; }
+  .product-card { padding: 18px; }
+  .product-image-wrap { min-height: 150px; padding: 16px; }
+}
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <!-- NAVIGATION -->
+  <nav class="nav-shell">
+    <div class="nav-bar">
+      <div class="nav-links">
+        <a href="/" class="nav-link">🏠 Home</a>
+        <a href="/blog" class="nav-link">📝 Blog</a>
+        <a href="/techtopics" class="nav-link">💡 Tech Topics</a>
+        <a href="/software" class="nav-link">💻 Software</a>
+        <a href="/games" class="nav-link">🎮 Games</a>
+        <a href="/techproducts" class="nav-link active">🛍️ Tech Products</a>
+        <a href="/subscribe" class="nav-link">✉️ Subscribe</a>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">☰</button>
+    </div>
+  </nav>
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <a href="/" class="brand">
+      <span class="brand-logo"><img src="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png" alt="Digital Infohub Logo"></span>
+      <span>Digital Infohub</span>
+    </a>
+    <div class="topbar-actions">
+      <button class="icon-btn" id="themeToggle" title="Toggle theme">◑</button>
+      <div class="clock" id="clock">--:--</div>
+    </div>
+  </div>
+
+  <!-- HERO SECTION -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1 class="hero-title">Tech Products & Tools</h1>
+      <p class="hero-subtitle">Useful tech, gadgets and tools worth checking out.</p>
+      <p class="hero-description">Discover products we've selected for work, creativity, productivity and everyday technology.</p>
+    </div>
+  </section>
+
+  <!-- ALL PRODUCTS IN ONE GRID ROW -->
+  <section class="category-section">
+    <div class="section-header">
+      <h2 class="section-title">Featured Selection</h2>
+      <span class="section-count">4 products</span>
+    </div>
+    
+    <div class="product-grid">
+      
+      <!-- Product 1: Logitech -->
+      <article class="product-card">
+        <div class="product-image-wrap">
+          <img src="https://m.media-amazon.com/images/I/61S0rN+-XnL._AC_SL1500_.jpg" 
+               alt="Logitech MK270 Wireless Keyboard and Mouse Combo" 
+               loading="lazy">
+        </div>
+        <div class="product-info">
+          <span class="product-category">Computers & Accessories</span>
+          <h3 class="product-name">Logitech MK270 Wireless Keyboard and Mouse Combo</h3>
+          <p class="product-description">Reliable wireless keyboard and mouse combo for Windows. A staple for clean desktop and office setups.</p>
+          <a href="https://amzn.to/4r2E0FQ" 
+             target="_blank" 
+             rel="sponsored noopener" 
+             class="product-cta"
+             onclick="trackAffiliateClick('logitech_mk270', 'Logitech', 'techproducts')">
+            View on Amazon →
+          </a>
+        </div>
+      </article>
+
+      <!-- Product 2: AI Glasses -->
+      <article class="product-card">
+        <div class="product-image-wrap">
+          <img src="https://m.media-amazon.com/images/I/61vKZ8qJURL._AC_SL1500_.jpg" 
+               alt="AI Smart Glasses with Camera and Translation" 
+               loading="lazy">
+        </div>
+        <div class="product-info">
+          <span class="product-category">AI & Smart Tech</span>
+          <h3 class="product-name">AI Smart Glasses with Camera & Translation</h3>
+          <p class="product-description">800W Camera, 1080P Video Record, 164 Language Translate, Bluetooth, Voice Assistant, Object Recognition, Photochromic Lenses.</p>
+          <a href="https://amzn.to/4cF49Vr" 
+             target="_blank" 
+             rel="sponsored noopener" 
+             class="product-cta"
+             onclick="trackAffiliateClick('ai_smart_glasses', 'AI Smart Glasses', 'techproducts')">
+            View on Amazon →
+          </a>
+        </div>
+      </article>
+
+      <!-- Product 3: INIU Charger -->
+      <article class="product-card">
+        <div class="product-image-wrap">
+          <img src="https://m.media-amazon.com/images/I/61gBqKzXSQL._AC_SL1500_.jpg" 
+               alt="INIU Wireless Charger Stand 15W Fast Charging Dock" 
+               loading="lazy">
+        </div>
+        <div class="product-info">
+          <span class="product-category">Mobile & Charging</span>
+          <h3 class="product-name">INIU Wireless Charger Stand, 15W Fast Charging Dock</h3>
+          <p class="product-description">15W fast charging dock phone charger with LED. A sleek, reliable charging stand for your smartphone.</p>
+          <a href="https://amzn.to/4A6eWBP" 
+             target="_blank" 
+             rel="sponsored noopener" 
+             class="product-cta"
+             onclick="trackAffiliateClick('iniu_charger', 'INIU', 'techproducts')">
+            View on Amazon →
+          </a>
+        </div>
+      </article>
+
+      <!-- Product 4: isinwheel Bike -->
+      <article class="product-card">
+        <div class="product-image-wrap">
+          <img src="https://a.impactradius-go.com/display-ad/15800-3901839" 
+               alt="isinwheel M50 27.5 inch Full Suspension e-MTB" 
+               loading="lazy">
+        </div>
+        <div class="product-info">
+          <span class="product-category">Outdoor & Tech</span>
+          <h3 class="product-name">isinwheel M50 27.5" Full Suspension e-MTB</h3>
+          <p class="product-description">Full-suspension electric mountain bike. Check the manufacturer's current specifications and UK rules before riding on public roads.</p>
+          <a href="https://isinwheel.pxf.io/c/6347824/3901839/15800" 
+             target="_blank" 
+             rel="sponsored noopener" 
+             class="product-cta"
+             onclick="trackAffiliateClick('isinwheel_m50', 'isinwheel', 'techproducts')">
+            View the M50 →
+          </a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- AD SECTION -->
+  <div class="ad-section">
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-5443646750699471"
+         data-ad-slot="auto"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <!-- AFFILIATE DISCLOSURE -->
+  <div class="affiliate-disclosure">
+    Some links on Digital Infohub are affiliate links, including Amazon Associates. We may earn a commission if you purchase through them, at no additional cost to you.
+  </div>
+
+</div>
+
+<!-- FOOTER (REUSED) -->
+<footer style="border-top: 1px solid var(--border); margin-top: 48px; padding: 32px 24px; text-align: center;">
+  <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 24px; margin-bottom: 16px; font-size: 13px; color: var(--text-sub);">
+    <a href="/" style="color: var(--text-sub); text-decoration: none;">Home</a>
+    <a href="/blog" style="color: var(--text-sub); text-decoration: none;">Blog</a>
+    <a href="/techtopics" style="color: var(--text-sub); text-decoration: none;">Tech Topics</a>
+    <a href="/software" style="color: var(--text-sub); text-decoration: none;">Software</a>
+    <a href="/games" style="color: var(--text-sub); text-decoration: none;">Games</a>
+    <a href="/techproducts" style="color: var(--accent); text-decoration: none; font-weight: 500;">Tech Products</a>
+    <a href="/subscribe" style="color: var(--text-sub); text-decoration: none;">Subscribe</a>
+  </div>
+  <p style="font-size: 11px; color: var(--text-muted);">
+    &copy; 2026 Digital Infohub. All rights reserved.
+  </p>
+</footer>
+
+<script>
+(function() {
+  'use strict';
+
+  /* ═══════════════ AFFILIATE TRACKING ═══════════════ */
+  function trackAffiliateClick(productId, merchant, placement) {
+    const eventData = {
+      event: 'affiliate_click',
+      affiliateId: productId,
+      product: merchant,
+      page: window.location.pathname,
+      placement: placement
+    };
+    if (window.dataLayer) {
+      window.dataLayer.push(eventData);
+    } else {
+      console.log('[Affiliate Tracking]', eventData);
+    }
+  }
+
+  /* ═══════════════ THEME TOGGLE ═══════════════ */
+  const themeBtn = document.getElementById('themeToggle');
+  let theme = localStorage.getItem('dih_theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', theme);
+  
+  if (themeBtn) {
+    themeBtn.addEventListener('click', () => {
+      theme = theme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('dih_theme', theme);
+    });
+  }
+
+  /* ═══════════════ CLOCK ═══════════════ */
+  function updateClock() {
+    const clock = document.getElementById('clock');
+    if (clock) {
+      clock.textContent = new Date().toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+    }
+  }
+  updateClock();
+  setInterval(updateClock, 1000);
+
+  /* ═══════════════ MOBILE MENU ═══════════════ */
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.querySelector('.nav-links');
+  
+  if (hamburger && navLinks) {
+    hamburger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      navLinks.classList.toggle('active');
+      const isOpen = navLinks.classList.contains('active');
+      hamburger.textContent = isOpen ? '✕' : '☰';
+      hamburger.setAttribute('aria-expanded', isOpen);
+    });
+    
+    navLinks.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        hamburger.textContent = '☰';
+        hamburger.setAttribute('aria-expanded', 'false');
+      });
+    });
+    
+    document.addEventListener('click', (e) => {
+      if (!navLinks.contains(e.target) && !hamburger.contains(e.target) && navLinks.classList.contains('active')) {
+        navLinks.classList.remove('active');
+        hamburger.textContent = '☰';
+        hamburger.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
+})();
+</script>
+
+</body>
+</html>
