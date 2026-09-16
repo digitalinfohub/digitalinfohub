@@ -1238,7 +1238,7 @@ body {
     <div class="byte-header">
       <div class="byte-balance-area">
         <div class="byte-label">Byte Balance</div>
-        <div class="byte-value"><span class="byte-icon">⚡</span> <span id="byteBalanceDisplay">0</span></div>
+        <div class="byte-value"><span class="byte-icon">⚡</span> <span id="byteBalanceDisplay">0.0</span></div>
         <div class="byte-level-badge">
           <span>Level <span id="byteLevelDisplay">1</span></span>
           <span style="color:var(--border-strong)">•</span>
@@ -2602,6 +2602,10 @@ body {
       }
       updateSubtitle('Online • Ready');
       checkSupportPrompt();
+      
+      // BYTE SYSTEM INTEGRATION: Award 0.1 Bytes for AI interaction
+      ByteSystem.awardBytes(0.1, 'AI Interaction');
+      
     } catch(err) {
       console.error('AI Process Error:', err); 
       typingEl.remove();
@@ -2780,6 +2784,7 @@ body {
       this.state.balance += amount;
       this.saveState();
       this.updateUI();
+      // Show toast for all amounts now that we have decimals
       this.showToast(`+${amount} Bytes ⚡`);
       
       // Check Level Up
@@ -2808,8 +2813,8 @@ body {
     },
 
     updateUI() {
-      // Balance & Level
-      document.getElementById('byteBalanceDisplay').textContent = this.state.balance;
+      // Balance & Level - Display with 1 decimal place
+      document.getElementById('byteBalanceDisplay').textContent = this.state.balance.toFixed(1);
       const levelData = this.getLevel();
       document.getElementById('byteLevelDisplay').textContent = levelData.level;
       document.getElementById('byteStatusDisplay').textContent = levelData.title;
@@ -2828,19 +2833,24 @@ body {
         
         bar.style.width = `${pct}%`;
         nextText.textContent = `Next: Level ${next.level} (${next.title})`;
-        remText.textContent = `${next.threshold - this.state.balance} Bytes left`;
+        remText.textContent = `${Math.ceil(next.threshold - this.state.balance)} Bytes left`;
       } else {
         bar.style.width = '100%';
         nextText.textContent = 'Max Level Reached';
         remText.textContent = 'Enjoy the perks!';
       }
 
-      // Hunt UI
+      // Hunt UI - Only mark as completed if actually done
       const today = new Date().toDateString();
       const visitDone = this.state.lastVisitDate === today;
       
-      document.getElementById('huntVisit').classList.toggle('completed', visitDone);
-      document.getElementById('huntTime').classList.add('completed');
+      // Reset classes first
+      document.getElementById('huntVisit').classList.remove('completed');
+      document.getElementById('huntTime').classList.remove('completed');
+
+      if (visitDone) {
+        document.getElementById('huntVisit').classList.add('completed');
+      }
     },
 
     showToast(msg) {
@@ -2860,7 +2870,7 @@ body {
 
       document.getElementById('openMysteryBtn').addEventListener('click', () => {
         if (this.state.balance < 100) {
-          this.showToast(`⚡ You need 100 Bytes (You have ${this.state.balance})`);
+          this.showToast(`⚡ You need 100 Bytes (You have ${this.state.balance.toFixed(1)})`);
           return;
         }
         mysteryOverlay.classList.add('active');
@@ -2943,6 +2953,8 @@ body {
       setInterval(() => {
         if (!document.hidden) {
           this.awardBytes(this.config.rewards.timeActive, 'Time Active');
+          // Mark time hunt as complete visually after first reward
+          document.getElementById('huntTime').classList.add('completed');
         }
       }, 60000);
     }
