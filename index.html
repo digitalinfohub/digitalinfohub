@@ -863,6 +863,259 @@ body {
   animation: slideUp 0.4s var(--ease-out);
 }
 
+/* ═══════════════ BYTE SYSTEM STYLES ═══════════════ */
+.byte-center {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 28px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  animation: fadeUp 0.6s var(--ease-out);
+}
+
+.byte-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 12px;
+}
+
+.byte-balance-area {
+  display: flex;
+  flex-direction: column;
+}
+
+.byte-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.byte-value {
+  font-size: 28px;
+  font-weight: 800;
+  font-family: var(--mono);
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  line-height: 1;
+}
+
+.byte-icon {
+  color: #fbbf24; /* Amber/Gold for Bytes */
+  filter: drop-shadow(0 0 5px rgba(251, 191, 36, 0.4));
+}
+
+.byte-level-badge {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  padding: 4px 10px;
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-sub);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.byte-progress-wrap {
+  margin-top: 12px;
+}
+
+.byte-bar-bg {
+  height: 6px;
+  background: var(--surface-3);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+.byte-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #fbbf24, #f59e0b);
+  width: 0%;
+  transition: width 0.5s var(--ease);
+  box-shadow: 0 0 8px rgba(251, 191, 36, 0.3);
+}
+
+.byte-next-unlock {
+  font-size: 11px;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Daily Hunt */
+.byte-hunt-section {
+  margin-top: 16px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+}
+
+.hunt-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.hunt-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--text-sub);
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+
+.hunt-item:last-child { border-bottom: none; }
+
+.hunt-check {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid var(--border-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  color: transparent;
+  transition: all 0.2s;
+}
+
+.hunt-item.completed .hunt-check {
+  background: var(--green);
+  border-color: var(--green);
+  color: #fff;
+}
+
+.hunt-item.completed span {
+  color: var(--text);
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.hunt-bonus {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--border);
+  font-size: 11px;
+  color: var(--accent);
+  font-weight: 600;
+  text-align: center;
+  opacity: 0.5;
+  transition: all 0.3s;
+}
+
+.hunt-bonus.active {
+  opacity: 1;
+  color: #fbbf24;
+  text-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
+}
+
+/* Toast Notification */
+.byte-toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--surface);
+  border: 1px solid #fbbf24;
+  color: var(--text);
+  padding: 10px 20px;
+  border-radius: 99px;
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: 0 10px 30px -5px rgba(0,0,0,0.5);
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s var(--ease-out);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.byte-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ═══════════════ MYSTERY REWARD STYLES ═══════════════ */
+.mystery-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(12px);
+  z-index: 3000; display: none; align-items: center; justify-content: center; padding: 16px;
+}
+.mystery-overlay.active { display: flex; animation: fadeIn 0.2s ease; }
+
+.mystery-modal {
+  width: 100%; max-width: 500px; background: var(--surface);
+  border: 1px solid #fbbf24; border-radius: var(--radius);
+  box-shadow: 0 0 40px rgba(251, 191, 36, 0.15);
+  padding: 24px; text-align: center;
+}
+
+.mystery-title { font-size: 20px; font-weight: 800; color: #fbbf24; margin-bottom: 8px; }
+.mystery-desc { font-size: 13px; color: var(--text-sub); margin-bottom: 24px; line-height: 1.5; }
+
+.mystery-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px;
+}
+
+.mystery-card {
+  background: var(--surface-2); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); aspect-ratio: 1;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 32px; cursor: pointer; transition: all 0.3s;
+  position: relative; overflow: hidden;
+}
+
+.mystery-card:hover:not(.disabled) {
+  border-color: #fbbf24; transform: translateY(-4px);
+  box-shadow: 0 10px 20px -5px rgba(251, 191, 36, 0.2);
+}
+
+.mystery-card.disabled { cursor: not-allowed; opacity: 0.5; }
+.mystery-card.opened { border-color: var(--green); background: rgba(74, 222, 128, 0.1); }
+
+.mystery-warning {
+  font-size: 11px; color: var(--text-muted); margin-top: 16px;
+  padding-top: 16px; border-top: 1px solid var(--border);
+}
+
+.mystery-loading {
+  display: none; font-size: 14px; color: var(--text); font-weight: 600;
+  margin: 20px 0; animation: pulse 1.5s infinite;
+}
+
+.confirmation-box {
+  background: var(--surface-2); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 20px; margin-bottom: 20px;
+  text-align: center;
+}
+.confirmation-buttons {
+  display: flex; gap: 10px; margin-top: 16px; justify-content: center;
+}
+.btn-confirm { background: #fbbf24; color: #000; border: none; padding: 8px 16px; border-radius: 6px; font-weight: 700; cursor: pointer; }
+.btn-cancel { background: transparent; color: var(--text-sub); border: 1px solid var(--border); padding: 8px 16px; border-radius: 6px; cursor: pointer; }
+
 /* ── RESPONSIVE ── */
 @media (max-width: 1024px) {
   /* Tablet: 2x2 Grid for Affiliates */
@@ -939,10 +1192,6 @@ body {
   </div>
 
   <div class="topbar">
-    <!-- Brand moved to nav-left, keeping actions here or moving based on preference. 
-         Keeping actions here for balance as per original design, but nav-left handles brand now. 
-         To strictly follow your nav snippet, brand is in nav-left. 
-         We keep topbar actions separate for layout balance. -->
     <div></div> <!-- Spacer if needed -->
     <div class="topbar-actions">
       <button class="icon-btn" id="supportTopBtn" title="Support Digital Infohub" style="color: var(--accent);">
@@ -982,6 +1231,49 @@ body {
       <input class="chat-input" id="chatInput" type="text" placeholder='Try "What&#39;s trending?" or "Market briefing"' aria-label="Message Infohub AI">
       <button class="chat-send" id="chatSend" type="submit" aria-label="Send">→</button>
     </form>
+  </section>
+
+  <!-- ⚡ BYTE CENTER -->
+  <section class="byte-center" id="byteCenter">
+    <div class="byte-header">
+      <div class="byte-balance-area">
+        <div class="byte-label">Byte Balance</div>
+        <div class="byte-value"><span class="byte-icon">⚡</span> <span id="byteBalanceDisplay">0</span></div>
+        <div class="byte-level-badge">
+          <span>Level <span id="byteLevelDisplay">1</span></span>
+          <span style="color:var(--border-strong)">•</span>
+          <span id="byteStatusDisplay">Visitor</span>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <button class="icon-btn" id="openMysteryBtn" title="Mystery USDC Reward" style="width:32px;height:32px;font-size:14px;border-color:#fbbf24;color:#fbbf24;">🎁</button>
+      </div>
+    </div>
+
+    <div class="byte-progress-wrap">
+      <div class="byte-bar-bg">
+        <div class="byte-bar-fill" id="byteProgressBar"></div>
+      </div>
+      <div class="byte-next-unlock">
+        <span id="byteNextUnlockText">Loading...</span>
+        <span id="byteRemainingText">0 Bytes left</span>
+      </div>
+    </div>
+
+    <div class="byte-hunt-section">
+      <div class="hunt-title">🎯 HOMEPAGE ACTIVITY</div>
+      <div class="hunt-item" id="huntVisit">
+        <span>🏠 Daily Homepage Visit</span>
+        <div class="hunt-check">✓</div>
+      </div>
+      <div class="hunt-item" id="huntTime">
+        <span>⏱️ Time Spent Online</span>
+        <div class="hunt-check">✓</div>
+      </div>
+      <div class="hunt-bonus" id="huntBonus">
+        Earn +1 Byte every 60 seconds while active
+      </div>
+    </div>
   </section>
 
   <!-- WHAT'S TRENDING TODAY — primary discovery -->
@@ -1089,6 +1381,44 @@ body {
 <div class="support-prompt" id="supportPrompt" role="alert">
   <span>Finding Digital Infohub useful? <a href="#" id="promptSupportBtn" style="color: var(--accent); font-weight: 600; text-decoration: none;">Support the project →</a></span>
   <button id="dismissPromptBtn" style="background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 18px; line-height: 1; padding: 0 4px;" aria-label="Dismiss support prompt">×</button>
+</div>
+
+<!-- MYSTERY REWARD MODAL -->
+<div class="mystery-overlay" id="mysteryOverlay">
+  <div class="mystery-modal">
+    <div id="mysteryContent">
+      <div class="mystery-title">🎁 Mystery USDC Reward</div>
+      <div class="mystery-desc">Spend 100 Bytes to receive one mystery reward attempt for a chance to claim $0.01 USDC.</div>
+      
+      <div class="mystery-grid" id="mysteryGrid">
+        <!-- Cards injected by JS -->
+      </div>
+      
+      <div class="mystery-loading" id="mysteryLoading">🎁 Opening reward...</div>
+      
+      <div class="mystery-warning">
+        ⚠️ Rewards are limited and may have already been claimed by another visitor.
+      </div>
+    </div>
+
+    <!-- Confirmation Step -->
+    <div id="mysteryConfirm" style="display:none;">
+      <div class="confirmation-box">
+        <div style="font-size:18px;font-weight:700;color:var(--text);margin-bottom:8px;">Spend 100 Bytes?</div>
+        <div style="font-size:13px;color:var(--text-sub);">You will receive one mystery reward attempt.</div>
+        <div class="confirmation-buttons">
+          <button class="btn-confirm" id="confirmSpendBtn">Spend 100 Bytes</button>
+          <button class="btn-cancel" id="cancelSpendBtn">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BYTE TOAST -->
+<div class="byte-toast" id="byteToast">
+  <span class="byte-icon">⚡</span>
+  <span id="toastMessage">+5 Bytes</span>
 </div>
 
 <footer style="border-top: 1px solid var(--border); margin-top: 48px; padding: 32px 24px; text-align: center;">
@@ -2376,6 +2706,252 @@ body {
     }
     grid.innerHTML = cards.map(newsCardHTML).join('');
   }
+
+  /* ═══════════════ BYTE SYSTEM LOGIC ═══════════════ */
+  const ByteSystem = {
+    config: {
+      rewards: {
+        dailyVisit: 3,
+        timeActive: 1, // Per minute
+        huntBonus: 20
+      },
+      levels: [
+        { level: 1, threshold: 0, title: 'Visitor' },
+        { level: 2, threshold: 100, title: 'Explorer' },
+        { level: 3, threshold: 250, title: 'Tech Enthusiast' },
+        { level: 4, threshold: 500, title: 'Power User' },
+        { level: 5, threshold: 1000, title: 'Infohub Master' },
+        { level: 6, threshold: 2500, title: 'Legend' }
+      ],
+      usdcLinks: [
+        "https://wallet.coinbase.com/claim?k=D9QE9vWmgd1P88shhtT7q1AnkXU37UPR5Gu6vyidvjFE&c=8453&v=3&src=p2p",
+        "https://wallet.coinbase.com/claim?k=HJfWnyWVTjysr1sLeLYvxHfrciizYks1WDp9gSqomTXs&c=8453&v=3&src=p2p",
+        "https://wallet.coinbase.com/claim?k=t15pSZyKvCL8XkKsfspbsWqNiUqBaxW8v8zDh1RUJyP&c=8453&v=3&src=p2p"
+      ]
+    },
+    
+    state: {
+      balance: 0,
+      lastVisitDate: null,
+      lastTimeReward: 0,
+      version: 1
+    },
+
+    init() {
+      this.loadState();
+      this.checkDailyReset();
+      this.updateUI();
+      this.bindEvents();
+      this.startTimer();
+      
+      // Check daily visit reward immediately
+      if (this.state.lastVisitDate !== new Date().toDateString()) {
+        this.awardBytes(this.config.rewards.dailyVisit, 'Daily Homepage Visit');
+        this.state.lastVisitDate = new Date().toDateString();
+        this.saveState();
+      }
+    },
+
+    loadState() {
+      try {
+        const saved = localStorage.getItem('digitalinfohub_bytes_state');
+        if (saved) {
+          this.state = { ...this.state, ...JSON.parse(saved) };
+        }
+      } catch(e) { console.error('Byte Load Error', e); }
+    },
+
+    saveState() {
+      try {
+        localStorage.setItem('digitalinfohub_bytes_state', JSON.stringify(this.state));
+      } catch(e) {}
+    },
+
+    checkDailyReset() {
+      const today = new Date().toDateString();
+      if (this.state.lastVisitDate !== today) {
+        this.state.lastVisitDate = today; 
+        this.state.lastTimeReward = 0;
+        this.saveState();
+      }
+    },
+
+    awardBytes(amount, reason) {
+      this.state.balance += amount;
+      this.saveState();
+      this.updateUI();
+      this.showToast(`+${amount} Bytes ⚡`);
+      
+      // Check Level Up
+      const currentLevel = this.getLevel();
+      const nextLevel = this.config.levels.find(l => l.level === currentLevel.level + 1);
+      if (nextLevel && this.state.balance >= nextLevel.threshold) {
+        setTimeout(() => this.showToast(`Level Up! You are now Level ${nextLevel.level}`), 1000);
+      }
+    },
+
+    getLevel() {
+      let current = this.config.levels[0];
+      for (let i = this.config.levels.length - 1; i >= 0; i--) {
+        if (this.state.balance >= this.config.levels[i].threshold) {
+          current = this.config.levels[i];
+          break;
+        }
+      }
+      return current;
+    },
+
+    getNextUnlock() {
+      const currentLevel = this.getLevel();
+      const nextLevel = this.config.levels.find(l => l.level === currentLevel.level + 1);
+      return nextLevel || null;
+    },
+
+    updateUI() {
+      // Balance & Level
+      document.getElementById('byteBalanceDisplay').textContent = this.state.balance;
+      const levelData = this.getLevel();
+      document.getElementById('byteLevelDisplay').textContent = levelData.level;
+      document.getElementById('byteStatusDisplay').textContent = levelData.title;
+
+      // Progress Bar
+      const next = this.getNextUnlock();
+      const bar = document.getElementById('byteProgressBar');
+      const nextText = document.getElementById('byteNextUnlockText');
+      const remText = document.getElementById('byteRemainingText');
+
+      if (next) {
+        const prevThreshold = this.config.levels.find(l => l.level === next.level - 1)?.threshold || 0;
+        const range = next.threshold - prevThreshold;
+        const progress = this.state.balance - prevThreshold;
+        const pct = Math.min(100, Math.max(0, (progress / range) * 100));
+        
+        bar.style.width = `${pct}%`;
+        nextText.textContent = `Next: Level ${next.level} (${next.title})`;
+        remText.textContent = `${next.threshold - this.state.balance} Bytes left`;
+      } else {
+        bar.style.width = '100%';
+        nextText.textContent = 'Max Level Reached';
+        remText.textContent = 'Enjoy the perks!';
+      }
+
+      // Hunt UI
+      const today = new Date().toDateString();
+      const visitDone = this.state.lastVisitDate === today;
+      
+      document.getElementById('huntVisit').classList.toggle('completed', visitDone);
+      document.getElementById('huntTime').classList.add('completed');
+    },
+
+    showToast(msg) {
+      const toast = document.getElementById('byteToast');
+      document.getElementById('toastMessage').textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    },
+
+    bindEvents() {
+      // Mystery Reward Modal
+      const mysteryOverlay = document.getElementById('mysteryOverlay');
+      const mysteryContent = document.getElementById('mysteryContent');
+      const mysteryConfirm = document.getElementById('mysteryConfirm');
+      const mysteryGrid = document.getElementById('mysteryGrid');
+      const mysteryLoading = document.getElementById('mysteryLoading');
+
+      document.getElementById('openMysteryBtn').addEventListener('click', () => {
+        if (this.state.balance < 100) {
+          this.showToast(`⚡ You need 100 Bytes (You have ${this.state.balance})`);
+          return;
+        }
+        mysteryOverlay.classList.add('active');
+        mysteryContent.style.display = 'block';
+        mysteryConfirm.style.display = 'none';
+        mysteryGrid.style.display = 'grid';
+        mysteryLoading.style.display = 'none';
+        this.renderMysteryCards();
+      });
+
+      mysteryOverlay.addEventListener('click', (e) => {
+        if (e.target === mysteryOverlay) {
+          mysteryOverlay.classList.remove('active');
+        }
+      });
+
+      // Confirmation Logic
+      document.getElementById('confirmSpendBtn').addEventListener('click', () => {
+        this.state.balance -= 100;
+        this.saveState();
+        this.updateUI();
+        mysteryConfirm.style.display = 'none';
+        mysteryGrid.style.display = 'grid';
+      });
+
+      document.getElementById('cancelSpendBtn').addEventListener('click', () => {
+        mysteryOverlay.classList.remove('active');
+      });
+    },
+
+    renderMysteryCards() {
+      const grid = document.getElementById('mysteryGrid');
+      grid.innerHTML = '';
+      
+      // Shuffle links
+      const shuffledLinks = [...this.config.usdcLinks].sort(() => Math.random() - 0.5);
+      
+      shuffledLinks.forEach((link, index) => {
+        const card = document.createElement('div');
+        card.className = 'mystery-card';
+        card.innerHTML = '🎁';
+        card.onclick = () => this.handleMysteryClick(card, link);
+        grid.appendChild(card);
+      });
+    },
+
+    handleMysteryClick(cardElement, link) {
+      // Disable all cards
+      const cards = document.querySelectorAll('.mystery-card');
+      cards.forEach(c => {
+        c.classList.add('disabled');
+        c.onclick = null;
+      });
+
+      // Show loading
+      document.getElementById('mysteryGrid').style.display = 'none';
+      document.getElementById('mysteryLoading').style.display = 'block';
+
+      // Simulate opening delay
+      setTimeout(() => {
+        window.open(link, '_blank');
+        
+        // Show completion
+        document.getElementById('mysteryLoading').style.display = 'none';
+        cardElement.classList.add('opened');
+        cardElement.style.display = 'flex';
+        cardElement.innerHTML = '✓';
+        
+        const warning = document.querySelector('.mystery-warning');
+        warning.innerHTML = `
+          <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:8px;">🎁 Reward opened</div>
+          <div style="font-size:12px;color:var(--text-sub);">Your mystery reward link has been opened in Coinbase.<br>The reward may already have been claimed by another visitor.</div>
+          <button class="btn-byte-shop" style="margin-top:16px;" onclick="document.getElementById('mysteryOverlay').classList.remove('active')">Close</button>
+        `;
+      }, 1500);
+    },
+
+    startTimer() {
+      // Award 1 byte every 60 seconds if tab is active
+      setInterval(() => {
+        if (!document.hidden) {
+          this.awardBytes(this.config.rewards.timeActive, 'Time Active');
+        }
+      }, 60000);
+    }
+  };
+
+  // Initialize Byte System
+  ByteSystem.init();
+  // Expose globally for onclick handlers
+  window.ByteSystem = ByteSystem;
 
   /* ═══════════════ INIT ═══════════════ */
   initTicker();
