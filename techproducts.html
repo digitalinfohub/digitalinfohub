@@ -8,21 +8,21 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471" crossorigin="anonymous"></script>
 
 <meta charset="UTF-8">
-<title>Tech Products & Tools | Digital Infohub</title>
+<title>Best Tech Products & Gadgets Worth Buying | Digital Infohub</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-<meta name="description" content="Discover useful tech products, gadgets, AI devices, accessories and tools recommended by Digital Infohub.">
+<meta name="description" content="Discover useful tech products, laptops, tablets, smartphones and gadgets recommended by Digital Infohub. Curated computing, mobile and productivity tools worth checking out.">
 <meta name="theme-color" content="#0a0a0a">
 
 <!-- Open Graph / Social Sharing -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="Tech Products & Tools | Digital Infohub">
+<meta property="og:title" content="Best Tech Products & Gadgets Worth Buying | Digital Infohub">
 <meta property="og:description" content="Curated tech products, gadgets, AI devices and tools recommended by Digital Infohub.">
 <meta property="og:url" content="https://digitalinfohub.net/techproducts">
 <meta property="og:image" content="https://images.unsplash.com/photo-1684610527413-66eec7828690?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Tech Products & Tools | Digital Infohub">
+<meta name="twitter:title" content="Best Tech Products & Gadgets Worth Buying | Digital Infohub">
 <meta name="twitter:description" content="Curated tech products, gadgets, AI devices and tools recommended by Digital Infohub.">
 <meta name="twitter:image" content="https://images.unsplash.com/photo-1684610527413-66eec7828690?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0">
 
@@ -206,6 +206,41 @@ body {
   line-height: 1.6;
 }
 
+/* ── CATEGORY FILTER ── */
+.category-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 32px;
+  justify-content: center;
+}
+
+.filter-btn {
+  padding: 8px 18px;
+  border-radius: 99px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-sub);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: var(--font);
+}
+
+.filter-btn:hover {
+  border-color: var(--border-strong);
+  color: var(--text);
+  background: var(--surface-2);
+}
+
+.filter-btn.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+  box-shadow: 0 0 12px rgba(var(--glow-color), 0.3);
+}
+
 /* ── CATEGORY SECTIONS ── */
 .category-section {
   margin-bottom: 40px;
@@ -257,10 +292,9 @@ body {
   border: 1px solid var(--border);
 }
 
-/* ── PRODUCT CARDS (UPDATED FOR SINGLE ROW) ── */
+/* ── PRODUCT CARDS ── */
 .product-grid {
   display: grid;
-  /* Force 4 columns in one row on desktop */
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
 }
@@ -276,7 +310,11 @@ body {
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
-  height: 100%; /* Ensure equal height */
+  height: 100%;
+}
+
+.product-card.hidden {
+  display: none;
 }
 
 .product-card::before {
@@ -353,6 +391,15 @@ body {
   flex: 1;
 }
 
+.product-reason {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-style: italic;
+  line-height: 1.5;
+  padding-top: 4px;
+  border-top: 1px dashed var(--border);
+}
+
 .product-cta {
   display: inline-flex !important;
   align-items: center !important;
@@ -413,7 +460,6 @@ body {
 
 /* ── RESPONSIVE ── */
 @media (max-width: 1024px) {
-  /* Tablet: 2x2 Grid */
   .product-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -441,10 +487,11 @@ body {
   .hero-title { font-size: 26px; }
   .hero-subtitle { font-size: 16px; }
   .topbar { flex-direction: column; gap: 10px; align-items: flex-start; }
+  .category-filter { gap: 6px; }
+  .filter-btn { padding: 6px 14px; font-size: 12px; }
 }
 
 @media (max-width: 560px) {
-  /* Mobile: Single Column Stack */
   .product-grid {
     grid-template-columns: 1fr;
   }
@@ -490,23 +537,34 @@ body {
   <!-- HERO SECTION -->
   <section class="hero-section">
     <div class="hero-content">
-      <h1 class="hero-title">Tech Products & Tools</h1>
-      <p class="hero-subtitle">Useful tech, gadgets and tools worth checking out.</p>
-      <p class="hero-description">Discover products we've selected for work, creativity, productivity and everyday technology.</p>
+      <h1 class="hero-title">Best Tech Products & Gadgets Worth Buying</h1>
+      <p class="hero-subtitle">Useful technology across computing, mobile, productivity and everyday tech.</p>
+      <p class="hero-description">Digital Infohub highlights practical tech products we've selected for work, creativity, gaming and daily use. Browse by category below to find what suits your needs.</p>
     </div>
   </section>
 
-  <!-- ALL PRODUCTS IN ONE GRID ROW -->
+  <!-- CATEGORY FILTER -->
+  <div class="category-filter" role="group" aria-label="Filter products by category">
+    <button class="filter-btn active" data-filter="all">All Products</button>
+    <button class="filter-btn" data-filter="computers">Computers</button>
+    <button class="filter-btn" data-filter="laptops">Laptops</button>
+    <button class="filter-btn" data-filter="tablets">Tablets</button>
+    <button class="filter-btn" data-filter="smartphones">Smartphones</button>
+    <button class="filter-btn" data-filter="wearables">Wearables</button>
+    <button class="filter-btn" data-filter="accessories">Accessories</button>
+  </div>
+
+  <!-- ALL PRODUCTS GRID -->
   <section class="category-section">
     <div class="section-header">
       <h2 class="section-title">Featured Selection</h2>
-      <span class="section-count">4 products</span>
+      <span class="section-count" id="productCount">11 products</span>
     </div>
     
-    <div class="product-grid">
+    <div class="product-grid" id="productGrid">
       
-      <!-- Product 1: Logitech -->
-      <article class="product-card">
+      <!-- ORIGINAL Product 1: Logitech -->
+      <article class="product-card" data-categories="accessories computers">
         <div class="product-image-wrap">
           <img src="https://images.unsplash.com/photo-1547394765-185e1e68f34e?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
                alt="Logitech MK270 Wireless Keyboard and Mouse Combo" 
@@ -516,18 +574,19 @@ body {
           <span class="product-category">Computers & Accessories</span>
           <h3 class="product-name">Logitech MK270 Wireless Keyboard and Mouse Combo</h3>
           <p class="product-description">Reliable wireless keyboard and mouse combo for Windows. A staple for clean desktop and office setups.</p>
+          <p class="product-reason">Why consider it: Budget-friendly wireless peripheral set with proven reliability.</p>
           <a href="https://amzn.to/4r2E0FQ" 
              target="_blank" 
-             rel="sponsored noopener" 
+             rel="nofollow sponsored noopener" 
              class="product-cta"
              onclick="trackAffiliateClick('logitech_mk270', 'Logitech', 'techproducts')">
-            View on Amazon →
+            Check Product →
           </a>
         </div>
       </article>
 
-      <!-- Product 2: AI Glasses -->
-      <article class="product-card">
+      <!-- ORIGINAL Product 2: AI Glasses -->
+      <article class="product-card" data-categories="wearables accessories">
         <div class="product-image-wrap">
           <img src="https://images.unsplash.com/photo-1556306510-31ca015374b0?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
                alt="AI Smart Glasses with Camera and Translation" 
@@ -537,18 +596,19 @@ body {
           <span class="product-category">AI & Smart Tech</span>
           <h3 class="product-name">AI Smart Glasses with Camera & Translation</h3>
           <p class="product-description">800W Camera, 1080P Video Record, 164 Language Translate, Bluetooth, Voice Assistant, Object Recognition, Photochromic Lenses.</p>
+          <p class="product-reason">Why consider it: Hands-free translation and recording for travel and accessibility.</p>
           <a href="https://amzn.to/4cF49Vr" 
              target="_blank" 
-             rel="sponsored noopener" 
+             rel="nofollow sponsored noopener" 
              class="product-cta"
              onclick="trackAffiliateClick('ai_smart_glasses', 'AI Smart Glasses', 'techproducts')">
-            View on Amazon →
+            Check Product →
           </a>
         </div>
       </article>
 
-      <!-- Product 3: INIU Charger -->
-      <article class="product-card">
+      <!-- ORIGINAL Product 3: INIU Charger -->
+      <article class="product-card" data-categories="accessories smartphones">
         <div class="product-image-wrap">
           <img src="https://images.unsplash.com/photo-1737882171913-f4ced0ce73d8?q=80&w=688&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
                alt="INIU Wireless Charger Stand 15W Fast Charging Dock" 
@@ -558,18 +618,19 @@ body {
           <span class="product-category">Mobile & Charging</span>
           <h3 class="product-name">INIU Wireless Charger Stand, 15W Fast Charging Dock</h3>
           <p class="product-description">15W fast charging dock phone charger with LED. A sleek, reliable charging stand for your smartphone.</p>
+          <p class="product-reason">Why consider it: Affordable Qi-certified charging stand that doubles as a desk phone holder.</p>
           <a href="https://amzn.to/4A6eWBP" 
              target="_blank" 
-             rel="sponsored noopener" 
+             rel="nofollow sponsored noopener" 
              class="product-cta"
              onclick="trackAffiliateClick('iniu_charger', 'INIU', 'techproducts')">
-            View on Amazon →
+            Check Product →
           </a>
         </div>
       </article>
 
-      <!-- Product 4: isinwheel Bike -->
-      <article class="product-card">
+      <!-- ORIGINAL Product 4: isinwheel Bike -->
+      <article class="product-card" data-categories="accessories">
         <div class="product-image-wrap">
           <img src="https://images.unsplash.com/photo-1622772526703-2e3f1e4e444b?q=80&w=1469&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
                alt="isinwheel M50 27.5 inch Full Suspension e-MTB" 
@@ -579,12 +640,167 @@ body {
           <span class="product-category">Outdoor & Tech</span>
           <h3 class="product-name">isinwheel M50 27.5" Full Suspension e-MTB</h3>
           <p class="product-description">Full-suspension electric mountain bike. Check the manufacturer's current specifications and UK rules before riding on public roads.</p>
+          <p class="product-reason">Why consider it: Electric-assist off-road cycling for commuting and trail riding.</p>
           <a href="https://isinwheel.pxf.io/c/6347824/3901839/15800" 
              target="_blank" 
-             rel="sponsored noopener" 
+             rel="nofollow sponsored noopener" 
              class="product-cta"
              onclick="trackAffiliateClick('isinwheel_m50', 'isinwheel', 'techproducts')">
-            View the M50 →
+            Check Product →
+          </a>
+        </div>
+      </article>
+
+      <!-- NEW Product 5: Microsoft Surface Pro -->
+      <article class="product-card" data-categories="computers tablets laptops">
+        <div class="product-image-wrap">
+          <img src="https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T4/images/I/61WUwnwXLQL._AC_SL1500_.jpg" 
+               alt="Microsoft Surface Pro" 
+               loading="lazy">
+        </div>
+        <div class="product-info">
+          <span class="product-category">Computers / Tablets</span>
+          <h3 class="product-name">Microsoft Surface Pro</h3>
+          <p class="product-description">Versatile 2-in-1 tablet-laptop hybrid with detachable keyboard support and touchscreen interface for productivity on the go.</p>
+          <p class="product-reason">Why consider it: Portable Windows device that transitions between tablet and laptop form factors.</p>
+          <a href="https://amzn.to/4iLcTNB" 
+             target="_blank" 
+             rel="nofollow sponsored noopener" 
+             class="product-cta"
+             onclick="trackAffiliateClick('surface_pro', 'Microsoft', 'techproducts')">
+            Check Product →
+          </a>
+        </div>
+      </article>
+
+      <!-- NEW Product 6: Gleeso Android Tablet -->
+      <article class="product-card" data-categories="tablets smartphones">
+        <div class="product-image-wrap">
+          <img src="https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T4/images/I/71kRFwPALhL._AC_SL1500_.jpg" 
+               alt="Gleeso 11-inch Android Tablet with Keyboard" 
+               loading="lazy">
+        </div>
+        <div class="product-info">
+          <span class="product-category">Tablets / Mobile Tech</span>
+          <h3 class="product-name">Gleeso 11-inch Android Tablet with Keyboard</h3>
+          <p class="product-description">11-inch Android tablet bundled with attachable keyboard case for media consumption, light productivity and student use.</p>
+          <p class="product-reason">Why consider it: Budget Android tablet with included keyboard for basic computing tasks.</p>
+          <a href="https://amzn.to/4xEwBOz" 
+             target="_blank" 
+             rel="nofollow sponsored noopener" 
+             class="product-cta"
+             onclick="trackAffiliateClick('gleeso_tablet', 'Gleeso', 'techproducts')">
+            Check Product →
+          </a>
+        </div>
+      </article>
+
+      <!-- NEW Product 7: Lenovo IdeaPad -->
+      <article class="product-card" data-categories="laptops computers">
+        <div class="product-image-wrap">
+          <img src="https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T4/images/I/71NaOVUWhgL._AC_SL1500_.jpg" 
+               alt="Lenovo IdeaPad Laptop" 
+               loading="lazy">
+        </div>
+        <div class="product-info">
+          <span class="product-category">Laptops / Computers</span>
+          <h3 class="product-name">Lenovo IdeaPad Laptop</h3>
+          <p class="product-description">Everyday Windows laptop designed for home, student and office use with balanced performance and battery life.</p>
+          <p class="product-reason">Why consider it: Reliable mainstream laptop for general computing without premium pricing.</p>
+          <a href="https://amzn.to/3T6qcOe" 
+             target="_blank" 
+             rel="nofollow sponsored noopener" 
+             class="product-cta"
+             onclick="trackAffiliateClick('lenovo_ideapad', 'Lenovo', 'techproducts')">
+            Check Product →
+          </a>
+        </div>
+      </article>
+
+      <!-- NEW Product 8: Apple MacBook -->
+      <article class="product-card" data-categories="laptops computers">
+        <div class="product-image-wrap">
+          <img src="https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T4/images/I/51FWf+esWHL._AC_SL1024_.jpg" 
+               alt="Apple MacBook" 
+               loading="lazy">
+        </div>
+        <div class="product-info">
+          <span class="product-category">Laptops / Apple</span>
+          <h3 class="product-name">Apple MacBook</h3>
+          <p class="product-description">macOS laptop with Apple silicon for creative workflows, development and long battery life in a premium aluminium chassis.</p>
+          <p class="product-reason">Why consider it: Industry-standard build quality and ecosystem integration for Apple users.</p>
+          <a href="https://amzn.to/3TOqSIb" 
+             target="_blank" 
+             rel="nofollow sponsored noopener" 
+             class="product-cta"
+             onclick="trackAffiliateClick('apple_macbook', 'Apple', 'techproducts')">
+            Check Product →
+          </a>
+        </div>
+      </article>
+
+      <!-- NEW Product 9: Motorola Moto G06 -->
+      <article class="product-card" data-categories="smartphones">
+        <div class="product-image-wrap">
+          <img src="https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T4/images/I/81GMB5gomHL._AC_SL1500_.jpg" 
+               alt="Motorola Moto G06 PANTONE Tendril" 
+               loading="lazy">
+        </div>
+        <div class="product-info">
+          <span class="product-category">Smartphones</span>
+          <h3 class="product-name">Motorola Moto G06 PANTONE Tendril</h3>
+          <p class="product-description">Budget Android smartphone in PANTONE Tendril colourway with essential camera, battery and connectivity features.</p>
+          <p class="product-reason">Why consider it: Distinctive colour option at an accessible price point for everyday mobile use.</p>
+          <a href="https://amzn.to/3TJthE5" 
+             target="_blank" 
+             rel="nofollow sponsored noopener" 
+             class="product-cta"
+             onclick="trackAffiliateClick('moto_g06', 'Motorola', 'techproducts')">
+            Check Product →
+          </a>
+        </div>
+      </article>
+
+      <!-- NEW Product 10: Samsung Galaxy A16 -->
+      <article class="product-card" data-categories="smartphones">
+        <div class="product-image-wrap">
+          <img src="https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T4/images/I/61nl8o9BpDL._AC_SL1500_.jpg" 
+               alt="Samsung Galaxy A16 4G" 
+               loading="lazy">
+        </div>
+        <div class="product-info">
+          <span class="product-category">Smartphones</span>
+          <h3 class="product-name">Samsung Galaxy A16 4G</h3>
+          <p class="product-description">Entry-level Samsung Galaxy smartphone with 4G connectivity, AMOLED display and extended software update commitment.</p>
+          <p class="product-reason">Why consider it: Samsung's update policy provides longer security support than typical budget phones.</p>
+          <a href="https://amzn.to/4xHJUho" 
+             target="_blank" 
+             rel="nofollow sponsored noopener" 
+             class="product-cta"
+             onclick="trackAffiliateClick('galaxy_a16', 'Samsung', 'techproducts')">
+            Check Product →
+          </a>
+        </div>
+      </article>
+
+      <!-- NEW Product 11: UAUE Smart Watch -->
+      <article class="product-card" data-categories="wearables accessories">
+        <div class="product-image-wrap">
+          <img src="https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T4/images/I/71C2dSBpqvL._AC_SL1500_.jpg" 
+               alt="UAUE Smart Watch" 
+               loading="lazy">
+        </div>
+        <div class="product-info">
+          <span class="product-category">Smartwatches / Wearables</span>
+          <h3 class="product-name">UAUE Smart Watch</h3>
+          <p class="product-description">Fitness-focused smartwatch with health tracking sensors, notification alerts and companion app connectivity.</p>
+          <p class="product-reason">Why consider it: Affordable wearable for activity tracking and smartphone notifications.</p>
+          <a href="https://amzn.to/3UYYeEJ" 
+             target="_blank" 
+             rel="nofollow sponsored noopener" 
+             class="product-cta"
+             onclick="trackAffiliateClick('uaue_watch', 'UAUE', 'techproducts')">
+            Check Product →
           </a>
         </div>
       </article>
@@ -605,7 +821,7 @@ body {
 
   <!-- AFFILIATE DISCLOSURE -->
   <div class="affiliate-disclosure">
-    Some links on Digital Infohub are affiliate links, including Amazon Associates. We may earn a commission if you purchase through them, at no additional cost to you.
+    Some links on Digital Infohub are affiliate links, including Amazon Associates. We may earn a commission if you purchase through them, at no additional cost to you. Product availability and pricing are subject to change. Always verify specifications directly with the retailer before purchasing.
   </div>
 
 </div>
@@ -701,6 +917,37 @@ body {
       }
     });
   }
+
+  /* ═══════════════ CATEGORY FILTER ═══════════════ */
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const productCards = document.querySelectorAll('.product-card');
+  const productCount = document.getElementById('productCount');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Update active state
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const filter = btn.getAttribute('data-filter');
+      let visibleCount = 0;
+
+      productCards.forEach(card => {
+        const categories = card.getAttribute('data-categories') || '';
+        if (filter === 'all' || categories.includes(filter)) {
+          card.classList.remove('hidden');
+          visibleCount++;
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+
+      // Update count badge
+      if (productCount) {
+        productCount.textContent = visibleCount + (visibleCount === 1 ? ' product' : ' products');
+      }
+    });
+  });
 
 })();
 </script>
