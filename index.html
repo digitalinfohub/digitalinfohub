@@ -94,7 +94,10 @@
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-html { overflow-x: hidden; }
+html, body { 
+  height: 100%;
+  overflow: hidden; /* Prevent body scroll, handled by main-area */
+}
 
 body {
   font-family: var(--font);
@@ -102,18 +105,16 @@ body {
   color: var(--text);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  min-height: 100vh;
-  min-height: 100dvh;
-  overflow-x: hidden;
   transition: background 0.3s, color 0.3s;
 }
 
 .app-shell {
   display: flex;
-  min-height: 100vh;
-  min-height: 100dvh;
+  height: 100vh;
+  height: 100dvh;
   position: relative;
   width: 100%;
+  overflow: hidden;
 }
 
 /* ═══════════════ SIDEBAR (DESKTOP FIXED, MOBILE DRAWER) ═══════════════ */
@@ -125,13 +126,11 @@ body {
   border-right: 1px solid var(--border);
   display: flex;
   flex-direction: column;
-  z-index: 100;
+  z-index: 1000;
   transition: transform 0.4s var(--ease);
-  position: sticky;
-  top: 0;
+  flex-shrink: 0;
   height: 100vh;
   height: 100dvh;
-  flex-shrink: 0;
   overflow: hidden;
 }
 
@@ -296,10 +295,12 @@ body {
 /* ═══════════════ MAIN AREA ═══════════════ */
 .main-area {
   flex: 1;
-  display: flex; flex-direction: column;
-  position: relative;
+  display: flex; 
+  flex-direction: column;
   min-width: 0;
-  overflow-x: hidden;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden; /* Children handle scrolling */
 }
 
 .topbar {
@@ -310,7 +311,8 @@ body {
   background: rgba(10,10,12,0.8);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  position: sticky; top: 0; z-index: 50;
+  position: relative; 
+  z-index: 50;
   flex-shrink: 0;
 }
 
@@ -384,12 +386,12 @@ body {
 /* ═══════════════ AI CORE ═══════════════ */
 .ai-core {
   flex: 1;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  padding: 20px 16px;
+  display: flex; 
+  flex-direction: column;
+  align-items: center; 
+  min-height: 0; /* Critical for flex child scrolling */
+  overflow: hidden; /* Chat thread handles scroll */
   position: relative;
-  overflow-y: auto;
-  min-height: 0;
 }
 
 .ai-ambient-glow {
@@ -408,18 +410,56 @@ body {
 }
 
 .ai-container {
-  width: 100%; max-width: 800px;
-  display: flex; flex-direction: column;
+  width: 100%; 
+  max-width: 800px;
+  display: flex; 
+  flex-direction: column;
   flex: 1;
-  position: relative; z-index: 1;
+  position: relative; 
+  z-index: 1;
   margin: 0 auto;
   min-height: 0;
+  padding: 0 16px;
+}
+
+/* CENTRAL BRANDING */
+.ai-central-branding {
+  text-align: center;
+  margin-bottom: 24px;
+  animation: fadeInDown 0.6s var(--ease-out);
+  padding-top: 20px;
+  flex-shrink: 0;
+}
+.ai-brand-logo-wrapper {
+  width: 64px; height: 64px;
+  margin: 0 auto 12px;
+  border-radius: 16px;
+  background: var(--surface-2);
+  border: 1px solid var(--border-strong);
+  padding: 8px;
+  box-shadow: 0 8px 32px -8px rgba(var(--glow-color), 0.3);
+}
+.ai-brand-logo-wrapper img { width: 100%; height: 100%; object-fit: contain; }
+.ai-brand-title {
+  font-size: 26px; font-weight: 800; letter-spacing: -0.03em;
+  background: linear-gradient(135deg, var(--text) 0%, var(--text-sub) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  margin-bottom: 4px;
+}
+.ai-brand-subtitle {
+  font-size: 13px; color: var(--text-muted); font-weight: 500;
+  letter-spacing: 0.02em;
+}
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .ai-header {
   display: flex; justify-content: space-between; align-items: center;
   margin-bottom: 16px; padding: 0 4px;
   gap: 12px;
+  flex-shrink: 0;
 }
 
 .ai-title-area { display: flex; align-items: center; gap: 10px; min-width: 0; }
@@ -486,13 +526,14 @@ body {
 /* ═══════════════ CHAT THREAD ═══════════════ */
 .chat-thread {
   flex: 1;
-  display: flex; flex-direction: column;
+  display: flex; 
+  flex-direction: column;
   gap: 20px;
   overflow-y: auto;
   padding: 12px 0;
   margin-bottom: 16px;
   scroll-behavior: smooth;
-  min-height: 180px;
+  min-height: 0;
   scrollbar-width: thin;
   scrollbar-color: var(--surface-3) transparent;
   overscroll-behavior: contain;
@@ -507,6 +548,7 @@ body {
   max-width: 100%;
   word-wrap: break-word;
   overflow-wrap: break-word;
+  position: relative;
 }
 @keyframes msgAppear {
   from { opacity: 0; transform: translateY(8px); }
@@ -548,6 +590,19 @@ body {
 }
 .msg.bot .msg-content { padding: 2px 0; }
 
+/* Copy Button */
+.msg-actions {
+  display: flex; gap: 6px; margin-top: 6px;
+  opacity: 0; transition: opacity 0.2s;
+}
+.msg:hover .msg-actions { opacity: 1; }
+.msg-action-btn {
+  background: none; border: none; color: var(--text-muted);
+  font-size: 11px; cursor: pointer; padding: 2px 4px;
+  border-radius: 4px; transition: all 0.15s;
+}
+.msg-action-btn:hover { color: var(--accent); background: var(--accent-soft); }
+
 .msg-content p + p { margin-top: 10px; }
 .msg-content strong { color: var(--text); font-weight: 600; }
 .msg-content a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent-soft); transition: all 0.2s; word-break: break-all; }
@@ -583,11 +638,10 @@ body {
 .step.done { color: var(--text-sub); opacity: 0.6; }
 .step.done .step-icon { color: var(--green); }
 
-/* ═══════════════ INPUT AREA WITH ANIMATED BORDER GLOW ═══════════════ */
+/* ═══════════════ INPUT AREA WITH ENHANCED BORDER GLOW ═══════════════ */
 .ai-input-area {
-  position: sticky; bottom: 0;
   padding-top: 16px;
-  background: linear-gradient(to top, var(--bg) 70%, transparent);
+  padding-bottom: 8px;
   z-index: 5;
   flex-shrink: 0;
 }
@@ -606,14 +660,14 @@ body {
   background: conic-gradient(
     from var(--border-angle),
     transparent 0%,
-    rgba(var(--glow-color), 0.5) 10%,
+    rgba(var(--glow-color), 0.6) 10%,
     var(--accent) 15%,
-    rgba(var(--glow-color), 0.5) 20%,
+    rgba(var(--glow-color), 0.6) 20%,
     transparent 30%,
     transparent 50%,
-    rgba(249, 115, 22, 0.4) 60%,
+    rgba(249, 115, 22, 0.5) 60%,
     var(--orange) 65%,
-    rgba(249, 115, 22, 0.4) 70%,
+    rgba(249, 115, 22, 0.5) 70%,
     transparent 80%
   );
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
@@ -621,7 +675,7 @@ body {
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask-composite: exclude;
   animation: borderGlowSpin 4s linear infinite;
-  opacity: 0.2;
+  opacity: 0.3;
   transition: opacity 0.4s ease;
   pointer-events: none;
   z-index: 1;
@@ -631,18 +685,18 @@ body {
 .ai-input-wrapper::after {
   content: '';
   position: absolute;
-  inset: -6px;
-  border-radius: 30px;
+  inset: -8px;
+  border-radius: 32px;
   background: conic-gradient(
     from var(--border-angle),
     transparent 0%,
-    rgba(var(--glow-color), 0.12) 15%,
+    rgba(var(--glow-color), 0.15) 15%,
     transparent 30%,
     transparent 50%,
-    rgba(249, 115, 22, 0.08) 65%,
+    rgba(249, 115, 22, 0.1) 65%,
     transparent 80%
   );
-  filter: blur(10px);
+  filter: blur(12px);
   animation: borderGlowSpin 4s linear infinite;
   opacity: 0;
   transition: opacity 0.4s ease;
@@ -650,8 +704,8 @@ body {
   z-index: 0;
 }
 
-.ai-input-wrapper:focus-within::before { opacity: 0.85; }
-.ai-input-wrapper:focus-within::after { opacity: 1; }
+.ai-input-wrapper:focus-within::before { opacity: 1; }
+.ai-input-wrapper:focus-within::after { opacity: 1; filter: blur(16px); }
 
 .ai-input-shell {
   background: rgba(255,255,255,0.03);
@@ -666,9 +720,9 @@ body {
 }
 
 .ai-input-shell:focus-within {
-  border-color: rgba(var(--glow-color), 0.3);
-  box-shadow: 0 0 0 3px var(--accent-glow), 0 8px 30px -8px var(--accent-glow);
-  background: rgba(255,255,255,0.04);
+  border-color: rgba(var(--glow-color), 0.4);
+  box-shadow: 0 0 0 4px var(--accent-glow), 0 8px 30px -8px var(--accent-glow);
+  background: rgba(255,255,255,0.05);
 }
 
 .ai-input {
@@ -697,339 +751,67 @@ body {
 .ai-send:active:not(:disabled) { transform: scale(0.95); }
 .ai-send:disabled { opacity: 0.3; cursor: not-allowed; background: var(--surface-3); box-shadow: none; }
 
-.ai-suggestions {
-  display: flex; flex-wrap: wrap; gap: 8px;
-  margin-top: 14px; justify-content: center;
-  padding: 0 4px;
-}
-
-.chip {
-  background: rgba(255,255,255,0.03);
-  border: 1px solid var(--border);
-  color: var(--text-sub);
-  padding: 8px 14px;
-  border-radius: var(--radius-pill);
-  font-size: 12px; cursor: pointer;
-  transition: all 0.2s;
-  font-family: var(--font);
-  animation: chipsAppear 0.4s var(--ease-out) both;
-  white-space: nowrap;
-  min-height: 36px;
-  display: inline-flex;
-  align-items: center;
-}
-.chip:nth-child(2) { animation-delay: 0.05s; }
-.chip:nth-child(3) { animation-delay: 0.1s; }
-.chip:nth-child(4) { animation-delay: 0.15s; }
-@keyframes chipsAppear { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-.chip:hover { background: var(--accent-soft); border-color: var(--accent); color: var(--text); transform: translateY(-1px); }
-
-/* ═══════════════ SECONDARY CONTENT ═══════════════ */
-.secondary-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 40px 16px 60px;
-  display: flex; flex-direction: column; gap: 48px;
-  position: relative; z-index: 1;
-  width: 100%;
-}
-
-.section-header {
-  display: flex; align-items: baseline; justify-content: space-between;
-  gap: 12px; margin-bottom: 16px;
-  flex-wrap: wrap;
-}
-
-.section-title {
-  font-size: 18px; font-weight: 700; color: var(--text);
-  display: flex; align-items: center; gap: 10px;
-  letter-spacing: -0.02em;
-}
-.section-title::before {
-  content: '';
-  display: block;
-  width: 3px; height: 18px;
-  background: var(--accent);
-  border-radius: 2px;
-  box-shadow: 0 0 10px var(--accent);
-  flex-shrink: 0;
-}
-
-.section-timestamp {
-  font-size: 10px; color: var(--text-muted);
-  font-family: var(--mono); white-space: nowrap;
-}
-
-.market-strip {
-  display: flex; gap: 10px;
-  overflow-x: auto;
-  padding: 4px 0 12px;
-  margin-bottom: 16px;
-  scrollbar-width: none;
-  -webkit-overflow-scrolling: touch;
-}
-.market-strip::-webkit-scrollbar { display: none; }
-
-.strip-chip {
-  flex: 0 0 auto;
-  display: inline-flex; align-items: center; gap: 8px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 10px 14px;
-  font-family: var(--mono); font-size: 11px;
-  color: var(--text-sub);
-  transition: all 0.2s;
-  white-space: nowrap;
-}
-.strip-chip:hover { border-color: var(--border-strong); transform: translateY(-2px); }
-.strip-chip strong { color: var(--text); font-weight: 700; }
-.strip-chip .up { color: var(--green); }
-.strip-chip .down { color: var(--red); }
-
-.trending-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-
-.news-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 16px;
-  display: flex; flex-direction: column; gap: 10px;
-  text-decoration: none; color: var(--text);
-  transition: all 0.3s var(--ease);
-  min-height: 140px;
-}
-.news-card:hover { border-color: var(--accent); background: var(--surface-2); transform: translateY(-3px); box-shadow: var(--shadow); }
-
-.news-tag {
-  font-size: 9px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.08em;
-  color: var(--accent);
-  background: var(--accent-soft);
-  padding: 3px 7px;
-  border-radius: 4px;
-  width: fit-content;
-}
-
-.news-title {
-  font-size: 14px; font-weight: 600; line-height: 1.4;
-  display: -webkit-box; -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical; overflow: hidden;
-}
-
-.news-meta {
-  font-size: 10px; color: var(--text-muted);
-  margin-top: auto; padding-top: 10px;
-  border-top: 1px solid var(--border);
-  font-family: var(--mono);
-}
-
-.affiliate-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-
-.affiliate-card-item {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 20px;
-  display: flex; flex-direction: column; gap: 14px;
-  align-items: flex-start;
-  transition: all 0.3s var(--ease);
-  height: 100%;
-}
-.affiliate-card-item:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: var(--border-strong); }
-
-.affiliate-card-creative img {
-  width: 100%; height: 140px;
-  object-fit: cover;
-  border-radius: var(--radius-sm);
-  margin-bottom: 10px;
-}
-
-.affiliate-card-info h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; color: var(--text); }
-.affiliate-card-info p { font-size: 12px; color: var(--text-sub); line-height: 1.5; margin-bottom: 14px; }
-
-.affiliate-btn {
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 6px !important;
-  padding: 10px 16px !important;
-  background: var(--accent) !important;
-  color: #ffffff !important;
-  border-radius: var(--radius-sm) !important;
-  text-decoration: none !important;
-  font-weight: 600 !important;
-  font-size: 12px !important;
-  border: none !important;
-  box-shadow: 0 0 10px rgba(var(--glow-color),0.25);
-  transition: all 0.2s ease !important;
-  cursor: pointer !important;
-  min-height: 40px;
-}
-.affiliate-btn:hover { opacity: 0.9 !important; transform: translateY(-1px) !important; box-shadow: 0 0 14px rgba(var(--glow-color),0.4) !important; }
-
-.affiliate-disclosure {
-  font-size: 11px; color: var(--text-muted);
-  text-align: center; margin-top: 20px;
-  font-style: italic;
-  padding: 0 12px;
-}
-
-/* ═══════════════ BYTE SYSTEM ═══════════════ */
-.byte-center {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 20px;
-  position: relative; overflow: hidden;
-  box-shadow: var(--shadow);
-}
-
-.byte-header {
-  display: flex; justify-content: space-between; align-items: flex-start;
-  margin-bottom: 16px;
-  border-bottom: 1px solid var(--border);
-  padding-bottom: 14px;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.byte-balance-area { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
-
-.byte-label {
-  font-size: 10px; text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--text-muted); font-weight: 700;
-}
-
-.byte-value {
-  font-size: 28px; font-weight: 800;
-  font-family: var(--mono); color: var(--text);
-  display: flex; align-items: center; gap: 6px;
-  line-height: 1;
-}
-
-.byte-icon { color: var(--orange); filter: drop-shadow(0 0 6px rgba(249,115,22,0.4)); }
-
-.byte-level-badge {
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-  padding: 5px 10px;
-  border-radius: var(--radius-pill);
-  font-size: 10px; font-weight: 600;
-  color: var(--text-sub);
-  display: inline-flex; align-items: center; gap: 6px;
-  margin-top: 6px;
-  white-space: nowrap;
-}
-
-.byte-progress-wrap { margin-top: 12px; }
-
-.byte-bar-bg {
-  height: 5px;
-  background: var(--surface-3);
-  border-radius: 3px;
-  overflow: hidden;
-  margin-bottom: 6px;
-}
-
-.byte-bar-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--orange), #F59E0B);
-  width: 0%;
-  transition: width 0.5s var(--ease);
-  box-shadow: 0 0 10px rgba(249,115,22,0.3);
-}
-
-.byte-next-unlock {
-  font-size: 10px; color: var(--text-muted);
-  display: flex; justify-content: space-between;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.byte-hunt-section {
-  margin-top: 16px;
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 14px;
-}
-
-.hunt-title {
-  font-size: 12px; font-weight: 700; color: var(--text);
-  margin-bottom: 10px;
-  display: flex; align-items: center; gap: 6px;
-}
-
-.hunt-item {
-  display: flex; align-items: center; justify-content: space-between;
-  font-size: 12px; color: var(--text-sub);
-  padding: 8px 0;
-  border-bottom: 1px solid var(--border);
-  gap: 8px;
-}
-.hunt-item:last-child { border-bottom: none; }
-.hunt-item span { flex: 1; min-width: 0; }
-
-.hunt-check {
-  width: 18px; height: 18px;
+/* ═══════════════ OS-LIKE DRAGGABLE WIDGET ═══════════════ */
+.os-fab {
+  position: fixed; bottom: 24px; right: 24px;
+  width: 56px; height: 56px;
   border-radius: 50%;
-  border: 1px solid var(--border-strong);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 10px; color: transparent;
-  transition: all 0.2s;
-  flex-shrink: 0;
-}
-.hunt-item.completed .hunt-check { background: var(--green); border-color: var(--green); color: #fff; }
-.hunt-item.completed span { color: var(--text); text-decoration: line-through; opacity: 0.6; }
-
-.hunt-bonus {
-  margin-top: 10px; padding-top: 10px;
-  border-top: 1px dashed var(--border);
-  font-size: 11px; color: var(--accent);
-  font-weight: 600; text-align: center;
-}
-
-.support-section {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 32px 20px;
-  text-align: center;
-}
-
-.support-section h3 {
-  font-size: 18px; font-weight: 700;
-  margin-bottom: 10px; color: var(--text);
-}
-
-.support-section p {
-  font-size: 13px; color: var(--text-sub);
-  margin-bottom: 20px;
-  max-width: 480px;
-  margin-left: auto; margin-right: auto;
-  line-height: 1.6;
-  padding: 0 8px;
-}
-
-.btn-support {
-  display: inline-flex;
-  align-items: center; justify-content: center;
-  gap: 8px;
-  padding: 12px 24px;
   background: var(--accent);
-  color: #ffffff;
-  border-radius: var(--radius-sm);
-  text-decoration: none;
-  font-weight: 600; font-size: 14px;
-  border: none; cursor: pointer;
-  box-shadow: 0 0 16px rgba(var(--glow-color),0.25);
-  transition: all 0.2s ease;
-  font-family: var(--font);
-  min-height: 44px;
+  color: white; border: none;
+  font-size: 24px; cursor: pointer;
+  box-shadow: 0 8px 24px rgba(var(--glow-color), 0.4);
+  z-index: 900;
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex; align-items: center; justify-content: center;
 }
-.btn-support:hover { transform: translateY(-2px); box-shadow: 0 0 24px rgba(var(--glow-color),0.4); }
+.os-fab:hover { transform: scale(1.1) rotate(5deg); box-shadow: 0 12px 32px rgba(var(--glow-color), 0.6); }
+
+.os-widget {
+  position: fixed; bottom: 90px; right: 24px;
+  width: 320px; max-height: 400px;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  box-shadow: 0 20px 50px -10px rgba(0,0,0,0.5);
+  z-index: 901;
+  display: none; flex-direction: column;
+  backdrop-filter: blur(20px);
+  animation: popIn 0.3s var(--ease-out);
+}
+.os-widget.active { display: flex; }
+@keyframes popIn { from { opacity: 0; transform: scale(0.9) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+
+.os-widget-header {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: center;
+  font-weight: 600; font-size: 13px;
+  cursor: move;
+  user-select: none;
+}
+.os-widget-body { padding: 12px; flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
+#notesArea {
+  width: 100%; height: 100px;
+  background: var(--surface-2); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); color: var(--text);
+  padding: 8px; font-family: var(--font); font-size: 12px;
+  resize: none; outline: none;
+}
+#notesArea:focus { border-color: var(--accent); }
+.notes-tasks { display: flex; flex-direction: column; gap: 8px; }
+#taskInput {
+  width: 100%; background: var(--surface-2); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); color: var(--text); padding: 8px;
+  font-size: 12px; outline: none;
+}
+#taskList { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px; max-height: 120px; overflow-y: auto; }
+.task-item {
+  display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-sub);
+  background: var(--surface-2); padding: 6px 8px; border-radius: 6px;
+}
+.task-item input[type="checkbox"] { accent-color: var(--accent); cursor: pointer; }
+.task-item.done span { text-decoration: line-through; opacity: 0.5; }
+.task-item .delete-task { margin-left: auto; cursor: pointer; color: var(--red); font-size: 14px; }
 
 /* ═══════════════ DATA CARDS INSIDE CHAT ═══════════════ */
 .weather-card, .sentiment-card {
@@ -1136,28 +918,9 @@ body {
   background: rgba(0,0,0,0.6);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
-  z-index: 99;
+  z-index: 999;
 }
 .sidebar-overlay.active { display: block; }
-
-/* Support prompt toast */
-.support-prompt {
-  position: fixed;
-  bottom: 16px; left: 12px; right: 12px;
-  transform: translateY(80px);
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 12px 16px;
-  display: flex; align-items: center; gap: 10px;
-  box-shadow: var(--shadow);
-  z-index: 900;
-  transition: transform 0.4s var(--ease);
-  font-size: 13px;
-  flex-wrap: wrap;
-}
-.support-prompt.show { transform: translateY(0); }
-.support-prompt span { flex: 1; min-width: 0; }
 
 /* Toasts */
 .byte-toast {
@@ -1179,38 +942,9 @@ body {
 }
 .byte-toast.show { opacity: 1; transform: translateY(0); }
 
-/* ═══════════════ FOOTER ═══════════════ */
-.site-footer {
-  border-top: 1px solid var(--border);
-  margin-top: 40px;
-  padding: 24px 16px;
-  text-align: center;
-}
-
-.footer-links {
-  display: flex; flex-wrap: wrap;
-  justify-content: center; gap: 16px;
-  margin-bottom: 12px;
-  font-size: 12px; color: var(--text-sub);
-}
-
-.footer-links a {
-  color: var(--text-sub);
-  text-decoration: none;
-  transition: color 0.2s;
-  padding: 4px 8px;
-}
-.footer-links a:hover { color: var(--accent); }
-.footer-links a.accent { color: var(--accent); font-weight: 500; }
-
-.footer-copy {
-  font-size: 10px; color: var(--text-muted);
-}
-
 /* ═══════════════ RESPONSIVE: DESKTOP (1024px+) ═══════════════ */
 @media (min-width: 1024px) {
   .sidebar {
-    position: sticky;
     transform: translateX(0) !important;
   }
   .sidebar-close { display: none !important; }
@@ -1231,13 +965,12 @@ body {
   .sidebar.active { transform: translateX(0); }
   .sidebar-close { display: flex; }
   #sidebarToggle { display: flex; }
-}
-
-/* ═══════════════ RESPONSIVE: TABLET (768px - 1023px) ═══════════════ */
-@media (min-width: 768px) and (max-width: 1023px) {
-  .trending-grid { grid-template-columns: repeat(2, 1fr); }
-  .affiliate-grid { grid-template-columns: repeat(2, 1fr); }
-  .rich-grid, .stock-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+  
+  .os-widget {
+    width: calc(100vw - 48px);
+    right: 24px;
+    left: 24px;
+  }
 }
 
 /* ═══════════════ RESPONSIVE: MOBILE (< 768px) ═══════════════ */
@@ -1248,8 +981,11 @@ body {
   }
 
   .topbar { padding: 0 12px; gap: 8px; }
-  .ai-core { padding: 16px 12px; }
-  .ai-container { max-width: 100%; }
+  .ai-container { padding: 0 12px; }
+  
+  .ai-central-branding { margin-bottom: 16px; padding-top: 10px; }
+  .ai-brand-logo-wrapper { width: 56px; height: 56px; }
+  .ai-brand-title { font-size: 22px; }
   
   .ai-header { 
     flex-direction: column; 
@@ -1282,33 +1018,10 @@ body {
   .ai-input { font-size: 16px; padding: 12px 0; }
   .ai-send { width: 36px; height: 36px; font-size: 15px; }
   
-  .ai-suggestions { gap: 6px; margin-top: 12px; }
-  .chip { 
-    font-size: 11px; 
-    padding: 7px 12px;
-    min-height: 34px;
-  }
-  
-  .trending-grid { grid-template-columns: 1fr; gap: 12px; }
-  .affiliate-grid { grid-template-columns: 1fr; gap: 16px; }
-  
   .rich-grid, .stock-grid { 
     grid-template-columns: 1fr 1fr; 
     gap: 8px;
   }
-  
-  .secondary-content { 
-    padding: 32px 12px 48px;
-    gap: 36px;
-  }
-  
-  .section-title { font-size: 16px; }
-  
-  .byte-center { padding: 16px; }
-  .byte-value { font-size: 24px; }
-  
-  .support-section { padding: 24px 16px; }
-  .support-section h3 { font-size: 16px; }
   
   .cmd-overlay, .support-overlay, .mystery-overlay {
     padding: 8vh 8px 8px;
@@ -1317,9 +1030,6 @@ body {
   .cmd-modal, .support-modal, .mystery-modal {
     border-radius: var(--radius-sm);
   }
-  
-  .site-footer { padding: 20px 12px; margin-top: 32px; }
-  .footer-links { gap: 12px; font-size: 11px; }
 }
 
 /* ═══════════════ RESPONSIVE: SMALL MOBILE (< 480px) ═══════════════ */
@@ -1329,7 +1039,7 @@ body {
   .topbar { padding: 0 10px; gap: 6px; }
   .clock { display: none; }
   
-  .ai-core { padding: 12px 10px; }
+  .ai-container { padding: 0 10px; }
   
   .rich-grid, .stock-grid { 
     grid-template-columns: 1fr 1fr; 
@@ -1337,35 +1047,17 @@ body {
   }
   
   .ticker-item { padding: 0 12px; font-size: 10px; }
-  
-  .chip { font-size: 10px; padding: 6px 10px; min-height: 32px; }
-  
-  .section-title { font-size: 15px; gap: 8px; }
-  .section-title::before { width: 3px; height: 16px; }
-  
-  .affiliate-card-item { padding: 16px; }
-  .affiliate-card-creative img { height: 120px; }
-  
-  .byte-header { flex-direction: column; gap: 10px; }
-  .byte-value { font-size: 22px; }
-  
-  .news-card { padding: 14px; min-height: 0; }
-  .news-title { font-size: 13px; }
 }
 
 /* ═══════════════ RESPONSIVE: VERY SMALL (< 360px) ═══════════════ */
 @media (max-width: 359px) {
   .rich-grid, .stock-grid { grid-template-columns: 1fr; }
   .ai-actions .action-btn { width: 30px; height: 30px; font-size: 12px; }
-  .chip { font-size: 10px; padding: 5px 8px; }
 }
 
 /* ═══════════════ RESPONSIVE: LARGE DESKTOP (1440px+) ═══════════════ */
 @media (min-width: 1440px) {
   .ai-container { max-width: 880px; }
-  .secondary-content { max-width: 1300px; padding-left: 24px; padding-right: 24px; }
-  .affiliate-grid { grid-template-columns: repeat(4, 1fr); gap: 24px; }
-  .trending-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
 }
 
 /* ═══════════════ REDUCED MOTION ═══════════════ */
@@ -1387,13 +1079,10 @@ body {
 /* ═══════════════ SAFE AREA (NOTCHED PHONES) ═══════════════ */
 @supports (padding: env(safe-area-inset-bottom)) {
   .ai-input-area {
-    padding-bottom: env(safe-area-inset-bottom);
+    padding-bottom: calc(8px + env(safe-area-inset-bottom));
   }
   .sidebar {
     padding-bottom: env(safe-area-inset-bottom);
-  }
-  .site-footer {
-    padding-bottom: calc(24px + env(safe-area-inset-bottom));
   }
 }
 </style>
@@ -1449,10 +1138,20 @@ body {
     <section class="ai-core" id="chatHero">
       <div class="ai-ambient-glow"></div>
       <div class="ai-container">
+        
+        <!-- CENTRAL BRANDING -->
+        <div class="ai-central-branding">
+          <div class="ai-brand-logo-wrapper">
+            <img src="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png" alt="Digital Infohub Logo">
+          </div>
+          <h1 class="ai-brand-title">Digital Infohub</h1>
+          <p class="ai-brand-subtitle">AI Research & Discovery Hub</p>
+        </div>
+
         <div class="ai-header">
           <div class="ai-title-area">
             <div class="ai-status-dot" id="chatStatus"></div>
-            <h1 class="ai-title">Infohub AI</h1>
+            <h1 class="ai-title">Digital Infohub AI</h1>
             <span class="ai-status-text" id="chatSubtitle">Online • Ready</span>
           </div>
           <div class="ai-actions">
@@ -1473,92 +1172,30 @@ body {
         <div class="ai-input-area">
           <div class="ai-input-wrapper">
             <form class="ai-input-shell" id="chatForm" autocomplete="off">
-              <input class="ai-input" id="chatInput" type="text" placeholder="Ask Infohub AI anything..." aria-label="Message Infohub AI" inputmode="text">
+              <input class="ai-input" id="chatInput" type="text" placeholder="Ask Digital Infohub AI anything..." aria-label="Message Digital Infohub AI" inputmode="text">
               <button class="ai-send" id="chatSend" type="submit" aria-label="Send message">→</button>
             </form>
           </div>
-          <div class="ai-suggestions" id="aiSuggestions" role="list" aria-label="Suggested prompts"></div>
         </div>
       </div>
     </section>
-
-    <!-- ═══════════════ SECONDARY CONTENT ═══════════════ -->
-    <section class="secondary-content">
-      <!-- Byte System -->
-      <div class="byte-center" id="byteCenter">
-        <div class="byte-header">
-          <div class="byte-balance-area">
-            <div class="byte-label">Byte Balance</div>
-            <div class="byte-value"><span class="byte-icon">⚡</span> <span id="byteBalanceDisplay">0.0</span></div>
-            <div class="byte-level-badge">
-              <span>Level <span id="byteLevelDisplay">1</span></span>
-              <span style="color:var(--border-strong)">•</span>
-              <span id="byteStatusDisplay">Visitor</span>
-            </div>
-          </div>
-          <div style="display:flex;gap:8px;">
-            <button class="icon-btn" id="openMysteryBtn" title="Mystery USDC Reward" style="width:32px;height:32px;font-size:14px;border-color:var(--orange);color:var(--orange);">🎁</button>
-          </div>
-        </div>
-        <div class="byte-progress-wrap">
-          <div class="byte-bar-bg"><div class="byte-bar-fill" id="byteProgressBar"></div></div>
-          <div class="byte-next-unlock">
-            <span id="byteNextUnlockText">Loading...</span>
-            <span id="byteRemainingText">0 Bytes left</span>
-          </div>
-        </div>
-        <div class="byte-hunt-section">
-          <div class="hunt-title">🎯 HOMEPAGE ACTIVITY</div>
-          <div class="hunt-item" id="huntVisit">
-            <span>🏠 Daily Homepage Visit</span>
-            <div class="hunt-check">✓</div>
-          </div>
-          <div class="hunt-item" id="huntTime">
-            <span>⏱️ Time Spent Online</span>
-            <div class="hunt-check">✓</div>
-          </div>
-          <div class="hunt-bonus" id="huntBonus">Earn +1 Byte every 60 seconds while active</div>
-        </div>
-      </div>
-
-      <!-- Trending -->
-      <section class="trending-section" id="trendingSection">
-        <div class="section-header">
-          <h2 class="section-title">What's trending today?</h2>
-          <span class="section-timestamp" id="dashTimestamp"></span>
-        </div>
-        <div class="market-strip" id="dashMarketStrip" aria-label="Live market snapshot"></div>
-        <div class="trending-grid" id="trendingGrid"></div>
-      </section>
-
-      <!-- Affiliates -->
-      <section class="affiliate-section" id="affiliateHomepageSection">
-        <div class="section-header">
-          <h2 class="section-title">Recommended Tech & Tools</h2>
-        </div>
-        <div class="affiliate-grid" id="affiliateHomepageGrid"></div>
-        <p class="affiliate-disclosure">Some links on Digital Infohub are affiliate links. We may earn a commission if you purchase through them, at no additional cost to you.</p>
-      </section>
-
-      <!-- Support -->
-      <section class="support-section">
-        <h3>Keep Digital Infohub Free</h3>
-        <p>Your support helps cover hosting, development and new tools while keeping the platform free to use.</p>
-        <button class="btn-support" id="supportHomeBtn"><span>❤️</span> Support Digital Infohub</button>
-      </section>
-    </section>
-
-    <!-- Footer -->
-    <footer class="site-footer">
-      <div class="footer-links">
-        <a href="#" class="accent" id="footerSupportBtn">Support</a>
-        <a href="/advertise">Advertise</a>
-        <a href="/services">Services</a>
-        <a href="/about">About</a>
-      </div>
-      <p class="footer-copy">&copy; 2026 Digital Infohub. All rights reserved.</p>
-    </footer>
   </main>
+</div>
+
+<!-- ═══════════════ OS-LIKE DRAGGABLE WIDGET ═══════════════ -->
+<button class="os-fab" id="notesFab" title="Quick Notes & Tasks">📝</button>
+<div class="os-widget" id="notesWidget">
+  <div class="os-widget-header">
+    <span>Quick Notes & Tasks</span>
+    <button class="action-btn" id="closeNotes" style="width:28px;height:28px;font-size:12px;">✕</button>
+  </div>
+  <div class="os-widget-body">
+    <textarea id="notesArea" placeholder="Jot down research ideas, tickers to watch, or meeting notes..."></textarea>
+    <div class="notes-tasks">
+      <input type="text" id="taskInput" placeholder="Add a research task...">
+      <ul id="taskList"></ul>
+    </div>
+  </div>
 </div>
 
 <!-- ═══════════════ MODALS ═══════════════ -->
@@ -1654,21 +1291,6 @@ function renderChatbotAffiliate(aff) {
   </div>`;
 }
 
-function initAffiliateHomepage() {
-  const grid = document.getElementById('affiliateHomepageGrid');
-  if (!grid) return;
-  const enabled = Object.values(affiliateSettings).filter(a => a.showOnHomepage).sort((a,b) => a.priority - b.priority);
-  grid.innerHTML = enabled.map(aff => `
-    <div class="affiliate-card-item">
-      <div class="affiliate-card-creative"><img src="${aff.image}" alt="${esc(aff.product)}" loading="lazy"></div>
-      <div class="affiliate-card-info">
-        <h3>${esc(aff.product)}</h3>
-        <p>${esc(aff.description)}</p>
-        <a href="${esc(aff.affiliateUrl)}" target="_blank" rel="sponsored noopener" class="affiliate-btn" onclick="trackAffiliateClick('${aff.id}','${esc(aff.name)}','homepage')">${esc(aff.cta)}</a>
-      </div>
-    </div>`).join('');
-}
-
 /* ═══════════════ SUPPORT MODAL ═══════════════ */
 const supportOverlay = document.getElementById('supportOverlay');
 function openSupportModal() { if (supportOverlay) supportOverlay.classList.add('active'); }
@@ -1676,7 +1298,7 @@ function closeSupportModal() { if (supportOverlay) supportOverlay.classList.remo
 document.getElementById('closeSupportBtn').addEventListener('click', closeSupportModal);
 supportOverlay.addEventListener('click', e => { if (e.target === supportOverlay) closeSupportModal(); });
 document.addEventListener('click', e => {
-  if (e.target.closest('#supportTopBtn, #supportChatBtn, #supportHomeBtn, #footerSupportBtn')) { e.preventDefault(); openSupportModal(); }
+  if (e.target.closest('#supportTopBtn, #supportChatBtn, #footerSupportBtn')) { e.preventDefault(); openSupportModal(); }
 });
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && supportOverlay && supportOverlay.classList.contains('active')) closeSupportModal(); });
 
@@ -1701,7 +1323,7 @@ sidebarOverlay.addEventListener('click', closeSidebar);
 const CONFIG = {
   SITE_BASE: "https://digitalinfohub.net",
   LOGO_URL: "https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png",
-  BOT_NAME: "Infohub AI",
+  BOT_NAME: "Digital Infohub AI",
   FINNHUB_KEY: "d9t07ohr01qqd5j2v6rgd9t07ohr01qqd5j2v6s0",
   FEEDS: {
     tech:    { name:'Tech',    url:'https://techcrunch.com/feed/' },
@@ -1723,11 +1345,8 @@ const APPS = [
 ];
 
 const PERSONALITY = {
-  greetings: ["Hey! Ready to dive into some research?","Hello! Markets are live and I'm all set.","Hi there! What are we exploring today?"],
-  jokes: ["Why do programmers prefer dark mode? Because light attracts bugs!","I told my computer I needed a break. Now it won't stop sending me KitKat ads.","Why was the JavaScript developer sad? Because he didn't Node how to Express himself."],
   facts: ["The first computer bug was an actual moth found in a Harvard computer in 1947.","About 90% of the world's currency exists only digitally.","The first website ever created is still online at info.cern.ch."],
-  welcomeBack: ["Good to see you again! Ready to pick up where we left off?","Welcome back! I've got live markets, news, and AI all loaded up.","What's on your mind? I can search, analyze, or just chat."],
-  fallbacks: ["Interesting question! Let me think about that...","Good question — let me give you a thoughtful answer."]
+  fallbacks: ["Interesting question. Let me research that for you.","Good question — let me provide a thoughtful, data-driven answer."]
 };
 
 /* ═══════════════ MEMORY ═══════════════ */
@@ -1752,6 +1371,13 @@ const $ = s => document.querySelector(s);
 const esc = s => { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; };
 const pick = arr => arr[Math.floor(Math.random() * arr.length)];
 function getTimeString() { return new Date().toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit' }); }
+
+function getTimeAwareGreeting() {
+  const hour = new Date().getHours();
+  if (hour < 12) return "Good morning";
+  if (hour < 18) return "Good afternoon";
+  return "Good evening";
+}
 
 async function fetchRSS(url) {
   try {
@@ -1826,16 +1452,6 @@ function renderTicker(crypto, stocks) {
   ).join('');
 }
 
-function renderMarketStrip(crypto, stocks) {
-  const el = $('#dashMarketStrip');
-  if (!el) return;
-  const all = [...crypto, ...stocks].filter(a => !a.stale);
-  if (!all.length) { el.innerHTML = '<span class="strip-chip" style="color:var(--text-muted)">Markets loading...</span>'; return; }
-  el.innerHTML = all.map(a =>
-    `<span class="strip-chip"><strong>${esc(a.symbol)}</strong> $${esc(a.price)} <span class="${a.up?'up':'down'}">${a.up?'▲':'▼'} ${esc(a.changePct)}%</span></span>`
-  ).join('');
-}
-
 async function loadMarketsOnce() {
   const [crypto, stocks] = await Promise.all([fetchCrypto(), fetchStocks()]);
   return { crypto, stocks };
@@ -1850,10 +1466,6 @@ function renderStockGrid(stocks) {
   let html = '<div class="stock-grid">';
   stocks.forEach(s => { html += `<div class="stock-card"><div style="font-size:10px;color:var(--text-muted);font-family:var(--mono);">${esc(s.symbol)}</div><div style="font-size:15px;font-weight:700;">$${esc(s.price)}</div><div style="font-size:11px;color:${s.up?'var(--green)':'var(--red)'};">${s.up?'+':''}${esc(s.changePct)}%</div></div>`; });
   return html + '</div>';
-}
-function renderSuggestions(suggestions) {
-  if (!suggestions || !suggestions.length) return '';
-  return suggestions.map(s => `<button class="chip" data-prefill="${esc(s)}" role="listitem">${esc(s)}</button>`).join('');
 }
 function isDataResponse(html) {
   return /stock-grid|weather-card|sentiment-card|rich-grid|web-result|chatbot-affiliate|trending-grid/.test(html);
@@ -1871,10 +1483,8 @@ const Intent = {
     if (/\b(crypto|cryptocurrency|bitcoin|btc|ethereum|eth|solana|sol|xrp|ripple|coin)\b/i.test(lower)) return { type:'crypto' };
     const weatherMatch = lower.match(/^(?:what'?s\s+)?(?:the\s+)?(?:weather|temperature|forecast)(?:\s+(?:in|for|at)\s+(.+?))?\s*(?:\?|today|tonight|right now|$)/i);
     if (weatherMatch) return { type:'weather', city: ((weatherMatch[1] || '') + '').trim() || null };
-    if (/\b(ai|artificial intelligence|machine learning|llm|openai|anthropic|gemini|chatgpt)\b.{0,40}\b(news|today|happening|updates|latest)\b/i.test(lower) || /\b(news|today|happening|updates|latest)\b.{0,40}\b(ai|artificial intelligence|machine learning|llm|openai|anthropic|gemini|chatgpt)\b/i.test(lower)) return { type:'ai_news' };
+    if (/\b(ai|artificial intelligence|machine learning|llm|openai|anthropic|gemini|chatgpt|quantum computing|blockchain|neural network)\b.{0,40}\b(news|today|happening|updates|latest|explain|how does|what is)\b/i.test(lower) || /\b(news|today|happening|updates|latest|explain|how does|what is)\b.{0,40}\b(ai|artificial intelligence|machine learning|llm|openai|anthropic|gemini|chatgpt|quantum computing|blockchain|neural network)\b/i.test(lower)) return { type:'educational_tech' };
     if (/\b(news|headlines|what'?s happening|today'?s news|world news|tech news)\b/i.test(lower)) return { type:'news', category: /\btech\b/i.test(lower) ? 'tech' : /\bworld\b/i.test(lower) ? 'world' : null };
-    if (/\b(joke|funny|make me laugh)\b/i.test(lower)) return { type:'chitchat', subtype:'joke' };
-    if (/\b(fact|interesting|did you know|tell me something)\b/i.test(lower)) return { type:'chitchat', subtype:'fact' };
     if (/\b(thank|thanks|thx|appreciate)\b/i.test(lower)) return { type:'thanks' };
     if (/\b(bye|goodbye|see you|later|good night)\b/i.test(lower)) return { type:'goodbye' };
     if (/^(what can you do|help|commands|features|capabilities)\b/i.test(lower)) return { type:'capabilities' };
@@ -1898,70 +1508,73 @@ const AI = {
       case 'greeting': {
         const name = Memory.getName();
         const count = Memory.getInteractionCount();
+        const timeGreeting = getTimeAwareGreeting();
         let msg;
-        if (name && count > 5) msg = pick(PERSONALITY.welcomeBack).replace('you', `<strong>${esc(name)}</strong>`);
-        else if (name) msg = `Hello, <strong>${esc(name)}</strong>! ${pick(PERSONALITY.greetings)}`;
-        else msg = pick(PERSONALITY.greetings);
-        return `<p>${msg}</p>` + renderSuggestions(['What\'s trending?','Give me a market briefing','What\'s happening in AI today?']);
+        if (name && count > 5) msg = `${timeGreeting} back, <strong>${esc(name)}</strong>. Markets are live and research tools are ready.`;
+        else if (name) msg = `${timeGreeting}, <strong>${esc(name)}</strong>! How can I help you research today?`;
+        else msg = `${timeGreeting}! I'm <strong>${CONFIG.BOT_NAME}</strong>. How can I help you research markets, tech, or crypto today?`;
+        return `<p>${msg}</p>`;
       }
       case 'trending': {
         const items = await fetchTrending();
-        if (!items.length) return `<p>I couldn't fetch trending topics right now. Please try again in a moment.</p>` + renderSuggestions(['Retry']);
-        return `<p>🔥 <strong>Trending right now</strong></p>` + renderNewsGrid(items) + renderSuggestions(['Give me a market briefing','What\'s happening in AI today?']);
+        if (!items.length) return `<p>I couldn't fetch trending topics right now. Please try again in a moment.</p>`;
+        return `<p>🔥 <strong>Trending right now</strong></p>` + renderNewsGrid(items);
       }
       case 'stocks': {
         const data = await fetchStocks();
-        return `<p>📈 <strong>Live Stock Snapshot</strong></p>` + renderStockGrid(data) + renderSuggestions(['Give me a market briefing','What\'s trending?']);
+        return `<p>📈 <strong>Live Stock Snapshot</strong></p>` + renderStockGrid(data);
       }
       case 'crypto': {
         const data = await fetchCrypto();
-        return `<p>🪙 <strong>Live Crypto Snapshot</strong></p>` + renderStockGrid(data) + renderSuggestions(['Give me a market briefing','What\'s trending?']);
+        return `<p>🪙 <strong>Live Crypto Snapshot</strong></p>` + renderStockGrid(data);
       }
       case 'market_briefing': {
         const [crypto, stocks] = await Promise.all([fetchCrypto(), fetchStocks()]);
-        let html = `<p>📊 <strong>Market Briefing</strong></p>`;
+        let html = `<p>📊 <strong>Comprehensive Market Briefing</strong></p>`;
         html += `<p style="font-size:11px;color:var(--text-muted);margin-bottom:10px;">Live snapshot — ${new Date().toLocaleString()}</p>`;
         html += renderStockGrid([...crypto, ...stocks]);
-        return html + renderSuggestions(['What\'s trending?','What\'s happening in AI today?']);
+        return html;
       }
       case 'weather': {
         const city = intent.city;
-        if (!city) return `<p>⛅ Which city would you like the weather for?</p>` + renderSuggestions(['Weather in London','Weather in New York','Weather in Tokyo']);
+        if (!city) return `<p>⛅ Which city would you like the weather for?</p>`;
         const w = await fetchWeather(city);
         if (!w) return `<p>Sorry, I couldn't find weather data for "${esc(city)}". Try another city name.</p>`;
         return `<div class="weather-card">
           <div style="font-size:12px;font-weight:700;margin-bottom:6px;">⛅ ${esc(w.city)}${w.country ? ', ' + esc(w.country) : ''}</div>
           <div style="font-size:26px;font-weight:800;font-family:var(--mono);">${w.temp}°C</div>
           <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Wind: ${w.wind} km/h</div>
-        </div>` + renderSuggestions(['Weather in New York','What\'s trending?']);
+        </div>`;
       }
-      case 'ai_news': {
+      case 'educational_tech': {
         const items = await fetchRSS(CONFIG.FEEDS.ai.url);
-        if (!items.length) return `<p>Couldn't load AI news right now. Try again shortly.</p>`;
-        const tagged = items.map(i => ({ ...i, tag: 'AI' }));
-        return `<p>🤖 <strong>Latest in AI</strong></p>` + renderNewsGrid(tagged) + renderSuggestions(['What\'s trending?','Give me a market briefing']);
+        let html = `<p>🧠 <strong>Educational Tech & AI Research</strong></p>`;
+        html += `<p style="font-size:13px;color:var(--text-sub);margin-bottom:12px;">Here are the latest developments and research insights in technology and artificial intelligence:</p>`;
+        if (items.length) {
+          const tagged = items.map(i => ({ ...i, tag: 'TECH RESEARCH' }));
+          html += renderNewsGrid(tagged);
+        } else {
+          html += `<p style="font-size:13px;color:var(--text-sub);">I can explain complex topics like neural networks, blockchain architecture, or quantum computing. What specific area would you like to explore?</p>`;
+        }
+        return html;
       }
       case 'news': {
         const feed = intent.category === 'tech' ? CONFIG.FEEDS.tech : intent.category === 'world' ? CONFIG.FEEDS.world : CONFIG.FEEDS.tech;
         const items = await fetchRSS(feed.url);
         if (!items.length) return `<p>Couldn't load news right now.</p>`;
         const tagged = items.map(i => ({ ...i, tag: feed.name.toUpperCase() }));
-        return `<p>📰 <strong>${feed.name} News</strong></p>` + renderNewsGrid(tagged) + renderSuggestions(['What\'s trending?','Give me a market briefing']);
+        return `<p>📰 <strong>${feed.name} News</strong></p>` + renderNewsGrid(tagged);
       }
-      case 'chitchat':
-        if (intent.subtype === 'joke') return `<p>😄 ${pick(PERSONALITY.jokes)}</p>` + renderSuggestions(['Another joke','Tell me a fact','What\'s trending?']);
-        return `<p>💡 <strong>Did you know?</strong> ${pick(PERSONALITY.facts)}</p>` + renderSuggestions(['Another fact','Tell me a joke','What\'s trending?']);
-      case 'thanks': return `<p>You're welcome! Happy to help. 😊</p>` + renderSuggestions(['What\'s trending?','Give me a market briefing']);
-      case 'goodbye': return `<p>See you later! I'll be here whenever you need me. 👋</p>`;
+      case 'thanks': return `<p>You're welcome! Happy to help with your research. 😊</p>`;
+      case 'goodbye': return `<p>See you later! I'll be here whenever you need to research markets or tech. 👋</p>`;
       case 'capabilities':
-        return `<p>Here's what I can do:</p><ul>
-          <li>📊 <strong>Market data</strong> — stocks & crypto prices</li>
-          <li>🔥 <strong>Trending</strong> — what's hot right now</li>
-          <li>🤖 <strong>AI news</strong> — latest AI headlines</li>
-          <li>⛅ <strong>Weather</strong> — any city worldwide</li>
-          <li>📰 <strong>News</strong> — tech, world & markets</li>
-          <li>💬 <strong>Chat</strong> — jokes, facts & conversation</li>
-        </ul>` + renderSuggestions(['What\'s trending?','Give me a market briefing','What\'s the weather in London?']);
+        return `<p>Here's what I can do to assist your research:</p><ul>
+          <li>📊 <strong>Market Analysis</strong> — Real-time stocks & crypto data</li>
+          <li>🧠 <strong>Educational Tech</strong> — Explain AI, blockchain, quantum computing</li>
+          <li>🔥 <strong>Trending Research</strong> — What's hot in tech right now</li>
+          <li>📰 <strong>Curated News</strong> — Tech, world & market headlines</li>
+          <li>⛅ <strong>Global Data</strong> — Weather and macroeconomic indicators</li>
+        </ul>`;
       case 'show_tools': {
         let html = `<p>🧰 <strong>Digital Infohub Tools & Pages</strong></p><div class="rich-grid">`;
         APPS.forEach(app => {
@@ -1971,15 +1584,15 @@ const AI = {
             <div style="font-size:10px;color:var(--text-muted);margin-top:2px;">${esc(app.desc)}</div>
           </a>`;
         });
-        return html + '</div>' + renderSuggestions(['What\'s trending?','Give me a market briefing']);
+        return html + '</div>';
       }
       case 'clear_chat': return '__CLEAR_CHAT__';
       case 'follow_up_elaborate':
-        if (intent.context.lastTopic === 'stocks') { const data = await fetchStocks(); return `<p>Here's a deeper look at current stock performance:</p>` + renderStockGrid(data) + renderSuggestions(['Give me a market briefing','What\'s trending?']); }
-        if (intent.context.lastTopic === 'crypto') { const data = await fetchCrypto(); return `<p>Here's more detail on crypto markets:</p>` + renderStockGrid(data) + renderSuggestions(['Give me a market briefing','What\'s trending?']); }
-        return `<p>I'd be happy to go deeper! Could you tell me which topic you'd like me to elaborate on?</p>` + renderSuggestions(['Stocks in detail','Crypto in detail','What\'s trending?']);
+        if (intent.context.lastTopic === 'stocks') { const data = await fetchStocks(); return `<p>Here's a deeper look at current stock performance:</p>` + renderStockGrid(data); }
+        if (intent.context.lastTopic === 'crypto') { const data = await fetchCrypto(); return `<p>Here's more detail on crypto markets:</p>` + renderStockGrid(data); }
+        return `<p>I'd be happy to go deeper! Could you tell me which specific topic you'd like me to elaborate on?</p>`;
       default:
-        return `<p>I'm here to help! Try asking about stocks, weather, news, or just chat with me.</p>` + renderSuggestions(['What\'s trending?','Give me a market briefing','What\'s the weather in London?']);
+        return `<p>I'm here to help you research. Try asking about stocks, educational tech concepts, market briefings, or global news.</p>`;
     }
   }
 };
@@ -1991,7 +1604,6 @@ const input = $('#chatInput');
 const sendBtn = $('#chatSend');
 const chatSubtitle = $('#chatSubtitle');
 const chatStatus = $('#chatStatus');
-const suggestionsWrap = $('#aiSuggestions');
 let isProcessing = false;
 let msgIdCounter = 0;
 
@@ -2006,7 +1618,11 @@ function addMsg(role, html, instant) {
   const div = document.createElement('div');
   div.className = `msg ${role}`;
   const contentId = `msg-content-${++msgIdCounter}`;
-  const avatar = role === 'bot' ? `<img src="${CONFIG.LOGO_URL}" alt="Infohub AI">` : esc(Memory.getName() || 'You').charAt(0).toUpperCase();
+  const avatar = role === 'bot' ? `<img src="${CONFIG.LOGO_URL}" alt="Digital Infohub AI">` : esc(Memory.getName() || 'You').charAt(0).toUpperCase();
+  
+  // Add copy button for bot messages
+  const actionsHTML = role === 'bot' ? `<div class="msg-actions"><button class="msg-action-btn" onclick="window.copyMsg('${contentId}')">Copy</button></div>` : '';
+  
   div.innerHTML = `
     <div class="msg-avatar ${role}">${avatar}</div>
     <div class="msg-body">
@@ -2015,17 +1631,37 @@ function addMsg(role, html, instant) {
         <span class="msg-time">${getTimeString()}</span>
       </div>
       <div class="msg-content" id="${contentId}">${instant ? html : ''}</div>
+      ${actionsHTML}
     </div>`;
   thread.appendChild(div);
-  thread.scrollTop = thread.scrollHeight;
+  // Smooth scroll only if user is already near the bottom to prevent jarring jumps
+  const isNearBottom = thread.scrollHeight - thread.scrollTop - thread.clientHeight < 100;
+  if (isNearBottom || instant) {
+    thread.scrollTo({ top: thread.scrollHeight, behavior: 'smooth' });
+  }
   return { element: div, contentEl: div.querySelector(`#${contentId}`) };
 }
+
+window.copyMsg = (id) => {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const text = el.innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    // Simple feedback
+    const btn = el.parentElement.querySelector('.msg-action-btn');
+    if (btn) {
+      const orig = btn.innerText;
+      btn.innerText = 'Copied!';
+      setTimeout(() => btn.innerText = orig, 1500);
+    }
+  });
+};
 
 function revealWithGlow(contentEl, html) {
   contentEl.innerHTML = html;
   if (isDataResponse(html)) contentEl.classList.add('data-fade-in');
   else contentEl.classList.add('glow-in');
-  thread.scrollTop = thread.scrollHeight;
+  thread.scrollTo({ top: thread.scrollHeight, behavior: 'smooth' });
 }
 
 function showResearching() {
@@ -2033,12 +1669,12 @@ function showResearching() {
   div.className = 'msg bot researching-msg';
   div.innerHTML = `<div class="msg-avatar bot"><img src="${CONFIG.LOGO_URL}" alt=""></div><div class="msg-body"><div class="research-steps">
     <div class="step active" data-step="1"><span class="step-icon">◌</span> Analyzing your request...</div>
-    <div class="step" data-step="2"><span class="step-icon">◌</span> Searching Digital Infohub...</div>
-    <div class="step" data-step="3"><span class="step-icon">◌</span> Gathering live data...</div>
-    <div class="step" data-step="4"><span class="step-icon">◌</span> Preparing response...</div>
+    <div class="step" data-step="2"><span class="step-icon">◌</span> Searching Digital Infohub databases...</div>
+    <div class="step" data-step="3"><span class="step-icon">◌</span> Gathering live market/tech data...</div>
+    <div class="step" data-step="4"><span class="step-icon">◌</span> Preparing research response...</div>
   </div></div>`;
   thread.appendChild(div);
-  thread.scrollTop = thread.scrollHeight;
+  thread.scrollTo({ top: thread.scrollHeight, behavior: 'smooth' });
   return div;
 }
 
@@ -2049,32 +1685,24 @@ function advanceResearchStep(el) {
   active.classList.remove('active'); active.classList.add('done'); active.querySelector('.step-icon').textContent = '✓';
   const next = active.nextElementSibling;
   if (next && next.classList.contains('step')) next.classList.add('active');
-  thread.scrollTop = thread.scrollHeight;
-}
-
-function showDefaultSuggestions() {
-  if (!suggestionsWrap) return;
-  const defaults = ["What's trending?", "Market briefing", "What's happening in AI?", "Weather in London"];
-  suggestionsWrap.innerHTML = renderSuggestions(defaults);
+  thread.scrollTo({ top: thread.scrollHeight, behavior: 'smooth' });
 }
 
 async function showWelcomeMessage() {
   const name = Memory.getName();
   const count = Memory.getInteractionCount();
+  const timeGreeting = getTimeAwareGreeting();
   let html;
-  if (name && count > 5) html = `<p>Welcome back, <strong>${esc(name)}</strong>. Markets are live and today's stories are waiting below.</p>` + renderSuggestions(['What\'s trending?','Give me a market briefing','What\'s happening in AI today?']);
-  else if (name) html = `<p>Hello, <strong>${esc(name)}</strong>! I'm <strong>${CONFIG.BOT_NAME}</strong> — live search, markets, weather and news in one place.</p>` + renderSuggestions(['What\'s trending?','Give me a market briefing','What\'s the weather in London?']);
-  else html = `<p>I'm <strong>${CONFIG.BOT_NAME}</strong> — your AI-powered research engine. Ask me anything, or try a suggestion below.</p>` + renderSuggestions(['What\'s trending?','Give me a market briefing','What\'s happening in AI today?','What\'s the weather in London?']);
+  if (name && count > 5) html = `<p>${timeGreeting} back, <strong>${esc(name)}</strong>. Markets are live and today's research stories are waiting below.</p>`;
+  else if (name) html = `<p>${timeGreeting}, <strong>${esc(name)}</strong>! I'm <strong>${CONFIG.BOT_NAME}</strong> — live search, markets, and tech research in one place.</p>`;
+  else html = `<p>${timeGreeting}! I'm <strong>${CONFIG.BOT_NAME}</strong> — your AI-powered research engine. Ask me anything about markets, tech, or crypto.</p>`;
   const { contentEl } = addMsg('bot', '', false);
   revealWithGlow(contentEl, html);
 }
 
-function prefillInput(text) { input.value = text; input.focus(); requestAnimationFrame(() => input.setSelectionRange(text.length, text.length)); }
-
 async function handleSend(text) {
   if (isProcessing || !text.trim()) return;
   isProcessing = true; sendBtn.disabled = true; input.disabled = true;
-  if (suggestionsWrap) suggestionsWrap.innerHTML = '';
   addMsg('user', esc(text), true);
   input.value = '';
   updateSubtitle('Researching...'); setStatus('busy');
@@ -2091,8 +1719,8 @@ async function handleSend(text) {
     if (response === '__CLEAR_CHAT__') {
       thread.innerHTML = ''; Memory.data.history = []; Memory.data.conversationContext = []; Memory.save();
       const { contentEl } = addMsg('bot', '', false);
-      revealWithGlow(contentEl, '<p>✨ Chat history cleared! Fresh start.</p>' + renderSuggestions(['What\'s trending?','Full briefing']));
-      updateSubtitle('Online • Ready'); setStatus('ready'); showDefaultSuggestions(); return;
+      revealWithGlow(contentEl, '<p>✨ Chat history cleared! Fresh start.</p>');
+      updateSubtitle('Online • Ready'); setStatus('ready'); return;
     }
 
     let finalHtml = response;
@@ -2109,7 +1737,7 @@ async function handleSend(text) {
     console.error('AI Process Error:', err);
     clearInterval(stepInterval); researchEl.remove();
     const { contentEl } = addMsg('bot', '', false);
-    revealWithGlow(contentEl, '<p>Something went wrong processing that. Please try again.</p>' + renderSuggestions(['Retry','What\'s trending?']));
+    revealWithGlow(contentEl, '<p>Something went wrong processing that. Please try again.</p>');
     updateSubtitle('Online • Ready'); setStatus('ready');
   } finally {
     isProcessing = false; sendBtn.disabled = false; input.disabled = false; input.focus();
@@ -2117,14 +1745,6 @@ async function handleSend(text) {
 }
 
 form.addEventListener('submit', e => { e.preventDefault(); handleSend(input.value); });
-document.addEventListener('click', e => {
-  const chip = e.target.closest('.chip');
-  if (chip && chip.dataset.prefill) {
-    const text = chip.dataset.prefill;
-    const isQuestion = /\?/.test(text) || text.split(' ').length >= 2;
-    if (isQuestion) handleSend(text); else prefillInput(text);
-  }
-});
 
 /* ═══════════════ CHAT HISTORY MANAGER ═══════════════ */
 const HistoryManager = {
@@ -2156,7 +1776,7 @@ const HistoryManager = {
     this.saveCurrentSession();
     thread.innerHTML = '';
     Memory.data.conversationContext = []; Memory.data.lastIntent = null; Memory.data.lastTopic = null; Memory.save();
-    showWelcomeMessage(); showDefaultSuggestions();
+    showWelcomeMessage();
   },
   loadSession(id) {
     const session = this.sessions.find(s => s.id === id);
@@ -2170,7 +1790,7 @@ const HistoryManager = {
       div.innerHTML = `<div class="msg-avatar ${msg.role}">${avatar}</div><div class="msg-body"><div class="msg-header"><span class="msg-role">${msg.role === 'bot' ? CONFIG.BOT_NAME : (Memory.getName() || 'You')}</span><span class="msg-time">${new Date(msg.ts).toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit' })}</span></div><div class="msg-content">${msg.text}</div></div>`;
       thread.appendChild(div);
     });
-    thread.scrollTop = thread.scrollHeight;
+    thread.scrollTo({ top: thread.scrollHeight, behavior: 'auto' });
     updateSubtitle('Online • Ready');
   },
   deleteSession(id) { this.sessions = this.sessions.filter(s => s.id !== id); this.save(); this.render(); },
@@ -2274,42 +1894,23 @@ const ByteSystem = {
     this.loadState();
     const today = new Date().toDateString();
     if (this.state.lastVisitDate !== today) { this.awardBytes(this.config.rewards.dailyVisit, 'Daily Visit'); this.state.lastVisitDate = today; this.state.huntVisitDone = false; this.state.huntTimeDone = false; this.saveState(); }
-    this.updateUI(); this.startTimer(); this.markVisitDone();
+    this.startTimer();
   },
   loadState() { try { const s = localStorage.getItem('digitalinfohub_bytes_state'); if (s) this.state = { ...this.state, ...JSON.parse(s) }; } catch(e) {} },
   saveState() { try { localStorage.setItem('digitalinfohub_bytes_state', JSON.stringify(this.state)); } catch(e) {} },
   awardBytes(amount, reason) {
     this.state.balance = Math.round((this.state.balance + amount) * 10) / 10;
-    this.saveState(); this.updateUI();
+    this.saveState();
     if (amount >= 1) this.showToast(`+${amount} Bytes — ${reason}`);
   },
-  getLevel() { let current = this.config.levels[0]; for (let i = this.config.levels.length - 1; i >= 0; i--) { if (this.state.balance >= this.config.levels[i].threshold) { current = this.config.levels[i]; break; } } return current; },
-  getNextLevel() { const cur = this.getLevel(); const idx = this.config.levels.findIndex(l => l.level === cur.level); return idx < this.config.levels.length - 1 ? this.config.levels[idx + 1] : null; },
-  updateUI() {
-    const balEl = document.getElementById('byteBalanceDisplay'); const lvlEl = document.getElementById('byteLevelDisplay');
-    const statusEl = document.getElementById('byteStatusDisplay'); const barEl = document.getElementById('byteProgressBar');
-    const nextEl = document.getElementById('byteNextUnlockText'); const remEl = document.getElementById('byteRemainingText');
-    if (balEl) balEl.textContent = this.state.balance.toFixed(1);
-    const level = this.getLevel();
-    if (lvlEl) lvlEl.textContent = level.level;
-    if (statusEl) statusEl.textContent = level.title;
-    const next = this.getNextLevel();
-    if (next && barEl && nextEl && remEl) {
-      const progress = ((this.state.balance - level.threshold) / (next.threshold - level.threshold)) * 100;
-      barEl.style.width = Math.min(100, Math.max(0, progress)) + '%';
-      nextEl.textContent = `Next: ${next.title} (Level ${next.level})`;
-      remEl.textContent = `${Math.max(0, next.threshold - this.state.balance).toFixed(0)} Bytes left`;
-    } else if (barEl) { barEl.style.width = '100%'; if (nextEl) nextEl.textContent = 'Max level reached!'; if (remEl) remEl.textContent = ''; }
-  },
-  markVisitDone() { const el = document.getElementById('huntVisit'); if (el && this.state.lastVisitDate === new Date().toDateString()) el.classList.add('completed'); },
   showToast(msg) { const toast = document.getElementById('byteToast'); const msgEl = document.getElementById('toastMessage'); if (!toast || !msgEl) return; msgEl.textContent = msg; toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 3000); },
-  startTimer() { setInterval(() => { if (!document.hidden) { this.awardBytes(this.config.rewards.timeActive, 'Time Active'); const el = document.getElementById('huntTime'); if (el) el.classList.add('completed'); } }, 60000); }
+  startTimer() { setInterval(() => { if (!document.hidden) { this.awardBytes(this.config.rewards.timeActive, 'Time Active'); } }, 60000); }
 };
 ByteSystem.init();
 
 /* ═══════════════ MYSTERY REWARD ═══════════════ */
 const mysteryOverlay = document.getElementById('mysteryOverlay');
-document.getElementById('openMysteryBtn').addEventListener('click', () => {
+document.getElementById('openMysteryBtn')?.addEventListener('click', () => {
   mysteryOverlay.classList.add('active');
   document.getElementById('mysteryContent').style.display = 'block';
   document.getElementById('mysteryConfirm').style.display = 'none';
@@ -2329,25 +1930,121 @@ mysteryOverlay.addEventListener('click', e => { if (e.target === mysteryOverlay)
 document.getElementById('cancelSpendBtn').addEventListener('click', () => mysteryOverlay.classList.remove('active'));
 document.getElementById('confirmSpendBtn').addEventListener('click', () => {
   if (ByteSystem.state.balance < 100) { ByteSystem.showToast('Not enough Bytes! You need 100.'); mysteryOverlay.classList.remove('active'); return; }
-  ByteSystem.state.balance -= 100; ByteSystem.saveState(); ByteSystem.updateUI();
+  ByteSystem.state.balance -= 100; ByteSystem.saveState();
   document.getElementById('mysteryConfirm').style.display = 'none';
   document.getElementById('mysteryLoading').style.display = 'block';
   setTimeout(() => { document.getElementById('mysteryLoading').style.display = 'none'; ByteSystem.showToast('🎁 Reward claimed!'); mysteryOverlay.classList.remove('active'); }, 2000);
 });
 
-/* ═══════════════ INIT ═══════════════ */
-initAffiliateHomepage();
-showDefaultSuggestions();
-const tsEl = $('#dashTimestamp');
-if (tsEl) tsEl.textContent = `Updated ${new Date().toLocaleString('en-US', { month:'short', day:'numeric', hour:'2-digit', minute:'2-digit' })}`;
+/* ═══════════════ OS-LIKE DRAGGABLE NOTES & TASKS ═══════════════ */
+const notesFab = document.getElementById('notesFab');
+const notesWidget = document.getElementById('notesWidget');
+const closeNotes = document.getElementById('closeNotes');
+const notesArea = document.getElementById('notesArea');
+const taskInput = document.getElementById('taskInput');
+const taskList = document.getElementById('taskList');
 
+let notesData = JSON.parse(localStorage.getItem('dih_notes_tasks') || '{"notes":"","tasks":[]}');
+notesArea.value = notesData.notes;
+renderTasks();
+
+notesArea.addEventListener('input', () => {
+  notesData.notes = notesArea.value;
+  saveNotesData();
+});
+
+function saveNotesData() {
+  localStorage.setItem('dih_notes_tasks', JSON.stringify(notesData));
+}
+
+function renderTasks() {
+  taskList.innerHTML = '';
+  notesData.tasks.forEach((task, idx) => {
+    const li = document.createElement('li');
+    li.className = `task-item ${task.done ? 'done' : ''}`;
+    li.innerHTML = `
+      <input type="checkbox" ${task.done ? 'checked' : ''} onchange="window.toggleTask(${idx})">
+      <span>${esc(task.text)}</span>
+      <span class="delete-task" onclick="window.deleteTask(${idx})">✕</span>
+    `;
+    taskList.appendChild(li);
+  });
+}
+
+window.toggleTask = (idx) => {
+  notesData.tasks[idx].done = !notesData.tasks[idx].done;
+  saveNotesData(); renderTasks();
+};
+
+window.deleteTask = (idx) => {
+  notesData.tasks.splice(idx, 1);
+  saveNotesData(); renderTasks();
+};
+
+taskInput.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter' && taskInput.value.trim()) {
+    notesData.tasks.push({ text: taskInput.value.trim(), done: false });
+    taskInput.value = '';
+    saveNotesData(); renderTasks();
+  }
+});
+
+notesFab.addEventListener('click', () => notesWidget.classList.toggle('active'));
+closeNotes.addEventListener('click', () => notesWidget.classList.remove('active'));
+
+// Drag Logic for Widget
+let isDragging = false, startX, startY, initialLeft, initialTop;
+const dragHandle = document.querySelector('.os-widget-header');
+
+dragHandle.addEventListener('mousedown', (e) => {
+  isDragging = true;
+  startX = e.clientX;
+  startY = e.clientY;
+  const rect = notesWidget.getBoundingClientRect();
+  initialLeft = rect.left;
+  initialTop = rect.top;
+  notesWidget.style.right = 'auto'; notesWidget.style.bottom = 'auto';
+  notesWidget.style.left = initialLeft + 'px';
+  notesWidget.style.top = initialTop + 'px';
+});
+
+document.addEventListener('mousemove', (e) => {
+  if (!isDragging) return;
+  const dx = e.clientX - startX;
+  const dy = e.clientY - startY;
+  notesWidget.style.left = (initialLeft + dx) + 'px';
+  notesWidget.style.top = (initialTop + dy) + 'px';
+});
+
+document.addEventListener('mouseup', () => { isDragging = false; });
+
+// Touch support for mobile dragging
+dragHandle.addEventListener('touchstart', (e) => {
+  isDragging = true;
+  startX = e.touches[0].clientX;
+  startY = e.touches[0].clientY;
+  const rect = notesWidget.getBoundingClientRect();
+  initialLeft = rect.left;
+  initialTop = rect.top;
+  notesWidget.style.right = 'auto'; notesWidget.style.bottom = 'auto';
+  notesWidget.style.left = initialLeft + 'px';
+  notesWidget.style.top = initialTop + 'px';
+}, { passive: true });
+
+document.addEventListener('touchmove', (e) => {
+  if (!isDragging) return;
+  const dx = e.touches[0].clientX - startX;
+  const dy = e.touches[0].clientY - startY;
+  notesWidget.style.left = (initialLeft + dx) + 'px';
+  notesWidget.style.top = (initialTop + dy) + 'px';
+}, { passive: true });
+
+document.addEventListener('touchend', () => { isDragging = false; });
+
+/* ═══════════════ INIT ═══════════════ */
 (async () => {
   const { crypto, stocks } = await loadMarketsOnce();
   renderTicker(crypto, stocks);
-  renderMarketStrip(crypto, stocks);
-  const trends = await fetchTrending();
-  const grid = $('#trendingGrid');
-  if (grid && trends.length) grid.innerHTML = trends.map(newsCardHTML).join('');
   const ctx = Memory.getContext();
   if (ctx.length === 0) showWelcomeMessage();
   else {
@@ -2358,7 +2055,7 @@ if (tsEl) tsEl.textContent = `Updated ${new Date().toLocaleString('en-US', { mon
       div.innerHTML = `<div class="msg-avatar ${msg.role}">${avatar}</div><div class="msg-body"><div class="msg-header"><span class="msg-role">${msg.role === 'bot' ? CONFIG.BOT_NAME : (Memory.getName() || 'You')}</span><span class="msg-time">${new Date(msg.ts).toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit' })}</span></div><div class="msg-content">${msg.text}</div></div>`;
       thread.appendChild(div);
     });
-    thread.scrollTop = thread.scrollHeight;
+    thread.scrollTo({ top: thread.scrollHeight, behavior: 'auto' });
   }
 })();
 
@@ -2373,14 +2070,5 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeSideb
 })();
 </script>
 </body>
-
-  <!-- e-ZeeInternet counter · GDPR / cookie-free -->
-<script async src="https://e-zeeinternet.com/t.js"
-  data-site="ezi_992ceef652fd"
-  data-mode="gdpr"
-  data-theme="dark"
-  data-shape="rounded"
-  data-layout="stacked"></script>
-<!-- Place this where you want the counter to appear (optional — auto-mounts next to the script otherwise) -->
 <div data-ezee-counter></div>
 </html>
