@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471"
+     crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The AI Hardware Race Is Moving Beyond the Cloud</title>
+<meta name="description" content="Apple, Meta, and Alibaba are pushing AI from the cloud into local devices, from Mac Studios to smart glasses and custom chips.">
+<meta property="og:title" content="The AI Hardware Race Is Moving Beyond the Cloud">
+<meta property="og:description" content="Apple, Meta, and Alibaba are pushing AI from the cloud into local devices, from Mac Studios to smart glasses and custom chips.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://digitalinfohub.github.io/digitalinfohub/post/ai-hardware-race-sept-2026">
+<meta property="og:image" content="https://images.unsplash.com/photo-1727434032773-af3cd98375ba?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The AI Hardware Race Is Moving Beyond the Cloud">
+<meta name="twitter:description" content="Apple, Meta, and Alibaba are pushing AI from the cloud into local devices, from Mac Studios to smart glasses and custom chips.">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1727434032773-af3cd98375ba?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
+
+<style>
+:root, [data-theme="light"] {
+  --bg: #fafaf9;
+  --surface: #ffffff;
+  --ink: #1c1917;
+  --ink-muted: #78716c;
+  --accent: #292524;
+  --border: #e7e5e4;
+  --toggle-icon: #1c1917;
+}
+
+[data-theme="dark"] {
+  --bg: #0c0a09;
+  --surface: #1c1917;
+  --ink: #e7e5e4;
+  --ink-muted: #a8a29e;
+  --accent: #d6d3d1;
+  --border: #292524;
+  --toggle-icon: #e7e5e4;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ---------- Controls ---------- */
+.controls {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.25rem;
+  z-index: 100;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.lang-switch {
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  overflow: hidden;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.lang-switch button {
+  border: none;
+  background: transparent;
+  color: var(--ink-muted);
+  font-family: inherit;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  padding: 0.55em 0.95em;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.lang-switch button:hover { color: var(--ink); }
+
+.lang-switch button.active {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.theme-toggle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle:hover { border-color: var(--ink-muted); }
+
+.theme-toggle svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: var(--toggle-icon);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke 0.3s ease;
+}
+
+.theme-toggle .icon-moon { display: block; }
+.theme-toggle .icon-sun { display: none; }
+
+[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+
+/* ---------- Language content ---------- */
+.lang-content { display: none; }
+.lang-content.active { display: block; }
+
+/* ---------- Header ---------- */
+header {
+  padding: 4rem 0 2rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2.5rem;
+  transition: border-color 0.3s ease;
+}
+
+.meta {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 1rem;
+  transition: color 0.3s ease;
+}
+
+h1 {
+  font-family: "Georgia", "Times New Roman", serif;
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin-bottom: 1rem;
+  transition: color 0.3s ease;
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  color: var(--ink-muted);
+  line-height: 1.6;
+  transition: color 0.3s ease;
+}
+
+/* CJK typography */
+html[lang="ja"] body { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", "Inter", sans-serif; }
+html[lang="ja"] h1 { font-family: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", Georgia, serif; line-height: 1.4; }
+html[lang="ja"] article p, html[lang="ja"] .subtitle { line-height: 1.95; }
+
+html[lang="zh-Hans"] body { font-family: "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", "Inter", sans-serif; }
+html[lang="zh-Hans"] h1 { font-family: "Songti SC", "Noto Serif SC", "SimSun", Georgia, serif; line-height: 1.4; }
+html[lang="zh-Hans"] article p, html[lang="zh-Hans"] .subtitle { line-height: 1.95; }
+
+/* ---------- Content ---------- */
+article p {
+  margin-bottom: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+article strong { font-weight: 600; }
+
+figure { margin: 2.5rem 0; }
+
+figure img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 2px;
+}
+
+figcaption {
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+  margin-top: 0.75rem;
+  letter-spacing: 0.02em;
+  transition: color 0.3s ease;
+}
+
+/* ---------- Links ---------- */
+a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--border);
+  transition: text-decoration-color 0.2s, color 0.3s ease;
+}
+
+a:hover { text-decoration-color: var(--ink); }
+
+.link-block {
+  display: block;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  text-decoration: none;
+  margin: 1.5rem 0;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.link-block:hover {
+  border-color: var(--ink-muted);
+  background: var(--surface);
+}
+
+.link-block .label {
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 0.25rem;
+  transition: color 0.3s ease;
+}
+
+.link-block .url {
+  font-size: 0.875rem;
+  word-break: break-all;
+  transition: color 0.3s ease;
+}
+
+/* ---------- Section headings ---------- */
+h2, h3 {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin: 3rem 0 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+/* ---------- Tags ---------- */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+  transition: border-color 0.3s ease;
+}
+
+.tag {
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+  text-decoration: none;
+  padding: 0.375rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  transition: all 0.2s;
+}
+
+.tag:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+@media (max-width: 600px) {
+  header { padding: 2.5rem 0 1.5rem; }
+  .controls { top: 1rem; right: 1rem; }
+  .theme-toggle { width: 36px; height: 36px; }
+  .theme-toggle svg { width: 16px; height: 16px; }
+  .lang-switch button { padding: 0.5em 0.7em; font-size: 0.68rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="controls">
+  <div class="lang-switch" role="group" aria-label="Language selection">
+    <button type="button" data-lang-btn="en" class="active">EN</button>
+    <button type="button" data-lang-btn="ja">日本語</button>
+    <button type="button" data-lang-btn="zh">中文</button>
+  </div>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+    <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+  </button>
+</div>
+
+<div class="container">
+
+  <!-- ================= ENGLISH ================= -->
+  <div class="lang-content active" data-lang="en" lang="en">
+    <header>
+      <p class="meta">Hardware & AI • Sept 2026</p>
+      <h1>The AI Hardware Race Is Moving Beyond the Cloud</h1>
+      <p class="subtitle">Apple, Meta, and Alibaba are pushing AI from the cloud into local devices, from Mac Studios to smart glasses and custom chips.</p>
+    </header>
+
+    <article>
+      <h2>Apple Brings Trillion-Parameter Models to Local Devices</h2>
+      <p>AI is increasingly moving out of the cloud and into the hardware people use every day. Apple has introduced high-end Mac Mini and Mac Studio systems designed to handle demanding AI workloads locally. In a recent demonstration, the company showcased a trillion-parameter model running across four Mac Studios, highlighting the shift toward powerful on-device processing.</p>
+      <p>This move reflects a wider industry push to make powerful AI available directly on devices while reducing reliance on expensive cloud computing. By keeping data local, companies aim to lower costs and improve privacy, though it requires significant advances in silicon efficiency.</p>
+      
+      <a class="link-block" href="https://www.reuters.com/business/retail-consumer/with-new-macs-apple-aims-take-microsoft-nvidia-rush-lower-ai-costs-2026-09-22/" target="_blank" rel="noopener">
+        <div class="label">Source: Reuters</div>
+        <div class="url">reuters.com/business/retail-consumer/with-new-macs...</div>
+      </a>
+
+      <h2>Meta and Alibaba Expand the Hardware Frontier</h2>
+      <p>Elsewhere, Meta is pushing AI further into consumer hardware. The company has introduced its Meta Charm device alongside new developments around its Muse AI assistant, while its smart glasses remain a major focus following Meta Connect 2026. These devices represent an attempt to embed AI seamlessly into daily life, moving beyond screens and into wearable form factors.</p>
+      <p>Meanwhile, Alibaba has announced a new AI chip and plans for models reaching up to 10 trillion parameters. This announcement shows how quickly the competition is expanding across AI models, chips, data centres, and consumer devices. The race is no longer just about software capabilities but about the physical infrastructure that supports them.</p>
+
+      <a class="link-block" href="https://www.reuters.com/business/media-telecom/smart-glasses-ai-pins-privacy-fears-challenge-techs-next-big-bet-2026-09-22/" target="_blank" rel="noopener">
+        <div class="label">Source: Reuters (Meta)</div>
+        <div class="url">reuters.com/business/media-telecom/smart-glasses...</div>
+      </a>
+
+      <a class="link-block" href="https://www.reuters.com/business/retail-consumer/alibaba-plans-ai-model-with-5-trillion-10-trillion-parameters-unveils-new-chip-2026-09-22/" target="_blank" rel="noopener">
+        <div class="label">Source: Reuters (Alibaba)</div>
+        <div class="url">reuters.com/business/retail-consumer/alibaba-plans...</div>
+      </a>
+
+      <h2>A Layer Built Into Everyday Life</h2>
+      <p>The broader technology trend is clear: AI is becoming less like a standalone chatbot and more like a layer built into computers, phones, glasses, and other hardware. The next stage of the AI race could therefore be determined not just by who builds the best model, but by who can put useful AI into the devices people actually use.</p>
+      <p>As processing power moves to the edge, the distinction between "online" and "offline" AI may begin to blur, creating a more responsive and integrated digital experience.</p>
+
+      <p><strong>Stay Updated With Digital Infohub</strong></p>
+      <p>Explore more technology, AI tools, and digital projects at Digital Infohub.</p>
+
+      <a class="link-block" href="https://www.digitalinfohub.net/" target="_blank" rel="noopener">
+        <div class="label">Digital Infohub</div>
+        <div class="url">digitalinfohub.net</div>
+      </a>
+
+      <div class="tags">
+        <a class="tag" href="#">#AI</a>
+        <a class="tag" href="#">#Hardware</a>
+        <a class="tag" href="#">#Apple</a>
+        <a class="tag" href="#">#Meta</a>
+        <a class="tag" href="#">#Alibaba</a>
+      </div>
+    </article>
+  </div>
+
+  <!-- ================= 日本語 ================= -->
+  <div class="lang-content" data-lang="ja" lang="ja">
+    <header>
+      <p class="meta">ハードウェアとAI • 2026年9月</p>
+      <h1>AIハードウェア競争はクラウドを超えて展開中</h1>
+      <p class="subtitle">Apple、Meta、Alibabaは、Mac Studioからスマートグラス、カスタムチップまで、AIをクラウドからローカルデバイスへと押し広げています。</p>
+    </header>
+
+    <article>
+      <h2>Apple、兆単位のパラメータモデルをローカルデバイスへ</h2>
+      <p>AIはクラウドから人々が毎日使用するハードウェアへと急速に移行しています。Appleは、負荷の高いAIワークロードをローカルで処理できるように設計されたハイエンドのMac MiniおよびMac Studioシステムを発表しました。最近のデモンストレーションでは、4台のMac Studio上で動作する兆単位のパラメータを持つモデルを紹介し、強力なオンデバイス処理へのシフトを強調しました。</p>
+      <p>この動きは、高価なクラウドコンピューティングへの依存を減らしながら、強力なAIをデバイス上で直接利用可能にするという業界全体の取り組みを反映しています。データをローカルに保持することで、企業はコスト削減とプライバシーの向上を目指していますが、それにはシリコン効率の大幅な進歩が必要です。</p>
+      
+      <a class="link-block" href="https://www.reuters.com/business/retail-consumer/with-new-macs-apple-aims-take-microsoft-nvidia-rush-lower-ai-costs-2026-09-22/" target="_blank" rel="noopener">
+        <div class="label">出典: Reuters</div>
+        <div class="url">reuters.com/business/retail-consumer/with-new-macs...</div>
+      </a>
+
+      <h2>MetaとAlibabaがハードウェアのフロンティアを拡大</h2>
+      <p>他の分野では、MetaがAIを消費者向けハードウェアにさらに組み込んでいます。同社はMeta Charmデバイスを発表し、Muse AIアシスタントに関する新しい開発を進めるとともに、Meta Connect 2026以降、スマートグラスに重点を置いています。これらのデバイスは、画面を超えてウェアラブルなフォームファクターへと、AIを日常生活にシームレスに埋め込もうとする試みを表しています。</p>
+      <p>一方、Alibabaは新しいAIチップと最大10兆パラメータに達するモデルの計画を発表しました。この発表は、AIモデル、チップ、データセンター、消費者向けデバイス全体にわたって競争がいかに急速に拡大しているかを示しています。レースはもはやソフトウェアの能力だけでなく、それを支える物理的なインフラストラクチャにも及んでいます。</p>
+
+      <a class="link-block" href="https://www.reuters.com/business/media-telecom/smart-glasses-ai-pins-privacy-fears-challenge-techs-next-big-bet-2026-09-22/" target="_blank" rel="noopener">
+        <div class="label">出典: Reuters (Meta)</div>
+        <div class="url">reuters.com/business/media-telecom/smart-glasses...</div>
+      </a>
+
+      <a class="link-block" href="https://www.reuters.com/business/retail-consumer/alibaba-plans-ai-model-with-5-trillion-10-trillion-parameters-unveils-new-chip-2026-09-22/" target="_blank" rel="noopener">
+        <div class="label">出典: Reuters (Alibaba)</div>
+        <div class="url">reuters.com/business/retail-consumer/alibaba-plans...</div>
+      </a>
+
+      <h2>日常生活に組み込まれた層</h2>
+      <p>より広い技術トレンドは明確です。AIはスタンドアロンのチャットボットのような存在から、コンピュータ、電話、メガネ、その他のハードウェアに組み込まれた層へと変化しています。したがって、AI競争の次の段階は、誰が最高のモデルを構築するかだけでなく、誰が人々が実際に使用するデバイスに有用なAIを組み込めるかによって決定される可能性があります。</p>
+      <p>処理能力がエッジに移行するにつれて、「オンライン」と「オフライン」のAIの区別は曖昧になり始め、より応答性が高く統合されたデジタル体験を生み出すでしょう。</p>
+
+      <p><strong>Digital Infohubで最新情報をチェック</strong></p>
+      <p>テクノロジー、AIツール、デジタルプロジェクトの詳細はDigital Infohubへ。</p>
+
+      <a class="link-block" href="https://www.digitalinfohub.net/" target="_blank" rel="noopener">
+        <div class="label">Digital Infohub</div>
+        <div class="url">digitalinfohub.net</div>
+      </a>
+
+      <div class="tags">
+        <a class="tag" href="#">#AI</a>
+        <a class="tag" href="#">#ハードウェア</a>
+        <a class="tag" href="#">#Apple</a>
+        <a class="tag" href="#">#Meta</a>
+        <a class="tag" href="#">#Alibaba</a>
+      </div>
+    </article>
+  </div>
+
+  <!-- ================= 中文 ================= -->
+  <div class="lang-content" data-lang="zh" lang="zh-Hans">
+    <header>
+      <p class="meta">硬件与AI • 2026年9月</p>
+      <h1>AI硬件竞赛正超越云端</h1>
+      <p class="subtitle">苹果、Meta和阿里巴巴正将AI从云端推向本地设备，从Mac Studio到智能眼镜和定制芯片。</p>
+    </header>
+
+    <article>
+      <h2>苹果将万亿参数模型引入本地设备</h2>
+      <p>人工智能正日益从云端转移到人们日常使用的硬件中。苹果推出了高端Mac Mini和Mac Studio系统，旨在本地处理要求苛刻的AI工作负载。在最近的一次演示中，该公司展示了在四台Mac Studio上运行的万亿参数模型，突显了向强大的本地设备处理的转变。</p>
+      <p>这一举措反映了更广泛的行业推动力，即在减少了对昂贵的云计算依赖的同时，使强大的AI可以直接在设备上使用。通过保持数据本地化，公司旨在降低成本并提高隐私性，但这需要硅效率的重大进步。</p>
+      
+      <a class="link-block" href="https://www.reuters.com/business/retail-consumer/with-new-macs-apple-aims-take-microsoft-nvidia-rush-lower-ai-costs-2026-09-22/" target="_blank" rel="noopener">
+        <div class="label">来源: Reuters</div>
+        <div class="url">reuters.com/business/retail-consumer/with-new-macs...</div>
+      </a>
+
+      <h2>Meta和阿里巴巴扩展硬件前沿</h2>
+      <p>在其他地方，Meta正将AI进一步推向消费者硬件。该公司推出了Meta Charm设备，并在其Muse AI助手方面取得了新进展，同时在Meta Connect 2026之后，智能眼镜仍然是其重点。这些设备代表了试图将AI无缝嵌入日常生活，超越屏幕进入可穿戴形态的努力。</p>
+      <p>与此同时，阿里巴巴宣布了一款新的AI芯片，并计划推出高达10万亿参数的模型。这一公告显示了竞争在AI模型、芯片、数据中心和消费设备之间迅速扩大的速度。竞赛不再仅仅关于软件能力，还关乎支持它们的物理基础设施。</p>
+
+      <a class="link-block" href="https://www.reuters.com/business/media-telecom/smart-glasses-ai-pins-privacy-fears-challenge-techs-next-big-bet-2026-09-22/" target="_blank" rel="noopener">
+        <div class="label">来源: Reuters (Meta)</div>
+        <div class="url">reuters.com/business/media-telecom/smart-glasses...</div>
+      </a>
+
+      <a class="link-block" href="https://www.reuters.com/business/retail-consumer/alibaba-plans-ai-model-with-5-trillion-10-trillion-parameters-unveils-new-chip-2026-09-22/" target="_blank" rel="noopener">
+        <div class="label">来源: Reuters (Alibaba)</div>
+        <div class="url">reuters.com/business/retail-consumer/alibaba-plans...</div>
+      </a>
+
+      <h2>融入日常生活的层级</h2>
+      <p>更广泛的技术趋势是清晰的：AI正变得不像是一个独立的聊天机器人，而更像是一个内置于计算机、手机、眼镜和其他硬件中的层。因此，AI竞赛的下一阶段可能不仅取决于谁构建了最好的模型，还取决于谁能将有用的AI放入人们实际使用的设备中。</p>
+      <p>随着处理能力向边缘转移，“在线”和“离线”AI之间的区别可能开始模糊，创造出响应更快、更集成的数字体验。</p>
+
+      <p><strong>关注 Digital Infohub 获取更新</strong></p>
+      <p>探索更多技术、AI工具和数字项目，请访问 Digital Infohub。</p>
+
+      <a class="link-block" href="https://www.digitalinfohub.net/" target="_blank" rel="noopener">
+        <div class="label">Digital Infohub</div>
+        <div class="url">digitalinfohub.net</div>
+      </a>
+
+      <div class="tags">
+        <a class="tag" href="#">#AI</a>
+        <a class="tag" href="#">#硬件</a>
+        <a class="tag" href="#">#苹果</a>
+        <a class="tag" href="#">#Meta</a>
+        <a class="tag" href="#">#阿里巴巴</a>
+      </div>
+    </article>
+  </div>
+
+</div>
+
+<script>
+(function() {
+  var html = document.documentElement;
+
+  /* ---------- Theme ---------- */
+  var toggle = document.getElementById('themeToggle');
+  var storedTheme = localStorage.getItem('theme');
+
+  if (storedTheme) {
+    html.setAttribute('data-theme', storedTheme);
+  } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    html.setAttribute('data-theme', 'dark');
+  }
+
+  toggle.addEventListener('click', function() {
+    var current = html.getAttribute('data-theme');
+    var next = current === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+
+  /* ---------- Language ---------- */
+  var titles = {
+    en: 'The AI Hardware Race Is Moving Beyond the Cloud',
+    ja: 'AIハードウェア競争はクラウドを超えて展開中',
+    zh: 'AI硬件竞赛正超越云端'
+  };
+
+  var htmlLang = { en: 'en', ja: 'ja', zh: 'zh-Hans' };
+
+  function detectLang() {
+    var nav = (navigator.language || 'en').toLowerCase();
+    if (nav.indexOf('ja') === 0) return 'ja';
+    if (nav.indexOf('zh') === 0) return 'zh';
+    return 'en';
+  }
+
+  function setLang(lang) {
+    document.querySelectorAll('.lang-content').forEach(function(block) {
+      block.classList.toggle('active', block.getAttribute('data-lang') === lang);
+    });
+    document.querySelectorAll('[data-lang-btn]').forEach(function(btn) {
+      var isActive = btn.getAttribute('data-lang-btn') === lang;
+      btn.classList.toggle('active', isActive);
+      btn.setAttribute('aria-pressed', isActive);
+    });
+    html.setAttribute('lang', htmlLang[lang]);
+    document.title = titles[lang];
+    localStorage.setItem('lang', lang);
+  }
+
+  document.querySelectorAll('[data-lang-btn]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      setLang(btn.getAttribute('data-lang-btn'));
+    });
+  });
+
+  setLang(localStorage.getItem('lang') || detectLang());
+})();
+</script>
+
+</body>
+</html>
