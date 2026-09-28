@@ -75,7 +75,6 @@ html, body { height: 100%; font-family: var(--font); background: var(--bg); colo
 .ticker-item .up { color: var(--green); } .ticker-item .down { color: var(--red); }
 @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 .topbar-actions { display: flex; gap: 8px; align-items: center; flex-shrink: 0; }
-.byte-indicator { display: flex; align-items: center; gap: 6px; padding: 6px 12px; background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-pill); font-family: var(--mono); font-size: 11px; font-weight: 700; color: var(--orange); cursor: pointer; white-space: nowrap; }
 .icon-btn { width: 36px; height: 36px; border: 1px solid var(--border); background: var(--surface); color: var(--text-sub); border-radius: var(--radius-sm); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; font-size: 14px; flex-shrink: 0; }
 .icon-btn:hover { color: var(--text); border-color: var(--border-strong); background: var(--surface-2); }
 .clock { font-family: var(--mono); font-size: 11px; color: var(--text-muted); padding: 6px 10px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface); white-space: nowrap; }
@@ -118,14 +117,7 @@ html, body { height: 100%; font-family: var(--font); background: var(--bg); colo
 .news-title-enhanced { font-size: 14px; font-weight: 600; line-height: 1.4; margin-bottom: 8px; }
 .news-tldr { font-size: 12px; color: var(--text-sub); line-height: 1.5; margin-bottom: 8px; padding: 8px; background: var(--surface-3); border-radius: 6px; border-left: 2px solid var(--accent); }
 
-.affiliate-btn {
-  display: inline-flex !important; align-items: center !important; justify-content: center !important;
-  gap: 6px !important; padding: 10px 16px !important; background: var(--accent) !important;
-  color: #ffffff !important; border-radius: var(--radius-sm) !important; text-decoration: none !important;
-  font-weight: 600 !important; font-size: 12px !important; border: none !important;
-  box-shadow: 0 0 10px rgba(var(--glow-color),0.25); transition: all 0.2s ease !important;
-  cursor: pointer !important; min-height: 40px;
-}
+.affiliate-btn { display: inline-flex !important; align-items: center !important; justify-content: center !important; gap: 6px !important; padding: 10px 16px !important; background: var(--accent) !important; color: #ffffff !important; border-radius: var(--radius-sm) !important; text-decoration: none !important; font-weight: 600 !important; font-size: 12px !important; border: none !important; box-shadow: 0 0 10px rgba(var(--glow-color),0.25); transition: all 0.2s ease !important; cursor: pointer !important; min-height: 40px; }
 .affiliate-btn:hover { opacity: 0.9 !important; transform: translateY(-1px) !important; }
 
 .skeleton-grid, .skeleton-list { display: flex; flex-direction: column; gap: 8px; }
@@ -187,8 +179,21 @@ html, body { height: 100%; font-family: var(--font); background: var(--bg); colo
 .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 999; }
 .sidebar-overlay.active { display: block; }
 
-.toast-notification { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--surface); border: 1px solid var(--accent); color: var(--text); padding: 12px 24px; border-radius: var(--radius-pill); font-size: 13px; font-weight: 600; box-shadow: 0 10px 30px -5px rgba(0,0,0,0.5); z-index: 9999; opacity: 0; pointer-events: none; transition: all 0.3s var(--ease-out); display: flex; align-items: center; gap: 8px; }
-.toast-notification.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+/* ═══════════════ WIDGETS & DOCK ═══════════════ */
+.widget-layer { position: fixed; inset: 0; pointer-events: none; z-index: 900; }
+.floating-widget { position: absolute; width: 300px; background: rgba(10, 10, 12, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--border-strong); border-radius: var(--radius); box-shadow: 0 20px 50px -10px rgba(0,0,0,0.5); pointer-events: auto; display: flex; flex-direction: column; overflow: hidden; transition: box-shadow 0.2s; }
+.floating-widget:hover { box-shadow: 0 25px 60px -10px rgba(0,0,0,0.6); }
+.widget-header { padding: 10px 14px; background: var(--surface-2); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; cursor: grab; user-select: none; }
+.widget-header:active { cursor: grabbing; }
+.widget-title { font-size: 12px; font-weight: 700; color: var(--text); }
+.widget-close { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 14px; padding: 2px 6px; border-radius: 4px; transition: all 0.2s; }
+.widget-close:hover { background: var(--red); color: white; }
+.widget-body { padding: 14px; flex: 1; overflow-y: auto; }
+
+.widget-dock { position: fixed; bottom: 100px; right: 24px; display: flex; gap: 8px; padding: 8px; background: rgba(10, 10, 12, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--border-strong); border-radius: var(--radius-pill); box-shadow: 0 10px 30px -5px rgba(0,0,0,0.5); z-index: 950; }
+.dock-item { width: 40px; height: 40px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 18px; transition: all 0.2s; position: relative; }
+.dock-item:hover { transform: translateY(-4px); background: var(--surface-3); }
+.dock-item.active { border-color: var(--accent); box-shadow: 0 0 10px var(--accent-glow); }
 
 @media (min-width: 1024px) {
   .sidebar { position: relative; transform: translateX(0) !important; }
@@ -209,6 +214,9 @@ html, body { height: 100%; font-family: var(--font); background: var(--bg); colo
   .msg { max-width: 96%; gap: 10px; }
   .ai-input-shell { padding: 4px 4px 4px 12px; border-radius: 20px; }
   .clock { display: none; }
+  .floating-widget { width: calc(100vw - 32px) !important; left: 16px !important; top: 80px !important; max-height: 70vh; }
+  .widget-header { cursor: default; }
+  .widget-dock { bottom: 90px; right: 50%; transform: translateX(50%); }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
 </style>
@@ -241,7 +249,6 @@ html, body { height: 100%; font-family: var(--font); background: var(--bg); colo
       <button class="icon-btn" id="sidebarToggle" title="Menu">☰</button>
       <div class="ticker-shell" aria-label="Live market ticker"><div class="ticker-bar" id="tickerBar"></div></div>
       <div class="topbar-actions">
-        <div class="byte-indicator" title="Byte Balance"><span>⚡</span><span id="byteTopBalance">0</span></div>
         <div class="clock" id="clock">--:--</div>
       </div>
     </header>
@@ -299,6 +306,10 @@ html, body { height: 100%; font-family: var(--font); background: var(--bg); colo
   </main>
 </div>
 
+<!-- ═══════════════ WIDGETS LAYER & DOCK ═══════════════ -->
+<div class="widget-layer" id="widgetLayer"></div>
+<div class="widget-dock" id="widgetDock"></div>
+
 <div class="cmd-overlay" id="chartModal" role="dialog" aria-modal="true">
   <div class="cmd-modal">
     <div class="cmd-input-shell">
@@ -315,8 +326,6 @@ html, body { height: 100%; font-family: var(--font); background: var(--bg); colo
     <div style="padding: 16px; height: 300px; position: relative;"><canvas id="priceChart"></canvas></div>
   </div>
 </div>
-
-<div class="toast-notification" id="toastNotification"><span id="toastIcon">✅</span><span id="toastMessage">Action completed</span></div>
 
 <script>
 (function() {
@@ -351,14 +360,6 @@ function scrollToBottom(smooth = true) {
   if (scrollContainer) requestAnimationFrame(() => scrollContainer.scrollTo({ top: scrollContainer.scrollHeight, behavior: smooth ? 'smooth' : 'auto' }));
 }
 
-function showToast(message, icon = '✅') {
-  const toast = $('#toastNotification');
-  $('#toastMessage').textContent = message;
-  $('#toastIcon').textContent = icon;
-  toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), 3000);
-}
-
 function createSparklineSVG(isUp) {
   const points = 20; let path = "M 0 50 "; let y = 50; const trend = isUp ? -1.5 : 1.5;
   for (let i = 1; i <= points; i++) { const x = (i / points) * 100; y = Math.max(10, Math.min(90, y + trend + (Math.random() - 0.5) * 15)); path += `L ${x} ${y} `; }
@@ -366,7 +367,6 @@ function createSparklineSVG(isUp) {
   return `<svg viewBox="0 0 100 100" preserveAspectRatio="none" class="market-sparkline"><defs><linearGradient id="${gid}" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="${color}" stop-opacity="0.3"/><stop offset="100%" stop-color="${color}" stop-opacity="0"/></linearGradient></defs><path d="${path} L 100 100 L 0 100 Z" fill="url(#${gid})" /><path d="${path}" fill="none" stroke="${color}" stroke-width="2" vector-effect="non-scaling-stroke" /></svg>`;
 }
 
-// --- CAPABILITIES MENU ---
 function getCapabilitiesHTML() {
   return `
     <div style="background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; margin-top: 8px;">
@@ -406,8 +406,7 @@ function getCapabilitiesHTML() {
 
 // --- WATCHLIST MODULE ---
 const Watchlist = {
-  key: 'dih_watchlist_v2',
-  items: [],
+  key: 'dih_watchlist_v2', items: [],
   init() { try { this.items = JSON.parse(localStorage.getItem(this.key) || '[]'); } catch(e) { this.items = []; } },
   add(sym) { sym = sym.toUpperCase(); if(!this.items.includes(sym)) { this.items.push(sym); this.save(); return true; } return false; },
   remove(sym) { sym = sym.toUpperCase(); const idx = this.items.indexOf(sym); if(idx > -1) { this.items.splice(idx, 1); this.save(); return true; } return false; },
@@ -549,7 +548,6 @@ const Intent = {
       return { type: 'educational_tech', topic: topicMatch ? topicMatch[1] : 'technology' };
     }
 
-    // Web Search Intent
     const searchMatch = lower.match(/\b(search|look up|find|google|duckduckgo)\s+(?:for\s+)?(.+)/i);
     if (searchMatch) return { type: 'web_search', query: searchMatch[2].trim() };
 
@@ -570,18 +568,12 @@ const AI = {
       
       case 'watchlist_add': {
         const added = Watchlist.add(intent.symbol);
-        if (added) {
-          showToast(`${intent.symbol} added to watchlist`, '👁️');
-          return `<p>✅ Added <strong>${intent.symbol}</strong> to your watchlist. It will now track live market data.</p><div class="chat-follow-ups"><button class="follow-up-btn" onclick="window.handleSend('Show my watchlist')">View Watchlist</button></div>`;
-        }
+        if (added) return `<p>✅ Added <strong>${intent.symbol}</strong> to your watchlist. It will now track live market data.</p><div class="chat-follow-ups"><button class="follow-up-btn" onclick="window.handleSend('Show my watchlist')">View Watchlist</button></div>`;
         return `<p><strong>${intent.symbol}</strong> is already in your watchlist.</p>`;
       }
       case 'watchlist_remove': {
         const removed = Watchlist.remove(intent.symbol);
-        if (removed) {
-          showToast(`${intent.symbol} removed from watchlist`, '🗑️');
-          return `<p>🗑️ Removed <strong>${intent.symbol}</strong> from your watchlist.</p>`;
-        }
+        if (removed) return `<p>🗑️ Removed <strong>${intent.symbol}</strong> from your watchlist.</p>`;
         return `<p><strong>${intent.symbol}</strong> wasn't in your watchlist.</p>`;
       }
       case 'watchlist_view': {
@@ -645,7 +637,7 @@ const AI = {
         };
         const c = concepts[topic] || concepts['ai'];
         const news = await fetchRSS(CONFIG.FEEDS.ai.url);
-        let html = `<div class="concept-card" style="background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin: 12px 0;">
+        let html = `<div style="background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin: 12px 0;">
           <div style="padding: 16px; background: linear-gradient(135deg, rgba(var(--glow-color),0.1), rgba(168,85,247,0.05)); border-bottom: 1px solid var(--border);">
             <div style="font-size: 18px; font-weight: 800; margin-bottom: 4px;">${c.title}</div>
             <div style="font-size: 12px; color: var(--text-muted);">${c.sub}</div>
@@ -679,12 +671,8 @@ const AI = {
                 <div style="font-size: 13px; font-weight: 700; margin-bottom: 6px;">${esc(data.title)}</div>
                 <p style="font-size: 12px; color: var(--text-sub); line-height: 1.6; margin: 0;">${esc(data.extract)}</p>
               </div>`;
-            } else {
-              throw new Error('No extract');
-            }
-          } else {
-            throw new Error('Not found');
-          }
+            } else { throw new Error('No extract'); }
+          } else { throw new Error('Not found'); }
         } catch (e) {
           html += `<p style="margin-top:8px; color: var(--text-sub); font-size: 13px;">I couldn't find a quick summary for that, but you can view full search results below.</p>`;
         }
@@ -830,8 +818,296 @@ updateClock(); setInterval(updateClock, 1000);
 $('#chartModal').addEventListener('click', e => { if (e.target === $('#chartModal')) closeChartModal(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeSidebar(); closeChartModal(); } });
 
+// ═══════════════ WIDGET MANAGER ═══════════════
+const WidgetManager = {
+  state: { open: [] },
+  init() {
+    try { const saved = localStorage.getItem('dih_widgets_v1'); if (saved) this.state = JSON.parse(saved); } catch(e) {}
+    this.renderDock();
+    this.state.open.forEach(type => this.createWidgetElement(type));
+  },
+  save() { localStorage.setItem('dih_widgets_v1', JSON.stringify(this.state)); },
+  toggle(type) {
+    if (this.state.open.includes(type)) { this.close(type); } else { this.open(type); }
+  },
+  open(type) {
+    if (!this.state.open.includes(type)) {
+      this.state.open.push(type); this.save();
+      this.createWidgetElement(type); this.updateDock();
+    }
+  },
+  close(type) {
+    this.state.open = this.state.open.filter(w => w !== type); this.save();
+    document.getElementById(`widget-${type}`)?.remove(); this.updateDock();
+  },
+  updateDock() {
+    document.querySelectorAll('.dock-item').forEach(el => {
+      el.classList.toggle('active', this.state.open.includes(el.dataset.type));
+    });
+  },
+  renderDock() {
+    const dock = $('#widgetDock');
+    const items = [
+      { type: 'weather', icon: '🌤️', label: 'Weather' },
+      { type: 'notes', icon: '📝', label: 'Notes & Tasks' },
+      { type: 'calc', icon: '🧮', label: 'Calculator' },
+      { type: 'timer', icon: '⏱️', label: 'Focus Timer' }
+    ];
+    dock.innerHTML = items.map(i => `<button class="dock-item" data-type="${i.type}" title="${i.label}" onclick="WidgetManager.toggle('${i.type}')"><span>${i.icon}</span></button>`).join('');
+    this.updateDock();
+  },
+  createWidgetElement(type) {
+    if (document.getElementById(`widget-${type}`)) return;
+    const el = document.createElement('div');
+    el.id = `widget-${type}`; el.className = 'floating-widget';
+    el.style.left = (80 + this.state.open.length * 30) + 'px';
+    el.style.top = (80 + this.state.open.length * 30) + 'px';
+    el.style.zIndex = 1000 + this.state.open.length;
+    
+    let content = '';
+    if (type === 'weather') content = this.getWeatherHTML();
+    else if (type === 'notes') content = this.getNotesHTML();
+    else if (type === 'calc') content = this.getCalcHTML();
+    else if (type === 'timer') content = this.getTimerHTML();
+
+    el.innerHTML = `<div class="widget-header widget-drag-handle"><span class="widget-title">${this.getTitle(type)}</span><button class="widget-close" onclick="WidgetManager.close('${type}')">✕</button></div><div class="widget-body">${content}</div>`;
+    $('#widgetLayer').appendChild(el);
+    
+    if (type === 'weather') this.initWeather(el);
+    else if (type === 'notes') this.initNotes(el);
+    else if (type === 'calc') this.initCalc(el);
+    else if (type === 'timer') this.initTimer(el);
+  },
+  getTitle(type) { return { weather: 'Weather', notes: 'Notes & Tasks', calc: 'Calculator', timer: 'Focus Timer' }[type] || 'Widget'; },
+  
+  // Weather
+  getWeatherHTML() {
+    const city = localStorage.getItem('dih_weather_city') || '';
+    return city ? `<div class="weather-display" id="weatherDisplay">Loading...</div>` : `
+      <div class="weather-setup">
+        <p style="font-size:12px;color:var(--text-sub);margin-bottom:8px;">Set your location</p>
+        <form id="weatherForm" style="display:flex;gap:6px;">
+          <input type="text" id="weatherCityInput" placeholder="e.g. London" style="flex:1;padding:6px 10px;background:var(--surface-3);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:12px;outline:none;">
+          <button type="submit" style="padding:6px 12px;background:var(--accent);color:white;border:none;border-radius:6px;cursor:pointer;font-size:12px;">Set</button>
+        </form>
+      </div>`;
+  },
+  initWeather(el) {
+    const city = localStorage.getItem('dih_weather_city');
+    if (city) this.fetchAndRenderWeather(city, el);
+    const form = el.querySelector('#weatherForm');
+    if (form) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const val = el.querySelector('#weatherCityInput').value.trim();
+        if (val) {
+          localStorage.setItem('dih_weather_city', val);
+          el.querySelector('.widget-body').innerHTML = `<div class="weather-display" id="weatherDisplay">Loading...</div>`;
+          this.fetchAndRenderWeather(val, el);
+        }
+      });
+    }
+  },
+  async fetchAndRenderWeather(city, el) {
+    try {
+      const geoRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1`);
+      const geoData = await geoRes.json();
+      if (!geoData.results || !geoData.results.length) throw new Error('City not found');
+      const loc = geoData.results[0];
+      const wxRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${loc.latitude}&longitude=${loc.longitude}&current_weather=true`);
+      const wxData = await wxRes.json();
+      const wx = wxData.current_weather;
+      const display = el.querySelector('#weatherDisplay');
+      if (display) {
+        display.innerHTML = `
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+            <div>
+              <div style="font-size:14px;font-weight:700;">${loc.name}${loc.country ? ', ' + loc.country : ''}</div>
+              <button onclick="WidgetManager.changeWeatherCity()" style="background:none;border:none;color:var(--accent);font-size:10px;cursor:pointer;padding:0;margin-top:2px;">Change location</button>
+            </div>
+            <div style="font-size:24px;">${this.getWeatherEmoji(wx.weathercode)}</div>
+          </div>
+          <div style="font-size:32px;font-weight:800;font-family:var(--mono);">${wx.temperature}°C</div>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Wind: ${wx.windspeed} km/h</div>
+        `;
+      }
+    } catch (e) {
+      const display = el.querySelector('#weatherDisplay');
+      if (display) display.innerHTML = `<p style="color:var(--red);font-size:12px;">Could not find location. <button onclick="WidgetManager.changeWeatherCity()" style="background:none;border:none;color:var(--accent);cursor:pointer;font-size:12px;">Try again</button></p>`;
+    }
+  },
+  changeWeatherCity() {
+    localStorage.removeItem('dih_weather_city');
+    const el = document.getElementById('widget-weather');
+    if (el) { el.querySelector('.widget-body').innerHTML = this.getWeatherHTML(); this.initWeather(el); }
+  },
+  getWeatherEmoji(code) {
+    if (code === 0) return '☀️'; if (code <= 3) return '⛅'; if (code <= 48) return '🌫️';
+    if (code <= 67) return '🌧️'; if (code <= 77) return '🌨️'; if (code <= 82) return '🌧️';
+    if (code <= 86) return '🌨️'; if (code >= 95) return '⛈️'; return '🌡️';
+  },
+
+  // Notes
+  getNotesHTML() {
+    const data = JSON.parse(localStorage.getItem('dih_notes_tasks') || '{"notes":"","tasks":[]}');
+    return `
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <div>
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;">Notes</div>
+          <textarea id="widgetNotesArea" style="width:100%;height:80px;background:var(--surface-3);border:1px solid var(--border);border-radius:6px;color:var(--text);padding:8px;font-family:var(--font);font-size:12px;resize:none;outline:none;">${esc(data.notes)}</textarea>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;">Tasks</div>
+          <form id="widgetTaskForm" style="display:flex;gap:6px;margin-bottom:8px;">
+            <input type="text" id="widgetTaskInput" placeholder="Add a task..." style="flex:1;padding:6px 10px;background:var(--surface-3);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:12px;outline:none;">
+            <button type="submit" style="padding:6px 12px;background:var(--accent);color:white;border:none;border-radius:6px;cursor:pointer;font-size:12px;">Add</button>
+          </form>
+          <ul id="widgetTaskList" style="list-style:none;padding:0;margin:0;max-height:120px;overflow-y:auto;display:flex;flex-direction:column;gap:4px;">
+            ${data.tasks.map((t, i) => `
+              <li style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-sub);background:var(--surface-3);padding:6px 8px;border-radius:6px;${t.done ? 'opacity:0.5;text-decoration:line-through;' : ''}">
+                <input type="checkbox" ${t.done ? 'checked' : ''} onchange="WidgetManager.toggleTask(${i})" style="accent-color:var(--accent);cursor:pointer;">
+                <span style="flex:1;">${esc(t.text)}</span>
+                <span onclick="WidgetManager.deleteTask(${i})" style="cursor:pointer;color:var(--red);font-size:14px;">✕</span>
+              </li>
+            `).join('')}
+          </ul>
+        </div>
+      </div>
+    `;
+  },
+  initNotes(el) {
+    const area = el.querySelector('#widgetNotesArea');
+    area.addEventListener('input', () => {
+      const data = JSON.parse(localStorage.getItem('dih_notes_tasks') || '{"notes":"","tasks":[]}');
+      data.notes = area.value; localStorage.setItem('dih_notes_tasks', JSON.stringify(data));
+    });
+    const form = el.querySelector('#widgetTaskForm');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const input = el.querySelector('#widgetTaskInput');
+      if (input.value.trim()) {
+        const data = JSON.parse(localStorage.getItem('dih_notes_tasks') || '{"notes":"","tasks":[]}');
+        data.tasks.push({ text: input.value.trim(), done: false });
+        localStorage.setItem('dih_notes_tasks', JSON.stringify(data));
+        input.value = '';
+        el.querySelector('.widget-body').innerHTML = this.getNotesHTML(); this.initNotes(el);
+      }
+    });
+  },
+  toggleTask(idx) {
+    const data = JSON.parse(localStorage.getItem('dih_notes_tasks') || '{"notes":"","tasks":[]}');
+    data.tasks[idx].done = !data.tasks[idx].done; localStorage.setItem('dih_notes_tasks', JSON.stringify(data));
+    const el = document.getElementById('widget-notes');
+    if (el) { el.querySelector('.widget-body').innerHTML = this.getNotesHTML(); this.initNotes(el); }
+  },
+  deleteTask(idx) {
+    const data = JSON.parse(localStorage.getItem('dih_notes_tasks') || '{"notes":"","tasks":[]}');
+    data.tasks.splice(idx, 1); localStorage.setItem('dih_notes_tasks', JSON.stringify(data));
+    const el = document.getElementById('widget-notes');
+    if (el) { el.querySelector('.widget-body').innerHTML = this.getNotesHTML(); this.initNotes(el); }
+  },
+
+  // Calculator
+  getCalcHTML() {
+    return `
+      <div>
+        <input type="text" id="calcDisplay" readonly style="width:100%;padding:10px;background:var(--surface-3);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:var(--mono);font-size:18px;text-align:right;margin-bottom:10px;outline:none;">
+        <div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:6px;">
+          ${['C', '(', ')', '/', '7', '8', '9', '*', '4', '5', '6', '-', '1', '2', '3', '+', '0', '.', '=', ''].map(b => {
+            if (b === '') return '<div></div>';
+            const isOp = ['+', '-', '*', '/', '=', 'C', '(', ')'].includes(b);
+            return `<button class="calc-btn" data-val="${b}" style="padding:10px;background:${isOp ? 'var(--accent-soft)' : 'var(--surface-3)'};color:${isOp ? 'var(--accent)' : 'var(--text)'};border:1px solid var(--border);border-radius:6px;cursor:pointer;font-size:14px;font-weight:600;">${b}</button>`;
+          }).join('')}
+        </div>
+      </div>
+    `;
+  },
+  initCalc(el) {
+    const display = el.querySelector('#calcDisplay');
+    el.querySelectorAll('.calc-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const val = btn.dataset.val;
+        if (val === 'C') { display.value = ''; }
+        else if (val === '=') {
+          try {
+            if (/[^0-9+\-*/().\s]/.test(display.value)) throw new Error();
+            display.value = Function('"use strict"; return (' + display.value + ')')();
+          } catch (e) { display.value = 'Error'; }
+        } else { display.value += val; }
+      });
+    });
+  },
+
+  // Timer
+  getTimerHTML() {
+    return `
+      <div style="text-align:center;">
+        <div id="timerDisplay" style="font-size:36px;font-weight:800;font-family:var(--mono);margin:16px 0;">25:00</div>
+        <div style="display:flex;gap:8px;justify-content:center;">
+          <button id="timerStart" style="padding:8px 16px;background:var(--green);color:white;border:none;border-radius:6px;cursor:pointer;font-weight:600;">Start</button>
+          <button id="timerReset" style="padding:8px 16px;background:var(--surface-3);color:var(--text);border:1px solid var(--border);border-radius:6px;cursor:pointer;font-weight:600;">Reset</button>
+        </div>
+      </div>
+    `;
+  },
+  initTimer(el) {
+    let timeLeft = 25 * 60, interval = null;
+    const display = el.querySelector('#timerDisplay');
+    const startBtn = el.querySelector('#timerStart');
+    const resetBtn = el.querySelector('#timerReset');
+    const updateDisplay = () => {
+      const m = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+      const s = (timeLeft % 60).toString().padStart(2, '0');
+      display.textContent = `${m}:${s}`;
+    };
+    startBtn.addEventListener('click', () => {
+      if (interval) {
+        clearInterval(interval); interval = null;
+        startBtn.textContent = 'Start'; startBtn.style.background = 'var(--green)';
+      } else {
+        interval = setInterval(() => {
+          if (timeLeft > 0) { timeLeft--; updateDisplay(); }
+          else { clearInterval(interval); interval = null; startBtn.textContent = 'Start'; startBtn.style.background = 'var(--green)'; display.textContent = "Done!"; }
+        }, 1000);
+        startBtn.textContent = 'Pause'; startBtn.style.background = 'var(--orange)';
+      }
+    });
+    resetBtn.addEventListener('click', () => {
+      clearInterval(interval); interval = null; timeLeft = 25 * 60; updateDisplay();
+      startBtn.textContent = 'Start'; startBtn.style.background = 'var(--green)';
+    });
+  }
+};
+window.WidgetManager = WidgetManager;
+
+// --- DRAGGING LOGIC ---
+let activeWidget = null, offsetX = 0, offsetY = 0, zCounter = 1000;
+document.addEventListener('pointerdown', (e) => {
+  const handle = e.target.closest('.widget-drag-handle');
+  if (!handle || e.target.closest('.widget-close')) return;
+  activeWidget = handle.closest('.floating-widget');
+  const rect = activeWidget.getBoundingClientRect();
+  offsetX = e.clientX - rect.left; offsetY = e.clientY - rect.top;
+  activeWidget.style.zIndex = ++zCounter;
+  activeWidget.style.cursor = 'grabbing';
+  document.body.style.userSelect = 'none';
+});
+document.addEventListener('pointermove', (e) => {
+  if (!activeWidget) return;
+  let x = e.clientX - offsetX, y = e.clientY - offsetY;
+  x = Math.max(0, Math.min(x, window.innerWidth - activeWidget.offsetWidth));
+  y = Math.max(0, Math.min(y, window.innerHeight - activeWidget.offsetHeight));
+  activeWidget.style.left = x + 'px'; activeWidget.style.top = y + 'px';
+});
+document.addEventListener('pointerup', () => {
+  if (activeWidget) { activeWidget.style.cursor = 'grab'; document.body.style.userSelect = ''; }
+  activeWidget = null;
+});
+
+// --- INIT ---
 (async () => {
   await renderDashboard();
+  WidgetManager.init();
   const ctx = Memory.getContext();
   if (ctx.length === 0) showWelcomeMessage();
   else {
