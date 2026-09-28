@@ -48,10 +48,14 @@ html, body { height: 100%; font-family: var(--font); background: var(--bg); colo
 .brand-logo img { width: 100%; height: 100%; object-fit: cover; }
 .brand-name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .sidebar-close { display: none; width: 36px; height: 36px; background: var(--surface-2); border: 1px solid var(--border); color: var(--text-sub); cursor: pointer; font-size: 16px; border-radius: var(--radius-sm); align-items: center; justify-content: center; flex-shrink: 0; }
-.sidebar-nav { padding: 12px 10px; display: flex; flex-direction: column; gap: 2px; flex-shrink: 0; }
+
+/* UPDATED SIDEBAR NAV SCROLL */
+.sidebar-nav { padding: 12px 10px; display: flex; flex-direction: column; gap: 2px; flex-shrink: 0; overflow-y: auto; scrollbar-width: thin; }
 .nav-link { display: flex; align-items: center; gap: 10px; padding: 10px 14px; color: var(--text-sub); text-decoration: none; font-size: 13px; font-weight: 500; border-radius: var(--radius-sm); transition: all 0.2s; white-space: nowrap; min-height: 40px; }
 .nav-link:hover { background: var(--surface-2); color: var(--text); }
 .nav-link.active { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+.nav-link span { font-size: 15px; flex-shrink: 0; }
+
 .sidebar-history { flex: 1; border-top: 1px solid var(--border); padding: 12px 10px; display: flex; flex-direction: column; overflow: hidden; min-height: 0; }
 .history-header { display: flex; justify-content: space-between; align-items: center; padding: 0 14px 10px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); flex-shrink: 0; }
 .btn-new-chat { background: var(--surface-2); border: 1px solid var(--border); color: var(--text-sub); font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: var(--radius-pill); cursor: pointer; transition: all 0.2s; }
@@ -181,7 +185,18 @@ html, body { height: 100%; font-family: var(--font); background: var(--bg); colo
 
 /* ═══════════════ WIDGETS & DOCK ═══════════════ */
 .widget-layer { position: fixed; inset: 0; pointer-events: none; z-index: 900; }
-.floating-widget { position: absolute; width: 300px; background: rgba(10, 10, 12, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--border-strong); border-radius: var(--radius); box-shadow: 0 20px 50px -10px rgba(0,0,0,0.5); pointer-events: auto; display: flex; flex-direction: column; overflow: hidden; transition: box-shadow 0.2s; }
+.floating-widget { 
+  position: absolute; width: 300px; 
+  background: rgba(10, 10, 12, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); 
+  border: 1px solid var(--border-strong); border-radius: var(--radius); 
+  box-shadow: 0 20px 50px -10px rgba(0,0,0,0.5); pointer-events: auto; 
+  display: flex; flex-direction: column; overflow: hidden; transition: box-shadow 0.2s;
+  animation: widgetPopIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+@keyframes widgetPopIn {
+  0% { opacity: 0; transform: scale(0.8) translateY(20px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
 .floating-widget:hover { box-shadow: 0 25px 60px -10px rgba(0,0,0,0.6); }
 .widget-header { padding: 10px 14px; background: var(--surface-2); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; cursor: grab; user-select: none; }
 .widget-header:active { cursor: grabbing; }
@@ -214,7 +229,7 @@ html, body { height: 100%; font-family: var(--font); background: var(--bg); colo
   .msg { max-width: 96%; gap: 10px; }
   .ai-input-shell { padding: 4px 4px 4px 12px; border-radius: 20px; }
   .clock { display: none; }
-  .floating-widget { width: calc(100vw - 32px) !important; left: 16px !important; top: 80px !important; max-height: 70vh; }
+  .floating-widget { width: calc(100vw - 32px) !important; left: 16px !important; top: 80px !important; max-height: 70vh; animation: none; }
   .widget-header { cursor: default; }
   .widget-dock { bottom: 90px; right: 50%; transform: translateX(50%); }
 }
@@ -228,13 +243,20 @@ html, body { height: 100%; font-family: var(--font); background: var(--bg); colo
       <a href="/" class="brand"><span class="brand-logo"><img src="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png" alt=""></span><span class="brand-name">Digital Infohub</span></a>
       <button class="sidebar-close" id="sidebarClose" aria-label="Close menu">✕</button>
     </div>
+    
+    <!-- UPDATED FULL NAVIGATION MENU -->
     <nav class="sidebar-nav">
       <a href="/" class="nav-link active"><span>🏠</span> Home</a>
-      <a href="/blog" class="nav-link"><span>📝</span> Blog</a>
       <a href="/techtopics" class="nav-link"><span>💡</span> Tech Topics</a>
+      <a href="/techproducts" class="nav-link"><span>🛍️</span> Tech Products</a>
       <a href="/software" class="nav-link"><span>💻</span> Software</a>
       <a href="/games" class="nav-link"><span>🎮</span> Games</a>
+      <a href="/services" class="nav-link"><span>🛠️</span> Services</a>
+      <a href="/about" class="nav-link"><span>ℹ️</span> About</a>
+      <a href="/subscribe" class="nav-link"><span>✉️</span> Subscribe</a>
+      <a href="/advertise" class="nav-link"><span>📢</span> Advertise</a>
     </nav>
+
     <div class="sidebar-history">
       <div class="history-header"><span>Chat History</span><button class="btn-new-chat" id="newChatBtn">+ New</button></div>
       <div class="history-list" id="historyList" role="list"></div>
@@ -860,8 +882,16 @@ const WidgetManager = {
     if (document.getElementById(`widget-${type}`)) return;
     const el = document.createElement('div');
     el.id = `widget-${type}`; el.className = 'floating-widget';
-    el.style.left = (80 + this.state.open.length * 30) + 'px';
-    el.style.top = (80 + this.state.open.length * 30) + 'px';
+    
+    // Center the widget on screen with a slight cascade for multiple widgets
+    const widgetWidth = 300;
+    const widgetHeight = 400;
+    const cascadeOffset = this.state.open.length * 24;
+    const centerX = Math.max(20, (window.innerWidth - widgetWidth) / 2 + cascadeOffset);
+    const centerY = Math.max(80, (window.innerHeight - widgetHeight) / 2 + cascadeOffset);
+    
+    el.style.left = centerX + 'px';
+    el.style.top = centerY + 'px';
     el.style.zIndex = 1000 + this.state.open.length;
     
     let content = '';
