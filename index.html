@@ -49,7 +49,6 @@ html, body { height: 100%; font-family: var(--font); background: var(--bg); colo
 .brand-name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .sidebar-close { display: none; width: 36px; height: 36px; background: var(--surface-2); border: 1px solid var(--border); color: var(--text-sub); cursor: pointer; font-size: 16px; border-radius: var(--radius-sm); align-items: center; justify-content: center; flex-shrink: 0; }
 
-/* UPDATED SIDEBAR NAV SCROLL */
 .sidebar-nav { padding: 12px 10px; display: flex; flex-direction: column; gap: 2px; flex-shrink: 0; overflow-y: auto; scrollbar-width: thin; }
 .nav-link { display: flex; align-items: center; gap: 10px; padding: 10px 14px; color: var(--text-sub); text-decoration: none; font-size: 13px; font-weight: 500; border-radius: var(--radius-sm); transition: all 0.2s; white-space: nowrap; min-height: 40px; }
 .nav-link:hover { background: var(--surface-2); color: var(--text); }
@@ -205,10 +204,15 @@ html, body { height: 100%; font-family: var(--font); background: var(--bg); colo
 .widget-close:hover { background: var(--red); color: white; }
 .widget-body { padding: 14px; flex: 1; overflow-y: auto; }
 
-.widget-dock { position: fixed; bottom: 100px; right: 24px; display: flex; gap: 8px; padding: 8px; background: rgba(10, 10, 12, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--border-strong); border-radius: var(--radius-pill); box-shadow: 0 10px 30px -5px rgba(0,0,0,0.5); z-index: 950; }
+/* UPDATED WIDGET DOCK: Top-right, vertical, out of the way of chat input */
+.widget-dock { position: fixed; top: 80px; right: 24px; display: flex; flex-direction: column; gap: 8px; padding: 8px; background: rgba(10, 10, 12, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--border-strong); border-radius: 16px; box-shadow: 0 10px 30px -5px rgba(0,0,0,0.5); z-index: 950; }
 .dock-item { width: 40px; height: 40px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 18px; transition: all 0.2s; position: relative; }
-.dock-item:hover { transform: translateY(-4px); background: var(--surface-3); }
+.dock-item:hover { transform: translateX(-4px); background: var(--surface-3); }
 .dock-item.active { border-color: var(--accent); box-shadow: 0 0 10px var(--accent-glow); }
+
+/* Scroll to bottom button */
+#scrollToBottomBtn { position: fixed; bottom: 100px; right: 24px; z-index: 940; display: none; width: 40px; height: 40px; border-radius: 50%; background: var(--accent); color: white; border: none; box-shadow: 0 4px 12px rgba(0,0,0,0.3); transition: all 0.2s; align-items: center; justify-content: center; font-size: 18px; cursor: pointer; }
+#scrollToBottomBtn:hover { transform: scale(1.05); background: var(--accent-glow); }
 
 @media (min-width: 1024px) {
   .sidebar { position: relative; transform: translateX(0) !important; }
@@ -231,7 +235,8 @@ html, body { height: 100%; font-family: var(--font); background: var(--bg); colo
   .clock { display: none; }
   .floating-widget { width: calc(100vw - 32px) !important; left: 16px !important; top: 80px !important; max-height: 70vh; animation: none; }
   .widget-header { cursor: default; }
-  .widget-dock { bottom: 90px; right: 50%; transform: translateX(50%); }
+  .widget-dock { top: 70px; right: 16px; bottom: auto; transform: none; }
+  #scrollToBottomBtn { bottom: 90px; right: 16px; }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
 </style>
@@ -244,7 +249,6 @@ html, body { height: 100%; font-family: var(--font); background: var(--bg); colo
       <button class="sidebar-close" id="sidebarClose" aria-label="Close menu">✕</button>
     </div>
     
-    <!-- UPDATED FULL NAVIGATION MENU -->
     <nav class="sidebar-nav">
       <a href="/" class="nav-link active"><span>🏠</span> Home</a>
       <a href="/techtopics" class="nav-link"><span>💡</span> Tech Topics</a>
@@ -328,6 +332,9 @@ html, body { height: 100%; font-family: var(--font); background: var(--bg); colo
   </main>
 </div>
 
+<!-- Scroll to Bottom Button -->
+<button id="scrollToBottomBtn" class="icon-btn" onclick="window.scrollToBottom(true, true)" title="Scroll to bottom">↓</button>
+
 <!-- ═══════════════ WIDGETS LAYER & DOCK ═══════════════ -->
 <div class="widget-layer" id="widgetLayer"></div>
 <div class="widget-dock" id="widgetDock"></div>
@@ -371,15 +378,26 @@ const scrollContainer = $('#chatHero');
 const thread = $('#chatThread');
 
 function getCompanyName(sym) {
-  const map = { 'AAPL': 'Apple Inc.', 'MSFT': 'Microsoft', 'GOOGL': 'Alphabet', 'AMZN': 'Amazon', 'NVDA': 'NVIDIA', 'TSLA': 'Tesla', 'SPY': 'S&P 500 ETF', 'QQQ': 'Nasdaq 100 ETF', 'BTC': 'Bitcoin', 'ETH': 'Ethereum', 'SOL': 'Solana', 'XRP': 'Ripple' };
+  const map = { 
+    'AAPL': 'Apple Inc.', 'MSFT': 'Microsoft', 'GOOGL': 'Alphabet', 'AMZN': 'Amazon', 'NVDA': 'NVIDIA', 'TSLA': 'Tesla', 
+    'SPY': 'S&P 500 ETF', 'QQQ': 'Nasdaq 100 ETF', 'BTC': 'Bitcoin', 'ETH': 'Ethereum', 'SOL': 'Solana', 'XRP': 'Ripple',
+    'META': 'Meta Platforms', 'AMD': 'Advanced Micro Devices', 'INTC': 'Intel', 'NFLX': 'Netflix', 'DIS': 'Disney', 
+    'SPOT': 'Spotify', 'UBER': 'Uber', 'COIN': 'Coinbase', 'PLTR': 'Palantir', 'GME': 'GameStop', 'AMC': 'AMC Entertainment', 
+    'F': 'Ford Motor', 'BA': 'Boeing'
+  };
   return map[sym] || sym;
 }
 
 function getTimeString() { return new Date().toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit' }); }
 function getTimeAwareGreeting() { const h = new Date().getHours(); return h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening"; }
 
-function scrollToBottom(smooth = true) {
-  if (scrollContainer) requestAnimationFrame(() => scrollContainer.scrollTo({ top: scrollContainer.scrollHeight, behavior: smooth ? 'smooth' : 'auto' }));
+// UPDATED: Smart scroll that respects user position
+function scrollToBottom(smooth = true, force = false) {
+  if (!scrollContainer) return;
+  const isNearBottom = scrollContainer.scrollHeight - scrollContainer.scrollTop - scrollContainer.clientHeight < 150;
+  if (isNearBottom || force) {
+    requestAnimationFrame(() => scrollContainer.scrollTo({ top: scrollContainer.scrollHeight, behavior: smooth ? 'smooth' : 'auto' }));
+  }
 }
 
 function createSparklineSVG(isUp) {
@@ -451,13 +469,24 @@ async function fetchRSS(url) {
   } catch(e) { return null; }
 }
 
+// BUG FIX: Prevents fallback AAPL array from hijacking single-ticker queries when API fails
 async function fetchStocks(tickers = CONFIG.STOCK_TICKERS) {
   try {
     const results = await Promise.allSettled(tickers.map(sym => fetch(`https://finnhub.io/api/v1/quote?symbol=${sym}&token=${CONFIG.FINNHUB_KEY}`).then(r => r.json()).then(data => ({ sym, data }))));
     const valid = results.filter(r => r.status === 'fulfilled' && r.value.data && r.value.data.c).map(r => ({ symbol: r.value.sym, name: getCompanyName(r.value.sym), price: r.value.data.c.toFixed(2), changePct: (r.value.data.dp||0).toFixed(2), up: (r.value.data.d||0) >= 0 }));
-    if (valid.length < 2) throw new Error();
+    
+    // If we requested a specific ticker and it failed, return empty so UI shows "not found"
+    if (tickers.length === 1 && valid.length === 0) return [];
+    
+    // Only use fallback if we were fetching the default dashboard list and it failed
+    if (valid.length < 2 && tickers.length === CONFIG.STOCK_TICKERS.length) {
+        return [{ symbol: 'AAPL', name: 'Apple Inc.', price: '178.35', changePct: '1.25', up: true }, { symbol: 'MSFT', name: 'Microsoft', price: '330.12', changePct: '-0.45', up: false }, { symbol: 'NVDA', name: 'NVIDIA', price: '460.18', changePct: '2.10', up: true }]; 
+    }
     return valid;
-  } catch(e) { return [{ symbol: 'AAPL', name: 'Apple Inc.', price: '178.35', changePct: '1.25', up: true }, { symbol: 'MSFT', name: 'Microsoft', price: '330.12', changePct: '-0.45', up: false }, { symbol: 'NVDA', name: 'NVIDIA', price: '460.18', changePct: '2.10', up: true }]; }
+  } catch(e) { 
+      if (tickers.length === 1) return [];
+      return [{ symbol: 'AAPL', name: 'Apple Inc.', price: '178.35', changePct: '1.25', up: true }, { symbol: 'MSFT', name: 'Microsoft', price: '330.12', changePct: '-0.45', up: false }, { symbol: 'NVDA', name: 'NVIDIA', price: '460.18', changePct: '2.10', up: true }]; 
+  }
 }
 
 async function fetchCrypto(symbols = ['BTC','ETH','SOL','XRP']) {
@@ -466,12 +495,18 @@ async function fetchCrypto(symbols = ['BTC','ETH','SOL','XRP']) {
   try {
     const r = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${ids.join(',')}&vs_currencies=usd&include_24hr_change=true`);
     const data = await r.json();
-    return symbols.map(sym => {
+    const result = symbols.map(sym => {
       const id = { 'BTC':'bitcoin', 'ETH':'ethereum', 'SOL':'solana', 'XRP':'ripple', 'DOGE':'dogecoin' }[sym];
       if (id && data[id]) return { symbol: sym, name: getCompanyName(sym), price: data[id].usd.toLocaleString('en-US',{minimumFractionDigits:2}), changePct: (data[id].usd_24h_change||0).toFixed(2), up: (data[id].usd_24h_change||0) >= 0 };
       return null;
     }).filter(Boolean);
-  } catch(e) { return [{ symbol: 'BTC', name: 'Bitcoin', price: '36,500.00', changePct: '1.50', up: true }, { symbol: 'ETH', name: 'Ethereum', price: '1,950.25', changePct: '-0.80', up: false }]; }
+    
+    if (symbols.length === 1 && result.length === 0) return [];
+    return result.length > 0 ? result : [{ symbol: 'BTC', name: 'Bitcoin', price: '36,500.00', changePct: '1.50', up: true }, { symbol: 'ETH', name: 'Ethereum', price: '1,950.25', changePct: '-0.80', up: false }];
+  } catch(e) { 
+      if (symbols.length === 1) return [];
+      return [{ symbol: 'BTC', name: 'Bitcoin', price: '36,500.00', changePct: '1.50', up: true }, { symbol: 'ETH', name: 'Ethereum', price: '1,950.25', changePct: '-0.80', up: false }]; 
+  }
 }
 
 async function fetchWatchlistData() {
@@ -538,7 +573,15 @@ function updateChartData(timeframe) {
 }
 
 // --- INTENT DETECTION ---
-const TICKER_MAP = { 'apple': 'AAPL', 'tesla': 'TSLA', 'nvidia': 'NVDA', 'microsoft': 'MSFT', 'amazon': 'AMZN', 'google': 'GOOGL', 'bitcoin': 'BTC', 'ethereum': 'ETH', 'solana': 'SOL', 'ripple': 'XRP' };
+const TICKER_MAP = { 
+  'apple': 'AAPL', 'tesla': 'TSLA', 'nvidia': 'NVDA', 'microsoft': 'MSFT', 
+  'amazon': 'AMZN', 'google': 'GOOGL', 'bitcoin': 'BTC', 'ethereum': 'ETH', 
+  'solana': 'SOL', 'ripple': 'XRP', 'meta': 'META', 'facebook': 'META', 
+  'amd': 'AMD', 'intel': 'INTC', 'netflix': 'NFLX', 'disney': 'DIS', 
+  'spotify': 'SPOT', 'uber': 'UBER', 'coinbase': 'COIN', 'palantir': 'PLTR',
+  'gamestop': 'GME', 'amc': 'AMC', 'ford': 'F', 'boeing': 'BA'
+};
+
 const Intent = {
   detect(input) {
     const lower = input.toLowerCase().trim();
@@ -548,11 +591,37 @@ const Intent = {
     if (/\b(clear chat|reset)\b/i.test(lower)) return { type:'clear_chat' };
 
     let extractedTicker = null;
-    for (const [key, ticker] of Object.entries(TICKER_MAP)) { if (lower.includes(key)) { extractedTicker = ticker; break; } }
-    if (!extractedTicker) { const m = input.match(/\b([A-Z]{1,5})\b/); if (m && !['THE','AND','FOR','ARE'].includes(m[1])) extractedTicker = m[1]; }
+    // 1. Check explicit name map first
+    for (const [key, ticker] of Object.entries(TICKER_MAP)) { 
+      if (lower.includes(key)) { extractedTicker = ticker; break; } 
+    }
 
-    if (extractedTicker && /\b(stock|price|doing|chart|how is|show)\b/i.test(lower)) return { type: 'stock_detail', symbol: extractedTicker };
-    if (extractedTicker && /\b(crypto|coin|bitcoin)\b/i.test(lower)) return { type: 'crypto_detail', symbol: extractedTicker };
+    // 2. Fallback: Detect 2-5 letter uppercase words as potential tickers, ignoring common words
+    if (!extractedTicker) { 
+      const commonWords = new Set(['the','and','for','are','you','not','will','this','that','have','from','they','what','which','their','about','would','could','should','can','has','had','was','were','been','being','do','does','did','shall','may','might','must','with','out','over','into','our','new','now','way','day','say','get','all','any','how','why','who','but','if','or','so','up','go','no','yes','ok','me','is','it','in','on','at','to','of','a','an','be','my','we','us','show','check','tell']);
+      const matches = input.match(/\b([a-zA-Z]{2,5})\b/g);
+      if (matches) {
+        const isStockQuery = /\b(stock|price|chart|buy|sell|hold|ticker|share|market|quote|doing|worth|performance)\b/i.test(lower);
+        for (const m of matches) {
+          const upperM = m.toUpperCase();
+          if (!commonWords.has(m.toLowerCase()) && upperM.length >= 2) {
+            // If it's already uppercase, likely a ticker. If lowercase, only if it's a stock query.
+            if (upperM === m || isStockQuery) {
+              extractedTicker = upperM;
+              break;
+            }
+          }
+        }
+      }
+    }
+
+    // If we found a valid-looking ticker, prioritize stock/crypto detail
+    if (extractedTicker && /^[A-Z]{2,5}$/.test(extractedTicker)) {
+        if (/\b(crypto|coin|bitcoin|eth|sol|doge|xrp|ripple)\b/i.test(lower)) {
+            return { type: 'crypto_detail', symbol: extractedTicker };
+        }
+        return { type: 'stock_detail', symbol: extractedTicker };
+    }
 
     const watchAdd = lower.match(/\b(add|watch|track)\s+([a-z0-9]{1,5})\b/i);
     if (watchAdd) return { type: 'watchlist_add', symbol: watchAdd[2].toUpperCase() };
@@ -616,14 +685,14 @@ const AI = {
 
       case 'stock_detail': {
         const data = await fetchStocks([intent.symbol]);
-        const stock = data ? data[0] : null;
-        if (!stock) return `<p>Couldn't find data for <strong>${intent.symbol}</strong>.</p>`;
+        const stock = data && data.length > 0 ? data[0] : null;
+        if (!stock) return `<p>⚠️ Couldn't find live data for <strong>${intent.symbol}</strong>. The market might be closed or the API is temporarily unavailable.</p>`;
         return `<p>📈 <strong>${stock.symbol} (${stock.name})</strong></p><div class="market-item" style="cursor:default;margin-top:8px;"><div class="market-info"><span class="market-symbol">${stock.symbol}</span></div>${createSparklineSVG(stock.up)}<div class="market-price-area"><div class="market-price">$${stock.price}</div><div class="market-change ${stock.up ? 'up' : 'down'}">${stock.up ? '▲' : '▼'} ${stock.changePct}%</div></div></div><div class="chat-follow-ups"><button class="follow-up-btn" onclick="window.openChartModal('${stock.symbol}', '${stock.name}', '${stock.price}', ${stock.up})">View Chart</button><button class="follow-up-btn" onclick="window.handleSend('Add ${stock.symbol} to watchlist')">Add to Watchlist</button></div>`;
       }
       case 'crypto_detail': {
         const data = await fetchCrypto([intent.symbol]);
-        const crypto = data ? data[0] : null;
-        if (!crypto) return `<p>Couldn't find data for <strong>${intent.symbol}</strong>.</p>`;
+        const crypto = data && data.length > 0 ? data[0] : null;
+        if (!crypto) return `<p>⚠️ Couldn't find live data for <strong>${intent.symbol}</strong>. The market might be closed or the API is temporarily unavailable.</p>`;
         return `<p>🪙 <strong>${crypto.symbol} (${crypto.name})</strong></p><div class="market-item" style="cursor:default;margin-top:8px;"><div class="market-info"><span class="market-symbol">${crypto.symbol}</span></div>${createSparklineSVG(crypto.up)}<div class="market-price-area"><div class="market-price">$${crypto.price}</div><div class="market-change ${crypto.up ? 'up' : 'down'}">${crypto.up ? '▲' : '▼'} ${crypto.changePct}%</div></div></div><div class="chat-follow-ups"><button class="follow-up-btn" onclick="window.openChartModal('${crypto.symbol}', '${crypto.name}', '${crypto.price.replace(/,/g, '')}', ${crypto.up})">View Chart</button></div>`;
       }
       case 'market_briefing': case 'stocks': case 'crypto': {
@@ -717,16 +786,16 @@ function addMsg(role, html, instant) {
   div.innerHTML = `<div class="msg-avatar ${role}">${avatar}</div><div class="msg-body"><div class="msg-header"><span class="msg-role">${role === 'bot' ? CONFIG.BOT_NAME : 'You'}</span><span class="msg-time">${getTimeString()}</span></div><div class="msg-content" id="${contentId}">${instant ? html : ''}</div></div>`;
   thread.appendChild(div);
   const isNearBottom = scrollContainer.scrollHeight - scrollContainer.scrollTop - scrollContainer.clientHeight < 150;
-  if (isNearBottom || instant) scrollToBottom(true);
+  if (isNearBottom || instant) scrollToBottom(true, instant);
   return { element: div, contentEl: div.querySelector(`#${contentId}`) };
 }
-function revealWithGlow(contentEl, html) { contentEl.innerHTML = html; contentEl.classList.add('data-fade-in'); scrollToBottom(true); }
+function revealWithGlow(contentEl, html) { contentEl.innerHTML = html; contentEl.classList.add('data-fade-in'); scrollToBottom(true, false); }
 function showResearching() {
   const div = document.createElement('div'); div.className = 'msg bot';
   div.innerHTML = `<div class="msg-avatar bot"><img src="${CONFIG.LOGO_URL}" alt=""></div><div class="msg-body"><div class="research-steps"><div class="step active"><span class="step-icon">◌</span> Analyzing request...</div><div class="step"><span class="step-icon">◌</span> Fetching live data...</div></div></div>`;
-  thread.appendChild(div); scrollToBottom(true); return div;
+  thread.appendChild(div); scrollToBottom(true, false); return div;
 }
-function advanceResearchStep(el) { if (!el) return; const active = el.querySelector('.step.active'); if (!active) return; active.classList.remove('active'); active.classList.add('done'); active.querySelector('.step-icon').textContent = '✓'; const next = active.nextElementSibling; if (next) next.classList.add('active'); scrollToBottom(true); }
+function advanceResearchStep(el) { if (!el) return; const active = el.querySelector('.step.active'); if (!active) return; active.classList.remove('active'); active.classList.add('done'); active.querySelector('.step-icon').textContent = '✓'; const next = active.nextElementSibling; if (next) next.classList.add('active'); scrollToBottom(true, false); }
 
 async function handleSend(text) {
   if (isProcessing || !text || !text.trim()) return;
@@ -737,6 +806,7 @@ async function handleSend(text) {
   inputs.forEach(i => { if(i) i.disabled = true; });
   
   addMsg('user', esc(text), true);
+  scrollToBottom(true, true); // Force scroll when user sends a message
   inputs.forEach(i => { if(i) i.value = ''; });
   
   const researchEl = showResearching();
@@ -761,7 +831,7 @@ async function handleSend(text) {
   }
 }
 
-window.handleSend = handleSend; window.openChartModal = openChartModal; window.closeChartModal = closeChartModal; window.updateChartTimeframe = updateChartTimeframe; window.renderDashboard = renderDashboard;
+window.handleSend = handleSend; window.openChartModal = openChartModal; window.closeChartModal = closeChartModal; window.updateChartTimeframe = updateChartTimeframe; window.renderDashboard = renderDashboard; window.scrollToBottom = scrollToBottom;
 
 $('#chatForm').addEventListener('submit', e => { e.preventDefault(); e.stopPropagation(); handleSend($('#chatInput').value); });
 $('#chatFormBottom').addEventListener('submit', e => { e.preventDefault(); e.stopPropagation(); handleSend($('#chatInputBottom').value); });
@@ -798,7 +868,7 @@ const HistoryManager = {
       div.innerHTML = `<div class="msg-avatar ${msg.role}">${avatar}</div><div class="msg-body"><div class="msg-header"><span class="msg-role">${msg.role === 'bot' ? CONFIG.BOT_NAME : 'You'}</span><span class="msg-time">${new Date(msg.ts).toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit' })}</span></div><div class="msg-content">${msg.text}</div></div>`;
       thread.appendChild(div);
     });
-    scrollToBottom(false);
+    scrollToBottom(false, true);
   },
   deleteSession(id) { this.sessions = this.sessions.filter(s => s.id !== id); this.save(); this.render(); },
   clearAll() { this.sessions = []; this.save(); this.render(); },
@@ -839,6 +909,14 @@ updateClock(); setInterval(updateClock, 1000);
 
 $('#chartModal').addEventListener('click', e => { if (e.target === $('#chartModal')) closeChartModal(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeSidebar(); closeChartModal(); } });
+
+// Scroll button visibility logic
+scrollContainer.addEventListener('scroll', () => {
+  const btn = $('#scrollToBottomBtn');
+  if (!btn) return;
+  const isNearBottom = scrollContainer.scrollHeight - scrollContainer.scrollTop - scrollContainer.clientHeight < 150;
+  btn.style.display = isNearBottom ? 'none' : 'flex';
+});
 
 // ═══════════════ WIDGET MANAGER ═══════════════
 const WidgetManager = {
@@ -883,10 +961,9 @@ const WidgetManager = {
     const el = document.createElement('div');
     el.id = `widget-${type}`; el.className = 'floating-widget';
     
-    // Center the widget on screen with a slight cascade for multiple widgets
     const widgetWidth = 300;
     const widgetHeight = 400;
-    const cascadeOffset = this.state.open.length * 24;
+    const cascadeOffset = Math.min(this.state.open.length * 24, 100);
     const centerX = Math.max(20, (window.innerWidth - widgetWidth) / 2 + cascadeOffset);
     const centerY = Math.max(80, (window.innerHeight - widgetHeight) / 2 + cascadeOffset);
     
@@ -910,7 +987,6 @@ const WidgetManager = {
   },
   getTitle(type) { return { weather: 'Weather', notes: 'Notes & Tasks', calc: 'Calculator', timer: 'Focus Timer' }[type] || 'Widget'; },
   
-  // Weather
   getWeatherHTML() {
     const city = localStorage.getItem('dih_weather_city') || '';
     return city ? `<div class="weather-display" id="weatherDisplay">Loading...</div>` : `
@@ -977,7 +1053,6 @@ const WidgetManager = {
     if (code <= 86) return '🌨️'; if (code >= 95) return '⛈️'; return '🌡️';
   },
 
-  // Notes
   getNotesHTML() {
     const data = JSON.parse(localStorage.getItem('dih_notes_tasks') || '{"notes":"","tasks":[]}');
     return `
@@ -1037,7 +1112,6 @@ const WidgetManager = {
     if (el) { el.querySelector('.widget-body').innerHTML = this.getNotesHTML(); this.initNotes(el); }
   },
 
-  // Calculator
   getCalcHTML() {
     return `
       <div>
@@ -1068,7 +1142,6 @@ const WidgetManager = {
     });
   },
 
-  // Timer
   getTimerHTML() {
     return `
       <div style="text-align:center;">
@@ -1147,7 +1220,7 @@ document.addEventListener('pointerup', () => {
       div.innerHTML = `<div class="msg-avatar ${msg.role}">${avatar}</div><div class="msg-body"><div class="msg-header"><span class="msg-role">${msg.role === 'bot' ? CONFIG.BOT_NAME : 'You'}</span><span class="msg-time">${new Date(msg.ts).toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit' })}</span></div><div class="msg-content">${msg.text}</div></div>`;
       thread.appendChild(div);
     });
-    scrollToBottom(false);
+    scrollToBottom(false, true);
   }
 })();
 
@@ -1166,7 +1239,6 @@ window.addEventListener('resize', () => { if (window.innerWidth >= 1024) closeSi
   data-theme="custom"
   data-shape="rounded"
   data-layout="row"></script>
-<!-- Place this where you want the counter to appear (optional — auto-mounts next to the script otherwise) -->
 <div data-ezee-counter></div>
-  </center>
+</center>
 </html>
