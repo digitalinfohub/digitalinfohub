@@ -86,6 +86,82 @@ html, body { height: 100%; font-family: var(--font); background: var(--bg); colo
 .ai-ambient-glow { position: fixed; top: -20%; left: 50%; transform: translateX(-50%); width: 800px; height: 600px; background: radial-gradient(circle, rgba(var(--glow-color),0.1) 0%, rgba(3,3,5,0) 60%); filter: blur(80px); pointer-events: none; z-index: 0; animation: ambientPulse 8s infinite alternate ease-in-out; }
 @keyframes ambientPulse { 0% { opacity: 0.5; transform: translateX(-50%) scale(1); } 100% { opacity: 0.8; transform: translateX(-50%) scale(1.1); } }
 .ai-container { width: 100%; max-width: 900px; display: flex; flex-direction: column; position: relative; z-index: 1; margin: 0 auto; }
+
+/* Featured Blog Card Styles */
+.featured-blog-card {
+  display: block;
+  background: linear-gradient(135deg, rgba(var(--glow-color), 0.05), rgba(168, 85, 247, 0.05));
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-bottom: 24px;
+  text-decoration: none;
+  color: var(--text);
+  transition: all 0.3s var(--ease);
+  position: relative;
+  overflow: hidden;
+  animation: fadeInDown 0.6s var(--ease-out);
+}
+.featured-blog-card:hover {
+  border-color: var(--accent);
+  background: linear-gradient(135deg, rgba(var(--glow-color), 0.1), rgba(168, 85, 247, 0.1));
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px -8px rgba(var(--glow-color), 0.2);
+}
+.featured-blog-badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: var(--accent);
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.featured-blog-category {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+  letter-spacing: 0.05em;
+}
+.featured-blog-title {
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.3;
+  margin-bottom: 10px;
+  letter-spacing: -0.02em;
+}
+.featured-blog-excerpt {
+  font-size: 14px;
+  color: var(--text-sub);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+.featured-blog-cta {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.featured-blog-cta span {
+  transition: transform 0.2s var(--ease);
+}
+.featured-blog-card:hover .featured-blog-cta span {
+  transform: translateX(4px);
+}
+@media (max-width: 767px) {
+  .featured-blog-card { padding: 18px; margin-bottom: 16px; }
+  .featured-blog-title { font-size: 18px; }
+  .featured-blog-badge { top: 12px; right: 12px; }
+}
+
 .ai-search-hero { text-align: center; margin-bottom: 32px; animation: fadeInDown 0.6s var(--ease-out); padding-top: 10px; flex-shrink: 0; }
 .ai-brand-logo-wrapper { width: 56px; height: 56px; margin: 0 auto 12px; border-radius: 14px; background: var(--surface-2); border: 1px solid var(--border-strong); padding: 8px; box-shadow: 0 8px 32px -8px rgba(var(--glow-color), 0.3); }
 .ai-brand-logo-wrapper img { width: 100%; height: 100%; object-fit: contain; }
@@ -197,20 +273,22 @@ html, body { height: 100%; font-family: var(--font); background: var(--bg); colo
   100% { opacity: 1; transform: scale(1) translateY(0); }
 }
 .floating-widget:hover { box-shadow: 0 25px 60px -10px rgba(0,0,0,0.6); }
-.widget-header { padding: 10px 14px; background: var(--surface-2); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; cursor: grab; user-select: none; }
+.widget-header { 
+  padding: 10px 14px; background: var(--surface-2); border-bottom: 1px solid var(--border); 
+  display: flex; justify-content: space-between; align-items: center; 
+  cursor: grab; user-select: none; touch-action: none; 
+}
 .widget-header:active { cursor: grabbing; }
 .widget-title { font-size: 12px; font-weight: 700; color: var(--text); }
 .widget-close { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 14px; padding: 2px 6px; border-radius: 4px; transition: all 0.2s; }
 .widget-close:hover { background: var(--red); color: white; }
 .widget-body { padding: 14px; flex: 1; overflow-y: auto; }
 
-/* UPDATED WIDGET DOCK: Top-right, vertical, out of the way of chat input */
 .widget-dock { position: fixed; top: 80px; right: 24px; display: flex; flex-direction: column; gap: 8px; padding: 8px; background: rgba(10, 10, 12, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--border-strong); border-radius: 16px; box-shadow: 0 10px 30px -5px rgba(0,0,0,0.5); z-index: 950; }
 .dock-item { width: 40px; height: 40px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 18px; transition: all 0.2s; position: relative; }
 .dock-item:hover { transform: translateX(-4px); background: var(--surface-3); }
 .dock-item.active { border-color: var(--accent); box-shadow: 0 0 10px var(--accent-glow); }
 
-/* Scroll to bottom button */
 #scrollToBottomBtn { position: fixed; bottom: 100px; right: 24px; z-index: 940; display: none; width: 40px; height: 40px; border-radius: 50%; background: var(--accent); color: white; border: none; box-shadow: 0 4px 12px rgba(0,0,0,0.3); transition: all 0.2s; align-items: center; justify-content: center; font-size: 18px; cursor: pointer; }
 #scrollToBottomBtn:hover { transform: scale(1.05); background: var(--accent-glow); }
 
@@ -251,6 +329,7 @@ html, body { height: 100%; font-family: var(--font); background: var(--bg); colo
     
     <nav class="sidebar-nav">
       <a href="/" class="nav-link active"><span>🏠</span> Home</a>
+      <a href="/blog" class="nav-link"><span>📝</span> Blog</a>
       <a href="/techtopics" class="nav-link"><span>💡</span> Tech Topics</a>
       <a href="/techproducts" class="nav-link"><span>🛍️</span> Tech Products</a>
       <a href="/software" class="nav-link"><span>💻</span> Software</a>
@@ -282,6 +361,9 @@ html, body { height: 100%; font-family: var(--font); background: var(--bg); colo
     <section class="ai-core" id="chatHero">
       <div class="ai-ambient-glow"></div>
       <div class="ai-container">
+        
+        <div id="featured-blog-container" style="display: none;"></div>
+
         <div class="ai-search-hero">
           <div class="ai-brand-logo-wrapper"><img src="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png" alt=""></div>
           <h1 class="ai-brand-title">Digital Infohub AI</h1>
@@ -332,10 +414,8 @@ html, body { height: 100%; font-family: var(--font); background: var(--bg); colo
   </main>
 </div>
 
-<!-- Scroll to Bottom Button -->
 <button id="scrollToBottomBtn" class="icon-btn" onclick="window.scrollToBottom(true, true)" title="Scroll to bottom">↓</button>
 
-<!-- ═══════════════ WIDGETS LAYER & DOCK ═══════════════ -->
 <div class="widget-layer" id="widgetLayer"></div>
 <div class="widget-dock" id="widgetDock"></div>
 
@@ -372,6 +452,54 @@ const CONFIG = {
   STOCK_TICKERS: ['AAPL','MSFT','GOOGL','AMZN','NVDA','TSLA','SPY','QQQ']
 };
 
+const FEATURED_POSTS = [
+  {
+    url: "https://digitalinfohub.net/post/ai-hardware-race-sept-2026",
+    title: "Apple Brings Trillion-Parameter Models to Local Devices",
+    excerpt: "AI is increasingly moving out of the cloud and into the hardware people use every day. Apple has introduced high-end Mac Mini and Mac Studio systems designed to handle demanding AI workloads locally.",
+    category: "AI Hardware"
+  },
+  {
+    url: "https://digitalinfohub.net/post/ai-wearables-2026",
+    title: "The Rise of AI Wearables: Smart Glasses & Ambient Computing",
+    excerpt: "In 2026, the smartphone's dominance is sharing space with specialized devices. Global XR-device shipments grew by 44.4% in 2025, driven primarily by the rapid adoption of smart glasses.",
+    category: "Wearables"
+  },
+  {
+    url: "https://www.digitalinfohub.net/post/beating-syllabus-overload-with-smarter-medical-learning",
+    title: "Studio9 Medical — Simplifying Complex Medical Topics",
+    excerpt: "Transforming complex medical subjects into concise, engaging resources like summaries, videos, and quizzes. Helping students study more efficiently across 14 health science subjects.",
+    category: "EdTech"
+  },
+  {
+    url: "https://www.digitalinfohub.net/post/meet-miyabi-from-nomad-sculpt-to-blender",
+    title: "Miyabi's Evolving 3D Portfolio — From Nomad Sculpt to Blender",
+    excerpt: "Based in the UK, self-taught artist Miyabi has transitioned from detailed 3D models in Nomad Sculpt to learning Blender, showcasing growing experience in modeling, lighting, and realistic renders.",
+    category: "Digital Art"
+  }
+];
+
+function renderFeaturedBlog() {
+  const container = document.getElementById('featured-blog-container');
+  if (!container) return;
+  
+  if (Math.random() > 0.5) {
+    const post = FEATURED_POSTS[Math.floor(Math.random() * FEATURED_POSTS.length)];
+    container.innerHTML = `
+      <a href="${post.url}" class="featured-blog-card" target="_blank" rel="noopener">
+        <div class="featured-blog-badge">✨ Featured Read</div>
+        <div class="featured-blog-category">${post.category}</div>
+        <h2 class="featured-blog-title">${post.title}</h2>
+        <p class="featured-blog-excerpt">${post.excerpt}</p>
+        <div class="featured-blog-cta">Read Article <span>→</span></div>
+      </a>
+    `;
+    container.style.display = 'block';
+  } else {
+    container.style.display = 'none';
+  }
+}
+
 const $ = s => document.querySelector(s);
 const esc = s => { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; };
 const scrollContainer = $('#chatHero');
@@ -391,7 +519,6 @@ function getCompanyName(sym) {
 function getTimeString() { return new Date().toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit' }); }
 function getTimeAwareGreeting() { const h = new Date().getHours(); return h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening"; }
 
-// UPDATED: Smart scroll that respects user position
 function scrollToBottom(smooth = true, force = false) {
   if (!scrollContainer) return;
   const isNearBottom = scrollContainer.scrollHeight - scrollContainer.scrollTop - scrollContainer.clientHeight < 150;
@@ -444,7 +571,6 @@ function getCapabilitiesHTML() {
   `;
 }
 
-// --- WATCHLIST MODULE ---
 const Watchlist = {
   key: 'dih_watchlist_v2', items: [],
   init() { try { this.items = JSON.parse(localStorage.getItem(this.key) || '[]'); } catch(e) { this.items = []; } },
@@ -455,30 +581,49 @@ const Watchlist = {
 };
 Watchlist.init();
 
-// --- DATA FETCHING ---
-async function fetchRSS(url) {
+// --- DATA FETCHING (UPDATED: Smart RSS parsing for NYT/Empty Descriptions) ---
+async function fetchRSS(url, categoryName) {
   try {
     const r = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`);
     if (!r.ok) throw new Error();
     const data = await r.json();
+    
+    let feedTitle = data.feed?.title || '';
+    // Clean up ugly feed names like "NYT > Business" or "TechCrunch Feed"
+    feedTitle = feedTitle.replace(/NYT\s*>\s*/gi, '').replace(/Feed$/i, '').trim();
+    
     return (data.items || []).slice(0, 4).map(i => {
-      let desc = i.description || i.content || '';
-      desc = desc.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
-      return { title: i.title.replace(/<[^>]*>/g, ''), link: i.link, date: new Date(i.pubDate).toLocaleDateString('en-US', { month:'short', day:'numeric' }), source: data.feed?.title?.replace(/Feed$/, '').trim() || 'News', tldr: desc.substring(0, 140) + (desc.length > 140 ? '...' : '') };
+      let desc = i.description || '';
+      let cleanDesc = desc.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+      
+      // Fallback to content if description is too short, empty, or boilerplate like "Here's the latest."
+      if (cleanDesc.length < 50 || /here.s the latest/i.test(cleanDesc)) {
+        let content = i.content || '';
+        let cleanContent = content.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+        if (cleanContent.length > cleanDesc.length) cleanDesc = cleanContent;
+      }
+      
+      let tldr = cleanDesc.substring(0, 140) + (cleanDesc.length > 140 ? '...' : '');
+      if (!tldr || tldr.length < 20) tldr = "Click to read the full article and discover more.";
+
+      return { 
+        title: i.title.replace(/<[^>]*>/g, '').trim(), 
+        link: i.link, 
+        date: new Date(i.pubDate).toLocaleDateString('en-US', { month:'short', day:'numeric' }), 
+        source: feedTitle || categoryName || 'News', 
+        tldr: tldr 
+      };
     });
   } catch(e) { return null; }
 }
 
-// BUG FIX: Prevents fallback AAPL array from hijacking single-ticker queries when API fails
 async function fetchStocks(tickers = CONFIG.STOCK_TICKERS) {
   try {
     const results = await Promise.allSettled(tickers.map(sym => fetch(`https://finnhub.io/api/v1/quote?symbol=${sym}&token=${CONFIG.FINNHUB_KEY}`).then(r => r.json()).then(data => ({ sym, data }))));
     const valid = results.filter(r => r.status === 'fulfilled' && r.value.data && r.value.data.c).map(r => ({ symbol: r.value.sym, name: getCompanyName(r.value.sym), price: r.value.data.c.toFixed(2), changePct: (r.value.data.dp||0).toFixed(2), up: (r.value.data.d||0) >= 0 }));
     
-    // If we requested a specific ticker and it failed, return empty so UI shows "not found"
     if (tickers.length === 1 && valid.length === 0) return [];
     
-    // Only use fallback if we were fetching the default dashboard list and it failed
     if (valid.length < 2 && tickers.length === CONFIG.STOCK_TICKERS.length) {
         return [{ symbol: 'AAPL', name: 'Apple Inc.', price: '178.35', changePct: '1.25', up: true }, { symbol: 'MSFT', name: 'Microsoft', price: '330.12', changePct: '-0.45', up: false }, { symbol: 'NVDA', name: 'NVIDIA', price: '460.18', changePct: '2.10', up: true }]; 
     }
@@ -531,11 +676,11 @@ async function renderDashboard() {
   cryptoEl.innerHTML = crypto.map(c => `<div class="market-item" onclick="window.openChartModal('${c.symbol}', '${c.name}', '${c.price.replace(/,/g, '')}', ${c.up})"><div class="market-info"><span class="market-symbol">${c.symbol}</span><span class="market-name">${c.name}</span></div>${createSparklineSVG(c.up)}<div class="market-price-area"><div class="market-price">$${c.price}</div><div class="market-change ${c.up ? 'up' : 'down'}">${c.up ? '▲' : '▼'} ${c.changePct}%</div></div></div>`).join('');
 
   const techNewsEl = $('#dash-tech-news'); techNewsEl.innerHTML = '<div class="skeleton-list"><div class="skeleton-line"></div></div>';
-  const techNews = await fetchRSS(CONFIG.FEEDS.tech.url);
+  const techNews = await fetchRSS(CONFIG.FEEDS.tech.url, 'Tech');
   techNewsEl.innerHTML = techNews ? techNews.map(n => `<a class="news-card-enhanced" href="${esc(n.link)}" target="_blank" rel="noopener"><div class="news-category">${esc(n.source)}</div><div class="news-title-enhanced">${esc(n.title)}</div><div class="news-tldr">${esc(n.tldr)}</div></a>`).join('') : '<div class="error-state">⚠️ News unavailable</div>';
 
   const marketNewsEl = $('#dash-market-news'); marketNewsEl.innerHTML = '<div class="skeleton-list"><div class="skeleton-line"></div></div>';
-  const marketNews = await fetchRSS(CONFIG.FEEDS.markets.url);
+  const marketNews = await fetchRSS(CONFIG.FEEDS.markets.url, 'Markets');
   marketNewsEl.innerHTML = marketNews ? marketNews.map(n => `<a class="news-card-enhanced" href="${esc(n.link)}" target="_blank" rel="noopener"><div class="news-category">${esc(n.source)}</div><div class="news-title-enhanced">${esc(n.title)}</div><div class="news-tldr">${esc(n.tldr)}</div></a>`).join('') : '<div class="error-state">⚠️ News unavailable</div>';
 
   renderTicker(crypto, stocks);
@@ -549,7 +694,6 @@ function renderTicker(crypto, stocks) {
   el.innerHTML = [...all, ...all].map(a => `<div class="ticker-item"><strong>${a.symbol}</strong> <span>$${a.price}</span> <span class="${a.up?'up':'down'}">${a.up?'▲':'▼'} ${a.changePct}%</span></div>`).join('');
 }
 
-// --- CHART MODAL ---
 let chartInstance = null, currentChartPrice = 0, currentChartIsUp = true;
 function openChartModal(symbol, name, price, isUp) {
   currentChartPrice = parseFloat(price); currentChartIsUp = isUp;
@@ -572,7 +716,6 @@ function updateChartData(timeframe) {
   chartInstance = new Chart(ctx, { type: 'line', data: { labels, datasets: [{ data, borderColor: color, backgroundColor: color + '20', borderWidth: 2, fill: true, tension: 0.4, pointRadius: 0 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false }, ticks: { color: '#64748B', maxTicksLimit: 6 } }, y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#64748B' } } } } });
 }
 
-// --- INTENT DETECTION ---
 const TICKER_MAP = { 
   'apple': 'AAPL', 'tesla': 'TSLA', 'nvidia': 'NVDA', 'microsoft': 'MSFT', 
   'amazon': 'AMZN', 'google': 'GOOGL', 'bitcoin': 'BTC', 'ethereum': 'ETH', 
@@ -591,12 +734,10 @@ const Intent = {
     if (/\b(clear chat|reset)\b/i.test(lower)) return { type:'clear_chat' };
 
     let extractedTicker = null;
-    // 1. Check explicit name map first
     for (const [key, ticker] of Object.entries(TICKER_MAP)) { 
       if (lower.includes(key)) { extractedTicker = ticker; break; } 
     }
 
-    // 2. Fallback: Detect 2-5 letter uppercase words as potential tickers, ignoring common words
     if (!extractedTicker) { 
       const commonWords = new Set(['the','and','for','are','you','not','will','this','that','have','from','they','what','which','their','about','would','could','should','can','has','had','was','were','been','being','do','does','did','shall','may','might','must','with','out','over','into','our','new','now','way','day','say','get','all','any','how','why','who','but','if','or','so','up','go','no','yes','ok','me','is','it','in','on','at','to','of','a','an','be','my','we','us','show','check','tell']);
       const matches = input.match(/\b([a-zA-Z]{2,5})\b/g);
@@ -605,7 +746,6 @@ const Intent = {
         for (const m of matches) {
           const upperM = m.toUpperCase();
           if (!commonWords.has(m.toLowerCase()) && upperM.length >= 2) {
-            // If it's already uppercase, likely a ticker. If lowercase, only if it's a stock query.
             if (upperM === m || isStockQuery) {
               extractedTicker = upperM;
               break;
@@ -615,7 +755,6 @@ const Intent = {
       }
     }
 
-    // If we found a valid-looking ticker, prioritize stock/crypto detail
     if (extractedTicker && /^[A-Z]{2,5}$/.test(extractedTicker)) {
         if (/\b(crypto|coin|bitcoin|eth|sol|doge|xrp|ripple)\b/i.test(lower)) {
             return { type: 'crypto_detail', symbol: extractedTicker };
@@ -646,7 +785,6 @@ const Intent = {
   }
 };
 
-// --- AI PROCESSOR ---
 const AI = {
   async process(input) {
     const intent = Intent.detect(input);
@@ -705,7 +843,8 @@ const AI = {
       
       case 'news': {
         const feed = intent.category === 'tech' ? CONFIG.FEEDS.tech : CONFIG.FEEDS.markets;
-        const items = await fetchRSS(feed.url);
+        const categoryName = intent.category === 'tech' ? 'Tech' : 'Markets';
+        const items = await fetchRSS(feed.url, categoryName);
         if (!items) return `<p>⚠️ Couldn't load news right now.</p>`;
         let html = `<p>📰 <strong>Latest ${feed.name} News</strong></p><div style="display:flex;flex-direction:column;gap:12px;margin-top:12px;">`;
         items.forEach(n => {
@@ -727,7 +866,7 @@ const AI = {
           'quantum computing': { title: 'Quantum Computing', sub: 'Next-Gen Computational Power', def: 'A type of computing that uses quantum-mechanical phenomena, such as superposition and entanglement, to perform calculations.', mechanics: 'Uses qubits instead of classical bits. Qubits can exist in multiple states simultaneously, allowing massive parallel processing.', uses: ['Cryptography & cybersecurity', 'Complex molecular simulation', 'Optimization problems in logistics', 'Advanced AI model training'], players: ['IBM Quantum', 'Google Quantum AI', 'IonQ', 'Rigetti'] }
         };
         const c = concepts[topic] || concepts['ai'];
-        const news = await fetchRSS(CONFIG.FEEDS.ai.url);
+        const news = await fetchRSS(CONFIG.FEEDS.ai.url, 'AI');
         let html = `<div style="background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin: 12px 0;">
           <div style="padding: 16px; background: linear-gradient(135deg, rgba(var(--glow-color),0.1), rgba(168,85,247,0.05)); border-bottom: 1px solid var(--border);">
             <div style="font-size: 18px; font-weight: 800; margin-bottom: 4px;">${c.title}</div>
@@ -777,7 +916,6 @@ const AI = {
   }
 };
 
-// --- CHAT UI ---
 let isProcessing = false, msgIdCounter = 0;
 function addMsg(role, html, instant) {
   const div = document.createElement('div'); div.className = `msg ${role}`;
@@ -806,7 +944,7 @@ async function handleSend(text) {
   inputs.forEach(i => { if(i) i.disabled = true; });
   
   addMsg('user', esc(text), true);
-  scrollToBottom(true, true); // Force scroll when user sends a message
+  scrollToBottom(true, true);
   inputs.forEach(i => { if(i) i.value = ''; });
   
   const researchEl = showResearching();
@@ -910,7 +1048,6 @@ updateClock(); setInterval(updateClock, 1000);
 $('#chartModal').addEventListener('click', e => { if (e.target === $('#chartModal')) closeChartModal(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeSidebar(); closeChartModal(); } });
 
-// Scroll button visibility logic
 scrollContainer.addEventListener('scroll', () => {
   const btn = $('#scrollToBottomBtn');
   if (!btn) return;
@@ -918,7 +1055,6 @@ scrollContainer.addEventListener('scroll', () => {
   btn.style.display = isNearBottom ? 'none' : 'flex';
 });
 
-// ═══════════════ WIDGET MANAGER ═══════════════
 const WidgetManager = {
   state: { open: [] },
   init() {
@@ -1183,7 +1319,6 @@ const WidgetManager = {
 };
 window.WidgetManager = WidgetManager;
 
-// --- DRAGGING LOGIC ---
 let activeWidget = null, offsetX = 0, offsetY = 0, zCounter = 1000;
 document.addEventListener('pointerdown', (e) => {
   const handle = e.target.closest('.widget-drag-handle');
@@ -1207,8 +1342,8 @@ document.addEventListener('pointerup', () => {
   activeWidget = null;
 });
 
-// --- INIT ---
 (async () => {
+  renderFeaturedBlog(); 
   await renderDashboard();
   WidgetManager.init();
   const ctx = Memory.getContext();
