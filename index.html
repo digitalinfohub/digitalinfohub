@@ -81,13 +81,14 @@ html, body { height: 100%; font-family: var(--font); background: var(--bg); colo
 .icon-btn { width: 36px; height: 36px; border: 1px solid var(--border); background: var(--surface); color: var(--text-sub); border-radius: var(--radius-sm); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; font-size: 14px; flex-shrink: 0; }
 .icon-btn:hover { color: var(--text); border-color: var(--border-strong); background: var(--surface-2); }
 .clock { font-family: var(--mono); font-size: 11px; color: var(--text-muted); padding: 6px 10px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface); white-space: nowrap; }
+.cmd-hint { font-family: var(--mono); font-size: 10px; color: var(--text-muted); padding: 4px 8px; border: 1px solid var(--border); border-radius: 6px; background: var(--surface); white-space: nowrap; display: flex; align-items: center; gap: 4px; }
+.cmd-hint kbd { background: var(--surface-2); padding: 1px 5px; border-radius: 3px; font-size: 9px; font-weight: 600; }
 
 .ai-core { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 20px 16px; position: relative; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; min-height: 0; }
 .ai-ambient-glow { position: fixed; top: -20%; left: 50%; transform: translateX(-50%); width: 800px; height: 600px; background: radial-gradient(circle, rgba(var(--glow-color),0.1) 0%, rgba(3,3,5,0) 60%); filter: blur(80px); pointer-events: none; z-index: 0; animation: ambientPulse 8s infinite alternate ease-in-out; }
 @keyframes ambientPulse { 0% { opacity: 0.5; transform: translateX(-50%) scale(1); } 100% { opacity: 0.8; transform: translateX(-50%) scale(1.1); } }
 .ai-container { width: 100%; max-width: 900px; display: flex; flex-direction: column; position: relative; z-index: 1; margin: 0 auto; }
 
-/* Featured Blog Card Styles */
 .featured-blog-card {
   display: block;
   background: linear-gradient(135deg, rgba(var(--glow-color), 0.05), rgba(168, 85, 247, 0.05));
@@ -193,7 +194,9 @@ html, body { height: 100%; font-family: var(--font); background: var(--bg); colo
 .news-card-enhanced { display: block; padding: 14px; background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); text-decoration: none; color: var(--text); transition: all 0.2s; }
 .news-card-enhanced:hover { border-color: var(--accent); background: var(--surface-3); }
 .news-category { font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
-.news-title-enhanced { font-size: 14px; font-weight: 600; line-height: 1.4; margin-bottom: 8px; }
+.news-title-enhanced { font-size: 14px; font-weight: 600; line-height: 1.4; margin-bottom: 8px; 
+    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; 
+}
 .news-tldr { font-size: 12px; color: var(--text-sub); line-height: 1.5; margin-bottom: 8px; padding: 8px; background: var(--surface-3); border-radius: 6px; border-left: 2px solid var(--accent); }
 
 .affiliate-btn { display: inline-flex !important; align-items: center !important; justify-content: center !important; gap: 6px !important; padding: 10px 16px !important; background: var(--accent) !important; color: #ffffff !important; border-radius: var(--radius-sm) !important; text-decoration: none !important; font-weight: 600 !important; font-size: 12px !important; border: none !important; box-shadow: 0 0 10px rgba(var(--glow-color),0.25); transition: all 0.2s ease !important; cursor: pointer !important; min-height: 40px; }
@@ -258,7 +261,6 @@ html, body { height: 100%; font-family: var(--font); background: var(--bg); colo
 .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 999; }
 .sidebar-overlay.active { display: block; }
 
-/* ═══════════════ WIDGETS & DOCK ═══════════════ */
 .widget-layer { position: fixed; inset: 0; pointer-events: none; z-index: 900; }
 .floating-widget { 
   position: absolute; width: 300px; 
@@ -302,6 +304,7 @@ html, body { height: 100%; font-family: var(--font); background: var(--bg); colo
   .sidebar { position: fixed; top: 0; left: 0; bottom: 0; transform: translateX(-100%); z-index: 1000; width: min(var(--sidebar-w), 85vw); }
   .sidebar.active { transform: translateX(0); }
   .sidebar-close, #sidebarToggle { display: flex; }
+  .cmd-hint { display: none; }
 }
 @media (max-width: 767px) {
   :root { --topbar-h: 52px; }
@@ -345,7 +348,10 @@ html, body { height: 100%; font-family: var(--font); background: var(--bg); colo
       <div class="history-list" id="historyList" role="list"></div>
       <button class="btn-clear-history" id="clearHistoryBtn">Clear all history</button>
     </div>
-    <div class="sidebar-footer"><button class="icon-btn" id="themeToggle" title="Toggle theme">◑</button></div>
+    <div class="sidebar-footer">
+        <button class="icon-btn" id="exportChatBtn" title="Export Chat">️</button>
+        <button class="icon-btn" id="themeToggle" title="Toggle theme">◑</button>
+    </div>
   </aside>
   <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
@@ -354,6 +360,8 @@ html, body { height: 100%; font-family: var(--font); background: var(--bg); colo
       <button class="icon-btn" id="sidebarToggle" title="Menu">☰</button>
       <div class="ticker-shell" aria-label="Live market ticker"><div class="ticker-bar" id="tickerBar"></div></div>
       <div class="topbar-actions">
+        <div class="cmd-hint" title="Open Command Palette"><kbd>⌘</kbd><kbd>K</kbd></div>
+        <button class="icon-btn" onclick="window.toggleCmdPalette()" title="Command Palette (Cmd/Ctrl+K)">⌘</button>
         <div class="clock" id="clock">--:--</div>
       </div>
     </header>
@@ -375,14 +383,14 @@ html, body { height: 100%; font-family: var(--font); background: var(--bg); colo
           <div class="quick-actions">
             <button class="quick-action-btn" onclick="window.handleSend('Market briefing')">📊 Market Briefing</button>
             <button class="quick-action-btn" onclick="window.handleSend('Latest tech news')">💡 Tech News</button>
-            <button class="quick-action-btn" onclick="window.handleSend('Explain Quantum Computing')">🧠 Tech Concepts</button>
+            <button class="quick-action-btn" onclick="window.handleSend('Explain Quantum Computing')"> Tech Concepts</button>
             <button class="quick-action-btn" onclick="window.handleSend('Show my watchlist')">👁️ Watchlist</button>
           </div>
         </div>
 
         <div class="dashboard-grid" id="dashboardGrid">
           <div class="dash-card">
-            <div class="dash-card-header"><h3>📈 Top Stocks</h3><button class="dash-refresh" onclick="window.renderDashboard()">↻</button></div>
+            <div class="dash-card-header"><h3> Top Stocks</h3><button class="dash-refresh" onclick="window.renderDashboard()">↻</button></div>
             <div class="dash-card-content" id="dash-stocks"><div class="skeleton-grid"><div class="skeleton-card"></div><div class="skeleton-card"></div></div></div>
           </div>
           <div class="dash-card">
@@ -434,6 +442,34 @@ html, body { height: 100%; font-family: var(--font); background: var(--bg); colo
     </div>
     <div style="padding: 16px; height: 300px; position: relative;"><canvas id="priceChart"></canvas></div>
   </div>
+</div>
+
+<!-- Command Palette Modal -->
+<div class="cmd-overlay" id="cmdPalette" role="dialog" aria-modal="true">
+    <div class="cmd-modal" style="max-width: 500px;">
+        <div class="cmd-input-shell">
+            <input type="text" id="cmdInput" placeholder="Type a command or search..." style="background:none;border:none;outline:none;color:var(--text);font-size:16px;width:100%;">
+            <span style="font-size:11px;color:var(--text-muted);font-family:var(--mono);">ESC to close</span>
+        </div>
+        <div style="padding: 10px;">
+            <div style="font-size:11px;font-weight:700;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px;">🚀 Quick Actions</div>
+            <div style="display:flex;flex-direction:column;gap:4px;">
+                <button class="history-item" onclick="window.handleSend('Market briefing'); window.toggleCmdPalette()">📊 Market Briefing</button>
+                <button class="history-item" onclick="window.handleSend('Latest tech news'); window.toggleCmdPalette()">💡 Latest Tech News</button>
+                <button class="history-item" onclick="window.handleSend('Clear chat'); window.toggleCmdPalette()">️ Clear Current Chat</button>
+                <button class="history-item" onclick="window.handleSend('Show my watchlist'); window.toggleCmdPalette()">️ View Watchlist</button>
+            </div>
+            <div style="font-size:11px;font-weight:700;text-transform:uppercase;color:var(--text-muted);margin:12px 0 8px;">🛠️ Widgets & Tools</div>
+            <div style="display:flex;flex-direction:column;gap:4px;">
+                <button class="history-item" onclick="WidgetManager.toggle('weather'); window.toggleCmdPalette()">️ Weather Widget</button>
+                <button class="history-item" onclick="WidgetManager.toggle('notes'); window.toggleCmdPalette()">📝 Notes & Tasks</button>
+                <button class="history-item" onclick="WidgetManager.toggle('calc'); window.toggleCmdPalette()">🧮 Calculator</button>
+                <button class="history-item" onclick="WidgetManager.toggle('timer'); window.toggleCmdPalette()">⏱️ Focus Timer</button>
+                <button class="history-item" onclick="WidgetManager.toggle('converter'); window.toggleCmdPalette()">⚖️ Unit Converter</button>
+                <button class="history-item" onclick="WidgetManager.toggle('password'); window.toggleCmdPalette()"> Password Generator</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -567,6 +603,9 @@ function getCapabilitiesHTML() {
           </ul>
         </div>
       </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:11px;color:var(--text-muted);text-align:center;">
+        💡 <strong>Pro Tip:</strong> Press <kbd style="background:var(--surface-3);padding:2px 6px;border-radius:4px;font-family:var(--mono);">⌘</kbd> + <kbd style="background:var(--surface-3);padding:2px 6px;border-radius:4px;font-family:var(--mono);">K</kbd> (or <kbd style="background:var(--surface-3);padding:2px 6px;border-radius:4px;font-family:var(--mono);">Ctrl</kbd> + <kbd style="background:var(--surface-3);padding:2px 6px;border-radius:4px;font-family:var(--mono);">K</kbd>) to open the Command Palette
+      </div>
     </div>
   `;
 }
@@ -581,7 +620,6 @@ const Watchlist = {
 };
 Watchlist.init();
 
-// --- DATA FETCHING (UPDATED: Smart RSS parsing for NYT/Empty Descriptions) ---
 async function fetchRSS(url, categoryName) {
   try {
     const r = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`);
@@ -589,21 +627,28 @@ async function fetchRSS(url, categoryName) {
     const data = await r.json();
     
     let feedTitle = data.feed?.title || '';
-    // Clean up ugly feed names like "NYT > Business" or "TechCrunch Feed"
+    const txt = document.createElement('textarea');
+    txt.innerHTML = feedTitle;
+    feedTitle = txt.value;
     feedTitle = feedTitle.replace(/NYT\s*>\s*/gi, '').replace(/Feed$/i, '').trim();
     
     return (data.items || []).slice(0, 4).map(i => {
       let desc = i.description || '';
       let cleanDesc = desc.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
       
-      // Fallback to content if description is too short, empty, or boilerplate like "Here's the latest."
-      if (cleanDesc.length < 50 || /here.s the latest/i.test(cleanDesc)) {
-        let content = i.content || '';
+      if (cleanDesc.length < 50 || /here.s the latest/i.test(cleanDesc) || cleanDesc === '') {
+        let content = i.content || i['content:encoded'] || '';
         let cleanContent = content.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
-        if (cleanContent.length > cleanDesc.length) cleanDesc = cleanContent;
+        
+        if (cleanContent.length > cleanDesc.length) {
+             let snippet = cleanContent.substring(0, 250);
+             let lastPeriod = snippet.lastIndexOf('.');
+             if(lastPeriod > 100) snippet = snippet.substring(0, lastPeriod + 1);
+             cleanDesc = snippet;
+        }
       }
       
-      let tldr = cleanDesc.substring(0, 140) + (cleanDesc.length > 140 ? '...' : '');
+      let tldr = cleanDesc.substring(0, 160) + (cleanDesc.length > 160 ? '...' : '');
       if (!tldr || tldr.length < 20) tldr = "Click to read the full article and discover more.";
 
       return { 
@@ -677,7 +722,7 @@ async function renderDashboard() {
 
   const techNewsEl = $('#dash-tech-news'); techNewsEl.innerHTML = '<div class="skeleton-list"><div class="skeleton-line"></div></div>';
   const techNews = await fetchRSS(CONFIG.FEEDS.tech.url, 'Tech');
-  techNewsEl.innerHTML = techNews ? techNews.map(n => `<a class="news-card-enhanced" href="${esc(n.link)}" target="_blank" rel="noopener"><div class="news-category">${esc(n.source)}</div><div class="news-title-enhanced">${esc(n.title)}</div><div class="news-tldr">${esc(n.tldr)}</div></a>`).join('') : '<div class="error-state">⚠️ News unavailable</div>';
+  techNewsEl.innerHTML = techNews ? techNews.map(n => `<a class="news-card-enhanced" href="${esc(n.link)}" target="_blank" rel="noopener"><div class="news-category">${esc(n.source)}</div><div class="news-title-enhanced">${esc(n.title)}</div><div class="news-tldr">${esc(n.tldr)}</div></a>`).join('') : '<div class="error-state">️ News unavailable</div>';
 
   const marketNewsEl = $('#dash-market-news'); marketNewsEl.innerHTML = '<div class="skeleton-list"><div class="skeleton-line"></div></div>';
   const marketNews = await fetchRSS(CONFIG.FEEDS.markets.url, 'Markets');
@@ -797,7 +842,7 @@ const AI = {
       
       case 'watchlist_add': {
         const added = Watchlist.add(intent.symbol);
-        if (added) return `<p>✅ Added <strong>${intent.symbol}</strong> to your watchlist. It will now track live market data.</p><div class="chat-follow-ups"><button class="follow-up-btn" onclick="window.handleSend('Show my watchlist')">View Watchlist</button></div>`;
+        if (added) return `<p>✅ Added <strong>${intent.symbol}</strong> to your watchlist. It will now track live market data.</p><div class="chat-follow-ups"><button class="follow-up-btn" onclick="window.handleSend('Show my watchlist')">👁️ View Watchlist</button></div>`;
         return `<p><strong>${intent.symbol}</strong> is already in your watchlist.</p>`;
       }
       case 'watchlist_remove': {
@@ -810,14 +855,14 @@ const AI = {
         if (items.length === 0) {
           return `<p>👁️ Your watchlist is currently empty. You can add assets by saying something like <em>"Add NVDA to watchlist"</em> or <em>"Track Bitcoin"</em>.</p>
           <div class="chat-follow-ups">
-            <button class="follow-up-btn" onclick="window.handleSend('Add AAPL to watchlist')">Add AAPL</button>
-            <button class="follow-up-btn" onclick="window.handleSend('Add BTC to watchlist')">Add BTC</button>
+            <button class="follow-up-btn" onclick="window.handleSend('Add AAPL to watchlist')">➕ Add AAPL</button>
+            <button class="follow-up-btn" onclick="window.handleSend('Add BTC to watchlist')">➕ Add BTC</button>
           </div>`;
         }
         const data = await fetchWatchlistData();
         let html = `<p>👁️ <strong>Your Watchlist</strong> (${items.length} assets)</p><div style="display:grid;grid-template-columns:repeat(auto-fill, minmax(160px, 1fr));gap:10px;margin-top:10px;">`;
         data.forEach(s => { html += `<div class="market-item" onclick="window.openChartModal('${s.symbol}', '${s.name}', '${s.price}', ${s.up})"><div class="market-info"><span class="market-symbol">${s.symbol}</span><span class="market-name">${s.name}</span></div><div class="market-price-area"><div class="market-price" style="font-size:13px;">$${s.price}</div><div class="market-change ${s.up ? 'up' : 'down'}" style="font-size:10px;">${s.up ? '▲' : '▼'} ${s.changePct}%</div></div></div>`; });
-        html += `</div><div class="chat-follow-ups"><button class="follow-up-btn" onclick="window.handleSend('Remove ${items[0]} from watchlist')">Remove ${items[0]}</button></div>`;
+        html += `</div><div class="chat-follow-ups"><button class="follow-up-btn" onclick="window.handleSend('Remove ${items[0]} from watchlist')">🗑️ Remove ${items[0]}</button></div>`;
         return html;
       }
 
@@ -825,19 +870,19 @@ const AI = {
         const data = await fetchStocks([intent.symbol]);
         const stock = data && data.length > 0 ? data[0] : null;
         if (!stock) return `<p>⚠️ Couldn't find live data for <strong>${intent.symbol}</strong>. The market might be closed or the API is temporarily unavailable.</p>`;
-        return `<p>📈 <strong>${stock.symbol} (${stock.name})</strong></p><div class="market-item" style="cursor:default;margin-top:8px;"><div class="market-info"><span class="market-symbol">${stock.symbol}</span></div>${createSparklineSVG(stock.up)}<div class="market-price-area"><div class="market-price">$${stock.price}</div><div class="market-change ${stock.up ? 'up' : 'down'}">${stock.up ? '▲' : '▼'} ${stock.changePct}%</div></div></div><div class="chat-follow-ups"><button class="follow-up-btn" onclick="window.openChartModal('${stock.symbol}', '${stock.name}', '${stock.price}', ${stock.up})">View Chart</button><button class="follow-up-btn" onclick="window.handleSend('Add ${stock.symbol} to watchlist')">Add to Watchlist</button></div>`;
+        return `<p>📈 <strong>${stock.symbol} (${stock.name})</strong></p><div class="market-item" style="cursor:default;margin-top:8px;"><div class="market-info"><span class="market-symbol">${stock.symbol}</span></div>${createSparklineSVG(stock.up)}<div class="market-price-area"><div class="market-price">$${stock.price}</div><div class="market-change ${stock.up ? 'up' : 'down'}">${stock.up ? '▲' : '▼'} ${stock.changePct}%</div></div></div><div class="chat-follow-ups"><button class="follow-up-btn" onclick="window.openChartModal('${stock.symbol}', '${stock.name}', '${stock.price}', ${stock.up})"> View Chart</button><button class="follow-up-btn" onclick="window.handleSend('Add ${stock.symbol} to watchlist')">➕ Add to Watchlist</button></div>`;
       }
       case 'crypto_detail': {
         const data = await fetchCrypto([intent.symbol]);
         const crypto = data && data.length > 0 ? data[0] : null;
-        if (!crypto) return `<p>⚠️ Couldn't find live data for <strong>${intent.symbol}</strong>. The market might be closed or the API is temporarily unavailable.</p>`;
-        return `<p>🪙 <strong>${crypto.symbol} (${crypto.name})</strong></p><div class="market-item" style="cursor:default;margin-top:8px;"><div class="market-info"><span class="market-symbol">${crypto.symbol}</span></div>${createSparklineSVG(crypto.up)}<div class="market-price-area"><div class="market-price">$${crypto.price}</div><div class="market-change ${crypto.up ? 'up' : 'down'}">${crypto.up ? '▲' : '▼'} ${crypto.changePct}%</div></div></div><div class="chat-follow-ups"><button class="follow-up-btn" onclick="window.openChartModal('${crypto.symbol}', '${crypto.name}', '${crypto.price.replace(/,/g, '')}', ${crypto.up})">View Chart</button></div>`;
+        if (!crypto) return `<p>️ Couldn't find live data for <strong>${intent.symbol}</strong>. The market might be closed or the API is temporarily unavailable.</p>`;
+        return `<p>🪙 <strong>${crypto.symbol} (${crypto.name})</strong></p><div class="market-item" style="cursor:default;margin-top:8px;"><div class="market-info"><span class="market-symbol">${crypto.symbol}</span></div>${createSparklineSVG(crypto.up)}<div class="market-price-area"><div class="market-price">$${crypto.price}</div><div class="market-change ${crypto.up ? 'up' : 'down'}">${crypto.up ? '▲' : '▼'} ${crypto.changePct}%</div></div></div><div class="chat-follow-ups"><button class="follow-up-btn" onclick="window.openChartModal('${crypto.symbol}', '${crypto.name}', '${crypto.price.replace(/,/g, '')}', ${crypto.up})"> View Chart</button></div>`;
       }
       case 'market_briefing': case 'stocks': case 'crypto': {
         const [crypto, stocks] = await Promise.all([fetchCrypto(), fetchStocks()]);
         let html = `<p>📊 <strong>Market Briefing</strong></p>`;
-        if (stocks) html += `<p style="font-size:12px;font-weight:600;margin-top:12px;">Stocks</p><div style="display:grid;grid-template-columns:repeat(auto-fill, minmax(140px, 1fr));gap:8px;">` + stocks.slice(0,4).map(s => `<div class="market-item" onclick="window.openChartModal('${s.symbol}', '${s.name}', '${s.price}', ${s.up})" style="padding:8px;"><div class="market-info"><span class="market-symbol">${s.symbol}</span></div><div class="market-price-area"><div class="market-price" style="font-size:13px;">$${s.price}</div><div class="market-change ${s.up ? 'up' : 'down'}" style="font-size:10px;">${s.up ? '▲' : '▼'} ${s.changePct}%</div></div></div>`).join('') + `</div>`;
-        if (crypto) html += `<p style="font-size:12px;font-weight:600;margin-top:12px;">Crypto</p><div style="display:grid;grid-template-columns:repeat(auto-fill, minmax(140px, 1fr));gap:8px;">` + crypto.map(s => `<div class="market-item" onclick="window.openChartModal('${s.symbol}', '${s.name}', '${s.price.replace(/,/g, '')}', ${s.up})" style="padding:8px;"><div class="market-info"><span class="market-symbol">${s.symbol}</span></div><div class="market-price-area"><div class="market-price" style="font-size:13px;">$${s.price}</div><div class="market-change ${s.up ? 'up' : 'down'}" style="font-size:10px;">${s.up ? '▲' : '▼'} ${s.changePct}%</div></div></div>`).join('') + `</div>`;
+        if (stocks) html += `<p style="font-size:12px;font-weight:600;margin-top:12px;"> Stocks</p><div style="display:grid;grid-template-columns:repeat(auto-fill, minmax(140px, 1fr));gap:8px;">` + stocks.slice(0,4).map(s => `<div class="market-item" onclick="window.openChartModal('${s.symbol}', '${s.name}', '${s.price}', ${s.up})" style="padding:8px;"><div class="market-info"><span class="market-symbol">${s.symbol}</span></div><div class="market-price-area"><div class="market-price" style="font-size:13px;">$${s.price}</div><div class="market-change ${s.up ? 'up' : 'down'}" style="font-size:10px;">${s.up ? '▲' : '▼'} ${s.changePct}%</div></div></div>`).join('') + `</div>`;
+        if (crypto) html += `<p style="font-size:12px;font-weight:600;margin-top:12px;"> Crypto</p><div style="display:grid;grid-template-columns:repeat(auto-fill, minmax(140px, 1fr));gap:8px;">` + crypto.map(s => `<div class="market-item" onclick="window.openChartModal('${s.symbol}', '${s.name}', '${s.price.replace(/,/g, '')}', ${s.up})" style="padding:8px;"><div class="market-info"><span class="market-symbol">${s.symbol}</span></div><div class="market-price-area"><div class="market-price" style="font-size:13px;">$${s.price}</div><div class="market-change ${s.up ? 'up' : 'down'}" style="font-size:10px;">${s.up ? '▲' : '▼'} ${s.changePct}%</div></div></div>`).join('') + `</div>`;
         return html;
       }
       
@@ -854,7 +899,7 @@ const AI = {
             <div class="news-tldr"><strong>TL;DR:</strong> ${esc(n.tldr)}</div>
           </a>`;
         });
-        html += `</div><div class="chat-follow-ups"><button class="follow-up-btn" onclick="window.handleSend('Latest tech news')">More Tech News</button><button class="follow-up-btn" onclick="window.handleSend('Market briefing')">Market Briefing</button></div>`;
+        html += `</div><div class="chat-follow-ups"><button class="follow-up-btn" onclick="window.handleSend('Latest tech news')">💡 More Tech News</button><button class="follow-up-btn" onclick="window.handleSend('Market briefing')">📊 Market Briefing</button></div>`;
         return html;
       }
 
@@ -866,7 +911,7 @@ const AI = {
           'quantum computing': { title: 'Quantum Computing', sub: 'Next-Gen Computational Power', def: 'A type of computing that uses quantum-mechanical phenomena, such as superposition and entanglement, to perform calculations.', mechanics: 'Uses qubits instead of classical bits. Qubits can exist in multiple states simultaneously, allowing massive parallel processing.', uses: ['Cryptography & cybersecurity', 'Complex molecular simulation', 'Optimization problems in logistics', 'Advanced AI model training'], players: ['IBM Quantum', 'Google Quantum AI', 'IonQ', 'Rigetti'] }
         };
         const c = concepts[topic] || concepts['ai'];
-        const news = await fetchRSS(CONFIG.FEEDS.ai.url, 'AI');
+        const news = await fetchRSS(CONFIG.FEEDS.tech.url, 'Tech');
         let html = `<div style="background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin: 12px 0;">
           <div style="padding: 16px; background: linear-gradient(135deg, rgba(var(--glow-color),0.1), rgba(168,85,247,0.05)); border-bottom: 1px solid var(--border);">
             <div style="font-size: 18px; font-weight: 800; margin-bottom: 4px;">${c.title}</div>
@@ -880,7 +925,7 @@ const AI = {
           </div>
         </div>`;
         if (news && news.length > 0) {
-          html += `<p style="margin-top:16px;font-size:13px;font-weight:600;">📰 Latest ${c.title} News</p><div style="display:flex;flex-direction:column;gap:10px;margin-top:8px;">`;
+          html += `<p style="margin-top:16px;font-size:13px;font-weight:600;">📰 Latest Technology News</p><div style="display:flex;flex-direction:column;gap:10px;margin-top:8px;">`;
           news.slice(0, 2).forEach(n => { html += `<a class="news-card-enhanced" href="${esc(n.link)}" target="_blank" rel="noopener"><div class="news-title-enhanced">${esc(n.title)}</div><div class="news-tldr">${esc(n.tldr)}</div></a>`; });
           html += `</div>`;
         }
@@ -891,7 +936,7 @@ const AI = {
       case 'fallback': {
         const query = intent.query || input.trim();
         const ddgLink = `https://duckduckgo.com/?q=${encodeURIComponent(query)}`;
-        let html = `<p>🔍 <strong>Searching the web for "${esc(query)}"</strong></p>`;
+        let html = `<p> <strong>Searching the web for "${esc(query)}"</strong></p>`;
         try {
           const res = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(query)}`);
           if (res.ok) {
@@ -969,7 +1014,13 @@ async function handleSend(text) {
   }
 }
 
-window.handleSend = handleSend; window.openChartModal = openChartModal; window.closeChartModal = closeChartModal; window.updateChartTimeframe = updateChartTimeframe; window.renderDashboard = renderDashboard; window.scrollToBottom = scrollToBottom;
+window.handleSend = handleSend; window.openChartModal = openChartModal; window.closeChartModal = closeChartModal; window.updateChartTimeframe = updateChartTimeframe; window.renderDashboard = renderDashboard; window.scrollToBottom = scrollToBottom; window.toggleCmdPalette = () => {
+    const el = $('#cmdPalette');
+    el.classList.toggle('active');
+    if(el.classList.contains('active')) {
+        setTimeout(() => $('#cmdInput').focus(), 100);
+    }
+};
 
 $('#chatForm').addEventListener('submit', e => { e.preventDefault(); e.stopPropagation(); handleSend($('#chatInput').value); });
 $('#chatFormBottom').addEventListener('submit', e => { e.preventDefault(); e.stopPropagation(); handleSend($('#chatInputBottom').value); });
@@ -1032,6 +1083,22 @@ function showWelcomeMessage() {
 $('#newChatBtn').addEventListener('click', () => { HistoryManager.clearCurrentChat(); if (window.innerWidth < 1024) closeSidebar(); });
 $('#clearHistoryBtn').addEventListener('click', () => { if (confirm('Clear all history?')) HistoryManager.clearAll(); });
 
+$('#exportChatBtn').addEventListener('click', () => {
+    const context = Memory.getContext();
+    if(context.length === 0) return alert("No chat to export!");
+    let text = `Digital Infohub Chat Export - ${new Date().toLocaleString()}\n\n`;
+    context.forEach(msg => {
+        text += `[${msg.role.toUpperCase()}] ${new Date(msg.ts).toLocaleTimeString()}: ${msg.text.replace(/<[^>]*>/g, '')}\n\n`;
+    });
+    const blob = new Blob([text], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `DIH_Chat_${Date.now()}.txt`;
+    a.click();
+    URL.revokeObjectURL(url);
+});
+
 function toggleSidebar() { $('#sidebar').classList.toggle('active'); $('#sidebarOverlay').classList.toggle('active'); document.body.style.overflow = $('#sidebar').classList.contains('active') ? 'hidden' : ''; }
 function closeSidebar() { $('#sidebar').classList.remove('active'); $('#sidebarOverlay').classList.remove('active'); document.body.style.overflow = ''; }
 $('#sidebarToggle').addEventListener('click', toggleSidebar);
@@ -1046,7 +1113,11 @@ function updateClock() { const el = $('#clock'); if (el) el.textContent = new Da
 updateClock(); setInterval(updateClock, 1000);
 
 $('#chartModal').addEventListener('click', e => { if (e.target === $('#chartModal')) closeChartModal(); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeSidebar(); closeChartModal(); } });
+$('#cmdPalette').addEventListener('click', e => { if (e.target === $('#cmdPalette')) window.toggleCmdPalette(); });
+document.addEventListener('keydown', e => { 
+    if (e.key === 'Escape') { closeSidebar(); closeChartModal(); if($('#cmdPalette').classList.contains('active')) window.toggleCmdPalette(); } 
+    if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); window.toggleCmdPalette(); }
+});
 
 scrollContainer.addEventListener('scroll', () => {
   const btn = $('#scrollToBottomBtn');
@@ -1084,10 +1155,12 @@ const WidgetManager = {
   renderDock() {
     const dock = $('#widgetDock');
     const items = [
-      { type: 'weather', icon: '🌤️', label: 'Weather' },
-      { type: 'notes', icon: '📝', label: 'Notes & Tasks' },
-      { type: 'calc', icon: '🧮', label: 'Calculator' },
-      { type: 'timer', icon: '⏱️', label: 'Focus Timer' }
+      { type: 'weather', icon: '\u{1F324}\u{FE0F}', label: 'Weather' },
+      { type: 'notes', icon: '\u{1F4DD}', label: 'Notes & Tasks' },
+      { type: 'calc', icon: '\u{1F9EE}', label: 'Calculator' },
+      { type: 'timer', icon: '\u{23F1}\u{FE0F}', label: 'Focus Timer' },
+      { type: 'converter', icon: '\u{2696}\u{FE0F}', label: 'Converter' },
+      { type: 'password', icon: '\u{1F511}', label: 'Passwords' }
     ];
     dock.innerHTML = items.map(i => `<button class="dock-item" data-type="${i.type}" title="${i.label}" onclick="WidgetManager.toggle('${i.type}')"><span>${i.icon}</span></button>`).join('');
     this.updateDock();
@@ -1112,6 +1185,8 @@ const WidgetManager = {
     else if (type === 'notes') content = this.getNotesHTML();
     else if (type === 'calc') content = this.getCalcHTML();
     else if (type === 'timer') content = this.getTimerHTML();
+    else if (type === 'converter') content = this.getConverterHTML();
+    else if (type === 'password') content = this.getPasswordHTML();
 
     el.innerHTML = `<div class="widget-header widget-drag-handle"><span class="widget-title">${this.getTitle(type)}</span><button class="widget-close" onclick="WidgetManager.close('${type}')">✕</button></div><div class="widget-body">${content}</div>`;
     $('#widgetLayer').appendChild(el);
@@ -1120,8 +1195,10 @@ const WidgetManager = {
     else if (type === 'notes') this.initNotes(el);
     else if (type === 'calc') this.initCalc(el);
     else if (type === 'timer') this.initTimer(el);
+    else if (type === 'converter') this.initConverter(el);
+    else if (type === 'password') this.initPassword(el);
   },
-  getTitle(type) { return { weather: 'Weather', notes: 'Notes & Tasks', calc: 'Calculator', timer: 'Focus Timer' }[type] || 'Widget'; },
+  getTitle(type) { return { weather: 'Weather', notes: 'Notes & Tasks', calc: 'Calculator', timer: 'Focus Timer', converter: 'Unit Converter', password: 'Password Gen' }[type] || 'Widget'; },
   
   getWeatherHTML() {
     const city = localStorage.getItem('dih_weather_city') || '';
@@ -1184,9 +1261,15 @@ const WidgetManager = {
     if (el) { el.querySelector('.widget-body').innerHTML = this.getWeatherHTML(); this.initWeather(el); }
   },
   getWeatherEmoji(code) {
-    if (code === 0) return '☀️'; if (code <= 3) return '⛅'; if (code <= 48) return '🌫️';
-    if (code <= 67) return '🌧️'; if (code <= 77) return '🌨️'; if (code <= 82) return '🌧️';
-    if (code <= 86) return '🌨️'; if (code >= 95) return '⛈️'; return '🌡️';
+    if (code === 0) return '\u2600\uFE0F';
+    if (code <= 3) return '\u26C5';
+    if (code <= 48) return '\u{1F32B}\uFE0F';
+    if (code <= 67) return '\u{1F327}\uFE0F';
+    if (code <= 77) return '\u{1F328}\uFE0F';
+    if (code <= 82) return '\u{1F327}\uFE0F';
+    if (code <= 86) return '\u{1F328}\uFE0F';
+    if (code >= 95) return '\u26C8\uFE0F';
+    return '\u{1F321}\uFE0F';
   },
 
   getNotesHTML() {
@@ -1315,6 +1398,73 @@ const WidgetManager = {
       clearInterval(interval); interval = null; timeLeft = 25 * 60; updateDisplay();
       startBtn.textContent = 'Start'; startBtn.style.background = 'var(--green)';
     });
+  },
+
+  getConverterHTML() {
+    return `
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <div>
+          <label style="font-size:11px;font-weight:700;color:var(--text-muted);">Temperature (°C to °F)</label>
+          <div style="display:flex;gap:8px;margin-top:4px;">
+            <input type="number" id="convTempC" placeholder="°C" style="flex:1;padding:6px;background:var(--surface-3);border:1px solid var(--border);border-radius:6px;color:var(--text);">
+            <span style="padding:6px;">=</span>
+            <input type="text" id="convTempF" readonly placeholder="°F" style="flex:1;padding:6px;background:var(--surface-2);border:1px solid var(--border);border-radius:6px;color:var(--accent);">
+          </div>
+        </div>
+        <div>
+          <label style="font-size:11px;font-weight:700;color:var(--text-muted);">Length (ft to m)</label>
+          <div style="display:flex;gap:8px;margin-top:4px;">
+            <input type="number" id="convLenFt" placeholder="ft" style="flex:1;padding:6px;background:var(--surface-3);border:1px solid var(--border);border-radius:6px;color:var(--text);">
+            <span style="padding:6px;">=</span>
+            <input type="text" id="convLenM" readonly placeholder="m" style="flex:1;padding:6px;background:var(--surface-2);border:1px solid var(--border);border-radius:6px;color:var(--accent);">
+          </div>
+        </div>
+      </div>
+    `;
+  },
+  initConverter(el) {
+    const c = el.querySelector('#convTempC'), f = el.querySelector('#convTempF');
+    c.addEventListener('input', () => { if(c.value) f.value = (parseFloat(c.value) * 9/5 + 32).toFixed(1); else f.value = ''; });
+    
+    const ft = el.querySelector('#convLenFt'), m = el.querySelector('#convLenM');
+    ft.addEventListener('input', () => { if(ft.value) m.value = (parseFloat(ft.value) * 0.3048).toFixed(2); else m.value = ''; });
+  },
+
+  getPasswordHTML() {
+    return `
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:12px;color:var(--text-sub);">Length: <span id="pwLenVal">16</span></span>
+          <input type="range" id="pwLen" min="8" max="32" value="16" style="width:100px;accent-color:var(--accent);">
+        </div>
+        <div style="background:var(--surface-3);padding:12px;border-radius:6px;border:1px solid var(--border);font-family:var(--mono);font-size:14px;word-break:break-all;text-align:center;" id="pwResult">Generating...</div>
+        <button id="pwGenBtn" style="padding:10px;background:var(--accent);color:white;border:none;border-radius:6px;cursor:pointer;font-weight:600;">Generate New</button>
+        <button id="pwCopyBtn" style="padding:10px;background:var(--surface-2);color:var(--text);border:1px solid var(--border);border-radius:6px;cursor:pointer;font-weight:600;">Copy to Clipboard</button>
+      </div>
+    `;
+  },
+  initPassword(el) {
+    const lenInput = el.querySelector('#pwLen');
+    const lenVal = el.querySelector('#pwLenVal');
+    const result = el.querySelector('#pwResult');
+    const genBtn = el.querySelector('#pwGenBtn');
+    const copyBtn = el.querySelector('#pwCopyBtn');
+
+    const generate = () => {
+      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?";
+      let pw = "";
+      for(let i=0; i<lenInput.value; i++) pw += chars.charAt(Math.floor(Math.random() * chars.length));
+      result.textContent = pw;
+    };
+
+    lenInput.addEventListener('input', () => { lenVal.textContent = lenInput.value; generate(); });
+    genBtn.addEventListener('click', generate);
+    copyBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText(result.textContent);
+      copyBtn.textContent = "Copied!";
+      setTimeout(() => copyBtn.textContent = "Copy to Clipboard", 2000);
+    });
+    generate();
   }
 };
 window.WidgetManager = WidgetManager;
@@ -1346,17 +1496,8 @@ document.addEventListener('pointerup', () => {
   renderFeaturedBlog(); 
   await renderDashboard();
   WidgetManager.init();
-  const ctx = Memory.getContext();
-  if (ctx.length === 0) showWelcomeMessage();
-  else {
-    ctx.forEach(msg => {
-      const div = document.createElement('div'); div.className = `msg ${msg.role}`;
-      const avatar = msg.role === 'bot' ? `<img src="${CONFIG.LOGO_URL}" alt="">` : esc(Memory.getName() || 'You').charAt(0).toUpperCase();
-      div.innerHTML = `<div class="msg-avatar ${msg.role}">${avatar}</div><div class="msg-body"><div class="msg-header"><span class="msg-role">${msg.role === 'bot' ? CONFIG.BOT_NAME : 'You'}</span><span class="msg-time">${new Date(msg.ts).toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit' })}</span></div><div class="msg-content">${msg.text}</div></div>`;
-      thread.appendChild(div);
-    });
-    scrollToBottom(false, true);
-  }
+  
+  showWelcomeMessage();
 })();
 
 setInterval(() => HistoryManager.saveCurrentSession(), 30000);
