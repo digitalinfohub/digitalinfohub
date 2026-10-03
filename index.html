@@ -40,7 +40,6 @@
 *:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
 html, body { height: 100%; font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; transition: background 0.3s, color 0.3s; overscroll-behavior-y: none; }
 .app-shell { display: flex; height: 100vh; height: 100dvh; position: relative; width: 100%; overflow: hidden; }
-
 .sidebar { width: var(--sidebar-w); background: rgba(10,10,12,0.95); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border-right: 1px solid var(--border); display: flex; flex-direction: column; z-index: 1000; transition: transform 0.4s var(--ease); height: 100%; flex-shrink: 0; overflow: hidden; }
 .sidebar-header { padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); flex-shrink: 0; }
 .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; text-decoration: none; color: var(--text); font-size: 15px; letter-spacing: -0.02em; min-width: 0; }
@@ -48,28 +47,31 @@ html, body { height: 100%; font-family: var(--font); background: var(--bg); colo
 .brand-logo img { width: 100%; height: 100%; object-fit: cover; }
 .brand-name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .sidebar-close { display: none; width: 36px; height: 36px; background: var(--surface-2); border: 1px solid var(--border); color: var(--text-sub); cursor: pointer; font-size: 16px; border-radius: var(--radius-sm); align-items: center; justify-content: center; flex-shrink: 0; }
-
 .sidebar-nav { padding: 12px 10px; display: flex; flex-direction: column; gap: 2px; flex-shrink: 0; overflow-y: auto; scrollbar-width: thin; }
-.nav-link { display: flex; align-items: center; gap: 10px; padding: 10px 14px; color: var(--text-sub); text-decoration: none; font-size: 13px; font-weight: 500; border-radius: var(--radius-sm); transition: all 0.2s; white-space: nowrap; min-height: 40px; }
+.nav-link { display: flex; align-items: center; gap: 10px; padding: 10px 14px; color: var(--text-sub); text-decoration: none; font-size: 13px; font-weight: 500; border-radius: var(--radius-sm); transition: all 0.2s; white-space: nowrap; min-height: 40px; position: relative; }
 .nav-link:hover { background: var(--surface-2); color: var(--text); }
 .nav-link.active { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+.nav-link.active::after { content: ''; position: absolute; bottom: 0; left: 14px; right: 14px; height: 2px; background: var(--accent); border-radius: 2px; animation: slideIn 0.3s var(--ease); }
+@keyframes slideIn { from { transform: scaleX(0); transform-origin: left; } to { transform: scaleX(1); transform-origin: left; } }
 .nav-link span { font-size: 15px; flex-shrink: 0; }
-
 .sidebar-history { flex: 1; border-top: 1px solid var(--border); padding: 12px 10px; display: flex; flex-direction: column; overflow: hidden; min-height: 0; }
 .history-header { display: flex; justify-content: space-between; align-items: center; padding: 0 14px 10px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); flex-shrink: 0; }
 .btn-new-chat { background: var(--surface-2); border: 1px solid var(--border); color: var(--text-sub); font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: var(--radius-pill); cursor: pointer; transition: all 0.2s; }
+.btn-new-chat:hover { background: var(--surface-3); color: var(--text); }
 .history-list { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; display: flex; flex-direction: column; gap: 2px; margin-bottom: 12px; scrollbar-width: thin; min-height: 0; }
 .history-item { display: flex; align-items: center; gap: 8px; padding: 10px 14px; background: none; border: none; color: var(--text-sub); font-size: 12px; text-align: left; border-radius: var(--radius-sm); cursor: pointer; transition: all 0.2s; width: 100%; font-family: var(--font); min-height: 38px; }
 .history-item:hover { background: var(--surface-2); color: var(--text); }
 .history-title { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
 .history-delete { opacity: 0; background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 11px; padding: 4px 6px; transition: all 0.15s; border-radius: 4px; }
 .history-item:hover .history-delete { opacity: 1; }
+.history-delete:hover { background: var(--red); color: white; }
 .btn-clear-history { background: none; border: 1px solid var(--border); color: var(--text-muted); font-size: 11px; padding: 10px; border-radius: var(--radius-sm); cursor: pointer; transition: all 0.2s; font-family: var(--font); flex-shrink: 0; min-height: 40px; }
+.btn-clear-history:hover { background: var(--surface-2); color: var(--text); }
 .sidebar-footer { padding: 14px 20px; border-top: 1px solid var(--border); display: flex; gap: 10px; flex-shrink: 0; }
-
 .main-area { flex: 1; display: flex; flex-direction: column; position: relative; min-width: 0; overflow: hidden; height: 100%; }
 .topbar { height: var(--topbar-h); border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 16px; gap: 12px; background: rgba(10,10,12,0.8); backdrop-filter: blur(16px); flex-shrink: 0; }
 #sidebarToggle { display: none; width: 40px; height: 40px; background: var(--surface); border: 1px solid var(--border); color: var(--text); border-radius: var(--radius-sm); cursor: pointer; font-size: 18px; flex-shrink: 0; align-items: center; justify-content: center; }
+#sidebarToggle:active { transform: scale(0.95); }
 .ticker-shell { flex: 1; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; scrollbar-width: none; touch-action: pan-y; mask-image: linear-gradient(90deg, transparent, black 5%, black 95%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, black 5%, black 95%, transparent); }
 .ticker-shell::-webkit-scrollbar { display: none; }
 .ticker-bar { display: inline-flex; padding: 10px 0; }
@@ -80,108 +82,49 @@ html, body { height: 100%; font-family: var(--font); background: var(--bg); colo
 .topbar-actions { display: flex; gap: 8px; align-items: center; flex-shrink: 0; }
 .icon-btn { width: 36px; height: 36px; border: 1px solid var(--border); background: var(--surface); color: var(--text-sub); border-radius: var(--radius-sm); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; font-size: 14px; flex-shrink: 0; }
 .icon-btn:hover { color: var(--text); border-color: var(--border-strong); background: var(--surface-2); }
+.icon-btn:active { transform: scale(0.95); }
 .clock { font-family: var(--mono); font-size: 11px; color: var(--text-muted); padding: 6px 10px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface); white-space: nowrap; }
 .cmd-hint { font-family: var(--mono); font-size: 10px; color: var(--text-muted); padding: 4px 8px; border: 1px solid var(--border); border-radius: 6px; background: var(--surface); white-space: nowrap; display: flex; align-items: center; gap: 4px; }
 .cmd-hint kbd { background: var(--surface-2); padding: 1px 5px; border-radius: 3px; font-size: 9px; font-weight: 600; }
-
 .ai-core { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 20px 16px; position: relative; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; min-height: 0; }
-.ai-ambient-glow { position: fixed; top: -20%; left: 50%; transform: translateX(-50%); width: 800px; height: 600px; background: radial-gradient(circle, rgba(var(--glow-color),0.1) 0%, rgba(3,3,5,0) 60%); filter: blur(80px); pointer-events: none; z-index: 0; animation: ambientPulse 8s infinite alternate ease-in-out; }
+.ai-ambient-glow { position: fixed; top: -20%; left: 50%; transform: translateX(-50%); width: 800px; height: 600px; background: radial-gradient(circle, rgba(var(--glow-color),0.1) 0%, rgba(3,3,5,0) 60%); filter: blur(80px); pointer-events: none; z-index: 0; animation: ambientPulse 8s infinite alternate ease-in-out; transition: background 1s ease; }
 @keyframes ambientPulse { 0% { opacity: 0.5; transform: translateX(-50%) scale(1); } 100% { opacity: 0.8; transform: translateX(-50%) scale(1.1); } }
 .ai-container { width: 100%; max-width: 900px; display: flex; flex-direction: column; position: relative; z-index: 1; margin: 0 auto; }
-
-.featured-blog-card {
-  display: block;
-  background: linear-gradient(135deg, rgba(var(--glow-color), 0.05), rgba(168, 85, 247, 0.05));
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius);
-  padding: 24px;
-  margin-bottom: 24px;
-  text-decoration: none;
-  color: var(--text);
-  transition: all 0.3s var(--ease);
-  position: relative;
-  overflow: hidden;
-  animation: fadeInDown 0.6s var(--ease-out);
-}
-.featured-blog-card:hover {
-  border-color: var(--accent);
-  background: linear-gradient(135deg, rgba(var(--glow-color), 0.1), rgba(168, 85, 247, 0.1));
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px -8px rgba(var(--glow-color), 0.2);
-}
-.featured-blog-badge {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  background: var(--accent);
-  color: white;
-  font-size: 10px;
-  font-weight: 700;
-  padding: 4px 10px;
-  border-radius: var(--radius-pill);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-.featured-blog-category {
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 8px;
-  letter-spacing: 0.05em;
-}
-.featured-blog-title {
-  font-size: 22px;
-  font-weight: 800;
-  line-height: 1.3;
-  margin-bottom: 10px;
-  letter-spacing: -0.02em;
-}
-.featured-blog-excerpt {
-  font-size: 14px;
-  color: var(--text-sub);
-  line-height: 1.6;
-  margin-bottom: 16px;
-}
-.featured-blog-cta {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--accent);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.featured-blog-cta span {
-  transition: transform 0.2s var(--ease);
-}
-.featured-blog-card:hover .featured-blog-cta span {
-  transform: translateX(4px);
-}
-@media (max-width: 767px) {
-  .featured-blog-card { padding: 18px; margin-bottom: 16px; }
-  .featured-blog-title { font-size: 18px; }
-  .featured-blog-badge { top: 12px; right: 12px; }
-}
-
-.ai-search-hero { text-align: center; margin-bottom: 32px; animation: fadeInDown 0.6s var(--ease-out); padding-top: 10px; flex-shrink: 0; }
+.featured-blog-card { display: block; background: linear-gradient(135deg, rgba(var(--glow-color), 0.05), rgba(168, 85, 247, 0.05)); border: 1px solid var(--border-strong); border-radius: var(--radius); padding: 24px; margin-bottom: 24px; text-decoration: none; color: var(--text); transition: all 0.3s var(--ease); position: relative; overflow: hidden; animation: fadeInUp 0.6s var(--ease-out) backwards; }
+.featured-blog-card:hover { border-color: var(--accent); background: linear-gradient(135deg, rgba(var(--glow-color), 0.1), rgba(168, 85, 247, 0.1)); transform: translateY(-2px); box-shadow: 0 8px 30px -8px rgba(var(--glow-color), 0.2); }
+.featured-blog-badge { position: absolute; top: 16px; right: 16px; background: var(--accent); color: white; font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: var(--radius-pill); text-transform: uppercase; letter-spacing: 0.05em; }
+.featured-blog-category { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; letter-spacing: 0.05em; }
+.featured-blog-title { font-size: 22px; font-weight: 800; line-height: 1.3; margin-bottom: 10px; letter-spacing: -0.02em; }
+.featured-blog-excerpt { font-size: 14px; color: var(--text-sub); line-height: 1.6; margin-bottom: 16px; }
+.featured-blog-cta { font-size: 13px; font-weight: 600; color: var(--accent); display: flex; align-items: center; gap: 6px; }
+.featured-blog-cta span { transition: transform 0.2s var(--ease); }
+.featured-blog-card:hover .featured-blog-cta span { transform: translateX(4px); }
+@media (max-width: 767px) { .featured-blog-card { padding: 18px; margin-bottom: 16px; } .featured-blog-title { font-size: 18px; } .featured-blog-badge { top: 12px; right: 12px; } }
+.ai-search-hero { text-align: center; margin-bottom: 32px; animation: fadeInUp 0.6s var(--ease-out) backwards; padding-top: 10px; flex-shrink: 0; }
 .ai-brand-logo-wrapper { width: 56px; height: 56px; margin: 0 auto 12px; border-radius: 14px; background: var(--surface-2); border: 1px solid var(--border-strong); padding: 8px; box-shadow: 0 8px 32px -8px rgba(var(--glow-color), 0.3); }
 .ai-brand-logo-wrapper img { width: 100%; height: 100%; object-fit: contain; }
 .ai-brand-title { font-size: 28px; font-weight: 800; letter-spacing: -0.03em; background: linear-gradient(135deg, var(--text) 0%, var(--text-sub) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 6px; }
 .ai-brand-subtitle { font-size: 14px; color: var(--text-muted); font-weight: 500; margin-bottom: 20px; }
-@keyframes fadeInDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 .quick-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 16px; }
 .quick-action-btn { background: var(--surface-2); border: 1px solid var(--border); color: var(--text-sub); padding: 8px 16px; border-radius: var(--radius-pill); font-size: 13px; font-weight: 500; cursor: pointer; transition: all 0.2s; font-family: var(--font); }
 .quick-action-btn:hover { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); }
-
+.quick-action-btn:active { transform: scale(0.96); }
 .dashboard-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; width: 100%; margin-bottom: 32px; flex-shrink: 0; }
 @media (max-width: 768px) { .dashboard-grid { grid-template-columns: 1fr; gap: 12px; } }
-.dash-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; }
-.dash-card-header { padding: 12px 16px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+.dash-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; position: relative; animation: fadeInUp 0.5s var(--ease-out) backwards; }
+.dash-card:nth-child(1) { animation-delay: 0.1s; } .dash-card:nth-child(2) { animation-delay: 0.2s; } .dash-card:nth-child(3) { animation-delay: 0.3s; } .dash-card:nth-child(4) { animation-delay: 0.4s; }
+.dash-card::before, .market-item::before { content: ''; position: absolute; inset: 0; background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(var(--glow-color), 0.08), transparent 40%); opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 1; }
+.dash-card:hover::before, .market-item:hover::before { opacity: 1; }
+.dash-card-header { padding: 12px 16px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 2; }
 .dash-card-header h3 { font-size: 14px; font-weight: 600; color: var(--text); margin: 0; }
 .dash-refresh { background: none; border: 1px solid var(--border); color: var(--text-sub); width: 28px; height: 28px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; font-size: 14px; }
-.dash-card-content { padding: 12px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
-.market-item { display: flex; align-items: center; justify-content: space-between; padding: 10px; background: var(--surface-2); border-radius: var(--radius-sm); border: 1px solid var(--border); cursor: pointer; transition: all 0.2s; }
+.dash-refresh:hover { background: var(--surface-2); color: var(--text); }
+.dash-refresh:active { transform: scale(0.9); }
+.dash-card-content { padding: 12px; flex: 1; display: flex; flex-direction: column; gap: 8px; position: relative; z-index: 2; }
+.market-item { display: flex; align-items: center; justify-content: space-between; padding: 10px; background: var(--surface-2); border-radius: var(--radius-sm); border: 1px solid var(--border); cursor: pointer; transition: all 0.2s; position: relative; overflow: hidden; }
 .market-item:hover { border-color: var(--accent); background: var(--surface-3); }
+.market-item:active { transform: scale(0.98); }
 .market-info { display: flex; flex-direction: column; min-width: 0; }
 .market-symbol { font-size: 13px; font-weight: 700; color: var(--text); font-family: var(--mono); }
 .market-name { font-size: 11px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -190,39 +133,40 @@ html, body { height: 100%; font-family: var(--font); background: var(--bg); colo
 .market-change { font-size: 11px; font-weight: 600; display: flex; align-items: center; gap: 2px; }
 .market-change.up { color: var(--green); } .market-change.down { color: var(--red); }
 .market-sparkline { width: 60px; height: 30px; flex-shrink: 0; margin: 0 8px; }
-
 .news-card-enhanced { display: block; padding: 14px; background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); text-decoration: none; color: var(--text); transition: all 0.2s; }
 .news-card-enhanced:hover { border-color: var(--accent); background: var(--surface-3); }
+.news-card-enhanced:active { transform: scale(0.98); }
 .news-category { font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
-.news-title-enhanced { font-size: 14px; font-weight: 600; line-height: 1.4; margin-bottom: 8px; 
-    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; 
-}
+.news-title-enhanced { font-size: 14px; font-weight: 600; line-height: 1.4; margin-bottom: 8px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .news-tldr { font-size: 12px; color: var(--text-sub); line-height: 1.5; margin-bottom: 8px; padding: 8px; background: var(--surface-3); border-radius: 6px; border-left: 2px solid var(--accent); }
-
 .affiliate-btn { display: inline-flex !important; align-items: center !important; justify-content: center !important; gap: 6px !important; padding: 10px 16px !important; background: var(--accent) !important; color: #ffffff !important; border-radius: var(--radius-sm) !important; text-decoration: none !important; font-weight: 600 !important; font-size: 12px !important; border: none !important; box-shadow: 0 0 10px rgba(var(--glow-color),0.25); transition: all 0.2s ease !important; cursor: pointer !important; min-height: 40px; }
 .affiliate-btn:hover { opacity: 0.9 !important; transform: translateY(-1px) !important; }
-
+.affiliate-btn:active { transform: scale(0.96) translateY(0) !important; }
 .skeleton-grid, .skeleton-list { display: flex; flex-direction: column; gap: 8px; }
-.skeleton-card, .skeleton-line { height: 54px; background: var(--surface-2); border-radius: var(--radius-sm); animation: pulse 1.5s infinite; }
-@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+.skeleton-card, .skeleton-line { height: 54px; border-radius: var(--radius-sm); background: linear-gradient(90deg, var(--surface-2) 25%, var(--surface-3) 50%, var(--surface-2) 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; }
+@keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
 .error-state { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; text-align: center; color: var(--text-muted); font-size: 13px; gap: 12px; }
-
 .ai-input-area { position: relative; padding-top: 16px; padding-bottom: max(12px, env(safe-area-inset-bottom)); flex-shrink: 0; width: 100%; max-width: 600px; margin: 0 auto; }
 .ai-input-wrapper { position: relative; border-radius: 24px; }
 .ai-input-wrapper::before { content: ''; position: absolute; inset: -2px; border-radius: 26px; padding: 2px; background: conic-gradient(from var(--border-angle), transparent 0%, rgba(var(--glow-color), 0.6) 10%, var(--accent) 15%, rgba(var(--glow-color), 0.6) 20%, transparent 30%, transparent 50%, rgba(249, 115, 22, 0.5) 60%, var(--orange) 65%, rgba(249, 115, 22, 0.5) 70%, transparent 80%); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask-composite: exclude; animation: borderGlowSpin 4s linear infinite; opacity: 0.3; transition: opacity 0.4s ease; pointer-events: none; z-index: 1; }
 @keyframes borderGlowSpin { to { --border-angle: 360deg; } }
 .ai-input-wrapper:focus-within::before { opacity: 1; }
+.ai-input-wrapper.web-mode-active::before { background: conic-gradient(from var(--border-angle), transparent 0%, rgba(249, 115, 22, 0.6) 10%, var(--orange) 15%, rgba(249, 115, 22, 0.6) 20%, transparent 30%); }
 .ai-input-shell { background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 24px; padding: 6px 6px 6px 16px; display: flex; align-items: center; gap: 10px; transition: all 0.3s var(--ease); box-shadow: 0 4px 20px -4px rgba(0,0,0,0.2); position: relative; z-index: 2; }
 .ai-input-shell:focus-within { border-color: rgba(var(--glow-color), 0.4); box-shadow: 0 0 0 4px var(--accent-glow), 0 8px 30px -8px var(--accent-glow); background: rgba(255,255,255,0.05); }
+.ai-input-shell.web-mode-active { border-color: rgba(249, 115, 22, 0.4); box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.15); }
 .ai-input { flex: 1; background: none; border: none; outline: none; color: var(--text); font-size: 16px; font-weight: 400; font-family: inherit; min-width: 0; padding: 10px 0; }
 .ai-input::placeholder { color: var(--text-muted); }
 .ai-send { width: 38px; height: 38px; border-radius: 50%; background: var(--accent); color: white; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; font-size: 16px; flex-shrink: 0; }
 .ai-send:hover:not(:disabled) { transform: scale(1.05); }
+.ai-send:active:not(:disabled) { transform: scale(0.95); }
 .ai-send:disabled { opacity: 0.3; cursor: not-allowed; background: var(--surface-3); }
-
+.web-mode-btn { background: none; border: 1px solid var(--border); color: var(--text-muted); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; flex-shrink: 0; font-size: 14px; }
+.web-mode-btn:hover { background: var(--surface-2); color: var(--text); }
+.web-mode-btn.active { background: rgba(249, 115, 22, 0.1); border-color: var(--orange); color: var(--orange); }
+.web-mode-btn:active { transform: scale(0.9); }
 .chat-thread { width: 100%; max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; padding: 12px 4px 32px; min-height: 0; flex-shrink: 0; }
-.msg { display: flex; gap: 12px; animation: msgAppear 0.4s var(--ease-out); max-width: 100%; word-wrap: break-word; }
-@keyframes msgAppear { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.msg { display: flex; gap: 12px; animation: fadeInUp 0.4s var(--ease-out); max-width: 100%; word-wrap: break-word; }
 .msg.user { flex-direction: row-reverse; }
 .msg-avatar { width: 28px; height: 28px; border-radius: 50%; background: var(--surface-2); border: 1px solid var(--border); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; overflow: hidden; }
 .msg-avatar.bot { background: linear-gradient(135deg, var(--accent-soft), rgba(var(--glow-color),0.12)); border-color: rgba(var(--glow-color),0.25); color: var(--accent); }
@@ -241,59 +185,45 @@ html, body { height: 100%; font-family: var(--font); background: var(--bg); colo
 @keyframes glowIn { 0% { opacity: 0; filter: blur(8px); transform: translateY(8px); } 100% { opacity: 1; filter: blur(0); transform: translateY(0); } }
 .msg-content.glow-in { animation: glowIn 0.5s var(--ease-out) forwards; }
 .msg-content.data-fade-in { animation: glowIn 0.4s var(--ease-out) forwards; }
-
 .chat-follow-ups { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
 .follow-up-btn { background: var(--surface-2); border: 1px solid var(--border); color: var(--text-sub); padding: 6px 12px; border-radius: var(--radius-pill); font-size: 12px; font-weight: 500; cursor: pointer; transition: all 0.2s; font-family: var(--font); }
 .follow-up-btn:hover { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); }
+.follow-up-btn:active { transform: scale(0.96); }
 .research-steps { display: flex; flex-direction: column; gap: 6px; font-family: var(--mono); font-size: 11px; color: var(--text-sub); padding: 10px 0; }
 .step { display: flex; align-items: center; gap: 8px; }
 .step.active { color: var(--accent); font-weight: 600; }
 .step.done { color: var(--text-sub); opacity: 0.6; }
 .step.done .step-icon { color: var(--green); }
-
 .cmd-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(10px); z-index: 1000; display: none; align-items: flex-start; justify-content: center; padding: 10vh 12px; overflow-y: auto; }
 .cmd-overlay.active { display: flex; animation: fadeIn 0.2s ease; }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 .cmd-modal { width: 100%; max-width: 600px; background: var(--surface); border: 1px solid var(--border-strong); border-radius: var(--radius); box-shadow: 0 20px 50px -10px rgba(0,0,0,0.5); overflow: hidden; }
 .cmd-input-shell { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border-bottom: 1px solid var(--border); }
 .timeframe-btn { background: none; border: 1px solid var(--border); color: var(--text-sub); padding: 4px 12px; border-radius: var(--radius-pill); font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+.timeframe-btn:hover { background: var(--surface-2); }
+.timeframe-btn:active { transform: scale(0.95); }
 .timeframe-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
 .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 999; }
 .sidebar-overlay.active { display: block; }
-
 .widget-layer { position: fixed; inset: 0; pointer-events: none; z-index: 900; }
-.floating-widget { 
-  position: absolute; width: 300px; 
-  background: rgba(10, 10, 12, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); 
-  border: 1px solid var(--border-strong); border-radius: var(--radius); 
-  box-shadow: 0 20px 50px -10px rgba(0,0,0,0.5); pointer-events: auto; 
-  display: flex; flex-direction: column; overflow: hidden; transition: box-shadow 0.2s;
-  animation: widgetPopIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-@keyframes widgetPopIn {
-  0% { opacity: 0; transform: scale(0.8) translateY(20px); }
-  100% { opacity: 1; transform: scale(1) translateY(0); }
-}
+.floating-widget { position: absolute; width: 320px; background: rgba(10, 10, 12, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--border-strong); border-radius: var(--radius); box-shadow: 0 20px 50px -10px rgba(0,0,0,0.5); pointer-events: auto; display: flex; flex-direction: column; overflow: hidden; transition: box-shadow 0.2s; animation: widgetPopIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
+@keyframes widgetPopIn { 0% { opacity: 0; transform: scale(0.8) translateY(20px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
 .floating-widget:hover { box-shadow: 0 25px 60px -10px rgba(0,0,0,0.6); }
-.widget-header { 
-  padding: 10px 14px; background: var(--surface-2); border-bottom: 1px solid var(--border); 
-  display: flex; justify-content: space-between; align-items: center; 
-  cursor: grab; user-select: none; touch-action: none; 
-}
+.widget-header { padding: 10px 14px; background: var(--surface-2); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; cursor: grab; user-select: none; touch-action: none; }
 .widget-header:active { cursor: grabbing; }
 .widget-title { font-size: 12px; font-weight: 700; color: var(--text); }
 .widget-close { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 14px; padding: 2px 6px; border-radius: 4px; transition: all 0.2s; }
 .widget-close:hover { background: var(--red); color: white; }
 .widget-body { padding: 14px; flex: 1; overflow-y: auto; }
-
 .widget-dock { position: fixed; top: 80px; right: 24px; display: flex; flex-direction: column; gap: 8px; padding: 8px; background: rgba(10, 10, 12, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--border-strong); border-radius: 16px; box-shadow: 0 10px 30px -5px rgba(0,0,0,0.5); z-index: 950; }
 .dock-item { width: 40px; height: 40px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 18px; transition: all 0.2s; position: relative; }
 .dock-item:hover { transform: translateX(-4px); background: var(--surface-3); }
+.dock-item:active { transform: scale(0.9); }
 .dock-item.active { border-color: var(--accent); box-shadow: 0 0 10px var(--accent-glow); }
-
 #scrollToBottomBtn { position: fixed; bottom: 100px; right: 24px; z-index: 940; display: none; width: 40px; height: 40px; border-radius: 50%; background: var(--accent); color: white; border: none; box-shadow: 0 4px 12px rgba(0,0,0,0.3); transition: all 0.2s; align-items: center; justify-content: center; font-size: 18px; cursor: pointer; }
 #scrollToBottomBtn:hover { transform: scale(1.05); background: var(--accent-glow); }
-
+#scrollToBottomBtn:active { transform: scale(0.95); }
+#toast-container { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); z-index: 9999; display: flex; flex-direction: column; gap: 8px; pointer-events: none; }
 @media (min-width: 1024px) {
   .sidebar { position: relative; transform: translateX(0) !important; }
   .sidebar-close, #sidebarToggle, .sidebar-overlay { display: none !important; }
@@ -314,9 +244,10 @@ html, body { height: 100%; font-family: var(--font); background: var(--bg); colo
   .msg { max-width: 96%; gap: 10px; }
   .ai-input-shell { padding: 4px 4px 4px 12px; border-radius: 20px; }
   .clock { display: none; }
-  .floating-widget { width: calc(100vw - 32px) !important; left: 16px !important; top: 80px !important; max-height: 70vh; animation: none; }
-  .widget-header { cursor: default; }
-  .widget-dock { top: 70px; right: 16px; bottom: auto; transform: none; }
+  .floating-widget { width: 92vw !important; max-width: 340px !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; max-height: 75vh; animation: fadeInUp 0.3s var(--ease-out); }
+  .widget-header { cursor: default; touch-action: auto; }
+  .widget-dock { top: auto; bottom: 24px; right: 16px; left: 16px; flex-direction: row; justify-content: center; border-radius: 24px; padding: 12px; }
+  .dock-item:hover { transform: translateY(-4px); }
   #scrollToBottomBtn { bottom: 90px; right: 16px; }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
@@ -329,7 +260,6 @@ html, body { height: 100%; font-family: var(--font); background: var(--bg); colo
       <a href="/" class="brand"><span class="brand-logo"><img src="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png" alt=""></span><span class="brand-name">Digital Infohub</span></a>
       <button class="sidebar-close" id="sidebarClose" aria-label="Close menu">✕</button>
     </div>
-    
     <nav class="sidebar-nav">
       <a href="/" class="nav-link active"><span>🏠</span> Home</a>
       <a href="/blog" class="nav-link"><span>📝</span> Blog</a>
@@ -342,19 +272,17 @@ html, body { height: 100%; font-family: var(--font); background: var(--bg); colo
       <a href="/subscribe" class="nav-link"><span>✉️</span> Subscribe</a>
       <a href="/advertise" class="nav-link"><span>📢</span> Advertise</a>
     </nav>
-
     <div class="sidebar-history">
       <div class="history-header"><span>Chat History</span><button class="btn-new-chat" id="newChatBtn">+ New</button></div>
       <div class="history-list" id="historyList" role="list"></div>
       <button class="btn-clear-history" id="clearHistoryBtn">Clear all history</button>
     </div>
     <div class="sidebar-footer">
-        <button class="icon-btn" id="exportChatBtn" title="Export Chat">️</button>
+        <button class="icon-btn" id="exportChatBtn" title="Export Chat">📥</button>
         <button class="icon-btn" id="themeToggle" title="Toggle theme">◑</button>
     </div>
   </aside>
   <div class="sidebar-overlay" id="sidebarOverlay"></div>
-
   <main class="main-area">
     <header class="topbar">
       <button class="icon-btn" id="sidebarToggle" title="Menu">☰</button>
@@ -365,32 +293,29 @@ html, body { height: 100%; font-family: var(--font); background: var(--bg); colo
         <div class="clock" id="clock">--:--</div>
       </div>
     </header>
-
     <section class="ai-core" id="chatHero">
       <div class="ai-ambient-glow"></div>
       <div class="ai-container">
-        
         <div id="featured-blog-container" style="display: none;"></div>
-
         <div class="ai-search-hero">
           <div class="ai-brand-logo-wrapper"><img src="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png" alt=""></div>
           <h1 class="ai-brand-title">Digital Infohub AI</h1>
           <p class="ai-brand-subtitle">Your intelligent research engine for markets, tech, and crypto.</p>
           <form class="ai-input-shell" id="chatForm" autocomplete="off" style="max-width: 600px; margin: 20px auto;">
             <input class="ai-input" id="chatInput" type="text" placeholder="Ask about stocks, crypto, tech news, or search the web..." aria-label="Message">
+            <button type="button" class="web-mode-btn" id="webModeToggleTop" title="Toggle Web Search Mode" aria-pressed="false">🌐</button>
             <button class="ai-send" id="chatSend" type="submit" aria-label="Send">→</button>
           </form>
           <div class="quick-actions">
             <button class="quick-action-btn" onclick="window.handleSend('Market briefing')">📊 Market Briefing</button>
             <button class="quick-action-btn" onclick="window.handleSend('Latest tech news')">💡 Tech News</button>
-            <button class="quick-action-btn" onclick="window.handleSend('Explain Quantum Computing')"> Tech Concepts</button>
+            <button class="quick-action-btn" onclick="window.handleSend('Tell me a tech fact')">🧠 Tech Fact</button>
             <button class="quick-action-btn" onclick="window.handleSend('Show my watchlist')">👁️ Watchlist</button>
           </div>
         </div>
-
         <div class="dashboard-grid" id="dashboardGrid">
           <div class="dash-card">
-            <div class="dash-card-header"><h3> Top Stocks</h3><button class="dash-refresh" onclick="window.renderDashboard()">↻</button></div>
+            <div class="dash-card-header"><h3>📈 Top Stocks</h3><button class="dash-refresh" onclick="window.renderDashboard()">↻</button></div>
             <div class="dash-card-content" id="dash-stocks"><div class="skeleton-grid"><div class="skeleton-card"></div><div class="skeleton-card"></div></div></div>
           </div>
           <div class="dash-card">
@@ -406,13 +331,12 @@ html, body { height: 100%; font-family: var(--font); background: var(--bg); colo
             <div class="dash-card-content" id="dash-market-news"><div class="skeleton-list"><div class="skeleton-line"></div><div class="skeleton-line"></div></div></div>
           </div>
         </div>
-
         <div class="chat-thread" id="chatThread" role="log" aria-live="polite"></div>
-
         <div class="ai-input-area">
           <div class="ai-input-wrapper">
             <form class="ai-input-shell" id="chatFormBottom" autocomplete="off">
               <input class="ai-input" id="chatInputBottom" type="text" placeholder="Follow up or ask something else..." aria-label="Message">
+              <button type="button" class="web-mode-btn" id="webModeToggleBottom" title="Toggle Web Search Mode" aria-pressed="false">🌐</button>
               <button class="ai-send" id="chatSendBottom" type="submit" aria-label="Send">→</button>
             </form>
           </div>
@@ -421,12 +345,10 @@ html, body { height: 100%; font-family: var(--font); background: var(--bg); colo
     </section>
   </main>
 </div>
-
 <button id="scrollToBottomBtn" class="icon-btn" onclick="window.scrollToBottom(true, true)" title="Scroll to bottom">↓</button>
-
+<div id="toast-container"></div>
 <div class="widget-layer" id="widgetLayer"></div>
 <div class="widget-dock" id="widgetDock"></div>
-
 <div class="cmd-overlay" id="chartModal" role="dialog" aria-modal="true">
   <div class="cmd-modal">
     <div class="cmd-input-shell">
@@ -443,8 +365,6 @@ html, body { height: 100%; font-family: var(--font); background: var(--bg); colo
     <div style="padding: 16px; height: 300px; position: relative;"><canvas id="priceChart"></canvas></div>
   </div>
 </div>
-
-<!-- Command Palette Modal -->
 <div class="cmd-overlay" id="cmdPalette" role="dialog" aria-modal="true">
     <div class="cmd-modal" style="max-width: 500px;">
         <div class="cmd-input-shell">
@@ -456,26 +376,26 @@ html, body { height: 100%; font-family: var(--font); background: var(--bg); colo
             <div style="display:flex;flex-direction:column;gap:4px;">
                 <button class="history-item" onclick="window.handleSend('Market briefing'); window.toggleCmdPalette()">📊 Market Briefing</button>
                 <button class="history-item" onclick="window.handleSend('Latest tech news'); window.toggleCmdPalette()">💡 Latest Tech News</button>
-                <button class="history-item" onclick="window.handleSend('Clear chat'); window.toggleCmdPalette()">️ Clear Current Chat</button>
-                <button class="history-item" onclick="window.handleSend('Show my watchlist'); window.toggleCmdPalette()">️ View Watchlist</button>
+                <button class="history-item" onclick="window.handleSend('Clear chat'); window.toggleCmdPalette()">🗑️ Clear Current Chat</button>
+                <button class="history-item" onclick="window.handleSend('Show my watchlist'); window.toggleCmdPalette()">👁️ View Watchlist</button>
             </div>
             <div style="font-size:11px;font-weight:700;text-transform:uppercase;color:var(--text-muted);margin:12px 0 8px;">🛠️ Widgets & Tools</div>
             <div style="display:flex;flex-direction:column;gap:4px;">
-                <button class="history-item" onclick="WidgetManager.toggle('weather'); window.toggleCmdPalette()">️ Weather Widget</button>
+                <button class="history-item" onclick="WidgetManager.toggle('weather'); window.toggleCmdPalette()">🌤️ Weather Widget</button>
                 <button class="history-item" onclick="WidgetManager.toggle('notes'); window.toggleCmdPalette()">📝 Notes & Tasks</button>
+                <button class="history-item" onclick="WidgetManager.toggle('gainers'); window.toggleCmdPalette()">🚀 Crypto Top Gainers</button>
+                <button class="history-item" onclick="WidgetManager.toggle('bookmarks'); window.toggleCmdPalette()">🔖 Quick Bookmarks</button>
                 <button class="history-item" onclick="WidgetManager.toggle('calc'); window.toggleCmdPalette()">🧮 Calculator</button>
                 <button class="history-item" onclick="WidgetManager.toggle('timer'); window.toggleCmdPalette()">⏱️ Focus Timer</button>
                 <button class="history-item" onclick="WidgetManager.toggle('converter'); window.toggleCmdPalette()">⚖️ Unit Converter</button>
-                <button class="history-item" onclick="WidgetManager.toggle('password'); window.toggleCmdPalette()"> Password Generator</button>
+                <button class="history-item" onclick="WidgetManager.toggle('password'); window.toggleCmdPalette()">🔑 Password Generator</button>
             </div>
         </div>
     </div>
 </div>
-
 <script>
 (function() {
 'use strict';
-
 const CONFIG = {
   LOGO_URL: "https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png",
   BOT_NAME: "Digital Infohub AI",
@@ -487,198 +407,105 @@ const CONFIG = {
   },
   STOCK_TICKERS: ['AAPL','MSFT','GOOGL','AMZN','NVDA','TSLA','SPY','QQQ']
 };
-
 const FEATURED_POSTS = [
-  {
-    url: "https://digitalinfohub.net/post/ai-hardware-race-sept-2026",
-    title: "Apple Brings Trillion-Parameter Models to Local Devices",
-    excerpt: "AI is increasingly moving out of the cloud and into the hardware people use every day. Apple has introduced high-end Mac Mini and Mac Studio systems designed to handle demanding AI workloads locally.",
-    category: "AI Hardware"
-  },
-  {
-    url: "https://digitalinfohub.net/post/ai-wearables-2026",
-    title: "The Rise of AI Wearables: Smart Glasses & Ambient Computing",
-    excerpt: "In 2026, the smartphone's dominance is sharing space with specialized devices. Global XR-device shipments grew by 44.4% in 2025, driven primarily by the rapid adoption of smart glasses.",
-    category: "Wearables"
-  },
-  {
-    url: "https://www.digitalinfohub.net/post/beating-syllabus-overload-with-smarter-medical-learning",
-    title: "Studio9 Medical — Simplifying Complex Medical Topics",
-    excerpt: "Transforming complex medical subjects into concise, engaging resources like summaries, videos, and quizzes. Helping students study more efficiently across 14 health science subjects.",
-    category: "EdTech"
-  },
-  {
-    url: "https://www.digitalinfohub.net/post/meet-miyabi-from-nomad-sculpt-to-blender",
-    title: "Miyabi's Evolving 3D Portfolio — From Nomad Sculpt to Blender",
-    excerpt: "Based in the UK, self-taught artist Miyabi has transitioned from detailed 3D models in Nomad Sculpt to learning Blender, showcasing growing experience in modeling, lighting, and realistic renders.",
-    category: "Digital Art"
-  }
+  { url: "https://digitalinfohub.net/post/ai-hardware-race-sept-2026", title: "Apple Brings Trillion-Parameter Models to Local Devices", excerpt: "AI is increasingly moving out of the cloud and into the hardware people use every day. Apple has introduced high-end Mac Mini and Mac Studio systems designed to handle demanding AI workloads locally.", category: "AI Hardware" },
+  { url: "https://digitalinfohub.net/post/ai-wearables-2026", title: "The Rise of AI Wearables: Smart Glasses & Ambient Computing", excerpt: "In 2026, the smartphone's dominance is sharing space with specialized devices. Global XR-device shipments grew by 44.4% in 2025, driven primarily by the rapid adoption of smart glasses.", category: "Wearables" },
+  { url: "https://www.digitalinfohub.net/post/beating-syllabus-overload-with-smarter-medical-learning", title: "Studio9 Medical — Simplifying Complex Medical Topics", excerpt: "Transforming complex medical subjects into concise, engaging resources like summaries, videos, and quizzes. Helping students study more efficiently across 14 health science subjects.", category: "EdTech" },
+  { url: "https://www.digitalinfohub.net/post/meet-miyabi-from-nomad-sculpt-to-blender", title: "Miyabi's Evolving 3D Portfolio — From Nomad Sculpt to Blender", excerpt: "Based in the UK, self-taught artist Miyabi has transitioned from detailed 3D models in Nomad Sculpt to learning Blender, showcasing growing experience in modeling, lighting, and realistic renders.", category: "Digital Art" }
 ];
-
+const TECH_FACTS = [
+  "The first computer mouse was made of wood and invented by Doug Engelbart in 1964.",
+  "The QWERTY keyboard layout was designed to prevent mechanical typewriter jams, not for typing speed.",
+  "The first 1GB hard drive, announced by IBM in 1980, weighed over 500 pounds and cost $40,000.",
+  "Over 90% of the world's currency exists only in digital form.",
+  "The first website ever created is still online at info.cern.ch, launched in 1991.",
+  "There are more possible iterations of a game of chess than there are atoms in the known universe.",
+  "The term 'bug' to describe a computer glitch originated in 1947 when a real moth was found in a Harvard Mark II computer."
+];
+function safeSetItem(key, value) { try { localStorage.setItem(key, value); } catch (e) { console.warn('Storage quota exceeded or disabled'); } }
+function showToast(message, type = 'success') {
+  const container = document.getElementById('toast-container');
+  if (!container) return;
+  const toast = document.createElement('div');
+  const bg = type === 'success' ? 'var(--green)' : type === 'error' ? 'var(--red)' : 'var(--accent)';
+  toast.style.cssText = `background: var(--surface); border: 1px solid var(--border); border-left: 3px solid ${bg}; color: var(--text); padding: 12px 16px; border-radius: 8px; font-size: 13px; font-weight: 500; box-shadow: 0 10px 30px -5px rgba(0,0,0,0.3); display: flex; align-items: center; gap: 8px; animation: fadeInUp 0.3s var(--ease); pointer-events: auto;`;
+  toast.innerHTML = `<span>${type === 'success' ? '✅' : type === 'error' ? '⚠️' : 'ℹ️'}</span> ${message}`;
+  container.appendChild(toast);
+  setTimeout(() => { toast.style.opacity = '0'; toast.style.transform = 'translateY(10px)'; setTimeout(() => toast.remove(), 300); }, 3000);
+}
 function renderFeaturedBlog() {
   const container = document.getElementById('featured-blog-container');
   if (!container) return;
-  
   if (Math.random() > 0.5) {
     const post = FEATURED_POSTS[Math.floor(Math.random() * FEATURED_POSTS.length)];
-    container.innerHTML = `
-      <a href="${post.url}" class="featured-blog-card" target="_blank" rel="noopener">
-        <div class="featured-blog-badge">✨ Featured Read</div>
-        <div class="featured-blog-category">${post.category}</div>
-        <h2 class="featured-blog-title">${post.title}</h2>
-        <p class="featured-blog-excerpt">${post.excerpt}</p>
-        <div class="featured-blog-cta">Read Article <span>→</span></div>
-      </a>
-    `;
+    container.innerHTML = `<a href="${post.url}" class="featured-blog-card" target="_blank" rel="noopener"><div class="featured-blog-badge">✨ Featured Read</div><div class="featured-blog-category">${post.category}</div><h2 class="featured-blog-title">${post.title}</h2><p class="featured-blog-excerpt">${post.excerpt}</p><div class="featured-blog-cta">Read Article <span>→</span></div></a>`;
     container.style.display = 'block';
-  } else {
-    container.style.display = 'none';
-  }
+  } else { container.style.display = 'none'; }
 }
-
 const $ = s => document.querySelector(s);
 const esc = s => { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; };
 const scrollContainer = $('#chatHero');
 const thread = $('#chatThread');
-
 function getCompanyName(sym) {
-  const map = { 
-    'AAPL': 'Apple Inc.', 'MSFT': 'Microsoft', 'GOOGL': 'Alphabet', 'AMZN': 'Amazon', 'NVDA': 'NVIDIA', 'TSLA': 'Tesla', 
-    'SPY': 'S&P 500 ETF', 'QQQ': 'Nasdaq 100 ETF', 'BTC': 'Bitcoin', 'ETH': 'Ethereum', 'SOL': 'Solana', 'XRP': 'Ripple',
-    'META': 'Meta Platforms', 'AMD': 'Advanced Micro Devices', 'INTC': 'Intel', 'NFLX': 'Netflix', 'DIS': 'Disney', 
-    'SPOT': 'Spotify', 'UBER': 'Uber', 'COIN': 'Coinbase', 'PLTR': 'Palantir', 'GME': 'GameStop', 'AMC': 'AMC Entertainment', 
-    'F': 'Ford Motor', 'BA': 'Boeing'
-  };
+  const map = { 'AAPL': 'Apple Inc.', 'MSFT': 'Microsoft', 'GOOGL': 'Alphabet', 'AMZN': 'Amazon', 'NVDA': 'NVIDIA', 'TSLA': 'Tesla', 'SPY': 'S&P 500 ETF', 'QQQ': 'Nasdaq 100 ETF', 'BTC': 'Bitcoin', 'ETH': 'Ethereum', 'SOL': 'Solana', 'XRP': 'Ripple', 'META': 'Meta Platforms', 'AMD': 'Advanced Micro Devices', 'INTC': 'Intel', 'NFLX': 'Netflix', 'DIS': 'Disney', 'SPOT': 'Spotify', 'UBER': 'Uber', 'COIN': 'Coinbase', 'PLTR': 'Palantir', 'GME': 'GameStop', 'AMC': 'AMC Entertainment', 'F': 'Ford Motor', 'BA': 'Boeing' };
   return map[sym] || sym;
 }
-
 function getTimeString() { return new Date().toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit' }); }
 function getTimeAwareGreeting() { const h = new Date().getHours(); return h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening"; }
-
 function scrollToBottom(smooth = true, force = false) {
   if (!scrollContainer) return;
   const isNearBottom = scrollContainer.scrollHeight - scrollContainer.scrollTop - scrollContainer.clientHeight < 150;
-  if (isNearBottom || force) {
-    requestAnimationFrame(() => scrollContainer.scrollTo({ top: scrollContainer.scrollHeight, behavior: smooth ? 'smooth' : 'auto' }));
-  }
+  if (isNearBottom || force) { requestAnimationFrame(() => scrollContainer.scrollTo({ top: scrollContainer.scrollHeight, behavior: smooth ? 'smooth' : 'auto' })); }
 }
-
 function createSparklineSVG(isUp) {
   const points = 20; let path = "M 0 50 "; let y = 50; const trend = isUp ? -1.5 : 1.5;
   for (let i = 1; i <= points; i++) { const x = (i / points) * 100; y = Math.max(10, Math.min(90, y + trend + (Math.random() - 0.5) * 15)); path += `L ${x} ${y} `; }
   const color = isUp ? 'var(--green)' : 'var(--red)'; const gid = isUp ? 'gU' : 'gD';
   return `<svg viewBox="0 0 100 100" preserveAspectRatio="none" class="market-sparkline"><defs><linearGradient id="${gid}" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="${color}" stop-opacity="0.3"/><stop offset="100%" stop-color="${color}" stop-opacity="0"/></linearGradient></defs><path d="${path} L 100 100 L 0 100 Z" fill="url(#${gid})" /><path d="${path}" fill="none" stroke="${color}" stroke-width="2" vector-effect="non-scaling-stroke" /></svg>`;
 }
-
 function getCapabilitiesHTML() {
-  return `
-    <div style="background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; margin-top: 8px;">
-      <div style="font-size: 14px; font-weight: 700; margin-bottom: 12px;">🚀 Available Commands & Features</div>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
-        <div>
-          <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--accent); margin-bottom: 6px;">📊 Markets & Watchlist</div>
-          <ul style="font-size: 12px; color: var(--text-sub); line-height: 1.8; padding-left: 16px; margin: 0;">
-            <li><em>"How is Apple doing?"</em></li>
-            <li><em>"Show BTC price"</em></li>
-            <li><em>"Add NVDA to watchlist"</em></li>
-            <li><em>"Show my watchlist"</em></li>
-          </ul>
-        </div>
-        <div>
-          <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--accent); margin-bottom: 6px;">📰 News & Concepts</div>
-          <ul style="font-size: 12px; color: var(--text-sub); line-height: 1.8; padding-left: 16px; margin: 0;">
-            <li><em>"Latest tech news"</em></li>
-            <li><em>"Explain quantum computing"</em></li>
-            <li><em>"What is blockchain?"</em></li>
-            <li><em>"Market briefing"</em></li>
-          </ul>
-        </div>
-        <div>
-          <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--accent); margin-bottom: 6px;">🔍 Search & Tools</div>
-          <ul style="font-size: 12px; color: var(--text-sub); line-height: 1.8; padding-left: 16px; margin: 0;">
-            <li><em>"Search for AI trends"</em></li>
-            <li><em>"Look up Tesla"</em></li>
-            <li><em>"View AAPL chart"</em></li>
-            <li><em>"Clear chat"</em></li>
-          </ul>
-        </div>
-      </div>
-      <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:11px;color:var(--text-muted);text-align:center;">
-        💡 <strong>Pro Tip:</strong> Press <kbd style="background:var(--surface-3);padding:2px 6px;border-radius:4px;font-family:var(--mono);">⌘</kbd> + <kbd style="background:var(--surface-3);padding:2px 6px;border-radius:4px;font-family:var(--mono);">K</kbd> (or <kbd style="background:var(--surface-3);padding:2px 6px;border-radius:4px;font-family:var(--mono);">Ctrl</kbd> + <kbd style="background:var(--surface-3);padding:2px 6px;border-radius:4px;font-family:var(--mono);">K</kbd>) to open the Command Palette
-      </div>
-    </div>
-  `;
+  return `<div style="background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; margin-top: 8px;"><div style="font-size: 14px; font-weight: 700; margin-bottom: 12px;">🚀 Available Commands & Features</div><div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;"><div><div style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--accent); margin-bottom: 6px;">📊 Markets & Watchlist</div><ul style="font-size: 12px; color: var(--text-sub); line-height: 1.8; padding-left: 16px; margin: 0;"><li><em>"How is Apple doing?"</em></li><li><em>"Compare AAPL and MSFT"</em></li><li><em>"Add NVDA to watchlist"</em></li></ul></div><div><div style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--accent); margin-bottom: 6px;">📰 News & Concepts</div><ul style="font-size: 12px; color: var(--text-sub); line-height: 1.8; padding-left: 16px; margin: 0;"><li><em>"Latest tech news"</em></li><li><em>"Weather in London"</em></li><li><em>"Tell me a tech fact"</em></li></ul></div><div><div style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--accent); margin-bottom: 6px;">🔍 Search & Tools</div><ul style="font-size: 12px; color: var(--text-sub); line-height: 1.8; padding-left: 16px; margin: 0;"><li><em>"Search for AI trends"</em></li><li><em>"Summarize this: [text]"</em></li><li><em>Toggle 🌐 for pure web search</em></li></ul></div></div><div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:11px;color:var(--text-muted);text-align:center;">💡 <strong>Pro Tip:</strong> Press <kbd style="background:var(--surface-3);padding:2px 6px;border-radius:4px;font-family:var(--mono);">⌘</kbd> + <kbd style="background:var(--surface-3);padding:2px 6px;border-radius:4px;font-family:var(--mono);">K</kbd> to open the Command Palette</div></div>`;
 }
-
 const Watchlist = {
   key: 'dih_watchlist_v2', items: [],
   init() { try { this.items = JSON.parse(localStorage.getItem(this.key) || '[]'); } catch(e) { this.items = []; } },
   add(sym) { sym = sym.toUpperCase(); if(!this.items.includes(sym)) { this.items.push(sym); this.save(); return true; } return false; },
   remove(sym) { sym = sym.toUpperCase(); const idx = this.items.indexOf(sym); if(idx > -1) { this.items.splice(idx, 1); this.save(); return true; } return false; },
-  save() { localStorage.setItem(this.key, JSON.stringify(this.items)); },
+  clear() { this.items = []; this.save(); return true; },
+  save() { safeSetItem(this.key, JSON.stringify(this.items)); },
   get() { return this.items; }
 };
 Watchlist.init();
-
 async function fetchRSS(url, categoryName) {
   try {
     const r = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`);
     if (!r.ok) throw new Error();
     const data = await r.json();
-    
     let feedTitle = data.feed?.title || '';
-    const txt = document.createElement('textarea');
-    txt.innerHTML = feedTitle;
-    feedTitle = txt.value;
-    feedTitle = feedTitle.replace(/NYT\s*>\s*/gi, '').replace(/Feed$/i, '').trim();
-    
+    const txt = document.createElement('textarea'); txt.innerHTML = feedTitle; feedTitle = txt.value.replace(/NYT\s*>\s*/gi, '').replace(/Feed$/i, '').trim();
     return (data.items || []).slice(0, 4).map(i => {
       let desc = i.description || '';
       let cleanDesc = desc.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
-      
       if (cleanDesc.length < 50 || /here.s the latest/i.test(cleanDesc) || cleanDesc === '') {
         let content = i.content || i['content:encoded'] || '';
         let cleanContent = content.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
-        
-        if (cleanContent.length > cleanDesc.length) {
-             let snippet = cleanContent.substring(0, 250);
-             let lastPeriod = snippet.lastIndexOf('.');
-             if(lastPeriod > 100) snippet = snippet.substring(0, lastPeriod + 1);
-             cleanDesc = snippet;
-        }
+        if (cleanContent.length > cleanDesc.length) { let snippet = cleanContent.substring(0, 250); let lastPeriod = snippet.lastIndexOf('.'); if(lastPeriod > 100) snippet = snippet.substring(0, lastPeriod + 1); cleanDesc = snippet; }
       }
-      
       let tldr = cleanDesc.substring(0, 160) + (cleanDesc.length > 160 ? '...' : '');
       if (!tldr || tldr.length < 20) tldr = "Click to read the full article and discover more.";
-
-      return { 
-        title: i.title.replace(/<[^>]*>/g, '').trim(), 
-        link: i.link, 
-        date: new Date(i.pubDate).toLocaleDateString('en-US', { month:'short', day:'numeric' }), 
-        source: feedTitle || categoryName || 'News', 
-        tldr: tldr 
-      };
+      return { title: i.title.replace(/<[^>]*>/g, '').trim(), link: i.link, date: new Date(i.pubDate).toLocaleDateString('en-US', { month:'short', day:'numeric' }), source: feedTitle || categoryName || 'News', tldr: tldr };
     });
   } catch(e) { return null; }
 }
-
 async function fetchStocks(tickers = CONFIG.STOCK_TICKERS) {
   try {
     const results = await Promise.allSettled(tickers.map(sym => fetch(`https://finnhub.io/api/v1/quote?symbol=${sym}&token=${CONFIG.FINNHUB_KEY}`).then(r => r.json()).then(data => ({ sym, data }))));
     const valid = results.filter(r => r.status === 'fulfilled' && r.value.data && r.value.data.c).map(r => ({ symbol: r.value.sym, name: getCompanyName(r.value.sym), price: r.value.data.c.toFixed(2), changePct: (r.value.data.dp||0).toFixed(2), up: (r.value.data.d||0) >= 0 }));
-    
     if (tickers.length === 1 && valid.length === 0) return [];
-    
-    if (valid.length < 2 && tickers.length === CONFIG.STOCK_TICKERS.length) {
-        return [{ symbol: 'AAPL', name: 'Apple Inc.', price: '178.35', changePct: '1.25', up: true }, { symbol: 'MSFT', name: 'Microsoft', price: '330.12', changePct: '-0.45', up: false }, { symbol: 'NVDA', name: 'NVIDIA', price: '460.18', changePct: '2.10', up: true }]; 
-    }
+    if (valid.length < 2 && tickers.length === CONFIG.STOCK_TICKERS.length) return [{ symbol: 'AAPL', name: 'Apple Inc.', price: '178.35', changePct: '1.25', up: true }, { symbol: 'MSFT', name: 'Microsoft', price: '330.12', changePct: '-0.45', up: false }, { symbol: 'NVDA', name: 'NVIDIA', price: '460.18', changePct: '2.10', up: true }];
     return valid;
-  } catch(e) { 
-      if (tickers.length === 1) return [];
-      return [{ symbol: 'AAPL', name: 'Apple Inc.', price: '178.35', changePct: '1.25', up: true }, { symbol: 'MSFT', name: 'Microsoft', price: '330.12', changePct: '-0.45', up: false }, { symbol: 'NVDA', name: 'NVIDIA', price: '460.18', changePct: '2.10', up: true }]; 
-  }
+  } catch(e) { if (tickers.length === 1) return []; return [{ symbol: 'AAPL', name: 'Apple Inc.', price: '178.35', changePct: '1.25', up: true }, { symbol: 'MSFT', name: 'Microsoft', price: '330.12', changePct: '-0.45', up: false }, { symbol: 'NVDA', name: 'NVIDIA', price: '460.18', changePct: '2.10', up: true }]; }
 }
-
 async function fetchCrypto(symbols = ['BTC','ETH','SOL','XRP']) {
   const ids = symbols.map(s => ({ 'BTC':'bitcoin', 'ETH':'ethereum', 'SOL':'solana', 'XRP':'ripple', 'DOGE':'dogecoin' }[s] || s.toLowerCase())).filter(id => ['bitcoin','ethereum','solana','ripple','dogecoin'].includes(id));
   if (ids.length === 0) return [];
@@ -690,15 +517,10 @@ async function fetchCrypto(symbols = ['BTC','ETH','SOL','XRP']) {
       if (id && data[id]) return { symbol: sym, name: getCompanyName(sym), price: data[id].usd.toLocaleString('en-US',{minimumFractionDigits:2}), changePct: (data[id].usd_24h_change||0).toFixed(2), up: (data[id].usd_24h_change||0) >= 0 };
       return null;
     }).filter(Boolean);
-    
     if (symbols.length === 1 && result.length === 0) return [];
     return result.length > 0 ? result : [{ symbol: 'BTC', name: 'Bitcoin', price: '36,500.00', changePct: '1.50', up: true }, { symbol: 'ETH', name: 'Ethereum', price: '1,950.25', changePct: '-0.80', up: false }];
-  } catch(e) { 
-      if (symbols.length === 1) return [];
-      return [{ symbol: 'BTC', name: 'Bitcoin', price: '36,500.00', changePct: '1.50', up: true }, { symbol: 'ETH', name: 'Ethereum', price: '1,950.25', changePct: '-0.80', up: false }]; 
-  }
+  } catch(e) { if (symbols.length === 1) return []; return [{ symbol: 'BTC', name: 'Bitcoin', price: '36,500.00', changePct: '1.50', up: true }, { symbol: 'ETH', name: 'Ethereum', price: '1,950.25', changePct: '-0.80', up: false }]; }
 }
-
 async function fetchWatchlistData() {
   const items = Watchlist.get();
   if (items.length === 0) return [];
@@ -710,27 +532,24 @@ async function fetchWatchlistData() {
   if (cryptos.length > 0) { const c = await fetchCrypto(cryptos); if (c) results.push(...c); }
   return results;
 }
-
 async function renderDashboard() {
   const stocksEl = $('#dash-stocks'); stocksEl.innerHTML = '<div class="skeleton-grid"><div class="skeleton-card"></div><div class="skeleton-card"></div></div>';
   const stocks = await fetchStocks();
   stocksEl.innerHTML = stocks.slice(0, 4).map(s => `<div class="market-item" onclick="window.openChartModal('${s.symbol}', '${s.name}', '${s.price}', ${s.up})"><div class="market-info"><span class="market-symbol">${s.symbol}</span><span class="market-name">${s.name}</span></div>${createSparklineSVG(s.up)}<div class="market-price-area"><div class="market-price">$${s.price}</div><div class="market-change ${s.up ? 'up' : 'down'}">${s.up ? '▲' : '▼'} ${s.changePct}%</div></div></div>`).join('');
-
   const cryptoEl = $('#dash-crypto'); cryptoEl.innerHTML = '<div class="skeleton-grid"><div class="skeleton-card"></div><div class="skeleton-card"></div></div>';
   const crypto = await fetchCrypto();
   cryptoEl.innerHTML = crypto.map(c => `<div class="market-item" onclick="window.openChartModal('${c.symbol}', '${c.name}', '${c.price.replace(/,/g, '')}', ${c.up})"><div class="market-info"><span class="market-symbol">${c.symbol}</span><span class="market-name">${c.name}</span></div>${createSparklineSVG(c.up)}<div class="market-price-area"><div class="market-price">$${c.price}</div><div class="market-change ${c.up ? 'up' : 'down'}">${c.up ? '▲' : '▼'} ${c.changePct}%</div></div></div>`).join('');
-
   const techNewsEl = $('#dash-tech-news'); techNewsEl.innerHTML = '<div class="skeleton-list"><div class="skeleton-line"></div></div>';
   const techNews = await fetchRSS(CONFIG.FEEDS.tech.url, 'Tech');
-  techNewsEl.innerHTML = techNews ? techNews.map(n => `<a class="news-card-enhanced" href="${esc(n.link)}" target="_blank" rel="noopener"><div class="news-category">${esc(n.source)}</div><div class="news-title-enhanced">${esc(n.title)}</div><div class="news-tldr">${esc(n.tldr)}</div></a>`).join('') : '<div class="error-state">️ News unavailable</div>';
-
+  techNewsEl.innerHTML = techNews ? techNews.map(n => `<a class="news-card-enhanced" href="${esc(n.link)}" target="_blank" rel="noopener"><div class="news-category">${esc(n.source)}</div><div class="news-title-enhanced">${esc(n.title)}</div><div class="news-tldr">${esc(n.tldr)}</div></a>`).join('') : '<div class="error-state">⚠️ News unavailable</div>';
   const marketNewsEl = $('#dash-market-news'); marketNewsEl.innerHTML = '<div class="skeleton-list"><div class="skeleton-line"></div></div>';
   const marketNews = await fetchRSS(CONFIG.FEEDS.markets.url, 'Markets');
   marketNewsEl.innerHTML = marketNews ? marketNews.map(n => `<a class="news-card-enhanced" href="${esc(n.link)}" target="_blank" rel="noopener"><div class="news-category">${esc(n.source)}</div><div class="news-title-enhanced">${esc(n.title)}</div><div class="news-tldr">${esc(n.tldr)}</div></a>`).join('') : '<div class="error-state">⚠️ News unavailable</div>';
-
   renderTicker(crypto, stocks);
+  const upCount = stocks.slice(0, 4).filter(s => s.up).length;
+  const glowColor = upCount >= 3 ? '16, 163, 74' : '59, 130, 246';
+  document.documentElement.style.setProperty('--glow-color', glowColor);
 }
-
 function renderTicker(crypto, stocks) {
   const el = $('#tickerBar'); if (!el) return;
   const all = [...(crypto||[]), ...(stocks||[])];
@@ -738,7 +557,6 @@ function renderTicker(crypto, stocks) {
   el.style.display = 'inline-flex';
   el.innerHTML = [...all, ...all].map(a => `<div class="ticker-item"><strong>${a.symbol}</strong> <span>$${a.price}</span> <span class="${a.up?'up':'down'}">${a.up?'▲':'▼'} ${a.changePct}%</span></div>`).join('');
 }
-
 let chartInstance = null, currentChartPrice = 0, currentChartIsUp = true;
 function openChartModal(symbol, name, price, isUp) {
   currentChartPrice = parseFloat(price); currentChartIsUp = isUp;
@@ -758,209 +576,191 @@ function updateChartData(timeframe) {
   for (let i = 0; i < points; i++) { price += (Math.random() - (currentChartIsUp ? 0.4 : 0.6)) * (currentChartPrice * 0.02); data.push(price); labels.push(timeframe === '1D' ? `${i}:00` : `D${i+1}`); }
   data[data.length - 1] = currentChartPrice;
   const color = currentChartIsUp ? '#4ade80' : '#f87171';
-  chartInstance = new Chart(ctx, { type: 'line', data: { labels, datasets: [{ data, borderColor: color, backgroundColor: color + '20', borderWidth: 2, fill: true, tension: 0.4, pointRadius: 0 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false }, ticks: { color: '#64748B', maxTicksLimit: 6 } }, y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#64748B' } } } } });
+  chartInstance = new Chart(ctx, { type: 'line', data: { labels, datasets: [{ data, borderColor: color, backgroundColor: color + '20', borderWidth: 2, fill: true, tension: 0.4, pointRadius: 0 }] }, options: { responsive: true, maintainAspectRatio: false, animation: { duration: 800, easing: 'easeInOutQuart' }, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false }, ticks: { color: '#64748B', maxTicksLimit: 6 } }, y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#64748B' } } } } });
 }
-
-const TICKER_MAP = { 
-  'apple': 'AAPL', 'tesla': 'TSLA', 'nvidia': 'NVDA', 'microsoft': 'MSFT', 
-  'amazon': 'AMZN', 'google': 'GOOGL', 'bitcoin': 'BTC', 'ethereum': 'ETH', 
-  'solana': 'SOL', 'ripple': 'XRP', 'meta': 'META', 'facebook': 'META', 
-  'amd': 'AMD', 'intel': 'INTC', 'netflix': 'NFLX', 'disney': 'DIS', 
-  'spotify': 'SPOT', 'uber': 'UBER', 'coinbase': 'COIN', 'palantir': 'PLTR',
-  'gamestop': 'GME', 'amc': 'AMC', 'ford': 'F', 'boeing': 'BA'
-};
-
+const TICKER_MAP = { 'apple': 'AAPL', 'tesla': 'TSLA', 'nvidia': 'NVDA', 'microsoft': 'MSFT', 'amazon': 'AMZN', 'google': 'GOOGL', 'bitcoin': 'BTC', 'ethereum': 'ETH', 'solana': 'SOL', 'ripple': 'XRP', 'meta': 'META', 'facebook': 'META', 'amd': 'AMD', 'intel': 'INTC', 'netflix': 'NFLX', 'disney': 'DIS', 'spotify': 'SPOT', 'uber': 'UBER', 'coinbase': 'COIN', 'palantir': 'PLTR', 'gamestop': 'GME', 'amc': 'AMC', 'ford': 'F', 'boeing': 'BA' };
+let isWebMode = false;
+function toggleWebMode() {
+  isWebMode = !isWebMode;
+  document.querySelectorAll('.web-mode-btn').forEach(btn => { btn.classList.toggle('active', isWebMode); btn.setAttribute('aria-pressed', isWebMode); });
+  document.querySelectorAll('.ai-input-shell').forEach(shell => shell.classList.toggle('web-mode-active', isWebMode));
+  document.querySelectorAll('.ai-input-wrapper').forEach(wrap => wrap.classList.toggle('web-mode-active', isWebMode));
+}
+document.querySelectorAll('.web-mode-btn').forEach(btn => btn.addEventListener('click', (e) => { e.preventDefault(); toggleWebMode(); }));
 const Intent = {
   detect(input) {
     const lower = input.toLowerCase().trim();
+    if (isWebMode) return { type: 'web_search', query: input.trim() };
     if (/^(hi|hello|hey)\b/i.test(lower)) return { type:'greeting' };
     if (/\b(thank|thanks)\b/i.test(lower)) return { type:'thanks' };
     if (/^(what can you do|help|capabilities)\b/i.test(lower)) return { type:'capabilities' };
     if (/\b(clear chat|reset)\b/i.test(lower)) return { type:'clear_chat' };
-
+    if (/\b(clear|empty|delete all)\s*(watchlist|portfolio)\b/i.test(lower)) return { type: 'watchlist_clear' };
+    if (/\b(tech fact|random fact|tell me a fact)\b/i.test(lower)) return { type: 'tech_fact' };
+    const summarizeMatch = lower.match(/summarize\s+(?:this|the following)?:?\s*(.+)/i);
+    if (summarizeMatch) return { type: 'summarize_text', text: summarizeMatch[1].trim() };
+    const compareMatch = lower.match(/compare\s+([a-z0-9]{2,5})\s+(?:and|vs|to)\s+([a-z0-9]{2,5})/i);
+    if (compareMatch) return { type: 'compare', sym1: compareMatch[1].toUpperCase(), sym2: compareMatch[2].toUpperCase() };
+    const weatherMatch = lower.match(/weather\s+(?:in\s+)?(.+)/i);
+    if (weatherMatch) return { type: 'weather_chat', city: weatherMatch[1].trim() };
+    const urlMatch = input.match(/https?:\/\/[^\s]+/i);
+    if (urlMatch) return { type: 'url_summary', url: urlMatch[0] };
     let extractedTicker = null;
-    for (const [key, ticker] of Object.entries(TICKER_MAP)) { 
-      if (lower.includes(key)) { extractedTicker = ticker; break; } 
-    }
-
-    if (!extractedTicker) { 
+    for (const [key, ticker] of Object.entries(TICKER_MAP)) { if (lower.includes(key)) { extractedTicker = ticker; break; } }
+    if (!extractedTicker) {
       const commonWords = new Set(['the','and','for','are','you','not','will','this','that','have','from','they','what','which','their','about','would','could','should','can','has','had','was','were','been','being','do','does','did','shall','may','might','must','with','out','over','into','our','new','now','way','day','say','get','all','any','how','why','who','but','if','or','so','up','go','no','yes','ok','me','is','it','in','on','at','to','of','a','an','be','my','we','us','show','check','tell']);
       const matches = input.match(/\b([a-zA-Z]{2,5})\b/g);
       if (matches) {
         const isStockQuery = /\b(stock|price|chart|buy|sell|hold|ticker|share|market|quote|doing|worth|performance)\b/i.test(lower);
         for (const m of matches) {
           const upperM = m.toUpperCase();
-          if (!commonWords.has(m.toLowerCase()) && upperM.length >= 2) {
-            if (upperM === m || isStockQuery) {
-              extractedTicker = upperM;
-              break;
-            }
-          }
+          if (!commonWords.has(m.toLowerCase()) && upperM.length >= 2) { if (upperM === m || isStockQuery) { extractedTicker = upperM; break; } }
         }
       }
     }
-
     if (extractedTicker && /^[A-Z]{2,5}$/.test(extractedTicker)) {
-        if (/\b(crypto|coin|bitcoin|eth|sol|doge|xrp|ripple)\b/i.test(lower)) {
-            return { type: 'crypto_detail', symbol: extractedTicker };
-        }
+        if (/\b(crypto|coin|bitcoin|eth|sol|doge|xrp|ripple)\b/i.test(lower)) return { type: 'crypto_detail', symbol: extractedTicker };
         return { type: 'stock_detail', symbol: extractedTicker };
     }
-
     const watchAdd = lower.match(/\b(add|watch|track)\s+([a-z0-9]{1,5})\b/i);
     if (watchAdd) return { type: 'watchlist_add', symbol: watchAdd[2].toUpperCase() };
     const watchRem = lower.match(/\b(remove|delete|unwatch)\s+([a-z0-9]{1,5})\b/i);
     if (watchRem) return { type: 'watchlist_remove', symbol: watchRem[2].toUpperCase() };
     if (/\b(show|view|check|my)\s*(watchlist|portfolio)\b/i.test(lower) || lower === 'watchlist') return { type: 'watchlist_view' };
-
     if (/\b(market|stock|crypto)\b/i.test(lower) && /\b(briefing|update|summary)\b/i.test(lower)) return { type:'market_briefing' };
     if (/\b(stock|market)\b/i.test(lower)) return { type:'stocks' };
     if (/\b(crypto|bitcoin)\b/i.test(lower)) return { type:'crypto' };
     if (/\b(news|headlines)\b/i.test(lower)) return { type:'news', category: /\btech\b/i.test(lower) ? 'tech' : 'markets' };
-    
     if (/\b(explain|what is|how does|tell me about|deep dive)\b/i.test(lower) && /\b(ai|blockchain|quantum|neural|machine learning|web3|iot|cloud|cybersecurity|5g|ar|vr)\b/i.test(lower)) {
       const topicMatch = lower.match(/\b(ai|blockchain|quantum computing|neural networks|machine learning|web3|iot|cloud computing|cybersecurity|5g|ar|vr)\b/i);
       return { type: 'educational_tech', topic: topicMatch ? topicMatch[1] : 'technology' };
     }
-
     const searchMatch = lower.match(/\b(search|look up|find|google|duckduckgo)\s+(?:for\s+)?(.+)/i);
     if (searchMatch) return { type: 'web_search', query: searchMatch[2].trim() };
-
     return { type:'fallback', query: input };
   }
 };
-
+function getWeatherEmoji(code) {
+  if (code === 0) return '☀️'; if (code <= 3) return '⛅'; if (code <= 48) return '🌫️';
+  if (code <= 67) return '🌧️'; if (code <= 77) return '🌨️'; if (code <= 82) return '🌧️';
+  if (code <= 86) return '🌨️'; if (code >= 95) return '⛈️'; return '🌡️';
+}
 const AI = {
   async process(input) {
     const intent = Intent.detect(input);
     Memory.addHistory(input); Memory.addContext('user', input);
-
     switch(intent.type) {
       case 'greeting': return `<p>${getTimeAwareGreeting()}! I'm <strong>${CONFIG.BOT_NAME}</strong>. How can I help you research today?</p>${getCapabilitiesHTML()}`;
       case 'thanks': return `<p>You're welcome! Happy to help. 😊</p>`;
       case 'capabilities': return `<p>Here is everything I can do to assist your research:</p>${getCapabilitiesHTML()}`;
-      
+      case 'tech_fact': {
+        const fact = TECH_FACTS[Math.floor(Math.random() * TECH_FACTS.length)];
+        return `<p>🧠 <strong>Random Tech Fact:</strong></p><div style="background:var(--surface-2);border:1px solid var(--border);border-radius:12px;padding:16px;margin-top:8px;font-style:italic;color:var(--text-sub);">"${fact}"</div><div class="chat-follow-ups"><button class="follow-up-btn" onclick="window.handleSend('Tell me another tech fact')">🔄 Another Fact</button></div>`;
+      }
+      case 'summarize_text': {
+        const text = intent.text;
+        if (text.length < 20) return `<p>⚠️ Please provide a longer text to summarize.</p>`;
+        const sentences = text.match(/[^\.!\?]+[\.!\?]+/g) || [text];
+        const summary = sentences.slice(0, Math.min(2, sentences.length)).join(' ').trim();
+        return `<p>📝 <strong>Summary:</strong></p><div style="background:var(--surface-2);border:1px solid var(--border);border-radius:12px;padding:16px;margin-top:8px;color:var(--text-sub);line-height:1.6;">${esc(summary)}</div>`;
+      }
       case 'watchlist_add': {
         const added = Watchlist.add(intent.symbol);
-        if (added) return `<p>✅ Added <strong>${intent.symbol}</strong> to your watchlist. It will now track live market data.</p><div class="chat-follow-ups"><button class="follow-up-btn" onclick="window.handleSend('Show my watchlist')">👁️ View Watchlist</button></div>`;
+        if (added) { showToast(`Added ${intent.symbol} to watchlist`, 'success'); return `<p>✅ Added <strong>${intent.symbol}</strong> to your watchlist.</p><div class="chat-follow-ups"><button class="follow-up-btn" onclick="window.handleSend('Show my watchlist')">👁️ View Watchlist</button></div>`; }
         return `<p><strong>${intent.symbol}</strong> is already in your watchlist.</p>`;
       }
       case 'watchlist_remove': {
         const removed = Watchlist.remove(intent.symbol);
-        if (removed) return `<p>🗑️ Removed <strong>${intent.symbol}</strong> from your watchlist.</p>`;
+        if (removed) { showToast(`Removed ${intent.symbol} from watchlist`, 'success'); return `<p>🗑️ Removed <strong>${intent.symbol}</strong> from your watchlist.</p>`; }
         return `<p><strong>${intent.symbol}</strong> wasn't in your watchlist.</p>`;
       }
+      case 'watchlist_clear': { Watchlist.clear(); showToast('Watchlist cleared', 'success'); return `<p>🗑️ Your watchlist has been completely cleared.</p>`; }
       case 'watchlist_view': {
         const items = Watchlist.get();
-        if (items.length === 0) {
-          return `<p>👁️ Your watchlist is currently empty. You can add assets by saying something like <em>"Add NVDA to watchlist"</em> or <em>"Track Bitcoin"</em>.</p>
-          <div class="chat-follow-ups">
-            <button class="follow-up-btn" onclick="window.handleSend('Add AAPL to watchlist')">➕ Add AAPL</button>
-            <button class="follow-up-btn" onclick="window.handleSend('Add BTC to watchlist')">➕ Add BTC</button>
-          </div>`;
-        }
+        if (items.length === 0) return `<p>👁️ Your watchlist is currently empty.</p><div class="chat-follow-ups"><button class="follow-up-btn" onclick="window.handleSend('Add AAPL to watchlist')">➕ Add AAPL</button><button class="follow-up-btn" onclick="window.handleSend('Add BTC to watchlist')">➕ Add BTC</button></div>`;
         const data = await fetchWatchlistData();
         let html = `<p>👁️ <strong>Your Watchlist</strong> (${items.length} assets)</p><div style="display:grid;grid-template-columns:repeat(auto-fill, minmax(160px, 1fr));gap:10px;margin-top:10px;">`;
         data.forEach(s => { html += `<div class="market-item" onclick="window.openChartModal('${s.symbol}', '${s.name}', '${s.price}', ${s.up})"><div class="market-info"><span class="market-symbol">${s.symbol}</span><span class="market-name">${s.name}</span></div><div class="market-price-area"><div class="market-price" style="font-size:13px;">$${s.price}</div><div class="market-change ${s.up ? 'up' : 'down'}" style="font-size:10px;">${s.up ? '▲' : '▼'} ${s.changePct}%</div></div></div>`; });
-        html += `</div><div class="chat-follow-ups"><button class="follow-up-btn" onclick="window.handleSend('Remove ${items[0]} from watchlist')">🗑️ Remove ${items[0]}</button></div>`;
+        html += `</div><div class="chat-follow-ups"><button class="follow-up-btn" onclick="window.handleSend('Clear watchlist')">🗑️ Clear All</button></div>`;
         return html;
       }
-
+      case 'compare': {
+        let s1 = await fetchStocks([intent.sym1]); let s2 = await fetchStocks([intent.sym2]);
+        if (!s1 || s1.length === 0) s1 = await fetchCrypto([intent.sym1]);
+        if (!s2 || s2.length === 0) s2 = await fetchCrypto([intent.sym2]);
+        const item1 = s1 && s1[0] ? s1[0] : null; const item2 = s2 && s2[0] ? s2[0] : null;
+        if (!item1 || !item2) return `<p>⚠️ Couldn't find data to compare. Please check the symbols.</p>`;
+        return `<p>📊 <strong>Comparison: ${item1.symbol} vs ${item2.symbol}</strong></p><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;"><div class="market-item" style="cursor:default;"><div class="market-info"><span class="market-symbol">${item1.symbol}</span><span class="market-name">${item1.name}</span></div><div class="market-price-area"><div class="market-price">$${item1.price}</div><div class="market-change ${item1.up?'up':'down'}">${item1.up?'▲':'▼'} ${item1.changePct}%</div></div></div><div class="market-item" style="cursor:default;"><div class="market-info"><span class="market-symbol">${item2.symbol}</span><span class="market-name">${item2.name}</span></div><div class="market-price-area"><div class="market-price">$${item2.price}</div><div class="market-change ${item2.up?'up':'down'}">${item2.up?'▲':'▼'} ${item2.changePct}%</div></div></div></div>`;
+      }
+      case 'weather_chat': {
+        try {
+          const geoRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(intent.city)}&count=1`);
+          const geoData = await geoRes.json();
+          if (!geoData.results || !geoData.results.length) throw new Error('City not found');
+          const loc = geoData.results[0];
+          const wxRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${loc.latitude}&longitude=${loc.longitude}&current_weather=true`);
+          const wxData = await wxRes.json(); const wx = wxData.current_weather;
+          return `<p>🌤️ <strong>Weather in ${loc.name}${loc.country ? ', '+loc.country : ''}</strong></p><div style="background:var(--surface-2);border:1px solid var(--border);border-radius:12px;padding:16px;margin-top:8px;display:flex;align-items:center;gap:16px;"><div style="font-size:32px;">${getWeatherEmoji(wx.weathercode)}</div><div><div style="font-size:24px;font-weight:800;font-family:var(--mono);">${wx.temperature}°C</div><div style="font-size:12px;color:var(--text-muted);">Wind: ${wx.windspeed} km/h</div></div></div>`;
+        } catch(e) { return `<p>⚠️ Couldn't find weather for "${esc(intent.city)}".</p>`; }
+      }
+      case 'url_summary': {
+        try {
+          const res = await fetch(`https://api.microlink.io/?url=${encodeURIComponent(intent.url)}`);
+          const data = await res.json();
+          if (data.status === 'success' && data.data) {
+            return `<p>🔗 <strong>Summary for:</strong> <a href="${esc(intent.url)}" target="_blank">${esc(data.data.title || intent.url)}</a></p><div style="background:var(--surface-2);padding:12px;border-radius:8px;margin-top:8px;border:1px solid var(--border);"><p style="font-size:13px;color:var(--text-sub);line-height:1.5;">${esc(data.data.description || 'No description available.')}</p></div>`;
+          }
+        } catch(e) {}
+        return `<p>🔗 I couldn't fetch a rich summary for that URL, but you can explore it here:</p><a href="${esc(intent.url)}" target="_blank" class="affiliate-btn">Open Link</a>`;
+      }
       case 'stock_detail': {
-        const data = await fetchStocks([intent.symbol]);
-        const stock = data && data.length > 0 ? data[0] : null;
-        if (!stock) return `<p>⚠️ Couldn't find live data for <strong>${intent.symbol}</strong>. The market might be closed or the API is temporarily unavailable.</p>`;
-        return `<p>📈 <strong>${stock.symbol} (${stock.name})</strong></p><div class="market-item" style="cursor:default;margin-top:8px;"><div class="market-info"><span class="market-symbol">${stock.symbol}</span></div>${createSparklineSVG(stock.up)}<div class="market-price-area"><div class="market-price">$${stock.price}</div><div class="market-change ${stock.up ? 'up' : 'down'}">${stock.up ? '▲' : '▼'} ${stock.changePct}%</div></div></div><div class="chat-follow-ups"><button class="follow-up-btn" onclick="window.openChartModal('${stock.symbol}', '${stock.name}', '${stock.price}', ${stock.up})"> View Chart</button><button class="follow-up-btn" onclick="window.handleSend('Add ${stock.symbol} to watchlist')">➕ Add to Watchlist</button></div>`;
+        const data = await fetchStocks([intent.symbol]); const stock = data && data.length > 0 ? data[0] : null;
+        if (!stock) { showToast(`No data found for ${intent.symbol}`, 'error'); return `<p>⚠️ Couldn't find live data for <strong>${intent.symbol}</strong>.</p>`; }
+        return `<p>📈 <strong>${stock.symbol} (${stock.name})</strong></p><div class="market-item" style="cursor:default;margin-top:8px;"><div class="market-info"><span class="market-symbol">${stock.symbol}</span></div>${createSparklineSVG(stock.up)}<div class="market-price-area"><div class="market-price">$${stock.price}</div><div class="market-change ${stock.up ? 'up' : 'down'}">${stock.up ? '▲' : '▼'} ${stock.changePct}%</div></div></div><div class="chat-follow-ups"><button class="follow-up-btn" onclick="window.openChartModal('${stock.symbol}', '${stock.name}', '${stock.price}', ${stock.up})">📊 View Chart</button><button class="follow-up-btn" onclick="window.handleSend('Add ${stock.symbol} to watchlist')">➕ Add to Watchlist</button></div>`;
       }
       case 'crypto_detail': {
-        const data = await fetchCrypto([intent.symbol]);
-        const crypto = data && data.length > 0 ? data[0] : null;
-        if (!crypto) return `<p>️ Couldn't find live data for <strong>${intent.symbol}</strong>. The market might be closed or the API is temporarily unavailable.</p>`;
-        return `<p>🪙 <strong>${crypto.symbol} (${crypto.name})</strong></p><div class="market-item" style="cursor:default;margin-top:8px;"><div class="market-info"><span class="market-symbol">${crypto.symbol}</span></div>${createSparklineSVG(crypto.up)}<div class="market-price-area"><div class="market-price">$${crypto.price}</div><div class="market-change ${crypto.up ? 'up' : 'down'}">${crypto.up ? '▲' : '▼'} ${crypto.changePct}%</div></div></div><div class="chat-follow-ups"><button class="follow-up-btn" onclick="window.openChartModal('${crypto.symbol}', '${crypto.name}', '${crypto.price.replace(/,/g, '')}', ${crypto.up})"> View Chart</button></div>`;
+        const data = await fetchCrypto([intent.symbol]); const crypto = data && data.length > 0 ? data[0] : null;
+        if (!crypto) { showToast(`No data found for ${intent.symbol}`, 'error'); return `<p>⚠️ Couldn't find live data for <strong>${intent.symbol}</strong>.</p>`; }
+        return `<p>🪙 <strong>${crypto.symbol} (${crypto.name})</strong></p><div class="market-item" style="cursor:default;margin-top:8px;"><div class="market-info"><span class="market-symbol">${crypto.symbol}</span></div>${createSparklineSVG(crypto.up)}<div class="market-price-area"><div class="market-price">$${crypto.price}</div><div class="market-change ${crypto.up ? 'up' : 'down'}">${crypto.up ? '▲' : '▼'} ${crypto.changePct}%</div></div></div><div class="chat-follow-ups"><button class="follow-up-btn" onclick="window.openChartModal('${crypto.symbol}', '${crypto.name}', '${crypto.price.replace(/,/g, '')}', ${crypto.up})">📊 View Chart</button></div>`;
       }
       case 'market_briefing': case 'stocks': case 'crypto': {
         const [crypto, stocks] = await Promise.all([fetchCrypto(), fetchStocks()]);
         let html = `<p>📊 <strong>Market Briefing</strong></p>`;
-        if (stocks) html += `<p style="font-size:12px;font-weight:600;margin-top:12px;"> Stocks</p><div style="display:grid;grid-template-columns:repeat(auto-fill, minmax(140px, 1fr));gap:8px;">` + stocks.slice(0,4).map(s => `<div class="market-item" onclick="window.openChartModal('${s.symbol}', '${s.name}', '${s.price}', ${s.up})" style="padding:8px;"><div class="market-info"><span class="market-symbol">${s.symbol}</span></div><div class="market-price-area"><div class="market-price" style="font-size:13px;">$${s.price}</div><div class="market-change ${s.up ? 'up' : 'down'}" style="font-size:10px;">${s.up ? '▲' : '▼'} ${s.changePct}%</div></div></div>`).join('') + `</div>`;
-        if (crypto) html += `<p style="font-size:12px;font-weight:600;margin-top:12px;"> Crypto</p><div style="display:grid;grid-template-columns:repeat(auto-fill, minmax(140px, 1fr));gap:8px;">` + crypto.map(s => `<div class="market-item" onclick="window.openChartModal('${s.symbol}', '${s.name}', '${s.price.replace(/,/g, '')}', ${s.up})" style="padding:8px;"><div class="market-info"><span class="market-symbol">${s.symbol}</span></div><div class="market-price-area"><div class="market-price" style="font-size:13px;">$${s.price}</div><div class="market-change ${s.up ? 'up' : 'down'}" style="font-size:10px;">${s.up ? '▲' : '▼'} ${s.changePct}%</div></div></div>`).join('') + `</div>`;
+        if (stocks) html += `<p style="font-size:12px;font-weight:600;margin-top:12px;">📈 Stocks</p><div style="display:grid;grid-template-columns:repeat(auto-fill, minmax(140px, 1fr));gap:8px;">` + stocks.slice(0,4).map(s => `<div class="market-item" onclick="window.openChartModal('${s.symbol}', '${s.name}', '${s.price}', ${s.up})" style="padding:8px;"><div class="market-info"><span class="market-symbol">${s.symbol}</span></div><div class="market-price-area"><div class="market-price" style="font-size:13px;">$${s.price}</div><div class="market-change ${s.up ? 'up' : 'down'}" style="font-size:10px;">${s.up ? '▲' : '▼'} ${s.changePct}%</div></div></div>`).join('') + `</div>`;
+        if (crypto) html += `<p style="font-size:12px;font-weight:600;margin-top:12px;">🪙 Crypto</p><div style="display:grid;grid-template-columns:repeat(auto-fill, minmax(140px, 1fr));gap:8px;">` + crypto.map(s => `<div class="market-item" onclick="window.openChartModal('${s.symbol}', '${s.name}', '${s.price.replace(/,/g, '')}', ${s.up})" style="padding:8px;"><div class="market-info"><span class="market-symbol">${s.symbol}</span></div><div class="market-price-area"><div class="market-price" style="font-size:13px;">$${s.price}</div><div class="market-change ${s.up ? 'up' : 'down'}" style="font-size:10px;">${s.up ? '▲' : '▼'} ${s.changePct}%</div></div></div>`).join('') + `</div>`;
         return html;
       }
-      
       case 'news': {
         const feed = intent.category === 'tech' ? CONFIG.FEEDS.tech : CONFIG.FEEDS.markets;
-        const categoryName = intent.category === 'tech' ? 'Tech' : 'Markets';
-        const items = await fetchRSS(feed.url, categoryName);
+        const items = await fetchRSS(feed.url, intent.category === 'tech' ? 'Tech' : 'Markets');
         if (!items) return `<p>⚠️ Couldn't load news right now.</p>`;
         let html = `<p>📰 <strong>Latest ${feed.name} News</strong></p><div style="display:flex;flex-direction:column;gap:12px;margin-top:12px;">`;
-        items.forEach(n => {
-          html += `<a class="news-card-enhanced" href="${esc(n.link)}" target="_blank" rel="noopener">
-            <div class="news-category">${esc(n.source)} • ${esc(n.date)}</div>
-            <div class="news-title-enhanced">${esc(n.title)}</div>
-            <div class="news-tldr"><strong>TL;DR:</strong> ${esc(n.tldr)}</div>
-          </a>`;
-        });
+        items.forEach(n => { html += `<a class="news-card-enhanced" href="${esc(n.link)}" target="_blank" rel="noopener"><div class="news-category">${esc(n.source)} • ${esc(n.date)}</div><div class="news-title-enhanced">${esc(n.title)}</div><div class="news-tldr"><strong>TL;DR:</strong> ${esc(n.tldr)}</div></a>`; });
         html += `</div><div class="chat-follow-ups"><button class="follow-up-btn" onclick="window.handleSend('Latest tech news')">💡 More Tech News</button><button class="follow-up-btn" onclick="window.handleSend('Market briefing')">📊 Market Briefing</button></div>`;
         return html;
       }
-
       case 'educational_tech': {
         const topic = intent.topic;
-        const concepts = {
-          'ai': { title: 'Artificial Intelligence', sub: 'Machine Learning & Neural Networks', def: 'AI refers to the simulation of human intelligence in machines that are programmed to think and learn like humans.', mechanics: 'Uses algorithms and statistical models to analyze data, recognize patterns, and make decisions without explicit programming.', uses: ['Autonomous vehicles & robotics', 'Natural language processing (Chatbots)', 'Predictive analytics in finance', 'Medical diagnosis & drug discovery'], players: ['OpenAI', 'Google DeepMind', 'Anthropic', 'NVIDIA'] },
-          'blockchain': { title: 'Blockchain Technology', sub: 'Distributed Ledger & Web3', def: 'A decentralized, distributed ledger technology that records transactions across multiple computers securely and transparently.', mechanics: 'Data is stored in blocks that are cryptographically linked. Once recorded, data cannot be altered without consensus from the network.', uses: ['Cryptocurrencies (Bitcoin, Ethereum)', 'Smart contracts & DeFi', 'Supply chain tracking', 'Digital identity verification'], players: ['Ethereum Foundation', 'Solana Labs', 'Consensys', 'Ripple'] },
-          'quantum computing': { title: 'Quantum Computing', sub: 'Next-Gen Computational Power', def: 'A type of computing that uses quantum-mechanical phenomena, such as superposition and entanglement, to perform calculations.', mechanics: 'Uses qubits instead of classical bits. Qubits can exist in multiple states simultaneously, allowing massive parallel processing.', uses: ['Cryptography & cybersecurity', 'Complex molecular simulation', 'Optimization problems in logistics', 'Advanced AI model training'], players: ['IBM Quantum', 'Google Quantum AI', 'IonQ', 'Rigetti'] }
-        };
+        const concepts = { 'ai': { title: 'Artificial Intelligence', sub: 'Machine Learning & Neural Networks', def: 'AI refers to the simulation of human intelligence in machines.', mechanics: 'Uses algorithms and statistical models to analyze data.', uses: ['Autonomous vehicles', 'NLP', 'Predictive analytics'], players: ['OpenAI', 'Google DeepMind', 'NVIDIA'] }, 'blockchain': { title: 'Blockchain Technology', sub: 'Distributed Ledger & Web3', def: 'A decentralized ledger that records transactions securely.', mechanics: 'Data stored in cryptographically linked blocks.', uses: ['Cryptocurrencies', 'Smart contracts', 'Supply chain'], players: ['Ethereum', 'Solana Labs', 'Consensys'] }, 'quantum computing': { title: 'Quantum Computing', sub: 'Next-Gen Computational Power', def: 'Computing using quantum-mechanical phenomena.', mechanics: 'Uses qubits that exist in multiple states simultaneously.', uses: ['Cryptography', 'Molecular simulation', 'Optimization'], players: ['IBM Quantum', 'Google Quantum AI', 'IonQ'] } };
         const c = concepts[topic] || concepts['ai'];
-        const news = await fetchRSS(CONFIG.FEEDS.tech.url, 'Tech');
-        let html = `<div style="background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin: 12px 0;">
-          <div style="padding: 16px; background: linear-gradient(135deg, rgba(var(--glow-color),0.1), rgba(168,85,247,0.05)); border-bottom: 1px solid var(--border);">
-            <div style="font-size: 18px; font-weight: 800; margin-bottom: 4px;">${c.title}</div>
-            <div style="font-size: 12px; color: var(--text-muted);">${c.sub}</div>
-          </div>
-          <div style="padding: 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-            <div><div style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; letter-spacing: 0.05em;">Definition</div><p style="font-size: 13px; color: var(--text-sub); line-height: 1.6;">${c.def}</p></div>
-            <div><div style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; letter-spacing: 0.05em;">How It Works</div><p style="font-size: 13px; color: var(--text-sub); line-height: 1.6;">${c.mechanics}</p></div>
-            <div><div style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; letter-spacing: 0.05em;">Real-World Uses</div><ul style="font-size: 13px; color: var(--text-sub); line-height: 1.6; padding-left: 16px;">${c.uses.map(u => `<li>${u}</li>`).join('')}</ul></div>
-            <div><div style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; letter-spacing: 0.05em;">Key Players</div><ul style="font-size: 13px; color: var(--text-sub); line-height: 1.6; padding-left: 16px;">${c.players.map(p => `<li>${p}</li>`).join('')}</ul></div>
-          </div>
-        </div>`;
-        if (news && news.length > 0) {
-          html += `<p style="margin-top:16px;font-size:13px;font-weight:600;">📰 Latest Technology News</p><div style="display:flex;flex-direction:column;gap:10px;margin-top:8px;">`;
-          news.slice(0, 2).forEach(n => { html += `<a class="news-card-enhanced" href="${esc(n.link)}" target="_blank" rel="noopener"><div class="news-title-enhanced">${esc(n.title)}</div><div class="news-tldr">${esc(n.tldr)}</div></a>`; });
-          html += `</div>`;
-        }
-        return html;
+        return `<div style="background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin: 12px 0;"><div style="padding: 16px; background: linear-gradient(135deg, rgba(var(--glow-color),0.1), rgba(168,85,247,0.05)); border-bottom: 1px solid var(--border);"><div style="font-size: 18px; font-weight: 800; margin-bottom: 4px;">${c.title}</div><div style="font-size: 12px; color: var(--text-muted);">${c.sub}</div></div><div style="padding: 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px;"><div><div style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--accent); margin-bottom: 8px;">Definition</div><p style="font-size: 13px; color: var(--text-sub); line-height: 1.6;">${c.def}</p></div><div><div style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--accent); margin-bottom: 8px;">How It Works</div><p style="font-size: 13px; color: var(--text-sub); line-height: 1.6;">${c.mechanics}</p></div><div><div style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--accent); margin-bottom: 8px;">Real-World Uses</div><ul style="font-size: 13px; color: var(--text-sub); line-height: 1.6; padding-left: 16px;">${c.uses.map(u => `<li>${u}</li>`).join('')}</ul></div><div><div style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--accent); margin-bottom: 8px;">Key Players</div><ul style="font-size: 13px; color: var(--text-sub); line-height: 1.6; padding-left: 16px;">${c.players.map(p => `<li>${p}</li>`).join('')}</ul></div></div></div>`;
       }
-
-      case 'web_search':
-      case 'fallback': {
+      case 'web_search': case 'fallback': {
         const query = intent.query || input.trim();
         const ddgLink = `https://duckduckgo.com/?q=${encodeURIComponent(query)}`;
-        let html = `<p> <strong>Searching the web for "${esc(query)}"</strong></p>`;
+        let html = `<p>🔍 <strong>Searching the web for "${esc(query)}"</strong></p>`;
         try {
           const res = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(query)}`);
-          if (res.ok) {
-            const data = await res.json();
-            if (data.extract) {
-              html += `<div style="background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px; margin-top: 12px;">
-                <div style="font-size: 13px; font-weight: 700; margin-bottom: 6px;">${esc(data.title)}</div>
-                <p style="font-size: 12px; color: var(--text-sub); line-height: 1.6; margin: 0;">${esc(data.extract)}</p>
-              </div>`;
-            } else { throw new Error('No extract'); }
-          } else { throw new Error('Not found'); }
-        } catch (e) {
-          html += `<p style="margin-top:8px; color: var(--text-sub); font-size: 13px;">I couldn't find a quick summary for that, but you can view full search results below.</p>`;
-        }
-        html += `<div style="margin-top:16px;"><a href="${ddgLink}" target="_blank" rel="noopener" class="affiliate-btn">🔎 Search DuckDuckGo for "${esc(query)}"</a></div>`;
+          if (res.ok) { const data = await res.json(); if (data.extract) { html += `<div style="background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px; margin-top: 12px;"><div style="font-size: 13px; font-weight: 700; margin-bottom: 6px;">${esc(data.title)}</div><p style="font-size: 12px; color: var(--text-sub); line-height: 1.6; margin: 0;">${esc(data.extract)}</p></div>`; } else { throw new Error(); } } else { throw new Error(); }
+        } catch (e) { html += `<p style="margin-top:8px; color: var(--text-sub); font-size: 13px;">I couldn't find a quick summary, but you can view full search results below.</p>`; }
+        html += `<div style="margin-top:16px;"><a href="${ddgLink}" target="_blank" rel="noopener" class="affiliate-btn">🔎 Search DuckDuckGo</a></div>`;
         return html;
       }
-
       case 'clear_chat': return '__CLEAR_CHAT__';
       default: return `<p>I'm here to help you research. Try asking about stocks, your watchlist, tech news, or search the web.</p>${getCapabilitiesHTML()}`;
     }
   }
 };
-
 let isProcessing = false, msgIdCounter = 0;
 function addMsg(role, html, instant) {
   const div = document.createElement('div'); div.className = `msg ${role}`;
@@ -968,8 +768,7 @@ function addMsg(role, html, instant) {
   const avatar = role === 'bot' ? `<img src="${CONFIG.LOGO_URL}" alt="">` : esc(Memory.getName() || 'You').charAt(0).toUpperCase();
   div.innerHTML = `<div class="msg-avatar ${role}">${avatar}</div><div class="msg-body"><div class="msg-header"><span class="msg-role">${role === 'bot' ? CONFIG.BOT_NAME : 'You'}</span><span class="msg-time">${getTimeString()}</span></div><div class="msg-content" id="${contentId}">${instant ? html : ''}</div></div>`;
   thread.appendChild(div);
-  const isNearBottom = scrollContainer.scrollHeight - scrollContainer.scrollTop - scrollContainer.clientHeight < 150;
-  if (isNearBottom || instant) scrollToBottom(true, instant);
+  scrollToBottom(true, instant);
   return { element: div, contentEl: div.querySelector(`#${contentId}`) };
 }
 function revealWithGlow(contentEl, html) { contentEl.innerHTML = html; contentEl.classList.add('data-fade-in'); scrollToBottom(true, false); }
@@ -979,7 +778,6 @@ function showResearching() {
   thread.appendChild(div); scrollToBottom(true, false); return div;
 }
 function advanceResearchStep(el) { if (!el) return; const active = el.querySelector('.step.active'); if (!active) return; active.classList.remove('active'); active.classList.add('done'); active.querySelector('.step-icon').textContent = '✓'; const next = active.nextElementSibling; if (next) next.classList.add('active'); scrollToBottom(true, false); }
-
 async function handleSend(text) {
   if (isProcessing || !text || !text.trim()) return;
   isProcessing = true;
@@ -987,15 +785,12 @@ async function handleSend(text) {
   const btns = [$('#chatSend'), $('#chatSendBottom')];
   btns.forEach(b => { if(b) b.disabled = true; });
   inputs.forEach(i => { if(i) i.disabled = true; });
-  
   addMsg('user', esc(text), true);
   scrollToBottom(true, true);
   inputs.forEach(i => { if(i) i.value = ''; });
-  
   const researchEl = showResearching();
   let stepIdx = 0;
   const stepInterval = setInterval(() => { stepIdx++; advanceResearchStep(researchEl); if (stepIdx >= 1) clearInterval(stepInterval); }, 400);
-
   try {
     await new Promise(r => setTimeout(r, 300));
     const response = await AI.process(text.trim());
@@ -1013,29 +808,20 @@ async function handleSend(text) {
     inputs.forEach(i => { if(i) { i.disabled = false; i.focus({ preventScroll: true }); } });
   }
 }
-
-window.handleSend = handleSend; window.openChartModal = openChartModal; window.closeChartModal = closeChartModal; window.updateChartTimeframe = updateChartTimeframe; window.renderDashboard = renderDashboard; window.scrollToBottom = scrollToBottom; window.toggleCmdPalette = () => {
-    const el = $('#cmdPalette');
-    el.classList.toggle('active');
-    if(el.classList.contains('active')) {
-        setTimeout(() => $('#cmdInput').focus(), 100);
-    }
-};
-
+window.handleSend = handleSend; window.openChartModal = openChartModal; window.closeChartModal = closeChartModal; window.updateChartTimeframe = updateChartTimeframe; window.renderDashboard = renderDashboard; window.scrollToBottom = scrollToBottom;
+window.toggleCmdPalette = () => { const el = $('#cmdPalette'); el.classList.toggle('active'); if(el.classList.contains('active')) { setTimeout(() => $('#cmdInput').focus(), 100); } };
 $('#chatForm').addEventListener('submit', e => { e.preventDefault(); e.stopPropagation(); handleSend($('#chatInput').value); });
 $('#chatFormBottom').addEventListener('submit', e => { e.preventDefault(); e.stopPropagation(); handleSend($('#chatInputBottom').value); });
-
 const Memory = {
   key: 'dih_ai_memory_v8', data: { name:null, history:[], conversationContext:[] },
   init() { try { const s = localStorage.getItem(this.key); if (s) this.data = { ...this.data, ...JSON.parse(s) }; } catch(e) {} },
-  save() { try { localStorage.setItem(this.key, JSON.stringify(this.data)); } catch(e) {} },
+  save() { safeSetItem(this.key, JSON.stringify(this.data)); },
   getName() { return this.data.name; },
   addHistory(q) { this.data.history.unshift({ q, ts: Date.now() }); if (this.data.history.length > 50) this.data.history.pop(); this.save(); },
   addContext(role, text) { this.data.conversationContext.push({ role, text, ts: Date.now() }); if (this.data.conversationContext.length > 20) this.data.conversationContext.shift(); this.save(); },
   getContext() { return this.data.conversationContext.slice(-6); }
 };
 Memory.init();
-
 const HistoryManager = {
   key: 'dih_chat_sessions_v3', sessions: [],
   init() { try { const saved = localStorage.getItem(this.key); if (saved) this.sessions = JSON.parse(saved); } catch(e) { this.sessions = []; } this.render(); },
@@ -1061,7 +847,7 @@ const HistoryManager = {
   },
   deleteSession(id) { this.sessions = this.sessions.filter(s => s.id !== id); this.save(); this.render(); },
   clearAll() { this.sessions = []; this.save(); this.render(); },
-  save() { try { localStorage.setItem(this.key, JSON.stringify(this.sessions)); } catch(e) {} },
+  save() { safeSetItem(this.key, JSON.stringify(this.sessions)); },
   render() {
     const list = $('#historyList'); if (!list) return;
     if (this.sessions.length === 0) { list.innerHTML = '<div style="padding:14px;text-align:center;font-size:11px;color:var(--text-muted);">No past conversations</div>'; return; }
@@ -1073,94 +859,81 @@ const HistoryManager = {
   }
 };
 HistoryManager.init();
-
 function showWelcomeMessage() {
   const { contentEl } = addMsg('bot', '', false);
-  const html = `<p>${getTimeAwareGreeting()}! I'm <strong>${CONFIG.BOT_NAME}</strong>, your AI research terminal. I can track markets, analyze tech concepts, and search the web.</p>${getCapabilitiesHTML()}<p style="margin-top:16px;">What would you like to research first?</p>`;
+  const html = `<p>${getTimeAwareGreeting()}! I'm <strong>${CONFIG.BOT_NAME}</strong>, your AI research terminal.</p>${getCapabilitiesHTML()}<p style="margin-top:16px;">What would you like to research first?</p>`;
   revealWithGlow(contentEl, html);
 }
-
 $('#newChatBtn').addEventListener('click', () => { HistoryManager.clearCurrentChat(); if (window.innerWidth < 1024) closeSidebar(); });
 $('#clearHistoryBtn').addEventListener('click', () => { if (confirm('Clear all history?')) HistoryManager.clearAll(); });
-
 $('#exportChatBtn').addEventListener('click', () => {
     const context = Memory.getContext();
     if(context.length === 0) return alert("No chat to export!");
     let text = `Digital Infohub Chat Export - ${new Date().toLocaleString()}\n\n`;
-    context.forEach(msg => {
-        text += `[${msg.role.toUpperCase()}] ${new Date(msg.ts).toLocaleTimeString()}: ${msg.text.replace(/<[^>]*>/g, '')}\n\n`;
-    });
+    context.forEach(msg => { text += `[${msg.role.toUpperCase()}] ${new Date(msg.ts).toLocaleTimeString()}: ${msg.text.replace(/<[^>]*>/g, '')}\n\n`; });
     const blob = new Blob([text], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `DIH_Chat_${Date.now()}.txt`;
-    a.click();
+    const a = document.createElement('a'); a.href = url; a.download = `DIH_Chat_${Date.now()}.txt`; a.click();
     URL.revokeObjectURL(url);
 });
-
 function toggleSidebar() { $('#sidebar').classList.toggle('active'); $('#sidebarOverlay').classList.toggle('active'); document.body.style.overflow = $('#sidebar').classList.contains('active') ? 'hidden' : ''; }
 function closeSidebar() { $('#sidebar').classList.remove('active'); $('#sidebarOverlay').classList.remove('active'); document.body.style.overflow = ''; }
 $('#sidebarToggle').addEventListener('click', toggleSidebar);
 $('#sidebarClose').addEventListener('click', closeSidebar);
 $('#sidebarOverlay').addEventListener('click', closeSidebar);
-
 let theme = localStorage.getItem('dih_theme') || 'dark';
 document.documentElement.setAttribute('data-theme', theme);
-$('#themeToggle').addEventListener('click', () => { theme = theme === 'dark' ? 'light' : 'dark'; document.documentElement.setAttribute('data-theme', theme); localStorage.setItem('dih_theme', theme); });
-
+$('#themeToggle').addEventListener('click', () => { theme = theme === 'dark' ? 'light' : 'dark'; document.documentElement.setAttribute('data-theme', theme); safeSetItem('dih_theme', theme); });
 function updateClock() { const el = $('#clock'); if (el) el.textContent = new Date().toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit' }); }
 updateClock(); setInterval(updateClock, 1000);
-
 $('#chartModal').addEventListener('click', e => { if (e.target === $('#chartModal')) closeChartModal(); });
 $('#cmdPalette').addEventListener('click', e => { if (e.target === $('#cmdPalette')) window.toggleCmdPalette(); });
-document.addEventListener('keydown', e => { 
-    if (e.key === 'Escape') { closeSidebar(); closeChartModal(); if($('#cmdPalette').classList.contains('active')) window.toggleCmdPalette(); } 
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { closeSidebar(); closeChartModal(); if($('#cmdPalette').classList.contains('active')) window.toggleCmdPalette(); }
     if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); window.toggleCmdPalette(); }
 });
-
+$('#cmdInput').addEventListener('input', (e) => {
+  const val = e.target.value.toLowerCase().trim();
+  document.querySelectorAll('#cmdPalette .history-item').forEach(item => {
+    if (!val) { item.style.display = 'flex'; return; }
+    const text = item.textContent.toLowerCase();
+    let match = true, idx = 0;
+    for (let char of val) { idx = text.indexOf(char, idx); if (idx === -1) { match = false; break; } idx++; }
+    item.style.display = match ? 'flex' : 'none';
+  });
+});
+document.addEventListener('mousemove', (e) => {
+  document.querySelectorAll('.dash-card, .market-item').forEach(card => {
+    const rect = card.getBoundingClientRect();
+    card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+    card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+  });
+});
 scrollContainer.addEventListener('scroll', () => {
   const btn = $('#scrollToBottomBtn');
   if (!btn) return;
   const isNearBottom = scrollContainer.scrollHeight - scrollContainer.scrollTop - scrollContainer.clientHeight < 150;
   btn.style.display = isNearBottom ? 'none' : 'flex';
 });
-
 const WidgetManager = {
   state: { open: [] },
-  init() {
-    try { const saved = localStorage.getItem('dih_widgets_v1'); if (saved) this.state = JSON.parse(saved); } catch(e) {}
-    this.renderDock();
-    this.state.open.forEach(type => this.createWidgetElement(type));
-  },
-  save() { localStorage.setItem('dih_widgets_v1', JSON.stringify(this.state)); },
-  toggle(type) {
-    if (this.state.open.includes(type)) { this.close(type); } else { this.open(type); }
-  },
-  open(type) {
-    if (!this.state.open.includes(type)) {
-      this.state.open.push(type); this.save();
-      this.createWidgetElement(type); this.updateDock();
-    }
-  },
-  close(type) {
-    this.state.open = this.state.open.filter(w => w !== type); this.save();
-    document.getElementById(`widget-${type}`)?.remove(); this.updateDock();
-  },
-  updateDock() {
-    document.querySelectorAll('.dock-item').forEach(el => {
-      el.classList.toggle('active', this.state.open.includes(el.dataset.type));
-    });
-  },
+  init() { try { const saved = localStorage.getItem('dih_widgets_v1'); if (saved) this.state = JSON.parse(saved); } catch(e) {} this.renderDock(); this.state.open.forEach(type => this.createWidgetElement(type)); },
+  save() { safeSetItem('dih_widgets_v1', JSON.stringify(this.state)); },
+  toggle(type) { if (this.state.open.includes(type)) { this.close(type); } else { this.open(type); } },
+  open(type) { if (!this.state.open.includes(type)) { this.state.open.push(type); this.save(); this.createWidgetElement(type); this.updateDock(); } },
+  close(type) { this.state.open = this.state.open.filter(w => w !== type); this.save(); document.getElementById(`widget-${type}`)?.remove(); this.updateDock(); },
+  updateDock() { document.querySelectorAll('.dock-item').forEach(el => { el.classList.toggle('active', this.state.open.includes(el.dataset.type)); }); },
   renderDock() {
     const dock = $('#widgetDock');
     const items = [
-      { type: 'weather', icon: '\u{1F324}\u{FE0F}', label: 'Weather' },
-      { type: 'notes', icon: '\u{1F4DD}', label: 'Notes & Tasks' },
-      { type: 'calc', icon: '\u{1F9EE}', label: 'Calculator' },
-      { type: 'timer', icon: '\u{23F1}\u{FE0F}', label: 'Focus Timer' },
-      { type: 'converter', icon: '\u{2696}\u{FE0F}', label: 'Converter' },
-      { type: 'password', icon: '\u{1F511}', label: 'Passwords' }
+      { type: 'weather', icon: '🌤️', label: 'Weather' },
+      { type: 'notes', icon: '📝', label: 'Notes & Tasks' },
+      { type: 'gainers', icon: '🚀', label: 'Crypto Gainers' },
+      { type: 'bookmarks', icon: '🔖', label: 'Bookmarks' },
+      { type: 'calc', icon: '🧮', label: 'Calculator' },
+      { type: 'timer', icon: '⏱️', label: 'Focus Timer' },
+      { type: 'converter', icon: '⚖️', label: 'Converter' },
+      { type: 'password', icon: '🔑', label: 'Passwords' }
     ];
     dock.innerHTML = items.map(i => `<button class="dock-item" data-type="${i.type}" title="${i.label}" onclick="WidgetManager.toggle('${i.type}')"><span>${i.icon}</span></button>`).join('');
     this.updateDock();
@@ -1169,63 +942,41 @@ const WidgetManager = {
     if (document.getElementById(`widget-${type}`)) return;
     const el = document.createElement('div');
     el.id = `widget-${type}`; el.className = 'floating-widget';
-    
-    const widgetWidth = 300;
-    const widgetHeight = 400;
+    const widgetWidth = 320, widgetHeight = 400;
     const cascadeOffset = Math.min(this.state.open.length * 24, 100);
     const centerX = Math.max(20, (window.innerWidth - widgetWidth) / 2 + cascadeOffset);
     const centerY = Math.max(80, (window.innerHeight - widgetHeight) / 2 + cascadeOffset);
-    
-    el.style.left = centerX + 'px';
-    el.style.top = centerY + 'px';
-    el.style.zIndex = 1000 + this.state.open.length;
-    
+    el.style.left = centerX + 'px'; el.style.top = centerY + 'px'; el.style.zIndex = 1000 + this.state.open.length;
     let content = '';
     if (type === 'weather') content = this.getWeatherHTML();
     else if (type === 'notes') content = this.getNotesHTML();
+    else if (type === 'gainers') content = this.getGainersHTML();
+    else if (type === 'bookmarks') content = this.getBookmarksHTML();
     else if (type === 'calc') content = this.getCalcHTML();
     else if (type === 'timer') content = this.getTimerHTML();
     else if (type === 'converter') content = this.getConverterHTML();
     else if (type === 'password') content = this.getPasswordHTML();
-
     el.innerHTML = `<div class="widget-header widget-drag-handle"><span class="widget-title">${this.getTitle(type)}</span><button class="widget-close" onclick="WidgetManager.close('${type}')">✕</button></div><div class="widget-body">${content}</div>`;
     $('#widgetLayer').appendChild(el);
-    
     if (type === 'weather') this.initWeather(el);
     else if (type === 'notes') this.initNotes(el);
+    else if (type === 'gainers') this.initGainers(el);
+    else if (type === 'bookmarks') this.initBookmarks(el);
     else if (type === 'calc') this.initCalc(el);
     else if (type === 'timer') this.initTimer(el);
     else if (type === 'converter') this.initConverter(el);
     else if (type === 'password') this.initPassword(el);
   },
-  getTitle(type) { return { weather: 'Weather', notes: 'Notes & Tasks', calc: 'Calculator', timer: 'Focus Timer', converter: 'Unit Converter', password: 'Password Gen' }[type] || 'Widget'; },
-  
+  getTitle(type) { return { weather: 'Weather', notes: 'Notes & Tasks', gainers: '🚀 Crypto Top Gainers', bookmarks: 'Quick Bookmarks', calc: 'Calculator', timer: 'Focus Timer', converter: 'Unit Converter', password: 'Password Gen' }[type] || 'Widget'; },
   getWeatherHTML() {
     const city = localStorage.getItem('dih_weather_city') || '';
-    return city ? `<div class="weather-display" id="weatherDisplay">Loading...</div>` : `
-      <div class="weather-setup">
-        <p style="font-size:12px;color:var(--text-sub);margin-bottom:8px;">Set your location</p>
-        <form id="weatherForm" style="display:flex;gap:6px;">
-          <input type="text" id="weatherCityInput" placeholder="e.g. London" style="flex:1;padding:6px 10px;background:var(--surface-3);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:12px;outline:none;">
-          <button type="submit" style="padding:6px 12px;background:var(--accent);color:white;border:none;border-radius:6px;cursor:pointer;font-size:12px;">Set</button>
-        </form>
-      </div>`;
+    return city ? `<div class="weather-display" id="weatherDisplay">Loading...</div>` : `<div class="weather-setup"><p style="font-size:12px;color:var(--text-sub);margin-bottom:8px;">Set your location</p><form id="weatherForm" style="display:flex;gap:6px;"><input type="text" id="weatherCityInput" placeholder="e.g. London" style="flex:1;min-width:0;padding:6px 10px;background:var(--surface-3);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:12px;outline:none;"><button type="submit" style="padding:6px 12px;background:var(--accent);color:white;border:none;border-radius:6px;cursor:pointer;font-size:12px;">Set</button></form></div>`;
   },
   initWeather(el) {
     const city = localStorage.getItem('dih_weather_city');
     if (city) this.fetchAndRenderWeather(city, el);
     const form = el.querySelector('#weatherForm');
-    if (form) {
-      form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const val = el.querySelector('#weatherCityInput').value.trim();
-        if (val) {
-          localStorage.setItem('dih_weather_city', val);
-          el.querySelector('.widget-body').innerHTML = `<div class="weather-display" id="weatherDisplay">Loading...</div>`;
-          this.fetchAndRenderWeather(val, el);
-        }
-      });
-    }
+    if (form) { form.addEventListener('submit', (e) => { e.preventDefault(); const val = el.querySelector('#weatherCityInput').value.trim(); if (val) { safeSetItem('dih_weather_city', val); el.querySelector('.widget-body').innerHTML = `<div class="weather-display" id="weatherDisplay">Loading...</div>`; this.fetchAndRenderWeather(val, el); } }); }
   },
   async fetchAndRenderWeather(city, el) {
     try {
@@ -1234,243 +985,106 @@ const WidgetManager = {
       if (!geoData.results || !geoData.results.length) throw new Error('City not found');
       const loc = geoData.results[0];
       const wxRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${loc.latitude}&longitude=${loc.longitude}&current_weather=true`);
-      const wxData = await wxRes.json();
-      const wx = wxData.current_weather;
+      const wxData = await wxRes.json(); const wx = wxData.current_weather;
       const display = el.querySelector('#weatherDisplay');
-      if (display) {
-        display.innerHTML = `
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-            <div>
-              <div style="font-size:14px;font-weight:700;">${loc.name}${loc.country ? ', ' + loc.country : ''}</div>
-              <button onclick="WidgetManager.changeWeatherCity()" style="background:none;border:none;color:var(--accent);font-size:10px;cursor:pointer;padding:0;margin-top:2px;">Change location</button>
-            </div>
-            <div style="font-size:24px;">${this.getWeatherEmoji(wx.weathercode)}</div>
-          </div>
-          <div style="font-size:32px;font-weight:800;font-family:var(--mono);">${wx.temperature}°C</div>
-          <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Wind: ${wx.windspeed} km/h</div>
-        `;
+      if (display) { display.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;"><div><div style="font-size:14px;font-weight:700;">${loc.name}${loc.country ? ', ' + loc.country : ''}</div><button onclick="WidgetManager.changeWeatherCity()" style="background:none;border:none;color:var(--accent);font-size:10px;cursor:pointer;padding:0;margin-top:2px;">Change location</button></div><div style="font-size:24px;">${getWeatherEmoji(wx.weathercode)}</div></div><div style="font-size:32px;font-weight:800;font-family:var(--mono);">${wx.temperature}°C</div><div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Wind: ${wx.windspeed} km/h</div>`; }
+    } catch (e) { const display = el.querySelector('#weatherDisplay'); if (display) display.innerHTML = `<p style="color:var(--red);font-size:12px;">Could not find location. <button onclick="WidgetManager.changeWeatherCity()" style="background:none;border:none;color:var(--accent);cursor:pointer;font-size:12px;">Try again</button></p>`; }
+  },
+  changeWeatherCity() { localStorage.removeItem('dih_weather_city'); const el = document.getElementById('widget-weather'); if (el) { el.querySelector('.widget-body').innerHTML = this.getWeatherHTML(); this.initWeather(el); } },
+  getGainersHTML() { return `<div id="gainersDisplay" style="display:flex;flex-direction:column;gap:8px;"><div class="skeleton-list"><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line"></div></div></div>`; },
+  async initGainers(el) {
+    try {
+      const res = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=percent_change_24h_desc&per_page=3&page=1&sparkline=false');
+      const data = await res.json();
+      const display = el.querySelector('#gainersDisplay');
+      if (display && data && data.length > 0) {
+        display.innerHTML = data.map(c => `<div class="market-item" style="cursor:default;"><div class="market-info" style="flex-direction:row;align-items:center;gap:8px;"><img src="${c.image}" style="width:20px;height:20px;border-radius:50%;"><div><div class="market-symbol">${c.symbol.toUpperCase()}</div><div class="market-name">${c.name}</div></div></div><div class="market-price-area"><div class="market-price" style="font-size:13px;">$${c.current_price.toLocaleString()}</div><div class="market-change up">▲ ${c.price_change_percentage_24h.toFixed(2)}%</div></div></div>`).join('');
+      } else if (display) { display.innerHTML = `<div class="error-state">⚠️ Could not load gainers.</div>`; }
+    } catch(e) { const display = el.querySelector('#gainersDisplay'); if (display) display.innerHTML = `<div class="error-state">⚠️ API Rate Limited. Try again later.</div>`; }
+  },
+  getBookmarksHTML() {
+    const bookmarks = JSON.parse(localStorage.getItem('dih_bookmarks') || '[]');
+    let html = `<form id="bookmarkForm" style="display:flex;gap:6px;margin-bottom:12px;"><input type="text" id="bmName" placeholder="Name" style="flex:1;min-width:0;padding:6px;background:var(--surface-3);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:12px;"><input type="url" id="bmUrl" placeholder="https://..." style="flex:1.5;min-width:0;padding:6px;background:var(--surface-3);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:12px;"><button type="submit" style="padding:6px 10px;background:var(--accent);color:white;border:none;border-radius:6px;cursor:pointer;">+</button></form><div id="bookmarkList" style="display:flex;flex-direction:column;gap:6px;">`;
+    if (bookmarks.length === 0) html += `<div style="text-align:center;color:var(--text-muted);font-size:12px;padding:12px;">No bookmarks yet.</div>`;
+    bookmarks.forEach((b, i) => { html += `<div style="display:flex;align-items:center;gap:8px;background:var(--surface-3);padding:8px;border-radius:6px;"><a href="${esc(b.url)}" target="_blank" style="flex:1;color:var(--accent);text-decoration:none;font-size:12px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${esc(b.name)}</a><span onclick="WidgetManager.deleteBookmark(${i})" style="cursor:pointer;color:var(--red);font-size:14px;flex-shrink:0;">✕</span></div>`; });
+    html += `</div>`;
+    return html;
+  },
+  initBookmarks(el) {
+    const form = el.querySelector('#bookmarkForm');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = el.querySelector('#bmName').value.trim();
+      let url = el.querySelector('#bmUrl').value.trim();
+      if (name && url) {
+        if (!url.startsWith('http')) url = 'https://' + url;
+        const bookmarks = JSON.parse(localStorage.getItem('dih_bookmarks') || '[]');
+        bookmarks.push({ name, url });
+        safeSetItem('dih_bookmarks', JSON.stringify(bookmarks));
+        el.querySelector('.widget-body').innerHTML = this.getBookmarksHTML();
+        this.initBookmarks(el);
       }
-    } catch (e) {
-      const display = el.querySelector('#weatherDisplay');
-      if (display) display.innerHTML = `<p style="color:var(--red);font-size:12px;">Could not find location. <button onclick="WidgetManager.changeWeatherCity()" style="background:none;border:none;color:var(--accent);cursor:pointer;font-size:12px;">Try again</button></p>`;
-    }
+    });
   },
-  changeWeatherCity() {
-    localStorage.removeItem('dih_weather_city');
-    const el = document.getElementById('widget-weather');
-    if (el) { el.querySelector('.widget-body').innerHTML = this.getWeatherHTML(); this.initWeather(el); }
+  deleteBookmark(idx) {
+    const bookmarks = JSON.parse(localStorage.getItem('dih_bookmarks') || '[]');
+    bookmarks.splice(idx, 1);
+    safeSetItem('dih_bookmarks', JSON.stringify(bookmarks));
+    const el = document.getElementById('widget-bookmarks');
+    if (el) { el.querySelector('.widget-body').innerHTML = this.getBookmarksHTML(); this.initBookmarks(el); }
   },
-  getWeatherEmoji(code) {
-    if (code === 0) return '\u2600\uFE0F';
-    if (code <= 3) return '\u26C5';
-    if (code <= 48) return '\u{1F32B}\uFE0F';
-    if (code <= 67) return '\u{1F327}\uFE0F';
-    if (code <= 77) return '\u{1F328}\uFE0F';
-    if (code <= 82) return '\u{1F327}\uFE0F';
-    if (code <= 86) return '\u{1F328}\uFE0F';
-    if (code >= 95) return '\u26C8\uFE0F';
-    return '\u{1F321}\uFE0F';
-  },
-
   getNotesHTML() {
     const data = JSON.parse(localStorage.getItem('dih_notes_tasks') || '{"notes":"","tasks":[]}');
-    return `
-      <div style="display:flex;flex-direction:column;gap:12px;">
-        <div>
-          <div style="font-size:11px;font-weight:700;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;">Notes</div>
-          <textarea id="widgetNotesArea" style="width:100%;height:80px;background:var(--surface-3);border:1px solid var(--border);border-radius:6px;color:var(--text);padding:8px;font-family:var(--font);font-size:12px;resize:none;outline:none;">${esc(data.notes)}</textarea>
-        </div>
-        <div>
-          <div style="font-size:11px;font-weight:700;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;">Tasks</div>
-          <form id="widgetTaskForm" style="display:flex;gap:6px;margin-bottom:8px;">
-            <input type="text" id="widgetTaskInput" placeholder="Add a task..." style="flex:1;padding:6px 10px;background:var(--surface-3);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:12px;outline:none;">
-            <button type="submit" style="padding:6px 12px;background:var(--accent);color:white;border:none;border-radius:6px;cursor:pointer;font-size:12px;">Add</button>
-          </form>
-          <ul id="widgetTaskList" style="list-style:none;padding:0;margin:0;max-height:120px;overflow-y:auto;display:flex;flex-direction:column;gap:4px;">
-            ${data.tasks.map((t, i) => `
-              <li style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-sub);background:var(--surface-3);padding:6px 8px;border-radius:6px;${t.done ? 'opacity:0.5;text-decoration:line-through;' : ''}">
-                <input type="checkbox" ${t.done ? 'checked' : ''} onchange="WidgetManager.toggleTask(${i})" style="accent-color:var(--accent);cursor:pointer;">
-                <span style="flex:1;">${esc(t.text)}</span>
-                <span onclick="WidgetManager.deleteTask(${i})" style="cursor:pointer;color:var(--red);font-size:14px;">✕</span>
-              </li>
-            `).join('')}
-          </ul>
-        </div>
-      </div>
-    `;
+    return `<div style="display:flex;flex-direction:column;gap:12px;"><div><div style="font-size:11px;font-weight:700;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;">Notes</div><textarea id="widgetNotesArea" style="width:100%;height:80px;background:var(--surface-3);border:1px solid var(--border);border-radius:6px;color:var(--text);padding:8px;font-family:var(--font);font-size:12px;resize:none;outline:none;">${esc(data.notes)}</textarea></div><div><div style="font-size:11px;font-weight:700;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;">Tasks</div><form id="widgetTaskForm" style="display:flex;gap:6px;margin-bottom:8px;"><input type="text" id="widgetTaskInput" placeholder="Add a task..." style="flex:1;min-width:0;padding:6px 10px;background:var(--surface-3);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:12px;outline:none;"><button type="submit" style="padding:6px 12px;background:var(--accent);color:white;border:none;border-radius:6px;cursor:pointer;font-size:12px;">Add</button></form><ul id="widgetTaskList" style="list-style:none;padding:0;margin:0;max-height:120px;overflow-y:auto;display:flex;flex-direction:column;gap:4px;">${data.tasks.map((t, i) => `<li style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-sub);background:var(--surface-3);padding:6px 8px;border-radius:6px;${t.done ? 'opacity:0.5;text-decoration:line-through;' : ''}"><input type="checkbox" ${t.done ? 'checked' : ''} onchange="WidgetManager.toggleTask(${i})" style="accent-color:var(--accent);cursor:pointer;"><span style="flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${esc(t.text)}</span><span onclick="WidgetManager.deleteTask(${i})" style="cursor:pointer;color:var(--red);font-size:14px;flex-shrink:0;">✕</span></li>`).join('')}</ul></div></div>`;
   },
   initNotes(el) {
     const area = el.querySelector('#widgetNotesArea');
-    area.addEventListener('input', () => {
-      const data = JSON.parse(localStorage.getItem('dih_notes_tasks') || '{"notes":"","tasks":[]}');
-      data.notes = area.value; localStorage.setItem('dih_notes_tasks', JSON.stringify(data));
-    });
+    area.addEventListener('input', () => { const data = JSON.parse(localStorage.getItem('dih_notes_tasks') || '{"notes":"","tasks":[]}'); data.notes = area.value; safeSetItem('dih_notes_tasks', JSON.stringify(data)); });
     const form = el.querySelector('#widgetTaskForm');
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const input = el.querySelector('#widgetTaskInput');
-      if (input.value.trim()) {
-        const data = JSON.parse(localStorage.getItem('dih_notes_tasks') || '{"notes":"","tasks":[]}');
-        data.tasks.push({ text: input.value.trim(), done: false });
-        localStorage.setItem('dih_notes_tasks', JSON.stringify(data));
-        input.value = '';
-        el.querySelector('.widget-body').innerHTML = this.getNotesHTML(); this.initNotes(el);
-      }
-    });
+    form.addEventListener('submit', (e) => { e.preventDefault(); const input = el.querySelector('#widgetTaskInput'); if (input.value.trim()) { const data = JSON.parse(localStorage.getItem('dih_notes_tasks') || '{"notes":"","tasks":[]}'); data.tasks.push({ text: input.value.trim(), done: false }); safeSetItem('dih_notes_tasks', JSON.stringify(data)); input.value = ''; el.querySelector('.widget-body').innerHTML = this.getNotesHTML(); this.initNotes(el); } });
   },
-  toggleTask(idx) {
-    const data = JSON.parse(localStorage.getItem('dih_notes_tasks') || '{"notes":"","tasks":[]}');
-    data.tasks[idx].done = !data.tasks[idx].done; localStorage.setItem('dih_notes_tasks', JSON.stringify(data));
-    const el = document.getElementById('widget-notes');
-    if (el) { el.querySelector('.widget-body').innerHTML = this.getNotesHTML(); this.initNotes(el); }
-  },
-  deleteTask(idx) {
-    const data = JSON.parse(localStorage.getItem('dih_notes_tasks') || '{"notes":"","tasks":[]}');
-    data.tasks.splice(idx, 1); localStorage.setItem('dih_notes_tasks', JSON.stringify(data));
-    const el = document.getElementById('widget-notes');
-    if (el) { el.querySelector('.widget-body').innerHTML = this.getNotesHTML(); this.initNotes(el); }
-  },
-
+  toggleTask(idx) { const data = JSON.parse(localStorage.getItem('dih_notes_tasks') || '{"notes":"","tasks":[]}'); data.tasks[idx].done = !data.tasks[idx].done; safeSetItem('dih_notes_tasks', JSON.stringify(data)); const el = document.getElementById('widget-notes'); if (el) { el.querySelector('.widget-body').innerHTML = this.getNotesHTML(); this.initNotes(el); } },
+  deleteTask(idx) { const data = JSON.parse(localStorage.getItem('dih_notes_tasks') || '{"notes":"","tasks":[]}'); data.tasks.splice(idx, 1); safeSetItem('dih_notes_tasks', JSON.stringify(data)); const el = document.getElementById('widget-notes'); if (el) { el.querySelector('.widget-body').innerHTML = this.getNotesHTML(); this.initNotes(el); } },
   getCalcHTML() {
-    return `
-      <div>
-        <input type="text" id="calcDisplay" readonly style="width:100%;padding:10px;background:var(--surface-3);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:var(--mono);font-size:18px;text-align:right;margin-bottom:10px;outline:none;">
-        <div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:6px;">
-          ${['C', '(', ')', '/', '7', '8', '9', '*', '4', '5', '6', '-', '1', '2', '3', '+', '0', '.', '=', ''].map(b => {
-            if (b === '') return '<div></div>';
-            const isOp = ['+', '-', '*', '/', '=', 'C', '(', ')'].includes(b);
-            return `<button class="calc-btn" data-val="${b}" style="padding:10px;background:${isOp ? 'var(--accent-soft)' : 'var(--surface-3)'};color:${isOp ? 'var(--accent)' : 'var(--text)'};border:1px solid var(--border);border-radius:6px;cursor:pointer;font-size:14px;font-weight:600;">${b}</button>`;
-          }).join('')}
-        </div>
-      </div>
-    `;
+    return `<div><input type="text" id="calcDisplay" readonly style="width:100%;padding:10px;background:var(--surface-3);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:var(--mono);font-size:18px;text-align:right;margin-bottom:10px;outline:none;"><div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:6px;">${['C','(',')','/','7','8','9','*','4','5','6','-','1','2','3','+','0','.','=',''].map(b => { if (b === '') return '<div></div>'; const isOp = ['+','-','*','/','=','C','(',')'].includes(b); return `<button class="calc-btn" data-val="${b}" style="padding:10px;background:${isOp ? 'var(--accent-soft)' : 'var(--surface-3)'};color:${isOp ? 'var(--accent)' : 'var(--text)'};border:1px solid var(--border);border-radius:6px;cursor:pointer;font-size:14px;font-weight:600;">${b}</button>`; }).join('')}</div></div>`;
   },
   initCalc(el) {
     const display = el.querySelector('#calcDisplay');
-    el.querySelectorAll('.calc-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const val = btn.dataset.val;
-        if (val === 'C') { display.value = ''; }
-        else if (val === '=') {
-          try {
-            if (/[^0-9+\-*/().\s]/.test(display.value)) throw new Error();
-            display.value = Function('"use strict"; return (' + display.value + ')')();
-          } catch (e) { display.value = 'Error'; }
-        } else { display.value += val; }
-      });
-    });
+    el.querySelectorAll('.calc-btn').forEach(btn => { btn.addEventListener('click', () => { const val = btn.dataset.val; if (val === 'C') { display.value = ''; } else if (val === '=') { try { if (/[^0-9+\-*/().\s]/.test(display.value)) throw new Error(); display.value = Function('"use strict"; return (' + display.value + ')')(); } catch (e) { display.value = 'Error'; } } else { display.value += val; } }); });
   },
-
-  getTimerHTML() {
-    return `
-      <div style="text-align:center;">
-        <div id="timerDisplay" style="font-size:36px;font-weight:800;font-family:var(--mono);margin:16px 0;">25:00</div>
-        <div style="display:flex;gap:8px;justify-content:center;">
-          <button id="timerStart" style="padding:8px 16px;background:var(--green);color:white;border:none;border-radius:6px;cursor:pointer;font-weight:600;">Start</button>
-          <button id="timerReset" style="padding:8px 16px;background:var(--surface-3);color:var(--text);border:1px solid var(--border);border-radius:6px;cursor:pointer;font-weight:600;">Reset</button>
-        </div>
-      </div>
-    `;
-  },
+  getTimerHTML() { return `<div style="text-align:center;"><div id="timerDisplay" style="font-size:36px;font-weight:800;font-family:var(--mono);margin:16px 0;">25:00</div><div style="display:flex;gap:8px;justify-content:center;"><button id="timerStart" style="padding:8px 16px;background:var(--green);color:white;border:none;border-radius:6px;cursor:pointer;font-weight:600;">Start</button><button id="timerReset" style="padding:8px 16px;background:var(--surface-3);color:var(--text);border:1px solid var(--border);border-radius:6px;cursor:pointer;font-weight:600;">Reset</button></div></div>`; },
   initTimer(el) {
     let timeLeft = 25 * 60, interval = null;
-    const display = el.querySelector('#timerDisplay');
-    const startBtn = el.querySelector('#timerStart');
-    const resetBtn = el.querySelector('#timerReset');
-    const updateDisplay = () => {
-      const m = Math.floor(timeLeft / 60).toString().padStart(2, '0');
-      const s = (timeLeft % 60).toString().padStart(2, '0');
-      display.textContent = `${m}:${s}`;
-    };
-    startBtn.addEventListener('click', () => {
-      if (interval) {
-        clearInterval(interval); interval = null;
-        startBtn.textContent = 'Start'; startBtn.style.background = 'var(--green)';
-      } else {
-        interval = setInterval(() => {
-          if (timeLeft > 0) { timeLeft--; updateDisplay(); }
-          else { clearInterval(interval); interval = null; startBtn.textContent = 'Start'; startBtn.style.background = 'var(--green)'; display.textContent = "Done!"; }
-        }, 1000);
-        startBtn.textContent = 'Pause'; startBtn.style.background = 'var(--orange)';
-      }
-    });
-    resetBtn.addEventListener('click', () => {
-      clearInterval(interval); interval = null; timeLeft = 25 * 60; updateDisplay();
-      startBtn.textContent = 'Start'; startBtn.style.background = 'var(--green)';
-    });
+    const display = el.querySelector('#timerDisplay'); const startBtn = el.querySelector('#timerStart'); const resetBtn = el.querySelector('#timerReset');
+    const updateDisplay = () => { const m = Math.floor(timeLeft / 60).toString().padStart(2, '0'); const s = (timeLeft % 60).toString().padStart(2, '0'); display.textContent = `${m}:${s}`; };
+    startBtn.addEventListener('click', () => { if (interval) { clearInterval(interval); interval = null; startBtn.textContent = 'Start'; startBtn.style.background = 'var(--green)'; } else { interval = setInterval(() => { if (timeLeft > 0) { timeLeft--; updateDisplay(); } else { clearInterval(interval); interval = null; startBtn.textContent = 'Start'; startBtn.style.background = 'var(--green)'; display.textContent = "Done!"; } }, 1000); startBtn.textContent = 'Pause'; startBtn.style.background = 'var(--orange)'; } });
+    resetBtn.addEventListener('click', () => { clearInterval(interval); interval = null; timeLeft = 25 * 60; updateDisplay(); startBtn.textContent = 'Start'; startBtn.style.background = 'var(--green)'; });
   },
-
   getConverterHTML() {
-    return `
-      <div style="display:flex;flex-direction:column;gap:12px;">
-        <div>
-          <label style="font-size:11px;font-weight:700;color:var(--text-muted);">Temperature (°C to °F)</label>
-          <div style="display:flex;gap:8px;margin-top:4px;">
-            <input type="number" id="convTempC" placeholder="°C" style="flex:1;padding:6px;background:var(--surface-3);border:1px solid var(--border);border-radius:6px;color:var(--text);">
-            <span style="padding:6px;">=</span>
-            <input type="text" id="convTempF" readonly placeholder="°F" style="flex:1;padding:6px;background:var(--surface-2);border:1px solid var(--border);border-radius:6px;color:var(--accent);">
-          </div>
-        </div>
-        <div>
-          <label style="font-size:11px;font-weight:700;color:var(--text-muted);">Length (ft to m)</label>
-          <div style="display:flex;gap:8px;margin-top:4px;">
-            <input type="number" id="convLenFt" placeholder="ft" style="flex:1;padding:6px;background:var(--surface-3);border:1px solid var(--border);border-radius:6px;color:var(--text);">
-            <span style="padding:6px;">=</span>
-            <input type="text" id="convLenM" readonly placeholder="m" style="flex:1;padding:6px;background:var(--surface-2);border:1px solid var(--border);border-radius:6px;color:var(--accent);">
-          </div>
-        </div>
-      </div>
-    `;
+    return `<div style="display:flex;flex-direction:column;gap:12px;"><div><label style="font-size:11px;font-weight:700;color:var(--text-muted);">Temperature (°C to °F)</label><div style="display:flex;gap:8px;margin-top:4px;align-items:center;"><input type="number" id="convTempC" placeholder="°C" style="flex:1;min-width:0;padding:6px;background:var(--surface-3);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:12px;"><span style="padding:6px;flex-shrink:0;">=</span><input type="text" id="convTempF" readonly placeholder="°F" style="flex:1;min-width:0;padding:6px;background:var(--surface-2);border:1px solid var(--border);border-radius:6px;color:var(--accent);font-size:12px;"></div></div><div><label style="font-size:11px;font-weight:700;color:var(--text-muted);">Length (ft to m)</label><div style="display:flex;gap:8px;margin-top:4px;align-items:center;"><input type="number" id="convLenFt" placeholder="ft" style="flex:1;min-width:0;padding:6px;background:var(--surface-3);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:12px;"><span style="padding:6px;flex-shrink:0;">=</span><input type="text" id="convLenM" readonly placeholder="m" style="flex:1;min-width:0;padding:6px;background:var(--surface-2);border:1px solid var(--border);border-radius:6px;color:var(--accent);font-size:12px;"></div></div></div>`;
   },
   initConverter(el) {
     const c = el.querySelector('#convTempC'), f = el.querySelector('#convTempF');
     c.addEventListener('input', () => { if(c.value) f.value = (parseFloat(c.value) * 9/5 + 32).toFixed(1); else f.value = ''; });
-    
     const ft = el.querySelector('#convLenFt'), m = el.querySelector('#convLenM');
     ft.addEventListener('input', () => { if(ft.value) m.value = (parseFloat(ft.value) * 0.3048).toFixed(2); else m.value = ''; });
   },
-
   getPasswordHTML() {
-    return `
-      <div style="display:flex;flex-direction:column;gap:12px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;">
-          <span style="font-size:12px;color:var(--text-sub);">Length: <span id="pwLenVal">16</span></span>
-          <input type="range" id="pwLen" min="8" max="32" value="16" style="width:100px;accent-color:var(--accent);">
-        </div>
-        <div style="background:var(--surface-3);padding:12px;border-radius:6px;border:1px solid var(--border);font-family:var(--mono);font-size:14px;word-break:break-all;text-align:center;" id="pwResult">Generating...</div>
-        <button id="pwGenBtn" style="padding:10px;background:var(--accent);color:white;border:none;border-radius:6px;cursor:pointer;font-weight:600;">Generate New</button>
-        <button id="pwCopyBtn" style="padding:10px;background:var(--surface-2);color:var(--text);border:1px solid var(--border);border-radius:6px;cursor:pointer;font-weight:600;">Copy to Clipboard</button>
-      </div>
-    `;
+    return `<div style="display:flex;flex-direction:column;gap:12px;"><div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:12px;color:var(--text-sub);">Length: <span id="pwLenVal">16</span></span><input type="range" id="pwLen" min="8" max="32" value="16" style="width:100px;accent-color:var(--accent);"></div><div style="background:var(--surface-3);padding:12px;border-radius:6px;border:1px solid var(--border);font-family:var(--mono);font-size:14px;word-break:break-all;text-align:center;" id="pwResult">Generating...</div><button id="pwGenBtn" style="padding:10px;background:var(--accent);color:white;border:none;border-radius:6px;cursor:pointer;font-weight:600;">Generate New</button><button id="pwCopyBtn" style="padding:10px;background:var(--surface-2);color:var(--text);border:1px solid var(--border);border-radius:6px;cursor:pointer;font-weight:600;">Copy to Clipboard</button></div>`;
   },
   initPassword(el) {
-    const lenInput = el.querySelector('#pwLen');
-    const lenVal = el.querySelector('#pwLenVal');
-    const result = el.querySelector('#pwResult');
-    const genBtn = el.querySelector('#pwGenBtn');
-    const copyBtn = el.querySelector('#pwCopyBtn');
-
-    const generate = () => {
-      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?";
-      let pw = "";
-      for(let i=0; i<lenInput.value; i++) pw += chars.charAt(Math.floor(Math.random() * chars.length));
-      result.textContent = pw;
-    };
-
+    const lenInput = el.querySelector('#pwLen'); const lenVal = el.querySelector('#pwLenVal'); const result = el.querySelector('#pwResult'); const genBtn = el.querySelector('#pwGenBtn'); const copyBtn = el.querySelector('#pwCopyBtn');
+    const generate = () => { const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?"; let pw = ""; for(let i=0; i<lenInput.value; i++) pw += chars.charAt(Math.floor(Math.random() * chars.length)); result.textContent = pw; };
     lenInput.addEventListener('input', () => { lenVal.textContent = lenInput.value; generate(); });
     genBtn.addEventListener('click', generate);
-    copyBtn.addEventListener('click', () => {
-      navigator.clipboard.writeText(result.textContent);
-      copyBtn.textContent = "Copied!";
-      setTimeout(() => copyBtn.textContent = "Copy to Clipboard", 2000);
-    });
+    copyBtn.addEventListener('click', () => { navigator.clipboard.writeText(result.textContent); copyBtn.textContent = "Copied!"; setTimeout(() => copyBtn.textContent = "Copy to Clipboard", 2000); });
     generate();
   }
 };
 window.WidgetManager = WidgetManager;
-
 let activeWidget = null, offsetX = 0, offsetY = 0, zCounter = 1000;
 document.addEventListener('pointerdown', (e) => {
+  if (window.innerWidth < 768) return;
   const handle = e.target.closest('.widget-drag-handle');
   if (!handle || e.target.closest('.widget-close')) return;
   activeWidget = handle.closest('.floating-widget');
@@ -1487,34 +1101,16 @@ document.addEventListener('pointermove', (e) => {
   y = Math.max(0, Math.min(y, window.innerHeight - activeWidget.offsetHeight));
   activeWidget.style.left = x + 'px'; activeWidget.style.top = y + 'px';
 });
-document.addEventListener('pointerup', () => {
-  if (activeWidget) { activeWidget.style.cursor = 'grab'; document.body.style.userSelect = ''; }
-  activeWidget = null;
-});
-
-(async () => {
-  renderFeaturedBlog(); 
-  await renderDashboard();
-  WidgetManager.init();
-  
-  showWelcomeMessage();
-})();
-
+document.addEventListener('pointerup', () => { if (activeWidget) { activeWidget.style.cursor = 'grab'; document.body.style.userSelect = ''; } activeWidget = null; });
+(async () => { renderFeaturedBlog(); await renderDashboard(); WidgetManager.init(); showWelcomeMessage(); })();
 setInterval(() => HistoryManager.saveCurrentSession(), 30000);
 window.addEventListener('beforeunload', () => HistoryManager.saveCurrentSession());
 window.addEventListener('resize', () => { if (window.innerWidth >= 1024) closeSidebar(); });
-
 })();
 </script>
 </body>
 <center>
-  <!-- e-ZeeInternet counter · GDPR / cookie-free -->
-<script async src="https://e-zeeinternet.com/t.js"
-  data-site="ezi_992ceef652fd"
-  data-mode="gdpr"
-  data-theme="custom"
-  data-shape="rounded"
-  data-layout="row"></script>
+<script async src="https://e-zeeinternet.com/t.js" data-site="ezi_992ceef652fd" data-mode="gdpr" data-theme="custom" data-shape="rounded" data-layout="row"></script>
 <div data-ezee-counter></div>
 </center>
 </html>
