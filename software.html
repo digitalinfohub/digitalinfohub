@@ -1,65 +1,61 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471"
-     crossorigin="anonymous"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471" crossorigin="anonymous"></script>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0a0a0a">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <meta name="theme-color" content="#030305">
 
   <title>Digital Infohub | Software & Tools</title>
 
   <!-- Sharing Meta Tags -->
-<meta property="og:type" content="website">
-<meta property="og:title" content="Digital Infohub | Free Software & Digital Tools">
-<meta property="og:description" content="Discover free software, useful digital tools, AI apps, and practical resources from Digital Infohub.">
-<meta property="og:url" content="https://digitalinfohub.github.io/digitalinfohub/software">
-<meta property="og:image" content="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1200&h=630&fit=crop&q=80">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Digital Infohub | Free Software & Digital Tools">
-<meta name="twitter:description" content="Discover free software, useful digital tools, AI apps, and practical resources from Digital Infohub.">
-<meta name="twitter:image" content="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1200&h=630&fit=crop&q=80">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Digital Infohub | Free Software & Digital Tools">
+  <meta property="og:description" content="Discover free software, useful digital tools, AI apps, and practical resources from Digital Infohub.">
+  <meta property="og:url" content="https://digitalinfohub.github.io/digitalinfohub/software">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1200&h=630&fit=crop&q=80">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Digital Infohub | Free Software & Digital Tools">
+  <meta name="twitter:description" content="Discover free software, useful digital tools, AI apps, and practical resources from Digital Infohub.">
+  <meta name="twitter:image" content="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1200&h=630&fit=crop&q=80">
 
-  <link
-    rel="icon"
-    type="image/png"
-    href="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png"
-  >
+  <link rel="icon" type="image/png" href="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
-    rel="stylesheet"
-  >
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <style>
+    @property --border-angle { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
+
     :root {
       --font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       --mono: "JetBrains Mono", ui-monospace, monospace;
-      --ease: cubic-bezier(.22, .61, .36, 1);
-      --radius: 12px;
-      --radius-sm: 8px;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+      --radius: 16px;
+      --radius-sm: 10px;
+      --radius-pill: 99px;
       --modal-z: 3000;
+      --glow-color: 59, 130, 246;
     }
 
     [data-theme="dark"] {
-      --bg: #0a0a0a;
-      --surface: #111111;
-      --surface-2: #161616;
-      --surface-3: #1e1e1e;
-      --border: rgba(255,255,255,.08);
-      --border-strong: rgba(255,255,255,.16);
-      --text: #f5f5f5;
-      --text-sub: #a1a1aa;
-      --text-muted: #71717a;
-      --accent: #6366f1;
-      --accent-hover: #818cf8;
-      --accent-soft: rgba(99,102,241,.14);
-      --shadow: 0 18px 55px rgba(0,0,0,.48);
+      --bg: #030305;
+      --surface: #0A0A0C;
+      --surface-2: #121216;
+      --surface-3: #1A1A20;
+      --border: rgba(255,255,255,0.06);
+      --border-strong: rgba(255,255,255,0.12);
+      --text: #F8FAFC;
+      --text-sub: #94A3B8;
+      --text-muted: #64748B;
+      --accent: #3B82F6;
+      --accent-hover: #60A5FA;
+      --accent-soft: rgba(59,130,246,0.1);
+      --shadow: 0 18px 55px rgba(0,0,0,0.5);
     }
 
     [data-theme="light"] {
@@ -67,28 +63,20 @@
       --surface: #ffffff;
       --surface-2: #f4f4f5;
       --surface-3: #e4e4e7;
-      --border: rgba(0,0,0,.08);
-      --border-strong: rgba(0,0,0,.16);
-      --text: #0a0a0a;
+      --border: rgba(0,0,0,0.08);
+      --border-strong: rgba(0,0,0,0.15);
+      --text: #09090b;
       --text-sub: #52525b;
-      --text-muted: #71717a;
+      --text-muted: #a1a1aa;
       --accent: #4f46e5;
       --accent-hover: #6366f1;
-      --accent-soft: rgba(79,70,229,.1);
-      --shadow: 0 18px 55px rgba(0,0,0,.12);
+      --accent-soft: rgba(79,70,229,0.08);
+      --shadow: 0 18px 55px rgba(0,0,0,0.12);
     }
 
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
 
     body {
       min-height: 100vh;
@@ -97,905 +85,316 @@
       font-family: var(--font);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
-      transition: background .25s ease, color .25s ease;
+      transition: background 0.3s ease, color 0.3s ease;
+      overflow-x: hidden;
     }
 
-    body.menu-open {
-      overflow: hidden;
-    }
+    body.menu-open { overflow: hidden; }
 
-    button,
-    input,
-    textarea,
-    select {
-      font: inherit;
-    }
+    button, input, textarea, select { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    button { border: 0; }
+    a { color: inherit; }
 
-    button,
-    a {
-      -webkit-tap-highlight-color: transparent;
-    }
+    .shell { width: min(100%, 920px); margin: 0 auto; padding: 32px 24px 80px; position: relative; z-index: 1; }
 
-    button {
-      border: 0;
+    /* Ambient Background Glow */
+    .ambient-glow {
+      position: fixed; top: -10%; left: 50%; transform: translateX(-50%);
+      width: 800px; height: 600px;
+      background: radial-gradient(circle, rgba(var(--glow-color), 0.08) 0%, rgba(3,3,5,0) 60%);
+      filter: blur(80px); pointer-events: none; z-index: 0;
+      animation: ambientPulse 8s infinite alternate ease-in-out;
     }
-
-    a {
-      color: inherit;
-    }
-
-    .shell {
-      width: min(100%, 920px);
-      margin: 0 auto;
-      padding: 32px 24px 80px;
-    }
+    @keyframes ambientPulse { 0% { opacity: 0.5; transform: translateX(-50%) scale(1); } 100% { opacity: 0.8; transform: translateX(-50%) scale(1.1); } }
 
     /* NAVIGATION */
-
     .nav-shell {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      width: calc(100% + 48px);
-      margin: -32px -24px 32px;
-      padding: 0 24px;
-      background: var(--bg);
+      position: sticky; top: 0; z-index: 1000;
+      width: calc(100% + 48px); margin: -32px -24px 32px; padding: 0 24px;
+      background: color-mix(in srgb, var(--bg) 85%, transparent);
       border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
       isolation: isolate;
     }
+    [data-theme="light"] .nav-shell { background: rgba(255, 255, 255, 0.85); }
 
     .nav-bar {
-      position: relative;
-      z-index: 1001;
-      width: min(100%, 920px);
-      min-height: 64px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
+      position: relative; z-index: 1001; width: min(100%, 920px); min-height: 64px;
+      margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 16px;
     }
 
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      overflow-x: auto;
-      scrollbar-width: none;
-    }
-
-    .nav-links::-webkit-scrollbar {
-      display: none;
-    }
+    .nav-links { display: flex; align-items: center; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+    .nav-links::-webkit-scrollbar { display: none; }
 
     .nav-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      min-height: 38px;
-      padding: 8px 13px;
-      border: 1px solid transparent;
-      border-radius: var(--radius-sm);
-      color: var(--text-sub);
-      text-decoration: none;
-      white-space: nowrap;
-      font-size: 13px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: .2s ease;
+      display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 8px 14px;
+      border: 1px solid transparent; border-radius: var(--radius-sm); color: var(--text-sub);
+      text-decoration: none; white-space: nowrap; font-size: 13px; font-weight: 500;
+      cursor: pointer; transition: 0.2s var(--ease);
     }
-
-    .nav-link:hover {
-      color: var(--text);
-      background: var(--surface-2);
-      border-color: var(--border);
-    }
-
-    .nav-link.active {
-      color: var(--accent-hover);
-      background: var(--accent-soft);
-      border-color: var(--accent);
-    }
+    .nav-link:hover { color: var(--text); background: var(--surface-2); border-color: var(--border); }
+    .nav-link.active { color: var(--accent); background: var(--accent-soft); border-color: rgba(59,102,241,0.2); }
 
     .hamburger {
-      display: none;
-      width: 40px;
-      height: 40px;
-      align-items: center;
-      justify-content: center;
-      flex: 0 0 auto;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      background: var(--surface);
-      color: var(--text);
-      font-size: 21px;
-      line-height: 1;
-      cursor: pointer;
+      display: none; width: 40px; height: 40px; align-items: center; justify-content: center;
+      flex: 0 0 auto; border: 1px solid var(--border); border-radius: var(--radius-sm);
+      background: var(--surface); color: var(--text); font-size: 21px; line-height: 1;
+      cursor: pointer; transition: 0.2s var(--ease);
     }
-
-    .hamburger:hover,
-    .hamburger:focus-visible {
-      background: var(--surface-2);
-      border-color: var(--border-strong);
-      outline: none;
-    }
+    .hamburger:hover, .hamburger:focus-visible { background: var(--surface-2); border-color: var(--border-strong); outline: none; }
+    .hamburger:active { transform: scale(0.95); }
 
     .mobile-menu {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      right: 0;
-      z-index: 1002;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      padding: 10px 16px 16px;
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      box-shadow: var(--shadow);
-      visibility: hidden;
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(-8px);
-      transition:
-        opacity .2s var(--ease),
-        transform .2s var(--ease),
-        visibility .2s var(--ease);
+      position: absolute; top: 100%; left: 0; right: 0; z-index: 1002;
+      display: flex; flex-direction: column; gap: 4px; padding: 10px 16px 16px;
+      background: var(--surface); border-bottom: 1px solid var(--border);
+      box-shadow: var(--shadow); visibility: hidden; opacity: 0; pointer-events: none;
+      transform: translateY(-8px); transition: opacity 0.3s var(--ease), transform 0.3s var(--ease), visibility 0.3s var(--ease);
     }
-
-    .mobile-menu.active {
-      visibility: visible;
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateY(0);
-    }
-
-    .mobile-menu .nav-link {
-      width: 100%;
-      justify-content: flex-start;
-      padding: 12px 14px;
-      font-size: 14px;
-    }
+    .mobile-menu.active { visibility: visible; opacity: 1; pointer-events: auto; transform: translateY(0); }
+    .mobile-menu .nav-link { width: 100%; justify-content: flex-start; padding: 12px 14px; font-size: 14px; min-height: 44px; }
 
     /* HEADER */
-
-    .topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 42px;
-    }
-
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 42px; position: relative; z-index: 2; }
     .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      color: var(--text);
-      text-decoration: none;
-      font-size: 15px;
-      font-weight: 700;
+      display: inline-flex; align-items: center; gap: 10px; color: var(--text);
+      text-decoration: none; font-size: 15px; font-weight: 700; transition: opacity 0.2s;
     }
-
+    .brand:hover { opacity: 0.8; }
     .brand-logo {
-      width: 30px;
-      height: 30px;
-      display: grid;
-      place-items: center;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      background: var(--surface-2);
+      width: 32px; height: 32px; display: grid; place-items: center; overflow: hidden;
+      border: 1px solid var(--border); border-radius: 8px; background: var(--surface-2);
     }
-
-    .brand-logo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+    .brand-logo img { width: 100%; height: 100%; object-fit: cover; }
 
     .icon-btn {
-      width: 40px;
-      height: 40px;
-      display: grid;
-      place-items: center;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      background: var(--surface);
-      color: var(--text-sub);
-      cursor: pointer;
-      transition: .2s ease;
+      width: 40px; height: 40px; display: grid; place-items: center;
+      border: 1px solid var(--border); border-radius: var(--radius-sm);
+      background: var(--surface); color: var(--text-sub); cursor: pointer; transition: 0.2s var(--ease);
     }
-
-    .icon-btn:hover,
-    .icon-btn:focus-visible {
-      color: var(--text);
-      background: var(--surface-2);
-      border-color: var(--border-strong);
-      outline: none;
-    }
+    .icon-btn:hover, .icon-btn:focus-visible { color: var(--text); background: var(--surface-2); border-color: var(--border-strong); outline: none; transform: translateY(-1px); }
+    .icon-btn:active { transform: scale(0.95); }
 
     /* CONTENT */
+    .section { margin-bottom: 50px; position: relative; z-index: 1; }
+    .section-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 18px; }
+    .eyebrow { margin-bottom: 4px; color: var(--text-muted); font-family: var(--mono); font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; }
+    h1, h2, h3 { line-height: 1.2; }
+    h1 { font-size: clamp(26px, 5vw, 38px); letter-spacing: -0.04em; }
+    h2 { font-size: 19px; letter-spacing: -0.02em; }
+    .section-description { max-width: 720px; margin-top: 8px; color: var(--text-sub); font-size: 14px; }
 
-    .section {
-      margin-bottom: 50px;
+    .toolbar { display: grid; grid-template-columns: 1fr auto; gap: 10px; margin-bottom: 24px; }
+    .search-box, .category-filter {
+      min-height: 44px; border: 1px solid var(--border); border-radius: var(--radius-sm);
+      background: var(--surface); color: var(--text); outline: none; transition: 0.2s var(--ease);
     }
+    .search-box { width: 100%; padding: 10px 13px 10px 38px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: 12px center; }
+    .category-filter { min-width: 150px; padding: 10px 12px; cursor: pointer; }
+    .search-box:focus, .category-filter:focus { border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
 
-    .section-head {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 18px;
-    }
-
-    .eyebrow {
-      margin-bottom: 4px;
-      color: var(--text-muted);
-      font-family: var(--mono);
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-    }
-
-    h1,
-    h2,
-    h3 {
-      line-height: 1.2;
-    }
-
-    h1 {
-      font-size: clamp(26px, 5vw, 38px);
-      letter-spacing: -.04em;
-    }
-
-    h2 {
-      font-size: 19px;
-      letter-spacing: -.02em;
-    }
-
-    .section-description {
-      max-width: 720px;
-      margin-top: 8px;
-      color: var(--text-sub);
-      font-size: 13px;
-    }
-
-    .toolbar {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 10px;
-      margin-bottom: 18px;
-    }
-
-    .search-box,
-    .category-filter {
-      min-height: 44px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      background: var(--surface);
-      color: var(--text);
-      outline: none;
-    }
-
-    .search-box {
-      width: 100%;
-      padding: 10px 13px;
-    }
-
-    .category-filter {
-      min-width: 150px;
-      padding: 10px 12px;
-    }
-
-    .search-box:focus,
-    .category-filter:focus {
-      border-color: var(--accent);
-    }
-
-    .apps-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(145px, 1fr));
-      gap: 10px;
-    }
+    .apps-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(145px, 1fr)); gap: 16px; }
 
     .app-tile {
-      position: relative;
-      min-height: 145px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 18px 12px 14px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      background: var(--surface);
-      color: var(--text);
-      text-align: center;
-      text-decoration: none;
-      cursor: pointer;
-      transition: .2s var(--ease);
+      position: relative; min-height: 145px; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 10px; padding: 18px 12px 14px;
+      overflow: hidden; border: 1px solid var(--border); border-radius: var(--radius);
+      background: var(--surface); color: var(--text); text-align: center; text-decoration: none;
+      cursor: pointer; transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.3s;
+      animation: fadeInUp 0.5s var(--ease-out) backwards;
     }
+    .app-tile::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(var(--glow-color), 0.08), transparent 40%);
+      opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 1;
+    }
+    @media (hover: hover) {
+      .app-tile:hover::before { opacity: 1; }
+      .app-tile:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: var(--border-strong); }
+    }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-    .app-tile:hover,
-    .app-tile:focus-visible {
-      background: var(--surface-2);
-      border-color: var(--border-strong);
-      transform: translateY(-2px);
-      outline: none;
-    }
-
-    .app-tile.hidden {
-      display: none;
-    }
+    .app-tile.hidden { display: none; }
 
     .app-icon {
-      width: 44px;
-      height: 44px;
-      display: grid;
-      place-items: center;
-      border-radius: 11px;
-      font-size: 19px;
-      font-weight: 600;
+      width: 48px; height: 48px; display: grid; place-items: center; border-radius: 12px;
+      font-size: 22px; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
+    .app-icon.ai { background: linear-gradient(135deg, #6366f1, #8b5cf6); }
+    .app-icon.tasks { background: linear-gradient(135deg, #10b981, #059669); }
+    .app-icon.tools { background: linear-gradient(135deg, #06b6d4, #3b82f6); }
+    .app-icon.health { background: linear-gradient(135deg, #14b8a6, #0d9488); }
+    .app-icon.dev { background: linear-gradient(135deg, #f59e0b, #d97706); }
+    .app-icon.games { background: linear-gradient(135deg, #ec4899, #f43f5e); }
+    .app-icon.media { background: linear-gradient(135deg, #f97316, #ef4444); }
+    .app-icon.finance { background: linear-gradient(135deg, #8b5cf6, #6366f1); }
 
-    .app-icon.ai {
-      background: linear-gradient(135deg, #6366f1, #8b5cf6);
-    }
-
-    .app-icon.tasks {
-      background: linear-gradient(135deg, #10b981, #059669);
-    }
-
-    .app-icon.tools {
-      background: linear-gradient(135deg, #06b6d4, #3b82f6);
-    }
-
-    .app-icon.health {
-      background: linear-gradient(135deg, #14b8a6, #0d9488);
-    }
-
-    .app-icon.dev {
-      background: linear-gradient(135deg, #f59e0b, #d97706);
-    }
-
-    .app-icon.games {
-      background: linear-gradient(135deg, #ec4899, #f43f5e);
-    }
-
-    .app-icon.media {
-      background: linear-gradient(135deg, #f97316, #ef4444);
-    }
-
-    .app-icon.finance {
-      background: linear-gradient(135deg, #8b5cf6, #6366f1);
-    }
-
-    .app-label {
-      display: block;
-      font-size: 12px;
-      font-weight: 600;
-    }
-
-    .app-sub {
-      display: block;
-      margin-top: 2px;
-      color: var(--text-muted);
-      font-size: 10px;
-    }
-
+    .app-label { display: block; font-size: 13px; font-weight: 600; }
+    .app-sub { display: block; margin-top: 4px; color: var(--text-muted); font-size: 11px; }
     .app-badge {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      padding: 2px 6px;
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      background: var(--surface-3);
-      color: var(--text-muted);
-      font-size: 9px;
+      position: absolute; top: 10px; right: 10px; padding: 3px 7px;
+      border: 1px solid var(--border); border-radius: 6px;
+      background: var(--surface-2); color: var(--text-muted); font-size: 9px; font-weight: 600;
     }
 
     .no-results {
-      display: none;
-      grid-column: 1 / -1;
-      padding: 32px;
-      border: 1px dashed var(--border);
-      border-radius: var(--radius-sm);
-      color: var(--text-muted);
-      text-align: center;
-      font-size: 13px;
+      display: none; grid-column: 1 / -1; padding: 40px; border: 1px dashed var(--border);
+      border-radius: var(--radius); color: var(--text-muted); text-align: center; font-size: 14px;
+      animation: fadeInUp 0.4s var(--ease-out);
     }
-
-    .no-results.visible {
-      display: block;
-    }
+    .no-results.visible { display: block; }
 
     /* MODAL */
-
     .widget-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: var(--modal-z);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 18px;
-      background: rgba(0,0,0,.68);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity .25s var(--ease);
+      position: fixed; inset: 0; z-index: var(--modal-z); display: flex; align-items: center; justify-content: center;
+      padding: 18px; background: rgba(0,0,0,0.75); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      opacity: 0; pointer-events: none; transition: opacity 0.3s var(--ease);
     }
-
-    .widget-overlay.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
+    .widget-overlay.active { opacity: 1; pointer-events: auto; }
 
     .widget-modal {
-      width: min(100%, 500px);
-      max-height: min(88vh, 760px);
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      border: 1px solid var(--border-strong);
-      border-radius: var(--radius);
-      background: var(--surface);
-      box-shadow: var(--shadow);
-      transform: translateY(12px) scale(.97);
-      transition: transform .25s var(--ease);
+      width: min(100%, 500px); max-height: min(88vh, 760px); display: flex; flex-direction: column;
+      overflow: hidden; border: 1px solid var(--border-strong); border-radius: var(--radius);
+      background: var(--surface); box-shadow: var(--shadow);
+      transform: translateY(12px) scale(0.97); opacity: 0;
+      transition: transform 0.3s var(--ease), opacity 0.3s var(--ease);
     }
-
-    .widget-overlay.active .widget-modal {
-      transform: translateY(0) scale(1);
-    }
+    .widget-overlay.active .widget-modal { transform: translateY(0) scale(1); opacity: 1; }
 
     .widget-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 16px 20px;
-      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      padding: 16px 20px; border-bottom: 1px solid var(--border); background: var(--surface-2);
     }
-
-    .widget-title {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 14px;
-      font-weight: 700;
-    }
-
+    .widget-title { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 700; }
     .widget-close {
-      width: 34px;
-      height: 34px;
-      display: grid;
-      place-items: center;
-      border-radius: 6px;
-      background: transparent;
-      color: var(--text-muted);
-      font-size: 22px;
-      cursor: pointer;
+      width: 36px; height: 36px; display: grid; place-items: center; border-radius: 8px;
+      background: transparent; color: var(--text-muted); font-size: 22px; cursor: pointer; transition: 0.2s;
     }
+    .widget-close:hover, .widget-close:focus-visible { background: var(--surface-3); color: var(--text); outline: none; }
+    .widget-close:active { transform: scale(0.9); }
 
-    .widget-close:hover,
-    .widget-close:focus-visible {
-      background: var(--surface-2);
-      color: var(--text);
-      outline: none;
-    }
-
-    .widget-body {
-      flex: 1;
-      overflow-y: auto;
-      padding: 20px;
-      overscroll-behavior: contain;
-    }
+    .widget-body { flex: 1; overflow-y: auto; padding: 20px; overscroll-behavior: contain; }
 
     /* COMMON WIDGET CONTROLS */
-
-    .control,
-    .code-area,
-    .note-area,
-    .widget-body input[type="text"],
-    .widget-body input[type="number"],
-    .widget-body input[type="date"],
-    .widget-body input[type="url"],
-    .widget-body select,
-    .widget-body textarea {
-      width: 100%;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      background: var(--surface-2);
-      color: var(--text);
-      outline: none;
+    .control, .code-area, .note-area, .widget-body input[type="text"], .widget-body input[type="number"], .widget-body input[type="date"], .widget-body input[type="url"], .widget-body select, .widget-body textarea {
+      width: 100%; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface-2); color: var(--text); outline: none; transition: 0.2s;
     }
-
-    .control,
-    .widget-body input[type="text"],
-    .widget-body input[type="number"],
-    .widget-body input[type="date"],
-    .widget-body input[type="url"],
-    .widget-body select {
-      min-height: 42px;
-      padding: 9px 11px;
+    .control, .widget-body input[type="text"], .widget-body input[type="number"], .widget-body input[type="date"], .widget-body input[type="url"], .widget-body select {
+      min-height: 44px; padding: 10px 12px;
     }
+    .code-area, .note-area { min-height: 200px; padding: 12px; resize: vertical; line-height: 1.5; }
+    .code-area { font-family: var(--mono); font-size: 12px; }
+    .widget-body input:focus, .widget-body textarea:focus, .widget-body select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
 
-    .code-area,
-    .note-area {
-      min-height: 200px;
-      padding: 12px;
-      resize: vertical;
-      line-height: 1.5;
-    }
-
-    .code-area {
-      font-family: var(--mono);
-      font-size: 12px;
-    }
-
-    .widget-body input:focus,
-    .widget-body textarea:focus,
-    .widget-body select:focus {
-      border-color: var(--accent);
-    }
-
-    .tool-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 12px;
-    }
-
+    .tool-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
     .tool-btn {
-      min-height: 40px;
-      padding: 9px 16px;
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      background: var(--surface-2);
-      color: var(--text);
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: .2s ease;
+      min-height: 44px; padding: 10px 18px; border: 1px solid var(--border); border-radius: var(--radius-pill);
+      background: var(--surface-2); color: var(--text); font-size: 13px; font-weight: 600;
+      cursor: pointer; transition: 0.2s var(--ease); display: inline-flex; align-items: center; justify-content: center; gap: 6px;
     }
+    .tool-btn:hover { background: var(--surface-3); border-color: var(--border-strong); transform: translateY(-1px); }
+    .tool-btn:active { transform: scale(0.96); }
+    .tool-btn.primary { border-color: var(--accent); background: var(--accent); color: white; box-shadow: 0 4px 12px rgba(var(--glow-color), 0.3); }
+    .tool-btn.primary:hover { background: var(--accent-hover); }
 
-    .tool-btn:hover,
-    .tool-btn:focus-visible {
-      background: var(--surface-3);
-      border-color: var(--border-strong);
-      outline: none;
-    }
-
-    .tool-btn.primary {
-      border-color: var(--accent);
-      background: var(--accent);
-      color: white;
-    }
-
-    .tool-btn.primary:hover {
-      background: var(--accent-hover);
-    }
-
-    .tool-message {
-      min-height: 20px;
-      margin-top: 10px;
-      color: var(--text-muted);
-      font-family: var(--mono);
-      font-size: 11px;
-    }
+    .tool-message { min-height: 20px; margin-top: 12px; color: var(--text-muted); font-family: var(--mono); font-size: 11px; text-align: center; }
 
     /* CALCULATOR */
-
     .calc-display {
-      min-height: 58px;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      overflow: hidden;
-      padding: 12px 16px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      background: var(--surface-2);
-      font-family: var(--mono);
-      font-size: 25px;
-      white-space: nowrap;
+      min-height: 64px; display: flex; align-items: center; justify-content: flex-end; overflow: hidden;
+      padding: 12px 16px; border: 1px solid var(--border); border-radius: var(--radius-sm);
+      background: var(--surface-3); font-family: var(--mono); font-size: 28px; white-space: nowrap; margin-bottom: 12px;
     }
-
-    .calc-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-      margin-top: 12px;
-    }
-
+    .calc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
     .calc-btn {
-      min-height: 52px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      background: var(--surface-2);
-      color: var(--text);
-      font-family: var(--mono);
-      font-size: 16px;
-      cursor: pointer;
+      min-height: 56px; border: 1px solid var(--border); border-radius: var(--radius-sm);
+      background: var(--surface-2); color: var(--text); font-family: var(--mono); font-size: 18px;
+      cursor: pointer; transition: 0.15s;
     }
-
-    .calc-btn:hover {
-      background: var(--surface-3);
-    }
-
-    .calc-btn.accent {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: white;
-    }
+    .calc-btn:hover { background: var(--surface-3); }
+    .calc-btn:active { transform: scale(0.95); background: var(--surface); }
+    .calc-btn.accent { background: var(--accent); border-color: var(--accent); color: white; }
+    .calc-btn.accent:hover { background: var(--accent-hover); }
 
     /* TIMER */
-
-    .timer-display {
-      margin: 20px 0;
-      text-align: center;
-      font-family: var(--mono);
-      font-size: 52px;
-      font-variant-numeric: tabular-nums;
-    }
-
-    .center-actions {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
+    .timer-display { margin: 20px 0; text-align: center; font-family: var(--mono); font-size: 56px; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+    .center-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; }
 
     /* CONVERTER */
-
-    .converter-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 12px;
-    }
-
-    .converter-row > * {
-      min-width: 0;
-    }
-
+    .converter-row { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+    .converter-row > * { min-width: 0; }
     .converter-result {
-      padding: 18px;
-      border-radius: var(--radius-sm);
-      background: var(--accent-soft);
-      color: var(--accent-hover);
-      font-family: var(--mono);
-      font-size: 20px;
-      font-weight: 600;
-      text-align: center;
+      padding: 18px; border-radius: var(--radius-sm); background: var(--accent-soft);
+      color: var(--accent); font-family: var(--mono); font-size: 20px; font-weight: 600; text-align: center;
     }
 
     /* PASSWORD */
-
     .password-output {
-      min-height: 58px;
-      display: grid;
-      place-items: center;
-      margin-bottom: 14px;
-      padding: 12px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      background: var(--surface-2);
-      font-family: var(--mono);
-      font-size: 16px;
-      text-align: center;
-      word-break: break-all;
+      min-height: 56px; display: grid; place-items: center; margin-bottom: 16px; padding: 14px;
+      border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface-3);
+      font-family: var(--mono); font-size: 16px; text-align: center; word-break: break-all;
     }
-
-    .password-options {
-      display: grid;
-      gap: 9px;
-      margin-bottom: 14px;
-    }
-
-    .password-option {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--text-sub);
-      font-size: 13px;
-    }
-
-    .password-option input[type="range"] {
-      flex: 1;
-      accent-color: var(--accent);
-    }
+    .password-options { display: grid; gap: 10px; margin-bottom: 16px; }
+    .password-option { display: flex; align-items: center; gap: 10px; color: var(--text-sub); font-size: 13px; cursor: pointer; }
+    .password-option input[type="range"] { flex: 1; accent-color: var(--accent); }
 
     /* COLOUR */
-
-    .color-preview {
-      width: 100%;
-      height: 90px;
-      margin: 12px 0;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-    }
-
-    .color-values {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 8px;
-    }
-
+    .color-preview { width: 100%; height: 90px; margin: 12px 0; border: 1px solid var(--border); border-radius: var(--radius-sm); }
+    .color-values { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
     .color-value {
-      padding: 10px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      background: var(--surface-2);
-      color: var(--text);
-      font-family: var(--mono);
-      font-size: 12px;
-      text-align: center;
-      cursor: pointer;
+      padding: 12px; border: 1px solid var(--border); border-radius: var(--radius-sm);
+      background: var(--surface-2); color: var(--text); font-family: var(--mono); font-size: 12px;
+      text-align: center; cursor: pointer; transition: 0.2s;
     }
-
-    .color-value small {
-      display: block;
-      margin-bottom: 3px;
-      color: var(--text-muted);
-      font-family: var(--font);
-      font-size: 10px;
-      text-transform: uppercase;
-    }
+    .color-value:hover { border-color: var(--accent); background: var(--surface-3); }
+    .color-value small { display: block; margin-bottom: 4px; color: var(--text-muted); font-family: var(--font); font-size: 10px; text-transform: uppercase; letter-spacing: 0.05em; }
 
     /* MARKDOWN */
-
-    .markdown-split {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
+    .markdown-split { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .markdown-preview {
-      min-height: 260px;
-      overflow: auto;
-      padding: 12px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      background: var(--surface-2);
-      font-size: 13px;
+      min-height: 260px; overflow: auto; padding: 16px; border: 1px solid var(--border);
+      border-radius: var(--radius-sm); background: var(--surface-2); font-size: 14px;
     }
-
-    .markdown-preview h1,
-    .markdown-preview h2,
-    .markdown-preview h3 {
-      margin: 8px 0;
-    }
-
-    .markdown-preview p {
-      margin-bottom: 8px;
-    }
-
-    .markdown-preview code {
-      padding: 1px 5px;
-      border-radius: 4px;
-      background: var(--surface-3);
-      font-family: var(--mono);
-      font-size: .9em;
-    }
-
-    .markdown-preview blockquote {
-      margin: 8px 0;
-      padding-left: 12px;
-      border-left: 3px solid var(--accent);
-      color: var(--text-sub);
-    }
+    .markdown-preview h1, .markdown-preview h2, .markdown-preview h3 { margin: 12px 0 8px; }
+    .markdown-preview p { margin-bottom: 12px; }
+    .markdown-preview code { padding: 2px 6px; border-radius: 4px; background: var(--surface-3); font-family: var(--mono); font-size: 0.9em; }
+    .markdown-preview blockquote { margin: 12px 0; padding-left: 16px; border-left: 3px solid var(--accent); color: var(--text-sub); }
 
     /* CONTRAST */
-
-    .contrast-preview {
-      margin: 14px 0;
-      padding: 24px;
-      border-radius: var(--radius-sm);
-      font-size: 18px;
-      font-weight: 700;
-      text-align: center;
-    }
-
-    .contrast-ratio {
-      color: var(--accent-hover);
-      font-size: 25px;
-      font-weight: 700;
-      text-align: center;
-    }
-
-    .contrast-status {
-      margin-top: 6px;
-      color: var(--text-muted);
-      font-size: 12px;
-      text-align: center;
-    }
+    .contrast-preview { margin: 16px 0; padding: 24px; border-radius: var(--radius-sm); font-size: 18px; font-weight: 700; text-align: center; border: 1px solid var(--border); }
+    .contrast-ratio { color: var(--accent); font-size: 28px; font-weight: 700; text-align: center; font-family: var(--mono); }
+    .contrast-status { margin-top: 8px; color: var(--text-muted); font-size: 12px; text-align: center; font-weight: 600; }
 
     /* MOBILE */
-
     @media (max-width: 680px) {
-      .shell {
-        padding: 20px 16px 60px;
-      }
-
-      .nav-shell {
-        width: calc(100% + 32px);
-        margin: -20px -16px 24px;
-        padding: 0 16px;
-      }
-
-      .nav-links {
-        display: none;
-      }
-
-      .hamburger {
-        display: flex;
-      }
-
-      .toolbar {
-        grid-template-columns: 1fr;
-      }
-
-      .category-filter {
-        width: 100%;
-      }
-
-      .apps-grid {
-        grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
-      }
-
-      .app-tile {
-        min-height: 132px;
-        padding-inline: 8px;
-      }
-
-      .markdown-split {
-        grid-template-columns: 1fr;
-      }
-
-      .widget-overlay {
-        align-items: flex-end;
-        padding: 0;
-      }
-
-      .widget-modal {
-        max-height: 92vh;
-        border-radius: 16px 16px 0 0;
-      }
-
-      .widget-body {
-        padding: 16px;
-      }
-
-      .converter-row {
-        flex-wrap: wrap;
-      }
-
-      .converter-row .control {
-        flex: 1 1 40%;
-      }
+      .shell { padding: 20px 16px 60px; }
+      .nav-shell { width: calc(100% + 32px); margin: -20px -16px 24px; padding: 0 16px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .toolbar { grid-template-columns: 1fr; }
+      .category-filter { width: 100%; }
+      .apps-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 12px; }
+      .app-tile { min-height: 130px; padding: 14px 8px; }
+      .markdown-split { grid-template-columns: 1fr; }
+      .widget-overlay { align-items: flex-end; padding: 0; }
+      .widget-modal { max-height: 92vh; border-radius: 20px 20px 0 0; }
+      .widget-body { padding: 16px; }
+      .converter-row { flex-wrap: wrap; }
+      .converter-row .control { flex: 1 1 40%; }
+      .ambient-glow { width: 100%; height: 400px; top: -5%; }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        scroll-behavior: auto !important;
-        transition-duration: .01ms !important;
-        animation-duration: .01ms !important;
-      }
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
     }
   </style>
 </head>
 
 <body>
-  <div class="shell">
+  <div class="ambient-glow"></div>
 
+  <div class="shell">
     <nav class="nav-shell" aria-label="Primary navigation">
       <div class="nav-bar">
         <div class="nav-links">
@@ -1007,21 +406,10 @@
           <a class="nav-link" href="/subscribe">✉️ Subscribe</a>
         </div>
 
-        <button
-          class="hamburger"
-          id="hamburger"
-          type="button"
-          aria-label="Open menu"
-          aria-expanded="false"
-          aria-controls="mobileMenu">
-          ☰
-        </button>
+        <button class="hamburger" id="hamburger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">☰</button>
       </div>
 
-      <div
-        class="mobile-menu"
-        id="mobileMenu"
-        aria-hidden="true">
+      <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
         <a class="nav-link" href="/">🏠 Home</a>
         <a class="nav-link" href="/blog">📝 Blog</a>
         <a class="nav-link" href="/techtopics">💡 Tech Topics</a>
@@ -1034,38 +422,15 @@
     <header class="topbar">
       <a class="brand" href="https://digitalinfohub.net">
         <span class="brand-logo">
-          <img
-            src="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png"
-            alt="">
+          <img src="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png" alt="">
         </span>
         <span>Digital Infohub</span>
       </a>
 
-      <button
-        class="icon-btn"
-        id="themeToggle"
-        type="button"
-        title="Toggle theme"
-        aria-label="Toggle theme">
-        <svg
-          width="18"
-          height="18"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          aria-hidden="true">
+      <button class="icon-btn" id="themeToggle" type="button" title="Toggle theme" aria-label="Toggle theme">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <circle cx="12" cy="12" r="4"></circle>
-          <path d="M12 2v2"></path>
-          <path d="M12 20v2"></path>
-          <path d="m4.93 4.93 1.41 1.41"></path>
-          <path d="m17.66 17.66 1.41 1.41"></path>
-          <path d="M2 12h2"></path>
-          <path d="M20 12h2"></path>
-          <path d="m6.34 17.66-1.41 1.41"></path>
-          <path d="m19.07 4.93-1.41 1.41"></path>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
         </svg>
       </button>
     </header>
@@ -1076,24 +441,13 @@
           <div>
             <div class="eyebrow">Software Suite</div>
             <h1 id="pageTitle">Online Tools & AI</h1>
-            <p class="section-description">
-              AI assistants, productivity utilities and practical browser tools.
-            </p>
+            <p class="section-description">AI assistants, productivity utilities and practical browser tools.</p>
           </div>
         </div>
 
         <div class="toolbar">
-          <input
-            class="search-box"
-            id="appSearch"
-            type="search"
-            placeholder="Search apps and tools…"
-            aria-label="Search apps and tools">
-
-          <select
-            class="category-filter"
-            id="categoryFilter"
-            aria-label="Filter by category">
+          <input class="search-box" id="appSearch" type="search" placeholder="Search apps and tools…" aria-label="Search apps and tools">
+          <select class="category-filter" id="categoryFilter" aria-label="Filter by category">
             <option value="all">All categories</option>
             <option value="ai">AI</option>
             <option value="tools">Tools</option>
@@ -1106,54 +460,31 @@
           </select>
         </div>
 
-        <div
-          class="apps-grid"
-          id="appsGrid"
-          role="list">
-        </div>
-
-        <div class="no-results" id="noResults">
-          No matching apps found.
-        </div>
+        <div class="apps-grid" id="appsGrid" role="list"></div>
+        <div class="no-results" id="noResults">No matching apps found.</div>
       </section>
     </main>
   </div>
 
-  <div
-    class="widget-overlay"
-    id="widgetOverlay"
-    aria-hidden="true">
-
-    <div
-      class="widget-modal"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="widgetTitle">
-
+  <div class="widget-overlay" id="widgetOverlay" aria-hidden="true">
+    <div class="widget-modal" role="dialog" aria-modal="true" aria-labelledby="widgetTitle">
       <div class="widget-header">
         <div class="widget-title" id="widgetTitle">Tool</div>
-
-        <button
-          class="widget-close"
-          id="widgetClose"
-          type="button"
-          aria-label="Close tool">
-          ×
-        </button>
+        <button class="widget-close" id="widgetClose" type="button" aria-label="Close tool">×</button>
       </div>
-
       <div class="widget-body" id="widgetBody"></div>
     </div>
   </div>
-
 
   <script>
     (() => {
       "use strict";
 
+      // Haptic feedback helper
+      function haptic() { if (navigator.vibrate) navigator.vibrate(10); }
+
       const $ = (selector, root = document) => root.querySelector(selector);
-      const $$ = (selector, root = document) =>
-        Array.from(root.querySelectorAll(selector));
+      const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
 
       const hamburger = $("#hamburger");
       const mobileMenu = $("#mobileMenu");
@@ -1168,7 +499,6 @@
       const noResults = $("#noResults");
 
       /* MOBILE NAVIGATION */
-
       function closeMobileMenu() {
         mobileMenu.classList.remove("active");
         mobileMenu.setAttribute("aria-hidden", "true");
@@ -1180,380 +510,104 @@
 
       function toggleMobileMenu() {
         const isOpen = mobileMenu.classList.toggle("active");
-
         mobileMenu.setAttribute("aria-hidden", String(!isOpen));
         hamburger.setAttribute("aria-expanded", String(isOpen));
-        hamburger.setAttribute(
-          "aria-label",
-          isOpen ? "Close menu" : "Open menu"
-        );
+        hamburger.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
         hamburger.textContent = isOpen ? "×" : "☰";
         document.body.classList.toggle("menu-open", isOpen);
       }
 
-      hamburger.addEventListener("click", event => {
-        event.stopPropagation();
-        toggleMobileMenu();
-      });
-
-      $$(".mobile-menu .nav-link").forEach(link => {
-        link.addEventListener("click", closeMobileMenu);
-      });
-
+      hamburger.addEventListener("click", event => { event.stopPropagation(); haptic(); toggleMobileMenu(); });
+      $$(".mobile-menu .nav-link").forEach(link => { link.addEventListener("click", () => { haptic(); closeMobileMenu(); }); });
       document.addEventListener("click", event => {
-        if (
-          mobileMenu.classList.contains("active") &&
-          !mobileMenu.contains(event.target) &&
-          !hamburger.contains(event.target)
-        ) {
-          closeMobileMenu();
-        }
+        if (mobileMenu.classList.contains("active") && !mobileMenu.contains(event.target) && !hamburger.contains(event.target)) closeMobileMenu();
       });
-
       document.addEventListener("keydown", event => {
-        if (event.key === "Escape") {
-          closeMobileMenu();
-
-          if (overlay.classList.contains("active")) {
-            closeWidget();
-          }
-        }
+        if (event.key === "Escape") { closeMobileMenu(); if (overlay.classList.contains("active")) closeWidget(); }
       });
-
-      window.addEventListener("resize", () => {
-        if (window.innerWidth > 680) {
-          closeMobileMenu();
-        }
-      });
+      window.addEventListener("resize", () => { if (window.innerWidth > 680) closeMobileMenu(); });
 
       /* THEME */
-
       const savedTheme = localStorage.getItem("dih_theme");
-
       if (savedTheme === "light" || savedTheme === "dark") {
         document.documentElement.dataset.theme = savedTheme;
       }
-
       themeToggle.addEventListener("click", () => {
+        haptic();
         const currentTheme = document.documentElement.dataset.theme;
         const nextTheme = currentTheme === "dark" ? "light" : "dark";
-
         document.documentElement.dataset.theme = nextTheme;
         localStorage.setItem("dih_theme", nextTheme);
       });
 
       /* APP DATA */
-
       const APPS = [
-        {
-          name: "InfohubGPT",
-          desc: "Tech strategy assistant",
-          icon: "🤖",
-          category: "ai",
-          type: "link",
-          url: "https://chatgpt.com/g/g-6973b68a2b188191aaead719715ab703-infohubgpt-by-digital-infohub"
-        },
-        {
-          name: "TaskyGPT",
-          desc: "Break down your goals",
-          icon: "📋",
-          category: "ai",
-          type: "link",
-          url: "https://chatgpt.com/g/g-6989f6b724fc8191aef0f7393ed70672-taskygpt-by-digital-infohub"
-        },
-        {
-          name: "Build Engine",
-          desc: "Build, fix & optimise code",
-          icon: "⚙️",
-          category: "dev",
-          type: "link",
-          url: "https://chatgpt.com/g/g-6a5cf83ef9ac8191808e0530e843bf55-digital-infohub-build-engine"
-        },
-        {
-          name: "MarketLens",
-          desc: "Markets & crypto briefing",
-          icon: "📈",
-          category: "finance",
-          type: "link",
-          url: "https://chatgpt.com/g/g-6a7ce7ab23988191bec905b74ec53adf-marketlensgpt"
-        },
-        {
-          name: "KayakMe Ocean",
-          desc: "Local ocean conditions",
-          icon: "🌊",
-          category: "health",
-          type: "link",
-          url: "https://chatgpt.com/g/g-6a4ef0ab79388191a95edb5bcbbc7c80-kayakme-ocean-by-digital-infohub"
-        },
-        {
-          name: "CookinStepGPT",
-          desc: "Recipe assistant",
-          icon: "🍳",
-          category: "ai",
-          type: "link",
-          url: "https://chatgpt.com/g/g-6994cb01a16c8191885299e8dbf64428-cookinstepgpt-by-digital-infohub"
-        },
-        {
-          name: "SaveSmartGPT",
-          desc: "Finance helper",
-          icon: "💰",
-          category: "finance",
-          type: "link",
-          url: "https://chatgpt.com/g/g-6994de10b0b08191b778d0c80a577b86-savesmartgpt-by-digital-infohub"
-        },
-        {
-          name: "Calculator",
-          desc: "Quick maths",
-          icon: "🧮",
-          category: "tools",
-          type: "widget",
-          widgetId: "calculator"
-        },
-        {
-          name: "Unit Converter",
-          desc: "Length, weight & temperature",
-          icon: "📐",
-          category: "tools",
-          type: "widget",
-          widgetId: "converter"
-        },
-        {
-          name: "Password Generator",
-          desc: "Secure random passwords",
-          icon: "🔐",
-          category: "tools",
-          type: "widget",
-          widgetId: "password"
-        },
-        {
-          name: "Color Picker",
-          desc: "HEX, RGB & HSL values",
-          icon: "🎨",
-          category: "tools",
-          type: "widget",
-          widgetId: "color"
-        },
-        {
-          name: "JSON Formatter",
-          desc: "Validate and format JSON",
-          icon: "{ }",
-          category: "dev",
-          type: "widget",
-          widgetId: "json"
-        },
-        {
-          name: "Markdown Preview",
-          desc: "Write with live preview",
-          icon: "📄",
-          category: "dev",
-          type: "widget",
-          widgetId: "markdown"
-        },
-        {
-          name: "Base64 Encoder",
-          desc: "Encode and decode text",
-          icon: "🔄",
-          category: "dev",
-          type: "widget",
-          widgetId: "base64"
-        },
-        {
-          name: "Regex Tester",
-          desc: "Test regular expressions",
-          icon: "🔍",
-          category: "dev",
-          type: "widget",
-          widgetId: "regex"
-        },
-        {
-          name: "Word Counter",
-          desc: "Analyse words and characters",
-          icon: "📝",
-          category: "tools",
-          type: "widget",
-          widgetId: "wordcount"
-        },
-        {
-          name: "Lorem Ipsum",
-          desc: "Generate placeholder text",
-          icon: "📜",
-          category: "tools",
-          type: "widget",
-          widgetId: "lorem"
-        },
-        {
-          name: "Pomodoro",
-          desc: "Focus and break cycles",
-          icon: "🍅",
-          category: "tasks",
-          type: "widget",
-          widgetId: "pomodoro"
-        },
-        {
-          name: "Breathing",
-          desc: "4-7-8 relaxation timer",
-          icon: "🫁",
-          category: "health",
-          type: "widget",
-          widgetId: "breathing"
-        },
-        {
-          name: "Contrast Checker",
-          desc: "Check colour accessibility",
-          icon: "👁️",
-          category: "dev",
-          type: "widget",
-          widgetId: "contrast"
-        },
-        {
-          name: "CSS Shadow Generator",
-          desc: "Create box-shadow CSS",
-          icon: "🌑",
-          category: "dev",
-          type: "widget",
-          widgetId: "shadow"
-        },
-        {
-          name: "Quick Notes",
-          desc: "Save notes in your browser",
-          icon: "🗒️",
-          category: "tasks",
-          type: "widget",
-          widgetId: "notes"
-        },
-        {
-          name: "Task List",
-          desc: "Manage simple tasks",
-          icon: "✅",
-          category: "tasks",
-          type: "widget",
-          widgetId: "tasks"
-        },
-        {
-          name: "Habit Tracker",
-          desc: "Track weekly habits",
-          icon: "📊",
-          category: "health",
-          type: "widget",
-          widgetId: "habits"
-        },
-        {
-          name: "Meeting Notes",
-          desc: "Capture meeting details",
-          icon: "🗣️",
-          category: "tasks",
-          type: "widget",
-          widgetId: "meeting"
-        },
-        {
-          name: "Font Preview",
-          desc: "Test typography quickly",
-          icon: "🔤",
-          category: "tools",
-          type: "widget",
-          widgetId: "font"
-        },
-        {
-          name: "Time Zone Converter",
-          desc: "Compare world times",
-          icon: "🌍",
-          category: "tools",
-          type: "widget",
-          widgetId: "timezone"
-        },
-        {
-          name: "Color Palette",
-          desc: "Generate colour harmonies",
-          icon: "🌈",
-          category: "tools",
-          type: "widget",
-          widgetId: "palette"
-        },
-        {
-          name: "API Request Tester",
-          desc: "Test GET API requests",
-          icon: "🔌",
-          category: "dev",
-          type: "widget",
-          widgetId: "api"
-        },
-        {
-          name: "Invoice Calculator",
-          desc: "Calculate invoice totals",
-          icon: "🧾",
-          category: "finance",
-          type: "widget",
-          widgetId: "invoice"
-        },
-        {
-          name: "Budget Calculator",
-          desc: "Plan income and spending",
-          icon: "💷",
-          category: "finance",
-          type: "widget",
-          widgetId: "budget"
-        },
-        {
-          name: "Image Data Viewer",
-          desc: "Inspect image dimensions",
-          icon: "🖼️",
-          category: "media",
-          type: "widget",
-          widgetId: "image"
-        },
-        {
-          name: "Games Hub",
-          desc: "Play browser games",
-          icon: "🎮",
-          category: "games",
-          type: "link",
-          url: "/games"
-        }
+        { name: "InfohubGPT", desc: "Tech strategy assistant", icon: "🤖", category: "ai", type: "link", url: "https://chatgpt.com/g/g-6973b68a2b188191aaead719715ab703-infohubgpt-by-digital-infohub" },
+        { name: "TaskyGPT", desc: "Break down your goals", icon: "📋", category: "ai", type: "link", url: "https://chatgpt.com/g/g-6989f6b724fc8191aef0f7393ed70672-taskygpt-by-digital-infohub" },
+        { name: "Build Engine", desc: "Build, fix & optimise code", icon: "⚙️", category: "dev", type: "link", url: "https://chatgpt.com/g/g-6a5cf83ef9ac8191808e0530e843bf55-digital-infohub-build-engine" },
+        { name: "MarketLens", desc: "Markets & crypto briefing", icon: "📈", category: "finance", type: "link", url: "https://chatgpt.com/g/g-6a7ce7ab23988191bec905b74ec53adf-marketlensgpt" },
+        { name: "KayakMe Ocean", desc: "Local ocean conditions", icon: "🌊", category: "health", type: "link", url: "https://chatgpt.com/g/g-6a4ef0ab79388191a95edb5bcbbc7c80-kayakme-ocean-by-digital-infohub" },
+        { name: "CookinStepGPT", desc: "Recipe assistant", icon: "🍳", category: "ai", type: "link", url: "https://chatgpt.com/g/g-6994cb01a16c8191885299e8dbf64428-cookinstepgpt-by-digital-infohub" },
+        { name: "SaveSmartGPT", desc: "Finance helper", icon: "💰", category: "finance", type: "link", url: "https://chatgpt.com/g/g-6994de10b0b08191b778d0c80a577b86-savesmartgpt-by-digital-infohub" },
+        { name: "Calculator", desc: "Quick maths", icon: "🧮", category: "tools", type: "widget", widgetId: "calculator" },
+        { name: "Unit Converter", desc: "Length, weight & temperature", icon: "📐", category: "tools", type: "widget", widgetId: "converter" },
+        { name: "Password Generator", desc: "Secure random passwords", icon: "🔐", category: "tools", type: "widget", widgetId: "password" },
+        { name: "Color Picker", desc: "HEX, RGB & HSL values", icon: "🎨", category: "tools", type: "widget", widgetId: "color" },
+        { name: "JSON Formatter", desc: "Validate and format JSON", icon: "{ }", category: "dev", type: "widget", widgetId: "json" },
+        { name: "Markdown Preview", desc: "Write with live preview", icon: "📄", category: "dev", type: "widget", widgetId: "markdown" },
+        { name: "Base64 Encoder", desc: "Encode and decode text", icon: "🔄", category: "dev", type: "widget", widgetId: "base64" },
+        { name: "Regex Tester", desc: "Test regular expressions", icon: "🔍", category: "dev", type: "widget", widgetId: "regex" },
+        { name: "Word Counter", desc: "Analyse words and characters", icon: "📝", category: "tools", type: "widget", widgetId: "wordcount" },
+        { name: "Lorem Ipsum", desc: "Generate placeholder text", icon: "📜", category: "tools", type: "widget", widgetId: "lorem" },
+        { name: "Pomodoro", desc: "Focus and break cycles", icon: "🍅", category: "tasks", type: "widget", widgetId: "pomodoro" },
+        { name: "Breathing", desc: "4-7-8 relaxation timer", icon: "🫁", category: "health", type: "widget", widgetId: "breathing" },
+        { name: "Contrast Checker", desc: "Check colour accessibility", icon: "👁️", category: "dev", type: "widget", widgetId: "contrast" },
+        { name: "CSS Shadow Generator", desc: "Create box-shadow CSS", icon: "🌑", category: "dev", type: "widget", widgetId: "shadow" },
+        { name: "Quick Notes", desc: "Save notes in your browser", icon: "🗒️", category: "tasks", type: "widget", widgetId: "notes" },
+        { name: "Task List", desc: "Manage simple tasks", icon: "✅", category: "tasks", type: "widget", widgetId: "tasks" },
+        { name: "Habit Tracker", desc: "Track weekly habits", icon: "📊", category: "health", type: "widget", widgetId: "habits" },
+        { name: "Meeting Notes", desc: "Capture meeting details", icon: "🗣️", category: "tasks", type: "widget", widgetId: "meeting" },
+        { name: "Font Preview", desc: "Test typography quickly", icon: "🔤", category: "tools", type: "widget", widgetId: "font" },
+        { name: "Time Zone Converter", desc: "Compare world times", icon: "🌍", category: "tools", type: "widget", widgetId: "timezone" },
+        { name: "Color Palette", desc: "Generate colour harmonies", icon: "🌈", category: "tools", type: "widget", widgetId: "palette" },
+        { name: "API Request Tester", desc: "Test GET API requests", icon: "🔌", category: "dev", type: "widget", widgetId: "api" },
+        { name: "Invoice Calculator", desc: "Calculate invoice totals", icon: "🧾", category: "finance", type: "widget", widgetId: "invoice" },
+        { name: "Budget Calculator", desc: "Plan income and spending", icon: "💷", category: "finance", type: "widget", widgetId: "budget" },
+        { name: "Image Data Viewer", desc: "Inspect image dimensions", icon: "🖼️", category: "media", type: "widget", widgetId: "image" },
+        { name: "Games Hub", desc: "Play browser games", icon: "🎮", category: "games", type: "link", url: "/games" }
       ];
 
       /* APP GRID */
-
       function renderApps() {
         appsGrid.innerHTML = "";
-
         APPS.forEach((app, index) => {
-          const element = document.createElement(
-            app.type === "link" ? "a" : "button"
-          );
-
+          const element = document.createElement(app.type === "link" ? "a" : "button");
           element.className = "app-tile";
           element.setAttribute("role", "listitem");
           element.dataset.name = `${app.name} ${app.desc}`.toLowerCase();
           element.dataset.category = app.category;
-          element.style.animationDelay = `${index * 20}ms`;
+          element.style.animationDelay = `${index * 0.04}s`;
 
           if (app.type === "link") {
             element.href = app.url;
             element.target = "_blank";
             element.rel = "noopener noreferrer";
+            element.addEventListener("click", () => haptic());
           } else {
             element.type = "button";
-            element.addEventListener("click", () => openWidget(app));
+            element.addEventListener("click", () => { haptic(); openWidget(app); });
           }
 
           element.innerHTML = `
-            <span class="app-badge">
-              ${app.type === "link" ? "↗" : "APP"}
-            </span>
-
-            <span class="app-icon ${escapeHtml(app.category)}">
-              ${app.icon}
-            </span>
-
+            <span class="app-badge">${app.type === "link" ? "↗" : "APP"}</span>
+            <span class="app-icon ${escapeHtml(app.category)}">${app.icon}</span>
             <span>
               <span class="app-label">${escapeHtml(app.name)}</span>
               <span class="app-sub">${escapeHtml(app.desc)}</span>
             </span>
           `;
-
           appsGrid.appendChild(element);
         });
-
         updateFilters();
       }
 
@@ -1563,30 +617,19 @@
         let visibleCount = 0;
 
         $$(".app-tile", appsGrid).forEach(tile => {
-          const matchesText =
-            !query || tile.dataset.name.includes(query);
-
-          const matchesCategory =
-            category === "all" ||
-            tile.dataset.category === category;
-
+          const matchesText = !query || tile.dataset.name.includes(query);
+          const matchesCategory = category === "all" || tile.dataset.category === category;
           const visible = matchesText && matchesCategory;
-
           tile.classList.toggle("hidden", !visible);
-
-          if (visible) {
-            visibleCount++;
-          }
+          if (visible) visibleCount++;
         });
-
         noResults.classList.toggle("visible", visibleCount === 0);
       }
 
       appSearch.addEventListener("input", updateFilters);
-      categoryFilter.addEventListener("change", updateFilters);
+      categoryFilter.addEventListener("change", () => { haptic(); updateFilters(); });
 
       /* MODAL */
-
       function openWidget(app) {
         widgetTitle.textContent = `${app.icon} ${app.name}`;
         widgetBody.innerHTML = "";
@@ -1595,99 +638,82 @@
         document.body.style.overflow = "hidden";
 
         const renderer = RENDERERS[app.widgetId];
-
         if (renderer) {
           renderer(widgetBody);
         } else {
-          widgetBody.innerHTML = `
-            <p style="color:var(--text-sub)">
-              This tool is not available yet.
-            </p>
-          `;
+          widgetBody.innerHTML = `<p style="color:var(--text-sub); text-align:center; padding:20px;">This tool is not available yet.</p>`;
         }
 
         setTimeout(() => {
           $("input, textarea, select, button", widgetBody)?.focus();
-        }, 40);
+        }, 50);
       }
 
       function closeWidget() {
         overlay.classList.remove("active");
         overlay.setAttribute("aria-hidden", "true");
         document.body.style.overflow = "";
-        widgetBody.innerHTML = "";
+        setTimeout(() => { widgetBody.innerHTML = ""; }, 300);
       }
 
-      widgetClose.addEventListener("click", closeWidget);
+      widgetClose.addEventListener("click", () => { haptic(); closeWidget(); });
+      overlay.addEventListener("click", event => { if (event.target === overlay) { haptic(); closeWidget(); } });
 
-      overlay.addEventListener("click", event => {
-        if (event.target === overlay) {
-          closeWidget();
-        }
-      });
+      /* MOUSE TRACKING SPOTLIGHT */
+      if (window.matchMedia('(hover: hover)').matches) {
+        document.addEventListener('mousemove', (e) => {
+          document.querySelectorAll('.app-tile').forEach(tile => {
+            const rect = tile.getBoundingClientRect();
+            tile.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+            tile.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+          });
+        });
+      }
 
       /* WIDGETS */
-
       function renderCalculator(container) {
         container.innerHTML = `
           <div class="calc-display" id="calcDisplay">0</div>
-
           <div class="calc-grid">
             <button class="calc-btn" data-value="C">C</button>
             <button class="calc-btn" data-value="/">÷</button>
             <button class="calc-btn" data-value="*">×</button>
             <button class="calc-btn" data-value="BACK">⌫</button>
-
             <button class="calc-btn" data-value="7">7</button>
             <button class="calc-btn" data-value="8">8</button>
             <button class="calc-btn" data-value="9">9</button>
             <button class="calc-btn" data-value="-">−</button>
-
             <button class="calc-btn" data-value="4">4</button>
             <button class="calc-btn" data-value="5">5</button>
             <button class="calc-btn" data-value="6">6</button>
             <button class="calc-btn" data-value="+">+</button>
-
             <button class="calc-btn" data-value="1">1</button>
             <button class="calc-btn" data-value="2">2</button>
             <button class="calc-btn" data-value="3">3</button>
             <button class="calc-btn accent" data-value="=">=</button>
-
             <button class="calc-btn" data-value="0" style="grid-column:span 2">0</button>
             <button class="calc-btn" data-value=".">.</button>
           </div>
         `;
-
         let expression = "";
         const display = $("#calcDisplay", container);
-
         $$(".calc-btn", container).forEach(button => {
           button.addEventListener("click", () => {
+            haptic();
             const value = button.dataset.value;
-
-            if (value === "C") {
-              expression = "";
-            } else if (value === "BACK") {
-              expression = expression.slice(0, -1);
-            } else if (value === "=") {
+            if (value === "C") expression = "";
+            else if (value === "BACK") expression = expression.slice(0, -1);
+            else if (value === "=") {
               if (!expression) return;
-
-              if (!/^[0-9+\-*/.()\s]+$/.test(expression)) {
-                expression = "Error";
-              } else {
-                try {
-                  expression = String(Function(
-                    `"use strict"; return (${expression})`
-                  )());
-                } catch {
-                  expression = "Error";
-                }
+              if (!/^[0-9+\-*/.()\s]+$/.test(expression)) expression = "Error";
+              else {
+                try { expression = String(Function(`"use strict"; return (${expression})`)()); }
+                catch { expression = "Error"; }
               }
             } else {
               if (expression === "Error") expression = "";
               expression += value;
             }
-
             display.textContent = expression || "0";
           });
         });
@@ -1695,1639 +721,682 @@
 
       function renderConverter(container) {
         container.innerHTML = `
-          <div class="converter-row">
-            <input class="control" id="convertValue" type="number" value="1" step="any">
-          </div>
-
+          <div class="converter-row"><input class="control" id="convertValue" type="number" value="1" step="any"></div>
           <div class="converter-row">
             <select class="control" id="convertFrom">
-              <option value="m">Metres</option>
-              <option value="ft">Feet</option>
-              <option value="km">Kilometres</option>
-              <option value="mi">Miles</option>
-              <option value="kg">Kilograms</option>
-              <option value="lb">Pounds</option>
-              <option value="c">Celsius</option>
-              <option value="f">Fahrenheit</option>
+              <option value="m">Metres</option><option value="ft">Feet</option><option value="km">Kilometres</option>
+              <option value="mi">Miles</option><option value="kg">Kilograms</option><option value="lb">Pounds</option>
+              <option value="c">Celsius</option><option value="f">Fahrenheit</option>
             </select>
-
-            <span>→</span>
-
+            <span style="color:var(--text-muted)">→</span>
             <select class="control" id="convertTo">
-              <option value="ft">Feet</option>
-              <option value="m">Metres</option>
-              <option value="km">Kilometres</option>
-              <option value="mi">Miles</option>
-              <option value="kg">Kilograms</option>
-              <option value="lb">Pounds</option>
-              <option value="c">Celsius</option>
-              <option value="f">Fahrenheit</option>
+              <option value="ft">Feet</option><option value="m">Metres</option><option value="km">Kilometres</option>
+              <option value="mi">Miles</option><option value="kg">Kilograms</option><option value="lb">Pounds</option>
+              <option value="c">Celsius</option><option value="f">Fahrenheit</option>
             </select>
           </div>
-
           <div class="converter-result" id="convertResult"></div>
         `;
-
-        const valueInput = $("#convertValue", container);
-        const fromInput = $("#convertFrom", container);
-        const toInput = $("#convertTo", container);
-        const result = $("#convertResult", container);
-
-        const rates = {
-          m: 1,
-          ft: .3048,
-          km: 1000,
-          mi: 1609.344,
-          kg: 1,
-          lb: .45359237
-        };
+        const valueInput = $("#convertValue", container), fromInput = $("#convertFrom", container), toInput = $("#convertTo", container), result = $("#convertResult", container);
+        const rates = { m: 1, ft: .3048, km: 1000, mi: 1609.344, kg: 1, lb: .45359237 };
 
         function update() {
-          const value = Number(valueInput.value) || 0;
-          const from = fromInput.value;
-          const to = toInput.value;
-
+          const value = Number(valueInput.value) || 0, from = fromInput.value, to = toInput.value;
           let converted = value;
-
-          if (from === "c" && to === "f") {
-            converted = value * 9 / 5 + 32;
-          } else if (from === "f" && to === "c") {
-            converted = (value - 32) * 5 / 9;
-          } else if (
-            ["c", "f"].includes(from) ||
-            ["c", "f"].includes(to)
-          ) {
-            converted = NaN;
-          } else {
-            converted = value * rates[from] / rates[to];
-          }
-
-          result.textContent = Number.isFinite(converted)
-            ? `${Number(converted.toFixed(4))} ${to}`
-            : "Choose compatible units";
+          if (from === "c" && to === "f") converted = value * 9 / 5 + 32;
+          else if (from === "f" && to === "c") converted = (value - 32) * 5 / 9;
+          else if (["c", "f"].includes(from) || ["c", "f"].includes(to)) converted = NaN;
+          else converted = value * rates[from] / rates[to];
+          result.textContent = Number.isFinite(converted) ? `${Number(converted.toFixed(4))} ${to}` : "Choose compatible units";
         }
-
-        [valueInput, fromInput, toInput].forEach(element => {
-          element.addEventListener("input", update);
-          element.addEventListener("change", update);
-        });
-
+        [valueInput, fromInput, toInput].forEach(el => { el.addEventListener("input", update); el.addEventListener("change", update); });
         update();
       }
 
       function renderPassword(container) {
         container.innerHTML = `
-          <div class="password-output" id="passwordOutput">
-            Generating…
-          </div>
-
+          <div class="password-output" id="passwordOutput">Generating…</div>
           <div class="password-options">
-            <label class="password-option">
-              <input id="passwordUpper" type="checkbox" checked>
-              Uppercase letters
-            </label>
-
-            <label class="password-option">
-              <input id="passwordLower" type="checkbox" checked>
-              Lowercase letters
-            </label>
-
-            <label class="password-option">
-              <input id="passwordNumbers" type="checkbox" checked>
-              Numbers
-            </label>
-
-            <label class="password-option">
-              <input id="passwordSymbols" type="checkbox" checked>
-              Symbols
-            </label>
-
-            <label class="password-option">
-              Length:
-              <input id="passwordLength" type="range" min="8" max="64" value="16">
-              <span id="passwordLengthValue">16</span>
-            </label>
+            <label class="password-option"><input id="passwordUpper" type="checkbox" checked> Uppercase letters</label>
+            <label class="password-option"><input id="passwordLower" type="checkbox" checked> Lowercase letters</label>
+            <label class="password-option"><input id="passwordNumbers" type="checkbox" checked> Numbers</label>
+            <label class="password-option"><input id="passwordSymbols" type="checkbox" checked> Symbols</label>
+            <label class="password-option">Length: <input id="passwordLength" type="range" min="8" max="64" value="16"> <span id="passwordLengthValue">16</span></label>
           </div>
-
           <div class="center-actions">
             <button class="tool-btn primary" id="generatePassword">Generate</button>
             <button class="tool-btn" id="copyPassword">Copy</button>
           </div>
-
           <div class="tool-message" id="passwordMessage"></div>
         `;
-
-        const output = $("#passwordOutput", container);
-        const message = $("#passwordMessage", container);
-        const length = $("#passwordLength", container);
-        const lengthValue = $("#passwordLengthValue", container);
-
-        const groups = {
-          upper: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-          lower: "abcdefghijklmnopqrstuvwxyz",
-          numbers: "0123456789",
-          symbols: "!@#$%^&*()_+-=[]{}|;:,.<>?"
-        };
+        const output = $("#passwordOutput", container), message = $("#passwordMessage", container), length = $("#passwordLength", container), lengthValue = $("#passwordLengthValue", container);
+        const groups = { upper: "ABCDEFGHIJKLMNOPQRSTUVWXYZ", lower: "abcdefghijklmnopqrstuvwxyz", numbers: "0123456789", symbols: "!@#$%^&*()_+-=[]{}|;:,.<>?" };
 
         function randomCharacter(characters) {
-          const values = new Uint32Array(1);
-          crypto.getRandomValues(values);
+          const values = new Uint32Array(1); crypto.getRandomValues(values);
           return characters[values[0] % characters.length];
         }
-
         function generate() {
           let pool = "";
-
           if ($("#passwordUpper", container).checked) pool += groups.upper;
           if ($("#passwordLower", container).checked) pool += groups.lower;
           if ($("#passwordNumbers", container).checked) pool += groups.numbers;
           if ($("#passwordSymbols", container).checked) pool += groups.symbols;
-
-          if (!pool) {
-            output.textContent = "Select at least one option";
-            return;
-          }
-
+          if (!pool) { output.textContent = "Select at least one option"; return; }
           let password = "";
-
-          for (let index = 0; index < Number(length.value); index++) {
-            password += randomCharacter(pool);
-          }
-
-          output.textContent = password;
-          message.textContent = "";
+          for (let i = 0; i < Number(length.value); i++) password += randomCharacter(pool);
+          output.textContent = password; message.textContent = "";
         }
-
-        length.addEventListener("input", () => {
-          lengthValue.textContent = length.value;
-          generate();
-        });
-
-        $("#generatePassword", container).addEventListener("click", generate);
-
+        length.addEventListener("input", () => { lengthValue.textContent = length.value; generate(); });
+        $("#generatePassword", container).addEventListener("click", () => { haptic(); generate(); });
         $("#copyPassword", container).addEventListener("click", async () => {
+          haptic();
           if (!output.textContent || output.textContent.includes("Select")) return;
-
-          try {
-            await navigator.clipboard.writeText(output.textContent);
-            message.textContent = "Copied to clipboard";
-          } catch {
-            message.textContent = "Copy was not available";
-          }
+          try { await navigator.clipboard.writeText(output.textContent); message.textContent = "Copied to clipboard"; }
+          catch { message.textContent = "Copy was not available"; }
         });
-
-        $$("input[type='checkbox']", container).forEach(input => {
-          input.addEventListener("change", generate);
-        });
-
+        $$("input[type='checkbox']", container).forEach(input => { input.addEventListener("change", generate); });
         generate();
       }
 
       function renderColor(container) {
         container.innerHTML = `
-          <input
-            id="colorInput"
-            type="color"
-            value="#6366f1"
-            style="width:100%;height:48px;border:0;cursor:pointer;background:transparent">
-
+          <input id="colorInput" type="color" value="#3B82F6" style="width:100%;height:48px;border:0;cursor:pointer;background:transparent;border-radius:8px;">
           <div class="color-preview" id="colorPreview"></div>
-
           <div class="color-values">
-            <button class="color-value" data-color-value="hex">
-              <small>HEX</small>
-              <span id="colorHex"></span>
-            </button>
-
-            <button class="color-value" data-color-value="rgb">
-              <small>RGB</small>
-              <span id="colorRgb"></span>
-            </button>
-
-            <button class="color-value" data-color-value="hsl">
-              <small>HSL</small>
-              <span id="colorHsl"></span>
-            </button>
-
-            <button class="color-value" data-color-value="css">
-              <small>CSS</small>
-              <span id="colorCss"></span>
-            </button>
+            <button class="color-value" data-color-value="hex"><small>HEX</small><span id="colorHex"></span></button>
+            <button class="color-value" data-color-value="rgb"><small>RGB</small><span id="colorRgb"></span></button>
+            <button class="color-value" data-color-value="hsl"><small>HSL</small><span id="colorHsl"></span></button>
+            <button class="color-value" data-color-value="css"><small>CSS</small><span id="colorCss"></span></button>
           </div>
-
           <div class="tool-message" id="colorMessage"></div>
         `;
-
-        const input = $("#colorInput", container);
-        const preview = $("#colorPreview", container);
-        const message = $("#colorMessage", container);
-
-        function hexToRgb(hex) {
-          return {
-            r: parseInt(hex.slice(1, 3), 16),
-            g: parseInt(hex.slice(3, 5), 16),
-            b: parseInt(hex.slice(5, 7), 16)
-          };
-        }
-
+        const input = $("#colorInput", container), preview = $("#colorPreview", container), message = $("#colorMessage", container);
+        function hexToRgb(hex) { return { r: parseInt(hex.slice(1, 3), 16), g: parseInt(hex.slice(3, 5), 16), b: parseInt(hex.slice(5, 7), 16) }; }
         function rgbToHsl(r, g, b) {
-          r /= 255;
-          g /= 255;
-          b /= 255;
-
-          const max = Math.max(r, g, b);
-          const min = Math.min(r, g, b);
-          const difference = max - min;
-
-          let h = 0;
-          let s = 0;
-          const l = (max + min) / 2;
-
-          if (difference !== 0) {
-            s = difference / (1 - Math.abs(2 * l - 1));
-
-            switch (max) {
-              case r:
-                h = 60 * (((g - b) / difference) % 6);
-                break;
-              case g:
-                h = 60 * ((b - r) / difference + 2);
-                break;
-              default:
-                h = 60 * ((r - g) / difference + 4);
-            }
+          r /= 255; g /= 255; b /= 255;
+          const max = Math.max(r, g, b), min = Math.min(r, g, b), diff = max - min;
+          let h = 0, s = 0, l = (max + min) / 2;
+          if (diff !== 0) {
+            s = diff / (1 - Math.abs(2 * l - 1));
+            if (max === r) h = 60 * (((g - b) / diff) % 6);
+            else if (max === g) h = 60 * ((b - r) / diff + 2);
+            else h = 60 * ((r - g) / diff + 4);
           }
-
           if (h < 0) h += 360;
-
-          return {
-            h: Math.round(h),
-            s: Math.round(s * 100),
-            l: Math.round(l * 100)
-          };
+          return { h: Math.round(h), s: Math.round(s * 100), l: Math.round(l * 100) };
         }
-
         function update() {
-          const hex = input.value;
-          const { r, g, b } = hexToRgb(hex);
-          const { h, s, l } = rgbToHsl(r, g, b);
-
+          const hex = input.value, { r, g, b } = hexToRgb(hex), { h, s, l } = rgbToHsl(r, g, b);
           preview.style.background = hex;
           $("#colorHex", container).textContent = hex;
           $("#colorRgb", container).textContent = `${r}, ${g}, ${b}`;
           $("#colorHsl", container).textContent = `${h}°, ${s}%, ${l}%`;
           $("#colorCss", container).textContent = `rgb(${r} ${g} ${b})`;
         }
-
         input.addEventListener("input", update);
-
         $$(".color-value", container).forEach(button => {
           button.addEventListener("click", async () => {
+            haptic();
             const type = button.dataset.colorValue;
             const id = `color${type[0].toUpperCase()}${type.slice(1)}`;
             const value = $(`#${id}`, container).textContent;
-
-            try {
-              await navigator.clipboard.writeText(value);
-              message.textContent = "Copied to clipboard";
-            } catch {
-              message.textContent = "Copy was not available";
-            }
+            try { await navigator.clipboard.writeText(value); message.textContent = "Copied to clipboard"; }
+            catch { message.textContent = "Copy was not available"; }
           });
         });
-
         update();
       }
 
       function renderJson(container) {
         container.innerHTML = `
-          <textarea
-            class="code-area"
-            id="jsonInput"
-            placeholder='{"name":"Digital Infohub","active":true}'></textarea>
-
+          <textarea class="code-area" id="jsonInput" placeholder='{"name":"Digital Infohub","active":true}'></textarea>
           <div class="tool-actions">
             <button class="tool-btn primary" id="formatJson">Format</button>
             <button class="tool-btn" id="minifyJson">Minify</button>
             <button class="tool-btn" id="copyJson">Copy</button>
           </div>
-
           <div class="tool-message" id="jsonMessage"></div>
         `;
-
-        const input = $("#jsonInput", container);
-        const message = $("#jsonMessage", container);
-
+        const input = $("#jsonInput", container), message = $("#jsonMessage", container);
         function process(minify = false) {
           try {
             const parsed = JSON.parse(input.value);
             input.value = JSON.stringify(parsed, null, minify ? 0 : 2);
-            message.textContent = "Valid JSON";
-            message.style.color = "#10b981";
+            message.textContent = "Valid JSON"; message.style.color = "var(--green, #10b981)";
           } catch (error) {
-            message.textContent = error.message;
-            message.style.color = "#ef4444";
+            message.textContent = error.message; message.style.color = "var(--red, #ef4444)";
           }
         }
-
-        $("#formatJson", container).addEventListener("click", () => process(false));
-        $("#minifyJson", container).addEventListener("click", () => process(true));
-
+        $("#formatJson", container).addEventListener("click", () => { haptic(); process(false); });
+        $("#minifyJson", container).addEventListener("click", () => { haptic(); process(true); });
         $("#copyJson", container).addEventListener("click", async () => {
-          try {
-            await navigator.clipboard.writeText(input.value);
-            message.textContent = "Copied to clipboard";
-          } catch {
-            message.textContent = "Copy was not available";
-          }
+          haptic();
+          try { await navigator.clipboard.writeText(input.value); message.textContent = "Copied to clipboard"; }
+          catch { message.textContent = "Copy was not available"; }
         });
       }
 
       function renderMarkdown(container) {
         container.innerHTML = `
           <div class="markdown-split">
-            <textarea
-              class="code-area"
-              id="markdownInput"
-              placeholder="# Heading&#10;&#10;**Bold text**&#10;&#10;- List item&#10;&#10;> Quote"></textarea>
-
-            <div class="markdown-preview" id="markdownPreview">
-              <span style="color:var(--text-muted)">
-                Preview appears here…
-              </span>
-            </div>
+            <textarea class="code-area" id="markdownInput" placeholder="# Heading\n\n**Bold text**\n\n- List item\n\n> Quote"></textarea>
+            <div class="markdown-preview" id="markdownPreview"><span style="color:var(--text-muted)">Preview appears here…</span></div>
           </div>
         `;
-
-        const input = $("#markdownInput", container);
-        const preview = $("#markdownPreview", container);
-
-        function escapeMarkdown(value) {
-          return value
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;");
-        }
-
+        const input = $("#markdownInput", container), preview = $("#markdownPreview", container);
+        function escapeMarkdown(value) { return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
         function render() {
           let value = escapeMarkdown(input.value);
-
-          value = value
-            .replace(/^### (.+)$/gm, "<h3>$1</h3>")
-            .replace(/^## (.+)$/gm, "<h2>$1</h2>")
-            .replace(/^# (.+)$/gm, "<h1>$1</h1>")
-            .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
-            .replace(/\*(.+?)\*/g, "<em>$1</em>")
-            .replace(/`(.+?)`/g, "<code>$1</code>")
-            .replace(/^> (.+)$/gm, "<blockquote>$1</blockquote>")
-            .replace(/^- (.+)$/gm, "<li>$1</li>")
-            .replace(/\n/g, "<br>");
-
-          preview.innerHTML = value || `
-            <span style="color:var(--text-muted)">
-              Preview appears here…
-            </span>
-          `;
+          value = value.replace(/^### (.+)$/gm, "<h3>$1</h3>").replace(/^## (.+)$/gm, "<h2>$1</h2>").replace(/^# (.+)$/gm, "<h1>$1</h1>")
+            .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>").replace(/\*(.+?)\*/g, "<em>$1</em>").replace(/`(.+?)`/g, "<code>$1</code>")
+            .replace(/^> (.+)$/gm, "<blockquote>$1</blockquote>").replace(/^- (.+)$/gm, "<li>$1</li>").replace(/\n/g, "<br>");
+          preview.innerHTML = value || `<span style="color:var(--text-muted)">Preview appears here…</span>`;
         }
-
-        input.addEventListener("input", render);
-        render();
+        input.addEventListener("input", render); render();
       }
 
       function renderWordCount(container) {
         container.innerHTML = `
-          <textarea
-            class="note-area"
-            id="wordCountInput"
-            placeholder="Type or paste text here…"></textarea>
-
-          <div style="
-            display:grid;
-            grid-template-columns:repeat(3,1fr);
-            gap:8px;
-            margin-top:12px;
-            text-align:center">
-
-            <div style="padding:12px;background:var(--surface-2);border-radius:8px">
-              <div id="wordCount" style="font-size:24px;font-weight:700;color:var(--accent-hover)">0</div>
-              <small style="color:var(--text-muted)">Words</small>
+          <textarea class="note-area" id="wordCountInput" placeholder="Type or paste text here…"></textarea>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px;text-align:center">
+            <div style="padding:12px;background:var(--surface-2);border-radius:8px;border:1px solid var(--border)">
+              <div id="wordCount" style="font-size:24px;font-weight:700;color:var(--accent)">0</div><small style="color:var(--text-muted)">Words</small>
             </div>
-
-            <div style="padding:12px;background:var(--surface-2);border-radius:8px">
-              <div id="characterCount" style="font-size:24px;font-weight:700;color:var(--accent-hover)">0</div>
-              <small style="color:var(--text-muted)">Characters</small>
+            <div style="padding:12px;background:var(--surface-2);border-radius:8px;border:1px solid var(--border)">
+              <div id="characterCount" style="font-size:24px;font-weight:700;color:var(--accent)">0</div><small style="color:var(--text-muted)">Characters</small>
             </div>
-
-            <div style="padding:12px;background:var(--surface-2);border-radius:8px">
-              <div id="sentenceCount" style="font-size:24px;font-weight:700;color:var(--accent-hover)">0</div>
-              <small style="color:var(--text-muted)">Sentences</small>
+            <div style="padding:12px;background:var(--surface-2);border-radius:8px;border:1px solid var(--border)">
+              <div id="sentenceCount" style="font-size:24px;font-weight:700;color:var(--accent)">0</div><small style="color:var(--text-muted)">Sentences</small>
             </div>
           </div>
         `;
-
         const input = $("#wordCountInput", container);
-
         input.addEventListener("input", () => {
           const text = input.value.trim();
-
-          $("#wordCount", container).textContent =
-            text ? text.split(/\s+/).length : 0;
-
-          $("#characterCount", container).textContent =
-            input.value.length;
-
-          $("#sentenceCount", container).textContent =
-            text ? Math.max(1, (text.match(/[.!?]+/g) || []).length) : 0;
+          $("#wordCount", container).textContent = text ? text.split(/\s+/).length : 0;
+          $("#characterCount", container).textContent = input.value.length;
+          $("#sentenceCount", container).textContent = text ? Math.max(1, (text.match(/[.!?]+/g) || []).length) : 0;
         });
       }
 
       function renderContrast(container) {
         container.innerHTML = `
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-            <label style="font-size:12px;color:var(--text-muted)">
-              Foreground
-              <input
-                id="foregroundColor"
-                type="color"
-                value="#000000"
-                style="display:block;width:100%;height:42px;margin-top:5px">
-            </label>
-
-            <label style="font-size:12px;color:var(--text-muted)">
-              Background
-              <input
-                id="backgroundColor"
-                type="color"
-                value="#ffffff"
-                style="display:block;width:100%;height:42px;margin-top:5px">
-            </label>
+            <label style="font-size:12px;color:var(--text-muted)">Foreground<input id="foregroundColor" type="color" value="#000000" style="display:block;width:100%;height:42px;margin-top:5px;border:0;cursor:pointer;background:transparent"></label>
+            <label style="font-size:12px;color:var(--text-muted)">Background<input id="backgroundColor" type="color" value="#ffffff" style="display:block;width:100%;height:42px;margin-top:5px;border:0;cursor:pointer;background:transparent"></label>
           </div>
-
-          <div class="contrast-preview" id="contrastPreview">
-            Sample Text
-          </div>
-
+          <div class="contrast-preview" id="contrastPreview">Sample Text</div>
           <div class="contrast-ratio" id="contrastRatio">21:1</div>
           <div class="contrast-status" id="contrastStatus"></div>
         `;
-
-        const foreground = $("#foregroundColor", container);
-        const background = $("#backgroundColor", container);
-        const preview = $("#contrastPreview", container);
-        const ratio = $("#contrastRatio", container);
-        const status = $("#contrastStatus", container);
-
+        const foreground = $("#foregroundColor", container), background = $("#backgroundColor", container), preview = $("#contrastPreview", container), ratio = $("#contrastRatio", container), status = $("#contrastStatus", container);
         function luminance(hex) {
-          const rgb = [
-            parseInt(hex.slice(1, 3), 16),
-            parseInt(hex.slice(3, 5), 16),
-            parseInt(hex.slice(5, 7), 16)
-          ].map(value => {
-            const channel = value / 255;
-            return channel <= .03928
-              ? channel / 12.92
-              : Math.pow((channel + .055) / 1.055, 2.4);
+          const rgb = [parseInt(hex.slice(1, 3), 16), parseInt(hex.slice(3, 5), 16), parseInt(hex.slice(5, 7), 16)].map(v => {
+            const c = v / 255; return c <= .03928 ? c / 12.92 : Math.pow((c + .055) / 1.055, 2.4);
           });
-
           return .2126 * rgb[0] + .7152 * rgb[1] + .0722 * rgb[2];
         }
-
         function update() {
-          const first = luminance(foreground.value);
-          const second = luminance(background.value);
-          const light = Math.max(first, second);
-          const dark = Math.min(first, second);
+          const first = luminance(foreground.value), second = luminance(background.value);
+          const light = Math.max(first, second), dark = Math.min(first, second);
           const value = (light + .05) / (dark + .05);
-
-          preview.style.color = foreground.value;
-          preview.style.background = background.value;
+          preview.style.color = foreground.value; preview.style.background = background.value;
           ratio.textContent = `${value.toFixed(2)}:1`;
-
-          if (value >= 7) {
-            status.textContent = "WCAG AAA pass";
-            status.style.color = "#10b981";
-          } else if (value >= 4.5) {
-            status.textContent = "WCAG AA pass";
-            status.style.color = "#f59e0b";
-          } else {
-            status.textContent = "WCAG contrast fail";
-            status.style.color = "#ef4444";
-          }
+          if (value >= 7) { status.textContent = "WCAG AAA pass"; status.style.color = "#10b981"; }
+          else if (value >= 4.5) { status.textContent = "WCAG AA pass"; status.style.color = "#f59e0b"; }
+          else { status.textContent = "WCAG contrast fail"; status.style.color = "#ef4444"; }
         }
-
-        foreground.addEventListener("input", update);
-        background.addEventListener("input", update);
-        update();
+        foreground.addEventListener("input", update); background.addEventListener("input", update); update();
       }
 
       function renderShadow(container) {
         container.innerHTML = `
-          <div
-            id="shadowPreview"
-            style="
-              width:150px;
-              height:150px;
-              margin:0 auto 24px;
-              border-radius:14px;
-              background:var(--surface-2)">
-          </div>
-
-          <label style="display:block;font-size:12px;color:var(--text-muted)">
-            Horizontal offset
-            <input id="shadowX" type="range" min="-50" max="50" value="10" style="width:100%">
-          </label>
-
-          <label style="display:block;font-size:12px;color:var(--text-muted)">
-            Vertical offset
-            <input id="shadowY" type="range" min="-50" max="50" value="10" style="width:100%">
-          </label>
-
-          <label style="display:block;font-size:12px;color:var(--text-muted)">
-            Blur
-            <input id="shadowBlur" type="range" min="0" max="100" value="20" style="width:100%">
-          </label>
-
-          <label style="display:block;font-size:12px;color:var(--text-muted)">
-            Opacity
-            <input id="shadowOpacity" type="range" min="0" max="100" value="30" style="width:100%">
-          </label>
-
+          <div id="shadowPreview" style="width:150px;height:150px;margin:0 auto 24px;border-radius:14px;background:var(--surface-2);border:1px solid var(--border)"></div>
+          <label style="display:block;font-size:12px;color:var(--text-muted);margin-bottom:8px">Horizontal offset <input id="shadowX" type="range" min="-50" max="50" value="10" style="width:100%"></label>
+          <label style="display:block;font-size:12px;color:var(--text-muted);margin-bottom:8px">Vertical offset <input id="shadowY" type="range" min="-50" max="50" value="10" style="width:100%"></label>
+          <label style="display:block;font-size:12px;color:var(--text-muted);margin-bottom:8px">Blur <input id="shadowBlur" type="range" min="0" max="100" value="20" style="width:100%"></label>
+          <label style="display:block;font-size:12px;color:var(--text-muted);margin-bottom:8px">Opacity <input id="shadowOpacity" type="range" min="0" max="100" value="30" style="width:100%"></label>
           <textarea class="code-area" id="shadowCode" readonly style="min-height:70px"></textarea>
-
-          <div class="tool-actions">
-            <button class="tool-btn primary" id="copyShadow">Copy CSS</button>
-          </div>
-
+          <div class="tool-actions"><button class="tool-btn primary" id="copyShadow">Copy CSS</button></div>
           <div class="tool-message" id="shadowMessage"></div>
         `;
-
-        const preview = $("#shadowPreview", container);
-        const code = $("#shadowCode", container);
-        const message = $("#shadowMessage", container);
-
+        const preview = $("#shadowPreview", container), code = $("#shadowCode", container), message = $("#shadowMessage", container);
         function update() {
-          const x = $("#shadowX", container).value;
-          const y = $("#shadowY", container).value;
-          const blur = $("#shadowBlur", container).value;
+          const x = $("#shadowX", container).value, y = $("#shadowY", container).value, blur = $("#shadowBlur", container).value;
           const opacity = Number($("#shadowOpacity", container).value) / 100;
           const shadow = `${x}px ${y}px ${blur}px rgba(0,0,0,${opacity})`;
-
-          preview.style.boxShadow = shadow;
-          code.value = `box-shadow: ${shadow};`;
+          preview.style.boxShadow = shadow; code.value = `box-shadow: ${shadow};`;
         }
-
-        $$("input[type='range']", container).forEach(input => {
-          input.addEventListener("input", update);
-        });
-
+        $$("input[type='range']", container).forEach(input => { input.addEventListener("input", update); });
         $("#copyShadow", container).addEventListener("click", async () => {
-          try {
-            await navigator.clipboard.writeText(code.value);
-            message.textContent = "Copied to clipboard";
-          } catch {
-            message.textContent = "Copy was not available";
-          }
+          haptic();
+          try { await navigator.clipboard.writeText(code.value); message.textContent = "Copied to clipboard"; }
+          catch { message.textContent = "Copy was not available"; }
         });
-
         update();
       }
 
       function renderLorem(container) {
-        const sentence =
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
-
+        const sentence = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
         container.innerHTML = `
-          <label style="display:flex;align-items:center;gap:8px;font-size:13px">
-            Paragraphs
-            <input class="control" id="loremAmount" type="number" min="1" max="10" value="3" style="width:80px">
-          </label>
-
-          <div class="tool-actions">
-            <button class="tool-btn primary" id="generateLorem">Generate</button>
-            <button class="tool-btn" id="copyLorem">Copy</button>
-          </div>
-
-          <textarea class="code-area" id="loremOutput" readonly></textarea>
+          <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-sub)">Paragraphs <input class="control" id="loremAmount" type="number" min="1" max="10" value="3" style="width:80px"></label>
+          <div class="tool-actions"><button class="tool-btn primary" id="generateLorem">Generate</button><button class="tool-btn" id="copyLorem">Copy</button></div>
+          <textarea class="code-area" id="loremOutput" readonly style="margin-top:12px"></textarea>
         `;
-
         const output = $("#loremOutput", container);
-
         function generate() {
-          const amount = Math.min(
-            10,
-            Math.max(1, Number($("#loremAmount", container).value) || 3)
-          );
-
-          output.value = Array.from(
-            { length: amount },
-            () => sentence
-          ).join("\n\n");
+          const amount = Math.min(10, Math.max(1, Number($("#loremAmount", container).value) || 3));
+          output.value = Array.from({ length: amount }, () => sentence).join("\n\n");
         }
-
-        $("#generateLorem", container).addEventListener("click", generate);
-
+        $("#generateLorem", container).addEventListener("click", () => { haptic(); generate(); });
         $("#copyLorem", container).addEventListener("click", async () => {
-          try {
-            await navigator.clipboard.writeText(output.value);
-          } catch {}
+          haptic();
+          try { await navigator.clipboard.writeText(output.value); } catch {}
         });
-
         generate();
       }
 
       function renderBase64(container) {
         container.innerHTML = `
-          <textarea
-            class="code-area"
-            id="base64Input"
-            placeholder="Enter text…"></textarea>
-
-          <div class="tool-actions">
-            <button class="tool-btn primary" id="encodeBase64">Encode</button>
-            <button class="tool-btn" id="decodeBase64">Decode</button>
-          </div>
-
-          <textarea
-            class="code-area"
-            id="base64Output"
-            readonly
-            placeholder="Result…"></textarea>
+          <textarea class="code-area" id="base64Input" placeholder="Enter text…"></textarea>
+          <div class="tool-actions"><button class="tool-btn primary" id="encodeBase64">Encode</button><button class="tool-btn" id="decodeBase64">Decode</button></div>
+          <textarea class="code-area" id="base64Output" readonly placeholder="Result…" style="margin-top:12px"></textarea>
         `;
-
-        const input = $("#base64Input", container);
-        const output = $("#base64Output", container);
-
+        const input = $("#base64Input", container), output = $("#base64Output", container);
         $("#encodeBase64", container).addEventListener("click", () => {
-          try {
-            output.value = btoa(unescape(encodeURIComponent(input.value)));
-          } catch {
-            output.value = "Unable to encode";
-          }
+          haptic();
+          try { output.value = btoa(unescape(encodeURIComponent(input.value))); } catch { output.value = "Unable to encode"; }
         });
-
         $("#decodeBase64", container).addEventListener("click", () => {
-          try {
-            output.value = decodeURIComponent(escape(atob(input.value)));
-          } catch {
-            output.value = "Invalid Base64";
-          }
+          haptic();
+          try { output.value = decodeURIComponent(escape(atob(input.value))); } catch { output.value = "Invalid Base64"; }
         });
       }
 
       function renderRegex(container) {
         container.innerHTML = `
-          <input
-            class="control"
-            id="regexPattern"
-            placeholder="Pattern, for example: \\\\d+">
-
-          <textarea
-            class="code-area"
-            id="regexText"
-            placeholder="Text to test…"
-            style="margin-top:10px"></textarea>
-
-          <div
-            id="regexResult"
-            style="
-              margin-top:10px;
-              padding:12px;
-              border-radius:8px;
-              background:var(--surface-2);
-              font-family:var(--mono);
-              font-size:12px;
-              white-space:pre-wrap">
-            Enter a pattern and some text.
-          </div>
+          <input class="control" id="regexPattern" placeholder="Pattern, for example: \\d+">
+          <textarea class="code-area" id="regexText" placeholder="Text to test…" style="margin-top:10px"></textarea>
+          <div id="regexResult" style="margin-top:10px;padding:12px;border-radius:8px;background:var(--surface-2);font-family:var(--mono);font-size:12px;white-space:pre-wrap;border:1px solid var(--border)">Enter a pattern and some text.</div>
         `;
-
-        const pattern = $("#regexPattern", container);
-        const text = $("#regexText", container);
-        const result = $("#regexResult", container);
-
+        const pattern = $("#regexPattern", container), text = $("#regexText", container), result = $("#regexResult", container);
         function test() {
-          if (!pattern.value) {
-            result.textContent = "Enter a pattern and some text.";
-            return;
-          }
-
+          if (!pattern.value) { result.textContent = "Enter a pattern and some text."; return; }
           try {
-            const regex = new RegExp(pattern.value, "g");
-            const matches = text.value.match(regex) || [];
-
-            result.textContent = matches.length
-              ? `${matches.length} match(es):\n${matches.join("\n")}`
-              : "No matches found.";
-          } catch (error) {
-            result.textContent = `Invalid regular expression: ${error.message}`;
-          }
+            const regex = new RegExp(pattern.value, "g"), matches = text.value.match(regex) || [];
+            result.textContent = matches.length ? `${matches.length} match(es):\n${matches.join("\n")}` : "No matches found.";
+          } catch (error) { result.textContent = `Invalid regular expression: ${error.message}`; }
         }
-
-        pattern.addEventListener("input", test);
-        text.addEventListener("input", test);
+        pattern.addEventListener("input", test); text.addEventListener("input", test);
       }
 
       function renderPomodoro(container) {
         container.innerHTML = `
           <div class="timer-display" id="pomodoroDisplay">25:00</div>
-
-          <div class="center-actions">
-            <button class="tool-btn primary" id="pomodoroStart">Start</button>
-            <button class="tool-btn" id="pomodoroReset">Reset</button>
-          </div>
-
+          <div class="center-actions"><button class="tool-btn primary" id="pomodoroStart">Start</button><button class="tool-btn" id="pomodoroReset">Reset</button></div>
           <div class="center-actions" style="margin-top:14px">
-            <button class="tool-btn" data-minutes="25">Focus</button>
-            <button class="tool-btn" data-minutes="5">Short break</button>
-            <button class="tool-btn" data-minutes="15">Long break</button>
+            <button class="tool-btn" data-minutes="25">Focus</button><button class="tool-btn" data-minutes="5">Short break</button><button class="tool-btn" data-minutes="15">Long break</button>
           </div>
         `;
-
-        const display = $("#pomodoroDisplay", container);
-        const start = $("#pomodoroStart", container);
-
-        let seconds = 25 * 60;
-        let timer = null;
-        let running = false;
-
+        const display = $("#pomodoroDisplay", container), start = $("#pomodoroStart", container);
+        let seconds = 25 * 60, timer = null, running = false;
         function update() {
-          const minutes = Math.floor(seconds / 60);
-          const remainingSeconds = seconds % 60;
-
-          display.textContent =
-            `${String(minutes).padStart(2, "0")}:${String(remainingSeconds).padStart(2, "0")}`;
+          const m = Math.floor(seconds / 60), s = seconds % 60;
+          display.textContent = `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
         }
-
         start.addEventListener("click", () => {
-          if (running) {
-            clearInterval(timer);
-            running = false;
-            start.textContent = "Resume";
-            return;
-          }
-
+          haptic();
+          if (running) { clearInterval(timer); running = false; start.textContent = "Resume"; return; }
           timer = setInterval(() => {
-            if (seconds <= 0) {
-              clearInterval(timer);
-              running = false;
-              start.textContent = "Done";
-              return;
-            }
-
-            seconds--;
-            update();
+            if (seconds <= 0) { clearInterval(timer); running = false; start.textContent = "Done"; return; }
+            seconds--; update();
           }, 1000);
-
-          running = true;
-          start.textContent = "Pause";
+          running = true; start.textContent = "Pause";
         });
-
         $("#pomodoroReset", container).addEventListener("click", () => {
-          clearInterval(timer);
-          seconds = 25 * 60;
-          running = false;
-          start.textContent = "Start";
-          update();
+          haptic(); clearInterval(timer); seconds = 25 * 60; running = false; start.textContent = "Start"; update();
         });
-
         $$("[data-minutes]", container).forEach(button => {
           button.addEventListener("click", () => {
-            clearInterval(timer);
-            seconds = Number(button.dataset.minutes) * 60;
-            running = false;
-            start.textContent = "Start";
-            update();
+            haptic(); clearInterval(timer); seconds = Number(button.dataset.minutes) * 60; running = false; start.textContent = "Start"; update();
           });
         });
-
         update();
       }
 
       function renderNotes(container) {
         container.innerHTML = `
           <textarea class="note-area" id="notesInput" placeholder="Write notes here…"></textarea>
-          <div class="tool-actions">
-            <button class="tool-btn" id="clearNotes">Clear</button>
-          </div>
+          <div class="tool-actions"><button class="tool-btn" id="clearNotes">Clear</button></div>
           <div class="tool-message" id="notesMessage">Auto-saving locally</div>
         `;
-
-        const input = $("#notesInput", container);
-        const message = $("#notesMessage", container);
-        const saved = localStorage.getItem("dih_notes") || "";
-
-        input.value = saved;
-
-        input.addEventListener("input", () => {
-          localStorage.setItem("dih_notes", input.value);
-          message.textContent = "Saved locally";
-        });
-
+        const input = $("#notesInput", container), message = $("#notesMessage", container);
+        input.value = localStorage.getItem("dih_notes") || "";
+        input.addEventListener("input", () => { localStorage.setItem("dih_notes", input.value); message.textContent = "Saved locally"; });
         $("#clearNotes", container).addEventListener("click", () => {
-          input.value = "";
-          localStorage.removeItem("dih_notes");
-          message.textContent = "Notes cleared";
+          haptic(); input.value = ""; localStorage.removeItem("dih_notes"); message.textContent = "Notes cleared";
         });
       }
 
       function renderTasks(container) {
         container.innerHTML = `
-          <div class="add-row">
-            <input class="control" id="taskInput" placeholder="Add a task">
+          <div style="display:flex;gap:8px">
+            <input class="control" id="taskInput" placeholder="Add a task" style="flex:1">
             <button class="tool-btn primary" id="addTask">Add</button>
           </div>
-
           <div class="task-list" id="taskList" style="display:grid;gap:8px;margin-top:12px"></div>
         `;
-
-        const input = $("#taskInput", container);
-        const list = $("#taskList", container);
+        const input = $("#taskInput", container), list = $("#taskList", container);
         let tasks = JSON.parse(localStorage.getItem("dih_tasks") || "[]");
-
-        function save() {
-          localStorage.setItem("dih_tasks", JSON.stringify(tasks));
-        }
-
+        function save() { localStorage.setItem("dih_tasks", JSON.stringify(tasks)); }
         function render() {
           list.innerHTML = "";
-
-          if (!tasks.length) {
-            list.innerHTML = `
-              <p style="color:var(--text-muted);font-size:13px">
-                No tasks yet.
-              </p>
-            `;
-            return;
-          }
-
+          if (!tasks.length) { list.innerHTML = `<p style="color:var(--text-muted);font-size:13px;text-align:center;padding:20px">No tasks yet.</p>`; return; }
           tasks.forEach((task, index) => {
             const row = document.createElement("div");
-
-            row.style.cssText = `
-              display:flex;
-              align-items:center;
-              gap:10px;
-              padding:10px;
-              border-radius:8px;
-              background:var(--surface-2);
-            `;
-
+            row.style.cssText = "display:flex;align-items:center;gap:10px;padding:12px;border-radius:8px;background:var(--surface-2);border:1px solid var(--border)";
             row.innerHTML = `
-              <input type="checkbox" ${task.done ? "checked" : ""}>
-              <span style="flex:1;${task.done ? "text-decoration:line-through;color:var(--text-muted)" : ""}">
-                ${escapeHtml(task.text)}
-              </span>
-              <button class="task-delete" style="background:none;color:var(--text-muted);font-size:18px;cursor:pointer">×</button>
+              <input type="checkbox" ${task.done ? "checked" : ""} style="accent-color:var(--accent);width:18px;height:18px;cursor:pointer">
+              <span style="flex:1;${task.done ? "text-decoration:line-through;color:var(--text-muted)" : ""}">${escapeHtml(task.text)}</span>
+              <button class="task-delete" style="background:none;color:var(--text-muted);font-size:18px;cursor:pointer;padding:4px">×</button>
             `;
-
-            $("input", row).addEventListener("change", event => {
-              tasks[index].done = event.target.checked;
-              save();
-              render();
-            });
-
-            $(".task-delete", row).addEventListener("click", () => {
-              tasks.splice(index, 1);
-              save();
-              render();
-            });
-
+            $("input", row).addEventListener("change", event => { tasks[index].done = event.target.checked; save(); render(); });
+            $(".task-delete", row).addEventListener("click", () => { haptic(); tasks.splice(index, 1); save(); render(); });
             list.appendChild(row);
           });
         }
-
         function addTask() {
           if (!input.value.trim()) return;
-
-          tasks.push({
-            text: input.value.trim(),
-            done: false
-          });
-
-          input.value = "";
-          save();
-          render();
+          tasks.push({ text: input.value.trim(), done: false });
+          input.value = ""; save(); render();
         }
-
-        $("#addTask", container).addEventListener("click", addTask);
-
-        input.addEventListener("keydown", event => {
-          if (event.key === "Enter") addTask();
-        });
-
+        $("#addTask", container).addEventListener("click", () => { haptic(); addTask(); });
+        input.addEventListener("keydown", event => { if (event.key === "Enter") { haptic(); addTask(); } });
         render();
       }
 
       function renderHabits(container) {
         container.innerHTML = `
-          <div class="add-row">
-            <input class="control" id="habitInput" placeholder="Add a habit">
+          <div style="display:flex;gap:8px">
+            <input class="control" id="habitInput" placeholder="Add a habit" style="flex:1">
             <button class="tool-btn primary" id="addHabit">Add</button>
           </div>
-
           <div id="habitList" style="display:grid;gap:10px;margin-top:12px"></div>
         `;
-
-        const input = $("#habitInput", container);
-        const list = $("#habitList", container);
+        const input = $("#habitInput", container), list = $("#habitList", container);
         let habits = JSON.parse(localStorage.getItem("dih_habits") || "[]");
-
-        function save() {
-          localStorage.setItem("dih_habits", JSON.stringify(habits));
-        }
-
+        function save() { localStorage.setItem("dih_habits", JSON.stringify(habits)); }
         function render() {
           list.innerHTML = "";
-
           habits.forEach((habit, index) => {
             const row = document.createElement("div");
-
-            row.style.cssText = `
-              padding:12px;
-              border-radius:8px;
-              background:var(--surface-2);
-            `;
-
+            row.style.cssText = "padding:14px;border-radius:8px;background:var(--surface-2);border:1px solid var(--border)";
             row.innerHTML = `
-              <div style="display:flex;justify-content:space-between;gap:8px;margin-bottom:8px">
+              <div style="display:flex;justify-content:space-between;gap:8px;margin-bottom:10px">
                 <strong>${escapeHtml(habit.name)}</strong>
-                <button class="habit-delete" style="background:none;color:var(--text-muted);font-size:18px;cursor:pointer">×</button>
+                <button class="habit-delete" style="background:none;color:var(--text-muted);font-size:18px;cursor:pointer;padding:0">×</button>
               </div>
-
               <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px">
                 ${["M","T","W","T","F","S","S"].map((day, dayIndex) => `
-                  <button
-                    class="habit-day"
-                    data-day="${dayIndex}"
-                    style="
-                      padding:6px 2px;
-                      border:0;
-                      border-radius:5px;
-                      cursor:pointer;
-                      background:${habit.days?.includes(dayIndex) ? "var(--accent)" : "var(--surface-3)"};
-                      color:${habit.days?.includes(dayIndex) ? "white" : "var(--text-sub)"};
-                      font-size:11px">
-                    ${day}
-                  </button>
+                  <button class="habit-day" data-day="${dayIndex}" style="padding:8px 2px;border:0;border-radius:6px;cursor:pointer;background:${habit.days?.includes(dayIndex) ? "var(--accent)" : "var(--surface-3)"};color:${habit.days?.includes(dayIndex) ? "white" : "var(--text-sub)"};font-size:11px;font-weight:600;transition:0.2s">${day}</button>
                 `).join("")}
               </div>
             `;
-
-            $(".habit-delete", row).addEventListener("click", () => {
-              habits.splice(index, 1);
-              save();
-              render();
-            });
-
+            $(".habit-delete", row).addEventListener("click", () => { haptic(); habits.splice(index, 1); save(); render(); });
             $$(".habit-day", row).forEach(dayButton => {
               dayButton.addEventListener("click", () => {
                 habit.days ||= [];
-
-                const dayIndex = Number(dayButton.dataset.day);
-                const position = habit.days.indexOf(dayIndex);
-
-                if (position >= 0) {
-                  habit.days.splice(position, 1);
-                } else {
-                  habit.days.push(dayIndex);
-                }
-
-                save();
-                render();
+                const dayIndex = Number(dayButton.dataset.day), pos = habit.days.indexOf(dayIndex);
+                if (pos >= 0) habit.days.splice(pos, 1); else habit.days.push(dayIndex);
+                save(); render();
               });
             });
-
             list.appendChild(row);
           });
         }
-
         function addHabit() {
           if (!input.value.trim()) return;
-
-          habits.push({
-            name: input.value.trim(),
-            days: []
-          });
-
-          input.value = "";
-          save();
-          render();
+          habits.push({ name: input.value.trim(), days: [] });
+          input.value = ""; save(); render();
         }
-
-        $("#addHabit", container).addEventListener("click", addHabit);
-
-        input.addEventListener("keydown", event => {
-          if (event.key === "Enter") addHabit();
-        });
-
+        $("#addHabit", container).addEventListener("click", () => { haptic(); addHabit(); });
+        input.addEventListener("keydown", event => { if (event.key === "Enter") { haptic(); addHabit(); } });
         render();
       }
 
       function renderMeeting(container) {
         container.innerHTML = `
           <input class="control" id="meetingTitle" placeholder="Meeting title">
-
           <div style="height:10px"></div>
-
-          <textarea
-            class="note-area"
-            id="meetingNotes"
-            placeholder="Agenda, discussion points and actions…"></textarea>
-
-          <div class="tool-actions">
-            <button class="tool-btn primary" id="saveMeeting">Save notes</button>
-            <button class="tool-btn" id="clearMeeting">Clear</button>
-          </div>
-
+          <textarea class="note-area" id="meetingNotes" placeholder="Agenda, discussion points and actions…"></textarea>
+          <div class="tool-actions"><button class="tool-btn primary" id="saveMeeting">Save notes</button><button class="tool-btn" id="clearMeeting">Clear</button></div>
           <div class="tool-message" id="meetingMessage"></div>
         `;
-
-        const title = $("#meetingTitle", container);
-        const notes = $("#meetingNotes", container);
-        const message = $("#meetingMessage", container);
-        const saved = JSON.parse(
-          localStorage.getItem("dih_meeting") || "null"
-        );
-
-        if (saved) {
-          title.value = saved.title || "";
-          notes.value = saved.notes || "";
-        }
-
+        const title = $("#meetingTitle", container), notes = $("#meetingNotes", container), message = $("#meetingMessage", container);
+        const saved = JSON.parse(localStorage.getItem("dih_meeting") || "null");
+        if (saved) { title.value = saved.title || ""; notes.value = saved.notes || ""; }
         $("#saveMeeting", container).addEventListener("click", () => {
-          localStorage.setItem("dih_meeting", JSON.stringify({
-            title: title.value,
-            notes: notes.value
-          }));
-
+          haptic();
+          localStorage.setItem("dih_meeting", JSON.stringify({ title: title.value, notes: notes.value }));
           message.textContent = "Meeting notes saved";
         });
-
         $("#clearMeeting", container).addEventListener("click", () => {
-          title.value = "";
-          notes.value = "";
-          localStorage.removeItem("dih_meeting");
-          message.textContent = "Meeting notes cleared";
+          haptic(); title.value = ""; notes.value = ""; localStorage.removeItem("dih_meeting"); message.textContent = "Meeting notes cleared";
         });
       }
 
       function renderFont(container) {
         container.innerHTML = `
           <input class="control" id="fontText" value="The quick brown fox jumps over the lazy dog">
-
           <div style="height:10px"></div>
-
           <select class="control" id="fontFamily">
-            <option value="Inter, sans-serif">Inter</option>
-            <option value="Arial, sans-serif">Arial</option>
-            <option value="Georgia, serif">Georgia</option>
-            <option value="Verdana, sans-serif">Verdana</option>
+            <option value="Inter, sans-serif">Inter</option><option value="Arial, sans-serif">Arial</option>
+            <option value="Georgia, serif">Georgia</option><option value="Verdana, sans-serif">Verdana</option>
             <option value="'Courier New', monospace">Courier New</option>
           </select>
-
-          <label style="display:block;margin-top:12px;color:var(--text-muted);font-size:12px">
-            Font size
-            <input id="fontSize" type="range" min="12" max="72" value="26" style="width:100%">
-          </label>
-
-          <div
-            id="fontPreview"
-            style="
-              margin-top:14px;
-              padding:22px;
-              border-radius:8px;
-              background:var(--surface-2);
-              text-align:center;
-              font-size:26px">
-            The quick brown fox jumps over the lazy dog
-          </div>
+          <label style="display:block;margin-top:12px;color:var(--text-muted);font-size:12px">Font size <input id="fontSize" type="range" min="12" max="72" value="26" style="width:100%"></label>
+          <div id="fontPreview" style="margin-top:14px;padding:24px;border-radius:8px;background:var(--surface-2);text-align:center;font-size:26px;border:1px solid var(--border)">The quick brown fox jumps over the lazy dog</div>
         `;
-
-        const text = $("#fontText", container);
-        const family = $("#fontFamily", container);
-        const size = $("#fontSize", container);
-        const preview = $("#fontPreview", container);
-
-        function update() {
-          preview.textContent = text.value || "Preview text";
-          preview.style.fontFamily = family.value;
-          preview.style.fontSize = `${size.value}px`;
-        }
-
-        text.addEventListener("input", update);
-        family.addEventListener("change", update);
-        size.addEventListener("input", update);
+        const text = $("#fontText", container), family = $("#fontFamily", container), size = $("#fontSize", container), preview = $("#fontPreview", container);
+        function update() { preview.textContent = text.value || "Preview text"; preview.style.fontFamily = family.value; preview.style.fontSize = `${size.value}px`; }
+        text.addEventListener("input", update); family.addEventListener("change", update); size.addEventListener("input", update);
       }
 
       function renderTimezone(container) {
         container.innerHTML = `
           <select class="control" id="timezoneSelect">
-            <option value="Europe/London">London</option>
-            <option value="Asia/Tokyo">Tokyo</option>
-            <option value="America/New_York">New York</option>
-            <option value="America/Los_Angeles">Los Angeles</option>
-            <option value="Australia/Sydney">Sydney</option>
-            <option value="Europe/Paris">Paris</option>
+            <option value="Europe/London">London</option><option value="Asia/Tokyo">Tokyo</option>
+            <option value="America/New_York">New York</option><option value="America/Los_Angeles">Los Angeles</option>
+            <option value="Australia/Sydney">Sydney</option><option value="Europe/Paris">Paris</option>
           </select>
-
-          <div
-            id="timezoneClock"
-            style="
-              margin-top:16px;
-              padding:20px;
-              border-radius:8px;
-              background:var(--accent-soft);
-              color:var(--accent-hover);
-              font-family:var(--mono);
-              font-size:24px;
-              text-align:center">
-          </div>
+          <div id="timezoneClock" style="margin-top:16px;padding:20px;border-radius:8px;background:var(--accent-soft);color:var(--accent);font-family:var(--mono);font-size:24px;text-align:center;border:1px solid var(--border)"></div>
         `;
-
-        const select = $("#timezoneSelect", container);
-        const clock = $("#timezoneClock", container);
-
+        const select = $("#timezoneSelect", container), clock = $("#timezoneClock", container);
         function update() {
-          clock.textContent = new Intl.DateTimeFormat("en-GB", {
-            timeZone: select.value,
-            dateStyle: "medium",
-            timeStyle: "medium"
-          }).format(new Date());
+          clock.textContent = new Intl.DateTimeFormat("en-GB", { timeZone: select.value, dateStyle: "medium", timeStyle: "medium" }).format(new Date());
         }
-
-        select.addEventListener("change", update);
-        update();
-
+        select.addEventListener("change", update); update();
         const interval = setInterval(() => {
-          if (!overlay.classList.contains("active")) {
-            clearInterval(interval);
-            return;
-          }
-
+          if (!overlay.classList.contains("active")) { clearInterval(interval); return; }
           update();
         }, 1000);
       }
 
       function renderPalette(container) {
         container.innerHTML = `
-          <input
-            id="paletteColor"
-            type="color"
-            value="#6366f1"
-            style="width:100%;height:48px;border:0;background:transparent;cursor:pointer">
-
+          <input id="paletteColor" type="color" value="#3B82F6" style="width:100%;height:48px;border:0;background:transparent;cursor:pointer;border-radius:8px">
           <select class="control" id="paletteMode" style="margin-top:10px">
-            <option value="analogous">Analogous</option>
-            <option value="triadic">Triadic</option>
-            <option value="complementary">Complementary</option>
+            <option value="analogous">Analogous</option><option value="triadic">Triadic</option><option value="complementary">Complementary</option>
           </select>
-
-          <div
-            id="palettePreview"
-            style="
-              display:grid;
-              grid-template-columns:repeat(5,1fr);
-              height:72px;
-              margin-top:14px;
-              border-radius:8px;
-              overflow:hidden">
-          </div>
-
+          <div id="palettePreview" style="display:grid;grid-template-columns:repeat(5,1fr);height:72px;margin-top:14px;border-radius:8px;overflow:hidden;border:1px solid var(--border)"></div>
           <div id="paletteValues" style="display:grid;gap:6px;margin-top:12px"></div>
         `;
-
-        const color = $("#paletteColor", container);
-        const mode = $("#paletteMode", container);
-        const preview = $("#palettePreview", container);
-        const values = $("#paletteValues", container);
-
+        const color = $("#paletteColor", container), mode = $("#paletteMode", container), preview = $("#palettePreview", container), values = $("#paletteValues", container);
         function hexToHsl(hex) {
-          let r = parseInt(hex.slice(1, 3), 16) / 255;
-          let g = parseInt(hex.slice(3, 5), 16) / 255;
-          let b = parseInt(hex.slice(5, 7), 16) / 255;
-
-          const max = Math.max(r, g, b);
-          const min = Math.min(r, g, b);
-          const difference = max - min;
-
-          let h = 0;
-          let s = 0;
-          const l = (max + min) / 2;
-
-          if (difference) {
-            s = difference / (1 - Math.abs(2 * l - 1));
-
-            switch (max) {
-              case r:
-                h = 60 * (((g - b) / difference) % 6);
-                break;
-              case g:
-                h = 60 * ((b - r) / difference + 2);
-                break;
-              default:
-                h = 60 * ((r - g) / difference + 4);
-            }
+          let r = parseInt(hex.slice(1, 3), 16) / 255, g = parseInt(hex.slice(3, 5), 16) / 255, b = parseInt(hex.slice(5, 7), 16) / 255;
+          const max = Math.max(r, g, b), min = Math.min(r, g, b), diff = max - min;
+          let h = 0, s = 0, l = (max + min) / 2;
+          if (diff) {
+            s = diff / (1 - Math.abs(2 * l - 1));
+            if (max === r) h = 60 * (((g - b) / diff) % 6);
+            else if (max === g) h = 60 * ((b - r) / diff + 2);
+            else h = 60 * ((r - g) / diff + 4);
           }
-
           if (h < 0) h += 360;
-
           return [h, s * 100, l * 100];
         }
-
         function hslToHex(h, s, l) {
-          s /= 100;
-          l /= 100;
-
-          const chroma = (1 - Math.abs(2 * l - 1)) * s;
-          const x = chroma * (1 - Math.abs((h / 60) % 2 - 1));
-          const match = l - chroma / 2;
-
-          let r = 0;
-          let g = 0;
-          let b = 0;
-
-          if (h < 60) [r, g, b] = [chroma, x, 0];
-          else if (h < 120) [r, g, b] = [x, chroma, 0];
-          else if (h < 180) [r, g, b] = [0, chroma, x];
-          else if (h < 240) [r, g, b] = [0, x, chroma];
-          else if (h < 300) [r, g, b] = [x, 0, chroma];
-          else [r, g, b] = [chroma, 0, x];
-
-          return "#" + [r, g, b]
-            .map(value => Math.round((value + match) * 255)
-            .toString(16)
-            .padStart(2, "0"))
-            .join("");
+          s /= 100; l /= 100;
+          const c = (1 - Math.abs(2 * l - 1)) * s, x = c * (1 - Math.abs((h / 60) % 2 - 1)), m = l - c / 2;
+          let r = 0, g = 0, b = 0;
+          if (h < 60) [r, g, b] = [c, x, 0];
+          else if (h < 120) [r, g, b] = [x, c, 0];
+          else if (h < 180) [r, g, b] = [0, c, x];
+          else if (h < 240) [r, g, b] = [0, x, c];
+          else if (h < 300) [r, g, b] = [x, 0, c];
+          else [r, g, b] = [c, 0, x];
+          return "#" + [r, g, b].map(v => Math.round((v + m) * 255).toString(16).padStart(2, "0")).join("");
         }
-
         function update() {
           const [h, s, l] = hexToHsl(color.value);
-          let offsets;
-
-          if (mode.value === "triadic") {
-            offsets = [0, 120, 240, 60, 300];
-          } else if (mode.value === "complementary") {
-            offsets = [0, 180, 25, 205, 335];
-          } else {
-            offsets = [0, 30, 60, 330, 300];
-          }
-
-          const colours = offsets.map(offset =>
-            hslToHex((h + offset) % 360, s, l)
-          );
-
-          preview.innerHTML = colours
-            .map(value => `<div style="background:${value}"></div>`)
-            .join("");
-
-          values.innerHTML = colours
-            .map(value => `
-              <button
-                class="color-value"
-                data-palette-value="${value}">
-                ${value}
-              </button>
-            `)
-            .join("");
-
+          const offsets = mode.value === "triadic" ? [0, 120, 240, 60, 300] : mode.value === "complementary" ? [0, 180, 25, 205, 335] : [0, 30, 60, 330, 300];
+          const colours = offsets.map(offset => hslToHex((h + offset) % 360, s, l));
+          preview.innerHTML = colours.map(v => `<div style="background:${v}"></div>`).join("");
+          values.innerHTML = colours.map(v => `<button class="color-value" data-palette-value="${v}">${v}</button>`).join("");
           $$(".color-value", values).forEach(button => {
             button.addEventListener("click", async () => {
-              try {
-                await navigator.clipboard.writeText(button.dataset.paletteValue);
-              } catch {}
+              haptic();
+              try { await navigator.clipboard.writeText(button.dataset.paletteValue); } catch {}
             });
           });
         }
-
-        color.addEventListener("input", update);
-        mode.addEventListener("change", update);
-        update();
+        color.addEventListener("input", update); mode.addEventListener("change", update); update();
       }
 
       function renderApi(container) {
         container.innerHTML = `
-          <input
-            class="control"
-            id="apiUrl"
-            type="url"
-            value="https://jsonplaceholder.typicode.com/todos/1"
-            placeholder="https://example.com/api">
-
-          <div class="tool-actions">
-            <button class="tool-btn primary" id="sendApi">Send GET request</button>
-          </div>
-
-          <textarea class="code-area" id="apiOutput" readonly placeholder="Response…"></textarea>
+          <input class="control" id="apiUrl" type="url" value="https://jsonplaceholder.typicode.com/todos/1" placeholder="https://example.com/api">
+          <div class="tool-actions"><button class="tool-btn primary" id="sendApi">Send GET request</button></div>
+          <textarea class="code-area" id="apiOutput" readonly placeholder="Response…" style="margin-top:12px"></textarea>
         `;
-
-        const url = $("#apiUrl", container);
-        const output = $("#apiOutput", container);
-
+        const url = $("#apiUrl", container), output = $("#apiOutput", container);
         $("#sendApi", container).addEventListener("click", async () => {
-          output.value = "Loading…";
-
+          haptic(); output.value = "Loading…";
           try {
             const response = await fetch(url.value);
             const data = await response.json();
             output.value = JSON.stringify(data, null, 2);
-          } catch (error) {
-            output.value = `Request failed: ${error.message}`;
-          }
+          } catch (error) { output.value = `Request failed: ${error.message}`; }
         });
       }
 
       function renderInvoice(container) {
         container.innerHTML = `
           <div id="invoiceRows" style="display:grid;gap:8px"></div>
-
-          <div class="tool-actions">
-            <button class="tool-btn" id="addInvoiceRow">Add item</button>
-          </div>
-
-          <div
-            style="
-              margin-top:14px;
-              padding:14px;
-              border-radius:8px;
-              background:var(--accent-soft);
-              color:var(--accent-hover);
-              font-family:var(--mono);
-              text-align:right">
-            Total: <span id="invoiceTotal">£0.00</span>
-          </div>
+          <div class="tool-actions"><button class="tool-btn" id="addInvoiceRow">Add item</button></div>
+          <div style="margin-top:14px;padding:14px;border-radius:8px;background:var(--accent-soft);color:var(--accent);font-family:var(--mono);text-align:right;border:1px solid var(--border)">Total: <span id="invoiceTotal">£0.00</span></div>
         `;
-
-        const rows = $("#invoiceRows", container);
-        const total = $("#invoiceTotal", container);
+        const rows = $("#invoiceRows", container), total = $("#invoiceTotal", container);
         let items = [];
-
         function render() {
           rows.innerHTML = items.map((item, index) => `
             <div style="display:grid;grid-template-columns:1fr 80px 80px 34px;gap:6px">
               <input class="control invoice-description" data-index="${index}" value="${escapeHtml(item.description)}" placeholder="Description">
               <input class="control invoice-quantity" data-index="${index}" type="number" min="0" value="${item.quantity}">
               <input class="control invoice-price" data-index="${index}" type="number" min="0" step="0.01" value="${item.price}">
-              <button class="tool-btn invoice-delete" data-index="${index}">×</button>
+              <button class="tool-btn invoice-delete" data-index="${index}" style="min-height:44px;padding:0">×</button>
             </div>
           `).join("");
-
-          const sum = items.reduce(
-            (amount, item) => amount + item.quantity * item.price,
-            0
-          );
-
+          const sum = items.reduce((amount, item) => amount + item.quantity * item.price, 0);
           total.textContent = `£${sum.toFixed(2)}`;
-
-          $$(".invoice-description", rows).forEach(input => {
-            input.addEventListener("input", event => {
-              items[Number(event.target.dataset.index)].description = event.target.value;
-            });
-          });
-
-          $$(".invoice-quantity", rows).forEach(input => {
-            input.addEventListener("input", event => {
-              items[Number(event.target.dataset.index)].quantity =
-                Number(event.target.value) || 0;
-              render();
-            });
-          });
-
-          $$(".invoice-price", rows).forEach(input => {
-            input.addEventListener("input", event => {
-              items[Number(event.target.dataset.index)].price =
-                Number(event.target.value) || 0;
-              render();
-            });
-          });
-
-          $$(".invoice-delete", rows).forEach(button => {
-            button.addEventListener("click", () => {
-              items.splice(Number(button.dataset.index), 1);
-              render();
-            });
-          });
+          $$(".invoice-description", rows).forEach(input => { input.addEventListener("input", event => { items[Number(event.target.dataset.index)].description = event.target.value; }); });
+          $$(".invoice-quantity", rows).forEach(input => { input.addEventListener("input", event => { items[Number(event.target.dataset.index)].quantity = Number(event.target.value) || 0; render(); }); });
+          $$(".invoice-price", rows).forEach(input => { input.addEventListener("input", event => { items[Number(event.target.dataset.index)].price = Number(event.target.value) || 0; render(); }); });
+          $$(".invoice-delete", rows).forEach(button => { button.addEventListener("click", () => { haptic(); items.splice(Number(button.dataset.index), 1); render(); }); });
         }
-
-        $("#addInvoiceRow", container).addEventListener("click", () => {
-          items.push({
-            description: "",
-            quantity: 1,
-            price: 0
-          });
-
-          render();
-        });
-
-        items.push({
-          description: "",
-          quantity: 1,
-          price: 0
-        });
-
+        $("#addInvoiceRow", container).addEventListener("click", () => { haptic(); items.push({ description: "", quantity: 1, price: 0 }); render(); });
+        items.push({ description: "", quantity: 1, price: 0 });
         render();
       }
 
       function renderBudget(container) {
         container.innerHTML = `
           <input class="control" id="budgetIncome" type="number" placeholder="Monthly income">
-
           <div style="height:8px"></div>
-
           <input class="control" id="budgetHousing" type="number" placeholder="Housing">
-
           <div style="height:8px"></div>
-
           <input class="control" id="budgetBills" type="number" placeholder="Bills">
-
           <div style="height:8px"></div>
-
           <input class="control" id="budgetFood" type="number" placeholder="Food">
-
           <div style="height:8px"></div>
-
           <input class="control" id="budgetOther" type="number" placeholder="Other spending">
-
-          <div
-            id="budgetResult"
-            style="
-              margin-top:14px;
-              padding:16px;
-              border-radius:8px;
-              background:var(--accent-soft);
-              color:var(--accent-hover);
-              font-family:var(--mono);
-              text-align:center">
-            Enter your figures
-          </div>
+          <div id="budgetResult" style="margin-top:14px;padding:16px;border-radius:8px;background:var(--accent-soft);color:var(--accent);font-family:var(--mono);text-align:center;border:1px solid var(--border)">Enter your figures</div>
         `;
-
-        const fields = $$("input", container);
-        const result = $("#budgetResult", container);
-
+        const fields = $$("input", container), result = $("#budgetResult", container);
         function update() {
           const income = Number($("#budgetIncome", container).value) || 0;
-          const expenses = fields
-            .filter(field => field.id !== "budgetIncome")
-            .reduce((sum, field) => sum + (Number(field.value) || 0), 0);
-
-          const remaining = income - expenses;
-
-          result.textContent =
-            `Remaining: £${remaining.toFixed(2)}`;
+          const expenses = fields.filter(f => f.id !== "budgetIncome").reduce((sum, f) => sum + (Number(f.value) || 0), 0);
+          result.textContent = `Remaining: £${(income - expenses).toFixed(2)}`;
         }
-
         fields.forEach(field => field.addEventListener("input", update));
       }
 
       function renderImage(container) {
         container.innerHTML = `
-          <input id="imageInput" type="file" accept="image/*">
-
-          <div
-            id="imageResult"
-            style="
-              margin-top:14px;
-              padding:18px;
-              border-radius:8px;
-              background:var(--surface-2);
-              color:var(--text-sub);
-              text-align:center">
-            Select an image
-          </div>
+          <input id="imageInput" type="file" accept="image/*" style="display:none">
+          <button class="tool-btn primary" id="selectImage" style="width:100%">Select Image</button>
+          <div id="imageResult" style="margin-top:14px;padding:18px;border-radius:8px;background:var(--surface-2);color:var(--text-sub);text-align:center;border:1px solid var(--border)">Select an image</div>
         `;
-
-        const input = $("#imageInput", container);
-        const result = $("#imageResult", container);
-
+        const input = $("#imageInput", container), result = $("#imageResult", container);
+        $("#selectImage", container).addEventListener("click", () => { haptic(); input.click(); });
         input.addEventListener("change", () => {
-          const file = input.files[0];
-
-          if (!file) return;
-
+          const file = input.files[0]; if (!file) return;
           const image = new Image();
-
-          image.onload = () => {
-            result.textContent =
-              `${file.name} — ${image.width} × ${image.height}px`;
-          };
-
+          image.onload = () => { result.textContent = `${file.name} — ${image.width} × ${image.height}px`; };
           image.src = URL.createObjectURL(file);
         });
       }
 
-      const RENDERERS = {
-        calculator: renderCalculator,
-        converter: renderConverter,
-        password: renderPassword,
-        color: renderColor,
-        json: renderJson,
-        markdown: renderMarkdown,
-        wordcount: renderWordCount,
-        contrast: renderContrast,
-        shadow: renderShadow,
-        lorem: renderLorem,
-        base64: renderBase64,
-        regex: renderRegex,
-        pomodoro: renderPomodoro,
-        notes: renderNotes,
-        tasks: renderTasks,
-        habits: renderHabits,
-        meeting: renderMeeting,
-        font: renderFont,
-        timezone: renderTimezone,
-        palette: renderPalette,
-        api: renderApi,
-        invoice: renderInvoice,
-        budget: renderBudget,
-        image: renderImage,
-        breathing: renderBreathing
-      };
-
       function renderBreathing(container) {
         container.innerHTML = `
           <div style="text-align:center">
-            <h3 id="breathingLabel">Ready?</h3>
-
-            <p style="color:var(--text-muted);font-size:12px">
-              4 seconds inhale · 7 seconds hold · 8 seconds exhale
-            </p>
-
-            <div
-              id="breathingCircle"
-              style="
-                width:120px;
-                height:120px;
-                display:grid;
-                place-items:center;
-                margin:28px auto;
-                border-radius:50%;
-                background:var(--accent-soft);
-                color:var(--accent-hover);
-                font-weight:700;
-                transition:transform 4s ease-in-out">
-              Start
-            </div>
-
-            <div class="center-actions">
-              <button class="tool-btn primary" id="startBreathing">Begin</button>
-              <button class="tool-btn" id="stopBreathing">Stop</button>
-            </div>
+            <h3 id="breathingLabel" style="margin-bottom:8px">Ready?</h3>
+            <p style="color:var(--text-muted);font-size:12px;margin-bottom:24px">4 seconds inhale · 7 seconds hold · 8 seconds exhale</p>
+            <div id="breathingCircle" style="width:120px;height:120px;display:grid;place-items:center;margin:0 auto 28px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-weight:700;font-size:18px;transition:transform 4s ease-in-out;border:2px solid var(--accent)">Start</div>
+            <div class="center-actions"><button class="tool-btn primary" id="startBreathing">Begin</button><button class="tool-btn" id="stopBreathing">Stop</button></div>
           </div>
         `;
-
-        const label = $("#breathingLabel", container);
-        const circle = $("#breathingCircle", container);
-        let active = false;
-        let timeoutId;
-
+        const label = $("#breathingLabel", container), circle = $("#breathingCircle", container);
+        let active = false, timeoutId;
         function cycle() {
           if (!active) return;
-
-          label.textContent = "Inhale";
-          circle.textContent = "In";
-          circle.style.transform = "scale(1.45)";
-
+          label.textContent = "Inhale"; circle.textContent = "In"; circle.style.transform = "scale(1.45)";
           timeoutId = setTimeout(() => {
             if (!active) return;
-
-            label.textContent = "Hold";
-            circle.textContent = "Hold";
-
+            label.textContent = "Hold"; circle.textContent = "Hold";
             timeoutId = setTimeout(() => {
               if (!active) return;
-
-              label.textContent = "Exhale";
-              circle.textContent = "Out";
-              circle.style.transform = "scale(1)";
-
+              label.textContent = "Exhale"; circle.textContent = "Out"; circle.style.transform = "scale(1)";
               timeoutId = setTimeout(cycle, 8000);
             }, 7000);
           }, 4000);
         }
-
-        $("#startBreathing", container).addEventListener("click", () => {
-          if (!active) {
-            active = true;
-            cycle();
-          }
-        });
-
-        $("#stopBreathing", container).addEventListener("click", () => {
-          active = false;
-          clearTimeout(timeoutId);
-          label.textContent = "Paused";
-          circle.textContent = "Start";
-          circle.style.transform = "scale(1)";
-        });
+        $("#startBreathing", container).addEventListener("click", () => { haptic(); if (!active) { active = true; cycle(); } });
+        $("#stopBreathing", container).addEventListener("click", () => { haptic(); active = false; clearTimeout(timeoutId); label.textContent = "Paused"; circle.textContent = "Start"; circle.style.transform = "scale(1)"; });
       }
 
+      const RENDERERS = {
+        calculator: renderCalculator, converter: renderConverter, password: renderPassword, color: renderColor,
+        json: renderJson, markdown: renderMarkdown, wordcount: renderWordCount, contrast: renderContrast,
+        shadow: renderShadow, lorem: renderLorem, base64: renderBase64, regex: renderRegex,
+        pomodoro: renderPomodoro, notes: renderNotes, tasks: renderTasks, habits: renderHabits,
+        meeting: renderMeeting, font: renderFont, timezone: renderTimezone, palette: renderPalette,
+        api: renderApi, invoice: renderInvoice, budget: renderBudget, image: renderImage, breathing: renderBreathing
+      };
+
       function escapeHtml(value) {
-        return String(value)
-          .replace(/&/g, "&amp;")
-          .replace(/</g, "&lt;")
-          .replace(/>/g, "&gt;")
-          .replace(/"/g, "&quot;")
-          .replace(/'/g, "&#039;");
+        return String(value).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
       }
 
       renderApps();
