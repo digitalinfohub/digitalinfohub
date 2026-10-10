@@ -88,6 +88,7 @@ body::before {
 .chat-container { flex: 1; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; padding: 24px 16px; scroll-behavior: smooth; position: relative; }
 .chat-thread { width: 100%; max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; position: relative; z-index: 2; }
 
+/* Desktop Icons - Responsive Fix */
 .desktop-icons { position: absolute; top: 24px; right: 24px; display: flex; flex-direction: column; gap: 24px; z-index: 1; }
 .desktop-folder { display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; transition: transform 0.2s var(--ease); }
 .desktop-folder:hover { transform: scale(1.05); }
@@ -177,23 +178,38 @@ body::before {
 .ai-send:hover:not(:disabled) { transform: scale(1.05); }
 .ai-send:disabled { opacity: 0.3; cursor: not-allowed; }
 
+/* WIDGETS & CONTROLS */
 .widget-layer { position: fixed; inset: 0; pointer-events: none; z-index: 9999; }
 .floating-widget { 
   position: fixed; width: 320px; background: var(--glass-bg); backdrop-filter: blur(40px) saturate(180%); 
   border: 1px solid var(--glass-border); border-radius: 12px; box-shadow: 0 20px 50px rgba(0,0,0,0.4); 
-  pointer-events: auto; display: flex; flex-direction: column; overflow: hidden; animation: widgetPopIn 0.4s var(--ease); z-index: 10000; transition: box-shadow 0.2s; 
+  pointer-events: auto; display: flex; flex-direction: column; overflow: hidden; animation: widgetPopIn 0.4s var(--ease); z-index: 10000; transition: width 0.3s var(--ease), height 0.3s var(--ease), transform 0.3s var(--ease), box-shadow 0.2s; 
 }
 .floating-widget:hover { box-shadow: 0 25px 60px rgba(0,0,0,0.5); }
+.floating-widget.widget-minimized { height: 44px !important; max-height: 44px !important; overflow: hidden; }
+.floating-widget.widget-minimized .widget-body { display: none; }
+.floating-widget.widget-fullscreen { 
+  width: 100vw !important; height: 100vh !important; max-height: 100vh !important; 
+  left: 0 !important; top: 0 !important; transform: none !important; right: auto !important; 
+  border-radius: 0 !important; z-index: 10001 !important; 
+}
 @keyframes widgetPopIn { 0% { opacity: 0; transform: scale(0.9) translateY(20px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
+
 .widget-header { 
   padding: 10px 14px; background: rgba(255,255,255,0.03); border-bottom: 1px solid var(--glass-border); 
-  display: flex; justify-content: space-between; align-items: center; cursor: grab; user-select: none; 
+  display: flex; justify-content: space-between; align-items: center; cursor: grab; user-select: none; touch-action: none;
 }
 .widget-header:active { cursor: grabbing; }
-.widget-title { font-size: 13px; font-weight: 600; color: var(--text); display: flex; align-items: center; gap: 8px; }
-.widget-close { background: #FF5F56; border: none; color: transparent; cursor: pointer; font-size: 12px; width: 12px; height: 12px; border-radius: 50%; transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
-.widget-close:hover { color: white; }
+.widget-controls { display: flex; gap: 6px; }
+.widget-btn { width: 12px; height: 12px; border-radius: 50%; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 8px; color: transparent; transition: all 0.2s; }
+.widget-btn.close { background: #FF5F56; }
+.widget-btn.minimize { background: #FFBD2E; }
+.widget-btn.fullscreen { background: #27C93F; }
+.widget-header:hover .widget-btn { color: rgba(0,0,0,0.6); font-weight: 700; }
+
+.widget-title { font-size: 13px; font-weight: 600; color: var(--text); display: flex; align-items: center; gap: 8px; flex: 1; text-align: center; }
 .widget-body { padding: 16px; flex: 1; overflow-y: auto; max-height: 60vh; }
+.widget-resize-handle { position: absolute; bottom: 0; right: 0; width: 20px; height: 20px; cursor: nwse-resize; z-index: 10; }
 
 .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(10px); z-index: 5000; display: none; align-items: center; justify-content: center; padding: 20px; }
 .modal-overlay.active { display: flex; animation: fadeIn 0.2s ease; }
@@ -212,18 +228,31 @@ body::before {
 
 #toast-container { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); z-index: 10000; display: flex; flex-direction: column; gap: 8px; pointer-events: none; width: 90%; max-width: 400px; }
 
+/* MOBILE RESPONSIVE FIXES */
 @media (max-width: 767px) {
   .os-topbar { padding: 0 12px; gap: 8px; }
   .os-logo { font-size: 12px; }
   .os-btn { padding: 0 10px; font-size: 11px; height: 26px; }
   .os-clock { display: none; }
-  .chat-container { padding: 16px 12px; }
+  .chat-container { padding: 12px; }
   .msg { gap: 10px; }
-  .desktop-icons { top: 12px; right: 12px; gap: 16px; }
-  .desktop-folder-icon { width: 48px; height: 48px; font-size: 24px; border-radius: 12px; }
-  .desktop-folder-label { font-size: 10px; }
+  
+  /* Mobile Desktop Icons: Horizontal Scroll */
+  .desktop-icons { 
+    position: relative; top: 0; right: 0; 
+    flex-direction: row; overflow-x: auto; gap: 12px; 
+    padding: 8px 4px; margin-bottom: 8px; 
+    scrollbar-width: none; width: 100%;
+  }
+  .desktop-icons::-webkit-scrollbar { display: none; }
+  .desktop-folder { flex-shrink: 0; }
+  .desktop-folder-icon { width: 56px; height: 56px; font-size: 28px; border-radius: 14px; }
+  .desktop-folder-label { font-size: 10px; padding: 2px 6px; }
+  
   .floating-widget { width: 92vw !important; max-width: 360px !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; max-height: 75vh; }
-  .widget-header { cursor: default; }
+  .floating-widget.widget-fullscreen { width: 100vw !important; height: 100dvh !important; max-height: 100dvh !important; left: 0 !important; top: 0 !important; transform: none !important; border-radius: 0 !important; }
+  .widget-resize-handle { display: none; }
+  
   .market-grid { grid-template-columns: 1fr; }
   .market-sparkline-wrapper { display: none; }
 }
@@ -327,24 +356,11 @@ const esc = s => { const d = document.createElement('div'); d.textContent = s ||
 const chatContainer = $('#chatContainer');
 const thread = $('#chatThread');
 
-// ==========================================
-// CONVERSATION CONTEXT TRACKER
-// ==========================================
 const Context = {
-  recentTopics: [], // stores last few topics
-  mood: 'helpful',
-  lastResponse: '',
-  addTopic(topic) {
-    if (!this.recentTopics.includes(topic)) {
-      this.recentTopics.unshift(topic);
-      if (this.recentTopics.length > 5) this.recentTopics.pop();
-    }
-  },
+  recentTopics: [], mood: 'helpful', lastResponse: '',
+  addTopic(topic) { if (!this.recentTopics.includes(topic)) { this.recentTopics.unshift(topic); if (this.recentTopics.length > 5) this.recentTopics.pop(); } },
   hasTopic(topic) { return this.recentTopics.includes(topic); },
-  getTransition() {
-    const transitions = ["Speaking of which...", "Oh, that's interesting.", "Great question!", "Let me check that...", "Good thinking.", "Alright, here's what I found."];
-    return transitions[Math.floor(Math.random() * transitions.length)];
-  }
+  getTransition() { const t = ["Speaking of which...", "Oh, that's interesting.", "Great question!", "Let me check that...", "Good thinking.", "Alright, here's what I found."]; return t[Math.floor(Math.random() * t.length)]; }
 };
 
 function showToast(message, type = 'success') {
@@ -367,17 +383,11 @@ function scrollToBottom(force = false) {
 
 function createSparklineSVG(isUp) {
   const points = 20; let path = "M 0 50 "; let y = 50; const trend = isUp ? -1.5 : 1.5;
-  for (let i = 1; i <= points; i++) { 
-    const x = (i / points) * 100; 
-    y = Math.max(10, Math.min(90, y + trend + (Math.random() - 0.5) * 15)); 
-    path += `L ${x} ${y} `; 
-  }
-  const color = isUp ? 'var(--green)' : 'var(--red)'; 
-  const gid = isUp ? 'gU' : 'gD';
+  for (let i = 1; i <= points; i++) { const x = (i / points) * 100; y = Math.max(10, Math.min(90, y + trend + (Math.random() - 0.5) * 15)); path += `L ${x} ${y} `; }
+  const color = isUp ? 'var(--green)' : 'var(--red)'; const gid = isUp ? 'gU' : 'gD';
   return `<svg viewBox="0 0 100 100" preserveAspectRatio="none" class="market-sparkline">
     <defs><linearGradient id="${gid}" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="${color}" stop-opacity="0.3"/><stop offset="100%" stop-color="${color}" stop-opacity="0"/></linearGradient></defs>
-    <path d="${path} L 100 100 L 0 100 Z" fill="url(#${gid})" />
-    <path d="${path}" fill="none" stroke="${color}" stroke-width="2" vector-effect="non-scaling-stroke" />
+    <path d="${path} L 100 100 L 0 100 Z" fill="url(#${gid})" /><path d="${path}" fill="none" stroke="${color}" stroke-width="2" vector-effect="non-scaling-stroke" />
   </svg>`;
 }
 
@@ -421,8 +431,7 @@ function renderTicker(crypto, stocks) {
 
 let chartInstance = null, currentChartPrice = 0, currentChartIsUp = true;
 window.openChartModal = function(symbol, name, price, isUp) {
-  currentChartPrice = parseFloat(price);
-  currentChartIsUp = isUp;
+  currentChartPrice = parseFloat(price); currentChartIsUp = isUp;
   const modal = $('#chartModal');
   $('#chartTitle').textContent = `${symbol} - $${price}`;
   $('#chartTitle').style.color = isUp ? 'var(--green)' : 'var(--red)';
@@ -446,30 +455,20 @@ function renderChart(price, isUp, timeframe) {
   const ctx = $('#priceChart').getContext('2d');
   if (chartInstance) chartInstance.destroy();
   const points = timeframe === '1D' ? 24 : timeframe === '1W' ? 7 : 30;
-  const labels = [], data = [];
-  let p = price * (isUp ? 0.95 : 1.05);
-  for (let i = 0; i < points; i++) {
-    p += (Math.random() - (isUp ? 0.4 : 0.6)) * (price * 0.02);
-    data.push(p);
-    labels.push(timeframe === '1D' ? `${i}:00` : `D${i+1}`);
-  }
+  const labels = [], data = []; let p = price * (isUp ? 0.95 : 1.05);
+  for (let i = 0; i < points; i++) { p += (Math.random() - (isUp ? 0.4 : 0.6)) * (price * 0.02); data.push(p); labels.push(timeframe === '1D' ? `${i}:00` : `D${i+1}`); }
   data[data.length - 1] = price;
   const color = isUp ? '#30D158' : '#FF453A';
   chartInstance = new Chart(ctx, {
-    type: 'line',
-    data: { labels, datasets: [{ data, borderColor: color, backgroundColor: color + '20', borderWidth: 2, fill: true, tension: 0.4, pointRadius: 0 }] },
+    type: 'line', data: { labels, datasets: [{ data, borderColor: color, backgroundColor: color + '20', borderWidth: 2, fill: true, tension: 0.4, pointRadius: 0 }] },
     options: { responsive: true, maintainAspectRatio: false, animation: { duration: 800 }, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false }, ticks: { color: '#6E6E73', maxTicksLimit: 6 } }, y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#6E6E73' } } } }
   });
 }
 $('#chartModal').addEventListener('click', (e) => { if (e.target === $('#chartModal')) window.closeChartModal(); });
 
-// ==========================================
-// SMART INTENT DETECTION
-// ==========================================
 const Intent = {
   detect(input) {
     const lower = input.toLowerCase().trim();
-    
     if (/^(hi|hello|hey|howdy|greetings|yo|sup)\b/i.test(lower)) return { type:'greeting' };
     if (/\b(thank|thanks|cheers|ty|appreciate)\b/i.test(lower)) return { type:'thanks' };
     if (/\b(who are you|what are you|your name|about you)\b/i.test(lower)) return { type:'identity' };
@@ -478,24 +477,16 @@ const Intent = {
     if (/\b(bye|goodbye|see ya|cya|later)\b/i.test(lower)) return { type:'goodbye' };
     if (/\b(how are you|how's it going|you good)\b/i.test(lower)) return { type:'how_are_you' };
     if (/\b(joke|funny|make me laugh)\b/i.test(lower)) return { type:'joke' };
-
     if (/\b(app store|apps|store|applications)\b/i.test(lower)) return { type: 'app_store' };
     if (/\b(widgets|my widgets|show widgets|installed apps)\b/i.test(lower)) return { type: 'view_widgets' };
-    
     if (/\binstall\b|\badd\b|\bopen\b/i.test(lower)) {
       const widgetMatch = lower.match(/\b(weather|calculator|calc|notes|timer|converter|password|bookmarks|gainers|stopwatch|quote|dice|color)\b/i);
-      if (widgetMatch) {
-        const w = widgetMatch[1].toLowerCase();
-        if (w === 'calculator') return { type: 'install_widget', widget: 'calc' };
-        return { type: 'install_widget', widget: w };
-      }
+      if (widgetMatch) { const w = widgetMatch[1].toLowerCase(); return { type: 'install_widget', widget: w === 'calculator' ? 'calc' : w }; }
       return { type: 'app_store' };
     }
-    
     if (/\b(market|stocks|crypto|bitcoin|btc|eth|s&p|nasdaq|portfolio)\b/i.test(lower)) return { type:'market_briefing' };
     if (/\b(news|headlines|tech|updates|latest)\b/i.test(lower)) return { type:'news', category: /\btech\b/i.test(lower) ? 'tech' : 'markets' };
     if (/\b(tips|advice|strategy|invest|investing|learn|education)\b/i.test(lower)) return { type: 'investing_tips' };
-    
     return { type:'fallback', query: input };
   }
 };
@@ -503,7 +494,6 @@ const Intent = {
 const AI = {
   async process(input) {
     const intent = Intent.detect(input);
-    
     switch(intent.type) {
       case 'greeting': {
         Context.addTopic('greeting');
@@ -517,173 +507,63 @@ const AI = {
           <button class="follow-up-btn" onclick="window.handleSend('Open App Store')">📦 Apps</button>
         </div>`;
       }
-        
-      case 'thanks': 
-        const responses = ["Anytime! 😊", "Happy to help!", "That's what I'm here for.", "Glad I could help!"];
-        return `<p>${responses[Math.floor(Math.random() * responses.length)]} Let me know if there's anything else on your mind.</p>`;
-        
-      case 'identity':
-        return `<p>I'm <strong>Digital Infohub AI</strong> — think of me as your personal research terminal. I help you track markets, digest tech news, and customize your workspace with useful widgets.</p>
-        <p style="margin-top:8px; color:var(--text-sub);">I'm always learning from our conversation, so feel free to ask me anything!</p>`;
-
-      case 'how_are_you':
-        return `<p>Running smoothly, thanks for asking! 🚀 I'm ready to help with whatever you need — markets, news, or maybe a new widget to brighten your desktop.</p>
-        <div class="chat-follow-ups">
-          <button class="follow-up-btn" onclick="window.handleSend('Market briefing')">📊 Check Markets</button>
-          <button class="follow-up-btn" onclick="window.handleSend('Tell me a joke')">😄 Tell me a joke</button>
-        </div>`;
-
-      case 'joke':
-        const jokes = [
-          "Why did the developer go broke? Because he used up all his cache! 💸",
-          "Why don't scientists trust atoms? Because they make up everything! ⚛️",
-          "There are 10 kinds of people in the world: those who understand binary, and those who don't. 🤖",
-          "Why did the programmer quit his job? He didn't get arrays! 💼",
-          "A SQL query walks into a bar, sees two tables, and asks... 'Can I join you?' 🍺"
-        ];
-        return `<p>${jokes[Math.floor(Math.random() * jokes.length)]}</p>
-        <p style="margin-top:8px; color:var(--text-sub);">Got a smile out of you? 😄 Want another one, or shall we get back to business?</p>
-        <div class="chat-follow-ups">
-          <button class="follow-up-btn" onclick="window.handleSend('Tell me another joke')">😄 Another one</button>
-          <button class="follow-up-btn" onclick="window.handleSend('Market briefing')">📊 Back to Markets</button>
-        </div>`;
-
-      case 'help':
-        return `<p>Here's what I can help you with:</p>
-        <ul>
-          <li><strong>"Market briefing"</strong> — Live snapshot of stocks & crypto</li>
-          <li><strong>"Tech news"</strong> — Latest headlines, summarized</li>
-          <li><strong>"Install [widget]"</strong> — Add tools to your desktop</li>
-          <li><strong>"Investing tips"</strong> — Learn core market principles</li>
-          <li><strong>"Tell me a joke"</strong> — For when you need a break</li>
-        </ul>
-        <p style="margin-top:12px; color:var(--text-sub);">Or just click any folder on your desktop. I'll remember what we've talked about!</p>`;
-
-      case 'goodbye':
-        return `<p>Take care! 👋 I'll be here whenever you need me. Your workspace and widgets will be waiting.</p>`;
-
-      case 'app_store': 
-        window.openAppStore();
-        return `<p>Opening the <strong>App Store</strong> for you. 📦</p>
-        <p style="margin-top:8px; color:var(--text-sub);">You'll find 12 widgets to customize your desktop — from Weather and Calculator to Dice Rollers and Crypto Gainers. Just click to install, or tell me what you want (e.g., "install color picker").</p>`;
-
+      case 'thanks': return `<p>${["Anytime! 😊", "Happy to help!", "That's what I'm here for.", "Glad I could help!"][Math.floor(Math.random() * 4)]} Let me know if there's anything else on your mind.</p>`;
+      case 'identity': return `<p>I'm <strong>Digital Infohub AI</strong> — think of me as your personal research terminal. I help you track markets, digest tech news, and customize your workspace with useful widgets.</p><p style="margin-top:8px; color:var(--text-sub);">I'm always learning from our conversation, so feel free to ask me anything!</p>`;
+      case 'how_are_you': return `<p>Running smoothly, thanks for asking! 🚀 I'm ready to help with whatever you need — markets, news, or maybe a new widget to brighten your desktop.</p><div class="chat-follow-ups"><button class="follow-up-btn" onclick="window.handleSend('Market briefing')">📊 Check Markets</button><button class="follow-up-btn" onclick="window.handleSend('Tell me a joke')">😄 Tell me a joke</button></div>`;
+      case 'joke': {
+        const jokes = ["Why did the developer go broke? Because he used up all his cache! 💸", "Why don't scientists trust atoms? Because they make up everything! ⚛️", "There are 10 kinds of people in the world: those who understand binary, and those who don't. 🤖", "Why did the programmer quit his job? He didn't get arrays! 💼", "A SQL query walks into a bar, sees two tables, and asks... 'Can I join you?' 🍺"];
+        return `<p>${jokes[Math.floor(Math.random() * jokes.length)]}</p><p style="margin-top:8px; color:var(--text-sub);">Got a smile out of you? 😄 Want another one, or shall we get back to business?</p><div class="chat-follow-ups"><button class="follow-up-btn" onclick="window.handleSend('Tell me another joke')">😄 Another one</button><button class="follow-up-btn" onclick="window.handleSend('Market briefing')">📊 Back to Markets</button></div>`;
+      }
+      case 'help': return `<p>Here's what I can help you with:</p><ul><li><strong>"Market briefing"</strong> — Live snapshot of stocks & crypto</li><li><strong>"Tech news"</strong> — Latest headlines, summarized</li><li><strong>"Install [widget]"</strong> — Add tools to your desktop</li><li><strong>"Investing tips"</strong> — Learn core market principles</li><li><strong>"Tell me a joke"</strong> — For when you need a break</li></ul><p style="margin-top:12px; color:var(--text-sub);">Or just click any folder on your desktop. I'll remember what we've talked about!</p>`;
+      case 'goodbye': return `<p>Take care! 👋 I'll be here whenever you need me. Your workspace and widgets will be waiting.</p>`;
+      case 'app_store': window.openAppStore(); return `<p>Opening the <strong>App Store</strong> for you. 📦</p><p style="margin-top:8px; color:var(--text-sub);">You'll find 12 widgets to customize your desktop — from Weather and Calculator to Dice Rollers and Crypto Gainers. Just click to install, or tell me what you want (e.g., "install color picker").</p>`;
       case 'view_widgets': {
         const openWidgets = WidgetManager.state.open;
         if (openWidgets.length === 0) return `<p>You haven't installed any widgets yet! Head to the <strong>App Store</strong> to customize your desktop.</p><div class="chat-follow-ups"><button class="follow-up-btn" onclick="window.openAppStore()">📦 Open App Store</button></div>`;
         const names = { weather: '🌤️ Weather', calc: '🧮 Calculator', notes: '📝 Notes', timer: '⏱️ Focus Timer', converter: '⚖️ Converter', password: '🔑 Password Gen', bookmarks: '🔖 Bookmarks', gainers: '🚀 Crypto Gainers', stopwatch: '⏲️ Stopwatch', quote: '💭 Quote', dice: '🎲 Dice Roller', color: '🎨 Color Picker' };
         let html = `<p>Here are your <strong>${openWidgets.length} active widget${openWidgets.length > 1 ? 's' : ''}</strong>:</p><ul style="margin-top:8px;">`;
         openWidgets.forEach(w => { html += `<li>${names[w] || w}</li>`; });
-        html += `</ul><p style="margin-top:12px; color:var(--text-sub);">You can drag them around by their header, or close them with the red button.</p>
-        <div class="chat-follow-ups"><button class="follow-up-btn" onclick="window.openAppStore()">📦 Browse More</button></div>`;
+        html += `</ul><p style="margin-top:12px; color:var(--text-sub);">You can drag them around by their header, minimize them, or go fullscreen on mobile.</p><div class="chat-follow-ups"><button class="follow-up-btn" onclick="window.openAppStore()">📦 Browse More</button></div>`;
         return html;
       }
-        
       case 'install_widget': {
         WidgetManager.open(intent.widget);
         const names = { weather: 'Weather', calc: 'Calculator', notes: 'Notes', timer: 'Focus Timer', converter: 'Converter', password: 'Password Generator', bookmarks: 'Bookmarks', gainers: 'Crypto Gainers', stopwatch: 'Stopwatch', quote: 'Quote of the Day', dice: 'Dice Roller', color: 'Color Picker' };
-        
-        // Widget-specific contextual follow-ups
-        const suggestions = {
-          weather: ["Install Stopwatch", "Install Quote"],
-          calc: ["Install Converter", "Market briefing"],
-          notes: ["Install Focus Timer", "Install Password Generator"],
-          timer: ["Install Notes", "Market briefing"],
-          converter: ["Install Calculator", "Install Weather"],
-          password: ["Install Bookmarks", "Install Notes"],
-          bookmarks: ["Install Notes", "Latest tech news"],
-          gainers: ["Market briefing", "Install Stopwatch"],
-          stopwatch: ["Install Focus Timer", "Install Dice Roller"],
-          quote: ["Install Color Picker", "Tell me a joke"],
-          dice: ["Install Color Picker", "Tell me a joke"],
-          color: ["Install Quote", "Install Dice Roller"]
-        };
-        
-        const btns = (suggestions[intent.widget] || ["Open App Store", "Market briefing"]).map(s => 
-          `<button class="follow-up-btn" onclick="window.handleSend('${s}')">${s}</button>`
-        ).join('');
-        
-        return `<p>✅ <strong>${names[intent.widget]}</strong> is now on your desktop!</p>
-        <p style="margin-top:8px; color:var(--text-sub); font-size:13px;">Grab the header to drag it around, or hit the red button to close it. What's next?</p>
-        <div class="chat-follow-ups">${btns}</div>`;
+        const suggestions = { weather: ["Install Stopwatch", "Install Quote"], calc: ["Install Converter", "Market briefing"], notes: ["Install Focus Timer", "Install Password Generator"], timer: ["Install Notes", "Market briefing"], converter: ["Install Calculator", "Install Weather"], password: ["Install Bookmarks", "Install Notes"], bookmarks: ["Install Notes", "Latest tech news"], gainers: ["Market briefing", "Install Stopwatch"], stopwatch: ["Install Focus Timer", "Install Dice Roller"], quote: ["Install Color Picker", "Tell me a joke"], dice: ["Install Color Picker", "Tell me a joke"], color: ["Install Quote", "Install Dice Roller"] };
+        const btns = (suggestions[intent.widget] || ["Open App Store", "Market briefing"]).map(s => `<button class="follow-up-btn" onclick="window.handleSend('${s}')">${s}</button>`).join('');
+        return `<p>✅ <strong>${names[intent.widget]}</strong> is now on your desktop!</p><p style="margin-top:8px; color:var(--text-sub); font-size:13px;">Grab the header to drag it, or use the window controls to minimize or go fullscreen. What's next?</p><div class="chat-follow-ups">${btns}</div>`;
       }
-
       case 'market_briefing': {
         Context.addTopic('markets');
         const [crypto, stocks] = await Promise.all([fetchCrypto(), fetchStocks()]);
         const greenCount = stocks.filter(s => s.up).length;
         const sentiment = greenCount > stocks.length/2 ? "looking strong today" : greenCount === 0 ? "taking a breather today" : "mixed but holding steady";
-        
         let transition = Context.recentTopics.length > 1 ? `<p style="color:var(--text-sub);">${Context.getTransition()}</p>` : '';
-        
-        let html = `${transition}<p>📊 <strong>Market Briefing</strong></p>
-        <p style="color:var(--text-sub); margin-top:8px;">The markets are ${sentiment}. Here's your real-time snapshot — click any asset for its full chart.</p>`;
-        
+        let html = `${transition}<p>📊 <strong>Market Briefing</strong></p><p style="color:var(--text-sub); margin-top:8px;">The markets are ${sentiment}. Here's your real-time snapshot — click any asset for its full chart.</p>`;
         if (stocks.length > 0) {
           html += `<p style="font-size:12px;font-weight:700;margin-top:16px;color:var(--text-muted);text-transform:uppercase;">Equities</p><div class="market-grid">`;
-          html += stocks.slice(0,4).map(s => `
-            <div class="market-item" onclick="window.openChartModal('${s.symbol}', '${s.symbol}', '${s.price}', ${s.up})">
-              <div class="market-info"><div class="market-symbol">${s.symbol}</div></div>
-              <div class="market-sparkline-wrapper">${createSparklineSVG(s.up)}</div>
-              <div class="market-price-area">
-                <div class="market-price">$${s.price}</div>
-                <div class="market-change ${s.up?'up':'down'}">${s.up?'▲':'▼'} ${s.changePct}%</div>
-              </div>
-            </div>`).join('');
+          html += stocks.slice(0,4).map(s => `<div class="market-item" onclick="window.openChartModal('${s.symbol}', '${s.symbol}', '${s.price}', ${s.up})"><div class="market-info"><div class="market-symbol">${s.symbol}</div></div><div class="market-sparkline-wrapper">${createSparklineSVG(s.up)}</div><div class="market-price-area"><div class="market-price">$${s.price}</div><div class="market-change ${s.up?'up':'down'}">${s.up?'▲':'▼'} ${s.changePct}%</div></div></div>`).join('');
           html += `</div>`;
         }
         if (crypto.length > 0) {
           html += `<p style="font-size:12px;font-weight:700;margin-top:16px;color:var(--text-muted);text-transform:uppercase;">Crypto</p><div class="market-grid">`;
-          html += crypto.map(s => `
-            <div class="market-item" onclick="window.openChartModal('${s.symbol}', '${s.symbol}', '${s.price.replace(/,/g, '')}', ${s.up})">
-              <div class="market-info"><div class="market-symbol">${s.symbol}</div></div>
-              <div class="market-sparkline-wrapper">${createSparklineSVG(s.up)}</div>
-              <div class="market-price-area">
-                <div class="market-price">$${s.price}</div>
-                <div class="market-change ${s.up?'up':'down'}">${s.up?'▲':'▼'} ${s.changePct}%</div>
-              </div>
-            </div>`).join('');
+          html += crypto.map(s => `<div class="market-item" onclick="window.openChartModal('${s.symbol}', '${s.symbol}', '${s.price.replace(/,/g, '')}', ${s.up})"><div class="market-info"><div class="market-symbol">${s.symbol}</div></div><div class="market-sparkline-wrapper">${createSparklineSVG(s.up)}</div><div class="market-price-area"><div class="market-price">$${s.price}</div><div class="market-change ${s.up?'up':'down'}">${s.up?'▲':'▼'} ${s.changePct}%</div></div></div>`).join('');
           html += `</div>`;
         }
-        
-        html += `<div class="ai-insight-box">
-          <h4>🧠 AI Insight</h4>
-          <p>Worth watching: ${stocks[0]?.symbol || 'tech'} is leading the pack today. If you want deeper analysis on any asset, just ask.</p>
-        </div>
-        <div class="chat-follow-ups">
-          <button class="follow-up-btn" onclick="window.handleSend('Latest tech news')">📰 Read News</button>
-          <button class="follow-up-btn" onclick="window.handleSend('Show investing tips')">💡 Learn Strategy</button>
-          <button class="follow-up-btn" onclick="window.handleSend('Install Crypto Gainers')">🚀 Install Gainers</button>
-        </div>`;
+        html += `<div class="ai-insight-box"><h4>🧠 AI Insight</h4><p>Worth watching: ${stocks[0]?.symbol || 'tech'} is leading the pack today. If you want deeper analysis on any asset, just ask.</p></div><div class="chat-follow-ups"><button class="follow-up-btn" onclick="window.handleSend('Latest tech news')">📰 Read News</button><button class="follow-up-btn" onclick="window.handleSend('Show investing tips')">💡 Learn Strategy</button><button class="follow-up-btn" onclick="window.handleSend('Install Crypto Gainers')">🚀 Install Gainers</button></div>`;
         return html;
       }
-      
       case 'news': {
         Context.addTopic('news');
         const feed = intent.category === 'tech' ? CONFIG.FEEDS.tech : CONFIG.FEEDS.markets;
         const items = await fetchRSS(feed.url, feed.name);
         if (items.length === 0) return `<p>⚠️ I couldn't reach the news feed right now. Give it a minute and I'll try again — or we can check the markets instead.</p><div class="chat-follow-ups"><button class="follow-up-btn" onclick="window.handleSend('Market briefing')">📊 Check Markets</button></div>`;
-        
         let transition = Context.recentTopics.length > 1 ? `<p style="color:var(--text-sub);">${Context.getTransition()}</p>` : '';
-        
-        let html = `${transition}<p>📰 <strong>Latest ${feed.name} Headlines</strong></p>
-        <p style="color:var(--text-sub); margin-top:8px;">Here's what's moving the ${feed.name.toLowerCase()} world today. I've summarized each story for quick reading.</p>
-        <div style="margin-top:16px;">`;
-        
-        items.forEach(n => { 
-          html += `<a class="news-card" href="${esc(n.link)}" target="_blank" rel="noopener">
-            <div class="news-category">${esc(n.source)} • ${esc(n.date)}</div>
-            <div class="news-title">${esc(n.title)}</div>
-            <div class="news-tldr"><strong>TL;DR:</strong> ${esc(n.tldr)}</div>
-          </a>`; 
-        });
-        html += `</div>
-        <div class="chat-follow-ups">
-          <button class="follow-up-btn" onclick="window.handleSend('Market briefing')">📊 Check Markets</button>
-          <button class="follow-up-btn" onclick="window.handleSend('Tell me a joke')">😄 Lighten the mood</button>
-        </div>`;
+        let html = `${transition}<p>📰 <strong>Latest ${feed.name} Headlines</strong></p><p style="color:var(--text-sub); margin-top:8px;">Here's what's moving the ${feed.name.toLowerCase()} world today. I've summarized each story for quick reading.</p><div style="margin-top:16px;">`;
+        items.forEach(n => { html += `<a class="news-card" href="${esc(n.link)}" target="_blank" rel="noopener"><div class="news-category">${esc(n.source)} • ${esc(n.date)}</div><div class="news-title">${esc(n.title)}</div><div class="news-tldr"><strong>TL;DR:</strong> ${esc(n.tldr)}</div></a>`; });
+        html += `</div><div class="chat-follow-ups"><button class="follow-up-btn" onclick="window.handleSend('Market briefing')">📊 Check Markets</button><button class="follow-up-btn" onclick="window.handleSend('Tell me a joke')">😄 Lighten the mood</button></div>`;
         return html;
       }
-      
       case 'investing_tips': {
         Context.addTopic('investing');
         const tips = [
@@ -693,37 +573,15 @@ const AI = {
           { title: "The Power of Compounding", content: "Einstein called it the eighth wonder of the world. The earlier you start, the more time your money has to work for you." }
         ];
         const tip = tips[Math.floor(Math.random() * tips.length)];
-        
         let transition = Context.hasTopic('markets') ? `<p style="color:var(--text-sub);">Speaking of markets, here's a principle worth remembering:</p>` : '';
-        
-        return `${transition}<p>💰 <strong>${tip.title}</strong></p>
-        <div class="ai-insight-box" style="margin-top:16px;">
-          <h4>🛡️ The Principle</h4>
-          <p>${tip.content}</p>
-        </div>
-        <p style="margin-top:16px; font-size:12px; color:var(--text-muted);"><em>Disclaimer: This is educational, not financial advice. Always do your own research.</em></p>
-        <div class="chat-follow-ups">
-          <button class="follow-up-btn" onclick="window.handleSend('Show another tip')">🔄 Another Tip</button>
-          <button class="follow-up-btn" onclick="window.handleSend('Market briefing')">📊 Apply It</button>
-        </div>`;
+        return `${transition}<p>💰 <strong>${tip.title}</strong></p><div class="ai-insight-box" style="margin-top:16px;"><h4>🛡️ The Principle</h4><p>${tip.content}</p></div><p style="margin-top:16px; font-size:12px; color:var(--text-muted);"><em>Disclaimer: This is educational, not financial advice. Always do your own research.</em></p><div class="chat-follow-ups"><button class="follow-up-btn" onclick="window.handleSend('Show another tip')">🔄 Another Tip</button><button class="follow-up-btn" onclick="window.handleSend('Market briefing')">📊 Apply It</button></div>`;
       }
-      
       case 'clear_chat':
-        thread.innerHTML = '';
-        Context.recentTopics = [];
-        return `<p>✨ Fresh start! What would you like to explore?</p>
-        <div class="chat-follow-ups">
-          <button class="follow-up-btn" onclick="window.handleSend('Market briefing')">📊 Markets</button>
-          <button class="follow-up-btn" onclick="window.handleSend('Latest tech news')">💡 News</button>
-          <button class="follow-up-btn" onclick="window.handleSend('Open App Store')">📦 Apps</button>
-        </div>`;
-
+        thread.innerHTML = ''; Context.recentTopics = [];
+        return `<p>✨ Fresh start! What would you like to explore?</p><div class="chat-follow-ups"><button class="follow-up-btn" onclick="window.handleSend('Market briefing')">📊 Markets</button><button class="follow-up-btn" onclick="window.handleSend('Latest tech news')">💡 News</button><button class="follow-up-btn" onclick="window.handleSend('Open App Store')">📦 Apps</button></div>`;
       default: 
         const suggestions = ["Market briefing", "Latest tech news", "Open App Store", "Tell me a joke"];
-        const btns = suggestions.map(s => `<button class="follow-up-btn" onclick="window.handleSend('${s}')">${s}</button>`).join('');
-        return `<p>I'm not quite sure what you meant — but I'm here and listening! 😊</p>
-        <p style="margin-top:8px; color:var(--text-sub);">Try asking about markets, tech news, investing tips, or tell me to install a widget. Or just say hi!</p>
-        <div class="chat-follow-ups">${btns}</div>`;
+        return `<p>I'm not quite sure what you meant — but I'm here and listening! 😊</p><p style="margin-top:8px; color:var(--text-sub);">Try asking about markets, tech news, investing tips, or tell me to install a widget. Or just say hi!</p><div class="chat-follow-ups">${suggestions.map(s => `<button class="follow-up-btn" onclick="window.handleSend('${s}')">${s}</button>`).join('')}</div>`;
     }
   }
 };
@@ -733,111 +591,70 @@ function addMsg(role, html) {
   const div = document.createElement('div'); div.className = `msg ${role}`;
   const avatar = role === 'bot' ? `<img src="${CONFIG.LOGO_URL}" alt="AI">` : 'U';
   div.innerHTML = `<div class="msg-avatar ${role}">${avatar}</div><div class="msg-body"><div class="msg-header"><span class="msg-role">${role === 'bot' ? CONFIG.BOT_NAME : 'You'}</span><span class="msg-time">${new Date().toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit' })}</span></div><div class="msg-content">${html}</div></div>`;
-  thread.appendChild(div);
-  scrollToBottom(true);
-  return div.querySelector('.msg-content');
+  thread.appendChild(div); scrollToBottom(true); return div.querySelector('.msg-content');
 }
-
 function showThinking() {
   const div = document.createElement('div'); div.className = 'msg bot';
   div.innerHTML = `<div class="msg-avatar bot"><img src="${CONFIG.LOGO_URL}" alt="AI"></div><div class="msg-body"><div class="msg-content"><div class="typing-indicator"><span></span><span></span><span></span></div></div></div>`;
   thread.appendChild(div); scrollToBottom(true); return div;
 }
-
 async function handleSend(text) {
   if (isProcessing || !text.trim()) return;
-  isProcessing = true;
-  $('#chatInput').disabled = true; $('#chatSend').disabled = true;
-  
-  addMsg('user', esc(text));
-  $('#chatInput').value = '';
-  
+  isProcessing = true; $('#chatInput').disabled = true; $('#chatSend').disabled = true;
+  addMsg('user', esc(text)); $('#chatInput').value = '';
   const thinkingEl = showThinking();
-  
-  // Simulate natural thinking time based on complexity
-  const thinkTime = Math.random() * 800 + 600;
-  await new Promise(r => setTimeout(r, thinkTime));
-  
+  await new Promise(r => setTimeout(r, Math.random() * 800 + 600));
   try {
     const response = await AI.process(text.trim());
     thinkingEl.remove();
-    
-    if (response.includes('Fresh start')) {
-       const contentEl = addMsg('bot', '');
-       contentEl.innerHTML = response;
-       return;
-    }
-
-    const contentEl = addMsg('bot', '');
-    contentEl.innerHTML = response;
-    scrollToBottom(false);
+    if (response.includes('Fresh start')) { const contentEl = addMsg('bot', ''); contentEl.innerHTML = response; return; }
+    const contentEl = addMsg('bot', ''); contentEl.innerHTML = response; scrollToBottom(false);
   } catch(err) {
-    thinkingEl.remove();
-    addMsg('bot', '<p>⚠️ Something went wrong. Mind trying again?</p>');
+    thinkingEl.remove(); addMsg('bot', '<p>⚠️ Something went wrong. Mind trying again?</p>');
   } finally {
-    isProcessing = false;
-    $('#chatInput').disabled = false; $('#chatSend').disabled = false;
-    $('#chatInput').focus({ preventScroll: true });
+    isProcessing = false; $('#chatInput').disabled = false; $('#chatSend').disabled = false; $('#chatInput').focus({ preventScroll: true });
   }
 }
-
 window.handleSend = handleSend;
 $('#chatForm').addEventListener('submit', e => { e.preventDefault(); handleSend($('#chatInput').value); });
 
 // ==========================================
-// WIDGET MANAGER (12 widgets)
+// WIDGET MANAGER (With Minimize, Fullscreen, Resize)
 // ==========================================
 const WidgetManager = {
   state: { open: [] },
   init() { 
-    try { const saved = localStorage.getItem('dih_widgets_v5'); if (saved) this.state = JSON.parse(saved); } catch(e) {} 
+    try { const saved = localStorage.getItem('dih_widgets_v6'); if (saved) this.state = JSON.parse(saved); } catch(e) {} 
     this.state.open.forEach(type => this.createWidgetElement(type)); 
     this.renderAppGrid();
   },
-  save() { localStorage.setItem('dih_widgets_v5', JSON.stringify(this.state)); },
+  save() { localStorage.setItem('dih_widgets_v6', JSON.stringify(this.state)); },
   open(type) { 
     if (!this.state.open.includes(type)) { 
-      this.state.open.push(type); 
-      this.save(); 
-      this.createWidgetElement(type); 
-      this.renderAppGrid();
+      this.state.open.push(type); this.save(); this.createWidgetElement(type); this.renderAppGrid();
       showToast(`${this.getDisplayName(type)} installed`, 'success');
     } 
   },
-  close(type) { 
-    this.state.open = this.state.open.filter(w => w !== type); 
-    this.save(); 
-    document.getElementById(`widget-${type}`)?.remove(); 
-    this.renderAppGrid();
-  },
+  close(type) { this.state.open = this.state.open.filter(w => w !== type); this.save(); document.getElementById(`widget-${type}`)?.remove(); this.renderAppGrid(); },
+  toggleMinimize(type) { document.getElementById(`widget-${type}`)?.classList.toggle('widget-minimized'); },
+  toggleFullscreen(type) { document.getElementById(`widget-${type}`)?.classList.toggle('widget-fullscreen'); },
   getDisplayName(type) {
     const names = { weather: 'Weather', calc: 'Calculator', notes: 'Notes', timer: 'Focus Timer', converter: 'Converter', password: 'Password Generator', bookmarks: 'Bookmarks', gainers: 'Crypto Gainers', stopwatch: 'Stopwatch', quote: 'Quote of the Day', dice: 'Dice Roller', color: 'Color Picker' };
     return names[type] || type;
   },
   renderAppGrid() {
-    const grid = $('#appGrid');
-    if(!grid) return;
+    const grid = $('#appGrid'); if(!grid) return;
     const apps = [
-      { type: 'weather', icon: '🌤️', name: 'Weather' },
-      { type: 'notes', icon: '📝', name: 'Notes' },
-      { type: 'calc', icon: '🧮', name: 'Calculator' },
-      { type: 'timer', icon: '⏱️', name: 'Focus Timer' },
-      { type: 'converter', icon: '⚖️', name: 'Converter' },
-      { type: 'password', icon: '🔑', name: 'Password Gen' },
-      { type: 'bookmarks', icon: '🔖', name: 'Bookmarks' },
-      { type: 'gainers', icon: '🚀', name: 'Crypto Gainers' },
-      { type: 'stopwatch', icon: '⏲️', name: 'Stopwatch' },
-      { type: 'quote', icon: '💭', name: 'Quote' },
-      { type: 'dice', icon: '🎲', name: 'Dice Roller' },
-      { type: 'color', icon: '🎨', name: 'Color Picker' }
+      { type: 'weather', icon: '🌤️', name: 'Weather' }, { type: 'notes', icon: '📝', name: 'Notes' },
+      { type: 'calc', icon: '🧮', name: 'Calculator' }, { type: 'timer', icon: '⏱️', name: 'Focus Timer' },
+      { type: 'converter', icon: '⚖️', name: 'Converter' }, { type: 'password', icon: '🔑', name: 'Password Gen' },
+      { type: 'bookmarks', icon: '🔖', name: 'Bookmarks' }, { type: 'gainers', icon: '🚀', name: 'Crypto Gainers' },
+      { type: 'stopwatch', icon: '⏲️', name: 'Stopwatch' }, { type: 'quote', icon: '💭', name: 'Quote' },
+      { type: 'dice', icon: '🎲', name: 'Dice Roller' }, { type: 'color', icon: '🎨', name: 'Color Picker' }
     ];
     grid.innerHTML = apps.map(a => {
       const isInstalled = this.state.open.includes(a.type);
-      return `<div class="app-card" onclick="WidgetManager.toggle('${a.type}')">
-        <div class="app-icon">${a.icon}</div>
-        <div class="app-name">${a.name}</div>
-        <div class="app-status ${isInstalled ? 'installed' : ''}">${isInstalled ? '✅ Installed' : 'Tap to Install'}</div>
-      </div>`;
+      return `<div class="app-card" onclick="WidgetManager.toggle('${a.type}')"><div class="app-icon">${a.icon}</div><div class="app-name">${a.name}</div><div class="app-status ${isInstalled ? 'installed' : ''}">${isInstalled ? '✅ Installed' : 'Tap to Install'}</div></div>`;
     }).join('');
   },
   toggle(type) { this.state.open.includes(type) ? this.close(type) : this.open(type); },
@@ -845,15 +662,9 @@ const WidgetManager = {
   createWidgetElement(type) {
     if (document.getElementById(`widget-${type}`)) return;
     const el = document.createElement('div');
-    el.id = `widget-${type}`; 
-    el.className = 'floating-widget';
-    
-    if (window.innerWidth < 768) {
-      el.style.left = '50%'; el.style.top = '50%'; el.style.transform = 'translate(-50%, -50%)';
-    } else {
-      const offset = this.state.open.length * 40;
-      el.style.right = `${20 + offset}px`; el.style.top = `${80 + offset}px`;
-    }
+    el.id = `widget-${type}`; el.className = 'floating-widget';
+    if (window.innerWidth < 768) { el.style.left = '50%'; el.style.top = '50%'; el.style.transform = 'translate(-50%, -50%)'; } 
+    else { const offset = this.state.open.length * 40; el.style.right = `${20 + offset}px`; el.style.top = `${80 + offset}px`; }
     
     let content = '';
     if (type === 'weather') content = this.getWeatherHTML();
@@ -869,7 +680,18 @@ const WidgetManager = {
     else if (type === 'dice') content = this.getDiceHTML();
     else if (type === 'color') content = this.getColorHTML();
     
-    el.innerHTML = `<div class="widget-header"><span class="widget-title">${this.getTitle(type)}</span><button class="widget-close" onclick="WidgetManager.close('${type}')"></button></div><div class="widget-body">${content}</div>`;
+    el.innerHTML = `
+      <div class="widget-header">
+        <div class="widget-controls">
+          <button class="widget-btn close" onclick="WidgetManager.close('${type}')" title="Close"></button>
+          <button class="widget-btn minimize" onclick="WidgetManager.toggleMinimize('${type}')" title="Minimize"></button>
+          <button class="widget-btn fullscreen" onclick="WidgetManager.toggleFullscreen('${type}')" title="Fullscreen"></button>
+        </div>
+        <span class="widget-title">${this.getTitle(type)}</span>
+        <div style="width: 36px;"></div>
+      </div>
+      <div class="widget-body">${content}</div>
+      <div class="widget-resize-handle"></div>`;
     $('#widgetLayer').appendChild(el);
     
     if (type === 'weather') this.initWeather(el);
@@ -890,31 +712,17 @@ const WidgetManager = {
     return titles[type] || type;
   },
   
-  // WEATHER
   getWeatherHTML() {
     const city = localStorage.getItem('dih_weather_city') || '';
-    return city ? `<div id="wx-display">Loading weather for ${city}...</div>` : `
-      <div style="text-align:center; padding:10px;">
-        <p style="font-size:13px;color:var(--text-sub);margin-bottom:12px;">Enter a city to get started</p>
-        <form id="wx-form" style="display:flex;gap:6px;">
-          <input type="text" id="wx-city-input" placeholder="e.g. London" style="flex:1;min-width:0;padding:8px 12px;background:var(--surface-3);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;outline:none;">
-          <button type="submit" style="padding:8px 16px;background:var(--accent);color:white;border:none;border-radius:8px;cursor:pointer;font-weight:600;font-size:13px;">Go</button>
-        </form>
-      </div>`;
+    return city ? `<div id="wx-display">Loading weather for ${city}...</div>` : `<div style="text-align:center; padding:10px;"><p style="font-size:13px;color:var(--text-sub);margin-bottom:12px;">Enter a city to get started</p><form id="wx-form" style="display:flex;gap:6px;"><input type="text" id="wx-city-input" placeholder="e.g. London" style="flex:1;min-width:0;padding:8px 12px;background:var(--surface-3);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;outline:none;"><button type="submit" style="padding:8px 16px;background:var(--accent);color:white;border:none;border-radius:8px;cursor:pointer;font-weight:600;font-size:13px;">Go</button></form></div>`;
   },
   initWeather(el) {
-    const city = localStorage.getItem('dih_weather_city');
-    if (city) this.fetchWeather(city, el);
+    const city = localStorage.getItem('dih_weather_city'); if (city) this.fetchWeather(city, el);
     const form = el.querySelector('#wx-form');
     if (form) {
       form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const val = el.querySelector('#wx-city-input').value.trim();
-        if (val) {
-          localStorage.setItem('dih_weather_city', val);
-          el.querySelector('.widget-body').innerHTML = `<div id="wx-display">Loading weather for ${val}...</div>`;
-          this.fetchWeather(val, el);
-        }
+        e.preventDefault(); const val = el.querySelector('#wx-city-input').value.trim();
+        if (val) { localStorage.setItem('dih_weather_city', val); el.querySelector('.widget-body').innerHTML = `<div id="wx-display">Loading weather for ${val}...</div>`; this.fetchWeather(val, el); }
       });
     }
   },
@@ -922,32 +730,17 @@ const WidgetManager = {
     const display = el.querySelector('#wx-display');
     try {
       const geoRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1`);
-      const geoData = await geoRes.json();
-      if (!geoData.results || !geoData.results.length) throw new Error('City not found');
+      const geoData = await geoRes.json(); if (!geoData.results || !geoData.results.length) throw new Error('City not found');
       const loc = geoData.results[0];
       const wxRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${loc.latitude}&longitude=${loc.longitude}&current_weather=true`);
       const wxData = await wxRes.json(); const wx = wxData.current_weather;
-      const emoji = this.getWeatherEmoji(wx.weathercode);
-      display.innerHTML = `<div style="text-align:center;"><div style="font-size:14px;font-weight:700;margin-bottom:8px;">${loc.name}${loc.country ? ', ' + loc.country : ''}</div><div style="font-size:48px;">${emoji}</div><div style="font-size:36px;font-weight:800;font-family:var(--mono);margin:8px 0;">${wx.temperature}°C</div><div style="font-size:12px;color:var(--text-muted);">Wind: ${wx.windspeed} km/h</div><button onclick="WidgetManager.changeWeatherCity()" style="margin-top:12px;background:none;border:1px solid var(--border);color:var(--text-sub);padding:4px 10px;border-radius:6px;cursor:pointer;font-size:11px;">Change City</button></div>`;
-    } catch (e) {
-      display.innerHTML = `<p style="color:var(--red);font-size:12px;text-align:center;">Could not find "${city}". <button onclick="WidgetManager.changeWeatherCity()" style="background:none;border:none;color:var(--accent);cursor:pointer;font-size:12px;">Try again</button></p>`;
-    }
+      display.innerHTML = `<div style="text-align:center;"><div style="font-size:14px;font-weight:700;margin-bottom:8px;">${loc.name}${loc.country ? ', ' + loc.country : ''}</div><div style="font-size:48px;">${this.getWeatherEmoji(wx.weathercode)}</div><div style="font-size:36px;font-weight:800;font-family:var(--mono);margin:8px 0;">${wx.temperature}°C</div><div style="font-size:12px;color:var(--text-muted);">Wind: ${wx.windspeed} km/h</div><button onclick="WidgetManager.changeWeatherCity()" style="margin-top:12px;background:none;border:1px solid var(--border);color:var(--text-sub);padding:4px 10px;border-radius:6px;cursor:pointer;font-size:11px;">Change City</button></div>`;
+    } catch (e) { display.innerHTML = `<p style="color:var(--red);font-size:12px;text-align:center;">Could not find "${city}". <button onclick="WidgetManager.changeWeatherCity()" style="background:none;border:none;color:var(--accent);cursor:pointer;font-size:12px;">Try again</button></p>`; }
   },
-  changeWeatherCity() {
-    localStorage.removeItem('dih_weather_city');
-    const el = document.getElementById('widget-weather');
-    if (el) { el.querySelector('.widget-body').innerHTML = this.getWeatherHTML(); this.initWeather(el); }
-  },
-  getWeatherEmoji(code) {
-    if (code === 0) return '☀️'; if (code <= 3) return '⛅'; if (code <= 48) return '🌫️';
-    if (code <= 67) return '🌧️'; if (code <= 77) return '🌨️'; if (code <= 82) return '🌧️';
-    if (code <= 86) return '🌨️'; if (code >= 95) return '⛈️'; return '🌡️';
-  },
+  changeWeatherCity() { localStorage.removeItem('dih_weather_city'); const el = document.getElementById('widget-weather'); if (el) { el.querySelector('.widget-body').innerHTML = this.getWeatherHTML(); this.initWeather(el); } },
+  getWeatherEmoji(code) { if (code === 0) return '☀️'; if (code <= 3) return '⛅'; if (code <= 48) return '🌫️'; if (code <= 67) return '🌧️'; if (code <= 77) return '🌨️'; if (code <= 82) return '🌧️'; if (code <= 86) return '🌨️'; if (code >= 95) return '⛈️'; return '🌡️'; },
   
-  // CALCULATOR
-  getCalcHTML() {
-    return `<input type="text" id="calc-disp" readonly style="width:100%;padding:12px;background:var(--surface-3);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--mono);font-size:20px;text-align:right;margin-bottom:12px;outline:none;"><div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:8px;">${['C','(',')','/','7','8','9','*','4','5','6','-','1','2','3','+','0','.','=',''].map(b => { if (!b) return '<div></div>'; const isOp = ['+','-','*','/','=','C','(',')'].includes(b); return `<button class="calc-btn" data-val="${b}" style="padding:12px;background:${isOp ? 'var(--accent-soft)' : 'var(--surface-3)'};color:${isOp ? 'var(--accent)' : 'var(--text)'};border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:16px;font-weight:600;">${b}</button>`; }).join('')}</div>`;
-  },
+  getCalcHTML() { return `<input type="text" id="calc-disp" readonly style="width:100%;padding:12px;background:var(--surface-3);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--mono);font-size:20px;text-align:right;margin-bottom:12px;outline:none;"><div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:8px;">${['C','(',')','/','7','8','9','*','4','5','6','-','1','2','3','+','0','.','=',''].map(b => { if (!b) return '<div></div>'; const isOp = ['+','-','*','/','=','C','(',')'].includes(b); return `<button class="calc-btn" data-val="${b}" style="padding:12px;background:${isOp ? 'var(--accent-soft)' : 'var(--surface-3)'};color:${isOp ? 'var(--accent)' : 'var(--text)'};border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:16px;font-weight:600;">${b}</button>`; }).join('')}</div>`; },
   initCalc(el) {
     const display = el.querySelector('#calc-disp');
     el.querySelectorAll('.calc-btn').forEach(btn => {
@@ -960,19 +753,10 @@ const WidgetManager = {
     });
   },
   
-  // NOTES
-  getNotesHTML() {
-    const notes = localStorage.getItem('dih_notes') || '';
-    return `<textarea id="notes-area" style="width:100%;height:200px;background:var(--surface-3);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:12px;font-family:var(--font);font-size:13px;resize:none;outline:none;line-height:1.6;" placeholder="Type your notes here...">${notes}</textarea><div style="margin-top:8px;font-size:11px;color:var(--text-muted);text-align:right;">Auto-saved locally</div>`;
-  },
-  initNotes(el) {
-    el.querySelector('#notes-area').addEventListener('input', (e) => localStorage.setItem('dih_notes', e.target.value));
-  },
+  getNotesHTML() { const notes = localStorage.getItem('dih_notes') || ''; return `<textarea id="notes-area" style="width:100%;height:200px;background:var(--surface-3);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:12px;font-family:var(--font);font-size:13px;resize:none;outline:none;line-height:1.6;" placeholder="Type your notes here...">${notes}</textarea><div style="margin-top:8px;font-size:11px;color:var(--text-muted);text-align:right;">Auto-saved locally</div>`; },
+  initNotes(el) { el.querySelector('#notes-area').addEventListener('input', (e) => localStorage.setItem('dih_notes', e.target.value)); },
   
-  // TIMER
-  getTimerHTML() {
-    return `<div style="text-align:center;padding:10px;"><div id="timer-display" style="font-size:48px;font-weight:800;font-family:var(--mono);margin:20px 0;color:var(--text);">25:00</div><div style="display:flex;gap:10px;justify-content:center;"><button id="timer-start" style="padding:10px 24px;background:var(--green);color:white;border:none;border-radius:8px;cursor:pointer;font-weight:700;font-size:14px;">Start</button><button id="timer-reset" style="padding:10px 24px;background:var(--surface-3);color:var(--text);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-weight:700;font-size:14px;">Reset</button></div></div>`;
-  },
+  getTimerHTML() { return `<div style="text-align:center;padding:10px;"><div id="timer-display" style="font-size:48px;font-weight:800;font-family:var(--mono);margin:20px 0;color:var(--text);">25:00</div><div style="display:flex;gap:10px;justify-content:center;"><button id="timer-start" style="padding:10px 24px;background:var(--green);color:white;border:none;border-radius:8px;cursor:pointer;font-weight:700;font-size:14px;">Start</button><button id="timer-reset" style="padding:10px 24px;background:var(--surface-3);color:var(--text);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-weight:700;font-size:14px;">Reset</button></div></div>`; },
   initTimer(el) {
     let timeLeft = 25 * 60, interval = null;
     const display = el.querySelector('#timer-display'); const startBtn = el.querySelector('#timer-start'); const resetBtn = el.querySelector('#timer-reset');
@@ -984,10 +768,7 @@ const WidgetManager = {
     resetBtn.addEventListener('click', () => { clearInterval(interval); interval = null; timeLeft = 25 * 60; updateDisplay(); startBtn.textContent = 'Start'; startBtn.style.background = 'var(--green)'; });
   },
   
-  // CONVERTER
-  getConverterHTML() {
-    return `<div style="display:flex;flex-direction:column;gap:16px;"><div><label style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;">Temperature (°C to °F)</label><div style="display:flex;gap:8px;margin-top:6px;align-items:center;"><input type="number" id="conv-temp-c" placeholder="°C" style="flex:1;min-width:0;padding:8px;background:var(--surface-3);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;outline:none;"><span style="padding:8px;flex-shrink:0;color:var(--text-muted);">=</span><input type="text" id="conv-temp-f" readonly placeholder="°F" style="flex:1;min-width:0;padding:8px;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;color:var(--accent);font-size:13px;outline:none;"></div></div><div><label style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;">Length (ft to m)</label><div style="display:flex;gap:8px;margin-top:6px;align-items:center;"><input type="number" id="conv-len-ft" placeholder="ft" style="flex:1;min-width:0;padding:8px;background:var(--surface-3);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;outline:none;"><span style="padding:8px;flex-shrink:0;color:var(--text-muted);">=</span><input type="text" id="conv-len-m" readonly placeholder="m" style="flex:1;min-width:0;padding:8px;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;color:var(--accent);font-size:13px;outline:none;"></div></div></div>`;
-  },
+  getConverterHTML() { return `<div style="display:flex;flex-direction:column;gap:16px;"><div><label style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;">Temperature (°C to °F)</label><div style="display:flex;gap:8px;margin-top:6px;align-items:center;"><input type="number" id="conv-temp-c" placeholder="°C" style="flex:1;min-width:0;padding:8px;background:var(--surface-3);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;outline:none;"><span style="padding:8px;flex-shrink:0;color:var(--text-muted);">=</span><input type="text" id="conv-temp-f" readonly placeholder="°F" style="flex:1;min-width:0;padding:8px;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;color:var(--accent);font-size:13px;outline:none;"></div></div><div><label style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;">Length (ft to m)</label><div style="display:flex;gap:8px;margin-top:6px;align-items:center;"><input type="number" id="conv-len-ft" placeholder="ft" style="flex:1;min-width:0;padding:8px;background:var(--surface-3);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;outline:none;"><span style="padding:8px;flex-shrink:0;color:var(--text-muted);">=</span><input type="text" id="conv-len-m" readonly placeholder="m" style="flex:1;min-width:0;padding:8px;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;color:var(--accent);font-size:13px;outline:none;"></div></div></div>`; },
   initConverter(el) {
     const c = el.querySelector('#conv-temp-c'), f = el.querySelector('#conv-temp-f');
     c.addEventListener('input', () => { f.value = c.value ? (parseFloat(c.value) * 9/5 + 32).toFixed(1) : ''; });
@@ -995,10 +776,7 @@ const WidgetManager = {
     ft.addEventListener('input', () => { m.value = ft.value ? (parseFloat(ft.value) * 0.3048).toFixed(2) : ''; });
   },
   
-  // PASSWORD
-  getPasswordHTML() {
-    return `<div style="display:flex;flex-direction:column;gap:16px;padding:10px;"><div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:12px;color:var(--text-sub);">Length: <span id="pw-len-val">16</span></span><input type="range" id="pw-len" min="8" max="32" value="16" style="width:120px;accent-color:var(--accent);"></div><div style="background:var(--surface-3);padding:16px;border-radius:8px;border:1px solid var(--border);font-family:var(--mono);font-size:16px;word-break:break-all;text-align:center;color:var(--accent);min-height:50px;display:flex;align-items:center;justify-content:center;" id="pw-result">Generating...</div><button id="pw-gen-btn" style="padding:12px;background:var(--accent);color:white;border:none;border-radius:8px;cursor:pointer;font-weight:700;font-size:14px;">Generate New</button><button id="pw-copy-btn" style="padding:12px;background:var(--surface-2);color:var(--text);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-weight:700;font-size:14px;">Copy to Clipboard</button></div>`;
-  },
+  getPasswordHTML() { return `<div style="display:flex;flex-direction:column;gap:16px;padding:10px;"><div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:12px;color:var(--text-sub);">Length: <span id="pw-len-val">16</span></span><input type="range" id="pw-len" min="8" max="32" value="16" style="width:120px;accent-color:var(--accent);"></div><div style="background:var(--surface-3);padding:16px;border-radius:8px;border:1px solid var(--border);font-family:var(--mono);font-size:16px;word-break:break-all;text-align:center;color:var(--accent);min-height:50px;display:flex;align-items:center;justify-content:center;" id="pw-result">Generating...</div><button id="pw-gen-btn" style="padding:12px;background:var(--accent);color:white;border:none;border-radius:8px;cursor:pointer;font-weight:700;font-size:14px;">Generate New</button><button id="pw-copy-btn" style="padding:12px;background:var(--surface-2);color:var(--text);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-weight:700;font-size:14px;">Copy to Clipboard</button></div>`; },
   initPassword(el) {
     const lenInput = el.querySelector('#pw-len'), lenVal = el.querySelector('#pw-len-val');
     const result = el.querySelector('#pw-result'), genBtn = el.querySelector('#pw-gen-btn'), copyBtn = el.querySelector('#pw-copy-btn');
@@ -1009,73 +787,43 @@ const WidgetManager = {
     generate();
   },
 
-  // BOOKMARKS
   getBookmarksHTML() {
     const bookmarks = JSON.parse(localStorage.getItem('dih_bookmarks') || '[]');
-    let list = '';
-    if (bookmarks.length === 0) list = `<div style="text-align:center;color:var(--text-muted);font-size:12px;padding:12px;">No bookmarks yet</div>`;
-    else list = bookmarks.map((b, i) => `<div style="display:flex;align-items:center;gap:8px;padding:8px;background:var(--surface-3);border-radius:6px;margin-bottom:6px;"><a href="${esc(b.url)}" target="_blank" style="flex:1;color:var(--accent);text-decoration:none;font-size:12px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${esc(b.name)}</a><span onclick="WidgetManager.deleteBookmark(${i})" style="cursor:pointer;color:var(--red);font-size:14px;flex-shrink:0;">✕</span></div>`).join('');
+    let list = bookmarks.length === 0 ? `<div style="text-align:center;color:var(--text-muted);font-size:12px;padding:12px;">No bookmarks yet</div>` : bookmarks.map((b, i) => `<div style="display:flex;align-items:center;gap:8px;padding:8px;background:var(--surface-3);border-radius:6px;margin-bottom:6px;"><a href="${esc(b.url)}" target="_blank" style="flex:1;color:var(--accent);text-decoration:none;font-size:12px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${esc(b.name)}</a><span onclick="WidgetManager.deleteBookmark(${i})" style="cursor:pointer;color:var(--red);font-size:14px;flex-shrink:0;">✕</span></div>`).join('');
     return `<form id="bm-form" style="display:flex;gap:6px;margin-bottom:12px;"><input type="text" id="bm-name" placeholder="Name" style="flex:1;min-width:0;padding:8px;background:var(--surface-3);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:12px;outline:none;"><input type="url" id="bm-url" placeholder="https://..." style="flex:1.5;min-width:0;padding:8px;background:var(--surface-3);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:12px;outline:none;"><button type="submit" style="padding:8px 12px;background:var(--accent);color:white;border:none;border-radius:6px;cursor:pointer;font-weight:600;">+</button></form><div id="bm-list">${list}</div>`;
   },
   initBookmarks(el) {
-    const form = el.querySelector('#bm-form');
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const name = el.querySelector('#bm-name').value.trim();
-      let url = el.querySelector('#bm-url').value.trim();
+    el.querySelector('#bm-form').addEventListener('submit', (e) => {
+      e.preventDefault(); const name = el.querySelector('#bm-name').value.trim(); let url = el.querySelector('#bm-url').value.trim();
       if (name && url) {
         if (!url.startsWith('http')) url = 'https://' + url;
         const bookmarks = JSON.parse(localStorage.getItem('dih_bookmarks') || '[]');
-        bookmarks.push({ name, url });
-        localStorage.setItem('dih_bookmarks', JSON.stringify(bookmarks));
-        el.querySelector('.widget-body').innerHTML = this.getBookmarksHTML();
-        this.initBookmarks(el);
+        bookmarks.push({ name, url }); localStorage.setItem('dih_bookmarks', JSON.stringify(bookmarks));
+        el.querySelector('.widget-body').innerHTML = this.getBookmarksHTML(); this.initBookmarks(el);
       }
     });
   },
   deleteBookmark(idx) {
-    const bookmarks = JSON.parse(localStorage.getItem('dih_bookmarks') || '[]');
-    bookmarks.splice(idx, 1);
-    localStorage.setItem('dih_bookmarks', JSON.stringify(bookmarks));
-    const el = document.getElementById('widget-bookmarks');
-    if (el) { el.querySelector('.widget-body').innerHTML = this.getBookmarksHTML(); this.initBookmarks(el); }
+    const bookmarks = JSON.parse(localStorage.getItem('dih_bookmarks') || '[]'); bookmarks.splice(idx, 1); localStorage.setItem('dih_bookmarks', JSON.stringify(bookmarks));
+    const el = document.getElementById('widget-bookmarks'); if (el) { el.querySelector('.widget-body').innerHTML = this.getBookmarksHTML(); this.initBookmarks(el); }
   },
 
-  // CRYPTO GAINERS
-  getGainersHTML() {
-    return `<div id="gainers-display"><div style="text-align:center;padding:20px;color:var(--text-muted);">Loading top gainers...</div></div>`;
-  },
+  getGainersHTML() { return `<div id="gainers-display"><div style="text-align:center;padding:20px;color:var(--text-muted);">Loading top gainers...</div></div>`; },
   async initGainers(el) {
     const display = el.querySelector('#gainers-display');
     try {
       const r = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=percent_change_24h_desc&per_page=5&page=1&sparkline=false');
       const data = await r.json();
       if (data && data.length > 0) {
-        display.innerHTML = data.map(c => `
-          <div style="display:flex;align-items:center;justify-content:space-between;padding:10px;background:var(--surface-3);border-radius:8px;margin-bottom:6px;">
-            <div style="display:flex;align-items:center;gap:8px;">
-              <img src="${c.image}" style="width:24px;height:24px;border-radius:50%;">
-              <div><div style="font-weight:700;font-size:13px;">${c.symbol.toUpperCase()}</div><div style="font-size:10px;color:var(--text-muted);">${c.name}</div></div>
-            </div>
-            <div style="text-align:right;"><div style="font-weight:700;font-size:13px;">$${c.current_price.toLocaleString()}</div><div style="font-size:11px;color:var(--green);font-weight:600;">▲ ${c.price_change_percentage_24h.toFixed(2)}%</div></div>
-          </div>`).join('');
+        display.innerHTML = data.map(c => `<div style="display:flex;align-items:center;justify-content:space-between;padding:10px;background:var(--surface-3);border-radius:8px;margin-bottom:6px;"><div style="display:flex;align-items:center;gap:8px;"><img src="${c.image}" style="width:24px;height:24px;border-radius:50%;"><div><div style="font-weight:700;font-size:13px;">${c.symbol.toUpperCase()}</div><div style="font-size:10px;color:var(--text-muted);">${c.name}</div></div></div><div style="text-align:right;"><div style="font-weight:700;font-size:13px;">$${c.current_price.toLocaleString()}</div><div style="font-size:11px;color:var(--green);font-weight:600;">▲ ${c.price_change_percentage_24h.toFixed(2)}%</div></div></div>`).join('');
       } else throw new Error('No data');
-    } catch(e) {
-      display.innerHTML = `<p style="color:var(--red);font-size:12px;text-align:center;padding:20px;">Could not load gainers. Try again later.</p>`;
-    }
+    } catch(e) { display.innerHTML = `<p style="color:var(--red);font-size:12px;text-align:center;padding:20px;">Could not load gainers. Try again later.</p>`; }
   },
 
-  // STOPWATCH
-  getStopwatchHTML() {
-    return `<div style="text-align:center;padding:10px;"><div id="sw-display" style="font-size:40px;font-weight:800;font-family:var(--mono);margin:20px 0;color:var(--text);">00:00.00</div><div id="sw-laps" style="max-height:100px;overflow-y:auto;margin-bottom:10px;"></div><div style="display:flex;gap:10px;justify-content:center;"><button id="sw-start" style="padding:10px 20px;background:var(--green);color:white;border:none;border-radius:8px;cursor:pointer;font-weight:700;font-size:13px;">Start</button><button id="sw-lap" style="padding:10px 20px;background:var(--surface-3);color:var(--text);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-weight:700;font-size:13px;">Lap</button><button id="sw-reset" style="padding:10px 20px;background:var(--surface-3);color:var(--text);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-weight:700;font-size:13px;">Reset</button></div></div>`;
-  },
+  getStopwatchHTML() { return `<div style="text-align:center;padding:10px;"><div id="sw-display" style="font-size:40px;font-weight:800;font-family:var(--mono);margin:20px 0;color:var(--text);">00:00.00</div><div id="sw-laps" style="max-height:100px;overflow-y:auto;margin-bottom:10px;"></div><div style="display:flex;gap:10px;justify-content:center;"><button id="sw-start" style="padding:10px 20px;background:var(--green);color:white;border:none;border-radius:8px;cursor:pointer;font-weight:700;font-size:13px;">Start</button><button id="sw-lap" style="padding:10px 20px;background:var(--surface-3);color:var(--text);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-weight:700;font-size:13px;">Lap</button><button id="sw-reset" style="padding:10px 20px;background:var(--surface-3);color:var(--text);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-weight:700;font-size:13px;">Reset</button></div></div>`; },
   initStopwatch(el) {
     let startTime = 0, elapsed = 0, interval = null, laps = [];
-    const display = el.querySelector('#sw-display');
-    const lapsEl = el.querySelector('#sw-laps');
-    const startBtn = el.querySelector('#sw-start');
-    const lapBtn = el.querySelector('#sw-lap');
-    const resetBtn = el.querySelector('#sw-reset');
+    const display = el.querySelector('#sw-display'), lapsEl = el.querySelector('#sw-laps'), startBtn = el.querySelector('#sw-start'), lapBtn = el.querySelector('#sw-lap'), resetBtn = el.querySelector('#sw-reset');
     const format = (ms) => { const m = Math.floor(ms/60000).toString().padStart(2,'0'); const s = Math.floor((ms%60000)/1000).toString().padStart(2,'0'); const cs = Math.floor((ms%1000)/10).toString().padStart(2,'0'); return `${m}:${s}.${cs}`; };
     const update = () => { display.textContent = format(elapsed + (Date.now() - startTime)); };
     startBtn.addEventListener('click', () => {
@@ -1084,103 +832,69 @@ const WidgetManager = {
     });
     lapBtn.addEventListener('click', () => {
       if (interval || elapsed > 0) {
-        const t = interval ? elapsed + (Date.now() - startTime) : elapsed;
-        laps.unshift(t);
+        const t = interval ? elapsed + (Date.now() - startTime) : elapsed; laps.unshift(t);
         lapsEl.innerHTML = laps.map((l, i) => `<div style="font-size:11px;color:var(--text-sub);font-family:var(--mono);padding:2px 0;">Lap ${laps.length - i}: ${format(l)}</div>`).join('');
       }
     });
-    resetBtn.addEventListener('click', () => {
-      clearInterval(interval); interval = null; elapsed = 0; laps = [];
-      display.textContent = '00:00.00'; lapsEl.innerHTML = '';
-      startBtn.textContent = 'Start'; startBtn.style.background = 'var(--green)';
-    });
+    resetBtn.addEventListener('click', () => { clearInterval(interval); interval = null; elapsed = 0; laps = []; display.textContent = '00:00.00'; lapsEl.innerHTML = ''; startBtn.textContent = 'Start'; startBtn.style.background = 'var(--green)'; });
   },
 
-  // QUOTE
-  getQuoteHTML() {
-    return `<div id="quote-display" style="text-align:center;padding:10px;"><div id="quote-text" style="font-size:15px;font-style:italic;color:var(--text);line-height:1.6;margin-bottom:12px;"></div><div id="quote-author" style="font-size:12px;color:var(--text-muted);font-weight:600;"></div><button id="quote-refresh" style="margin-top:16px;padding:8px 16px;background:var(--accent);color:white;border:none;border-radius:8px;cursor:pointer;font-weight:600;font-size:12px;">New Quote</button></div>`;
-  },
+  getQuoteHTML() { return `<div id="quote-display" style="text-align:center;padding:10px;"><div id="quote-text" style="font-size:15px;font-style:italic;color:var(--text);line-height:1.6;margin-bottom:12px;"></div><div id="quote-author" style="font-size:12px;color:var(--text-muted);font-weight:600;"></div><button id="quote-refresh" style="margin-top:16px;padding:8px 16px;background:var(--accent);color:white;border:none;border-radius:8px;cursor:pointer;font-weight:600;font-size:12px;">New Quote</button></div>`; },
   initQuote(el) {
-    const quotes = [
-      { t: "The only way to do great work is to love what you do.", a: "Steve Jobs" },
-      { t: "Innovation distinguishes between a leader and a follower.", a: "Steve Jobs" },
-      { t: "The best time to plant a tree was 20 years ago. The second best time is now.", a: "Chinese Proverb" },
-      { t: "Risk comes from not knowing what you're doing.", a: "Warren Buffett" },
-      { t: "Price is what you pay. Value is what you get.", a: "Warren Buffett" },
-      { t: "The stock market is filled with individuals who know the price of everything, but the value of nothing.", a: "Philip Fisher" },
-      { t: "Stay hungry, stay foolish.", a: "Stewart Brand" },
-      { t: "The secret of getting ahead is getting started.", a: "Mark Twain" },
-      { t: "It's not whether you're right or wrong that's important, but how much money you make when you're right.", a: "George Soros" },
-      { t: "Be fearful when others are greedy and greedy when others are fearful.", a: "Warren Buffett" }
-    ];
-    const textEl = el.querySelector('#quote-text');
-    const authorEl = el.querySelector('#quote-author');
-    const refreshBtn = el.querySelector('#quote-refresh');
-    const show = () => {
-      const q = quotes[Math.floor(Math.random() * quotes.length)];
-      textEl.textContent = `"${q.t}"`;
-      authorEl.textContent = `— ${q.a}`;
-    };
-    refreshBtn.addEventListener('click', show);
-    show();
+    const quotes = [{ t: "The only way to do great work is to love what you do.", a: "Steve Jobs" }, { t: "Innovation distinguishes between a leader and a follower.", a: "Steve Jobs" }, { t: "The best time to plant a tree was 20 years ago. The second best time is now.", a: "Chinese Proverb" }, { t: "Risk comes from not knowing what you're doing.", a: "Warren Buffett" }, { t: "Price is what you pay. Value is what you get.", a: "Warren Buffett" }, { t: "The stock market is filled with individuals who know the price of everything, but the value of nothing.", a: "Philip Fisher" }, { t: "Stay hungry, stay foolish.", a: "Stewart Brand" }, { t: "The secret of getting ahead is getting started.", a: "Mark Twain" }, { t: "It's not whether you're right or wrong that's important, but how much money you make when you're right.", a: "George Soros" }, { t: "Be fearful when others are greedy and greedy when others are fearful.", a: "Warren Buffett" }];
+    const textEl = el.querySelector('#quote-text'), authorEl = el.querySelector('#quote-author'), refreshBtn = el.querySelector('#quote-refresh');
+    const show = () => { const q = quotes[Math.floor(Math.random() * quotes.length)]; textEl.textContent = `"${q.t}"`; authorEl.textContent = `— ${q.a}`; };
+    refreshBtn.addEventListener('click', show); show();
   },
 
-  // DICE
-  getDiceHTML() {
-    return `<div style="text-align:center;padding:10px;"><div id="dice-result" style="font-size:64px;margin:20px 0;">🎲</div><div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;"><button class="dice-btn" data-sides="6" style="padding:10px 16px;background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent);border-radius:8px;cursor:pointer;font-weight:700;">d6</button><button class="dice-btn" data-sides="20" style="padding:10px 16px;background:var(--surface-3);color:var(--text);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-weight:700;">d20</button><button class="dice-btn" data-sides="100" style="padding:10px 16px;background:var(--surface-3);color:var(--text);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-weight:700;">d100</button></div><div id="dice-history" style="margin-top:16px;font-size:11px;color:var(--text-muted);font-family:var(--mono);max-height:80px;overflow-y:auto;"></div></div>`;
-  },
+  getDiceHTML() { return `<div style="text-align:center;padding:10px;"><div id="dice-result" style="font-size:64px;margin:20px 0;">🎲</div><div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;"><button class="dice-btn" data-sides="6" style="padding:10px 16px;background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent);border-radius:8px;cursor:pointer;font-weight:700;">d6</button><button class="dice-btn" data-sides="20" style="padding:10px 16px;background:var(--surface-3);color:var(--text);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-weight:700;">d20</button><button class="dice-btn" data-sides="100" style="padding:10px 16px;background:var(--surface-3);color:var(--text);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-weight:700;">d100</button></div><div id="dice-history" style="margin-top:16px;font-size:11px;color:var(--text-muted);font-family:var(--mono);max-height:80px;overflow-y:auto;"></div></div>`; },
   initDice(el) {
-    const result = el.querySelector('#dice-result');
-    const history = el.querySelector('#dice-history');
-    const rolls = [];
+    const result = el.querySelector('#dice-result'), history = el.querySelector('#dice-history'); const rolls = [];
     el.querySelectorAll('.dice-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        const sides = parseInt(btn.dataset.sides);
-        const roll = Math.floor(Math.random() * sides) + 1;
-        result.textContent = roll;
-        result.style.animation = 'none';
-        setTimeout(() => result.style.animation = 'fadeInUp 0.3s var(--ease)', 10);
-        rolls.unshift(`d${sides}: ${roll}`);
-        if (rolls.length > 5) rolls.pop();
-        history.innerHTML = rolls.join(' | ');
+        const sides = parseInt(btn.dataset.sides), roll = Math.floor(Math.random() * sides) + 1;
+        result.textContent = roll; result.style.animation = 'none'; setTimeout(() => result.style.animation = 'fadeInUp 0.3s var(--ease)', 10);
+        rolls.unshift(`d${sides}: ${roll}`); if (rolls.length > 5) rolls.pop(); history.innerHTML = rolls.join(' | ');
       });
     });
   },
 
-  // COLOR
-  getColorHTML() {
-    return `<div style="text-align:center;padding:10px;"><div id="color-preview" style="width:100%;height:120px;border-radius:12px;border:1px solid var(--border);margin-bottom:16px;"></div><div id="color-hex" style="font-size:24px;font-weight:800;font-family:var(--mono);color:var(--text);margin-bottom:8px;"></div><div id="color-rgb" style="font-size:12px;color:var(--text-muted);font-family:var(--mono);margin-bottom:16px;"></div><button id="color-gen" style="padding:10px 24px;background:var(--accent);color:white;border:none;border-radius:8px;cursor:pointer;font-weight:700;font-size:14px;">Generate New</button><button id="color-copy" style="margin-left:8px;padding:10px 16px;background:var(--surface-3);color:var(--text);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-weight:600;font-size:13px;">Copy</button></div>`;
-  },
+  getColorHTML() { return `<div style="text-align:center;padding:10px;"><div id="color-preview" style="width:100%;height:120px;border-radius:12px;border:1px solid var(--border);margin-bottom:16px;"></div><div id="color-hex" style="font-size:24px;font-weight:800;font-family:var(--mono);color:var(--text);margin-bottom:8px;"></div><div id="color-rgb" style="font-size:12px;color:var(--text-muted);font-family:var(--mono);margin-bottom:16px;"></div><button id="color-gen" style="padding:10px 24px;background:var(--accent);color:white;border:none;border-radius:8px;cursor:pointer;font-weight:700;font-size:14px;">Generate New</button><button id="color-copy" style="margin-left:8px;padding:10px 16px;background:var(--surface-3);color:var(--text);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-weight:600;font-size:13px;">Copy</button></div>`; },
   initColor(el) {
-    const preview = el.querySelector('#color-preview');
-    const hexEl = el.querySelector('#color-hex');
-    const rgbEl = el.querySelector('#color-rgb');
-    const genBtn = el.querySelector('#color-gen');
-    const copyBtn = el.querySelector('#color-copy');
-    const generate = () => {
-      const r = Math.floor(Math.random()*256), g = Math.floor(Math.random()*256), b = Math.floor(Math.random()*256);
-      const hex = '#' + [r,g,b].map(x => x.toString(16).padStart(2,'0')).join('');
-      preview.style.background = hex;
-      hexEl.textContent = hex.toUpperCase();
-      rgbEl.textContent = `rgb(${r}, ${g}, ${b})`;
-    };
+    const preview = el.querySelector('#color-preview'), hexEl = el.querySelector('#color-hex'), rgbEl = el.querySelector('#color-rgb'), genBtn = el.querySelector('#color-gen'), copyBtn = el.querySelector('#color-copy');
+    const generate = () => { const r = Math.floor(Math.random()*256), g = Math.floor(Math.random()*256), b = Math.floor(Math.random()*256); const hex = '#' + [r,g,b].map(x => x.toString(16).padStart(2,'0')).join(''); preview.style.background = hex; hexEl.textContent = hex.toUpperCase(); rgbEl.textContent = `rgb(${r}, ${g}, ${b})`; };
     genBtn.addEventListener('click', generate);
-    copyBtn.addEventListener('click', () => {
-      navigator.clipboard.writeText(hexEl.textContent).then(() => {
-        copyBtn.textContent = 'Copied!';
-        setTimeout(() => copyBtn.textContent = 'Copy', 1500);
-      });
-    });
+    copyBtn.addEventListener('click', () => { navigator.clipboard.writeText(hexEl.textContent).then(() => { copyBtn.textContent = 'Copied!'; setTimeout(() => copyBtn.textContent = 'Copy', 1500); }); });
     generate();
   }
 };
 window.WidgetManager = WidgetManager;
 
-// Widget Drag Logic
+// ==========================================
+// WIDGET DRAG & RESIZE LOGIC
+// ==========================================
 let activeWidget = null, offsetX = 0, offsetY = 0, zCounter = 10000;
+let isResizing = false, resizeWidget = null, startW = 0, startH = 0, startX = 0, startY = 0;
+
 document.addEventListener('pointerdown', (e) => {
+  // Resize Logic (Desktop Only)
+  const resizeHandle = e.target.closest('.widget-resize-handle');
+  if (resizeHandle && window.innerWidth >= 768) {
+    isResizing = true;
+    resizeWidget = resizeHandle.closest('.floating-widget');
+    startW = resizeWidget.offsetWidth;
+    startH = resizeWidget.offsetHeight;
+    startX = e.clientX;
+    startY = e.clientY;
+    resizeWidget.style.transition = 'none';
+    document.body.style.userSelect = 'none';
+    e.preventDefault();
+    return;
+  }
+
+  // Drag Logic (Desktop & Mobile)
   const handle = e.target.closest('.widget-header');
-  if (!handle || e.target.closest('.widget-close')) return;
+  if (!handle || e.target.closest('.widget-btn')) return;
   activeWidget = handle.closest('.floating-widget');
   if (!activeWidget) return;
   const rect = activeWidget.getBoundingClientRect();
@@ -1190,7 +904,16 @@ document.addEventListener('pointerdown', (e) => {
   activeWidget.style.transition = 'none';
   document.body.style.userSelect = 'none';
 });
+
 document.addEventListener('pointermove', (e) => {
+  if (isResizing && resizeWidget) {
+    e.preventDefault();
+    const newW = Math.max(280, startW + (e.clientX - startX));
+    const newH = Math.max(200, startH + (e.clientY - startY));
+    resizeWidget.style.width = newW + 'px';
+    resizeWidget.style.height = newH + 'px';
+    return;
+  }
   if (!activeWidget) return;
   e.preventDefault();
   let x = e.clientX - offsetX; let y = e.clientY - offsetY;
@@ -1199,7 +922,11 @@ document.addEventListener('pointermove', (e) => {
   activeWidget.style.left = x + 'px'; activeWidget.style.top = y + 'px';
   activeWidget.style.right = 'auto'; activeWidget.style.transform = 'none';
 });
+
 document.addEventListener('pointerup', () => {
+  if (isResizing && resizeWidget) {
+    isResizing = false; resizeWidget.style.transition = ''; document.body.style.userSelect = ''; resizeWidget = null;
+  }
   if (activeWidget) { activeWidget.style.cursor = 'grab'; activeWidget.style.transition = ''; document.body.style.userSelect = ''; }
   activeWidget = null;
 });
@@ -1219,7 +946,6 @@ updateClock(); setInterval(updateClock, 1000);
   WidgetManager.init(); 
   const [crypto, stocks] = await Promise.all([fetchCrypto(), fetchStocks()]);
   renderTicker(crypto, stocks);
-  
   const welcomeHTML = `<p>Welcome to <strong>Digital Infohub OS</strong>! 👋 I'm your AI research terminal — here to help you stay sharp on markets, tech, and productivity.</p>
   <p style="margin-top:12px; color:var(--text-sub);">You can click the folders on your desktop, or just ask me anything. I'll remember our conversation and suggest what might interest you next.</p>
   <div class="chat-follow-ups">
