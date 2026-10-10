@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
-<meta name="theme-color" content="#000000">
+<meta name="theme-color" content="#050505">
 <meta name="description" content="Digital Infohub OS: A premium, macOS-inspired AI research terminal for real-time markets, tech insights, and productivity.">
 <title>Digital Infohub OS | AI Research Terminal</title>
 
@@ -30,7 +30,7 @@
   --text: #F5F5F7; --text-sub: #A1A1A6; --text-muted: #6E6E73;
   --accent: #0A84FF; --accent-soft: rgba(10,132,255,0.15); --accent-glow: rgba(10,132,255,0.3);
   --green: #30D158; --red: #FF453A; --orange: #FF9F0A;
-  --glass-bg: rgba(30, 30, 30, 0.6);
+  --glass-bg: rgba(25, 25, 25, 0.65);
   --glass-border: rgba(255, 255, 255, 0.1);
   --glass-highlight: rgba(255, 255, 255, 0.05);
 }
@@ -41,9 +41,9 @@
   --text: #1D1D1F; --text-sub: #515154; --text-muted: #86868B;
   --accent: #007AFF; --accent-soft: rgba(0,122,255,0.1); --accent-glow: rgba(0,122,255,0.2);
   --green: #28A745; --red: #FF3B30; --orange: #FF9500;
-  --glass-bg: rgba(255, 255, 255, 0.6);
+  --glass-bg: rgba(255, 255, 255, 0.75);
   --glass-border: rgba(0, 0, 0, 0.08);
-  --glass-highlight: rgba(255, 255, 255, 0.5);
+  --glass-highlight: rgba(255, 255, 255, 0.6);
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -52,9 +52,15 @@ html, body { height: 100%; height: 100dvh; font-family: var(--font); background:
 
 body::before {
   content: ''; position: fixed; inset: 0; z-index: -1;
-  background: radial-gradient(circle at 20% 20%, rgba(10, 132, 255, 0.15) 0%, transparent 50%),
-              radial-gradient(circle at 80% 80%, rgba(255, 69, 58, 0.1) 0%, transparent 50%),
-              radial-gradient(circle at 50% 50%, rgba(48, 209, 88, 0.05) 0%, transparent 70%);
+  background: 
+    radial-gradient(circle at 15% 15%, rgba(10, 132, 255, 0.12) 0%, transparent 40%),
+    radial-gradient(circle at 85% 85%, rgba(94, 92, 230, 0.1) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(48, 209, 88, 0.05) 0%, transparent 60%);
+  animation: bgPulse 15s ease-in-out infinite alternate;
+}
+@keyframes bgPulse {
+  0% { opacity: 0.8; transform: scale(1); }
+  100% { opacity: 1; transform: scale(1.05); }
 }
 
 .os-topbar { 
@@ -66,12 +72,15 @@ body::before {
   display: flex; align-items: center; padding: 0 16px; z-index: 100; flex-shrink: 0; gap: 16px; 
 }
 .os-logo { font-weight: 700; font-size: 14px; letter-spacing: -0.01em; display: flex; align-items: center; gap: 8px; color: var(--text); }
-.os-logo-icon { width: 20px; height: 20px; background: linear-gradient(135deg, var(--accent), #5E5CE6); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: white; }
-.ticker-shell { flex: 1; overflow-x: auto; overflow-y: hidden; scrollbar-width: none; mask-image: linear-gradient(90deg, transparent, black 5%, black 95%, transparent); }
-.ticker-shell::-webkit-scrollbar { display: none; }
-.ticker-bar { display: inline-flex; padding: 6px 0; animation: scroll 60s linear infinite; }
+.os-logo-icon { 
+  width: 22px; height: 22px; background: linear-gradient(135deg, var(--accent), #5E5CE6); 
+  border-radius: 7px; display: flex; align-items: center; justify-content: center; 
+  font-size: 12px; color: white; box-shadow: 0 2px 8px rgba(10,132,255,0.3);
+}
+.ticker-shell { flex: 1; overflow: hidden; mask-image: linear-gradient(90deg, transparent, black 5%, black 95%, transparent); }
+.ticker-bar { display: inline-flex; padding: 6px 0; animation: scroll 60s linear infinite; white-space: nowrap; }
 @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-.ticker-item { display: inline-flex; align-items: center; gap: 6px; padding: 0 16px; font-size: 11px; font-family: var(--mono); color: var(--text-sub); border-right: 1px solid var(--border); white-space: nowrap; }
+.ticker-item { display: inline-flex; align-items: center; gap: 6px; padding: 0 16px; font-size: 11px; font-family: var(--mono); color: var(--text-sub); border-right: 1px solid var(--border); }
 .ticker-item strong { color: var(--text); font-weight: 600; }
 .ticker-item .up { color: var(--green); } .ticker-item .down { color: var(--red); }
 .os-actions { display: flex; gap: 8px; align-items: center; flex-shrink: 0; }
@@ -85,10 +94,12 @@ body::before {
 .os-clock { font-family: var(--mono); font-size: 11px; color: var(--text-sub); padding: 4px 10px; border: 1px solid var(--glass-border); border-radius: 6px; background: var(--glass-highlight); }
 
 .os-desktop { flex: 1; display: flex; flex-direction: column; height: calc(100dvh - var(--topbar-h)); position: relative; overflow: hidden; }
-.chat-container { flex: 1; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; padding: 24px 16px; scroll-behavior: smooth; position: relative; }
+.chat-container { 
+  flex: 1; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; 
+  padding: 24px 16px 35vh 16px; scroll-behavior: smooth; position: relative; 
+}
 .chat-thread { width: 100%; max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; position: relative; z-index: 2; }
 
-/* Desktop Icons - Responsive Fix */
 .desktop-icons { position: absolute; top: 24px; right: 24px; display: flex; flex-direction: column; gap: 24px; z-index: 1; }
 .desktop-folder { display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; transition: transform 0.2s var(--ease); }
 .desktop-folder:hover { transform: scale(1.05); }
@@ -120,7 +131,12 @@ body::before {
 .msg-content ul { margin-left: 20px; margin-top: 12px; color: var(--text-sub); font-size: 13px; line-height: 1.8; }
 .msg-content ul li { margin-bottom: 6px; }
 
-.ai-insight-box { background: linear-gradient(135deg, rgba(10,132,255,0.08), rgba(94,92,230,0.08)); border: 1px solid rgba(10,132,255,0.2); border-radius: 12px; padding: 16px; margin-top: 16px; backdrop-filter: blur(10px); }
+.ai-insight-box { 
+  background: linear-gradient(135deg, rgba(10,132,255,0.08), rgba(94,92,230,0.05)); 
+  border: 1px solid rgba(10,132,255,0.25); 
+  border-radius: 16px; padding: 18px; margin-top: 16px; backdrop-filter: blur(12px);
+  box-shadow: 0 4px 20px rgba(10,132,255,0.05);
+}
 .ai-insight-box h4 { font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
 .ai-insight-box p { font-size: 13px; color: var(--text-sub); line-height: 1.6; margin: 0; }
 
@@ -151,38 +167,57 @@ body::before {
 .follow-up-btn { background: var(--glass-highlight); border: 1px solid var(--glass-border); color: var(--text-sub); padding: 8px 14px; border-radius: var(--radius-pill); font-size: 12px; font-weight: 500; cursor: pointer; transition: all 0.2s; font-family: var(--font); backdrop-filter: blur(10px); }
 .follow-up-btn:hover { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); }
 
-.research-steps { display: flex; flex-direction: column; gap: 6px; font-family: var(--mono); font-size: 11px; color: var(--text-sub); padding: 10px 0; }
-.step { display: flex; align-items: center; gap: 8px; }
-.step.active { color: var(--accent); font-weight: 600; }
-.step.done { color: var(--text-sub); opacity: 0.6; }
-.step.done .step-icon { color: var(--green); }
-
-.typing-indicator { display: flex; gap: 4px; padding: 8px 0; }
-.typing-indicator span { width: 6px; height: 6px; border-radius: 50%; background: var(--text-muted); animation: typing 1.4s infinite; }
+.typing-indicator { display: flex; gap: 5px; padding: 8px 4px; align-items: center; height: 24px; }
+.typing-indicator span { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); animation: typing 1.4s infinite ease-in-out; opacity: 0.6; }
 .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
 .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
-@keyframes typing { 0%, 60%, 100% { transform: translateY(0); opacity: 0.4; } 30% { transform: translateY(-6px); opacity: 1; } }
+@keyframes typing { 0%, 60%, 100% { transform: translateY(0); opacity: 0.4; } 30% { transform: translateY(-8px); opacity: 1; } }
 
-.os-input-area { flex-shrink: 0; padding: 12px 16px max(12px, env(safe-area-inset-bottom)); background: transparent; z-index: 50; display: flex; justify-content: center; }
-.input-wrapper { max-width: 760px; width: 100%; position: relative; }
-.input-shell { 
-  background: var(--glass-bg); backdrop-filter: blur(30px) saturate(180%); 
-  border: 1px solid var(--glass-border); border-radius: 20px; padding: 6px 6px 6px 20px; 
-  display: flex; align-items: center; gap: 10px; transition: all 0.3s var(--ease); 
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+/* Elevated Input Area */
+.os-input-area { 
+  position: absolute; 
+  bottom: 25vh; 
+  left: 0; right: 0; 
+  z-index: 50; 
+  display: flex; justify-content: center; 
+  padding: 0 20px;
+  pointer-events: none;
 }
-.input-shell:focus-within { border-color: var(--accent); box-shadow: 0 10px 40px rgba(10,132,255,0.2), 0 0 0 4px var(--accent-glow); }
-.ai-input { flex: 1; background: none; border: none; outline: none; color: var(--text); font-size: 15px; font-weight: 400; font-family: inherit; min-width: 0; padding: 10px 0; }
+.input-wrapper { pointer-events: auto; max-width: 760px; width: 100%; position: relative; }
+.input-shell { 
+  background: var(--glass-bg); 
+  backdrop-filter: blur(40px) saturate(200%); 
+  -webkit-backdrop-filter: blur(40px) saturate(200%);
+  border: 1px solid var(--glass-border); 
+  border-radius: 28px; 
+  padding: 8px 8px 8px 24px; 
+  display: flex; align-items: center; gap: 12px; 
+  transition: all 0.3s var(--ease); 
+  box-shadow: 0 20px 50px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.05) inset;
+}
+.input-shell:focus-within { 
+  border-color: var(--accent); 
+  box-shadow: 0 25px 60px rgba(10,132,255,0.2), 0 0 0 4px var(--accent-glow), 0 0 0 1px rgba(255,255,255,0.1) inset; 
+  transform: translateY(-4px);
+}
+.ai-input { flex: 1; background: none; border: none; outline: none; color: var(--text); font-size: 16px; font-weight: 400; font-family: inherit; min-width: 0; padding: 14px 0; }
 .ai-input::placeholder { color: var(--text-muted); }
-.ai-send { width: 36px; height: 36px; border-radius: 50%; background: var(--accent); color: white; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; font-size: 16px; flex-shrink: 0; box-shadow: 0 4px 12px rgba(10,132,255,0.3); }
-.ai-send:hover:not(:disabled) { transform: scale(1.05); }
+.ai-send { 
+  width: 44px; height: 44px; border-radius: 50%; 
+  background: linear-gradient(135deg, var(--accent), #5E5CE6); 
+  color: white; border: none; display: flex; align-items: center; justify-content: center; 
+  cursor: pointer; transition: all 0.2s var(--ease); font-size: 18px; flex-shrink: 0; 
+  box-shadow: 0 4px 15px rgba(10,132,255,0.4); 
+}
+.ai-send:hover:not(:disabled) { transform: scale(1.08); box-shadow: 0 8px 25px rgba(10,132,255,0.5); }
+.ai-send:active:not(:disabled) { transform: scale(0.95); }
 .ai-send:disabled { opacity: 0.3; cursor: not-allowed; }
 
 /* WIDGETS & CONTROLS */
 .widget-layer { position: fixed; inset: 0; pointer-events: none; z-index: 9999; }
 .floating-widget { 
   position: fixed; width: 320px; background: var(--glass-bg); backdrop-filter: blur(40px) saturate(180%); 
-  border: 1px solid var(--glass-border); border-radius: 12px; box-shadow: 0 20px 50px rgba(0,0,0,0.4); 
+  border: 1px solid var(--glass-border); border-radius: 16px; box-shadow: 0 20px 50px rgba(0,0,0,0.4); 
   pointer-events: auto; display: flex; flex-direction: column; overflow: hidden; animation: widgetPopIn 0.4s var(--ease); z-index: 10000; transition: width 0.3s var(--ease), height 0.3s var(--ease), transform 0.3s var(--ease), box-shadow 0.2s; 
 }
 .floating-widget:hover { box-shadow: 0 25px 60px rgba(0,0,0,0.5); }
@@ -214,7 +249,7 @@ body::before {
 .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(10px); z-index: 5000; display: none; align-items: center; justify-content: center; padding: 20px; }
 .modal-overlay.active { display: flex; animation: fadeIn 0.2s ease; }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-.modal-content { width: 100%; max-width: 600px; background: var(--glass-bg); backdrop-filter: blur(40px) saturate(180%); border: 1px solid var(--glass-border); border-radius: 16px; overflow: hidden; max-height: 80vh; display: flex; flex-direction: column; box-shadow: 0 30px 80px rgba(0,0,0,0.5); }
+.modal-content { width: 100%; max-width: 600px; background: var(--glass-bg); backdrop-filter: blur(40px) saturate(180%); border: 1px solid var(--glass-border); border-radius: 20px; overflow: hidden; max-height: 85vh; display: flex; flex-direction: column; box-shadow: 0 30px 80px rgba(0,0,0,0.6); }
 .modal-header { padding: 16px 20px; border-bottom: 1px solid var(--glass-border); display: flex; justify-content: space-between; align-items: center; }
 .modal-header h2 { font-size: 16px; font-weight: 700; font-family: var(--font); }
 .modal-body { padding: 20px; overflow-y: auto; flex: 1; }
@@ -234,10 +269,9 @@ body::before {
   .os-logo { font-size: 12px; }
   .os-btn { padding: 0 10px; font-size: 11px; height: 26px; }
   .os-clock { display: none; }
-  .chat-container { padding: 12px; }
+  .chat-container { padding: 16px 12px 28vh 12px; }
   .msg { gap: 10px; }
   
-  /* Mobile Desktop Icons: Horizontal Scroll */
   .desktop-icons { 
     position: relative; top: 0; right: 0; 
     flex-direction: row; overflow-x: auto; gap: 12px; 
@@ -248,6 +282,11 @@ body::before {
   .desktop-folder { flex-shrink: 0; }
   .desktop-folder-icon { width: 56px; height: 56px; font-size: 28px; border-radius: 14px; }
   .desktop-folder-label { font-size: 10px; padding: 2px 6px; }
+  
+  .os-input-area { bottom: 18vh; padding: 0 12px; }
+  .input-shell { border-radius: 24px; padding: 6px 6px 6px 18px; }
+  .ai-input { font-size: 15px; padding: 12px 0; }
+  .ai-send { width: 40px; height: 40px; font-size: 16px; }
   
   .floating-widget { width: 92vw !important; max-width: 360px !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; max-height: 75vh; }
   .floating-widget.widget-fullscreen { width: 100vw !important; height: 100dvh !important; max-height: 100dvh !important; left: 0 !important; top: 0 !important; transform: none !important; border-radius: 0 !important; }
@@ -384,10 +423,10 @@ function scrollToBottom(force = false) {
 function createSparklineSVG(isUp) {
   const points = 20; let path = "M 0 50 "; let y = 50; const trend = isUp ? -1.5 : 1.5;
   for (let i = 1; i <= points; i++) { const x = (i / points) * 100; y = Math.max(10, Math.min(90, y + trend + (Math.random() - 0.5) * 15)); path += `L ${x} ${y} `; }
-  const color = isUp ? 'var(--green)' : 'var(--red)'; const gid = isUp ? 'gU' : 'gD';
+  const color = isUp ? '#30D158' : '#FF453A'; const gid = isUp ? 'gU' : 'gD';
   return `<svg viewBox="0 0 100 100" preserveAspectRatio="none" class="market-sparkline">
-    <defs><linearGradient id="${gid}" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="${color}" stop-opacity="0.3"/><stop offset="100%" stop-color="${color}" stop-opacity="0"/></linearGradient></defs>
-    <path d="${path} L 100 100 L 0 100 Z" fill="url(#${gid})" /><path d="${path}" fill="none" stroke="${color}" stroke-width="2" vector-effect="non-scaling-stroke" />
+    <defs><linearGradient id="${gid}" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="${color}" stop-opacity="0.4"/><stop offset="100%" stop-color="${color}" stop-opacity="0"/></linearGradient></defs>
+    <path d="${path} L 100 100 L 0 100 Z" fill="url(#${gid})" /><path d="${path}" fill="none" stroke="${color}" stroke-width="2.5" vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round" />
   </svg>`;
 }
 
@@ -540,6 +579,7 @@ const AI = {
         const sentiment = greenCount > stocks.length/2 ? "looking strong today" : greenCount === 0 ? "taking a breather today" : "mixed but holding steady";
         let transition = Context.recentTopics.length > 1 ? `<p style="color:var(--text-sub);">${Context.getTransition()}</p>` : '';
         let html = `${transition}<p>📊 <strong>Market Briefing</strong></p><p style="color:var(--text-sub); margin-top:8px;">The markets are ${sentiment}. Here's your real-time snapshot — click any asset for its full chart.</p>`;
+        
         if (stocks.length > 0) {
           html += `<p style="font-size:12px;font-weight:700;margin-top:16px;color:var(--text-muted);text-transform:uppercase;">Equities</p><div class="market-grid">`;
           html += stocks.slice(0,4).map(s => `<div class="market-item" onclick="window.openChartModal('${s.symbol}', '${s.symbol}', '${s.price}', ${s.up})"><div class="market-info"><div class="market-symbol">${s.symbol}</div></div><div class="market-sparkline-wrapper">${createSparklineSVG(s.up)}</div><div class="market-price-area"><div class="market-price">$${s.price}</div><div class="market-change ${s.up?'up':'down'}">${s.up?'▲':'▼'} ${s.changePct}%</div></div></div>`).join('');
@@ -550,7 +590,14 @@ const AI = {
           html += crypto.map(s => `<div class="market-item" onclick="window.openChartModal('${s.symbol}', '${s.symbol}', '${s.price.replace(/,/g, '')}', ${s.up})"><div class="market-info"><div class="market-symbol">${s.symbol}</div></div><div class="market-sparkline-wrapper">${createSparklineSVG(s.up)}</div><div class="market-price-area"><div class="market-price">$${s.price}</div><div class="market-change ${s.up?'up':'down'}">${s.up?'▲':'▼'} ${s.changePct}%</div></div></div>`).join('');
           html += `</div>`;
         }
-        html += `<div class="ai-insight-box"><h4>🧠 AI Insight</h4><p>Worth watching: ${stocks[0]?.symbol || 'tech'} is leading the pack today. If you want deeper analysis on any asset, just ask.</p></div><div class="chat-follow-ups"><button class="follow-up-btn" onclick="window.handleSend('Latest tech news')">📰 Read News</button><button class="follow-up-btn" onclick="window.handleSend('Show investing tips')">💡 Learn Strategy</button><button class="follow-up-btn" onclick="window.handleSend('Install Crypto Gainers')">🚀 Install Gainers</button></div>`;
+        
+        // Dynamic AI Insight (Fixes hardcoded "AAPL" issue)
+        const topGainer = stocks.filter(s => s.up).sort((a, b) => parseFloat(b.changePct) - parseFloat(a.changePct))[0];
+        const insightStock = topGainer ? topGainer.symbol : (stocks[0]?.symbol || 'the market');
+        const insightDirection = topGainer ? `showing strong momentum at +${topGainer.changePct}%` : 'showing mixed signals';
+        
+        html += `<div class="ai-insight-box"><h4>🧠 AI Insight</h4><p>Worth watching: <strong>${insightStock}</strong> is ${insightDirection} today. If you want deeper analysis on any asset, just ask.</p></div>`;
+        html += `<div class="chat-follow-ups"><button class="follow-up-btn" onclick="window.handleSend('Latest tech news')">📰 Read News</button><button class="follow-up-btn" onclick="window.handleSend('Show investing tips')">💡 Learn Strategy</button><button class="follow-up-btn" onclick="window.handleSend('Install Crypto Gainers')">🚀 Install Gainers</button></div>`;
         return html;
       }
       case 'news': {
@@ -619,7 +666,7 @@ window.handleSend = handleSend;
 $('#chatForm').addEventListener('submit', e => { e.preventDefault(); handleSend($('#chatInput').value); });
 
 // ==========================================
-// WIDGET MANAGER (With Minimize, Fullscreen, Resize)
+// WIDGET MANAGER
 // ==========================================
 const WidgetManager = {
   state: { open: [] },
@@ -628,7 +675,7 @@ const WidgetManager = {
     this.state.open.forEach(type => this.createWidgetElement(type)); 
     this.renderAppGrid();
   },
-  save() { localStorage.setItem('dih_widgets_v6', JSON.stringify(this.state)); },
+  save() { try { localStorage.setItem('dih_widgets_v6', JSON.stringify(this.state)); } catch(e) {} },
   open(type) { 
     if (!this.state.open.includes(type)) { 
       this.state.open.push(type); this.save(); this.createWidgetElement(type); this.renderAppGrid();
@@ -897,8 +944,18 @@ document.addEventListener('pointerdown', (e) => {
   if (!handle || e.target.closest('.widget-btn')) return;
   activeWidget = handle.closest('.floating-widget');
   if (!activeWidget) return;
+  
+  // Fix for mobile centering transform jumping
+  if (activeWidget.style.transform && activeWidget.style.transform.includes('translate')) {
+    const rect = activeWidget.getBoundingClientRect();
+    activeWidget.style.left = rect.left + 'px';
+    activeWidget.style.top = rect.top + 'px';
+    activeWidget.style.transform = 'none';
+  }
+  
   const rect = activeWidget.getBoundingClientRect();
-  offsetX = e.clientX - rect.left; offsetY = e.clientY - rect.top;
+  offsetX = e.clientX - rect.left; 
+  offsetY = e.clientY - rect.top;
   activeWidget.style.zIndex = ++zCounter;
   activeWidget.style.cursor = 'grabbing';
   activeWidget.style.transition = 'none';
@@ -935,9 +992,10 @@ window.openAppStore = () => { $('#appStoreModal').classList.add('active'); Widge
 window.closeAppStore = () => { $('#appStoreModal').classList.remove('active'); };
 $('#appStoreModal').addEventListener('click', (e) => { if (e.target === $('#appStoreModal')) window.closeAppStore(); });
 
-let theme = localStorage.getItem('dih_theme') || 'dark';
+let theme = 'dark';
+try { theme = localStorage.getItem('dih_theme') || 'dark'; } catch(e) {}
 document.documentElement.setAttribute('data-theme', theme);
-window.toggleTheme = () => { theme = theme === 'dark' ? 'light' : 'dark'; document.documentElement.setAttribute('data-theme', theme); localStorage.setItem('dih_theme', theme); };
+window.toggleTheme = () => { theme = theme === 'dark' ? 'light' : 'dark'; document.documentElement.setAttribute('data-theme', theme); try { localStorage.setItem('dih_theme', theme); } catch(e) {} };
 
 function updateClock() { $('#clock').textContent = new Date().toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit' }); }
 updateClock(); setInterval(updateClock, 1000);
