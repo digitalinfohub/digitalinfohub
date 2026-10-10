@@ -163,7 +163,7 @@ body::before {
 .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
 @keyframes typing { 0%, 60%, 100% { transform: translateY(0); opacity: 0.4; } 30% { transform: translateY(-6px); opacity: 1; } }
 
-.os-input-area { flex-shrink: 0; padding: 12px 16px max(12px, env(safe-area-inset-bottom)); background: transparent; z-index: 50; display: flex; justify-content: center;margin-bottom: 20px; /* Add this line to pull it up */ }
+.os-input-area { flex-shrink: 0; padding: 12px 16px max(-20px, env(safe-area-inset-bottom)); background: transparent; z-index: 50; display: flex; justify-content: center; }
 .input-wrapper { max-width: 760px; width: 100%; position: relative; }
 .input-shell { 
   background: var(--glass-bg); backdrop-filter: blur(30px) saturate(180%); 
