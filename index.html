@@ -421,6 +421,15 @@ body::after {
 .ai-send:active:not(:disabled) { transform: scale(0.95); }
 .ai-send:disabled { opacity: 0.3; cursor: not-allowed; }
 
+/* Search Button Style */
+.ai-search {
+  width: 44px; height: 44px; border-radius: 50%; 
+  background: var(--surface-3); 
+  color: var(--text-sub); border: 1px solid var(--glass-border); display: flex; align-items: center; justify-content: center; 
+  cursor: pointer; transition: all 0.2s var(--ease); font-size: 18px; flex-shrink: 0; 
+}
+.ai-search:hover { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); transform: scale(1.05); }
+
 /* Quick actions */
 .quick-actions {
   display: flex; gap: 8px; margin-top: 12px;
@@ -551,6 +560,7 @@ body::after {
   .input-shell { border-radius: 24px; padding: 6px 6px 6px 18px; }
   .ai-input { font-size: 15px; padding: 12px 0; }
   .ai-send { width: 40px; height: 40px; font-size: 16px; }
+  .ai-search { width: 40px; height: 40px; font-size: 16px; }
   
   .quick-actions { margin-top: 8px; }
   .quick-action { font-size: 10px; padding: 5px 10px; }
@@ -599,6 +609,7 @@ body::after {
 
 <nav class="os-nav">
   <div class="nav-container">
+    <a href="/" class="nav-link"><span class="nav-icon">🏠</span>Home</a>
     <a href="/blog" class="nav-link"><span class="nav-icon">📝</span>Blog</a>
     <a href="/techproducts" class="nav-link"><span class="nav-icon">💻</span>Tech Products</a>
     <a href="/techtopics" class="nav-link"><span class="nav-icon">🔬</span>Tech Topics</a>
@@ -616,6 +627,7 @@ body::after {
 
 <div class="mobile-drawer" id="mobileDrawer">
   <div class="drawer-content">
+    <a href="/" class="drawer-link"><span class="drawer-icon">🏠</span>Home<span class="drawer-arrow">›</span></a>
     <a href="/blog" class="drawer-link"><span class="drawer-icon">📝</span>Blog<span class="drawer-arrow">›</span></a>
     <a href="/techproducts" class="drawer-link"><span class="drawer-icon">💻</span>Tech Products<span class="drawer-arrow">›</span></a>
     <a href="/techtopics" class="drawer-link"><span class="drawer-icon">🔬</span>Tech Topics<span class="drawer-arrow">›</span></a>
@@ -656,6 +668,7 @@ body::after {
     <div class="input-wrapper">
       <form class="input-shell" id="chatForm" autocomplete="off">
         <input class="ai-input" id="chatInput" type="text" placeholder="Ask anything — markets, news, widgets..." aria-label="Message">
+        <button class="ai-search" id="chatSearch" type="button" aria-label="Search Web" title="Search DuckDuckGo">🔍</button>
         <button class="ai-send" id="chatSend" type="submit" aria-label="Send">→</button>
       </form>
       <div class="quick-actions">
@@ -740,7 +753,7 @@ if (navToggle && mobileDrawer) {
 // Highlight active nav link
 const currentPath = window.location.pathname;
 $$('.nav-link').forEach(link => {
-  if (link.getAttribute('href') === currentPath) {
+  if (link.getAttribute('href') === currentPath || (currentPath === '/' && link.getAttribute('href') === '/')) {
     link.classList.add('active');
   }
 });
@@ -858,27 +871,68 @@ function renderChart(price, isUp, timeframe) {
 }
 $('#chartModal').addEventListener('click', (e) => { if (e.target === $('#chartModal')) window.closeChartModal(); });
 
+// ==========================================
+// IMPROVED INTENT DETECTION (FUZZY KEYWORD MATCHING)
+// ==========================================
 const Intent = {
   detect(input) {
     const lower = input.toLowerCase().trim();
-    if (/^(hi|hello|hey|howdy|greetings|yo|sup)\b/i.test(lower)) return { type:'greeting' };
-    if (/\b(thank|thanks|cheers|ty|appreciate)\b/i.test(lower)) return { type:'thanks' };
-    if (/\b(who are you|what are you|your name|about you)\b/i.test(lower)) return { type:'identity' };
-    if (/\b(what can you do|help|commands|how to use|what do you do)\b/i.test(lower)) return { type:'help' };
-    if (/\b(clear|reset|start over|new chat|wipe)\b/i.test(lower)) return { type:'clear_chat' };
-    if (/\b(bye|goodbye|see ya|cya|later)\b/i.test(lower)) return { type:'goodbye' };
-    if (/\b(how are you|how's it going|you good)\b/i.test(lower)) return { type:'how_are_you' };
-    if (/\b(joke|funny|make me laugh)\b/i.test(lower)) return { type:'joke' };
-    if (/\b(app store|apps|store|applications)\b/i.test(lower)) return { type: 'app_store' };
-    if (/\b(widgets|my widgets|show widgets|installed apps)\b/i.test(lower)) return { type: 'view_widgets' };
-    if (/\binstall\b|\badd\b|\bopen\b/i.test(lower)) {
+    
+    // Helper to check if any keyword in array exists in input
+    const has = (keywords) => keywords.some(k => lower.includes(k));
+    
+    // Greeting: hi, hello, hey, howdy, yo, sup, morning, evening
+    if (has(['hi', 'hello', 'hey', 'howdy', 'greet', 'yo', 'sup', 'morning', 'evening'])) return { type:'greeting' };
+    
+    // Thanks: thank, thanks, cheers, ty, appreciate
+    if (has(['thank', 'cheers', 'ty', 'appreciate'])) return { type:'thanks' };
+    
+    // Identity: who are you, what are you, name, about
+    if (has(['who are', 'what are', 'your name', 'about you', 'identity'])) return { type:'identity' };
+    
+    // Help: help, commands, how to, what do, assist, guide
+    if (has(['help', 'command', 'how to', 'what do', 'assist', 'guide', 'hel'])) return { type:'help' };
+    
+    // Clear: clear, reset, start over, new chat, wipe
+    if (has(['clear', 'reset', 'start over', 'new chat', 'wipe'])) return { type:'clear_chat' };
+    
+    // Goodbye: bye, goodbye, see ya, cya, later
+    if (has(['bye', 'goodbye', 'see ya', 'cya', 'later'])) return { type:'goodbye' };
+    
+    // How are you: how are, how's it, you good, status
+    if (has(['how are', 'how\'s it', 'you good', 'status'])) return { type:'how_are_you' };
+    
+    // Joke: joke, funny, laugh, humor
+    if (has(['joke', 'funny', 'laugh', 'humor'])) return { type:'joke' };
+    
+    // App Store: app store, apps, store, applications
+    if (has(['app store', 'apps', 'store', 'application'])) return { type: 'app_store' };
+    
+    // View Widgets: widgets, my widgets, show widgets, installed
+    if (has(['widgets', 'my widgets', 'show widgets', 'installed'])) return { type: 'view_widgets' };
+    
+    // Install Widget: install, add, open + widget name
+    if (has(['install', 'add'])) {
       const widgetMatch = lower.match(/\b(weather|calculator|calc|notes|timer|converter|password|bookmarks|gainers|stopwatch|quote|dice|color)\b/i);
       if (widgetMatch) { const w = widgetMatch[1].toLowerCase(); return { type: 'install_widget', widget: w === 'calculator' ? 'calc' : w }; }
-      return { type: 'app_store' };
     }
-    if (/\b(market|stocks|crypto|bitcoin|btc|eth|s&p|nasdaq|portfolio)\b/i.test(lower)) return { type:'market_briefing' };
-    if (/\b(news|headlines|tech|updates|latest)\b/i.test(lower)) return { type:'news', category: /\btech\b/i.test(lower) ? 'tech' : 'markets' };
-    if (/\b(tips|advice|strategy|invest|investing|learn|education)\b/i.test(lower)) return { type: 'investing_tips' };
+    if (has(['open']) && has(['app', 'store'])) return { type: 'app_store' };
+    
+    // Market Briefing: market, stock, crypto, bitcoin, btc, eth, s&p, nasdaq, portfolio, mkt
+    if (has(['market', 'stock', 'crypto', 'bitcoin', 'btc', 'eth', 's&p', 'nasdaq', 'portfolio', 'mkt', 'coin'])) return { type:'market_briefing' };
+    
+    // News: news, headline, tech, update, latest
+    if (has(['news', 'headline', 'update', 'latest'])) return { type:'news', category: has(['tech']) ? 'tech' : 'markets' };
+    
+    // Investing Tips: tip, advice, strategy, invest, investing, learn, education
+    if (has(['tip', 'advice', 'strategy', 'invest', 'learn', 'education'])) return { type: 'investing_tips' };
+    
+    // Search Mode Explicit
+    if (lower.startsWith('search ') || lower.startsWith('find ')) {
+      return { type: 'web_search', query: input.replace(/^(search|find)\s+/i, '') };
+    }
+
+    // Fallback
     return { type:'fallback', query: input };
   }
 };
@@ -978,11 +1032,30 @@ const AI = {
       case 'clear_chat':
         thread.innerHTML = ''; Context.recentTopics = [];
         return `<p>✨ Fresh start! What would you like to explore?</p><div class="chat-follow-ups"><button class="follow-up-btn" onclick="window.handleSend('Market briefing')">📊 Markets</button><button class="follow-up-btn" onclick="window.handleSend('Latest tech news')">💡 News</button><button class="follow-up-btn" onclick="window.handleSend('Open App Store')">📦 Apps</button></div>`;
+      
+      case 'web_search':
+        window.performWebSearch(intent.query);
+        return `<p>🔍 Searching for "<strong>${esc(intent.query)}</strong>"...</p>`;
+
       default: 
+        // Smart Fallback: Suggest searching the web
         const suggestions = ["Market briefing", "Latest tech news", "Open App Store", "Tell me a joke"];
-        return `<p>I'm not quite sure what you meant — but I'm here and listening! 😊</p><p style="margin-top:8px; color:var(--text-sub);">Try asking about markets, tech news, investing tips, or tell me to install a widget. Or just say hi!</p><div class="chat-follow-ups">${suggestions.map(s => `<button class="follow-up-btn" onclick="window.handleSend('${s}')">${s}</button>`).join('')}</div>`;
+        return `<p>I'm not quite sure what you meant — but I can help you find it!</p>
+        <p style="margin-top:8px; color:var(--text-sub);">Here's what I found on the web for "<strong>${esc(input)}</strong>":</p>
+        <div class="chat-follow-ups" style="margin-top:12px;">
+          <button class="follow-up-btn" onclick="window.performWebSearch('${esc(input)}')">🔍 Search DuckDuckGo</button>
+        </div>
+        <p style="margin-top:12px; font-size:12px; color:var(--text-muted);">Or try one of these commands:</p>
+        <div class="chat-follow-ups">${suggestions.map(s => `<button class="follow-up-btn" onclick="window.handleSend('${s}')">${s}</button>`).join('')}</div>`;
     }
   }
+};
+
+// Web Search Function
+window.performWebSearch = function(query) {
+  if (!query) return;
+  const url = `https://duckduckgo.com/?q=${encodeURIComponent(query)}`;
+  window.open(url, '_blank');
 };
 
 let isProcessing = false;
@@ -1016,6 +1089,17 @@ async function handleSend(text) {
 }
 window.handleSend = handleSend;
 $('#chatForm').addEventListener('submit', e => { e.preventDefault(); handleSend($('#chatInput').value); });
+
+// Search Button Handler
+$('#chatSearch').addEventListener('click', () => {
+  const val = $('#chatInput').value.trim();
+  if (val) {
+    window.performWebSearch(val);
+  } else {
+    $('#chatInput').placeholder = "Type something to search...";
+    $('#chatInput').focus();
+  }
+});
 
 // ==========================================
 // WIDGET MANAGER
