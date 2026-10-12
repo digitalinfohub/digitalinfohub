@@ -6,15 +6,15 @@
   <title>Digital Infohub - Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
   <meta name="theme-color" content="#030305">
+  
+  <!-- Updated Social Sharing Meta Tags -->
   <meta name="description" content="Digital Infohub Blog — Latest articles, deep dives, and insights into technology, AI, and digital culture.">
-  <meta name="color-scheme" content="dark light">
-
-  <!-- Social Sharing Meta Tags -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Digital Infohub - Blog">
-  <meta property="og:description" content="Latest articles and insights from Digital Infohub.">
+  <meta property="og:description" content="Deep dives into technology, design systems, AI tools, and digital culture.">
   <meta property="og:url" content="https://digitalinfohub.github.io/digitalinfohub/blog">
-  <meta property="og:image" content="https://images.unsplash.com/photo-1625297673326-14790108da55?w=1200&h=630&fit=crop&q=80">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1694903110330-cc64b7e1d21d?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D">
+  <meta name="twitter:card" content="summary_large_image">
 
   <link rel="icon" type="image/png" href="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -218,48 +218,111 @@
     .blog-header p { color: var(--text-sub); font-size: 18px; max-width: 600px; margin: 0 auto; line-height: 1.6; }
     @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* ═══ FILTERS & CATEGORIES ═══ */
+    /* ═══ FILTERS & CATEGORIES (UPDATED STYLE) ═══ */
     .filter-bar {
-      display: flex; justify-content: center; flex-wrap: wrap; gap: 10px;
-      margin-bottom: 40px; position: relative; z-index: 1;
+      display: flex; justify-content: center; flex-wrap: wrap; gap: 12px;
+      margin-bottom: 48px; position: relative; z-index: 1;
     }
     .filter-chip {
-      padding: 8px 18px; background: var(--surface); border: 1px solid var(--border);
-      border-radius: var(--radius-pill); color: var(--text-sub);
-      font-size: 13px; font-weight: 500; cursor: pointer;
-      transition: all 0.2s var(--ease); min-height: 36px;
+      padding: 10px 24px; 
+      background: var(--surface); 
+      border: 1px solid var(--border);
+      border-radius: var(--radius-pill); /* Fully rounded pill shape */
+      color: var(--text-sub);
+      font-size: 14px; font-weight: 600; cursor: pointer;
+      transition: all 0.3s var(--ease); 
+      min-height: 42px;
+      display: inline-flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
     }
-    .filter-chip:hover { border-color: var(--border-strong); color: var(--text); transform: translateY(-1px); }
+    .filter-chip:hover { 
+      border-color: var(--accent); 
+      color: var(--text); 
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(var(--glow-color), 0.15);
+    }
     .filter-chip.active { 
-      background: var(--accent); color: white; border-color: var(--accent); 
-      box-shadow: 0 4px 12px rgba(var(--glow-color), 0.3);
+      background: linear-gradient(135deg, var(--accent) 0%, #2563eb 100%); 
+      color: white; 
+      border-color: transparent; 
+      box-shadow: 0 4px 16px rgba(var(--glow-color), 0.4);
+      transform: translateY(-1px);
     }
 
-    /* ═══ GRID LAYOUT ═══ */
-    .blog-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: 32px; margin-bottom: 60px; position: relative; z-index: 1;
+    /* ═══ FOLDER SYSTEM ═══ */
+    .folder-container {
+      display: flex; flex-direction: column; gap: 20px;
+      position: relative; z-index: 1;
     }
 
-    .month-section {
-      grid-column: 1 / -1; margin-top: 40px; margin-bottom: 20px;
-      padding-bottom: 10px; border-bottom: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: space-between;
+    .month-folder {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: all 0.3s var(--ease);
     }
-    .month-title {
-      font-size: 13px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 0.1em; color: var(--text-muted);
+    .month-folder:hover {
+      border-color: var(--border-strong);
+      box-shadow: var(--shadow);
     }
-    .month-count {
-      font-size: 12px; color: var(--text-muted); background: var(--surface-2);
-      padding: 4px 10px; border-radius: var(--radius-pill); border: 1px solid var(--border);
+
+    .folder-header {
+      padding: 20px 24px;
+      display: flex; justify-content: space-between; align-items: center;
+      cursor: pointer;
+      background: var(--surface);
+      user-select: none;
+    }
+    .folder-header:hover { background: var(--surface-2); }
+    
+    .folder-title-group { display: flex; align-items: center; gap: 12px; }
+    .folder-icon {
+      width: 24px; height: 24px; color: var(--accent);
+      transition: transform 0.3s var(--ease);
+    }
+    .folder-name { font-size: 18px; font-weight: 700; color: var(--text); }
+    .folder-count {
+      font-size: 12px; color: var(--text-muted);
+      background: var(--surface-3); padding: 4px 10px;
+      border-radius: var(--radius-pill); border: 1px solid var(--border);
       font-family: var(--mono);
     }
+    .folder-chevron {
+      width: 20px; height: 20px; color: var(--text-muted);
+      transition: transform 0.3s var(--ease);
+    }
+    .month-folder.open .folder-chevron { transform: rotate(180deg); }
 
-    /* Card Style with Spotlight Effect */
+    .folder-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s var(--ease-out);
+      background: var(--surface-2);
+    }
+    .month-folder.open .folder-content {
+      max-height: 2000px; /* Arbitrary large number for animation */
+    }
+
+    .folder-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px; padding: 24px;
+    }
+
+    /* Single Item Centering Logic */
+    .folder-grid.single-item {
+      display: flex;
+      justify-content: center;
+    }
+    .folder-grid.single-item .blog-card {
+      width: 100%;
+      max-width: 500px; /* Prevent it from getting too stretched on huge screens */
+    }
+
+    /* Card Style */
     .blog-card {
       background: var(--surface); border: 1px solid var(--border);
-      border-radius: var(--radius); overflow: hidden;
+      border-radius: var(--radius-sm); overflow: hidden;
       display: flex; flex-direction: column;
       transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.3s;
       height: 100%; position: relative;
@@ -283,7 +346,7 @@
     .card-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s var(--ease); }
     .blog-card:hover .card-image img { transform: scale(1.05); }
 
-    .card-content { padding: 24px; display: flex; flex-direction: column; flex: 1; }
+    .card-content { padding: 20px; display: flex; flex-direction: column; flex: 1; }
     .card-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; gap: 8px; }
     .card-tag {
       font-size: 11px; font-weight: 700; text-transform: uppercase;
@@ -293,7 +356,7 @@
     .card-date { font-size: 12px; color: var(--text-muted); font-family: var(--mono); white-space: nowrap; }
 
     .card-title {
-      font-size: 20px; font-weight: 700; line-height: 1.3; margin-bottom: 12px;
+      font-size: 18px; font-weight: 700; line-height: 1.3; margin-bottom: 12px;
       color: var(--text); transition: color 0.2s;
     }
     .blog-card:hover .card-title { color: var(--accent); }
@@ -319,7 +382,7 @@
 
     /* No Results */
     .no-results {
-      grid-column: 1 / -1; text-align: center; padding: 60px 20px;
+      text-align: center; padding: 60px 20px;
       color: var(--text-muted); animation: fadeInUp 0.4s var(--ease-out);
     }
     .no-results h3 { font-size: 20px; color: var(--text); margin-bottom: 8px; }
@@ -345,6 +408,97 @@
     .blog-footer a { color: var(--accent); text-decoration: none; font-weight: 600; transition: opacity 0.2s; }
     .blog-footer a:hover { opacity: 0.8; text-decoration: underline; }
 
+    /* ═══ CHATBOT ═══ */
+    .chatbot-trigger {
+      position: fixed; bottom: 30px; right: 30px;
+      width: 60px; height: 60px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: white;
+      box-shadow: 0 8px 24px rgba(var(--glow-color), 0.4);
+      cursor: pointer;
+      z-index: 1000;
+      transition: transform 0.3s var(--ease);
+      border: none;
+    }
+    .chatbot-trigger:hover { transform: scale(1.1); }
+    .chatbot-trigger svg { width: 28px; height: 28px; }
+
+    .chat-window {
+      position: fixed; bottom: 100px; right: 30px;
+      width: 350px; height: 500px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+      z-index: 999;
+      display: flex; flex-direction: column;
+      transform-origin: bottom right;
+      transform: scale(0); opacity: 0;
+      transition: all 0.3s var(--ease);
+      overflow: hidden;
+    }
+    .chat-window.active { transform: scale(1); opacity: 1; }
+    
+    .chat-header {
+      padding: 16px; background: var(--surface-2);
+      border-bottom: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .chat-title { font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 8px; }
+    .chat-status { width: 8px; height: 8px; background: #10b981; border-radius: 50%; }
+    .chat-close { background: none; border: none; color: var(--text-muted); cursor: pointer; }
+    
+    .chat-messages {
+      flex: 1; overflow-y: auto; padding: 16px;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .message {
+      max-width: 85%; padding: 10px 14px;
+      border-radius: 12px; font-size: 13px; line-height: 1.4;
+      animation: popIn 0.3s var(--ease);
+    }
+    @keyframes popIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+    
+    .msg-bot {
+      background: var(--surface-2); color: var(--text);
+      border-bottom-left-radius: 2px; align-self: flex-start;
+      border: 1px solid var(--border);
+    }
+    .msg-user {
+      background: var(--accent); color: white;
+      border-bottom-right-radius: 2px; align-self: flex-end;
+    }
+    
+    .chat-result {
+      display: block; margin-top: 8px;
+      background: var(--surface-3); padding: 8px;
+      border-radius: 8px; text-decoration: none; color: var(--text);
+      border: 1px solid var(--border); transition: 0.2s;
+    }
+    .chat-result:hover { border-color: var(--accent); }
+    .chat-result-title { font-weight: 600; font-size: 12px; display: block; margin-bottom: 2px; }
+    .chat-result-tag { font-size: 10px; color: var(--accent); }
+
+    .chat-input-area {
+      padding: 12px; border-top: 1px solid var(--border);
+      display: flex; gap: 8px; background: var(--surface);
+    }
+    .chat-input {
+      flex: 1; background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: 20px; padding: 8px 12px; color: var(--text);
+      font-family: var(--font); font-size: 13px; outline: none;
+    }
+    .chat-input:focus { border-color: var(--accent); }
+    .chat-send {
+      width: 32px; height: 32px; background: var(--accent);
+      border-radius: 50%; border: none; color: white;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: 0.2s;
+    }
+    .chat-send:hover { transform: scale(1.1); }
+
     /* ═══ RESPONSIVE ═══ */
     @media (max-width: 850px) {
       .shell { padding: 20px 16px 60px; }
@@ -353,9 +507,10 @@
       .nav-links { display: none; }
       .search-wrapper { display: none; }
       .hamburger { display: flex; }
-      .blog-grid { grid-template-columns: 1fr; gap: 24px; }
+      .folder-grid { grid-template-columns: 1fr; gap: 16px; }
       .blog-header h1 { font-size: 32px; }
       .ambient-glow { width: 100%; height: 400px; top: -5%; }
+      .chat-window { width: 90%; right: 5%; bottom: 100px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -445,9 +600,9 @@
     <button class="filter-chip active" data-category="all">All Posts</button>
   </div>
 
-  <!-- BLOG GRID CONTENT -->
+  <!-- BLOG CONTENT (FOLDERS) -->
   <div id="blogContent" role="main">
-    <div class="blog-grid" id="blogGrid"></div>
+    <div class="folder-container" id="folderContainer"></div>
   </div>
 
   <!-- AD UNIT: Blog Footer -->
@@ -465,6 +620,35 @@
   <!-- FOOTER -->
   <div class="blog-footer">
     <p>&copy; 2026 Digital Infohub. <a href="https://digitalinfohub.net/">Visit Main Site</a></p>
+  </div>
+</div>
+
+<!-- CHATBOT TRIGGER -->
+<button class="chatbot-trigger" id="chatTrigger" aria-label="Open Digital Infohub AI">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+</button>
+
+<!-- CHAT WINDOW -->
+<div class="chat-window" id="chatWindow">
+  <div class="chat-header">
+    <div class="chat-title">
+      <div class="chat-status"></div>
+      Digital Infohub AI
+    </div>
+    <button class="chat-close" id="chatClose">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+  </div>
+  <div class="chat-messages" id="chatMessages">
+    <div class="message msg-bot">
+      Hello! I'm Digital Infohub AI. Ask me anything about our blog posts, tech trends, or specific topics like "AI Hardware" or "Quantum Computing".
+    </div>
+  </div>
+  <div class="chat-input-area">
+    <input type="text" class="chat-input" id="chatInput" placeholder="Ask about our articles...">
+    <button class="chat-send" id="chatSend">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+    </button>
   </div>
 </div>
 
@@ -493,7 +677,7 @@
   let currentCategory = 'all';
   let searchQuery = '';
 
-  const blogGrid = document.getElementById('blogGrid');
+  const folderContainer = document.getElementById('folderContainer');
   const categoryFilters = document.getElementById('categoryFilters');
   const desktopSearch = document.getElementById('desktopSearch');
   const mobileSearch = document.getElementById('mobileSearch');
@@ -559,91 +743,121 @@
     document.querySelectorAll('.filter-chip').forEach(btn => {
       btn.classList.toggle('active', btn.dataset.category === cat);
     });
-    renderPosts();
+    renderFolders();
   }
 
   // Search Handler
   function handleSearch(query) {
     searchQuery = query.toLowerCase().trim();
-    renderPosts();
+    renderFolders();
   }
 
   desktopSearch.addEventListener('input', (e) => handleSearch(e.target.value));
   mobileSearch.addEventListener('input', (e) => handleSearch(e.target.value));
 
-  // Calculate estimated reading time (rough estimate: 200 words per minute)
+  // Calculate estimated reading time
   function getReadingTime(excerpt) {
     const words = excerpt.split(' ').length;
-    const minutes = Math.max(1, Math.ceil(words / 100)); // Faster reading for excerpts
+    const minutes = Math.max(1, Math.ceil(words / 100));
     return `${minutes} min read`;
   }
 
-  // Main Render Function
-  function renderPosts() {
-    // Smooth fade out
-    blogGrid.style.opacity = '0';
-    blogGrid.style.transform = 'translateY(10px)';
-    
-    setTimeout(() => {
-      blogGrid.innerHTML = '';
+  // Create Card HTML
+  function createCard(post, index) {
+    const card = document.createElement('article');
+    card.className = 'blog-card';
+    card.style.animationDelay = `${index * 0.05}s`;
+    card.innerHTML = `
+      <a href="${post.link}" target="_blank" rel="noopener noreferrer">
+        <div class="card-image">
+          <img src="${post.image}" alt="${post.title}" loading="lazy">
+        </div>
+        <div class="card-content">
+          <div class="card-meta">
+            <span class="card-tag">${post.tag}</span>
+            <span class="card-date">${post.date}</span>
+          </div>
+          <h3 class="card-title">${post.title}</h3>
+          <p class="card-excerpt">${post.excerpt}</p>
+          <div class="card-footer">
+            <span class="read-more">Read Article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+            <span class="read-time">${getReadingTime(post.excerpt)}</span>
+          </div>
+        </div>
+      </a>
+    `;
+    return card;
+  }
 
-      let filtered = BLOG_POSTS.filter(post => {
-        const matchesCat = currentCategory === 'all' || post.tag === currentCategory;
-        const matchesSearch = post.title.toLowerCase().includes(searchQuery) || 
-                              post.excerpt.toLowerCase().includes(searchQuery) ||
-                              post.tag.toLowerCase().includes(searchQuery);
-        return matchesCat && matchesSearch;
+  // Main Render Function (Folders)
+  function renderFolders() {
+    folderContainer.innerHTML = '';
+
+    let filtered = BLOG_POSTS.filter(post => {
+      const matchesCat = currentCategory === 'all' || post.tag === currentCategory;
+      const matchesSearch = post.title.toLowerCase().includes(searchQuery) || 
+                            post.excerpt.toLowerCase().includes(searchQuery) ||
+                            post.tag.toLowerCase().includes(searchQuery);
+      return matchesCat && matchesSearch;
+    });
+
+    if (filtered.length === 0) {
+      folderContainer.innerHTML = `<div class="no-results"><h3>No posts found</h3><p>Try adjusting your search or category filter.</p></div>`;
+      return;
+    }
+
+    // Group by Date
+    const grouped = {};
+    filtered.forEach(post => {
+      if (!grouped[post.date]) grouped[post.date] = [];
+      grouped[post.date].push(post);
+    });
+
+    // Create Folders
+    Object.keys(grouped).forEach((dateHeader, index) => {
+      const folder = document.createElement('div');
+      folder.className = 'month-folder';
+      // Open first folder by default if no search, otherwise open all if searching
+      if (index === 0 && !searchQuery) folder.classList.add('open');
+      if (searchQuery) folder.classList.add('open');
+
+      const posts = grouped[dateHeader];
+      
+      folder.innerHTML = `
+        <div class="folder-header">
+          <div class="folder-title-group">
+            <svg class="folder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+            <span class="folder-name">${dateHeader}</span>
+            <span class="folder-count">${posts.length} posts</span>
+          </div>
+          <svg class="folder-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </div>
+        <div class="folder-content">
+          <div class="folder-grid" id="grid-${index}"></div>
+        </div>
+      `;
+
+      // Toggle Logic
+      const header = folder.querySelector('.folder-header');
+      header.addEventListener('click', () => {
+        haptic();
+        folder.classList.toggle('open');
       });
 
-      if (filtered.length === 0) {
-        blogGrid.innerHTML = `<div class="no-results"><h3>No posts found</h3><p>Try adjusting your search or category filter.</p></div>`;
-      } else {
-        const grouped = {};
-        filtered.forEach(post => {
-          if (!grouped[post.date]) grouped[post.date] = [];
-          grouped[post.date].push(post);
-        });
-
-        Object.keys(grouped).forEach((dateHeader, groupIndex) => {
-          const sectionDiv = document.createElement('div');
-          sectionDiv.className = 'month-section';
-          sectionDiv.style.animation = `fadeInUp 0.4s var(--ease-out) ${groupIndex * 0.1}s backwards`;
-          sectionDiv.innerHTML = `<span class="month-title">${dateHeader}</span><span class="month-count">${grouped[dateHeader].length} posts</span>`;
-          blogGrid.appendChild(sectionDiv);
-
-          grouped[dateHeader].forEach((post, index) => {
-            const card = document.createElement('article');
-            card.className = 'blog-card';
-            card.style.animationDelay = `${(groupIndex * 0.1) + (index * 0.05) + 0.1}s`;
-            card.innerHTML = `
-              <a href="${post.link}" target="_blank" rel="noopener noreferrer">
-                <div class="card-image">
-                  <img src="${post.image}" alt="${post.title}" loading="lazy">
-                </div>
-                <div class="card-content">
-                  <div class="card-meta">
-                    <span class="card-tag">${post.tag}</span>
-                    <span class="card-date">${post.date}</span>
-                  </div>
-                  <h3 class="card-title">${post.title}</h3>
-                  <p class="card-excerpt">${post.excerpt}</p>
-                  <div class="card-footer">
-                    <span class="read-more">Read Article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-                    <span class="read-time">${getReadingTime(post.excerpt)}</span>
-                  </div>
-                </div>
-              </a>
-            `;
-            blogGrid.appendChild(card);
-          });
-        });
+      // Populate Grid
+      const grid = folder.querySelector(`#grid-${index}`);
+      
+      // LOGIC FOR SINGLE ITEM CENTERING
+      if (posts.length === 1) {
+        grid.classList.add('single-item');
       }
 
-      // Smooth fade in
-      blogGrid.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-      blogGrid.style.opacity = '1';
-      blogGrid.style.transform = 'translateY(0)';
-    }, 150);
+      posts.forEach((post, pIndex) => {
+        grid.appendChild(createCard(post, pIndex));
+      });
+
+      folderContainer.appendChild(folder);
+    });
   }
 
   // Mouse tracking spotlight effect for desktop
@@ -657,9 +871,78 @@
     });
   }
 
+  // ═══ CHATBOT LOGIC ═══
+  const chatTrigger = document.getElementById('chatTrigger');
+  const chatWindow = document.getElementById('chatWindow');
+  const chatClose = document.getElementById('chatClose');
+  const chatInput = document.getElementById('chatInput');
+  const chatSend = document.getElementById('chatSend');
+  const chatMessages = document.getElementById('chatMessages');
+
+  function toggleChat() {
+    chatWindow.classList.toggle('active');
+    if (chatWindow.classList.contains('active')) {
+      setTimeout(() => chatInput.focus(), 300);
+    }
+  }
+
+  chatTrigger.addEventListener('click', toggleChat);
+  chatClose.addEventListener('click', toggleChat);
+
+  function addMessage(text, isUser = false) {
+    const div = document.createElement('div');
+    div.className = `message ${isUser ? 'msg-user' : 'msg-bot'}`;
+    div.innerHTML = text;
+    chatMessages.appendChild(div);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  function searchBlog(query) {
+    const lowerQ = query.toLowerCase();
+    const results = BLOG_POSTS.filter(p => 
+      p.title.toLowerCase().includes(lowerQ) || 
+      p.excerpt.toLowerCase().includes(lowerQ) ||
+      p.tag.toLowerCase().includes(lowerQ)
+    );
+    return results;
+  }
+
+  function handleChatSubmit() {
+    const text = chatInput.value.trim();
+    if (!text) return;
+
+    addMessage(text, true);
+    chatInput.value = '';
+
+    // Simulate thinking delay
+    setTimeout(() => {
+      const results = searchBlog(text);
+      
+      if (results.length > 0) {
+        let responseHtml = `I found ${results.length} article${results.length > 1 ? 's' : ''} related to "${text}":<br>`;
+        results.slice(0, 3).forEach(r => {
+          responseHtml += `
+            <a href="${r.link}" target="_blank" class="chat-result">
+              <span class="chat-result-title">${r.title}</span>
+              <span class="chat-result-tag">#${r.tag}</span>
+            </a>
+          `;
+        });
+        addMessage(responseHtml);
+      } else {
+        addMessage(`I couldn't find any specific articles about "${text}". Try searching for "AI", "Hardware", or "Design".`);
+      }
+    }, 600);
+  }
+
+  chatSend.addEventListener('click', handleChatSubmit);
+  chatInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') handleChatSubmit();
+  });
+
   // Init
   renderCategories();
-  renderPosts();
+  renderFolders();
 
 })();
 </script>
