@@ -5,17 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
 <meta name="theme-color" content="#050505">
 <meta name="description" content="Digital Infohub OS: A premium, macOS-inspired AI research terminal for real-time markets, tech insights, and productivity.">
-  
-<!-- Social Sharing Image -->
-<meta property="og:image" content="https://images.unsplash.com/photo-1737505599159-5ffc1dcbc08f?q=80&amp;w=1632&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.1.0&amp;ixid=NHwxMJA3fDA%3D">
-<meta property="og:image:alt" content="Digital Infohub social sharing image">
+<meta property="og:image" content="https://images.unsplash.com/photo-1737505599159-5ffc1dcbc08f?q=80&w=1632&auto=format&fit=crop">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://images.unsplash.com/photo-1737505599159-5ffc1dcbc08f?q=80&amp;w=1632&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.1.0&amp;ixid=NHwxMJA3fDA%3D">
-
 <title>Digital Infohub OS | AI Research Terminal</title>
 
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
 <link rel="icon" href="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,593 +19,228 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-:root {
-  --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; 
-  --mono: 'JetBrains Mono', monospace;
-  --ease: cubic-bezier(0.16, 1, 0.3, 1); 
-  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-  --radius: 16px; --radius-sm: 10px; --radius-pill: 99px;
-  --topbar-h: 44px;
-  --nav-h: 52px;
-}
+:root{--font:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;--mono:'JetBrains Mono',monospace;--ease:cubic-bezier(.16,1,.3,1);--ease-spring:cubic-bezier(.34,1.56,.64,1);--radius:16px;--radius-sm:10px;--radius-pill:99px;--topbar-h:44px;--nav-h:52px;}
+[data-theme="dark"]{--bg:#050505;--surface:rgba(28,28,28,.85);--surface-2:rgba(44,44,46,.6);--surface-3:rgba(58,58,60,.5);--border:rgba(255,255,255,.08);--border-strong:rgba(255,255,255,.15);--text:#F5F5F7;--text-sub:#A1A1A6;--text-muted:#6E6E73;--accent:#0A84FF;--accent-soft:rgba(10,132,255,.15);--accent-glow:rgba(10,132,255,.3);--green:#30D158;--red:#FF453A;--orange:#FF9F0A;--purple:#BF5AF2;--glass-bg:rgba(25,25,25,.75);--glass-border:rgba(255,255,255,.1);--glass-highlight:rgba(255,255,255,.05);--nav-bg:rgba(18,18,18,.85);--chart-grid:rgba(255,255,255,.05);}
+[data-theme="light"]{--bg:#F5F5F7;--surface:rgba(255,255,255,.85);--surface-2:rgba(245,245,247,.8);--surface-3:rgba(230,230,232,.6);--border:rgba(0,0,0,.06);--border-strong:rgba(0,0,0,.1);--text:#1D1D1F;--text-sub:#515154;--text-muted:#86868B;--accent:#007AFF;--accent-soft:rgba(0,122,255,.1);--accent-glow:rgba(0,122,255,.2);--green:#28A745;--red:#FF3B30;--orange:#FF9500;--purple:#AF52DE;--glass-bg:rgba(255,255,255,.85);--glass-border:rgba(0,0,0,.08);--glass-highlight:rgba(255,255,255,.6);--nav-bg:rgba(255,255,255,.9);--chart-grid:rgba(0,0,0,.06);}
 
-[data-theme="dark"] {
-  --bg: #050505; --surface: rgba(28, 28, 28, 0.7); --surface-2: rgba(44, 44, 46, 0.6); --surface-3: rgba(58, 58, 60, 0.5);
-  --border: rgba(255,255,255,0.08); --border-strong: rgba(255,255,255,0.15);
-  --text: #F5F5F7; --text-sub: #A1A1A6; --text-muted: #6E6E73;
-  --accent: #0A84FF; --accent-soft: rgba(10,132,255,0.15); --accent-glow: rgba(10,132,255,0.3);
-  --green: #30D158; --red: #FF453A; --orange: #FF9F0A; --purple: #BF5AF2;
-  --glass-bg: rgba(25, 25, 25, 0.65);
-  --glass-border: rgba(255, 255, 255, 0.1);
-  --glass-highlight: rgba(255, 255, 255, 0.05);
-  --nav-bg: rgba(18, 18, 18, 0.75);
-}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+*:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+html,body{height:100%;height:100dvh;font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;overflow:hidden}
+body{display:flex;flex-direction:column}
+body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-gradient(ellipse at 50% 0%,rgba(10,132,255,.08) 0%,transparent 60%)}
 
-[data-theme="light"] {
-  --bg: #F5F5F7; --surface: rgba(255, 255, 255, 0.7); --surface-2: rgba(245, 245, 247, 0.8); --surface-3: rgba(230, 230, 232, 0.6);
-  --border: rgba(0,0,0,0.06); --border-strong: rgba(0,0,0,0.1);
-  --text: #1D1D1F; --text-sub: #515154; --text-muted: #86868B;
-  --accent: #007AFF; --accent-soft: rgba(0,122,255,0.1); --accent-glow: rgba(0,122,255,0.2);
-  --green: #28A745; --red: #FF3B30; --orange: #FF9500; --purple: #AF52DE;
-  --glass-bg: rgba(255, 255, 255, 0.75);
-  --glass-border: rgba(0, 0, 0, 0.08);
-  --glass-highlight: rgba(255, 255, 255, 0.6);
-  --nav-bg: rgba(255, 255, 255, 0.85);
-}
+.os-topbar{height:var(--topbar-h);background:var(--nav-bg);backdrop-filter:blur(40px) saturate(180%);border-bottom:1px solid var(--glass-border);display:flex;align-items:center;padding:0 20px;z-index:100;flex-shrink:0;gap:16px;position:relative}
+.os-topbar::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent-soft),transparent)}
+.os-logo{font-weight:700;font-size:14px;letter-spacing:-.02em;display:flex;align-items:center;gap:10px;white-space:nowrap}
+.os-logo-icon{width:24px;height:24px;background:linear-gradient(135deg,var(--accent),#5E5CE6,var(--purple));border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;box-shadow:0 2px 10px rgba(10,132,255,.4)}
+.status-indicator{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-muted);font-family:var(--mono)}
+.status-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.ticker-shell{flex:1;overflow:hidden;mask-image:linear-gradient(90deg,transparent,black 8%,black 92%,transparent)}
+.ticker-bar{display:inline-flex;padding:6px 0;animation:scroll 75s linear infinite;white-space:nowrap}
+@keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.ticker-item{display:inline-flex;align-items:center;gap:6px;padding:0 14px;font-size:11px;font-family:var(--mono);color:var(--text-sub);border-right:1px solid var(--border)}
+.ticker-item strong{color:var(--text);font-weight:600}
+.ticker-item .up{color:var(--green)}.ticker-item .down{color:var(--red)}
+.os-actions{display:flex;gap:8px;align-items:center;flex-shrink:0}
+.os-btn{height:28px;padding:0 12px;background:var(--glass-highlight);border:1px solid var(--glass-border);color:var(--text-sub);border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s var(--ease);font-size:12px;font-weight:500;font-family:var(--font);gap:6px}
+.os-btn:hover{background:rgba(255,255,255,.1);color:var(--text)}
+.os-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.os-clock{font-family:var(--mono);font-size:11px;color:var(--text-sub);padding:4px 10px;border:1px solid var(--glass-border);border-radius:6px;background:var(--glass-highlight)}
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-*:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
-html, body { height: 100%; height: 100dvh; font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; overflow: hidden; }
+.os-nav{height:var(--nav-h);background:var(--nav-bg);backdrop-filter:blur(40px) saturate(180%);border-bottom:1px solid var(--glass-border);display:flex;align-items:center;padding:0 20px;flex-shrink:0;position:relative;z-index:99}
+.nav-container{display:flex;align-items:center;gap:4px;overflow-x:auto;scrollbar-width:none;padding:4px 0;flex:1}
+.nav-container::-webkit-scrollbar{display:none}
+.nav-link{position:relative;display:flex;align-items:center;gap:6px;padding:8px 14px;font-size:13px;font-weight:500;color:var(--text-sub);text-decoration:none;border-radius:var(--radius-sm);transition:all .2s var(--ease);white-space:nowrap;flex-shrink:0;border:1px solid transparent}
+.nav-link:hover{color:var(--text);background:var(--glass-highlight)}
+.nav-link.active{color:var(--accent);background:var(--accent-soft);border-color:rgba(10,132,255,.2);font-weight:600}
+.nav-link.active::after{content:'';position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);width:20px;height:3px;background:var(--accent);border-radius:2px;box-shadow:0 0 8px var(--accent-glow)}
+.nav-icon{font-size:14px;opacity:.9}
+.nav-cta{margin-left:auto;padding:7px 16px;background:linear-gradient(135deg,var(--accent),#5E5CE6);color:#fff;font-weight:600;font-size:12px;border-radius:var(--radius-pill);text-decoration:none;display:flex;align-items:center;gap:6px;flex-shrink:0}
+.nav-toggle{display:none;width:36px;height:36px;background:var(--glass-highlight);border:1px solid var(--glass-border);border-radius:8px;cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:4px;padding:8px}
+.nav-toggle span{display:block;width:16px;height:2px;background:var(--text);border-radius:1px}
+.mobile-drawer{position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(8px);z-index:500;display:none;opacity:0;transition:opacity .3s var(--ease)}
+.mobile-drawer.active{display:block;opacity:1}
+.drawer-content{position:absolute;top:0;left:0;right:0;background:var(--glass-bg);backdrop-filter:blur(40px);border-bottom:1px solid var(--glass-border);padding:16px;transform:translateY(-100%);transition:transform .4s var(--ease-spring);max-height:80vh;overflow-y:auto}
+.mobile-drawer.active .drawer-content{transform:translateY(0)}
+.drawer-link{display:flex;align-items:center;gap:14px;padding:14px 16px;font-size:15px;font-weight:500;color:var(--text);text-decoration:none;border-radius:12px;margin-bottom:4px}
+.drawer-link:hover{background:var(--glass-highlight);color:var(--accent)}
+.drawer-cta{display:block;margin-top:12px;padding:14px;background:linear-gradient(135deg,var(--accent),#5E5CE6);color:#fff;font-weight:700;font-size:14px;border-radius:12px;text-align:center;text-decoration:none}
 
-body::before {
-  content: ''; position: fixed; inset: 0; z-index: -1;
-  background: 
-    radial-gradient(ellipse at 15% 15%, rgba(10, 132, 255, 0.15) 0%, transparent 45%),
-    radial-gradient(ellipse at 85% 85%, rgba(94, 92, 230, 0.12) 0%, transparent 45%),
-    radial-gradient(circle at 50% 50%, rgba(48, 209, 88, 0.06) 0%, transparent 65%);
-  animation: bgPulse 20s ease-in-out infinite alternate;
-}
-[data-theme="light"] body::before {
-  background: 
-    radial-gradient(ellipse at 15% 15%, rgba(0, 122, 255, 0.08) 0%, transparent 45%),
-    radial-gradient(ellipse at 85% 85%, rgba(175, 82, 222, 0.06) 0%, transparent 45%),
-    radial-gradient(circle at 50% 50%, rgba(40, 167, 69, 0.04) 0%, transparent 65%);
-}
-@keyframes bgPulse {
-  0% { opacity: 0.85; transform: scale(1) rotate(0deg); }
-  100% { opacity: 1; transform: scale(1.08) rotate(1deg); }
-}
+.os-desktop{flex:1;display:flex;flex-direction:column;min-height:0;position:relative;overflow:hidden}
+.chat-container{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding:84px 16px 35vh 16px;scroll-behavior:smooth;position:relative}
+.chat-container::-webkit-scrollbar{width:8px}
+.chat-container::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+.chat-thread{width:100%;max-width:800px;margin:0 auto;display:flex;flex-direction:column;gap:24px;position:relative;z-index:2}
+.counter-wrap{max-width:800px;margin:28px auto 0;display:flex;justify-content:center}
 
-/* Grain texture overlay */
-body::after {
-  content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none;
-  opacity: 0.015;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-}
+.desktop-icons{position:absolute;top:12px;right:16px;z-index:30;display:flex;gap:8px;padding:8px 10px;background:var(--glass-bg);backdrop-filter:blur(24px) saturate(180%);border:1px solid var(--glass-border);border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,.22)}
+.desktop-folder{display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;transition:transform .2s var(--ease)}
+.desktop-folder:hover{transform:translateY(-2px)}
+.desktop-folder:active{transform:scale(.94)}
+.desktop-folder-icon{width:40px;height:40px;background:var(--glass-highlight);border:1px solid var(--glass-border);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:19px;transition:all .25s var(--ease)}
+.desktop-folder:hover .desktop-folder-icon{border-color:var(--accent);box-shadow:0 0 14px var(--accent-glow)}
+.desktop-folder-label{font-size:9px;color:var(--text-sub);font-weight:600;letter-spacing:.02em}
 
-/* ===== TOP BAR ===== */
-.os-topbar { 
-  height: var(--topbar-h); 
-  background: var(--nav-bg); 
-  backdrop-filter: blur(40px) saturate(180%); 
-  -webkit-backdrop-filter: blur(40px) saturate(180%);
-  border-bottom: 1px solid var(--glass-border); 
-  display: flex; align-items: center; padding: 0 20px; z-index: 100; flex-shrink: 0; gap: 16px;
-  position: relative;
-}
-.os-topbar::after {
-  content: ''; position: absolute; bottom: -1px; left: 0; right: 0; height: 1px;
-  background: linear-gradient(90deg, transparent, var(--accent-soft), transparent);
-}
-.os-logo { font-weight: 700; font-size: 14px; letter-spacing: -0.02em; display: flex; align-items: center; gap: 10px; color: var(--text); white-space: nowrap; }
-.os-logo-icon { 
-  width: 24px; height: 24px; background: linear-gradient(135deg, var(--accent), #5E5CE6, var(--purple)); 
-  border-radius: 7px; display: flex; align-items: center; justify-content: center; 
-  font-size: 11px; color: white; box-shadow: 0 2px 10px rgba(10,132,255,0.4), inset 0 1px 0 rgba(255,255,255,0.2);
-  animation: logoGlow 3s ease-in-out infinite;
-}
-@keyframes logoGlow {
-  0%, 100% { box-shadow: 0 2px 10px rgba(10,132,255,0.4), inset 0 1px 0 rgba(255,255,255,0.2); }
-  50% { box-shadow: 0 2px 20px rgba(10,132,255,0.6), inset 0 1px 0 rgba(255,255,255,0.3); }
-}
+.msg{display:flex;gap:12px;animation:fadeInUp .45s var(--ease);max-width:100%;word-wrap:break-word}
+.msg.user{flex-direction:row-reverse}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.msg-avatar{width:36px;height:36px;border-radius:50%;background:var(--glass-bg);border:1px solid var(--glass-border);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-weight:700;overflow:hidden}
+.msg-avatar.bot{background:linear-gradient(135deg,rgba(10,132,255,.25),rgba(94,92,230,.25));border-color:rgba(10,132,255,.4);color:var(--accent)}
+.msg-avatar img{width:100%;height:100%;object-fit:cover}
+.msg-body{flex:1;min-width:0}
+.msg-header{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.msg-role{font-size:12px;font-weight:600}
+.msg-time{font-size:10px;color:var(--text-muted);font-family:var(--mono)}
+.msg-content{font-size:15px;line-height:1.7;min-width:0}
+.msg-content p{margin-bottom:12px}.msg-content p:last-child{margin-bottom:0}
+.msg-content a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent-soft)}
+.msg-content a:hover{border-bottom-color:var(--accent)}
+.msg-content ul,.msg-content ol{margin:8px 0 12px 20px;color:var(--text-sub)}
+.msg-content li{margin-bottom:6px}
+.msg-content pre{background:var(--surface-3);padding:14px;border-radius:10px;overflow-x:auto;font-family:var(--mono);font-size:13px;margin:12px 0;border:1px solid var(--border)}
+.msg-content code{background:var(--surface-3);padding:2px 6px;border-radius:4px;font-family:var(--mono);font-size:13px}
+.msg-content pre code{background:none;padding:0}
+.msg-content blockquote{border-left:3px solid var(--accent);padding-left:14px;color:var(--text-sub);margin:12px 0;font-style:italic}
+.msg-content h1,.msg-content h2,.msg-content h3{margin:16px 0 8px;font-weight:700;line-height:1.3}
+.msg-content h1{font-size:20px}.msg-content h2{font-size:18px}.msg-content h3{font-size:16px}
+.table-wrap{overflow-x:auto;margin:12px 0;border-radius:10px;border:1px solid var(--border)}
+.msg-content table{width:100%;border-collapse:collapse;font-size:13px;margin:0}
+.msg-content th,.msg-content td{padding:10px 12px;border-bottom:1px solid var(--border);text-align:left}
+.msg-content th{background:var(--surface-3);font-weight:600}
+.msg.user .msg-content{background:linear-gradient(135deg,var(--accent),#5E5CE6);color:#fff;padding:12px 18px;border-radius:18px 18px 4px 18px;display:inline-block;max-width:100%;box-shadow:0 4px 16px rgba(10,132,255,.25)}
+.msg.user .msg-content strong{color:#fff}
+.msg.user .msg-content p{margin-bottom:0}
+.msg.bot .msg-content{background:var(--glass-bg);backdrop-filter:blur(20px) saturate(180%);padding:18px 20px;border-radius:18px 18px 18px 4px;border:1px solid var(--glass-border);box-shadow:0 8px 32px rgba(0,0,0,.12)}
 
-.ticker-shell { flex: 1; overflow: hidden; mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent); }
-.ticker-bar { display: inline-flex; padding: 6px 0; animation: scroll 75s linear infinite; white-space: nowrap; }
-@keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-.ticker-item { display: inline-flex; align-items: center; gap: 6px; padding: 0 14px; font-size: 11px; font-family: var(--mono); color: var(--text-sub); border-right: 1px solid var(--border); }
-.ticker-item strong { color: var(--text); font-weight: 600; }
-.ticker-item .up { color: var(--green); } .ticker-item .down { color: var(--red); }
+.chat-follow-ups{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.follow-up-btn{background:var(--glass-highlight);border:1px solid var(--glass-border);color:var(--text-sub);padding:9px 16px;border-radius:var(--radius-pill);font-size:12px;font-weight:500;cursor:pointer;transition:all .2s var(--ease);font-family:var(--font);display:inline-flex;align-items:center;gap:6px}
+.follow-up-btn:hover{background:var(--accent-soft);color:var(--accent);border-color:var(--accent)}
+.typing-indicator{display:flex;gap:5px;align-items:center;height:24px}
+.typing-indicator span{width:7px;height:7px;border-radius:50%;background:var(--accent);animation:typing 1.4s infinite ease-in-out;opacity:.6}
+.typing-indicator span:nth-child(2){animation-delay:.2s}.typing-indicator span:nth-child(3){animation-delay:.4s}
+@keyframes typing{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-8px);opacity:1}}
 
-.os-actions { display: flex; gap: 8px; align-items: center; flex-shrink: 0; }
-.os-btn { 
-  height: 28px; padding: 0 12px; background: var(--glass-highlight); border: 1px solid var(--glass-border); color: var(--text-sub); 
-  border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s var(--ease); 
-  font-size: 12px; font-weight: 500; font-family: var(--font); gap: 6px; backdrop-filter: blur(10px);
-}
-.os-btn:hover { background: rgba(255,255,255,0.1); color: var(--text); transform: translateY(-1px); }
-.os-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
-.os-clock { font-family: var(--mono); font-size: 11px; color: var(--text-sub); padding: 4px 10px; border: 1px solid var(--glass-border); border-radius: 6px; background: var(--glass-highlight); font-weight: 500; }
+.os-input-area{position:absolute;bottom:20vh;left:0;right:0;z-index:50;display:flex;justify-content:center;padding:0 20px;pointer-events:none}
+.input-wrapper{pointer-events:auto;max-width:800px;width:100%;position:relative}
+.autocomplete-panel{display:none;flex-wrap:wrap;gap:8px;margin-bottom:10px;padding:10px 12px;background:var(--glass-bg);backdrop-filter:blur(24px);border:1px solid var(--glass-border);border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.22);animation:fadeInUp .2s var(--ease)}
+.autocomplete-panel.active{display:flex}
+.autocomplete-chip{padding:6px 12px;background:var(--surface-3);border:1px solid var(--border);border-radius:20px;font-size:12px;font-weight:500;color:var(--text-sub);cursor:pointer;transition:all .2s var(--ease);white-space:nowrap;display:flex;align-items:center;gap:6px;font-family:var(--font)}
+.autocomplete-chip:hover{background:var(--accent-soft);color:var(--accent);border-color:var(--accent);transform:translateY(-1px)}
+.input-shell{background:var(--surface);border:1px solid var(--border-strong);border-radius:28px;padding:8px 8px 8px 20px;display:flex;align-items:center;gap:10px;transition:all .3s var(--ease);box-shadow:0 10px 40px rgba(0,0,0,.12)}
+.input-shell:focus-within{border-color:var(--accent);box-shadow:0 15px 50px rgba(10,132,255,.16);transform:translateY(-2px)}
+.mode-selector{display:flex;gap:4px;padding-right:10px;border-right:1px solid var(--border);flex-shrink:0}
+.mode-btn{width:34px;height:34px;border-radius:50%;border:1px solid transparent;background:transparent;color:var(--text-muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;transition:all .2s var(--ease);position:relative}
+.mode-btn:hover{background:var(--glass-highlight);color:var(--text)}
+.mode-btn.active{background:var(--accent-soft);color:var(--accent);border-color:var(--accent)}
+.mode-btn::after{content:attr(title);position:absolute;bottom:-30px;left:50%;transform:translateX(-50%);background:var(--surface-2);color:var(--text);font-size:11px;padding:4px 8px;border-radius:6px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s;border:1px solid var(--glass-border);z-index:100;font-weight:500}
+.mode-btn:hover::after{opacity:1}
+.ai-input{flex:1;background:none;border:none;outline:none;color:var(--text);font-size:17px;font-family:inherit;min-width:0;padding:12px 0}
+.ai-input::placeholder{color:var(--text-muted)}
+.ai-send{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--accent),#5E5CE6);color:#fff;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s var(--ease);font-size:17px;flex-shrink:0;box-shadow:0 4px 18px rgba(10,132,255,.3)}
+.ai-send:hover:not(:disabled){transform:scale(1.05)}
+.ai-send:disabled{opacity:.3;cursor:not-allowed}
+.ai-stop{width:42px;height:42px;border-radius:50%;background:var(--red);color:#fff;border:none;align-items:center;justify-content:center;cursor:pointer;font-size:13px;flex-shrink:0;display:none}
 
-/* ===== NAVIGATION ===== */
-.os-nav {
-  height: var(--nav-h);
-  background: var(--nav-bg);
-  backdrop-filter: blur(40px) saturate(180%);
-  -webkit-backdrop-filter: blur(40px) saturate(180%);
-  border-bottom: 1px solid var(--glass-border);
-  display: flex; align-items: center;
-  padding: 0 20px;
-  flex-shrink: 0;
-  position: relative;
-  z-index: 99;
-}
-.nav-container {
-  display: flex; align-items: center; gap: 4px;
-  overflow-x: auto; overflow-y: hidden;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  padding: 4px 0;
-  flex: 1;
-  mask-image: linear-gradient(90deg, black calc(100% - 20px), transparent);
-}
-.nav-container::-webkit-scrollbar { display: none; }
+.switch{position:relative;display:inline-block;width:44px;height:24px;flex-shrink:0}
+.switch input{opacity:0;width:0;height:0}
+.slider{position:absolute;cursor:pointer;inset:0;background:var(--surface-3);transition:.3s;border-radius:24px;border:1px solid var(--border)}
+.slider:before{position:absolute;content:"";height:18px;width:18px;left:2px;bottom:2px;background:var(--text-muted);transition:.3s;border-radius:50%}
+input:checked+.slider{background:var(--accent-soft);border-color:var(--accent)}
+input:checked+.slider:before{transform:translateX(20px);background:var(--accent)}
 
-.nav-link {
-  display: flex; align-items: center; gap: 6px;
-  padding: 8px 14px;
-  font-size: 13px; font-weight: 500;
-  color: var(--text-sub);
-  text-decoration: none;
-  border-radius: var(--radius-sm);
-  transition: all 0.2s var(--ease);
-  white-space: nowrap;
-  position: relative;
-  flex-shrink: 0;
-  border: 1px solid transparent;
-}
-.nav-link:hover {
-  color: var(--text);
-  background: var(--glass-highlight);
-  border-color: var(--glass-border);
-}
-.nav-link.active {
-  color: var(--accent);
-  background: var(--accent-soft);
-  border-color: rgba(10, 132, 255, 0.2);
-  font-weight: 600;
-}
-.nav-link.active::after {
-  content: ''; position: absolute; bottom: -5px; left: 50%; transform: translateX(-50%);
-  width: 20px; height: 3px; background: var(--accent); border-radius: 2px;
-  box-shadow: 0 0 8px var(--accent-glow);
-}
-.nav-icon { font-size: 14px; opacity: 0.9; }
-.nav-cta {
-  margin-left: auto;
-  padding: 7px 16px;
-  background: linear-gradient(135deg, var(--accent), #5E5CE6);
-  color: white; font-weight: 600; font-size: 12px;
-  border-radius: var(--radius-pill);
-  text-decoration: none;
-  display: flex; align-items: center; gap: 6px;
-  box-shadow: 0 2px 12px rgba(10, 132, 255, 0.35);
-  transition: all 0.2s var(--ease);
-  flex-shrink: 0;
-}
-.nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(10, 132, 255, 0.5); }
+.widget-layer{position:fixed;inset:0;pointer-events:none;z-index:9999}
+.floating-widget{position:fixed;width:320px;background:var(--glass-bg);backdrop-filter:blur(40px) saturate(180%);border:1px solid var(--glass-border);border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.4);pointer-events:auto;display:flex;flex-direction:column;overflow:hidden;animation:widgetPopIn .5s var(--ease-spring);z-index:10000}
+@keyframes widgetPopIn{0%{opacity:0;transform:scale(.85) translateY(30px)}100%{opacity:1;transform:scale(1) translateY(0)}}
+.floating-widget.widget-minimized{height:44px!important;max-height:44px!important;overflow:hidden}
+.floating-widget.widget-minimized .widget-body{display:none}
+.floating-widget.widget-fullscreen{width:100vw!important;height:100vh!important;max-height:100vh!important;left:0!important;top:0!important;transform:none!important;border-radius:0!important;z-index:10001!important}
+.widget-header{padding:10px 14px;background:rgba(255,255,255,.03);border-bottom:1px solid var(--glass-border);display:flex;justify-content:space-between;align-items:center;cursor:grab;user-select:none;touch-action:none}
+.widget-controls{display:flex;gap:6px}
+.widget-btn{width:12px;height:12px;border-radius:50%;border:none;cursor:pointer;font-size:8px;color:transparent;transition:all .2s}
+.widget-btn.close{background:#FF5F56}.widget-btn.minimize{background:#FFBD2E}.widget-btn.fullscreen{background:#27C93F}
+.widget-header:hover .widget-btn{color:rgba(0,0,0,.6);font-weight:700}
+.widget-title{font-size:13px;font-weight:600;flex:1;text-align:center}
+.widget-body{padding:16px;flex:1;overflow-y:auto;max-height:60vh}
+.widget-resize-handle{position:absolute;bottom:0;right:0;width:20px;height:20px;cursor:nwse-resize;z-index:10}
 
-/* Mobile nav toggle */
-.nav-toggle {
-  display: none;
-  width: 36px; height: 36px;
-  background: var(--glass-highlight);
-  border: 1px solid var(--glass-border);
-  border-radius: 8px;
-  cursor: pointer;
-  align-items: center; justify-content: center;
-  flex-direction: column; gap: 4px;
-  padding: 8px;
-}
-.nav-toggle span {
-  display: block; width: 16px; height: 2px;
-  background: var(--text); border-radius: 1px;
-  transition: all 0.3s var(--ease);
-}
-.nav-toggle.active span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
-.nav-toggle.active span:nth-child(2) { opacity: 0; }
-.nav-toggle.active span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(12px);z-index:5000;display:none;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.active{display:flex;animation:fadeIn .3s var(--ease)}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal-content{width:100%;max-width:640px;background:var(--glass-bg);backdrop-filter:blur(40px);border:1px solid var(--glass-border);border-radius:24px;overflow:hidden;max-height:85vh;display:flex;flex-direction:column;box-shadow:0 30px 90px rgba(0,0,0,.6);animation:modalPop .4s var(--ease-spring)}
+@keyframes modalPop{0%{opacity:0;transform:scale(.94) translateY(16px)}100%{opacity:1;transform:scale(1) translateY(0)}}
+.modal-header{padding:18px 24px;border-bottom:1px solid var(--glass-border);display:flex;justify-content:space-between;align-items:center}
+.modal-header h2{font-size:17px;font-weight:700;display:flex;align-items:center;gap:10px}
+.modal-body{padding:24px;overflow-y:auto;flex:1}
+.app-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:16px}
+.app-card{background:var(--glass-highlight);border:1px solid var(--glass-border);border-radius:18px;padding:22px 14px;text-align:center;cursor:pointer;transition:all .25s var(--ease)}
+.app-card:hover{background:rgba(255,255,255,.1);transform:translateY(-4px);box-shadow:0 12px 30px rgba(0,0,0,.25)}
+.app-icon{font-size:38px;margin-bottom:12px;display:block}
+.app-name{font-size:13px;font-weight:600}
+.app-status{font-size:11px;color:var(--text-muted);margin-top:6px}
+.app-status.installed{color:var(--green);font-weight:600}
+.news-card{display:block;padding:18px;background:var(--glass-highlight);border:1px solid var(--glass-border);border-radius:14px;text-decoration:none;color:var(--text);transition:all .25s var(--ease);margin-bottom:12px}
+.news-card:hover{border-color:var(--accent);transform:translateX(4px)}
+.news-category{font-size:10px;font-weight:700;text-transform:uppercase;color:var(--accent);margin-bottom:6px;letter-spacing:.5px}
+.news-title{font-size:14px;font-weight:600;line-height:1.4;margin-bottom:10px}
+.news-tldr{font-size:12px;color:var(--text-sub);line-height:1.6;padding:12px 14px;background:var(--surface-3);border-radius:10px;border-left:2px solid var(--accent)}
+.market-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;margin-top:8px}
+.market-item{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:var(--glass-highlight);border:1px solid var(--glass-border);border-radius:14px;cursor:pointer;transition:all .25s var(--ease);gap:12px}
+.market-item:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.market-symbol{font-size:14px;font-weight:700;font-family:var(--mono)}
+.market-sparkline-wrapper{flex:1;display:flex;justify-content:center;min-width:40px}
+.market-sparkline{width:100%;max-width:65px;height:30px}
+.market-price-area{text-align:right;display:flex;flex-direction:column;align-items:flex-end}
+.market-price{font-size:14px;font-weight:700;font-family:var(--mono)}
+.market-change{font-size:11px;font-weight:600}
+.market-change.up{color:var(--green)}.market-change.down{color:var(--red)}
+.section-label{font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.6px;margin:16px 0 8px}
+#toast-container{position:fixed;bottom:100px;left:50%;transform:translateX(-50%);z-index:10000;display:flex;flex-direction:column;gap:8px;pointer-events:none;width:90%;max-width:400px}
 
-/* Mobile Nav Drawer */
-.mobile-drawer {
-  position: fixed; top: var(--topbar-h); left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.5); backdrop-filter: blur(8px);
-  z-index: 500;
-  display: none;
-  opacity: 0;
-  transition: opacity 0.3s var(--ease);
+@media (max-width:767px){
+  .os-topbar{padding:0 12px;gap:8px}
+  .os-logo span,.os-btn-text,.os-clock,.status-indicator{display:none}
+  .os-nav{padding:0 12px;height:44px}
+  .nav-container,.nav-cta{display:none}
+  .nav-toggle{display:flex}
+  .chat-container{padding:96px 12px 34vh 12px}
+  .chat-thread{gap:16px}
+  .msg{gap:10px}
+  .desktop-icons{top:10px;left:12px;right:12px;justify-content:space-between;gap:6px;padding:6px 8px}
+  .desktop-folder-icon{width:38px;height:38px;font-size:18px}
+  .desktop-folder-label{font-size:9px}
+  .os-input-area{bottom:14vh;padding:0 12px}
+  .input-shell{border-radius:24px;padding:6px}
+  .mode-selector{gap:2px;padding-right:8px}
+  .mode-btn{width:30px;height:30px;font-size:14px}
+  .mode-btn::after{display:none}
+  .ai-input{font-size:15px;padding:10px 0}
+  .ai-send,.ai-stop{width:38px;height:38px}
+  .floating-widget{width:92vw!important;max-width:360px!important;left:50%!important;top:50%!important;transform:translate(-50%,-50%)!important;max-height:75vh}
+  .widget-resize-handle{display:none}
+  .market-grid{grid-template-columns:1fr}
+  .market-sparkline-wrapper{display:none}
+  .app-grid{grid-template-columns:repeat(2,1fr);gap:12px}
 }
-.mobile-drawer.active { display: block; opacity: 1; }
-.drawer-content {
-  position: absolute; top: 0; left: 0; right: 0;
-  background: var(--glass-bg);
-  backdrop-filter: blur(40px) saturate(200%);
-  border-bottom: 1px solid var(--glass-border);
-  padding: 16px;
-  transform: translateY(-100%);
-  transition: transform 0.4s var(--ease-spring);
-  max-height: 80vh; overflow-y: auto;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
-}
-.mobile-drawer.active .drawer-content { transform: translateY(0); }
-.drawer-link {
-  display: flex; align-items: center; gap: 14px;
-  padding: 14px 16px;
-  font-size: 15px; font-weight: 500;
-  color: var(--text);
-  text-decoration: none;
-  border-radius: 12px;
-  transition: all 0.2s var(--ease);
-  margin-bottom: 4px;
-}
-.drawer-link:hover, .drawer-link.active { background: var(--glass-highlight); color: var(--accent); }
-.drawer-link .drawer-icon { font-size: 20px; width: 32px; text-align: center; }
-.drawer-link .drawer-arrow { margin-left: auto; color: var(--text-muted); font-size: 14px; }
-.drawer-cta {
-  display: block;
-  margin-top: 12px;
-  padding: 14px;
-  background: linear-gradient(135deg, var(--accent), #5E5CE6);
-  color: white; font-weight: 700; font-size: 14px;
-  border-radius: 12px; text-align: center;
-  text-decoration: none;
-  box-shadow: 0 4px 20px rgba(10, 132, 255, 0.4);
-}
-
-/* ===== DESKTOP ===== */
-.os-desktop { flex: 1; display: flex; flex-direction: column; height: calc(100dvh - var(--topbar-h) - var(--nav-h)); position: relative; overflow: hidden; }
-.chat-container { 
-  flex: 1; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; 
-  padding: 24px 16px 35vh 16px; scroll-behavior: smooth; position: relative; 
-}
-.chat-container::-webkit-scrollbar { width: 8px; }
-.chat-container::-webkit-scrollbar-track { background: transparent; }
-.chat-container::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
-.chat-container::-webkit-scrollbar-thumb:hover { background: var(--border-strong); }
-
-.chat-thread { width: 100%; max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; position: relative; z-index: 2; padding: 0 8px; }
-
-.desktop-icons { position: absolute; top: 24px; right: 24px; display: flex; flex-direction: column; gap: 24px; z-index: 1; }
-.desktop-folder { display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; transition: transform 0.2s var(--ease); }
-.desktop-folder:hover { transform: scale(1.05); }
-.desktop-folder:active { transform: scale(0.95); }
-.desktop-folder-icon { 
-  width: 64px; height: 64px; background: var(--glass-bg); backdrop-filter: blur(20px) saturate(180%); 
-  border: 1px solid var(--glass-border); border-radius: 18px; display: flex; align-items: center; justify-content: center; 
-  font-size: 30px; box-shadow: 0 8px 24px rgba(0,0,0,0.2); transition: all 0.3s var(--ease);
-  position: relative; overflow: hidden;
-}
-.desktop-folder-icon::before {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent);
-  opacity: 0; transition: opacity 0.3s;
-}
-.desktop-folder:hover .desktop-folder-icon { box-shadow: 0 12px 32px rgba(0,0,0,0.3); border-color: var(--accent); transform: translateY(-2px); }
-.desktop-folder:hover .desktop-folder-icon::before { opacity: 1; }
-.desktop-folder-label { font-size: 11px; color: var(--text); font-weight: 500; text-shadow: 0 1px 4px rgba(0,0,0,0.6); background: rgba(0,0,0,0.35); padding: 3px 8px; border-radius: 5px; backdrop-filter: blur(8px); }
-
-.msg { display: flex; gap: 12px; animation: fadeInUp 0.5s var(--ease); max-width: 100%; word-wrap: break-word; }
-.msg.user { flex-direction: row-reverse; }
-@keyframes fadeInUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-.msg-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--glass-bg); backdrop-filter: blur(10px); border: 1px solid var(--glass-border); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
-.msg-avatar.bot { background: linear-gradient(135deg, rgba(10,132,255,0.25), rgba(94,92,230,0.25)); border-color: rgba(10,132,255,0.4); color: var(--accent); }
-.msg-avatar img { width: 100%; height: 100%; object-fit: cover; }
-.msg-body { flex: 1; min-width: 0; }
-.msg-header { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
-.msg-role { font-size: 12px; font-weight: 600; color: var(--text); }
-.msg-time { font-size: 10px; color: var(--text-muted); font-family: var(--mono); }
-.msg-content { font-size: 14px; line-height: 1.7; color: var(--text); }
-.msg.user .msg-content { background: linear-gradient(135deg, var(--accent), #5E5CE6); color: white; padding: 12px 18px; border-radius: 18px 18px 4px 18px; display: inline-block; max-width: 100%; box-shadow: 0 4px 16px rgba(10,132,255,0.3); }
-.msg.bot .msg-content { background: var(--glass-bg); backdrop-filter: blur(20px) saturate(180%); padding: 18px 20px; border-radius: 18px 18px 18px 4px; border: 1px solid var(--glass-border); box-shadow: 0 8px 32px rgba(0,0,0,0.15); }
-.msg-content p + p { margin-top: 12px; }
-.msg-content strong { color: var(--text); font-weight: 700; }
-.msg.user .msg-content strong { color: white; }
-.msg-content a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent-soft); transition: border-color 0.2s; }
-.msg-content a:hover { border-bottom-color: var(--accent); }
-.msg-content ul { margin-left: 20px; margin-top: 12px; color: var(--text-sub); font-size: 13px; line-height: 1.8; }
-.msg-content ul li { margin-bottom: 6px; }
-.msg-content ul li::marker { color: var(--accent); }
-
-.ai-insight-box { 
-  background: linear-gradient(135deg, rgba(10,132,255,0.1), rgba(94,92,230,0.06)); 
-  border: 1px solid rgba(10,132,255,0.3); 
-  border-radius: 16px; padding: 20px; margin-top: 16px; backdrop-filter: blur(12px);
-  box-shadow: 0 4px 24px rgba(10,132,255,0.08), inset 0 1px 0 rgba(255,255,255,0.05);
-  position: relative; overflow: hidden;
-}
-.ai-insight-box::before {
-  content: ''; position: absolute; top: -50%; right: -50%; width: 100%; height: 100%;
-  background: radial-gradient(circle, rgba(10,132,255,0.1), transparent 70%);
-  pointer-events: none;
-}
-.ai-insight-box h4 { font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
-.ai-insight-box p { font-size: 13px; color: var(--text-sub); line-height: 1.7; margin: 0; position: relative; }
-
-.market-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; margin-top: 12px; }
-.market-item { 
-  display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; 
-  background: var(--glass-highlight); border: 1px solid var(--glass-border); border-radius: 14px; 
-  cursor: pointer; transition: all 0.25s var(--ease); gap: 12px; backdrop-filter: blur(10px);
-  position: relative; overflow: hidden;
-}
-.market-item::before {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.02), transparent);
-  opacity: 0; transition: opacity 0.3s;
-}
-.market-item:hover { background: rgba(255,255,255,0.08); border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.25); }
-.market-item:hover::before { opacity: 1; }
-.market-info { display: flex; flex-direction: column; min-width: 0; flex-shrink: 0; }
-.market-symbol { font-size: 14px; font-weight: 700; color: var(--text); font-family: var(--mono); white-space: nowrap; }
-.market-name { font-size: 11px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.market-sparkline-wrapper { flex: 1; display: flex; justify-content: center; min-width: 40px; }
-.market-sparkline { width: 100%; max-width: 65px; height: 30px; }
-.market-price-area { text-align: right; display: flex; flex-direction: column; align-items: flex-end; flex-shrink: 0; }
-.market-price { font-size: 14px; font-weight: 700; color: var(--text); white-space: nowrap; font-family: var(--mono); }
-.market-change { font-size: 11px; font-weight: 600; white-space: nowrap; }
-.market-change.up { color: var(--green); } .market-change.down { color: var(--red); }
-
-.news-card { display: block; padding: 18px; background: var(--glass-highlight); border: 1px solid var(--glass-border); border-radius: 14px; text-decoration: none; color: var(--text); transition: all 0.25s var(--ease); margin-bottom: 12px; backdrop-filter: blur(10px); position: relative; overflow: hidden; }
-.news-card::before {
-  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
-  background: linear-gradient(180deg, var(--accent), var(--purple));
-  opacity: 0; transition: opacity 0.3s;
-}
-.news-card:hover { border-color: var(--accent); background: rgba(255,255,255,0.08); transform: translateX(4px); }
-.news-card:hover::before { opacity: 1; }
-.news-category { font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; letter-spacing: 0.5px; }
-.news-title { font-size: 14px; font-weight: 600; line-height: 1.4; margin-bottom: 10px; }
-.news-tldr { font-size: 12px; color: var(--text-sub); line-height: 1.6; padding: 12px 14px; background: var(--surface-3); border-radius: 10px; border-left: 2px solid var(--accent); }
-
-.chat-follow-ups { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
-.follow-up-btn { background: var(--glass-highlight); border: 1px solid var(--glass-border); color: var(--text-sub); padding: 9px 16px; border-radius: var(--radius-pill); font-size: 12px; font-weight: 500; cursor: pointer; transition: all 0.2s var(--ease); font-family: var(--font); backdrop-filter: blur(10px); display: inline-flex; align-items: center; gap: 6px; }
-.follow-up-btn:hover { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); transform: translateY(-1px); }
-.follow-up-btn:active { transform: translateY(0) scale(0.98); }
-
-.typing-indicator { display: flex; gap: 5px; padding: 8px 4px; align-items: center; height: 24px; }
-.typing-indicator span { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); animation: typing 1.4s infinite ease-in-out; opacity: 0.6; }
-.typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
-.typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
-@keyframes typing { 0%, 60%, 100% { transform: translateY(0); opacity: 0.4; } 30% { transform: translateY(-8px); opacity: 1; } }
-
-/* Elevated Input Area */
-.os-input-area { 
-  position: absolute; 
-  bottom: 20vh; 
-  left: 0; right: 0; 
-  z-index: 50; 
-  display: flex; justify-content: center; 
-  padding: 0 20px;
-  pointer-events: none;
-}
-.input-wrapper { pointer-events: auto; max-width: 800px; width: 100%; position: relative; }
-.input-shell { 
-  background: var(--glass-bg); 
-  backdrop-filter: blur(40px) saturate(200%); 
-  -webkit-backdrop-filter: blur(40px) saturate(200%);
-  border: 1px solid var(--glass-border); 
-  border-radius: 28px; 
-  padding: 8px 8px 8px 24px; 
-  display: flex; align-items: center; gap: 12px; 
-  transition: all 0.3s var(--ease); 
-  box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.05) inset;
-}
-.input-shell:focus-within { 
-  border-color: var(--accent); 
-  box-shadow: 0 25px 80px rgba(10,132,255,0.25), 0 0 0 4px var(--accent-glow), 0 0 0 1px rgba(255,255,255,0.1) inset; 
-  transform: translateY(-4px);
-}
-.ai-input { flex: 1; background: none; border: none; outline: none; color: var(--text); font-size: 16px; font-weight: 400; font-family: inherit; min-width: 0; padding: 14px 0; }
-.ai-input::placeholder { color: var(--text-muted); }
-.ai-send { 
-  width: 44px; height: 44px; border-radius: 50%; 
-  background: linear-gradient(135deg, var(--accent), #5E5CE6); 
-  color: white; border: none; display: flex; align-items: center; justify-content: center; 
-  cursor: pointer; transition: all 0.2s var(--ease); font-size: 18px; flex-shrink: 0; 
-  box-shadow: 0 4px 18px rgba(10,132,255,0.4);
-}
-.ai-send:hover:not(:disabled) { transform: scale(1.08) rotate(-5deg); box-shadow: 0 8px 30px rgba(10,132,255,0.55); }
-.ai-send:active:not(:disabled) { transform: scale(0.95); }
-.ai-send:disabled { opacity: 0.3; cursor: not-allowed; }
-
-/* Search Button Style */
-.ai-search {
-  width: 44px; height: 44px; border-radius: 50%; 
-  background: var(--surface-3); 
-  color: var(--text-sub); border: 1px solid var(--glass-border); display: flex; align-items: center; justify-content: center; 
-  cursor: pointer; transition: all 0.2s var(--ease); font-size: 18px; flex-shrink: 0; 
-}
-.ai-search:hover { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); transform: scale(1.05); }
-
-/* Quick actions */
-.quick-actions {
-  display: flex; gap: 8px; margin-top: 12px;
-  justify-content: center;
-  pointer-events: auto;
-}
-.quick-action {
-  padding: 6px 12px; font-size: 11px; color: var(--text-muted);
-  background: var(--glass-highlight); border: 1px solid var(--glass-border);
-  border-radius: var(--radius-pill); cursor: pointer;
-  transition: all 0.2s var(--ease); font-family: var(--font);
-}
-.quick-action:hover { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
-
-/* WIDGETS */
-.widget-layer { position: fixed; inset: 0; pointer-events: none; z-index: 9999; }
-.floating-widget { 
-  position: fixed; width: 320px; background: var(--glass-bg); backdrop-filter: blur(40px) saturate(180%); 
-  border: 1px solid var(--glass-border); border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.05) inset; 
-  pointer-events: auto; display: flex; flex-direction: column; overflow: hidden; animation: widgetPopIn 0.5s var(--ease-spring); z-index: 10000; transition: width 0.3s var(--ease), height 0.3s var(--ease), transform 0.3s var(--ease), box-shadow 0.2s; 
-}
-.floating-widget:hover { box-shadow: 0 25px 70px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.08) inset; }
-.floating-widget.widget-minimized { height: 44px !important; max-height: 44px !important; overflow: hidden; }
-.floating-widget.widget-minimized .widget-body { display: none; }
-.floating-widget.widget-fullscreen { 
-  width: 100vw !important; height: 100vh !important; max-height: 100vh !important; 
-  left: 0 !important; top: 0 !important; transform: none !important; right: auto !important; 
-  border-radius: 0 !important; z-index: 10001 !important; 
-}
-@keyframes widgetPopIn { 0% { opacity: 0; transform: scale(0.85) translateY(30px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
-
-.widget-header { 
-  padding: 10px 14px; background: rgba(255,255,255,0.03); border-bottom: 1px solid var(--glass-border); 
-  display: flex; justify-content: space-between; align-items: center; cursor: grab; user-select: none; touch-action: none;
-}
-.widget-header:active { cursor: grabbing; }
-.widget-controls { display: flex; gap: 6px; }
-.widget-btn { width: 12px; height: 12px; border-radius: 50%; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 8px; color: transparent; transition: all 0.2s; }
-.widget-btn.close { background: #FF5F56; }
-.widget-btn.minimize { background: #FFBD2E; }
-.widget-btn.fullscreen { background: #27C93F; }
-.widget-header:hover .widget-btn { color: rgba(0,0,0,0.6); font-weight: 700; }
-
-.widget-title { font-size: 13px; font-weight: 600; color: var(--text); display: flex; align-items: center; gap: 8px; flex: 1; text-align: center; justify-content: center; }
-.widget-body { padding: 16px; flex: 1; overflow-y: auto; max-height: 60vh; }
-.widget-resize-handle { position: absolute; bottom: 0; right: 0; width: 20px; height: 20px; cursor: nwse-resize; z-index: 10; }
-.widget-resize-handle::after {
-  content: ''; position: absolute; bottom: 4px; right: 4px;
-  width: 10px; height: 10px;
-  border-right: 2px solid var(--text-muted); border-bottom: 2px solid var(--text-muted);
-  opacity: 0.5;
-}
-
-.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(12px); z-index: 5000; display: none; align-items: center; justify-content: center; padding: 20px; }
-.modal-overlay.active { display: flex; animation: fadeIn 0.3s var(--ease); }
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-.modal-content { width: 100%; max-width: 640px; background: var(--glass-bg); backdrop-filter: blur(40px) saturate(180%); border: 1px solid var(--glass-border); border-radius: 24px; overflow: hidden; max-height: 85vh; display: flex; flex-direction: column; box-shadow: 0 30px 90px rgba(0,0,0,0.6); animation: modalPop 0.4s var(--ease-spring); }
-@keyframes modalPop { 0% { opacity: 0; transform: scale(0.9) translateY(20px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
-.modal-header { padding: 18px 24px; border-bottom: 1px solid var(--glass-border); display: flex; justify-content: space-between; align-items: center; }
-.modal-header h2 { font-size: 17px; font-weight: 700; font-family: var(--font); display: flex; align-items: center; gap: 10px; }
-.modal-body { padding: 24px; overflow-y: auto; flex: 1; }
-.app-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 16px; }
-.app-card { background: var(--glass-highlight); border: 1px solid var(--glass-border); border-radius: 18px; padding: 22px 14px; text-align: center; cursor: pointer; transition: all 0.25s var(--ease); backdrop-filter: blur(10px); position: relative; overflow: hidden; }
-.app-card::before {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.05), transparent);
-  opacity: 0; transition: opacity 0.3s;
-}
-.app-card:hover { background: rgba(255,255,255,0.1); transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,0.25); }
-.app-card:hover::before { opacity: 1; }
-.app-icon { font-size: 38px; margin-bottom: 12px; display: block; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2)); }
-.app-name { font-size: 13px; font-weight: 600; }
-.app-status { font-size: 11px; color: var(--text-muted); margin-top: 6px; display: flex; align-items: center; justify-content: center; gap: 4px; }
-.app-status.installed { color: var(--green); font-weight: 600; }
-
-#toast-container { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); z-index: 10000; display: flex; flex-direction: column; gap: 8px; pointer-events: none; width: 90%; max-width: 400px; }
-
-/* Status bar */
-.status-indicator {
-  display: flex; align-items: center; gap: 6px;
-  font-size: 11px; color: var(--text-muted);
-  font-family: var(--mono);
-  margin-left: 8px;
-}
-.status-dot {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: var(--green);
-  box-shadow: 0 0 8px var(--green);
-  animation: pulse 2s infinite;
-}
-@keyframes pulse {
-  0%, 100% { opacity: 1; } 50% { opacity: 0.4; }
-}
-
-/* Mobile Responsive */
-@media (max-width: 767px) {
-  .os-topbar { padding: 0 12px; gap: 8px; }
-  .os-logo { font-size: 12px; }
-  .os-logo span { display: none; }
-  .os-btn { padding: 0 10px; font-size: 11px; height: 26px; }
-  .os-btn-text { display: none; }
-  .os-clock { display: none; }
-  .status-indicator { display: none; }
-  
-  .os-nav { padding: 0 12px; height: 44px; }
-  .nav-container { display: none; }
-  .nav-cta { display: none; }
-  .nav-toggle { display: flex; }
-  
-  .os-desktop { height: calc(100dvh - var(--topbar-h) - 44px); }
-  
-  .chat-container { padding: 16px 12px 32vh 12px; }
-  .chat-thread { gap: 16px; }
-  .msg { gap: 10px; }
-  
-  .desktop-icons { 
-    position: relative; top: 0; right: 0; 
-    flex-direction: row; overflow-x: auto; gap: 12px; 
-    padding: 8px 4px; margin-bottom: 8px; 
-    scrollbar-width: none; width: 100%;
-  }
-  .desktop-icons::-webkit-scrollbar { display: none; }
-  .desktop-folder { flex-shrink: 0; }
-  .desktop-folder-icon { width: 56px; height: 56px; font-size: 26px; border-radius: 14px; }
-  .desktop-folder-label { font-size: 10px; padding: 3px 8px; }
-  
-  .os-input-area { bottom: 14vh; padding: 0 12px; }
-  .input-shell { border-radius: 24px; padding: 6px 6px 6px 18px; }
-  .ai-input { font-size: 15px; padding: 12px 0; }
-  .ai-send { width: 40px; height: 40px; font-size: 16px; }
-  .ai-search { width: 40px; height: 40px; font-size: 16px; }
-  
-  .quick-actions { margin-top: 8px; }
-  .quick-action { font-size: 10px; padding: 5px 10px; }
-  
-  .floating-widget { width: 92vw !important; max-width: 360px !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; max-height: 75vh; }
-  .floating-widget.widget-fullscreen { width: 100vw !important; height: 100dvh !important; max-height: 100dvh !important; left: 0 !important; top: 0 !important; transform: none !important; border-radius: 0 !important; }
-  .widget-resize-handle { display: none; }
-  
-  .market-grid { grid-template-columns: 1fr; }
-  .market-sparkline-wrapper { display: none; }
-  
-  .app-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-}
-
-/* Very small screens */
-@media (max-width: 380px) {
-  .os-topbar { padding: 0 8px; }
-  .ticker-shell { display: none; }
-}
+@media (max-width:380px){.ticker-shell{display:none}}
 </style>
 </head>
 <body>
-  <br>
-  <center>
-<!-- e-ZeeInternet counter · GDPR / cookie-free -->
-<script async src="https://e-zeeinternet.com/t.js"
-  data-site="ezi_992ceef652fd"
-  data-mode="gdpr"
-  data-theme="dark"
-  data-shape="rounded"
-  data-layout="row"></script>
-<!-- Place this where you want the counter to appear (optional — auto-mounts next to the script otherwise) -->
-<div data-ezee-counter></div>
-  </center>
-  <br>
+
 <header class="os-topbar">
-  <div class="os-logo"><div class="os-logo-icon">◆</div> <span>Digital Infohub</span></div>
+  <div class="os-logo"><div class="os-logo-icon">◆</div><span>Digital Infohub</span></div>
   <div class="status-indicator"><div class="status-dot"></div>Live</div>
   <div class="ticker-shell"><div class="ticker-bar" id="tickerBar"></div></div>
   <div class="os-actions">
-    <button class="os-btn" onclick="window.openAppStore()">📦 <span class="os-btn-text">Apps</span></button>
-    <button class="os-btn" onclick="window.toggleTheme()" id="themeToggle">◑</button>
+    <button class="os-btn" onclick="window.openAppStore()">📦<span class="os-btn-text">Apps</span></button>
+    <button class="os-btn" onclick="window.toggleTheme()">◑</button>
     <div class="os-clock" id="clock">--:--</div>
   </div>
 </header>
 
 <nav class="os-nav">
   <div class="nav-container">
-    <a href="/" class="nav-link"><span class="nav-icon">🏠</span>Home</a>
+    <a href="/" class="nav-link active"><span class="nav-icon">🏠</span>Home</a>
     <a href="/blog" class="nav-link"><span class="nav-icon">📝</span>Blog</a>
     <a href="/techproducts" class="nav-link"><span class="nav-icon">💻</span>Tech Products</a>
     <a href="/techtopics" class="nav-link"><span class="nav-icon">🔬</span>Tech Topics</a>
@@ -619,832 +250,691 @@ body::after {
     <a href="/services" class="nav-link"><span class="nav-icon">🛠️</span>Services</a>
     <a href="/advertise" class="nav-link"><span class="nav-icon">📣</span>Advertise</a>
   </div>
-  <a href="/subscribe" class="nav-cta"><span>✨</span>Subscribe</a>
-  <button class="nav-toggle" id="navToggle" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
+  <a href="/subscribe" class="nav-cta">✨ Subscribe</a>
+  <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
 
 <div class="mobile-drawer" id="mobileDrawer">
   <div class="drawer-content">
-    <a href="/" class="drawer-link"><span class="drawer-icon">🏠</span>Home<span class="drawer-arrow">›</span></a>
-    <a href="/blog" class="drawer-link"><span class="drawer-icon">📝</span>Blog<span class="drawer-arrow">›</span></a>
-    <a href="/techproducts" class="drawer-link"><span class="drawer-icon">💻</span>Tech Products<span class="drawer-arrow">›</span></a>
-    <a href="/techtopics" class="drawer-link"><span class="drawer-icon">🔬</span>Tech Topics<span class="drawer-arrow">›</span></a>
-    <a href="/software" class="drawer-link"><span class="drawer-icon">⚙️</span>Software<span class="drawer-arrow">›</span></a>
-    <a href="/games" class="drawer-link"><span class="drawer-icon">🎮</span>Games<span class="drawer-arrow">›</span></a>
-    <a href="/about" class="drawer-link"><span class="drawer-icon">ℹ️</span>About<span class="drawer-arrow">›</span></a>
-    <a href="/services" class="drawer-link"><span class="drawer-icon">🛠️</span>Services<span class="drawer-arrow">›</span></a>
-    <a href="/advertise" class="drawer-link"><span class="drawer-icon">📣</span>Advertise<span class="drawer-arrow">›</span></a>
+    <a href="/" class="drawer-link">🏠 Home</a>
+    <a href="/blog" class="drawer-link">📝 Blog</a>
+    <a href="/techproducts" class="drawer-link">💻 Tech Products</a>
+    <a href="/techtopics" class="drawer-link">🔬 Tech Topics</a>
+    <a href="/software" class="drawer-link">⚙️ Software</a>
+    <a href="/games" class="drawer-link">🎮 Games</a>
+    <a href="/about" class="drawer-link">ℹ️ About</a>
+    <a href="/services" class="drawer-link">🛠️ Services</a>
+    <a href="/advertise" class="drawer-link">📣 Advertise</a>
     <a href="/subscribe" class="drawer-cta">✨ Subscribe Now</a>
   </div>
 </div>
 
 <main class="os-desktop">
-  <div class="chat-container" id="chatContainer">
-    <div class="desktop-icons">
-      <div class="desktop-folder" onclick="window.handleSend('Market briefing')">
-        <div class="desktop-folder-icon">📊</div>
-        <div class="desktop-folder-label">Markets</div>
-      </div>
-      <div class="desktop-folder" onclick="window.handleSend('Latest tech news')">
-        <div class="desktop-folder-icon">💡</div>
-        <div class="desktop-folder-label">News</div>
-      </div>
-      <div class="desktop-folder" onclick="window.handleSend('Show investing tips')">
-        <div class="desktop-folder-icon">🧠</div>
-        <div class="desktop-folder-label">Insights</div>
-      </div>
-      <div class="desktop-folder" onclick="window.openAppStore()">
-        <div class="desktop-folder-icon">📦</div>
-        <div class="desktop-folder-label">Apps</div>
-      </div>
-    </div>
+  <div class="desktop-icons" id="desktopIcons">
+    <div class="desktop-folder" onclick="window.triggerModeOverview('markets')"><div class="desktop-folder-icon">📊</div><div class="desktop-folder-label">Markets</div></div>
+    <div class="desktop-folder" onclick="window.triggerModeOverview('news')"><div class="desktop-folder-icon">💡</div><div class="desktop-folder-label">News</div></div>
+    <div class="desktop-folder" onclick="window.triggerModeOverview('genai')"><div class="desktop-folder-icon">🧠</div><div class="desktop-folder-label">Insights</div></div>
+    <div class="desktop-folder" onclick="window.openAppStore()"><div class="desktop-folder-icon">📦</div><div class="desktop-folder-label">Apps</div></div>
+  </div>
 
-    <div class="chat-thread" id="chatThread" role="log"></div>
+  <div class="chat-container" id="chatContainer">
+    <div class="chat-thread" id="chatThread" role="log" aria-live="polite"></div>
+    <div class="counter-wrap">
+      <script async src="https://e-zeeinternet.com/t.js" data-site="ezi_992ceef652fd" data-mode="gdpr" data-theme="dark" data-shape="rounded" data-layout="row"></script>
+      <div data-ezee-counter></div>
+    </div>
   </div>
 
   <div class="os-input-area">
     <div class="input-wrapper">
+      <div class="autocomplete-panel" id="autocompletePanel"></div>
       <form class="input-shell" id="chatForm" autocomplete="off">
-        <input class="ai-input" id="chatInput" type="text" placeholder="Ask anything — markets, news, widgets..." aria-label="Message">
-        <button class="ai-search" id="chatSearch" type="button" aria-label="Search Web" title="Search DuckDuckGo">🔍</button>
+        <div class="mode-selector">
+          <button type="button" class="mode-btn active" data-mode="search" title="Web Search">🔍</button>
+          <button type="button" class="mode-btn" data-mode="markets" title="Tech Markets">📈</button>
+          <button type="button" class="mode-btn" data-mode="news" title="Tech News">📰</button>
+          <button type="button" class="mode-btn" data-mode="genai" title="Generative AI">✨</button>
+          <button type="button" class="mode-btn" data-mode="settings" title="Settings">⚙️</button>
+        </div>
+        <input class="ai-input" id="chatInput" type="text" placeholder="Ask anything..." aria-label="Message">
+        <button class="ai-stop" id="chatStop" type="button" aria-label="Stop">⏹</button>
         <button class="ai-send" id="chatSend" type="submit" aria-label="Send">→</button>
       </form>
-      <div class="quick-actions">
-        <span class="quick-action" onclick="window.handleSend('Market briefing')">📊 Markets</span>
-        <span class="quick-action" onclick="window.handleSend('Latest tech news')">💡 News</span>
-        <span class="quick-action" onclick="window.handleSend('Tell me a joke')">😄 Joke</span>
-        <span class="quick-action" onclick="window.handleSend('Open App Store')">📦 Apps</span>
-      </div>
     </div>
   </div>
 </main>
 
 <div class="widget-layer" id="widgetLayer"></div>
 
-<div class="modal-overlay" id="appStoreModal">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h2>📦 App Store</h2>
-      <button class="os-btn" onclick="window.closeAppStore()">✕</button>
-    </div>
+<div class="modal-overlay" id="settingsModal">
+  <div class="modal-content" style="max-width:520px">
+    <div class="modal-header"><h2>⚙️ Settings</h2><button class="os-btn" onclick="window.closeSettings()">✕</button></div>
     <div class="modal-body">
-      <p style="color: var(--text-sub); font-size: 13px; margin-bottom: 20px;">Enhance your workspace. Click to install or uninstall widgets.</p>
-      <div class="app-grid" id="appGrid"></div>
+      <h3 style="font-size:14px;margin-bottom:16px">Generative AI</h3>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding:14px;background:var(--glass-highlight);border-radius:12px;border:1px solid var(--glass-border)">
+        <div><div style="font-size:13px;font-weight:600">Enable AI Assistant</div><div style="font-size:11px;color:var(--text-muted)">Allows custom generated responses.</div></div>
+        <label class="switch"><input type="checkbox" id="toggleGenAI" checked><span class="slider"></span></label>
+      </div>
+      <div style="margin-bottom:16px">
+        <label style="font-size:12px;font-weight:600;display:block;margin-bottom:6px">Custom System Prompt</label>
+        <textarea id="settingSystemPrompt" style="width:100%;height:100px;background:var(--surface-3);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:10px;font-family:var(--font);font-size:12px;resize:vertical;outline:none"></textarea>
+      </div>
+      <div style="padding:12px;background:var(--surface-3);border-radius:8px;font-size:12px;color:var(--text-sub);margin-bottom:24px"><strong style="color:var(--text)">Active Model:</strong> gpt-4o-mini (via Pollinations free tier)</div>
+
+      <h3 style="font-size:14px;margin-bottom:16px;border-top:1px solid var(--glass-border);padding-top:20px">Market Watchlist</h3>
+      <div style="display:flex;gap:8px;margin-bottom:12px">
+        <input type="text" id="watchlistInput" placeholder="Add ticker (e.g. AAPL)" style="flex:1;padding:10px 14px;background:var(--surface-3);border:1px solid var(--border);border-radius:8px;color:var(--text);outline:none;font-size:13px">
+        <button id="addWatchlistBtn" style="padding:10px 18px;background:var(--accent);color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:600;font-size:13px">Add</button>
+      </div>
+      <div id="watchlistTags" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px"></div>
+
+      <h3 style="font-size:14px;margin-bottom:16px;border-top:1px solid var(--glass-border);padding-top:20px">Preferences</h3>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:14px;background:var(--glass-highlight);border-radius:12px;border:1px solid var(--glass-border)">
+        <div><div style="font-size:13px;font-weight:600">Show Welcome Tour</div><div style="font-size:11px;color:var(--text-muted)">Onboarding guide on startup.</div></div>
+        <label class="switch"><input type="checkbox" id="toggleTour"><span class="slider"></span></label>
+      </div>
+      <button id="saveSettingsBtn" style="width:100%;padding:12px;background:var(--accent);color:#fff;border:none;border-radius:10px;cursor:pointer;font-weight:600;font-size:14px;margin-top:24px">Save Settings</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="tourModal">
+  <div class="modal-content" style="max-width:450px">
+    <div class="modal-body" style="padding:40px 30px;text-align:center">
+      <div id="tourSlide" style="min-height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center"></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:28px">
+        <label style="font-size:12px;color:var(--text-muted);display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" id="tourDontShow"> Don't show again</label>
+        <div style="display:flex;gap:10px"><button id="tourSkip" class="os-btn">Skip</button><button id="tourNext" class="os-btn active">Next</button></div>
+      </div>
     </div>
   </div>
 </div>
 
 <div class="modal-overlay" id="chartModal">
-  <div class="modal-content" style="max-width: 700px;">
-    <div class="modal-header">
-      <h2 id="chartTitle">AAPL</h2>
-      <button class="os-btn" onclick="window.closeChartModal()">✕</button>
+  <div class="modal-content" style="max-width:700px">
+    <div class="modal-header"><h2 id="chartTitle">AAPL</h2><button class="os-btn" onclick="window.closeChartModal()">✕</button></div>
+    <div style="padding:12px 20px;display:flex;gap:8px;border-bottom:1px solid var(--glass-border)">
+      <button class="os-btn tf-btn active" data-tf="1D">1D</button><button class="os-btn tf-btn" data-tf="1W">1W</button><button class="os-btn tf-btn" data-tf="1M">1M</button>
     </div>
-    <div style="padding: 12px 20px; display: flex; gap: 8px; border-bottom: 1px solid var(--glass-border);">
-      <button class="os-btn tf-btn active" data-tf="1D">1D</button>
-      <button class="os-btn tf-btn" data-tf="1W">1W</button>
-      <button class="os-btn tf-btn" data-tf="1M">1M</button>
+    <div style="padding:20px;height:300px;position:relative"><canvas id="priceChart"></canvas></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="appStoreModal">
+  <div class="modal-content">
+    <div class="modal-header"><h2>📦 App Store</h2><button class="os-btn" onclick="window.closeAppStore()">✕</button></div>
+    <div class="modal-body">
+      <p style="color:var(--text-sub);font-size:13px;margin-bottom:20px">Enhance your workspace. Click to install or uninstall widgets.</p>
+      <div class="app-grid" id="appGrid"></div>
     </div>
-    <div style="padding: 20px; height: 300px; position: relative;"><canvas id="priceChart"></canvas></div>
   </div>
 </div>
 
 <div id="toast-container"></div>
 
 <script>
-(function() {
+(function(){
 'use strict';
 
+const store = {
+  get(k,d){ try{ const v=localStorage.getItem(k); return v===null?d:v; }catch(e){ return d; } },
+  set(k,v){ try{ localStorage.setItem(k,String(v)); }catch(e){} },
+  del(k){ try{ localStorage.removeItem(k); }catch(e){} }
+};
+
 const CONFIG = {
-  LOGO_URL: "https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png",
-  BOT_NAME: "Digital Infohub AI",
-  FINNHUB_KEY: "d9t07ohr01qqd5j2v6rgd9t07ohr01qqd5j2v6s0",
-  FEEDS: {
-    tech: { name:'Tech', url:'https://techcrunch.com/feed/' },
-    markets: { name:'Markets', url:'https://rss.nytimes.com/services/xml/rss/nyt/Business.xml' }
-  },
-  STOCK_TICKERS: ['AAPL','MSFT','GOOGL','AMZN','NVDA','TSLA','SPY','QQQ']
+  LOGO_URL:"https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png",
+  BOT_NAME:"Digital Infohub AI",
+  FINNHUB_KEY:"d9t07ohr01qqd5j2v6rgd9t07ohr01qqd5j2v6s0",
+  FEEDS:{ tech:{name:'Tech',url:'https://techcrunch.com/feed/'}, markets:{name:'Markets',url:'https://rss.nytimes.com/services/xml/rss/nyt/Business.xml'} },
+  STOCKS:['AAPL','MSFT','GOOGL','AMZN','NVDA','TSLA','SPY','QQQ'],
+  CRYPTO:{BTC:'bitcoin',ETH:'ethereum',SOL:'solana',XRP:'ripple',DOGE:'dogecoin',ADA:'cardano',AVAX:'avalanche-2',DOT:'polkadot',LINK:'chainlink',MATIC:'matic-network'}
 };
 
-const $ = s => document.querySelector(s);
-const $$ = s => document.querySelectorAll(s);
-const esc = s => { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; };
-const chatContainer = $('#chatContainer');
-const thread = $('#chatThread');
+const COMPANY_MAP = {'apple':'AAPL','microsoft':'MSFT','google':'GOOGL','alphabet':'GOOGL','amazon':'AMZN','nvidia':'NVDA','tesla':'TSLA','meta':'META','facebook':'META','netflix':'NFLX','amd':'AMD','intel':'INTC'};
+const CRYPTO_MAP = {'bitcoin':'BTC','ethereum':'ETH','solana':'SOL','ripple':'XRP','dogecoin':'DOGE','cardano':'ADA','avalanche':'AVAX','polkadot':'DOT'};
 
-// Mobile Navigation
-const navToggle = $('#navToggle');
-const mobileDrawer = $('#mobileDrawer');
-if (navToggle && mobileDrawer) {
-  navToggle.addEventListener('click', () => {
-    navToggle.classList.toggle('active');
-    mobileDrawer.classList.toggle('active');
-  });
-  mobileDrawer.addEventListener('click', (e) => {
-    if (e.target === mobileDrawer) {
-      navToggle.classList.remove('active');
-      mobileDrawer.classList.remove('active');
-    }
-  });
+function extractTickers(query) {
+    const l = query.toLowerCase();
+    const found = new Set();
+    CONFIG.STOCKS.forEach(t => { if (l.includes(t.toLowerCase())) found.add(t); });
+    Object.keys(CONFIG.CRYPTO).forEach(t => { if (l.includes(t.toLowerCase())) found.add(t); });
+    for (const [name, ticker] of Object.entries(COMPANY_MAP)) { if (l.includes(name)) found.add(ticker); }
+    for (const [name, ticker] of Object.entries(CRYPTO_MAP)) { if (l.includes(name)) found.add(ticker); }
+    return Array.from(found);
 }
 
-// Highlight active nav link
-const currentPath = window.location.pathname;
-$$('.nav-link').forEach(link => {
-  if (link.getAttribute('href') === currentPath || (currentPath === '/' && link.getAttribute('href') === '/')) {
-    link.classList.add('active');
-  }
-});
+const $=s=>document.querySelector(s), $$=s=>document.querySelectorAll(s);
+const esc=s=>{const d=document.createElement('div');d.textContent=s==null?'':String(s);return d.innerHTML;};
+const chatContainer=$('#chatContainer'), thread=$('#chatThread');
+const timeoutFetch=(url,opts,ms=8000)=>{const c=new AbortController();const t=setTimeout(()=>c.abort(),ms);return fetch(url,Object.assign({},opts,{signal:c.signal})).finally(()=>clearTimeout(t));};
 
-const Context = {
-  recentTopics: [], mood: 'helpful', lastResponse: '',
-  addTopic(topic) { if (!this.recentTopics.includes(topic)) { this.recentTopics.unshift(topic); if (this.recentTopics.length > 5) this.recentTopics.pop(); } },
-  hasTopic(topic) { return this.recentTopics.includes(topic); },
-  getTransition() { const t = ["Speaking of which...", "Oh, that's interesting.", "Great question!", "Let me check that...", "Good thinking.", "Alright, here's what I found."]; return t[Math.floor(Math.random() * t.length)]; }
-};
+const navToggle=$('#navToggle'), mobileDrawer=$('#mobileDrawer');
+navToggle.addEventListener('click',()=>mobileDrawer.classList.toggle('active'));
+mobileDrawer.addEventListener('click',e=>{if(e.target===mobileDrawer)mobileDrawer.classList.remove('active');});
 
-function showToast(message, type = 'success') {
-  const container = $('#toast-container');
-  const toast = document.createElement('div');
-  const bg = type === 'success' ? 'var(--green)' : type === 'error' ? 'var(--red)' : 'var(--accent)';
-  toast.style.cssText = `background: var(--glass-bg); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-left: 3px solid ${bg}; color: var(--text); padding: 14px 18px; border-radius: 12px; font-size: 13px; font-weight: 500; box-shadow: 0 10px 40px rgba(0,0,0,0.3); display: flex; align-items: center; gap: 10px; animation: fadeInUp 0.3s var(--ease); pointer-events: auto;`;
-  toast.innerHTML = `<span>${type === 'success' ? '✅' : '⚠️'}</span> ${message}`;
-  container.appendChild(toast);
-  setTimeout(() => { toast.style.opacity = '0'; toast.style.transform = 'translateY(10px)'; toast.style.transition = 'all 0.3s'; setTimeout(() => toast.remove(), 300); }, 3500);
-}
-
-function scrollToBottom(force = false) {
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      chatContainer.scrollTo({ top: chatContainer.scrollHeight, behavior: force ? 'auto' : 'smooth' });
-    });
-  });
-}
-
-function createSparklineSVG(isUp) {
-  const points = 24; let path = "M 0 50 "; let y = 50; const trend = isUp ? -1.2 : 1.2;
-  for (let i = 1; i <= points; i++) { const x = (i / points) * 100; y = Math.max(15, Math.min(85, y + trend + (Math.random() - 0.5) * 12)); path += `L ${x} ${y} `; }
-  const color = isUp ? '#30D158' : '#FF453A'; const gid = isUp ? 'gU' + Math.random() : 'gD' + Math.random();
-  return `<svg viewBox="0 0 100 100" preserveAspectRatio="none" class="market-sparkline">
-    <defs><linearGradient id="${gid}" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="${color}" stop-opacity="0.5"/><stop offset="100%" stop-color="${color}" stop-opacity="0"/></linearGradient></defs>
-    <path d="${path} L 100 100 L 0 100 Z" fill="url(#${gid})" /><path d="${path}" fill="none" stroke="${color}" stroke-width="2.5" vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round" />
-  </svg>`;
-}
-
-async function fetchStocks(tickers = CONFIG.STOCK_TICKERS) {
-  try {
-    const results = await Promise.allSettled(tickers.map(sym => fetch(`https://finnhub.io/api/v1/quote?symbol=${sym}&token=${CONFIG.FINNHUB_KEY}`).then(r => r.json()).then(data => ({ sym, data }))));
-    return results.filter(r => r.status === 'fulfilled' && r.value.data?.c).map(r => ({ symbol: r.value.sym, price: r.value.data.c.toFixed(2), changePct: (r.value.data.dp||0).toFixed(2), up: (r.value.data.d||0) >= 0 }));
-  } catch(e) { return []; }
-}
-
-async function fetchCrypto(symbols = ['BTC','ETH','SOL','XRP']) {
-  const ids = symbols.map(s => ({ 'BTC':'bitcoin', 'ETH':'ethereum', 'SOL':'solana', 'XRP':'ripple' }[s])).filter(Boolean);
-  try {
-    const r = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${ids.join(',')}&vs_currencies=usd&include_24hr_change=true`);
-    const data = await r.json();
-    return symbols.map(sym => {
-      const id = { 'BTC':'bitcoin', 'ETH':'ethereum', 'SOL':'solana', 'XRP':'ripple' }[sym];
-      if (data[id]) return { symbol: sym, price: data[id].usd.toLocaleString('en-US',{minimumFractionDigits:2}), changePct: (data[id].usd_24h_change||0).toFixed(2), up: (data[id].usd_24h_change||0) >= 0 };
-      return null;
-    }).filter(Boolean);
-  } catch(e) { return []; }
-}
-
-async function fetchRSS(url, categoryName) {
-  try {
-    const r = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`);
-    const data = await r.json();
-    return (data.items || []).slice(0, 3).map(i => {
-      let desc = (i.description || '').replace(/<[^>]*>/g, '').trim();
-      return { title: i.title.replace(/<[^>]*>/g, '').trim(), link: i.link, date: new Date(i.pubDate).toLocaleDateString('en-US', { month:'short', day:'numeric' }), source: categoryName, tldr: desc.substring(0, 140) + '...' };
-    });
-  } catch(e) { return []; }
-}
-
-function renderTicker(crypto, stocks) {
-  const el = $('#tickerBar');
-  const all = [...(crypto||[]), ...(stocks||[])];
-  if (all.length === 0) { el.style.display = 'none'; return; }
-  el.innerHTML = [...all, ...all].map(a => `<div class="ticker-item"><strong>${a.symbol}</strong> $${a.price} <span class="${a.up?'up':'down'}">${a.up?'▲':'▼'} ${a.changePct}%</span></div>`).join('');
-}
-
-let chartInstance = null, currentChartPrice = 0, currentChartIsUp = true;
-window.openChartModal = function(symbol, name, price, isUp) {
-  currentChartPrice = parseFloat(price.replace(/,/g, '')); currentChartIsUp = isUp;
-  const modal = $('#chartModal');
-  $('#chartTitle').textContent = `${symbol} — $${price}`;
-  $('#chartTitle').style.color = isUp ? 'var(--green)' : 'var(--red)';
-  modal.classList.add('active');
-  document.querySelectorAll('.tf-btn').forEach(b => b.classList.remove('active'));
-  document.querySelector('.tf-btn[data-tf="1D"]').classList.add('active');
-  renderChart(currentChartPrice, currentChartIsUp, '1D');
-};
-window.closeChartModal = function() {
-  $('#chartModal').classList.remove('active');
-  if (chartInstance) { chartInstance.destroy(); chartInstance = null; }
-};
-document.querySelectorAll('.tf-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.tf-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    renderChart(currentChartPrice, currentChartIsUp, btn.dataset.tf);
-  });
-});
-function renderChart(price, isUp, timeframe) {
-  const ctx = $('#priceChart').getContext('2d');
-  if (chartInstance) chartInstance.destroy();
-  const points = timeframe === '1D' ? 24 : timeframe === '1W' ? 7 : 30;
-  const labels = [], data = []; let p = price * (isUp ? 0.95 : 1.05);
-  for (let i = 0; i < points; i++) { p += (Math.random() - (isUp ? 0.4 : 0.6)) * (price * 0.02); data.push(p); labels.push(timeframe === '1D' ? `${i}:00` : `D${i+1}`); }
-  data[data.length - 1] = price;
-  const color = isUp ? '#30D158' : '#FF453A';
-  const gradient = ctx.createLinearGradient(0, 0, 0, 300);
-  gradient.addColorStop(0, color + '40');
-  gradient.addColorStop(1, color + '00');
-  chartInstance = new Chart(ctx, {
-    type: 'line', data: { labels, datasets: [{ data, borderColor: color, backgroundColor: gradient, borderWidth: 2.5, fill: true, tension: 0.4, pointRadius: 0, pointHoverRadius: 6 }] },
-    options: { responsive: true, maintainAspectRatio: false, animation: { duration: 1000, easing: 'easeInOutQuart' }, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false }, ticks: { color: '#6E6E73', maxTicksLimit: 6, font: { family: 'JetBrains Mono', size: 10 } } }, y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#6E6E73', font: { family: 'JetBrains Mono', size: 10 } } } } }
-  });
-}
-$('#chartModal').addEventListener('click', (e) => { if (e.target === $('#chartModal')) window.closeChartModal(); });
-
-// ==========================================
-// IMPROVED INTENT DETECTION (FUZZY KEYWORD MATCHING)
-// ==========================================
-const Intent = {
-  detect(input) {
-    const lower = input.toLowerCase().trim();
-    
-    // Helper to check if any keyword in array exists in input
-    const has = (keywords) => keywords.some(k => lower.includes(k));
-    
-    // Greeting: hi, hello, hey, howdy, yo, sup, morning, evening
-    if (has(['hi', 'hello', 'hey', 'howdy', 'greet', 'yo', 'sup', 'morning', 'evening'])) return { type:'greeting' };
-    
-    // Thanks: thank, thanks, cheers, ty, appreciate
-    if (has(['thank', 'cheers', 'ty', 'appreciate'])) return { type:'thanks' };
-    
-    // Identity: who are you, what are you, name, about
-    if (has(['who are', 'what are', 'your name', 'about you', 'identity'])) return { type:'identity' };
-    
-    // Help: help, commands, how to, what do, assist, guide
-    if (has(['help', 'command', 'how to', 'what do', 'assist', 'guide', 'hel'])) return { type:'help' };
-    
-    // Clear: clear, reset, start over, new chat, wipe
-    if (has(['clear', 'reset', 'start over', 'new chat', 'wipe'])) return { type:'clear_chat' };
-    
-    // Goodbye: bye, goodbye, see ya, cya, later
-    if (has(['bye', 'goodbye', 'see ya', 'cya', 'later'])) return { type:'goodbye' };
-    
-    // How are you: how are, how's it, you good, status
-    if (has(['how are', 'how\'s it', 'you good', 'status'])) return { type:'how_are_you' };
-    
-    // Joke: joke, funny, laugh, humor
-    if (has(['joke', 'funny', 'laugh', 'humor'])) return { type:'joke' };
-    
-    // App Store: app store, apps, store, applications
-    if (has(['app store', 'apps', 'store', 'application'])) return { type: 'app_store' };
-    
-    // View Widgets: widgets, my widgets, show widgets, installed
-    if (has(['widgets', 'my widgets', 'show widgets', 'installed'])) return { type: 'view_widgets' };
-    
-    // Install Widget: install, add, open + widget name
-    if (has(['install', 'add'])) {
-      const widgetMatch = lower.match(/\b(weather|calculator|calc|notes|timer|converter|password|bookmarks|gainers|stopwatch|quote|dice|color)\b/i);
-      if (widgetMatch) { const w = widgetMatch[1].toLowerCase(); return { type: 'install_widget', widget: w === 'calculator' ? 'calc' : w }; }
-    }
-    if (has(['open']) && has(['app', 'store'])) return { type: 'app_store' };
-    
-    // Market Briefing: market, stock, crypto, bitcoin, btc, eth, s&p, nasdaq, portfolio, mkt
-    if (has(['market', 'stock', 'crypto', 'bitcoin', 'btc', 'eth', 's&p', 'nasdaq', 'portfolio', 'mkt', 'coin'])) return { type:'market_briefing' };
-    
-    // News: news, headline, tech, update, latest
-    if (has(['news', 'headline', 'update', 'latest'])) return { type:'news', category: has(['tech']) ? 'tech' : 'markets' };
-    
-    // Investing Tips: tip, advice, strategy, invest, investing, learn, education
-    if (has(['tip', 'advice', 'strategy', 'invest', 'learn', 'education'])) return { type: 'investing_tips' };
-    
-    // Search Mode Explicit
-    if (lower.startsWith('search ') || lower.startsWith('find ')) {
-      return { type: 'web_search', query: input.replace(/^(search|find)\s+/i, '') };
-    }
-
-    // Fallback
-    return { type:'fallback', query: input };
-  }
-};
-
-const AI = {
-  async process(input) {
-    const intent = Intent.detect(input);
-    switch(intent.type) {
-      case 'greeting': {
-        Context.addTopic('greeting');
-        const hour = new Date().getHours();
-        const timeGreeting = hour < 12 ? "morning" : hour < 18 ? "afternoon" : "evening";
-        return `<p>Good ${timeGreeting}! 👋 I'm your AI research terminal — here to help you stay sharp on markets, tech, and productivity.</p>
-        <p style="margin-top:12px; color:var(--text-sub);">What are we diving into today?</p>
-        <div class="chat-follow-ups">
-          <button class="follow-up-btn" onclick="window.handleSend('Market briefing')">📊 Markets</button>
-          <button class="follow-up-btn" onclick="window.handleSend('Latest tech news')">💡 News</button>
-          <button class="follow-up-btn" onclick="window.handleSend('Open App Store')">📦 Apps</button>
-        </div>`;
-      }
-      case 'thanks': return `<p>${["Anytime! 😊", "Happy to help!", "That's what I'm here for.", "Glad I could help!"][Math.floor(Math.random() * 4)]} Let me know if there's anything else on your mind.</p>`;
-      case 'identity': return `<p>I'm <strong>Digital Infohub AI</strong> — think of me as your personal research terminal. I help you track markets, digest tech news, and customize your workspace with useful widgets.</p><p style="margin-top:8px; color:var(--text-sub);">I'm always learning from our conversation, so feel free to ask me anything!</p>`;
-      case 'how_are_you': return `<p>Running smoothly, thanks for asking! 🚀 I'm ready to help with whatever you need — markets, news, or maybe a new widget to brighten your desktop.</p><div class="chat-follow-ups"><button class="follow-up-btn" onclick="window.handleSend('Market briefing')">📊 Check Markets</button><button class="follow-up-btn" onclick="window.handleSend('Tell me a joke')">😄 Tell me a joke</button></div>`;
-      case 'joke': {
-        const jokes = ["Why did the developer go broke? Because he used up all his cache! 💸", "Why don't scientists trust atoms? Because they make up everything! ⚛️", "There are 10 kinds of people in the world: those who understand binary, and those who don't. 🤖", "Why did the programmer quit his job? He didn't get arrays! 💼", "A SQL query walks into a bar, sees two tables, and asks... 'Can I join you?' 🍺"];
-        return `<p>${jokes[Math.floor(Math.random() * jokes.length)]}</p><p style="margin-top:8px; color:var(--text-sub);">Got a smile out of you? 😄 Want another one, or shall we get back to business?</p><div class="chat-follow-ups"><button class="follow-up-btn" onclick="window.handleSend('Tell me another joke')">😄 Another one</button><button class="follow-up-btn" onclick="window.handleSend('Market briefing')">📊 Back to Markets</button></div>`;
-      }
-      case 'help': return `<p>Here's what I can help you with:</p><ul><li><strong>"Market briefing"</strong> — Live snapshot of stocks & crypto</li><li><strong>"Tech news"</strong> — Latest headlines, summarized</li><li><strong>"Install [widget]"</strong> — Add tools to your desktop</li><li><strong>"Investing tips"</strong> — Learn core market principles</li><li><strong>"Tell me a joke"</strong> — For when you need a break</li></ul><p style="margin-top:12px; color:var(--text-sub);">Or just click any folder on your desktop. I'll remember what we've talked about!</p>`;
-      case 'goodbye': return `<p>Take care! 👋 I'll be here whenever you need me. Your workspace and widgets will be waiting.</p>`;
-      case 'app_store': window.openAppStore(); return `<p>Opening the <strong>App Store</strong> for you. 📦</p><p style="margin-top:8px; color:var(--text-sub);">You'll find 12 widgets to customize your desktop — from Weather and Calculator to Dice Rollers and Crypto Gainers. Just click to install, or tell me what you want (e.g., "install color picker").</p>`;
-      case 'view_widgets': {
-        const openWidgets = WidgetManager.state.open;
-        if (openWidgets.length === 0) return `<p>You haven't installed any widgets yet! Head to the <strong>App Store</strong> to customize your desktop.</p><div class="chat-follow-ups"><button class="follow-up-btn" onclick="window.openAppStore()">📦 Open App Store</button></div>`;
-        const names = { weather: '🌤️ Weather', calc: '🧮 Calculator', notes: '📝 Notes', timer: '⏱️ Focus Timer', converter: '⚖️ Converter', password: '🔑 Password Gen', bookmarks: '🔖 Bookmarks', gainers: '🚀 Crypto Gainers', stopwatch: '⏲️ Stopwatch', quote: '💭 Quote', dice: '🎲 Dice Roller', color: '🎨 Color Picker' };
-        let html = `<p>Here are your <strong>${openWidgets.length} active widget${openWidgets.length > 1 ? 's' : ''}</strong>:</p><ul style="margin-top:8px;">`;
-        openWidgets.forEach(w => { html += `<li>${names[w] || w}</li>`; });
-        html += `</ul><p style="margin-top:12px; color:var(--text-sub);">You can drag them around by their header, minimize them, or go fullscreen on mobile.</p><div class="chat-follow-ups"><button class="follow-up-btn" onclick="window.openAppStore()">📦 Browse More</button></div>`;
-        return html;
-      }
-      case 'install_widget': {
-        WidgetManager.open(intent.widget);
-        const names = { weather: 'Weather', calc: 'Calculator', notes: 'Notes', timer: 'Focus Timer', converter: 'Converter', password: 'Password Generator', bookmarks: 'Bookmarks', gainers: 'Crypto Gainers', stopwatch: 'Stopwatch', quote: 'Quote of the Day', dice: 'Dice Roller', color: 'Color Picker' };
-        const suggestions = { weather: ["Install Stopwatch", "Install Quote"], calc: ["Install Converter", "Market briefing"], notes: ["Install Focus Timer", "Install Password Generator"], timer: ["Install Notes", "Market briefing"], converter: ["Install Calculator", "Install Weather"], password: ["Install Bookmarks", "Install Notes"], bookmarks: ["Install Notes", "Latest tech news"], gainers: ["Market briefing", "Install Stopwatch"], stopwatch: ["Install Focus Timer", "Install Dice Roller"], quote: ["Install Color Picker", "Tell me a joke"], dice: ["Install Color Picker", "Tell me a joke"], color: ["Install Quote", "Install Dice Roller"] };
-        const btns = (suggestions[intent.widget] || ["Open App Store", "Market briefing"]).map(s => `<button class="follow-up-btn" onclick="window.handleSend('${s}')">${s}</button>`).join('');
-        return `<p>✅ <strong>${names[intent.widget]}</strong> is now on your desktop!</p><p style="margin-top:8px; color:var(--text-sub); font-size:13px;">Grab the header to drag it, or use the window controls to minimize or go fullscreen. What's next?</p><div class="chat-follow-ups">${btns}</div>`;
-      }
-      case 'market_briefing': {
-        Context.addTopic('markets');
-        const [crypto, stocks] = await Promise.all([fetchCrypto(), fetchStocks()]);
-        const greenCount = stocks.filter(s => s.up).length;
-        const sentiment = greenCount > stocks.length/2 ? "looking strong today" : greenCount === 0 ? "taking a breather today" : "mixed but holding steady";
-        let transition = Context.recentTopics.length > 1 ? `<p style="color:var(--text-sub);">${Context.getTransition()}</p>` : '';
-        let html = `${transition}<p>📊 <strong>Market Briefing</strong></p><p style="color:var(--text-sub); margin-top:8px;">The markets are ${sentiment}. Here's your real-time snapshot — click any asset for its full chart.</p>`;
-        
-        if (stocks.length > 0) {
-          html += `<p style="font-size:12px;font-weight:700;margin-top:16px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;">Equities</p><div class="market-grid">`;
-          html += stocks.slice(0,4).map(s => `<div class="market-item" onclick="window.openChartModal('${s.symbol}', '${s.symbol}', '${s.price}', ${s.up})"><div class="market-info"><div class="market-symbol">${s.symbol}</div></div><div class="market-sparkline-wrapper">${createSparklineSVG(s.up)}</div><div class="market-price-area"><div class="market-price">$${s.price}</div><div class="market-change ${s.up?'up':'down'}">${s.up?'▲':'▼'} ${s.changePct}%</div></div></div>`).join('');
-          html += `</div>`;
-        }
-        if (crypto.length > 0) {
-          html += `<p style="font-size:12px;font-weight:700;margin-top:16px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;">Crypto</p><div class="market-grid">`;
-          html += crypto.map(s => `<div class="market-item" onclick="window.openChartModal('${s.symbol}', '${s.symbol}', '${s.price.replace(/,/g, '')}', ${s.up})"><div class="market-info"><div class="market-symbol">${s.symbol}</div></div><div class="market-sparkline-wrapper">${createSparklineSVG(s.up)}</div><div class="market-price-area"><div class="market-price">$${s.price}</div><div class="market-change ${s.up?'up':'down'}">${s.up?'▲':'▼'} ${s.changePct}%</div></div></div>`).join('');
-          html += `</div>`;
-        }
-        
-        const topGainer = stocks.filter(s => s.up).sort((a, b) => parseFloat(b.changePct) - parseFloat(a.changePct))[0];
-        const insightStock = topGainer ? topGainer.symbol : (stocks[0]?.symbol || 'the market');
-        const insightDirection = topGainer ? `showing strong momentum at +${topGainer.changePct}%` : 'showing mixed signals';
-        
-        html += `<div class="ai-insight-box"><h4>🧠 AI Insight</h4><p>Worth watching: <strong>${insightStock}</strong> is ${insightDirection} today. If you want deeper analysis on any asset, just ask.</p></div>`;
-        html += `<div class="chat-follow-ups"><button class="follow-up-btn" onclick="window.handleSend('Latest tech news')">📰 Read News</button><button class="follow-up-btn" onclick="window.handleSend('Show investing tips')">💡 Learn Strategy</button><button class="follow-up-btn" onclick="window.handleSend('Install Crypto Gainers')">🚀 Install Gainers</button></div>`;
-        return html;
-      }
-      case 'news': {
-        Context.addTopic('news');
-        const feed = intent.category === 'tech' ? CONFIG.FEEDS.tech : CONFIG.FEEDS.markets;
-        const items = await fetchRSS(feed.url, feed.name);
-        if (items.length === 0) return `<p>⚠️ I couldn't reach the news feed right now. Give it a minute and I'll try again — or we can check the markets instead.</p><div class="chat-follow-ups"><button class="follow-up-btn" onclick="window.handleSend('Market briefing')">📊 Check Markets</button></div>`;
-        let transition = Context.recentTopics.length > 1 ? `<p style="color:var(--text-sub);">${Context.getTransition()}</p>` : '';
-        let html = `${transition}<p>📰 <strong>Latest ${feed.name} Headlines</strong></p><p style="color:var(--text-sub); margin-top:8px;">Here's what's moving the ${feed.name.toLowerCase()} world today. I've summarized each story for quick reading.</p><div style="margin-top:16px;">`;
-        items.forEach(n => { html += `<a class="news-card" href="${esc(n.link)}" target="_blank" rel="noopener"><div class="news-category">${esc(n.source)} • ${esc(n.date)}</div><div class="news-title">${esc(n.title)}</div><div class="news-tldr"><strong>TL;DR:</strong> ${esc(n.tldr)}</div></a>`; });
-        html += `</div><div class="chat-follow-ups"><button class="follow-up-btn" onclick="window.handleSend('Market briefing')">📊 Check Markets</button><button class="follow-up-btn" onclick="window.handleSend('Tell me a joke')">😄 Lighten the mood</button></div>`;
-        return html;
-      }
-      case 'investing_tips': {
-        Context.addTopic('investing');
-        const tips = [
-          { title: "Time in the Market", content: "Consistency beats timing. Trying to predict perfect entries often means missing the best days — and those days account for most of the long-term gains." },
-          { title: "Dollar-Cost Averaging", content: "Invest a fixed amount regularly, regardless of market conditions. It smooths out purchase prices and removes emotion from the equation." },
-          { title: "Understand What You Own", content: "If you can't explain a business model in one sentence, you probably shouldn't own it. This applies to stocks and crypto alike." },
-          { title: "The Power of Compounding", content: "Einstein called it the eighth wonder of the world. The earlier you start, the more time your money has to work for you." }
-        ];
-        const tip = tips[Math.floor(Math.random() * tips.length)];
-        let transition = Context.hasTopic('markets') ? `<p style="color:var(--text-sub);">Speaking of markets, here's a principle worth remembering:</p>` : '';
-        return `${transition}<p>💰 <strong>${tip.title}</strong></p><div class="ai-insight-box" style="margin-top:16px;"><h4>🛡️ The Principle</h4><p>${tip.content}</p></div><p style="margin-top:16px; font-size:12px; color:var(--text-muted);"><em>Disclaimer: This is educational, not financial advice. Always do your own research.</em></p><div class="chat-follow-ups"><button class="follow-up-btn" onclick="window.handleSend('Show another tip')">🔄 Another Tip</button><button class="follow-up-btn" onclick="window.handleSend('Market briefing')">📊 Apply It</button></div>`;
-      }
-      case 'clear_chat':
-        thread.innerHTML = ''; Context.recentTopics = [];
-        return `<p>✨ Fresh start! What would you like to explore?</p><div class="chat-follow-ups"><button class="follow-up-btn" onclick="window.handleSend('Market briefing')">📊 Markets</button><button class="follow-up-btn" onclick="window.handleSend('Latest tech news')">💡 News</button><button class="follow-up-btn" onclick="window.handleSend('Open App Store')">📦 Apps</button></div>`;
-      
-      case 'web_search':
-        window.performWebSearch(intent.query);
-        return `<p>🔍 Searching for "<strong>${esc(intent.query)}</strong>"...</p>`;
-
-      default: 
-        // Smart Fallback: Suggest searching the web
-        const suggestions = ["Market briefing", "Latest tech news", "Open App Store", "Tell me a joke"];
-        return `<p>I'm not quite sure what you meant — but I can help you find it!</p>
-        <p style="margin-top:8px; color:var(--text-sub);">Here's what I found on the web for "<strong>${esc(input)}</strong>":</p>
-        <div class="chat-follow-ups" style="margin-top:12px;">
-          <button class="follow-up-btn" onclick="window.performWebSearch('${esc(input)}')">🔍 Search DuckDuckGo</button>
-        </div>
-        <p style="margin-top:12px; font-size:12px; color:var(--text-muted);">Or try one of these commands:</p>
-        <div class="chat-follow-ups">${suggestions.map(s => `<button class="follow-up-btn" onclick="window.handleSend('${s}')">${s}</button>`).join('')}</div>`;
-    }
-  }
-};
-
-// Web Search Function
-window.performWebSearch = function(query) {
-  if (!query) return;
-  const url = `https://duckduckgo.com/?q=${encodeURIComponent(query)}`;
-  window.open(url, '_blank');
-};
-
+let currentMode = store.get('dih_chat_mode','search');
 let isProcessing = false;
-function addMsg(role, html) {
-  const div = document.createElement('div'); div.className = `msg ${role}`;
-  const avatar = role === 'bot' ? `<img src="${CONFIG.LOGO_URL}" alt="AI">` : 'U';
-  div.innerHTML = `<div class="msg-avatar ${role}">${avatar}</div><div class="msg-body"><div class="msg-header"><span class="msg-role">${role === 'bot' ? CONFIG.BOT_NAME : 'You'}</span><span class="msg-time">${new Date().toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit' })}</span></div><div class="msg-content">${html}</div></div>`;
-  thread.appendChild(div); scrollToBottom(true); return div.querySelector('.msg-content');
-}
-function showThinking() {
-  const div = document.createElement('div'); div.className = 'msg bot';
-  div.innerHTML = `<div class="msg-avatar bot"><img src="${CONFIG.LOGO_URL}" alt="AI"></div><div class="msg-body"><div class="msg-content"><div class="typing-indicator"><span></span><span></span><span></span></div></div></div>`;
-  thread.appendChild(div); scrollToBottom(true); return div;
-}
-async function handleSend(text) {
-  if (isProcessing || !text.trim()) return;
-  isProcessing = true; $('#chatInput').disabled = true; $('#chatSend').disabled = true;
-  addMsg('user', esc(text)); $('#chatInput').value = '';
-  const thinkingEl = showThinking();
-  await new Promise(r => setTimeout(r, Math.random() * 800 + 600));
-  try {
-    const response = await AI.process(text.trim());
-    thinkingEl.remove();
-    if (response.includes('Fresh start')) { const contentEl = addMsg('bot', ''); contentEl.innerHTML = response; return; }
-    const contentEl = addMsg('bot', ''); contentEl.innerHTML = response; scrollToBottom(false);
-  } catch(err) {
-    thinkingEl.remove(); addMsg('bot', '<p>⚠️ Something went wrong. Mind trying again?</p>');
-  } finally {
-    isProcessing = false; $('#chatInput').disabled = false; $('#chatSend').disabled = false; $('#chatInput').focus({ preventScroll: true });
-  }
-}
-window.handleSend = handleSend;
-$('#chatForm').addEventListener('submit', e => { e.preventDefault(); handleSend($('#chatInput').value); });
 
-// Search Button Handler
-$('#chatSearch').addEventListener('click', () => {
-  const val = $('#chatInput').value.trim();
-  if (val) {
-    window.performWebSearch(val);
-  } else {
-    $('#chatInput').placeholder = "Type something to search...";
-    $('#chatInput').focus();
+const MODE_NAMES={search:'Web Search',markets:'Tech Markets',news:'Tech News',genai:'Generative AI'};
+const PLACEHOLDERS={search:"Search the web for anything...",markets:"Ask about stocks, crypto, or 'watchlist'...",news:"Search tech news by keyword...",genai:"Ask me to write, brainstorm, or explain..."};
+
+function setMode(mode,silent){
+  if(mode==='settings'){ openSettings(); return; }
+  if(!MODE_NAMES[mode]) mode='search';
+  currentMode=mode; store.set('dih_chat_mode',mode);
+  $$('.mode-btn').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode));
+  $('#chatInput').placeholder=PLACEHOLDERS[mode];
+  if(!silent) updateAutocomplete();
+}
+setMode(currentMode,true);
+$$('.mode-btn').forEach(b=>b.addEventListener('click',e=>{e.preventDefault();setMode(b.dataset.mode);}));
+
+window.triggerModeOverview=function(mode){
+  setMode(mode);
+  const cmd={markets:'Market briefing',news:'Latest tech news',genai:'Show investing tips'}[mode];
+  if(cmd) handleSend(cmd);
+};
+
+function detectIntent(q){
+  const l=q.toLowerCase(); const s={search:0,markets:0,news:0,genai:0};
+  if(/\b(stock|stocks|market|markets|crypto|bitcoin|btc|ethereum|eth|solana|nasdaq|s&p|sp500|ticker|shares|dividend|portfolio|forex|commodity|watchlist)\b/.test(l)) s.markets+=4;
+  if(/\b(price of|how is|compare|add .* to watchlist|remove .* from watchlist)\b/.test(l)) s.markets+=2;
+  if(/\b(news|headlines|latest|breaking|announced|released|update|updates|cybersecurity|launch)\b/.test(l)) s.news+=4;
+  if(/\b(what is|who is|where is|when did|how to|explain|define|definition|tutorial|guide|recipe|weather)\b/.test(l)) s.search+=2;
+  if(/\b(write|story|poem|essay|brainstorm|idea|ideas|creative|summarise|summarize|translate|code|script|tip|tips|advice|strategy)\b/.test(l)) s.genai+=3;
+  let best=null,max=0;
+  for(const m in s) if(s[m]>max){max=s[m];best=m;}
+  return (max>=3 && best!==currentMode) ? {autoSwitch:true,mode:best} : {autoSwitch:false,mode:currentMode};
+}
+
+function sanitize(html){
+  return html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi,'').replace(/\son\w+\s*=\s*"[^"]*"/gi,'').replace(/\son\w+\s*=\s*'[^']*'/gi,'').replace(/javascript:/gi,'#');
+}
+function formatMarkdown(text){
+  let html;
+  try{ html = window.marked ? marked.parse(String(text),{breaks:true,gfm:true}) : esc(text).replace(/\n/g,'<br>'); }
+  catch(e){ html = esc(text).replace(/\n/g,'<br>'); }
+  html = sanitize(html);
+  html = html.replace(/<table([\s\S]*?)>/g,'<div class="table-wrap"><table$1>');
+  html = html.replace(/<\/table>/g,'</table></div>');
+  return html;
+}
+
+function showToast(msg,type='success'){
+  const t=document.createElement('div');
+  const bg=type==='success'?'var(--green)':type==='error'?'var(--red)':'var(--accent)';
+  t.style.cssText=`background:var(--glass-bg);backdrop-filter:blur(20px);border:1px solid var(--glass-border);border-left:3px solid ${bg};color:var(--text);padding:14px 18px;border-radius:12px;font-size:13px;font-weight:500;box-shadow:0 10px 40px rgba(0,0,0,.3);display:flex;align-items:center;gap:10px;animation:fadeInUp .3s var(--ease)`;
+  t.innerHTML=`<span>${type==='success'?'✅':type==='error'?'⚠️':'ℹ️'}</span><span>${esc(msg)}</span>`;
+  $('#toast-container').appendChild(t);
+  setTimeout(()=>{t.style.opacity='0';t.style.transition='all .3s';setTimeout(()=>t.remove(),300);},3200);
+}
+function scrollToBottom(force){ chatContainer.scrollTo({top:chatContainer.scrollHeight,behavior:force?'auto':'smooth'}); }
+
+function sparkline(up){
+  let y=50,p='M 0 50 ';const t=up?-1.2:1.2;
+  for(let i=1;i<=24;i++){const x=(i/24)*100;y=Math.max(15,Math.min(85,y+t+(Math.random()-.5)*12));p+=`L ${x} ${y} `;}
+  const c=up?'#30D158':'#FF453A',g=(up?'gU':'gD')+Math.random();
+  return `<svg viewBox="0 0 100 100" preserveAspectRatio="none" class="market-sparkline"><defs><linearGradient id="${g}" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="${c}" stop-opacity=".5"/><stop offset="100%" stop-color="${c}" stop-opacity="0"/></linearGradient></defs><path d="${p} L 100 100 L 0 100 Z" fill="url(#${g})"/><path d="${p}" fill="none" stroke="${c}" stroke-width="2.5" vector-effect="non-scaling-stroke" stroke-linecap="round"/></svg>`;
+}
+
+async function fetchStocks(list){
+  list=list||CONFIG.STOCKS; if(!list.length) return [];
+  try{
+    const r=await Promise.allSettled(list.map(s=>timeoutFetch(`https://finnhub.io/api/v1/quote?symbol=${s}&token=${CONFIG.FINNHUB_KEY}`).then(x=>x.json()).then(d=>({s,d})),9000));
+    return r.filter(x=>x.status==='fulfilled'&&x.value.d&&x.value.d.c).map(x=>({symbol:x.value.s,price:Number(x.value.d.c).toFixed(2),changePct:Number(x.value.d.dp||0).toFixed(2),up:(x.value.d.d||0)>=0}));
+  }catch(e){ return []; }
+}
+async function fetchCrypto(list){
+  list=list||Object.keys(CONFIG.CRYPTO).slice(0,4);
+  const pairs=list.filter(s=>CONFIG.CRYPTO[s]).map(s=>[s,CONFIG.CRYPTO[s]]);
+  if(!pairs.length) return [];
+  try{
+    const r=await timeoutFetch(`https://api.coingecko.com/api/v3/simple/price?ids=${pairs.map(p=>p[1]).join(',')}&vs_currencies=usd&include_24hr_change=true`);
+    const d=await r.json();
+    return pairs.map(([sym,id])=>{
+      const v=d&&d[id]; if(!v||v.usd==null) return null;
+      const ch=v.usd_24h_change||0;
+      return {symbol:sym,price:Number(v.usd).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}),changePct:Number(ch).toFixed(2),up:ch>=0};
+    }).filter(Boolean);
+  }catch(e){ return []; }
+}
+async function fetchRSS(url,name){
+  try{
+    const r=await timeoutFetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`);
+    const d=await r.json();
+    return (d.items||[]).map(i=>({title:String(i.title||'').replace(/<[^>]*>/g,'').trim(),link:i.link||'#',date:i.pubDate?new Date(i.pubDate).toLocaleDateString('en-US',{month:'short',day:'numeric'}):'',source:name,tldr:String(i.description||'').replace(/<[^>]*>/g,'').trim().substring(0,150)}));
+  }catch(e){ return []; }
+}
+function renderTicker(c,s){
+  const el=$('#tickerBar'), all=[...(c||[]),...(s||[])];
+  if(!all.length){el.style.display='none';return;}
+  el.innerHTML=[...all,...all].map(a=>`<div class="ticker-item"><strong>${esc(a.symbol)}</strong> $${esc(a.price)} <span class="${a.up?'up':'down'}">${a.up?'▲':'▼'} ${esc(a.changePct)}%</span></div>`).join('');
+}
+
+function getWatchlist(){ try{ const v=JSON.parse(store.get('dih_watchlist','["AAPL","MSFT","NVDA","BTC"]')); return Array.isArray(v)?v:[]; }catch(e){ return ['AAPL','MSFT','NVDA','BTC']; } }
+function saveWatchlist(l){ store.set('dih_watchlist',JSON.stringify(l)); }
+
+async function processWebSearch(q){
+  try{
+    const r=await timeoutFetch(`https://api.duckduckgo.com/?q=${encodeURIComponent(q)}&format=json&no_html=1`,{},6000);
+    const d=await r.json();
+    if(d&&d.AbstractText){
+      let h=`<h2>🔍 ${esc(d.Heading||q)}</h2><div class="news-tldr">${esc(d.AbstractText)}</div>`;
+      if(d.AbstractURL) h+=`<a href="${esc(d.AbstractURL)}" target="_blank" rel="noopener" style="font-size:12px;display:inline-block;margin-top:8px">Read more →</a>`;
+      return h;
+    }
+  }catch(e){}
+  try{
+    const r=await timeoutFetch(`https://api.allorigins.win/raw?url=${encodeURIComponent('https://html.duckduckgo.com/html/?q='+encodeURIComponent(q))}`,{},9000);
+    const txt=await r.text();
+    const doc=new DOMParser().parseFromString(txt,'text/html');
+    const out=[];
+    doc.querySelectorAll('.result').forEach(el=>{
+      const a=el.querySelector('a.result__a'); const t=el.querySelector('.result__snippet');
+      if(a&&a.textContent.trim()) out.push({title:a.textContent.trim(),link:a.href,snippet:t?t.textContent.trim():''});
+    });
+    if(out.length){
+      return `<h2>🔍 Results for "${esc(q)}"</h2>`+out.slice(0,4).map(x=>`<a class="news-card" href="${esc(x.link)}" target="_blank" rel="noopener"><div class="news-title">${esc(x.title)}</div><div class="news-tldr">${esc(x.snippet)}</div></a>`).join('');
+    }
+  }catch(e){}
+  return `<a class="news-card" href="https://duckduckgo.com/?q=${encodeURIComponent(q)}" target="_blank" rel="noopener"><div class="news-title">Search "${esc(q)}" on DuckDuckGo →</div></a>`;
+}
+
+function marketGrid(title, stocks, crypto, highlight=[]){
+    const hlSet = new Set(highlight.map(h=>String(h).toUpperCase()));
+    const hlStyle = 'border-color: var(--accent); box-shadow: 0 0 16px var(--accent-glow); background: var(--accent-soft);';
+    let h = `<h2>${esc(title)}</h2><p style="color:var(--text-sub);font-size:13px">Live snapshot · click any asset for a chart</p>`;
+    if(stocks?.length){
+        h += `<div class="section-label">Equities</div><div class="market-grid">`;
+        h += stocks.map(s => {
+            const isHl = hlSet.has(s.symbol);
+            return `<div class="market-item" style="${isHl ? hlStyle : ''}" data-sym="${esc(s.symbol)}" data-price="${esc(s.price)}" data-up="${s.up}"><div><div class="market-symbol">${esc(s.symbol)}</div></div><div class="market-sparkline-wrapper">${sparkline(s.up)}</div><div class="market-price-area"><div class="market-price">$${esc(s.price)}</div><div class="market-change ${s.up?'up':'down'}">${s.up?'▲':'▼'} ${esc(s.changePct)}%</div></div></div>`;
+        }).join('');
+        h += `</div>`;
+    }
+    if(crypto?.length){
+        h += `<div class="section-label">Crypto</div><div class="market-grid">`;
+        h += crypto.map(s => {
+            const isHl = hlSet.has(s.symbol);
+            return `<div class="market-item" style="${isHl ? hlStyle : ''}" data-sym="${esc(s.symbol)}" data-price="${esc(s.price).replace(/,/g,'')}" data-up="${s.up}"><div><div class="market-symbol">${esc(s.symbol)}</div></div><div class="market-sparkline-wrapper">${sparkline(s.up)}</div><div class="market-price-area"><div class="market-price">$${esc(s.price)}</div><div class="market-change ${s.up?'up':'down'}">${s.up?'▲':'▼'} ${esc(s.changePct)}%</div></div></div>`;
+        }).join('');
+        h += `</div>`;
+    }
+    if(!stocks?.length && !crypto?.length) h+=`<p>No assets matched.</p>`;
+    h+=`<p style="margin-top:16px;font-size:11px;color:var(--text-muted)">Live data · prices may be delayed</p>`;
+    return h;
+}
+
+async function processMarkets(q){
+    const l=q.toLowerCase().trim();
+    const add=l.match(/add\s+([a-z0-9\-]+)\s+to\s+watchlist/);
+    if(add){ const t=add[1].toUpperCase(); const wl=getWatchlist(); if(!wl.includes(t)){wl.push(t);saveWatchlist(wl);} renderWatchlistTags(); return `<p>✅ Added <strong>${esc(t)}</strong> to your watchlist. Say <em>watchlist</em> to view it.</p>`; }
+    const rem=l.match(/remove\s+([a-z0-9\-]+)\s+from\s+watchlist/);
+    if(rem){ const t=rem[1].toUpperCase(); saveWatchlist(getWatchlist().filter(x=>x!==t)); renderWatchlistTags(); return `<p>✅ Removed <strong>${esc(t)}</strong> from your watchlist.</p>`; }
+
+    const isWL = /^(my\s+)?(watchlist|portfolio)$/.test(l);
+    let allStocks=[],allCrypto=[];
+    if(isWL){
+        const wl=getWatchlist();
+        if(!wl.length) return `<p>Your watchlist is empty. Add tickers in Settings, or say "add AAPL to watchlist".</p>`;
+        const cry=wl.filter(w=>CONFIG.CRYPTO[w]), eq=wl.filter(w=>!CONFIG.CRYPTO[w]);
+        [allStocks,allCrypto]=await Promise.all([fetchStocks(eq),fetchCrypto(cry)]);
+        return marketGrid('📋 Your Watchlist',allStocks,allCrypto,[]);
+    }
+
+    [allStocks,allCrypto]=await Promise.all([fetchStocks(),fetchCrypto()]);
+    if(!allStocks.length&&!allCrypto.length){
+        return `<p>⚠️ Live market data is unreachable right now. I can search the web for the latest instead.</p><div class="chat-follow-ups"><button class="follow-up-btn" data-send="Latest technology market news">🔍 Search instead</button></div>`;
+    }
+
+    const isOverview = !l || l.includes('briefing') || l==='markets' || l==='tech markets' || l==='market';
+    const highlighted = extractTickers(q);
+
+    if (isOverview && !highlighted.length) {
+        return marketGrid('📊 Full Market Briefing', allStocks, allCrypto, []);
+    }
+
+    let title = '📊 Market Overview';
+    if (highlighted.length) {
+        title = `📊 Market Overview · Highlighting ${highlighted.join(', ')}`;
+    }
+    return marketGrid(title, allStocks, allCrypto, highlighted);
+}
+
+async function processNews(q){
+    const l=q.toLowerCase().trim();
+    const feed=(l.includes('market')||l.includes('finance'))?CONFIG.FEEDS.markets:CONFIG.FEEDS.tech;
+    let items=await fetchRSS(feed.url,feed.name);
+    if(!items.length) return `<p>⚠️ Couldn't reach the ${esc(feed.name)} feed right now. Try again shortly.</p>`;
+
+    const generic=/^(latest\s+)?(tech\s+)?(news|headlines)$/.test(l);
+    let highlightKeyword = '';
+    if (!generic && l && l !== 'news') {
+        highlightKeyword = l;
+    }
+
+    let h=`<h2>📰 ${esc(feed.name)} Headlines</h2>`;
+    if (highlightKeyword) {
+        const matches = items.filter(i => (i.title + ' ' + i.tldr).toLowerCase().includes(highlightKeyword));
+        if (matches.length === 0) {
+            h += `<p style="color:var(--text-muted);font-size:13px">No exact matches for "<strong>${esc(q)}</strong>", showing latest ${esc(feed.name)} news instead.</p>`;
+        } else {
+            h += `<p style="color:var(--text-sub);font-size:13px">Highlighting stories matching "<strong>${esc(q)}</strong>"</p>`;
+        }
+    }
+
+    const hlStyle = 'border-left: 3px solid var(--accent); background: var(--accent-soft);';
+    h += items.slice(0, 6).map(n => {
+        const isMatch = highlightKeyword && (n.title + ' ' + n.tldr).toLowerCase().includes(highlightKeyword);
+        return `<a class="news-card" href="${esc(n.link)}" target="_blank" rel="noopener" style="${isMatch ? hlStyle : ''}"><div class="news-category">${esc(n.source)} · ${esc(n.date)}</div><div class="news-title">${esc(n.title)}</div><div class="news-tldr"><strong>TL;DR:</strong> ${esc(n.tldr)}</div></a>`;
+    }).join('');
+    return h;
+}
+
+let genHistory=[];
+async function processGenAI(q){
+  if(store.get('dih_genai_enabled','true')==='false'){
+    return `<p>⚠️ <strong>Generative AI is disabled.</strong> You can enable it in Settings.</p><div class="chat-follow-ups"><button class="follow-up-btn" data-open="settings">⚙️ Open Settings</button></div>`;
   }
+  genHistory.push({role:'user',content:q});
+  if(genHistory.length>8) genHistory=genHistory.slice(-8);
+  const sys=store.get('dih_ai_prompt',"You are Digital Infohub AI, an expert assistant for technology, financial markets, and productivity. Provide concise, sharp, and professional insights. Use clean markdown. When discussing markets, always include a brief strategic takeaway.")||"You are a helpful assistant.";
+  try{
+    const r=await timeoutFetch("https://text.pollinations.ai/openai",{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'openai',messages:[{role:'system',content:sys},...genHistory],temperature:0.7})},25000);
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    let reply='';
+    const ct=r.headers.get('content-type')||'';
+    if(ct.includes('json')){ const d=await r.json(); reply=d?.choices?.[0]?.message?.content||''; }
+    else { reply=await r.text(); }
+    if(!reply||!reply.trim()) throw new Error('empty');
+    genHistory.push({role:'assistant',content:reply});
+    return formatMarkdown(reply)+`<p style="margin-top:16px;font-size:11px;color:var(--text-muted);opacity:.75">✨ Pollinations AI · gpt-4o-mini model · free tier</p>`;
+  }catch(e){
+    genHistory.pop();
+    throw new Error('GenAI Failed');
+  }
+}
+
+let chart=null, cPrice=0, cUp=true;
+window.openChartModal=function(sym,price,up){
+  cPrice=parseFloat(String(price).replace(/,/g,''))||0; cUp=!!up;
+  $('#chartTitle').textContent=`${sym} — $${price}`;
+  $('#chartTitle').style.color=cUp?'var(--green)':'var(--red)';
+  $('#chartModal').classList.add('active');
+  $$('.tf-btn').forEach(b=>b.classList.remove('active'));
+  $('.tf-btn[data-tf="1D"]').classList.add('active');
+  drawChart('1D');
+};
+window.closeChartModal=function(){ $('#chartModal').classList.remove('active'); if(chart){chart.destroy();chart=null;} };
+$$('.tf-btn').forEach(b=>b.addEventListener('click',()=>{ $$('.tf-btn').forEach(x=>x.classList.remove('active')); b.classList.add('active'); drawChart(b.dataset.tf); }));
+function drawChart(tf){
+  const cv=$('#priceChart'); if(!cv||!window.Chart) return;
+  if(chart) chart.destroy();
+  const ctx=cv.getContext('2d');
+  const n=tf==='1D'?24:tf==='1W'?7:30;
+  const labels=[],data=[]; let p=cPrice*(cUp?0.95:1.05);
+  for(let i=0;i<n;i++){ p+=(Math.random()-(cUp?0.4:0.6))*(cPrice*0.02); data.push(p); labels.push(tf==='1D'?`${i}:00`:`D${i+1}`); }
+  data[data.length-1]=cPrice;
+  const col=cUp?'#30D158':'#FF453A';
+  const g=ctx.createLinearGradient(0,0,0,300); g.addColorStop(0,col+'40'); g.addColorStop(1,col+'00');
+  const muted=getComputedStyle(document.documentElement).getPropertyValue('--text-muted').trim()||'#888';
+  const grid=getComputedStyle(document.documentElement).getPropertyValue('--chart-grid').trim()||'rgba(128,128,128,.1)';
+  chart=new Chart(ctx,{type:'line',data:{labels,datasets:[{data,borderColor:col,backgroundColor:g,borderWidth:2.5,fill:true,tension:.4,pointRadius:0,pointHoverRadius:6}]},
+    options:{responsive:true,maintainAspectRatio:false,animation:{duration:800},plugins:{legend:{display:false}},
+      scales:{x:{grid:{display:false},ticks:{color:muted,maxTicksLimit:6,font:{family:'JetBrains Mono',size:10}}},y:{grid:{color:grid},ticks:{color:muted,font:{family:'JetBrains Mono',size:10}}}}}});
+}
+$('#chartModal').addEventListener('click',e=>{if(e.target.id==='chartModal')window.closeChartModal();});
+
+function addMsg(role,html){
+  const d=document.createElement('div'); d.className='msg '+role;
+  const av=role==='bot'?`<img src="${CONFIG.LOGO_URL}" alt="">`:'U';
+  d.innerHTML=`<div class="msg-avatar ${role}">${av}</div><div class="msg-body"><div class="msg-header"><span class="msg-role">${role==='bot'?CONFIG.BOT_NAME:'You'}</span><span class="msg-time">${new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'})}</span></div><div class="msg-content">${html}</div></div>`;
+  thread.appendChild(d);
+  d.querySelectorAll('.market-item').forEach(mi=>mi.addEventListener('click',()=>window.openChartModal(mi.dataset.sym,mi.dataset.price,mi.dataset.up==='true')));
+  d.querySelectorAll('.follow-up-btn').forEach(b=>{
+    b.addEventListener('click',()=>{ if(b.dataset.open==='settings'){openSettings();return;} if(b.dataset.mode) setMode(b.dataset.mode); handleSend(b.dataset.send); });
+  });
+  scrollToBottom(true);
+}
+function showThinking(){
+  const d=document.createElement('div'); d.className='msg bot';
+  d.innerHTML=`<div class="msg-avatar bot"><img src="${CONFIG.LOGO_URL}" alt=""></div><div class="msg-body"><div class="msg-content"><div class="typing-indicator"><span></span><span></span><span></span></div></div></div>`;
+  thread.appendChild(d); scrollToBottom(true); return d;
+}
+
+async function handleSend(text){
+  if(isProcessing) return;
+  text=(text||'').trim(); if(!text) return;
+  const it=detectIntent(text);
+  if(it.autoSwitch){ setMode(it.mode); showToast('Switched to '+MODE_NAMES[it.mode],'info'); }
+
+  isProcessing=true;
+  const inp=$('#chatInput');
+  inp.disabled=true; $('#chatSend').style.display='none'; $('#chatStop').style.display='flex';
+  $('#autocompletePanel').classList.remove('active');
+  addMsg('user',esc(text)); inp.value='';
+  const th=showThinking();
+  try{
+    let out='';
+    if(currentMode==='markets') out=await processMarkets(text);
+    else if(currentMode==='news') out=await processNews(text);
+    else if(currentMode==='genai') {
+        try {
+            out = await processGenAI(text);
+        } catch(genErr) {
+            const fallbacks = ['search', 'news', 'markets'];
+            const fb = fallbacks[Math.floor(Math.random() * fallbacks.length)];
+            out = `<p style="color:var(--orange)">⚠️ Generative AI is temporarily unavailable. Falling back to <strong>${MODE_NAMES[fb]}</strong>...</p><hr style="border:none;border-top:1px solid var(--border);margin:12px 0">`;
+            if (fb === 'search') out += await processWebSearch(text);
+            else if (fb === 'news') out += await processNews(text);
+            else if (fb === 'markets') out += await processMarkets(text);
+        }
+    }
+    else out=await processWebSearch(text);
+    th.remove(); addMsg('bot',out);
+  }catch(err){
+    th.remove(); addMsg('bot',`<p>⚠️ Something went wrong. Please try again.</p><div class="chat-follow-ups"><button class="follow-up-btn" data-send="${esc(text)}">🔄 Retry</button></div>`);
+  }finally{
+    isProcessing=false;
+    $('#chatSend').style.display='flex'; $('#chatStop').style.display='none';
+    inp.disabled=false; inp.focus({preventScroll:true});
+    updateAutocomplete();
+  }
+}
+window.handleSend=handleSend;
+$('#chatForm').addEventListener('submit',e=>{e.preventDefault();handleSend($('#chatInput').value);});
+$('#chatStop').addEventListener('click',()=>{ isProcessing=false; $('#chatSend').style.display='flex'; $('#chatStop').style.display='none'; $('#chatInput').disabled=false; });
+
+const SUGGEST={
+  search:[{i:'🔍',t:'How does WebGPU work'},{i:'🔍',t:'Latest breakthroughs in quantum computing'},{i:'🔍',t:'Best productivity apps 2025'}],
+  markets:[{i:'📊',t:'Market briefing'},{i:'📋',t:'watchlist'},{i:'📈',t:'How is NVDA doing'},{i:'🪙',t:'Bitcoin price'},{i:'➕',t:'Add TSLA to watchlist'}],
+  news:[{i:'📰',t:'Latest tech news'},{i:'🤖',t:'AI'},{i:'🔒',t:'Cybersecurity'},{i:'🍏',t:'Apple'},{i:'🎮',t:'Gaming'}],
+  genai:[{i:'💡',t:'Brainstorm app ideas'},{i:'📝',t:'Explain WebGPU simply'},{i:'💻',t:'Write a python script'},{i:'💰',t:'Show investing tips'}]
+};
+function updateAutocomplete(){
+  const panel=$('#autocompletePanel'); const v=$('#chatInput').value.trim().toLowerCase();
+  let list=[];
+  const base=SUGGEST[currentMode]||SUGGEST.search;
+  if(v){
+    getWatchlist().forEach(t=>{ if(t.toLowerCase().includes(v)) list.push({i:'📈',t:`How is ${t} doing`}); });
+    base.forEach(s=>{ if(s.t.toLowerCase().includes(v)) list.push(s); });
+    if(!list.length) list=base;
+  } else list=base;
+  panel.innerHTML='';
+  list.slice(0,5).forEach(s=>{
+    const b=document.createElement('button'); b.type='button'; b.className='autocomplete-chip';
+    const ic=document.createElement('span'); ic.textContent=s.i;
+    const tx=document.createElement('span'); tx.textContent=s.t;
+    b.append(ic,tx);
+    b.addEventListener('click',()=>{ $('#chatInput').value=s.t; handleSend(s.t); });
+    panel.appendChild(b);
+  });
+  panel.classList.toggle('active',list.length>0);
+}
+$('#chatInput').addEventListener('focus',updateAutocomplete);
+$('#chatInput').addEventListener('input',updateAutocomplete);
+document.addEventListener('click',e=>{ if(!e.target.closest('.input-wrapper')) $('#autocompletePanel').classList.remove('active'); });
+
+function openSettings(){
+  $('#settingsModal').classList.add('active');
+  $('#toggleGenAI').checked = store.get('dih_genai_enabled','true')!=='false';
+  $('#settingSystemPrompt').value = store.get('dih_ai_prompt',"You are Digital Infohub AI, an expert assistant for technology, financial markets, and productivity. Provide concise, sharp, and professional insights. Use clean markdown. When discussing markets, always include a brief strategic takeaway.");
+  $('#toggleTour').checked = store.get('dih_tour_seen','')!=='true';
+  renderWatchlistTags();
+}
+window.openSettings=openSettings;
+window.closeSettings=()=>$('#settingsModal').classList.remove('active');
+$('#settingsModal').addEventListener('click',e=>{if(e.target.id==='settingsModal')window.closeSettings();});
+$('#saveSettingsBtn').addEventListener('click',()=>{
+  store.set('dih_genai_enabled',$('#toggleGenAI').checked);
+  store.set('dih_ai_prompt',$('#settingSystemPrompt').value);
+  if(!$('#toggleTour').checked) store.set('dih_tour_seen','true'); else store.del('dih_tour_seen');
+  showToast('Settings saved'); window.closeSettings();
+});
+function renderWatchlistTags(){
+  const c=$('#watchlistTags'); c.innerHTML='';
+  getWatchlist().forEach(t=>{
+    const d=document.createElement('div');
+    d.style.cssText='display:flex;align-items:center;gap:6px;padding:6px 12px;background:var(--surface-3);border-radius:20px;font-size:12px;font-weight:600;font-family:var(--mono)';
+    d.textContent=t;
+    const x=document.createElement('span'); x.textContent='✕'; x.style.cssText='cursor:pointer;color:var(--red);margin-left:4px';
+    x.addEventListener('click',()=>{ saveWatchlist(getWatchlist().filter(v=>v!==t)); renderWatchlistTags(); });
+    d.appendChild(x); c.appendChild(d);
+  });
+}
+$('#addWatchlistBtn').addEventListener('click',()=>{
+  const v=$('#watchlistInput').value.trim().toUpperCase(); if(!v) return;
+  const wl=getWatchlist(); if(!wl.includes(v)){wl.push(v);saveWatchlist(wl);renderWatchlistTags();}
+  $('#watchlistInput').value='';
 });
 
-// ==========================================
-// WIDGET MANAGER
-// ==========================================
-const WidgetManager = {
-  state: { open: [] },
-  init() { 
-    try { const saved = localStorage.getItem('dih_widgets_v7'); if (saved) this.state = JSON.parse(saved); } catch(e) {} 
-    this.state.open.forEach(type => this.createWidgetElement(type)); 
-    this.renderAppGrid();
+const SLIDES=[
+  {i:'👋',t:'Welcome to Digital Infohub',d:'Your premium AI research terminal — markets, news, search and generative AI in one place.'},
+  {i:'🎯',t:'Smart Modes',d:'Switch modes with the circles in the input bar. Or just type — the terminal auto-switches to the right tool.'},
+  {i:'⚡',t:'Type-ahead suggestions',d:'Focus the input and suggestions appear above it. Click one to run it instantly.'},
+  {i:'📈',t:'Markets & Watchlist',d:'Tap 📊 for the full briefing. Say "add NVDA to watchlist", then "watchlist" to see your portfolio.'}
+];
+let slide=0;
+function renderSlide(){
+  const s=SLIDES[slide];
+  $('#tourSlide').innerHTML=`<div style="font-size:46px;margin-bottom:14px">${s.i}</div><h2 style="font-size:20px;font-weight:700;margin-bottom:10px">${esc(s.t)}</h2><p style="font-size:14px;color:var(--text-sub)">${esc(s.d)}</p>`;
+  $('#tourNext').textContent = slide===SLIDES.length-1?'Finish':'Next';
+}
+function showTour(){ if(store.get('dih_tour_seen','')==='true') return; slide=0; renderSlide(); $('#tourModal').classList.add('active'); }
+$('#tourNext').addEventListener('click',()=>{ if(slide<SLIDES.length-1){slide++;renderSlide();} else finishTour(); });
+$('#tourSkip').addEventListener('click',finishTour);
+$('#tourModal').addEventListener('click',e=>{if(e.target.id==='tourModal')finishTour();});
+function finishTour(){ if($('#tourDontShow').checked) store.set('dih_tour_seen','true'); $('#tourModal').classList.remove('active'); }
+
+const WM={
+  state:{open:[]},
+  init(){ try{ const s=JSON.parse(store.get('dih_widgets_v7','{"open":[]}')); if(s&&Array.isArray(s.open)) this.state=s; }catch(e){} this.state.open.forEach(t=>this.build(t)); this.grid(); },
+  save(){ store.set('dih_widgets_v7',JSON.stringify(this.state)); },
+  open(t){ if(!this.state.open.includes(t)){ this.state.open.push(t); this.save(); this.build(t); this.grid(); showToast(this.name(t)+' installed'); } },
+  close(t){ this.state.open=this.state.open.filter(w=>w!==t); this.save(); document.getElementById('widget-'+t)?.remove(); this.grid(); },
+  min(t){ document.getElementById('widget-'+t)?.classList.toggle('widget-minimized'); },
+  full(t){ document.getElementById('widget-'+t)?.classList.toggle('widget-fullscreen'); },
+  toggle(t){ this.state.open.includes(t)?this.close(t):this.open(t); },
+  name(t){ return {weather:'Weather',calc:'Calculator',notes:'Notes',timer:'Focus Timer',converter:'Converter',password:'Password Gen',bookmarks:'Bookmarks',gainers:'Crypto Gainers',stopwatch:'Stopwatch',quote:'Quote',dice:'Dice Roller',color:'Color Picker'}[t]||t; },
+  title(t){ return {weather:'🌤️ Weather',calc:'🧮 Calculator',notes:'📝 Notes',timer:'⏱️ Timer',converter:'⚖️ Converter',password:'🔑 Password',bookmarks:'🔖 Bookmarks',gainers:'🚀 Gainers',stopwatch:'⏲️ Stopwatch',quote:'💭 Quote',dice:'🎲 Dice',color:'🎨 Color'}[t]||t; },
+  grid(){
+    const g=$('#appGrid'); if(!g) return;
+    const apps=[['weather','🌤️','Weather'],['notes','📝','Notes'],['calc','🧮','Calculator'],['timer','⏱️','Focus Timer'],['converter','⚖️','Converter'],['password','🔑','Password Gen'],['bookmarks','🔖','Bookmarks'],['gainers','🚀','Crypto Gainers'],['stopwatch','⏲️','Stopwatch'],['quote','💭','Quote'],['dice','🎲','Dice Roller'],['color','🎨','Color Picker']];
+    g.innerHTML='';
+    apps.forEach(([t,i,n])=>{
+      const on=this.state.open.includes(t);
+      const c=document.createElement('div'); c.className='app-card';
+      c.innerHTML=`<div class="app-icon">${i}</div><div class="app-name">${n}</div><div class="app-status ${on?'installed':''}">${on?'✅ Installed':'Tap to Install'}</div>`;
+      c.addEventListener('click',()=>this.toggle(t));
+      g.appendChild(c);
+    });
   },
-  save() { try { localStorage.setItem('dih_widgets_v7', JSON.stringify(this.state)); } catch(e) {} },
-  open(type) { 
-    if (!this.state.open.includes(type)) { 
-      this.state.open.push(type); this.save(); this.createWidgetElement(type); this.renderAppGrid();
-      showToast(`${this.getDisplayName(type)} installed`, 'success');
-    } 
-  },
-  close(type) { this.state.open = this.state.open.filter(w => w !== type); this.save(); document.getElementById(`widget-${type}`)?.remove(); this.renderAppGrid(); },
-  toggleMinimize(type) { document.getElementById(`widget-${type}`)?.classList.toggle('widget-minimized'); },
-  toggleFullscreen(type) { document.getElementById(`widget-${type}`)?.classList.toggle('widget-fullscreen'); },
-  getDisplayName(type) {
-    const names = { weather: 'Weather', calc: 'Calculator', notes: 'Notes', timer: 'Focus Timer', converter: 'Converter', password: 'Password Generator', bookmarks: 'Bookmarks', gainers: 'Crypto Gainers', stopwatch: 'Stopwatch', quote: 'Quote of the Day', dice: 'Dice Roller', color: 'Color Picker' };
-    return names[type] || type;
-  },
-  renderAppGrid() {
-    const grid = $('#appGrid'); if(!grid) return;
-    const apps = [
-      { type: 'weather', icon: '🌤️', name: 'Weather' }, { type: 'notes', icon: '📝', name: 'Notes' },
-      { type: 'calc', icon: '🧮', name: 'Calculator' }, { type: 'timer', icon: '⏱️', name: 'Focus Timer' },
-      { type: 'converter', icon: '⚖️', name: 'Converter' }, { type: 'password', icon: '🔑', name: 'Password Gen' },
-      { type: 'bookmarks', icon: '🔖', name: 'Bookmarks' }, { type: 'gainers', icon: '🚀', name: 'Crypto Gainers' },
-      { type: 'stopwatch', icon: '⏲️', name: 'Stopwatch' }, { type: 'quote', icon: '💭', name: 'Quote' },
-      { type: 'dice', icon: '🎲', name: 'Dice Roller' }, { type: 'color', icon: '🎨', name: 'Color Picker' }
-    ];
-    grid.innerHTML = apps.map(a => {
-      const isInstalled = this.state.open.includes(a.type);
-      return `<div class="app-card" onclick="WidgetManager.toggle('${a.type}')"><div class="app-icon">${a.icon}</div><div class="app-name">${a.name}</div><div class="app-status ${isInstalled ? 'installed' : ''}">${isInstalled ? '✅ Installed' : 'Tap to Install'}</div></div>`;
-    }).join('');
-  },
-  toggle(type) { this.state.open.includes(type) ? this.close(type) : this.open(type); },
-  
-  createWidgetElement(type) {
-    if (document.getElementById(`widget-${type}`)) return;
-    const el = document.createElement('div');
-    el.id = `widget-${type}`; el.className = 'floating-widget';
-    if (window.innerWidth < 768) { el.style.left = '50%'; el.style.top = '50%'; el.style.transform = 'translate(-50%, -50%)'; } 
-    else { const offset = this.state.open.length * 40; el.style.right = `${20 + offset}px`; el.style.top = `${140 + offset}px`; }
-    
-    let content = '';
-    if (type === 'weather') content = this.getWeatherHTML();
-    else if (type === 'calc') content = this.getCalcHTML();
-    else if (type === 'notes') content = this.getNotesHTML();
-    else if (type === 'timer') content = this.getTimerHTML();
-    else if (type === 'converter') content = this.getConverterHTML();
-    else if (type === 'password') content = this.getPasswordHTML();
-    else if (type === 'bookmarks') content = this.getBookmarksHTML();
-    else if (type === 'gainers') content = this.getGainersHTML();
-    else if (type === 'stopwatch') content = this.getStopwatchHTML();
-    else if (type === 'quote') content = this.getQuoteHTML();
-    else if (type === 'dice') content = this.getDiceHTML();
-    else if (type === 'color') content = this.getColorHTML();
-    
-    el.innerHTML = `
-      <div class="widget-header">
-        <div class="widget-controls">
-          <button class="widget-btn close" onclick="WidgetManager.close('${type}')" title="Close"></button>
-          <button class="widget-btn minimize" onclick="WidgetManager.toggleMinimize('${type}')" title="Minimize"></button>
-          <button class="widget-btn fullscreen" onclick="WidgetManager.toggleFullscreen('${type}')" title="Fullscreen"></button>
-        </div>
-        <span class="widget-title">${this.getTitle(type)}</span>
-        <div style="width: 36px;"></div>
-      </div>
-      <div class="widget-body">${content}</div>
-      <div class="widget-resize-handle"></div>`;
+  build(t){
+    if(document.getElementById('widget-'+t)) return;
+    const el=document.createElement('div'); el.id='widget-'+t; el.className='floating-widget';
+    if(window.innerWidth<768){ el.style.cssText+='left:50%;top:50%;transform:translate(-50%,-50%)'; }
+    else { const o=this.state.open.length*36; el.style.cssText+=`right:${20+o}px;top:${140+o}px`; }
+    el.innerHTML=`<div class="widget-header"><div class="widget-controls"><button class="widget-btn close"></button><button class="widget-btn minimize"></button><button class="widget-btn fullscreen"></button></div><span class="widget-title">${this.title(t)}</span><div style="width:36px"></div></div><div class="widget-body"></div><div class="widget-resize-handle"></div>`;
+    el.querySelector('.close').addEventListener('click',()=>this.close(t));
+    el.querySelector('.minimize').addEventListener('click',()=>this.min(t));
+    el.querySelector('.fullscreen').addEventListener('click',()=>this.full(t));
+    const body=el.querySelector('.widget-body');
+    body.innerHTML=this.html(t);
     $('#widgetLayer').appendChild(el);
-    
-    if (type === 'weather') this.initWeather(el);
-    else if (type === 'calc') this.initCalc(el);
-    else if (type === 'notes') this.initNotes(el);
-    else if (type === 'timer') this.initTimer(el);
-    else if (type === 'converter') this.initConverter(el);
-    else if (type === 'password') this.initPassword(el);
-    else if (type === 'bookmarks') this.initBookmarks(el);
-    else if (type === 'gainers') this.initGainers(el);
-    else if (type === 'stopwatch') this.initStopwatch(el);
-    else if (type === 'quote') this.initQuote(el);
-    else if (type === 'dice') this.initDice(el);
-    else if (type === 'color') this.initColor(el);
+    this.wire(t,el,body);
   },
-  getTitle(type) {
-    const titles = { weather: '🌤️ Weather', calc: '🧮 Calculator', notes: '📝 Notes', timer: '⏱️ Focus Timer', converter: '⚖️ Converter', password: '🔑 Password', bookmarks: '🔖 Bookmarks', gainers: '🚀 Crypto Gainers', stopwatch: '⏲️ Stopwatch', quote: '💭 Quote', dice: '🎲 Dice', color: '🎨 Color' };
-    return titles[type] || type;
+  html(t){
+    if(t==='calc') return `<input id="cd" readonly style="width:100%;padding:12px;background:var(--surface-3);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--mono);font-size:20px;text-align:right;margin-bottom:12px;outline:none"><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">${['C','(',')','/','7','8','9','*','4','5','6','-','1','2','3','+','0','.','=',''].map(b=>b?`<button data-v="${b}" style="padding:12px;background:${['+','-','*','/','=','C','(',')'].includes(b)?'var(--accent-soft)':'var(--surface-3)'};color:${['+','-','*','/','=','C','(',')'].includes(b)?'var(--accent)':'var(--text)'};border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:16px;font-weight:600">${b}</button>`:'<div></div>').join('')}</div>`;
+    if(t==='notes') return `<textarea id="na" style="width:100%;height:190px;background:var(--surface-3);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:12px;font-size:13px;resize:none;outline:none" placeholder="Notes…">${store.get('dih_notes','')}</textarea>`;
+    if(t==='timer') return `<div style="text-align:center"><div id="td" style="font-size:44px;font-weight:800;font-family:var(--mono);margin:14px 0">25:00</div><button id="tb" style="padding:10px 22px;background:var(--green);color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:700">Start</button></div>`;
+    if(t==='password') return `<div id="pr" style="background:var(--surface-3);padding:14px;border-radius:8px;font-family:var(--mono);font-size:14px;word-break:break-all;text-align:center;margin-bottom:12px"></div><button id="pg" style="width:100%;padding:10px;background:var(--accent);color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:700">Generate</button>`;
+    if(t==='quote') return `<div id="qt" style="font-size:14px;font-style:italic;text-align:center;line-height:1.6;margin-bottom:10px"></div><div id="qa" style="font-size:12px;color:var(--text-muted);text-align:center;margin-bottom:12px"></div><button id="qr" style="width:100%;padding:8px;background:var(--accent);color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:600;font-size:12px">New Quote</button>`;
+    if(t==='dice') return `<div id="dr" style="font-size:52px;text-align:center;margin:12px 0">🎲</div><div style="display:flex;gap:8px;justify-content:center"><button data-s="6" class="db" style="padding:8px 14px;background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent);border-radius:8px;cursor:pointer;font-weight:700">d6</button><button data-s="20" class="db" style="padding:8px 14px;background:var(--surface-3);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-weight:700">d20</button><button data-s="100" class="db" style="padding:8px 14px;background:var(--surface-3);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-weight:700">d100</button></div>`;
+    if(t==='color') return `<div id="cp" style="height:100px;border-radius:12px;margin-bottom:12px"></div><div id="ch" style="font-family:var(--mono);font-weight:800;text-align:center;margin-bottom:6px"></div><button id="cg" style="width:100%;padding:10px;background:var(--accent);color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:700">Generate</button>`;
+    if(t==='gainers') return `<div id="gd" style="color:var(--text-muted);font-size:12px;text-align:center">Loading…</div>`;
+    if(t==='bookmarks') return `<form id="bf" style="display:flex;gap:6px;margin-bottom:10px"><input id="bn" placeholder="Name" style="flex:1;min-width:0;padding:8px;background:var(--surface-3);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:12px;outline:none"><input id="bu" placeholder="URL" style="flex:1.5;min-width:0;padding:8px;background:var(--surface-3);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:12px;outline:none"><button style="padding:8px 12px;background:var(--accent);color:#fff;border:none;border-radius:6px;cursor:pointer">+</button></form><div id="bl"></div>`;
+    if(t==='converter') return `<label style="font-size:11px;font-weight:700;color:var(--text-muted)">°C → °F</label><div style="display:flex;gap:8px;margin:6px 0 16px"><input id="cc" type="number" placeholder="°C" style="flex:1;min-width:0;padding:8px;background:var(--surface-3);border:1px solid var(--border);border-radius:8px;color:var(--text);outline:none"><input id="cf" readonly style="flex:1;min-width:0;padding:8px;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;color:var(--accent);outline:none"></div><label style="font-size:11px;font-weight:700;color:var(--text-muted)">ft → m</label><div style="display:flex;gap:8px;margin-top:6px"><input id="lf" type="number" placeholder="ft" style="flex:1;min-width:0;padding:8px;background:var(--surface-3);border:1px solid var(--border);border-radius:8px;color:var(--text);outline:none"><input id="lm" readonly style="flex:1;min-width:0;padding:8px;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;color:var(--accent);outline:none"></div>`;
+    if(t==='stopwatch') return `<div id="sd" style="font-size:34px;font-weight:800;font-family:var(--mono);text-align:center;margin:12px 0">00:00.00</div><div style="display:flex;gap:8px;justify-content:center"><button id="ss" style="padding:9px 16px;background:var(--green);color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:700;font-size:12px">Start</button><button id="sl" style="padding:9px 16px;background:var(--surface-3);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-weight:700;font-size:12px">Lap</button><button id="sr" style="padding:9px 16px;background:var(--surface-3);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-weight:700;font-size:12px">Reset</button></div>`;
+    if(t==='weather'){ const c=store.get('dih_weather_city',''); return c?`<div id="wd" style="text-align:center">Loading ${esc(c)}…</div>`:`<form id="wf" style="display:flex;gap:6px"><input id="wc" placeholder="City" style="flex:1;min-width:0;padding:8px 12px;background:var(--surface-3);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;outline:none"><button style="padding:8px 16px;background:var(--accent);color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:600">Go</button></form>`; }
+    return `<div style="text-align:center;color:var(--text-muted);font-size:12px">Widget</div>`;
   },
-  
-  getWeatherHTML() {
-    const city = localStorage.getItem('dih_weather_city') || '';
-    return city ? `<div id="wx-display">Loading weather for ${city}...</div>` : `<div style="text-align:center; padding:10px;"><p style="font-size:13px;color:var(--text-sub);margin-bottom:12px;">Enter a city to get started</p><form id="wx-form" style="display:flex;gap:6px;"><input type="text" id="wx-city-input" placeholder="e.g. London" style="flex:1;min-width:0;padding:8px 12px;background:var(--surface-3);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;outline:none;"><button type="submit" style="padding:8px 16px;background:var(--accent);color:white;border:none;border-radius:8px;cursor:pointer;font-weight:600;font-size:13px;">Go</button></form></div>`;
-  },
-  initWeather(el) {
-    const city = localStorage.getItem('dih_weather_city'); if (city) this.fetchWeather(city, el);
-    const form = el.querySelector('#wx-form');
-    if (form) {
-      form.addEventListener('submit', (e) => {
-        e.preventDefault(); const val = el.querySelector('#wx-city-input').value.trim();
-        if (val) { localStorage.setItem('dih_weather_city', val); el.querySelector('.widget-body').innerHTML = `<div id="wx-display">Loading weather for ${val}...</div>`; this.fetchWeather(val, el); }
-      });
+  timers:{},
+  wire(t,el,body){
+    const q=s=>body.querySelector(s);
+    if(t==='calc'){ const d=q('#cd'); body.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{ const v=b.dataset.v; if(v==='C')d.value=''; else if(v==='='){ try{ d.value=Function('"use strict";return('+d.value+')')(); }catch(e){ d.value='Error'; } } else d.value+=v; })); }
+    if(t==='notes'){ q('#na').addEventListener('input',e=>store.set('dih_notes',e.target.value)); }
+    if(t==='timer'){ let left=1500,iv=null; const d=q('#td'),b=q('#tb'); b.addEventListener('click',()=>{ if(iv){clearInterval(iv);iv=null;b.textContent='Start';b.style.background='var(--green)';} else { iv=setInterval(()=>{ if(left>0){left--;d.textContent=`${String(Math.floor(left/60)).padStart(2,'0')}:${String(left%60).padStart(2,'0')}`;} else {clearInterval(iv);iv=null;b.textContent='Start';b.style.background='var(--green)';d.textContent='Done!';} },1000); b.textContent='Pause'; b.style.background='var(--orange)'; } }); }
+    if(t==='password'){ const r=q('#pr'); const gen=()=>{ const c="ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789!@#$%&*"; let p=''; for(let i=0;i<16;i++)p+=c[Math.floor(Math.random()*c.length)]; r.textContent=p; }; gen(); q('#pg').addEventListener('click',gen); }
+    if(t==='quote'){ const Q=[["The only way to do great work is to love what you do.","Steve Jobs"],["Risk comes from not knowing what you're doing.","Warren Buffett"],["Price is what you pay. Value is what you get.","Warren Buffett"],["Stay hungry, stay foolish.","Stewart Brand"],["The secret of getting ahead is getting started.","Mark Twain"]]; const show=()=>{const x=Q[Math.floor(Math.random()*Q.length)];q('#qt').textContent='"'+x[0]+'"';q('#qa').textContent='— '+x[1];}; show(); q('#qr').addEventListener('click',show); }
+    if(t==='dice'){ const r=q('#dr'); body.querySelectorAll('.db').forEach(b=>b.addEventListener('click',()=>{const s=+b.dataset.s;r.textContent=Math.floor(Math.random()*s)+1;})); }
+    if(t==='color'){ const p=q('#cp'),h=q('#ch'); const g=()=>{const c='#'+[0,0,0].map(()=>Math.floor(Math.random()*256).toString(16).padStart(2,'0')).join('');p.style.background=c;h.textContent=c.toUpperCase();}; g(); q('#cg').addEventListener('click',g); }
+    if(t==='gainers'){ (async()=>{ try{ const r=await timeoutFetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=5&page=1'); const d=await r.json(); q('#gd').innerHTML=(d||[]).map(c=>`<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px"><strong>${esc(String(c.symbol).toUpperCase())}</strong><span>$${Number(c.current_price||0).toLocaleString()}</span><span style="color:${(c.price_change_percentage_24h||0)>=0?'var(--green)':'var(--red)'}">${(c.price_change_percentage_24h||0).toFixed(2)}%</span></div>`).join('') || 'No data'; }catch(e){ q('#gd').textContent='Unavailable'; } })(); }
+    if(t==='bookmarks'){ let bm=[]; try{ bm=JSON.parse(store.get('dih_bookmarks','[]'))||[]; }catch(e){} const list=q('#bl'); const draw=()=>{ list.innerHTML=bm.map((b,i)=>`<div style="display:flex;align-items:center;gap:8px;padding:8px;background:var(--surface-3);border-radius:6px;margin-bottom:6px"><a href="${esc(b.url)}" target="_blank" rel="noopener" style="flex:1;color:var(--accent);font-size:12px;text-decoration:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(b.name)}</a><span class="bx" data-i="${i}" style="cursor:pointer;color:var(--red)">✕</span></div>`).join('')||'<div style="color:var(--text-muted);font-size:12px;text-align:center">No bookmarks</div>'; list.querySelectorAll('.bx').forEach(x=>x.addEventListener('click',()=>{bm.splice(+x.dataset.i,1);store.set('dih_bookmarks',JSON.stringify(bm));draw();})); }; draw(); q('#bf').addEventListener('submit',e=>{e.preventDefault(); const n=q('#bn').value.trim(); let u=q('#bu').value.trim(); if(n&&u){ if(!/^https?:\/\//.test(u))u='https://'+u; bm.push({name:n,url:u}); store.set('dih_bookmarks',JSON.stringify(bm)); q('#bn').value='';q('#bu').value=''; draw(); } }); }
+    if(t==='converter'){ const c=q('#cc'),f=q('#cf'); c.addEventListener('input',()=>f.value=c.value?(parseFloat(c.value)*9/5+32).toFixed(1):''); const a=q('#lf'),m=q('#lm'); a.addEventListener('input',()=>m.value=a.value?(parseFloat(a.value)*0.3048).toFixed(2):''); }
+    if(t==='stopwatch'){ let st=0,el2=0,iv=null; const d=q('#sd'),b=q('#ss'); const fmt=ms=>`${String(Math.floor(ms/60000)).padStart(2,'0')}:${String(Math.floor(ms%60000/1000)).padStart(2,'0')}.${String(Math.floor(ms%1000/10)).padStart(2,'0')}`; b.addEventListener('click',()=>{ if(iv){el2+=Date.now()-st;clearInterval(iv);iv=null;b.textContent='Start';b.style.background='var(--green)';} else {st=Date.now();iv=setInterval(()=>d.textContent=fmt(el2+Date.now()-st),50);b.textContent='Stop';b.style.background='var(--orange)';} }); q('#sr').addEventListener('click',()=>{clearInterval(iv);iv=null;el2=0;d.textContent='00:00.00';b.textContent='Start';}); q('#sl').addEventListener('click',()=>{}); }
+    if(t==='weather'){ const em=c=>c===0?'☀️':c<=3?'⛅':c<=48?'🌫️':c<=67?'🌧️':c<=77?'🌨️':c<=86?'🌨️':'⛈️';
+      const go=async(city)=>{ const box=q('#wd')||body; try{ const g=await timeoutFetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1`); const gd=await g.json(); if(!gd.results?.length) throw 0; const l=gd.results[0]; const w=await timeoutFetch(`https://api.open-meteo.com/v1/forecast?latitude=${l.latitude}&longitude=${l.longitude}&current_weather=true`); const wd=await w.json(); const x=wd.current_weather; box.innerHTML=`<div style="text-align:center"><div style="font-weight:700">${esc(l.name)}</div><div style="font-size:44px">${em(x.weathercode)}</div><div style="font-size:32px;font-weight:800;font-family:var(--mono)">${x.temperature}°C</div><div style="font-size:11px;color:var(--text-muted)">Wind ${x.windspeed} km/h</div></div>`; }catch(e){ box.innerHTML='<div style="color:var(--red);font-size:12px;text-align:center">City not found</div>'; } };
+      const city=store.get('dih_weather_city',''); if(city) go(city);
+      const form=q('#wf'); if(form) form.addEventListener('submit',e=>{e.preventDefault();const v=q('#wc').value.trim(); if(v){store.set('dih_weather_city',v); body.innerHTML=`<div id="wd" style="text-align:center">Loading…</div>`; this.wire(t,el,body); go(v);} });
     }
-  },
-  async fetchWeather(city, el) {
-    const display = el.querySelector('#wx-display');
-    try {
-      const geoRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1`);
-      const geoData = await geoRes.json(); if (!geoData.results || !geoData.results.length) throw new Error('City not found');
-      const loc = geoData.results[0];
-      const wxRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${loc.latitude}&longitude=${loc.longitude}&current_weather=true`);
-      const wxData = await wxRes.json(); const wx = wxData.current_weather;
-      display.innerHTML = `<div style="text-align:center;"><div style="font-size:14px;font-weight:700;margin-bottom:8px;">${loc.name}${loc.country ? ', ' + loc.country : ''}</div><div style="font-size:48px;">${this.getWeatherEmoji(wx.weathercode)}</div><div style="font-size:36px;font-weight:800;font-family:var(--mono);margin:8px 0;">${wx.temperature}°C</div><div style="font-size:12px;color:var(--text-muted);">Wind: ${wx.windspeed} km/h</div><button onclick="WidgetManager.changeWeatherCity()" style="margin-top:12px;background:none;border:1px solid var(--border);color:var(--text-sub);padding:4px 10px;border-radius:6px;cursor:pointer;font-size:11px;">Change City</button></div>`;
-    } catch (e) { display.innerHTML = `<p style="color:var(--red);font-size:12px;text-align:center;">Could not find "${city}". <button onclick="WidgetManager.changeWeatherCity()" style="background:none;border:none;color:var(--accent);cursor:pointer;font-size:12px;">Try again</button></p>`; }
-  },
-  changeWeatherCity() { localStorage.removeItem('dih_weather_city'); const el = document.getElementById('widget-weather'); if (el) { el.querySelector('.widget-body').innerHTML = this.getWeatherHTML(); this.initWeather(el); } },
-  getWeatherEmoji(code) { if (code === 0) return '☀️'; if (code <= 3) return '⛅'; if (code <= 48) return '🌫️'; if (code <= 67) return '🌧️'; if (code <= 77) return '🌨️'; if (code <= 82) return '🌧️'; if (code <= 86) return '🌨️'; if (code >= 95) return '⛈️'; return '🌡️'; },
-  
-  getCalcHTML() { return `<input type="text" id="calc-disp" readonly style="width:100%;padding:12px;background:var(--surface-3);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--mono);font-size:20px;text-align:right;margin-bottom:12px;outline:none;"><div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:8px;">${['C','(',')','/','7','8','9','*','4','5','6','-','1','2','3','+','0','.','=',''].map(b => { if (!b) return '<div></div>'; const isOp = ['+','-','*','/','=','C','(',')'].includes(b); return `<button class="calc-btn" data-val="${b}" style="padding:12px;background:${isOp ? 'var(--accent-soft)' : 'var(--surface-3)'};color:${isOp ? 'var(--accent)' : 'var(--text)'};border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:16px;font-weight:600;">${b}</button>`; }).join('')}</div>`; },
-  initCalc(el) {
-    const display = el.querySelector('#calc-disp');
-    el.querySelectorAll('.calc-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const val = btn.dataset.val;
-        if (val === 'C') display.value = '';
-        else if (val === '=') { try { if (/[^0-9+\-*/().\s]/.test(display.value)) throw new Error(); display.value = Function('"use strict"; return (' + display.value + ')')(); } catch (e) { display.value = 'Error'; } }
-        else display.value += val;
-      });
-    });
-  },
-  
-  getNotesHTML() { const notes = localStorage.getItem('dih_notes') || ''; return `<textarea id="notes-area" style="width:100%;height:200px;background:var(--surface-3);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:12px;font-family:var(--font);font-size:13px;resize:none;outline:none;line-height:1.6;" placeholder="Type your notes here...">${notes}</textarea><div style="margin-top:8px;font-size:11px;color:var(--text-muted);text-align:right;">Auto-saved locally</div>`; },
-  initNotes(el) { el.querySelector('#notes-area').addEventListener('input', (e) => localStorage.setItem('dih_notes', e.target.value)); },
-  
-  getTimerHTML() { return `<div style="text-align:center;padding:10px;"><div id="timer-display" style="font-size:48px;font-weight:800;font-family:var(--mono);margin:20px 0;color:var(--text);">25:00</div><div style="display:flex;gap:10px;justify-content:center;"><button id="timer-start" style="padding:10px 24px;background:var(--green);color:white;border:none;border-radius:8px;cursor:pointer;font-weight:700;font-size:14px;">Start</button><button id="timer-reset" style="padding:10px 24px;background:var(--surface-3);color:var(--text);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-weight:700;font-size:14px;">Reset</button></div></div>`; },
-  initTimer(el) {
-    let timeLeft = 25 * 60, interval = null;
-    const display = el.querySelector('#timer-display'); const startBtn = el.querySelector('#timer-start'); const resetBtn = el.querySelector('#timer-reset');
-    const updateDisplay = () => { const m = Math.floor(timeLeft / 60).toString().padStart(2, '0'); const s = (timeLeft % 60).toString().padStart(2, '0'); display.textContent = `${m}:${s}`; };
-    startBtn.addEventListener('click', () => {
-      if (interval) { clearInterval(interval); interval = null; startBtn.textContent = 'Start'; startBtn.style.background = 'var(--green)'; } 
-      else { interval = setInterval(() => { if (timeLeft > 0) { timeLeft--; updateDisplay(); } else { clearInterval(interval); interval = null; startBtn.textContent = 'Start'; startBtn.style.background = 'var(--green)'; display.textContent = "Done!"; } }, 1000); startBtn.textContent = 'Pause'; startBtn.style.background = 'var(--orange)'; }
-    });
-    resetBtn.addEventListener('click', () => { clearInterval(interval); interval = null; timeLeft = 25 * 60; updateDisplay(); startBtn.textContent = 'Start'; startBtn.style.background = 'var(--green)'; });
-  },
-  
-  getConverterHTML() { return `<div style="display:flex;flex-direction:column;gap:16px;"><div><label style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;">Temperature (°C to °F)</label><div style="display:flex;gap:8px;margin-top:6px;align-items:center;"><input type="number" id="conv-temp-c" placeholder="°C" style="flex:1;min-width:0;padding:8px;background:var(--surface-3);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;outline:none;"><span style="padding:8px;flex-shrink:0;color:var(--text-muted);">=</span><input type="text" id="conv-temp-f" readonly placeholder="°F" style="flex:1;min-width:0;padding:8px;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;color:var(--accent);font-size:13px;outline:none;"></div></div><div><label style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;">Length (ft to m)</label><div style="display:flex;gap:8px;margin-top:6px;align-items:center;"><input type="number" id="conv-len-ft" placeholder="ft" style="flex:1;min-width:0;padding:8px;background:var(--surface-3);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;outline:none;"><span style="padding:8px;flex-shrink:0;color:var(--text-muted);">=</span><input type="text" id="conv-len-m" readonly placeholder="m" style="flex:1;min-width:0;padding:8px;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;color:var(--accent);font-size:13px;outline:none;"></div></div></div>`; },
-  initConverter(el) {
-    const c = el.querySelector('#conv-temp-c'), f = el.querySelector('#conv-temp-f');
-    c.addEventListener('input', () => { f.value = c.value ? (parseFloat(c.value) * 9/5 + 32).toFixed(1) : ''; });
-    const ft = el.querySelector('#conv-len-ft'), m = el.querySelector('#conv-len-m');
-    ft.addEventListener('input', () => { m.value = ft.value ? (parseFloat(ft.value) * 0.3048).toFixed(2) : ''; });
-  },
-  
-  getPasswordHTML() { return `<div style="display:flex;flex-direction:column;gap:16px;padding:10px;"><div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:12px;color:var(--text-sub);">Length: <span id="pw-len-val">16</span></span><input type="range" id="pw-len" min="8" max="32" value="16" style="width:120px;accent-color:var(--accent);"></div><div style="background:var(--surface-3);padding:16px;border-radius:8px;border:1px solid var(--border);font-family:var(--mono);font-size:16px;word-break:break-all;text-align:center;color:var(--accent);min-height:50px;display:flex;align-items:center;justify-content:center;" id="pw-result">Generating...</div><button id="pw-gen-btn" style="padding:12px;background:var(--accent);color:white;border:none;border-radius:8px;cursor:pointer;font-weight:700;font-size:14px;">Generate New</button><button id="pw-copy-btn" style="padding:12px;background:var(--surface-2);color:var(--text);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-weight:700;font-size:14px;">Copy to Clipboard</button></div>`; },
-  initPassword(el) {
-    const lenInput = el.querySelector('#pw-len'), lenVal = el.querySelector('#pw-len-val');
-    const result = el.querySelector('#pw-result'), genBtn = el.querySelector('#pw-gen-btn'), copyBtn = el.querySelector('#pw-copy-btn');
-    const generate = () => { const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?"; let pw = ""; for(let i=0; i<lenInput.value; i++) pw += chars.charAt(Math.floor(Math.random() * chars.length)); result.textContent = pw; };
-    lenInput.addEventListener('input', () => { lenVal.textContent = lenInput.value; generate(); });
-    genBtn.addEventListener('click', generate);
-    copyBtn.addEventListener('click', () => { navigator.clipboard.writeText(result.textContent).then(() => { copyBtn.textContent = "Copied!"; setTimeout(() => copyBtn.textContent = "Copy to Clipboard", 2000); }); });
-    generate();
-  },
-
-  getBookmarksHTML() {
-    const bookmarks = JSON.parse(localStorage.getItem('dih_bookmarks') || '[]');
-    let list = bookmarks.length === 0 ? `<div style="text-align:center;color:var(--text-muted);font-size:12px;padding:12px;">No bookmarks yet</div>` : bookmarks.map((b, i) => `<div style="display:flex;align-items:center;gap:8px;padding:8px;background:var(--surface-3);border-radius:6px;margin-bottom:6px;"><a href="${esc(b.url)}" target="_blank" style="flex:1;color:var(--accent);text-decoration:none;font-size:12px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${esc(b.name)}</a><span onclick="WidgetManager.deleteBookmark(${i})" style="cursor:pointer;color:var(--red);font-size:14px;flex-shrink:0;">✕</span></div>`).join('');
-    return `<form id="bm-form" style="display:flex;gap:6px;margin-bottom:12px;"><input type="text" id="bm-name" placeholder="Name" style="flex:1;min-width:0;padding:8px;background:var(--surface-3);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:12px;outline:none;"><input type="url" id="bm-url" placeholder="https://..." style="flex:1.5;min-width:0;padding:8px;background:var(--surface-3);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:12px;outline:none;"><button type="submit" style="padding:8px 12px;background:var(--accent);color:white;border:none;border-radius:6px;cursor:pointer;font-weight:600;">+</button></form><div id="bm-list">${list}</div>`;
-  },
-  initBookmarks(el) {
-    el.querySelector('#bm-form').addEventListener('submit', (e) => {
-      e.preventDefault(); const name = el.querySelector('#bm-name').value.trim(); let url = el.querySelector('#bm-url').value.trim();
-      if (name && url) {
-        if (!url.startsWith('http')) url = 'https://' + url;
-        const bookmarks = JSON.parse(localStorage.getItem('dih_bookmarks') || '[]');
-        bookmarks.push({ name, url }); localStorage.setItem('dih_bookmarks', JSON.stringify(bookmarks));
-        el.querySelector('.widget-body').innerHTML = this.getBookmarksHTML(); this.initBookmarks(el);
-      }
-    });
-  },
-  deleteBookmark(idx) {
-    const bookmarks = JSON.parse(localStorage.getItem('dih_bookmarks') || '[]'); bookmarks.splice(idx, 1); localStorage.setItem('dih_bookmarks', JSON.stringify(bookmarks));
-    const el = document.getElementById('widget-bookmarks'); if (el) { el.querySelector('.widget-body').innerHTML = this.getBookmarksHTML(); this.initBookmarks(el); }
-  },
-
-  getGainersHTML() { return `<div id="gainers-display"><div style="text-align:center;padding:20px;color:var(--text-muted);">Loading top gainers...</div></div>`; },
-  async initGainers(el) {
-    const display = el.querySelector('#gainers-display');
-    try {
-      const r = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=percent_change_24h_desc&per_page=5&page=1&sparkline=false');
-      const data = await r.json();
-      if (data && data.length > 0) {
-        display.innerHTML = data.map(c => `<div style="display:flex;align-items:center;justify-content:space-between;padding:10px;background:var(--surface-3);border-radius:8px;margin-bottom:6px;"><div style="display:flex;align-items:center;gap:8px;"><img src="${c.image}" style="width:24px;height:24px;border-radius:50%;"><div><div style="font-weight:700;font-size:13px;">${c.symbol.toUpperCase()}</div><div style="font-size:10px;color:var(--text-muted);">${c.name}</div></div></div><div style="text-align:right;"><div style="font-weight:700;font-size:13px;">$${c.current_price.toLocaleString()}</div><div style="font-size:11px;color:var(--green);font-weight:600;">▲ ${c.price_change_percentage_24h.toFixed(2)}%</div></div></div>`).join('');
-      } else throw new Error('No data');
-    } catch(e) { display.innerHTML = `<p style="color:var(--red);font-size:12px;text-align:center;padding:20px;">Could not load gainers. Try again later.</p>`; }
-  },
-
-  getStopwatchHTML() { return `<div style="text-align:center;padding:10px;"><div id="sw-display" style="font-size:40px;font-weight:800;font-family:var(--mono);margin:20px 0;color:var(--text);">00:00.00</div><div id="sw-laps" style="max-height:100px;overflow-y:auto;margin-bottom:10px;"></div><div style="display:flex;gap:10px;justify-content:center;"><button id="sw-start" style="padding:10px 20px;background:var(--green);color:white;border:none;border-radius:8px;cursor:pointer;font-weight:700;font-size:13px;">Start</button><button id="sw-lap" style="padding:10px 20px;background:var(--surface-3);color:var(--text);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-weight:700;font-size:13px;">Lap</button><button id="sw-reset" style="padding:10px 20px;background:var(--surface-3);color:var(--text);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-weight:700;font-size:13px;">Reset</button></div></div>`; },
-  initStopwatch(el) {
-    let startTime = 0, elapsed = 0, interval = null, laps = [];
-    const display = el.querySelector('#sw-display'), lapsEl = el.querySelector('#sw-laps'), startBtn = el.querySelector('#sw-start'), lapBtn = el.querySelector('#sw-lap'), resetBtn = el.querySelector('#sw-reset');
-    const format = (ms) => { const m = Math.floor(ms/60000).toString().padStart(2,'0'); const s = Math.floor((ms%60000)/1000).toString().padStart(2,'0'); const cs = Math.floor((ms%1000)/10).toString().padStart(2,'0'); return `${m}:${s}.${cs}`; };
-    const update = () => { display.textContent = format(elapsed + (Date.now() - startTime)); };
-    startBtn.addEventListener('click', () => {
-      if (interval) { elapsed += Date.now() - startTime; clearInterval(interval); interval = null; startBtn.textContent = 'Start'; startBtn.style.background = 'var(--green)'; }
-      else { startTime = Date.now(); interval = setInterval(update, 10); startBtn.textContent = 'Stop'; startBtn.style.background = 'var(--orange)'; }
-    });
-    lapBtn.addEventListener('click', () => {
-      if (interval || elapsed > 0) {
-        const t = interval ? elapsed + (Date.now() - startTime) : elapsed; laps.unshift(t);
-        lapsEl.innerHTML = laps.map((l, i) => `<div style="font-size:11px;color:var(--text-sub);font-family:var(--mono);padding:2px 0;">Lap ${laps.length - i}: ${format(l)}</div>`).join('');
-      }
-    });
-    resetBtn.addEventListener('click', () => { clearInterval(interval); interval = null; elapsed = 0; laps = []; display.textContent = '00:00.00'; lapsEl.innerHTML = ''; startBtn.textContent = 'Start'; startBtn.style.background = 'var(--green)'; });
-  },
-
-  getQuoteHTML() { return `<div id="quote-display" style="text-align:center;padding:10px;"><div id="quote-text" style="font-size:15px;font-style:italic;color:var(--text);line-height:1.6;margin-bottom:12px;"></div><div id="quote-author" style="font-size:12px;color:var(--text-muted);font-weight:600;"></div><button id="quote-refresh" style="margin-top:16px;padding:8px 16px;background:var(--accent);color:white;border:none;border-radius:8px;cursor:pointer;font-weight:600;font-size:12px;">New Quote</button></div>`; },
-  initQuote(el) {
-    const quotes = [{ t: "The only way to do great work is to love what you do.", a: "Steve Jobs" }, { t: "Innovation distinguishes between a leader and a follower.", a: "Steve Jobs" }, { t: "The best time to plant a tree was 20 years ago. The second best time is now.", a: "Chinese Proverb" }, { t: "Risk comes from not knowing what you're doing.", a: "Warren Buffett" }, { t: "Price is what you pay. Value is what you get.", a: "Warren Buffett" }, { t: "The stock market is filled with individuals who know the price of everything, but the value of nothing.", a: "Philip Fisher" }, { t: "Stay hungry, stay foolish.", a: "Stewart Brand" }, { t: "The secret of getting ahead is getting started.", a: "Mark Twain" }, { t: "It's not whether you're right or wrong that's important, but how much money you make when you're right.", a: "George Soros" }, { t: "Be fearful when others are greedy and greedy when others are fearful.", a: "Warren Buffett" }];
-    const textEl = el.querySelector('#quote-text'), authorEl = el.querySelector('#quote-author'), refreshBtn = el.querySelector('#quote-refresh');
-    const show = () => { const q = quotes[Math.floor(Math.random() * quotes.length)]; textEl.textContent = `"${q.t}"`; authorEl.textContent = `— ${q.a}`; };
-    refreshBtn.addEventListener('click', show); show();
-  },
-
-  getDiceHTML() { return `<div style="text-align:center;padding:10px;"><div id="dice-result" style="font-size:64px;margin:20px 0;">🎲</div><div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;"><button class="dice-btn" data-sides="6" style="padding:10px 16px;background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent);border-radius:8px;cursor:pointer;font-weight:700;">d6</button><button class="dice-btn" data-sides="20" style="padding:10px 16px;background:var(--surface-3);color:var(--text);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-weight:700;">d20</button><button class="dice-btn" data-sides="100" style="padding:10px 16px;background:var(--surface-3);color:var(--text);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-weight:700;">d100</button></div><div id="dice-history" style="margin-top:16px;font-size:11px;color:var(--text-muted);font-family:var(--mono);max-height:80px;overflow-y:auto;"></div></div>`; },
-  initDice(el) {
-    const result = el.querySelector('#dice-result'), history = el.querySelector('#dice-history'); const rolls = [];
-    el.querySelectorAll('.dice-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const sides = parseInt(btn.dataset.sides), roll = Math.floor(Math.random() * sides) + 1;
-        result.textContent = roll; result.style.animation = 'none'; setTimeout(() => result.style.animation = 'fadeInUp 0.3s var(--ease)', 10);
-        rolls.unshift(`d${sides}: ${roll}`); if (rolls.length > 5) rolls.pop(); history.innerHTML = rolls.join(' | ');
-      });
-    });
-  },
-
-  getColorHTML() { return `<div style="text-align:center;padding:10px;"><div id="color-preview" style="width:100%;height:120px;border-radius:12px;border:1px solid var(--border);margin-bottom:16px;"></div><div id="color-hex" style="font-size:24px;font-weight:800;font-family:var(--mono);color:var(--text);margin-bottom:8px;"></div><div id="color-rgb" style="font-size:12px;color:var(--text-muted);font-family:var(--mono);margin-bottom:16px;"></div><button id="color-gen" style="padding:10px 24px;background:var(--accent);color:white;border:none;border-radius:8px;cursor:pointer;font-weight:700;font-size:14px;">Generate New</button><button id="color-copy" style="margin-left:8px;padding:10px 16px;background:var(--surface-3);color:var(--text);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-weight:600;font-size:13px;">Copy</button></div>`; },
-  initColor(el) {
-    const preview = el.querySelector('#color-preview'), hexEl = el.querySelector('#color-hex'), rgbEl = el.querySelector('#color-rgb'), genBtn = el.querySelector('#color-gen'), copyBtn = el.querySelector('#color-copy');
-    const generate = () => { const r = Math.floor(Math.random()*256), g = Math.floor(Math.random()*256), b = Math.floor(Math.random()*256); const hex = '#' + [r,g,b].map(x => x.toString(16).padStart(2,'0')).join(''); preview.style.background = hex; hexEl.textContent = hex.toUpperCase(); rgbEl.textContent = `rgb(${r}, ${g}, ${b})`; };
-    genBtn.addEventListener('click', generate);
-    copyBtn.addEventListener('click', () => { navigator.clipboard.writeText(hexEl.textContent).then(() => { copyBtn.textContent = 'Copied!'; setTimeout(() => copyBtn.textContent = 'Copy', 1500); }); });
-    generate();
   }
 };
-window.WidgetManager = WidgetManager;
+window.WidgetManager=WM;
 
-// ==========================================
-// WIDGET DRAG & RESIZE LOGIC
-// ==========================================
-let activeWidget = null, offsetX = 0, offsetY = 0, zCounter = 10000;
-let isResizing = false, resizeWidget = null, startW = 0, startH = 0, startX = 0, startY = 0;
-
-document.addEventListener('pointerdown', (e) => {
-  const resizeHandle = e.target.closest('.widget-resize-handle');
-  if (resizeHandle && window.innerWidth >= 768) {
-    isResizing = true;
-    resizeWidget = resizeHandle.closest('.floating-widget');
-    startW = resizeWidget.offsetWidth;
-    startH = resizeWidget.offsetHeight;
-    startX = e.clientX;
-    startY = e.clientY;
-    resizeWidget.style.transition = 'none';
-    document.body.style.userSelect = 'none';
-    e.preventDefault();
-    return;
-  }
-
-  const handle = e.target.closest('.widget-header');
-  if (!handle || e.target.closest('.widget-btn')) return;
-  activeWidget = handle.closest('.floating-widget');
-  if (!activeWidget) return;
-  
-  if (activeWidget.style.transform && activeWidget.style.transform.includes('translate')) {
-    const rect = activeWidget.getBoundingClientRect();
-    activeWidget.style.left = rect.left + 'px';
-    activeWidget.style.top = rect.top + 'px';
-    activeWidget.style.transform = 'none';
-  }
-  
-  const rect = activeWidget.getBoundingClientRect();
-  offsetX = e.clientX - rect.left; 
-  offsetY = e.clientY - rect.top;
-  activeWidget.style.zIndex = ++zCounter;
-  activeWidget.style.cursor = 'grabbing';
-  activeWidget.style.transition = 'none';
-  document.body.style.userSelect = 'none';
+let aw=null,ox=0,oy=0,zc=10000,rs=false,rw=null,sw=0,sh=0,sx=0,sy=0;
+document.addEventListener('pointerdown',e=>{
+  const rh=e.target.closest('.widget-resize-handle');
+  if(rh&&window.innerWidth>=768){ rs=true; rw=rh.closest('.floating-widget'); sw=rw.offsetWidth; sh=rw.offsetHeight; sx=e.clientX; sy=e.clientY; rw.style.transition='none'; e.preventDefault(); return; }
+  const h=e.target.closest('.widget-header'); if(!h||e.target.closest('.widget-btn')) return;
+  aw=h.closest('.floating-widget'); if(!aw) return;
+  if(aw.style.transform&&aw.style.transform.includes('translate')){ const r=aw.getBoundingClientRect(); aw.style.left=r.left+'px'; aw.style.top=r.top+'px'; aw.style.transform='none'; }
+  const r=aw.getBoundingClientRect(); ox=e.clientX-r.left; oy=e.clientY-r.top; aw.style.zIndex=++zc; aw.style.transition='none';
 });
-
-document.addEventListener('pointermove', (e) => {
-  if (isResizing && resizeWidget) {
-    e.preventDefault();
-    const newW = Math.max(280, startW + (e.clientX - startX));
-    const newH = Math.max(200, startH + (e.clientY - startY));
-    resizeWidget.style.width = newW + 'px';
-    resizeWidget.style.height = newH + 'px';
-    return;
-  }
-  if (!activeWidget) return;
-  e.preventDefault();
-  let x = e.clientX - offsetX; let y = e.clientY - offsetY;
-  x = Math.max(0, Math.min(x, window.innerWidth - activeWidget.offsetWidth));
-  y = Math.max(0, Math.min(y, window.innerHeight - activeWidget.offsetHeight));
-  activeWidget.style.left = x + 'px'; activeWidget.style.top = y + 'px';
-  activeWidget.style.right = 'auto'; activeWidget.style.transform = 'none';
+document.addEventListener('pointermove',e=>{
+  if(rs&&rw){ rw.style.width=Math.max(280,sw+e.clientX-sx)+'px'; rw.style.height=Math.max(200,sh+e.clientY-sy)+'px'; return; }
+  if(!aw) return;
+  let x=Math.max(0,Math.min(e.clientX-ox,innerWidth-aw.offsetWidth)), y=Math.max(0,Math.min(e.clientY-oy,innerHeight-aw.offsetHeight));
+  aw.style.left=x+'px'; aw.style.top=y+'px'; aw.style.right='auto'; aw.style.transform='none';
 });
+document.addEventListener('pointerup',()=>{ rs=false; rw=null; if(aw){aw.style.transition='';} aw=null; });
 
-document.addEventListener('pointerup', () => {
-  if (isResizing && resizeWidget) {
-    isResizing = false; resizeWidget.style.transition = ''; document.body.style.userSelect = ''; resizeWidget = null;
-  }
-  if (activeWidget) { activeWidget.style.cursor = 'grab'; activeWidget.style.transition = ''; document.body.style.userSelect = ''; }
-  activeWidget = null;
-});
+window.openAppStore=()=>{$('#appStoreModal').classList.add('active');WM.grid();};
+window.closeAppStore=()=>$('#appStoreModal').classList.remove('active');
+$('#appStoreModal').addEventListener('click',e=>{if(e.target.id==='appStoreModal')window.closeAppStore();});
 
-window.openAppStore = () => { $('#appStoreModal').classList.add('active'); WidgetManager.renderAppGrid(); };
-window.closeAppStore = () => { $('#appStoreModal').classList.remove('active'); };
-$('#appStoreModal').addEventListener('click', (e) => { if (e.target === $('#appStoreModal')) window.closeAppStore(); });
+let theme=store.get('dih_theme','dark');
+document.documentElement.setAttribute('data-theme',theme);
+window.toggleTheme=()=>{theme=theme==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',theme);store.set('dih_theme',theme);};
+const tick=()=>$('#clock').textContent=new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
+tick(); setInterval(tick,1000);
 
-let theme = 'dark';
-try { theme = localStorage.getItem('dih_theme') || 'dark'; } catch(e) {}
-document.documentElement.setAttribute('data-theme', theme);
-window.toggleTheme = () => { theme = theme === 'dark' ? 'light' : 'dark'; document.documentElement.setAttribute('data-theme', theme); try { localStorage.setItem('dih_theme', theme); } catch(e) {} };
-
-function updateClock() { $('#clock').textContent = new Date().toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit' }); }
-updateClock(); setInterval(updateClock, 1000);
-
-(async () => { 
-  WidgetManager.init(); 
-  const [crypto, stocks] = await Promise.all([fetchCrypto(), fetchStocks()]);
-  renderTicker(crypto, stocks);
-  const welcomeHTML = `<p>Welcome to <strong>Digital Infohub OS</strong>! 👋 I'm your AI research terminal — here to help you stay sharp on markets, tech, and productivity.</p>
-  <p style="margin-top:12px; color:var(--text-sub);">You can click the folders on your desktop, or just ask me anything. I'll remember our conversation and suggest what might interest you next.</p>
-  <div class="chat-follow-ups">
-    <button class="follow-up-btn" onclick="window.handleSend('Market briefing')">📊 Market Briefing</button>
-    <button class="follow-up-btn" onclick="window.handleSend('Latest tech news')">💡 Tech News</button>
-    <button class="follow-up-btn" onclick="window.handleSend('Open App Store')">📦 App Store</button>
-  </div>`;
-  addMsg('bot', welcomeHTML);
+(async()=>{
+  WM.init();
+  const [c,s]=await Promise.all([fetchCrypto(),fetchStocks()]);
+  renderTicker(c,s);
+  addMsg('bot',`<h2>Welcome to Digital Infohub OS 👋</h2><p style="color:var(--text-sub)">Your AI research terminal. Switch modes with the circles in the input bar, or just ask — I'll route it to the right tool automatically.</p><div class="chat-follow-ups"><button class="follow-up-btn" data-send="Market briefing">📊 Market briefing</button><button class="follow-up-btn" data-send="Latest tech news">📰 Tech news</button><button class="follow-up-btn" data-send="watchlist">📋 Watchlist</button></div>`);
+  setTimeout(showTour,700);
 })();
 })();
 </script>
