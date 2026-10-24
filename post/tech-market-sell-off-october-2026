@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471"
+     crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tech Market Sell-Off: AI Capex Concerns and Geopolitical Tensions</title>
+<meta name="description" content="Analysis of the global technology market sell-off driven by AI capital expenditure concerns and geopolitical tensions. Key movements in Nasdaq, S&P 500, and safe havens.">
+<meta property="og:title" content="Tech Market Sell-Off: AI Capex Concerns and Geopolitical Tensions">
+<meta property="og:description" content="The tech market faces a risk-off rotation as AI spending fatigue and crude oil spikes trigger investor anxiety. Market analysis for October 2026.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.digitalinfohub.net/post/tech-market-sell-off-october-2026">
+<meta property="og:image" content="https://images.unsplash.com/photo-1758073519996-6d3c63b4922c?q=80&w=1632&auto=format&fit=crop">
+<meta property="og:image:width" content="1632">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Tech Market Sell-Off: AI Capex Concerns and Geopolitical Tensions">
+<meta name="twitter:description" content="The tech market faces a risk-off rotation as AI spending fatigue and crude oil spikes trigger investor anxiety.">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1758073519996-6d3c63b4922c?q=80&w=1632&auto=format&fit=crop">
+
+<style>
+:root, [data-theme="light"] {
+  --bg: #fafaf9;
+  --surface: #ffffff;
+  --ink: #1c1917;
+  --ink-muted: #78716c;
+  --accent: #292524;
+  --border: #e7e5e4;
+  --toggle-icon: #1c1917;
+}
+
+[data-theme="dark"] {
+  --bg: #0c0a09;
+  --surface: #1c1917;
+  --ink: #e7e5e4;
+  --ink-muted: #a8a29e;
+  --accent: #d6d3d1;
+  --border: #292524;
+  --toggle-icon: #e7e5e4;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ---------- Controls ---------- */
+.controls {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.25rem;
+  z-index: 100;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.lang-switch {
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  overflow: hidden;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.lang-switch button {
+  border: none;
+  background: transparent;
+  color: var(--ink-muted);
+  font-family: inherit;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  padding: 0.55em 0.95em;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.lang-switch button:hover { color: var(--ink); }
+
+.lang-switch button.active {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.theme-toggle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle:hover { border-color: var(--ink-muted); }
+
+.theme-toggle svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: var(--toggle-icon);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke 0.3s ease;
+}
+
+.theme-toggle .icon-moon { display: block; }
+.theme-toggle .icon-sun { display: none; }
+
+[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+
+/* ---------- Language content ---------- */
+.lang-content { display: none; }
+.lang-content.active { display: block; }
+
+/* ---------- Header ---------- */
+header {
+  padding: 4rem 0 2rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2.5rem;
+  transition: border-color 0.3s ease;
+}
+
+.meta {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 1rem;
+  transition: color 0.3s ease;
+}
+
+h1 {
+  font-family: "Georgia", "Times New Roman", serif;
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin-bottom: 1rem;
+  transition: color 0.3s ease;
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  color: var(--ink-muted);
+  line-height: 1.6;
+  transition: color 0.3s ease;
+}
+
+/* CJK typography */
+html[lang="ja"] body { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", "Inter", sans-serif; }
+html[lang="ja"] h1 { font-family: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", Georgia, serif; line-height: 1.4; }
+html[lang="ja"] article p, html[lang="ja"] .subtitle { line-height: 1.95; }
+
+html[lang="zh-Hans"] body { font-family: "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", "Inter", sans-serif; }
+html[lang="zh-Hans"] h1 { font-family: "Songti SC", "Noto Serif SC", "SimSun", Georgia, serif; line-height: 1.4; }
+html[lang="zh-Hans"] article p, html[lang="zh-Hans"] .subtitle { line-height: 1.95; }
+
+/* ---------- Content ---------- */
+article p {
+  margin-bottom: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+article strong { font-weight: 600; }
+
+figure { margin: 2.5rem 0; }
+
+figure img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 2px;
+}
+
+figcaption {
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+  margin-top: 0.75rem;
+  letter-spacing: 0.02em;
+  transition: color 0.3s ease;
+}
+
+/* ---------- Links ---------- */
+a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--border);
+  transition: text-decoration-color 0.2s, color 0.3s ease;
+}
+
+a:hover { text-decoration-color: var(--ink); }
+
+.link-block {
+  display: block;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  text-decoration: none;
+  margin: 1.5rem 0;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.link-block:hover {
+  border-color: var(--ink-muted);
+  background: var(--surface);
+}
+
+.link-block .label {
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 0.25rem;
+  transition: color 0.3s ease;
+}
+
+.link-block .url {
+  font-size: 0.875rem;
+  word-break: break-all;
+  transition: color 0.3s ease;
+}
+
+/* ---------- Section headings ---------- */
+h2, h3 {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin: 3rem 0 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+/* ---------- Tags ---------- */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+  transition: border-color 0.3s ease;
+}
+
+.tag {
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+  text-decoration: none;
+  padding: 0.375rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  transition: all 0.2s;
+}
+
+.tag:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+@media (max-width: 600px) {
+  header { padding: 2.5rem 0 1.5rem; }
+  .controls { top: 1rem; right: 1rem; }
+  .theme-toggle { width: 36px; height: 36px; }
+  .theme-toggle svg { width: 16px; height: 16px; }
+  .lang-switch button { padding: 0.5em 0.7em; font-size: 0.68rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="controls">
+  <div class="lang-switch" role="group" aria-label="Language selection">
+    <button type="button" data-lang-btn="en" class="active">EN</button>
+    <button type="button" data-lang-btn="ja">日本語</button>
+    <button type="button" data-lang-btn="zh">中文</button>
+  </div>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+    <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+  </button>
+</div>
+
+<div class="container">
+
+  <!-- ================= ENGLISH ================= -->
+  <div class="lang-content active" data-lang="en" lang="en">
+    <header>
+      <p class="meta">Markets & Technology • Oct 2026</p>
+      <h1>Tech Market Sell-Off: AI Capex Concerns and Geopolitical Tensions</h1>
+      <p class="subtitle">Global technology markets face a significant risk-off rotation as AI spending fatigue and crude oil spikes trigger widespread investor anxiety.</p>
+    </header>
+
+    <article>
+      <p>The global technology market has experienced a significant risk-off sell-off, driven by escalating concerns over massive AI capital expenditure (capex) and rising geopolitical tensions.</p>
+      
+      <p>The downturn triggered an intense rotation away from large-cap artificial intelligence plays. While major benchmarks fell heavily, market breadth under the surface actually remained positive, indicating that the damage was heavily concentrated within crowded AI and semiconductor trades rather than the broader economy.</p>
+
+      <h2>Key Market Movements</h2>
+      
+      <ul>
+        <li><strong>Nasdaq Composite:</strong> Suffered a 2.6% plunge, marking its worst single-day drop in more than four months.</li>
+        <li><strong>S&P 500:</strong> Dropped 1.2%, heavily weighed down by its tech components, even though more than half of the stocks in the index finished higher.</li>
+        <li><strong>Dow Jones Industrial Average:</strong> Remained roughly flat due to its minimal exposure to the tech sector.</li>
+        <li><strong>Safe Havens:</strong> U.S. Treasuries rallied aggressively, causing the 10-year yield to drop below 5%, while the Japanese Yen climbed to a one-month high.</li>
+      </ul>
+
+      <h2>Primary Catalysts Behind the Rout</h2>
+      
+      <p><strong>The AI Spend Fatigue:</strong> Meta Platforms ignited intense investor anxiety after reporting earnings that fell short of net profit expectations while simultaneously raising its future capital spending forecast to $135bn – $145bn. This sparked fears that tech giants (hyperscalers) are over-borrowing and over-spending on AI infrastructure without generating immediate, matching returns.</p>
+      
+      <p><strong>Geopolitical Crude Spike:</strong> Brent crude futures surged above $114 a barrel (the highest level since May) following renewed strikes on Saudi Arabia and rising conflicts involving the US, Israel, and Iran. Higher energy prices stoked renewed fears of sticky inflation and high borrowing costs.</p>
+      
+      <p><strong>Hedge Fund Deleveraging:</strong> The sudden decline in crowded trades forced quantitative and long-short hedge funds into a rapid risk-reduction phase, causing tech-focused funds to drop roughly 10% in October.</p>
+
+      <h2>Heavy Hitters & Sector Casualties</h2>
+      
+      <table style="width: 100%; margin: 1.5rem 0; border-collapse: collapse;">
+        <thead>
+          <tr style="border-bottom: 2px solid var(--border);">
+            <th style="text-align: left; padding: 0.75rem 0.5rem; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted);">Company / Index</th>
+            <th style="text-align: left; padding: 0.75rem 0.5rem; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted);">Single-Day Performance</th>
+            <th style="text-align: left; padding: 0.75rem 0.5rem; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted);">Driving Rationale</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom: 1px solid var(--border);">
+            <td style="padding: 0.75rem 0.5rem;"><strong>Meta Platforms</strong></td>
+            <td style="padding: 0.75rem 0.5rem; color: #dc2626;">-7%</td>
+            <td style="padding: 0.75rem 0.5rem;">Aggressive capex guidance tested investor patience.</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--border);">
+            <td style="padding: 0.75rem 0.5rem;"><strong>Nvidia</strong></td>
+            <td style="padding: 0.75rem 0.5rem; color: #dc2626;">-4.4%</td>
+            <td style="padding: 0.75rem 0.5rem;">Profit-taking on the poster-child of the AI hardware trade.</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--border);">
+            <td style="padding: 0.75rem 0.5rem;"><strong>Intel & AMD</strong></td>
+            <td style="padding: 0.75rem 0.5rem; color: #dc2626;">-8%</td>
+            <td style="padding: 0.75rem 0.5rem;">Massive pressure across the entire PHLX Semiconductor Index.</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--border);">
+            <td style="padding: 0.75rem 0.5rem;"><strong>Non-Tech AI (GE Vernova, Bloom)</strong></td>
+            <td style="padding: 0.75rem 0.5rem; color: #dc2626;">Significant Losses</td>
+            <td style="padding: 0.75rem 0.5rem;">Deleveraging extended to cyclical/industrial plays tied to AI data centers.</td>
+          </tr>
+          <tr>
+            <td style="padding: 0.75rem 0.5rem;"><strong>Apple</strong></td>
+            <td style="padding: 0.75rem 0.5rem; color: #16a34a;">+1.2%</td>
+            <td style="padding: 0.75rem 0.5rem;">Acted as a rare tech defensive haven, holding its ground.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>The market turbulence is also creating ripple effects in corporate finance, forcing private tech heavyweights like Firmus to completely withdraw planned IPOs due to weak investor demand and souring public market conditions.</p>
+
+      <p><strong>Stay Updated With Digital Infohub</strong></p>
+      <p>Explore more technology insights, market analysis, and digital projects at Digital Infohub.</p>
+
+      <a class="link-block" href="https://www.digitalinfohub.net/" target="_blank" rel="noopener">
+        <div class="label">Digital Infohub</div>
+        <div class="url">digitalinfohub.net</div>
+      </a>
+
+      <div class="tags">
+        <a class="tag" href="#">#TechMarket</a>
+        <a class="tag" href="#">#AI</a>
+        <a class="tag" href="#">#CapEx</a>
+        <a class="tag" href="#">#Semiconductors</a>
+        <a class="tag" href="#">#Investing</a>
+      </div>
+    </article>
+  </div>
+
+  <!-- ================= 日本語 ================= -->
+  <div class="lang-content" data-lang="ja" lang="ja">
+    <header>
+      <p class="meta">市場とテクノロジー • 2026年10月</p>
+      <h1>テック市場の売渡し：AI設備投資への懸念と地政学的緊張</h1>
+      <p class="subtitle">AI支出疲労と原油価格の高騰が広範な投資家の不安を誘発し、グローバルなテクノロジー市場が大幅なリスクオフ回転に直面。</p>
+    </header>
+
+    <article>
+      <p>グローバルなテクノロジー市場は、大規模なAI資本支出（キャペックス）への懸念の高まりと地政学的緊張の激化により、大幅なリスクオフの売渡しを経験しました。</p>
+      
+      <p>この下落は、大型の人工知能関連銘柄からの激しい回転を引き起こしました。主要なベンチマークは大きく下落しましたが、表面下の市場ブレスは実際にはプラスを維持しており、ダメージはより広範な経済ではなく、混雑したAIおよび半導体取引に集中していたことを示しています。</p>
+
+      <h2>主要な市場動向</h2>
+      
+      <ul>
+        <li><strong>ナスダック総合指数：</strong>2.6%の急落を記録し、4ヶ月以上ぶりの最悪の1日安となりました。</li>
+        <li><strong>S&P 500：</strong>指数の半分以上の銘柄が上昇で終えたにもかかわらず、テクノロジー構成銘柄の重みにより1.2%下落しました。</li>
+        <li><strong>ダウ工業株30種平均：</strong>テクノロジーセクターへのエクスポージャーが最小限であるため、ほぼ横ばいを維持しました。</li>
+        <li><strong>安全資産：</strong>米国債が積極的に買われ、10年物利回りが5%を下回り、日本円は1ヶ月ぶりの高値をつけました。</li>
+      </ul>
+
+      <h2>暴落の主な触媒</h2>
+      
+      <p><strong>AI支出疲労：</strong>Meta Platformsは、純利益予想を下回る決算を発表しながら、同時に将来の資本支出見通しを1,350億ドル〜1,450億ドルに引き上げ、投資家の強い不安を煽りました。これにより、テック大手（ハイパースケーラー）が即座に見合うリターンを生み出さずにAIインフラに過剰な借入と支出を行っているのではないかとの懸念が広がりました。</p>
+      
+      <p><strong>地政学的な原油高：</strong>サウジアラビアへの再攻撃と米国、イスラエル、イランを含む紛争の高まりを受け、ブレント原油先物はバレルあたり114ドル超（5月以来の最高水準）まで急騰しました。エネルギー価格の上昇は、根強いインフレと高い借り入れコストへの懸念を再燃させました。</p>
+      
+      <p><strong>ヘッジファンドのレバレッジ解消：</strong>混雑した取引の突然の下落により、クオンタットおよびロングショート型ヘッジファンドは急速なリスク削減局面に追い込まれ、テクノロジー重点ファンドは10月に約10%下落しました。</p>
+
+      <h2>主要銘柄とセクターの犠牲者</h2>
+      
+      <table style="width: 100%; margin: 1.5rem 0; border-collapse: collapse;">
+        <thead>
+          <tr style="border-bottom: 2px solid var(--border);">
+            <th style="text-align: left; padding: 0.75rem 0.5rem; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted);">企業/指数</th>
+            <th style="text-align: left; padding: 0.75rem 0.5rem; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted);">1日のパフォーマンス</th>
+            <th style="text-align: left; padding: 0.75rem 0.5rem; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted);">要因</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom: 1px solid var(--border);">
+            <td style="padding: 0.75rem 0.5rem;"><strong>Meta Platforms</strong></td>
+            <td style="padding: 0.75rem 0.5rem; color: #dc2626;">-7%</td>
+            <td style="padding: 0.75rem 0.5rem;">積極的なキャペックスガイダンスが投資家の忍耐を試しました。</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--border);">
+            <td style="padding: 0.75rem 0.5rem;"><strong>Nvidia</strong></td>
+            <td style="padding: 0.75rem 0.5rem; color: #dc2626;">-4.4%</td>
+            <td style="padding: 0.75rem 0.5rem;">AIハードウェア取引の象徴的存在での利益確定売り。</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--border);">
+            <td style="padding: 0.75rem 0.5rem;"><strong>Intel & AMD</strong></td>
+            <td style="padding: 0.75rem 0.5rem; color: #dc2626;">-8%</td>
+            <td style="padding: 0.75rem 0.5rem;">PHLX半導体指数全体に大きな圧力。</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--border);">
+            <td style="padding: 0.75rem 0.5rem;"><strong>非テックAI（GE Vernova、Bloom）</strong></td>
+            <td style="padding: 0.75rem 0.5rem; color: #dc2626;">大幅な損失</td>
+            <td style="padding: 0.75rem 0.5rem;">レバレッジ解消がAIデータセンターに関連する景気循環・産業銘柄に拡大。</td>
+          </tr>
+          <tr>
+            <td style="padding: 0.75rem 0.5rem;"><strong>Apple</strong></td>
+            <td style="padding: 0.75rem 0.5rem; color: #16a34a;">+1.2%</td>
+            <td style="padding: 0.75rem 0.5rem;">稀なテック防御避難先として地位を維持。</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>市場の混乱は企業金融にも波及効果をもたらしており、投資家の需要弱まりと公開市場環境の悪化により、Firmusなどの民間テック大手が計画されていたIPOを完全に撤回することを余儀なくされています。</p>
+
+      <p><strong>Digital Infohubで最新情報をチェック</strong></p>
+      <p>テクノロジーの洞察、市場分析、デジタルプロジェクトの詳細はDigital Infohubへ。</p>
+
+      <a class="link-block" href="https://www.digitalinfohub.net/" target="_blank" rel="noopener">
+        <div class="label">Digital Infohub</div>
+        <div class="url">digitalinfohub.net</div>
+      </a>
+
+      <div class="tags">
+        <a class="tag" href="#">#テック市場</a>
+        <a class="tag" href="#">#AI</a>
+        <a class="tag" href="#">#設備投資</a>
+        <a class="tag" href="#">#半導体</a>
+        <a class="tag" href="#">#投資</a>
+      </div>
+    </article>
+  </div>
+
+  <!-- ================= 中文 ================= -->
+  <div class="lang-content" data-lang="zh" lang="zh-Hans">
+    <header>
+      <p class="meta">市场与科技 • 2026年10月</p>
+      <h1>科技市场抛售：AI资本支出担忧与地缘政治紧张</h1>
+      <p class="subtitle">随着AI支出疲劳和原油价格飙升引发投资者广泛焦虑，全球科技市场面临重大的风险规避轮动。</p>
+    </header>
+
+    <article>
+      <p>由于对大规模AI资本支出（capex）的担忧不断升级以及地缘政治紧张局势加剧，全球科技市场经历了显著的风险规避抛售。</p>
+      
+      <p>这次下跌引发了从大盘人工智能股中急剧轮动。虽然主要基准指数大幅下跌，但表面下的市场广度实际上保持积极，表明损害主要集中在拥挤的AI和半导体交易中，而不是更广泛的经济。</p>
+
+      <h2>关键市场动态</h2>
+      
+      <ul>
+        <li><strong>纳斯达克综合指数：</strong>暴跌2.6%，创下四个多月来最严重的单日跌幅。</li>
+        <li><strong>标普500指数：</strong>下跌1.2%，尽管指数中超过一半的股票收高，但仍受到科技成分股的严重拖累。</li>
+        <li><strong>道琼斯工业平均指数：</strong>由于对科技行业的敞口最小，基本保持持平。</li>
+        <li><strong>避险资产：</strong>美国国债强势反弹，导致10年期收益率降至5%以下，而日元升至一个月高点。</li>
+      </ul>
+
+      <h2>暴跌的主要催化剂</h2>
+      
+      <p><strong>AI支出疲劳：</strong>Meta Platforms在报告净收益低于预期的同时，将未来资本支出预测上调至1,350亿至1,450亿美元，引发了投资者的强烈焦虑。这引发了人们对科技巨头（超大规模企业）在没有产生即时匹配回报的情况下过度借贷和过度投资AI基础设施的担忧。</p>
+      
+      <p><strong>地缘政治导致的原油飙升：</strong>在对沙特阿拉伯的新一轮袭击以及涉及美国、以色列和伊朗的冲突升级之后，布伦特原油期货飙升至每桶114美元以上（自5月以来的最高水平）。能源价格上涨重新引发了对粘性通胀和高借贷成本的担忧。</p>
+      
+      <p><strong>对冲基金去杠杆化：</strong>拥挤交易的突然下跌迫使量化和对冲基金进入快速风险降低阶段，导致以科技为重点的基金在10月份下跌约10%。</p>
+
+      <h2>重磅公司与行业受害者</h2>
+      
+      <table style="width: 100%; margin: 1.5rem 0; border-collapse: collapse;">
+        <thead>
+          <tr style="border-bottom: 2px solid var(--border);">
+            <th style="text-align: left; padding: 0.75rem 0.5rem; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted);">公司/指数</th>
+            <th style="text-align: left; padding: 0.75rem 0.5rem; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted);">单日表现</th>
+            <th style="text-align: left; padding: 0.75rem 0.5rem; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted);">驱动因素</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom: 1px solid var(--border);">
+            <td style="padding: 0.75rem 0.5rem;"><strong>Meta Platforms</strong></td>
+            <td style="padding: 0.75rem 0.5rem; color: #dc2626;">-7%</td>
+            <td style="padding: 0.75rem 0.5rem;">激进的资本支出指引考验了投资者的耐心。</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--border);">
+            <td style="padding: 0.75rem 0.5rem;"><strong>Nvidia</strong></td>
+            <td style="padding: 0.75rem 0.5rem; color: #dc2626;">-4.4%</td>
+            <td style="padding: 0.75rem 0.5rem;">AI硬件交易标志性股票的获利了结。</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--border);">
+            <td style="padding: 0.75rem 0.5rem;"><strong>Intel & AMD</strong></td>
+            <td style="padding: 0.75rem 0.5rem; color: #dc2626;">-8%</td>
+            <td style="padding: 0.75rem 0.5rem;">整个费城半导体指数面临巨大压力。</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--border);">
+            <td style="padding: 0.75rem 0.5rem;"><strong>非科技AI（GE Vernova、Bloom）</strong></td>
+            <td style="padding: 0.75rem 0.5rem; color: #dc2626;">重大损失</td>
+            <td style="padding: 0.75rem 0.5rem;">去杠杆化扩展到与AI数据中心相关的周期性/工业类股票。</td>
+          </tr>
+          <tr>
+            <td style="padding: 0.75rem 0.5rem;"><strong>Apple</strong></td>
+            <td style="padding: 0.75rem 0.5rem; color: #16a34a;">+1.2%</td>
+            <td style="padding: 0.75rem 0.5rem;">作为罕见的科技防御避风港，坚守阵地。</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>市场动荡也在企业融资领域产生连锁反应，由于投资者需求疲软和公开市场环境恶化，迫使Firmus等私营科技巨头完全撤回了计划中的IPO。</p>
+
+      <p><strong>关注 Digital Infohub 获取更新</strong></p>
+      <p>探索更多技术见解、市场分析和数字项目，请访问 Digital Infohub。</p>
+
+      <a class="link-block" href="https://www.digitalinfohub.net/" target="_blank" rel="noopener">
+        <div class="label">Digital Infohub</div>
+        <div class="url">digitalinfohub.net</div>
+      </a>
+
+      <div class="tags">
+        <a class="tag" href="#">#科技市场</a>
+        <a class="tag" href="#">#AI</a>
+        <a class="tag" href="#">#资本支出</a>
+        <a class="tag" href="#">#半导体</a>
+        <a class="tag" href="#">#投资</a>
+      </div>
+    </article>
+  </div>
+
+</div>
+
+<script>
+(function() {
+  var html = document.documentElement;
+
+  /* ---------- Theme ---------- */
+  var toggle = document.getElementById('themeToggle');
+  var storedTheme = localStorage.getItem('theme');
+
+  if (storedTheme) {
+    html.setAttribute('data-theme', storedTheme);
+  } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    html.setAttribute('data-theme', 'dark');
+  }
+
+  toggle.addEventListener('click', function() {
+    var current = html.getAttribute('data-theme');
+    var next = current === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+
+  /* ---------- Language ---------- */
+  var titles = {
+    en: 'Tech Market Sell-Off: AI Capex Concerns and Geopolitical Tensions',
+    ja: 'テック市場の売渡し：AI設備投資への懸念と地政学的緊張',
+    zh: '科技市场抛售：AI资本支出担忧与地缘政治紧张'
+  };
+
+  var htmlLang = { en: 'en', ja: 'ja', zh: 'zh-Hans' };
+
+  function detectLang() {
+    var nav = (navigator.language || 'en').toLowerCase();
+    if (nav.indexOf('ja') === 0) return 'ja';
+    if (nav.indexOf('zh') === 0) return 'zh';
+    return 'en';
+  }
+
+  function setLang(lang) {
+    document.querySelectorAll('.lang-content').forEach(function(block) {
+      block.classList.toggle('active', block.getAttribute('data-lang') === lang);
+    });
+    document.querySelectorAll('[data-lang-btn]').forEach(function(btn) {
+      var isActive = btn.getAttribute('data-lang-btn') === lang;
+      btn.classList.toggle('active', isActive);
+      btn.setAttribute('aria-pressed', isActive);
+    });
+    html.setAttribute('lang', htmlLang[lang]);
+    document.title = titles[lang];
+    localStorage.setItem('lang', lang);
+  }
+
+  document.querySelectorAll('[data-lang-btn]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      setLang(btn.getAttribute('data-lang-btn'));
+    });
+  });
+
+  setLang(localStorage.getItem('lang') || detectLang());
+})();
+</script>
+
+</body>
+</html>
