@@ -81,28 +81,37 @@ body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-grad
 .nav-cta{margin-left:auto;padding:7px 16px;background:linear-gradient(135deg,var(--accent),#5E5CE6);color:#fff;font-weight:600;font-size:12px;border-radius:var(--radius-pill);text-decoration:none;display:flex;align-items:center;gap:6px;flex-shrink:0}
 .nav-toggle{display:none;width:36px;height:36px;background:var(--glass-highlight);border:1px solid var(--glass-border);border-radius:8px;cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:4px;padding:8px}
 .nav-toggle span{display:block;width:16px;height:2px;background:var(--text);border-radius:1px}
+.sidebar-toggle{display:none;width:36px;height:36px;background:var(--glass-highlight);border:1px solid var(--glass-border);border-radius:8px;cursor:pointer;align-items:center;justify-content:center;font-size:16px}
 .mobile-drawer{position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(8px);z-index:500;display:none;opacity:0;transition:opacity .3s var(--ease)}
 .mobile-drawer.active{display:block;opacity:1}
 .drawer-content{position:absolute;top:0;left:0;right:0;background:var(--glass-bg);backdrop-filter:blur(40px);border-bottom:1px solid var(--glass-border);padding:16px;transform:translateY(-100%);transition:transform .4s var(--ease-spring);max-height:80vh;overflow-y:auto}
 .mobile-drawer.active .drawer-content{transform:translateY(0)}
+.drawer-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--glass-border)}
+.drawer-header h3{font-size:16px;font-weight:700}
+.drawer-close{width:32px;height:32px;background:var(--surface-3);border:1px solid var(--border);border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--text)}
 .drawer-link{display:flex;align-items:center;gap:14px;padding:14px 16px;font-size:15px;font-weight:500;color:var(--text);text-decoration:none;border-radius:12px;margin-bottom:4px}
 .drawer-link:hover{background:var(--glass-highlight);color:var(--accent)}
 .drawer-cta{display:block;margin-top:12px;padding:14px;background:linear-gradient(135deg,var(--accent),#5E5CE6);color:#fff;font-weight:700;font-size:14px;border-radius:12px;text-align:center;text-decoration:none}
+.drawer-ad{margin-top:16px;padding:16px;background:var(--surface-3);border-radius:12px;border:1px solid var(--border)}
+
+.right-sidebar{position:fixed;top:var(--topbar-h);right:0;bottom:0;width:280px;background:var(--glass-bg);backdrop-filter:blur(40px) saturate(180%);border-left:1px solid var(--glass-border);z-index:90;padding:20px;display:flex;flex-direction:column;gap:16px;overflow-y:auto;transform:translateX(100%);transition:transform .4s var(--ease-spring)}
+.right-sidebar.open{transform:translateX(0)}
+.sidebar-header{display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid var(--glass-border)}
+.sidebar-header h3{font-size:15px;font-weight:700}
+.sidebar-close{width:28px;height:28px;background:var(--surface-3);border:1px solid var(--border);border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--text)}
+.desktop-icons-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.desktop-folder{display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;transition:transform .2s var(--ease);padding:16px 12px;background:var(--glass-highlight);border:1px solid var(--glass-border);border-radius:12px}
+.desktop-folder:hover{transform:translateY(-2px);border-color:var(--accent);box-shadow:0 0 14px var(--accent-glow)}
+.desktop-folder:active{transform:scale(.94)}
+.desktop-folder-icon{font-size:28px}
+.desktop-folder-label{font-size:11px;color:var(--text-sub);font-weight:600;letter-spacing:.02em}
 
 .os-desktop{flex:1;display:flex;flex-direction:column;min-height:0;position:relative;overflow:hidden}
-.chat-container{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding:84px 16px 35vh 16px;scroll-behavior:smooth;position:relative}
+.chat-container{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding:20px 16px 35vh 16px;scroll-behavior:smooth;position:relative}
 .chat-container::-webkit-scrollbar{width:8px}
 .chat-container::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
 .chat-thread{width:100%;max-width:800px;margin:0 auto;display:flex;flex-direction:column;gap:24px;position:relative;z-index:2}
 .counter-wrap{max-width:800px;margin:28px auto 0;display:flex;justify-content:center}
-
-.desktop-icons{position:absolute;top:12px;right:16px;z-index:30;display:flex;gap:8px;padding:8px 10px;background:var(--glass-bg);backdrop-filter:blur(24px) saturate(180%);border:1px solid var(--glass-border);border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,.22)}
-.desktop-folder{display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;transition:transform .2s var(--ease)}
-.desktop-folder:hover{transform:translateY(-2px)}
-.desktop-folder:active{transform:scale(.94)}
-.desktop-folder-icon{width:40px;height:40px;background:var(--glass-highlight);border:1px solid var(--glass-border);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:19px;transition:all .25s var(--ease)}
-.desktop-folder:hover .desktop-folder-icon{border-color:var(--accent);box-shadow:0 0 14px var(--accent-glow)}
-.desktop-folder-label{font-size:9px;color:var(--text-sub);font-weight:600;letter-spacing:.02em}
 
 .msg{display:flex;gap:12px;animation:fadeInUp .45s var(--ease);max-width:100%;word-wrap:break-word}
 .msg.user{flex-direction:row-reverse}
@@ -224,13 +233,10 @@ input:checked+.slider:before{transform:translateX(20px);background:var(--accent)
   .os-logo span,.os-btn-text,.os-clock,.status-indicator{display:none}
   .os-nav{padding:0 12px;height:44px}
   .nav-container,.nav-cta{display:none}
-  .nav-toggle{display:flex}
-  .chat-container{padding:96px 12px 34vh 12px}
+  .nav-toggle,.sidebar-toggle{display:flex}
+  .chat-container{padding:20px 12px 34vh 12px}
   .chat-thread{gap:16px}
   .msg{gap:10px}
-  .desktop-icons{top:10px;left:12px;right:12px;justify-content:space-between;gap:6px;padding:6px 8px}
-  .desktop-folder-icon{width:38px;height:38px;font-size:18px}
-  .desktop-folder-label{font-size:9px}
   .os-input-area{bottom:5vh;padding:0 12px}
   .input-shell{border-radius:24px;padding:6px}
   .mode-selector{gap:2px;padding-right:8px}
@@ -243,6 +249,7 @@ input:checked+.slider:before{transform:translateX(20px);background:var(--accent)
   .market-grid{grid-template-columns:1fr}
   .market-sparkline-wrapper{display:none}
   .app-grid{grid-template-columns:repeat(2,1fr);gap:12px}
+  .right-sidebar{width:260px}
 }
 @media (max-width:380px){.ticker-shell{display:none}}
 </style>
@@ -274,10 +281,15 @@ input:checked+.slider:before{transform:translateX(20px);background:var(--accent)
   </div>
   <a href="/subscribe" class="nav-cta">✨ Subscribe</a>
   <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  <button class="sidebar-toggle" id="sidebarToggle" aria-label="Sidebar">⚡</button>
 </nav>
 
 <div class="mobile-drawer" id="mobileDrawer">
   <div class="drawer-content">
+    <div class="drawer-header">
+      <h3>Navigation</h3>
+      <button class="drawer-close" id="drawerClose">✕</button>
+    </div>
     <a href="/" class="drawer-link">🏠 Home</a>
     <a href="/blog" class="drawer-link">📝 Blog</a>
     <a href="/techproducts" class="drawer-link">💻 Tech Products</a>
@@ -288,17 +300,31 @@ input:checked+.slider:before{transform:translateX(20px);background:var(--accent)
     <a href="/services" class="drawer-link">🛠️ Services</a>
     <a href="/advertise" class="drawer-link">📣 Advertise</a>
     <a href="/subscribe" class="drawer-cta">✨ Subscribe Now</a>
+    <div class="drawer-ad">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-5443646750699471"
+           data-ad-slot="8451723433"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+    </div>
   </div>
 </div>
 
-<main class="os-desktop">
-  <div class="desktop-icons" id="desktopIcons">
+<div class="right-sidebar" id="rightSidebar">
+  <div class="sidebar-header">
+    <h3>Quick Actions</h3>
+    <button class="sidebar-close" id="sidebarClose">✕</button>
+  </div>
+  <div class="desktop-icons-grid">
     <div class="desktop-folder" onclick="window.triggerModeOverview('markets')"><div class="desktop-folder-icon">📊</div><div class="desktop-folder-label">Markets</div></div>
     <div class="desktop-folder" onclick="window.triggerModeOverview('news')"><div class="desktop-folder-icon">💡</div><div class="desktop-folder-label">News</div></div>
     <div class="desktop-folder" onclick="window.triggerModeOverview('genai')"><div class="desktop-folder-icon">🧠</div><div class="desktop-folder-label">Insights</div></div>
     <div class="desktop-folder" onclick="window.openAppStore()"><div class="desktop-folder-icon">📦</div><div class="desktop-folder-label">Apps</div></div>
   </div>
+</div>
 
+<main class="os-desktop">
   <div class="chat-container" id="chatContainer">
     <div class="chat-thread" id="chatThread" role="log" aria-live="polite"></div>
     <div class="counter-wrap">
@@ -432,8 +458,16 @@ const chatContainer=$('#chatContainer'), thread=$('#chatThread');
 const timeoutFetch=(url,opts,ms=8000)=>{const c=new AbortController();const t=setTimeout(()=>c.abort(),ms);return fetch(url,Object.assign({},opts,{signal:c.signal})).finally(()=>clearTimeout(t));};
 
 const navToggle=$('#navToggle'), mobileDrawer=$('#mobileDrawer');
+const sidebarToggle=$('#sidebarToggle'), rightSidebar=$('#rightSidebar');
+const drawerClose=$('#drawerClose'), sidebarClose=$('#sidebarClose');
+
 navToggle.addEventListener('click',()=>mobileDrawer.classList.toggle('active'));
 mobileDrawer.addEventListener('click',e=>{if(e.target===mobileDrawer)mobileDrawer.classList.remove('active');});
+drawerClose.addEventListener('click',()=>mobileDrawer.classList.remove('active'));
+
+sidebarToggle.addEventListener('click',()=>rightSidebar.classList.toggle('open'));
+sidebarClose.addEventListener('click',()=>rightSidebar.classList.remove('open'));
+rightSidebar.addEventListener('click',e=>{if(e.target===rightSidebar)rightSidebar.classList.remove('open');});
 
 let currentMode = store.get('dih_chat_mode','search');
 let isProcessing = false;
@@ -456,6 +490,7 @@ window.triggerModeOverview=function(mode){
   setMode(mode);
   const cmd={markets:'Market briefing',news:'Latest tech news',genai:'Show investing tips'}[mode];
   if(cmd) handleSend(cmd);
+  if(window.innerWidth<768) rightSidebar.classList.remove('open');
 };
 
 function detectIntent(q){
@@ -835,7 +870,7 @@ const SLIDES=[
   {i:'👋',t:'Welcome to Digital Infohub',d:'Your premium AI research terminal — markets, news, search and generative AI in one place.'},
   {i:'🎯',t:'Smart Modes',d:'Switch modes with the circles in the input bar. Or just type — the terminal auto-switches to the right tool.'},
   {i:'⚡',t:'Type-ahead suggestions',d:'Focus the input and suggestions appear above it. Click one to run it instantly.'},
-  {i:'📈',t:'Markets & Watchlist',d:'Tap 📊 for the full briefing. Say "add NVDA to watchlist", then "watchlist" to see your portfolio.'}
+  {i:'📈',t:'Markets & Watchlist',d:'Tap the sidebar icon for quick actions. Say "add NVDA to watchlist", then "watchlist" to see your portfolio.'}
 ];
 let slide=0;
 function renderSlide(){
@@ -951,11 +986,14 @@ window.toggleTheme=()=>{theme=theme==='dark'?'light':'dark';document.documentEle
 const tick=()=>$('#clock').textContent=new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
 tick(); setInterval(tick,1000);
 
+// Initialize AdSense
+(window.adsbygoogle = window.adsbygoogle || []).push({});
+
 (async()=>{
   WM.init();
   const [c,s]=await Promise.all([fetchCrypto(),fetchStocks()]);
   renderTicker(c,s);
-  addMsg('bot',`<h2>Welcome to Digital Infohub OS 👋</h2><p style="color:var(--text-sub)">Your AI research terminal. Switch modes with the circles in the input bar, or just ask — I'll route it to the right tool automatically.</p><div class="chat-follow-ups"><button class="follow-up-btn" data-send="Market briefing">📊 Market briefing</button><button class="follow-up-btn" data-send="Latest tech news">📰 Tech news</button><button class="follow-up-btn" data-send="watchlist">📋 Watchlist</button></div>`);
+  addMsg('bot',`<h2>Welcome to Digital Infohub OS 👋</h2><p style="color:var(--text-sub)">Your AI research terminal. Switch modes with the circles in the input bar, or just ask — I'll route it to the right tool automatically. Tap the ⚡ button for quick actions.</p><div class="chat-follow-ups"><button class="follow-up-btn" data-send="Market briefing">📊 Market briefing</button><button class="follow-up-btn" data-send="Latest tech news">📰 Tech news</button><button class="follow-up-btn" data-send="watchlist">📋 Watchlist</button></div>`);
   setTimeout(showTour,700);
 })();
 })();
