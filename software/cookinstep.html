@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <meta name="theme-color" content="#030305">
+  <title>CookinStepGPT | Digital Infohub Tools</title>
+  <meta name="description" content="Recipe assistant — a free browser tool from Digital Infohub. — a free browser tool from Digital Infohub.">
+  <link rel="icon" type="image/png" href="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    @property --border-angle { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
+
+    :root {
+      --font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --mono: "JetBrains Mono", ui-monospace, monospace;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+      --radius: 16px;
+      --radius-sm: 10px;
+      --radius-pill: 99px;
+      --modal-z: 3000;
+      --glow-color: 59, 130, 246;
+    }
+
+    [data-theme="dark"] {
+      --bg: #030305;
+      --surface: #0A0A0C;
+      --surface-2: #121216;
+      --surface-3: #1A1A20;
+      --border: rgba(255,255,255,0.06);
+      --border-strong: rgba(255,255,255,0.12);
+      --text: #F8FAFC;
+      --text-sub: #94A3B8;
+      --text-muted: #64748B;
+      --accent: #3B82F6;
+      --accent-hover: #60A5FA;
+      --accent-soft: rgba(59,130,246,0.1);
+      --shadow: 0 18px 55px rgba(0,0,0,0.5);
+    }
+
+    [data-theme="light"] {
+      --bg: #fafafa;
+      --surface: #ffffff;
+      --surface-2: #f4f4f5;
+      --surface-3: #e4e4e7;
+      --border: rgba(0,0,0,0.08);
+      --border-strong: rgba(0,0,0,0.15);
+      --text: #09090b;
+      --text-sub: #52525b;
+      --text-muted: #a1a1aa;
+      --accent: #4f46e5;
+      --accent-hover: #6366f1;
+      --accent-soft: rgba(79,70,229,0.08);
+      --shadow: 0 18px 55px rgba(0,0,0,0.12);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      transition: background 0.3s ease, color 0.3s ease;
+      overflow-x: hidden;
+    }
+
+    body.menu-open { overflow: hidden; }
+
+    button, input, textarea, select { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    button { border: 0; }
+    a { color: inherit; }
+
+    .shell { width: min(100%, 920px); margin: 0 auto; padding: 32px 24px 80px; position: relative; z-index: 1; }
+
+    /* Ambient Background Glow */
+    .ambient-glow {
+      position: fixed; top: -10%; left: 50%; transform: translateX(-50%);
+      width: 800px; height: 600px;
+      background: radial-gradient(circle, rgba(var(--glow-color), 0.08) 0%, rgba(3,3,5,0) 60%);
+      filter: blur(80px); pointer-events: none; z-index: 0;
+      animation: ambientPulse 8s infinite alternate ease-in-out;
+    }
+    @keyframes ambientPulse { 0% { opacity: 0.5; transform: translateX(-50%) scale(1); } 100% { opacity: 0.8; transform: translateX(-50%) scale(1.1); } }
+
+    /* NAVIGATION */
+    .nav-shell {
+      position: sticky; top: 0; z-index: 1000;
+      width: calc(100% + 48px); margin: -32px -24px 32px; padding: 0 24px;
+      background: color-mix(in srgb, var(--bg) 85%, transparent);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      isolation: isolate;
+    }
+    [data-theme="light"] .nav-shell { background: rgba(255, 255, 255, 0.85); }
+
+    .nav-bar {
+      position: relative; z-index: 1001; width: min(100%, 920px); min-height: 64px;
+      margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    }
+
+    .nav-links { display: flex; align-items: center; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+    .nav-links::-webkit-scrollbar { display: none; }
+
+    .nav-link {
+      display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 8px 14px;
+      border: 1px solid transparent; border-radius: var(--radius-sm); color: var(--text-sub);
+      text-decoration: none; white-space: nowrap; font-size: 13px; font-weight: 500;
+      cursor: pointer; transition: 0.2s var(--ease);
+    }
+    .nav-link:hover { color: var(--text); background: var(--surface-2); border-color: var(--border); }
+    .nav-link.active { color: var(--accent); background: var(--accent-soft); border-color: rgba(59,102,241,0.2); }
+
+    .hamburger {
+      display: none; width: 40px; height: 40px; align-items: center; justify-content: center;
+      flex: 0 0 auto; border: 1px solid var(--border); border-radius: var(--radius-sm);
+      background: var(--surface); color: var(--text); font-size: 21px; line-height: 1;
+      cursor: pointer; transition: 0.2s var(--ease);
+    }
+    .hamburger:hover, .hamburger:focus-visible { background: var(--surface-2); border-color: var(--border-strong); outline: none; }
+    .hamburger:active { transform: scale(0.95); }
+
+    .mobile-menu {
+      position: absolute; top: 100%; left: 0; right: 0; z-index: 1002;
+      display: flex; flex-direction: column; gap: 4px; padding: 10px 16px 16px;
+      background: var(--surface); border-bottom: 1px solid var(--border);
+      box-shadow: var(--shadow); visibility: hidden; opacity: 0; pointer-events: none;
+      transform: translateY(-8px); transition: opacity 0.3s var(--ease), transform 0.3s var(--ease), visibility 0.3s var(--ease);
+    }
+    .mobile-menu.active { visibility: visible; opacity: 1; pointer-events: auto; transform: translateY(0); }
+    .mobile-menu .nav-link { width: 100%; justify-content: flex-start; padding: 12px 14px; font-size: 14px; min-height: 44px; }
+
+    /* HEADER */
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 42px; position: relative; z-index: 2; }
+    .brand {
+      display: inline-flex; align-items: center; gap: 10px; color: var(--text);
+      text-decoration: none; font-size: 15px; font-weight: 700; transition: opacity 0.2s;
+    }
+    .brand:hover { opacity: 0.8; }
+    .brand-logo {
+      width: 32px; height: 32px; display: grid; place-items: center; overflow: hidden;
+      border: 1px solid var(--border); border-radius: 8px; background: var(--surface-2);
+    }
+    .brand-logo img { width: 100%; height: 100%; object-fit: cover; }
+
+    .icon-btn {
+      width: 40px; height: 40px; display: grid; place-items: center;
+      border: 1px solid var(--border); border-radius: var(--radius-sm);
+      background: var(--surface); color: var(--text-sub); cursor: pointer; transition: 0.2s var(--ease);
+    }
+    .icon-btn:hover, .icon-btn:focus-visible { color: var(--text); background: var(--surface-2); border-color: var(--border-strong); outline: none; transform: translateY(-1px); }
+    .icon-btn:active { transform: scale(0.95); }
+
+    /* CONTENT */
+    .section { margin-bottom: 50px; position: relative; z-index: 1; }
+    .section-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 18px; }
+    .eyebrow { margin-bottom: 4px; color: var(--text-muted); font-family: var(--mono); font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; }
+    h1, h2, h3 { line-height: 1.2; }
+    h1 { font-size: clamp(26px, 5vw, 38px); letter-spacing: -0.04em; }
+    h2 { font-size: 19px; letter-spacing: -0.02em; }
+    .section-description { max-width: 720px; margin-top: 8px; color: var(--text-sub); font-size: 14px; }
+
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+    .app-icon {
+      width: 48px; height: 48px; display: grid; place-items: center; border-radius: 12px;
+      font-size: 22px; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .app-icon.ai { background: linear-gradient(135deg, #6366f1, #8b5cf6); }
+    .app-icon.tasks { background: linear-gradient(135deg, #10b981, #059669); }
+    .app-icon.tools { background: linear-gradient(135deg, #06b6d4, #3b82f6); }
+    .app-icon.health { background: linear-gradient(135deg, #14b8a6, #0d9488); }
+    .app-icon.dev { background: linear-gradient(135deg, #f59e0b, #d97706); }
+    .app-icon.games { background: linear-gradient(135deg, #ec4899, #f43f5e); }
+    .app-icon.media { background: linear-gradient(135deg, #f97316, #ef4444); }
+    .app-icon.finance { background: linear-gradient(135deg, #8b5cf6, #6366f1); }
+
+    /* COMMON TOOL CONTROLS */
+    .control, .code-area, .note-area, .tool-shell input[type="text"], .tool-shell input[type="number"], .tool-shell input[type="date"], .tool-shell input[type="url"], .tool-shell select, .tool-shell textarea {
+      width: 100%; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface-2); color: var(--text); outline: none; transition: 0.2s;
+    }
+    .control, .tool-shell input[type="text"], .tool-shell input[type="number"], .tool-shell input[type="date"], .tool-shell input[type="url"], .tool-shell select {
+      min-height: 44px; padding: 10px 12px;
+    }
+    .code-area, .note-area { min-height: 200px; padding: 12px; resize: vertical; line-height: 1.5; }
+    .code-area { font-family: var(--mono); font-size: 12px; }
+    .tool-shell input:focus, .tool-shell textarea:focus, .tool-shell select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+
+    .tool-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .tool-btn {
+      min-height: 44px; padding: 10px 18px; border: 1px solid var(--border); border-radius: var(--radius-pill);
+      background: var(--surface-2); color: var(--text); font-size: 13px; font-weight: 600;
+      cursor: pointer; transition: 0.2s var(--ease); display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    }
+    .tool-btn:hover { background: var(--surface-3); border-color: var(--border-strong); transform: translateY(-1px); }
+    .tool-btn:active { transform: scale(0.96); }
+    .tool-btn.primary { border-color: var(--accent); background: var(--accent); color: white; box-shadow: 0 4px 12px rgba(var(--glow-color), 0.3); }
+    .tool-btn.primary:hover { background: var(--accent-hover); }
+
+    .tool-message { min-height: 20px; margin-top: 12px; color: var(--text-muted); font-family: var(--mono); font-size: 11px; text-align: center; }
+
+    /* CALCULATOR */
+    .calc-display {
+      min-height: 64px; display: flex; align-items: center; justify-content: flex-end; overflow: hidden;
+      padding: 12px 16px; border: 1px solid var(--border); border-radius: var(--radius-sm);
+      background: var(--surface-3); font-family: var(--mono); font-size: 28px; white-space: nowrap; margin-bottom: 12px;
+    }
+    .calc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+    .calc-btn {
+      min-height: 56px; border: 1px solid var(--border); border-radius: var(--radius-sm);
+      background: var(--surface-2); color: var(--text); font-family: var(--mono); font-size: 18px;
+      cursor: pointer; transition: 0.15s;
+    }
+    .calc-btn:hover { background: var(--surface-3); }
+    .calc-btn:active { transform: scale(0.95); background: var(--surface); }
+    .calc-btn.accent { background: var(--accent); border-color: var(--accent); color: white; }
+    .calc-btn.accent:hover { background: var(--accent-hover); }
+
+    /* TIMER */
+    .timer-display { margin: 20px 0; text-align: center; font-family: var(--mono); font-size: 56px; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+    .center-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; }
+
+    /* CONVERTER */
+    .converter-row { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+    .converter-row > * { min-width: 0; }
+    .converter-result {
+      padding: 18px; border-radius: var(--radius-sm); background: var(--accent-soft);
+      color: var(--accent); font-family: var(--mono); font-size: 20px; font-weight: 600; text-align: center;
+    }
+
+    /* PASSWORD */
+    .password-output {
+      min-height: 56px; display: grid; place-items: center; margin-bottom: 16px; padding: 14px;
+      border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface-3);
+      font-family: var(--mono); font-size: 16px; text-align: center; word-break: break-all;
+    }
+    .password-options { display: grid; gap: 10px; margin-bottom: 16px; }
+    .password-option { display: flex; align-items: center; gap: 10px; color: var(--text-sub); font-size: 13px; cursor: pointer; }
+    .password-option input[type="range"] { flex: 1; accent-color: var(--accent); }
+
+    /* COLOUR */
+    .color-preview { width: 100%; height: 90px; margin: 12px 0; border: 1px solid var(--border); border-radius: var(--radius-sm); }
+    .color-values { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    .color-value {
+      padding: 12px; border: 1px solid var(--border); border-radius: var(--radius-sm);
+      background: var(--surface-2); color: var(--text); font-family: var(--mono); font-size: 12px;
+      text-align: center; cursor: pointer; transition: 0.2s;
+    }
+    .color-value:hover { border-color: var(--accent); background: var(--surface-3); }
+    .color-value small { display: block; margin-bottom: 4px; color: var(--text-muted); font-family: var(--font); font-size: 10px; text-transform: uppercase; letter-spacing: 0.05em; }
+
+    /* MARKDOWN */
+    .markdown-split { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .markdown-preview {
+      min-height: 260px; overflow: auto; padding: 16px; border: 1px solid var(--border);
+      border-radius: var(--radius-sm); background: var(--surface-2); font-size: 14px;
+    }
+    .markdown-preview h1, .markdown-preview h2, .markdown-preview h3 { margin: 12px 0 8px; }
+    .markdown-preview p { margin-bottom: 12px; }
+    .markdown-preview code { padding: 2px 6px; border-radius: 4px; background: var(--surface-3); font-family: var(--mono); font-size: 0.9em; }
+    .markdown-preview blockquote { margin: 12px 0; padding-left: 16px; border-left: 3px solid var(--accent); color: var(--text-sub); }
+
+    /* CONTRAST */
+    .contrast-preview { margin: 16px 0; padding: 24px; border-radius: var(--radius-sm); font-size: 18px; font-weight: 700; text-align: center; border: 1px solid var(--border); }
+    .contrast-ratio { color: var(--accent); font-size: 28px; font-weight: 700; text-align: center; font-family: var(--mono); }
+    .contrast-status { margin-top: 8px; color: var(--text-muted); font-size: 12px; text-align: center; font-weight: 600; }
+
+    /* MOBILE */
+    @media (max-width: 680px) {
+      .shell { padding: 20px 16px 60px; }
+      .nav-shell { width: calc(100% + 32px); margin: -20px -16px 24px; padding: 0 16px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .markdown-split { grid-template-columns: 1fr; }
+      .converter-row { flex-wrap: wrap; }
+      .converter-row .control { flex: 1 1 40%; }
+      .ambient-glow { width: 100%; height: 400px; top: -5%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+    }
+  
+    /* ===== TOOL PAGE SHELL (shared by /software/*.html pages) ===== */
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .page-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 26px; }
+    .back-link {
+      display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 8px 14px;
+      border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface);
+      color: var(--text-sub); text-decoration: none; font-size: 13px; font-weight: 600; transition: 0.2s var(--ease);
+    }
+    .back-link:hover { color: var(--text); background: var(--surface-2); border-color: var(--border-strong); transform: translateX(-2px); }
+    .tool-header { display: flex; align-items: center; gap: 14px; margin-bottom: 26px; }
+    .tool-icon { width: 54px; height: 54px; display: grid; place-items: center; border-radius: 14px; font-size: 26px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); flex: 0 0 auto; }
+    .tool-header h1 { font-size: clamp(22px, 4vw, 30px); letter-spacing: -0.03em; }
+    .tool-header p { color: var(--text-sub); font-size: 13px; margin-top: 2px; }
+    .tool-card {
+      padding: clamp(18px, 4vw, 30px); border: 1px solid var(--border); border-radius: var(--radius);
+      background: var(--surface); box-shadow: var(--shadow); animation: fadeInUp 0.5s var(--ease-out) backwards;
+    }
+    @media (min-width: 900px) { .shell { width: min(100%, 1020px); } }
+    .tool-footer { margin-top: 34px; text-align: center; color: var(--text-muted); font-size: 12px; }
+    .tool-footer a { color: var(--accent); text-decoration: none; }
+    .tool-footer a:hover { text-decoration: underline; }
+    .two-col { display: grid; gap: 22px; }
+    @media (min-width: 900px) { .two-col { grid-template-columns: 1fr 1fr; align-items: start; } }
+    .ai-panel { padding: 20px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); }
+    .ai-panel h2 { font-size: 15px; margin-bottom: 4px; }
+    .ai-panel p { color: var(--text-muted); font-size: 12px; margin-bottom: 12px; }
+    .ai-output { margin-top: 14px; padding: 14px; border-radius: var(--radius-sm); background: var(--surface-2); border: 1px solid var(--border); font-size: 13px; line-height: 1.6; min-height: 60px; white-space: pre-wrap; color: var(--text-sub); }
+    .ai-output.empty { color: var(--text-muted); font-style: italic; }
+    .typing-dot::after { content: '\2026'; animation: blink 1s infinite alternate; }
+    @keyframes blink { from { opacity: 0.2; } to { opacity: 1; } }
+
+    /* ===== AI CHAT PAGES (Pollinations gpt-4o) ===== */
+    .chat-shell { display: flex; flex-direction: column; gap: 16px; min-height: calc(100vh - 320px); }
+    .chat-log {
+      flex: 1; min-height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px;
+      padding: 18px; border: 1px solid var(--border); border-radius: var(--radius);
+      background: var(--surface); box-shadow: var(--shadow); animation: fadeInUp 0.5s var(--ease-out) backwards;
+    }
+    .chat-msg { max-width: 85%; padding: 12px 16px; border-radius: 14px; font-size: 14px; line-height: 1.65; white-space: pre-wrap; word-break: break-word; }
+    .chat-msg.user { align-self: flex-end; border-bottom-right-radius: 4px; background: var(--accent); color: #fff; }
+    .chat-msg.ai { align-self: flex-start; border: 1px solid var(--border); border-bottom-left-radius: 4px; background: var(--surface-2); color: var(--text); }
+    .chat-msg.thinking { color: var(--text-muted); font-style: italic; }
+    .chat-composer { display: flex; gap: 10px; align-items: stretch; }
+    .chat-input {
+      flex: 1; min-height: 52px; max-height: 140px; padding: 14px 16px; resize: none;
+      border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface);
+      color: var(--text); outline: none; font-size: 14px; line-height: 1.5; transition: 0.2s;
+    }
+    .chat-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+    .chat-send { min-width: 96px; }
+    .chat-hints { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chat-hint {
+      padding: 7px 13px; border: 1px dashed var(--border-strong); border-radius: var(--radius-pill);
+      background: transparent; color: var(--text-sub); font-size: 12px; cursor: pointer; transition: 0.2s var(--ease);
+    }
+    .chat-hint:hover { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
+    .chat-meta { display: flex; justify-content: space-between; align-items: center; color: var(--text-muted); font-family: var(--mono); font-size: 11px; }
+    @media (max-width: 680px) { .chat-msg { max-width: 92%; } .chat-shell { min-height: calc(100vh - 380px); } }
+  </style>
+</head>
+<body>
+  <div class="ambient-glow" aria-hidden="true"></div>
+  <div class="shell">
+      <header class="topbar">
+        <a class="brand" href="/">
+          <span class="brand-logo">
+            <img src="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png" alt="">
+          </span>
+          <span>Digital Infohub</span>
+        </a>
+        <button class="icon-btn" id="themeToggle" type="button" title="Toggle theme" aria-label="Toggle theme">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+          </svg>
+        </button>
+      </header>
+      <div class="nav-shell">
+        <nav class="nav-bar" aria-label="Main navigation">
+          <div class="nav-links">
+            <a class="nav-link" href="/">🏠 Home</a>
+            <a class="nav-link" href="/techtopics">📱 Tech News</a>
+            <a class="nav-link" href="/blog">✍️ Blog</a>
+            <a class="nav-link active" href="/software" aria-current="page">💻 Software</a>
+            <a class="nav-link" href="/games">🎮 Games</a>
+            <a class="nav-link" href="/subscribe">🔔 Subscribe</a>
+          </div>
+          <button class="hamburger" id="hamburger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">☰</button>
+          <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+            <a class="nav-link" href="/">🏠 Home</a>
+            <a class="nav-link" href="/techtopics">📱 Tech News</a>
+            <a class="nav-link" href="/blog">✍️ Blog</a>
+            <a class="nav-link active" href="/software" aria-current="page">💻 Software</a>
+            <a class="nav-link" href="/games">🎮 Games</a>
+            <a class="nav-link" href="/subscribe">🔔 Subscribe</a>
+          </div>
+        </nav>
+      </div>
+    <div class="page-head">
+      <a class="back-link" href="/software">← All tools</a>
+    </div>
+    <main>
+      <section class="section" aria-labelledby="toolTitle">
+        <div class="tool-header">
+          <span class="tool-icon app-icon ai" aria-hidden="true">🍳</span>
+          <div>
+            <h1 id="toolTitle">CookinStepGPT</h1>
+            <p>Recipe assistant</p>
+          </div>
+        </div>
+        <div class="tool-shell" id="toolRoot"></div>
+      </section>
+    </main>
+    <footer class="tool-footer">
+      Part of the <a href="/software">Digital Infohub software suite</a> · runs entirely in your browser
+    </footer>
+  </div>
+
+<script>window.TOOL_CONFIG = {"name": "CookinStepGPT", "desc": "Recipe assistant", "icon": "🍳", "cat": "ai", "kind": "chat", "system": "You are CookinStepGPT, a friendly recipe assistant. Suggest recipes, step-by-step cooking instructions, substitutions and meal planning. Respect dietary needs the user mentions. Format recipes with an ingredients list then numbered steps. Keep measurements in both metric and cups when practical.", "greeting": "What's in your fridge? 🍳 Tell me ingredients, dietary needs or a cuisine and I'll create a step-by-step recipe for you.", "hints": ["30-minute vegetarian dinner", "High-protein meal prep for the week", "What can I make with eggs, rice and spinach?"]};</script>
+    <script>
+/* Shared helpers — inlined so this page runs entirely on its own. */
+(function () {
+  "use strict";
+
+  const $ = (selector, root = document) => root.querySelector(selector);
+  const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
+
+  function haptic() { if (navigator.vibrate) navigator.vibrate(10); }
+
+  function escapeHtml(value) {
+    return String(value).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\"/g, "&quot;").replace(/'/g, "&#039;");
+  }
+
+  async function copyText(text, messageTarget) {
+    try {
+      await navigator.clipboard.writeText(text);
+      if (messageTarget) messageTarget.textContent = "Copied to clipboard.";
+      haptic();
+      setTimeout(() => { if (messageTarget) messageTarget.textContent = ""; }, 1800);
+    } catch (err) {
+      if (messageTarget) messageTarget.textContent = "Copy failed — select the text manually.";
+    }
+  }
+
+  /* Free AI chat via Pollinations (gpt-4o, openai-compatible endpoint). */
+  async function pollinate(messages, options = {}) {
+    const model = options.model || "openai";
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), options.timeout || 45000);
+    try {
+      const response = await fetch("https://text.pollinations.ai/openai", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        signal: controller.signal,
+        body: JSON.stringify({
+          model,
+          messages,
+          temperature: options.temperature ?? 0.7,
+          referrer: "digital-infohub"
+        })
+      });
+      if (!response.ok) throw new Error("HTTP " + response.status);
+      const contentType = response.headers.get("content-type") || "";
+      if (contentType.includes("json")) {
+        const data = await response.json();
+        const reply = data?.choices?.[0]?.message?.content || (typeof data === "string" ? data : "");
+        if (!reply || !reply.trim()) throw new Error("empty response");
+        return reply.trim();
+      }
+      const text = await response.text();
+      if (!text || !text.trim()) throw new Error("empty response");
+      return text.trim();
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
+  /* Run a one-shot prompt with a busy-state button and an output element. */
+  async function askOnce(button, outputEl, systemPrompt, userPrompt, emptyHint) {
+    const original = button.textContent;
+    button.disabled = true;
+    button.classList.add("typing-dot");
+    outputEl.classList.remove("empty");
+    outputEl.textContent = "Thinking";
+    try {
+      const reply = await pollinate([
+        { role: "system", content: systemPrompt },
+        { role: "user", content: userPrompt }
+      ]);
+      outputEl.textContent = reply;
+    } catch (err) {
+      outputEl.classList.add("empty");
+      outputEl.textContent = "The AI service is busy right now — please try again in a moment.";
+    } finally {
+      button.disabled = false;
+      button.classList.remove("typing-dot");
+      button.textContent = original;
+    }
+  }
+
+  /* Theme toggle + mobile menu for every page. */
+  function initChrome() {
+    const hamburger = $("#hamburger");
+    const mobileMenu = $("#mobileMenu");
+    const themeToggle = $("#themeToggle");
+
+    function closeMobileMenu() {
+      if (!mobileMenu) return;
+      mobileMenu.classList.remove("active");
+      mobileMenu.setAttribute("aria-hidden", "true");
+      if (hamburger) {
+        hamburger.setAttribute("aria-expanded", "false");
+        hamburger.setAttribute("aria-label", "Open menu");
+        hamburger.textContent = "\u2630";
+      }
+      document.body.classList.remove("menu-open");
+    }
+
+    function toggleMobileMenu() {
+      if (!mobileMenu || !hamburger) return;
+      const isOpen = mobileMenu.classList.toggle("active");
+      mobileMenu.setAttribute("aria-hidden", String(!isOpen));
+      hamburger.setAttribute("aria-expanded", String(isOpen));
+      hamburger.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
+      hamburger.textContent = isOpen ? "\u00d7" : "\u2630";
+      document.body.classList.toggle("menu-open", isOpen);
+    }
+
+    if (hamburger) {
+      hamburger.addEventListener("click", event => { event.stopPropagation(); haptic(); toggleMobileMenu(); });
+    }
+    $$(".mobile-menu .nav-link").forEach(link => link.addEventListener("click", closeMobileMenu));
+    document.addEventListener("click", event => {
+      if (mobileMenu && mobileMenu.classList.contains("active") && !mobileMenu.contains(event.target) && !hamburger.contains(event.target)) closeMobileMenu();
+    });
+    document.addEventListener("keydown", event => { if (event.key === "Escape") closeMobileMenu(); });
+    window.addEventListener("resize", () => { if (window.innerWidth > 680) closeMobileMenu(); });
+
+    if (themeToggle) {
+      themeToggle.addEventListener("click", () => {
+        haptic();
+        const current = document.documentElement.dataset.theme;
+        const next = current === "dark" ? "light" : "dark";
+        document.documentElement.dataset.theme = next;
+        localStorage.setItem("dih_theme", next);
+      });
+    }
+  }
+
+  /* Restore saved theme as early as possible. */
+  try {
+    const saved = localStorage.getItem("dih_theme");
+    if (saved) document.documentElement.dataset.theme = saved;
+  } catch (err) { /* storage unavailable */ }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    initChrome();
+    const root = $("#toolRoot");
+    if (root) {
+      try {
+        (function (root, helpers) {
+            const cfg = window.TOOL_CONFIG;
+            root.innerHTML = `
+              <div class="chat-shell">
+                <div class="chat-log" id="chatLog" role="log" aria-live="polite"></div>
+                <div class="chat-hints" id="chatHints"></div>
+                <form class="chat-composer" id="chatForm">
+                  <textarea class="chat-input" id="chatInput" rows="1" placeholder="Message ${cfg.name}…" aria-label="Message"></textarea>
+                  <button class="tool-btn primary chat-send" id="chatSend" type="submit">Send</button>
+                </form>
+                <div class="chat-meta"><span>Pollinations AI · gpt-4o</span><button class="tool-btn" id="chatClear" type="button" style="min-height:32px;padding:4px 12px;font-size:11px">Clear chat</button></div>
+              </div>`;
+            const log = document.getElementById('chatLog');
+            const form = document.getElementById('chatForm');
+            const input = document.getElementById('chatInput');
+            const sendBtn = document.getElementById('chatSend');
+            const history = [];
+            function bubble(role, text) {
+              const div = document.createElement('div');
+              div.className = 'chat-msg ' + (role === 'user' ? 'user' : 'ai');
+              div.textContent = text;
+              log.appendChild(div);
+              log.scrollTop = log.scrollHeight;
+              return div;
+            }
+            bubble('ai', cfg.greeting);
+            const hintsWrap = document.getElementById('chatHints');
+            cfg.hints.forEach(h => {
+              const b = document.createElement('button');
+              b.type = 'button'; b.className = 'chat-hint'; b.textContent = h;
+              b.addEventListener('click', () => { input.value = h; input.focus(); });
+              hintsWrap.appendChild(b);
+            });
+            input.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); form.requestSubmit(); } });
+            input.addEventListener('input', () => { input.style.height = 'auto'; input.style.height = Math.min(input.scrollHeight, 140) + 'px'; });
+            let busy = false;
+            form.addEventListener('submit', async e => {
+              e.preventDefault();
+              const text = input.value.trim();
+              if (!text || busy) return;
+              busy = true;
+              input.value = ''; input.style.height = 'auto';
+              hintsWrap.style.display = 'none';
+              bubble('user', text);
+              history.push({ role: 'user', content: text });
+              const thinking = bubble('ai', 'Thinking…');
+              thinking.classList.add('thinking');
+              sendBtn.disabled = true;
+              try {
+                const reply = await helpers.pollinate([{ role: 'system', content: cfg.system }, ...history.slice(-12)]);
+                thinking.classList.remove('thinking');
+                thinking.textContent = reply;
+                history.push({ role: 'assistant', content: reply });
+              } catch (err) {
+                thinking.classList.remove('thinking');
+                thinking.classList.add('empty');
+                thinking.textContent = 'The AI service is busy right now — please try again in a moment.';
+              } finally {
+                sendBtn.disabled = false; busy = false; log.scrollTop = log.scrollHeight; input.focus();
+              }
+            });
+            document.getElementById('chatClear').addEventListener('click', () => {
+              history.length = 0; log.innerHTML = ''; bubble('ai', cfg.greeting);
+              hintsWrap.style.display = 'flex';
+            });
+        })(root, { $, $$, haptic, escapeHtml, copyText, pollinate, askOnce });
+      } catch (err) {
+        console.error("Tool init failed:", err);
+        root.innerHTML = '<div class="tool-card"><p class="tool-message">This tool failed to start: ' + escapeHtml(err.message) + "</p></div>";
+      }
+    }
+  });
+})();
+  </script>
+</body>
+</html>

@@ -237,6 +237,39 @@
       border: 1px solid var(--border); border-radius: 6px;
       background: var(--surface-2); color: var(--text-muted); font-size: 9px; font-weight: 600;
     }
+    .app-badge.ai {
+      border-color: rgba(139, 92, 246, 0.45); color: #c4b5fd;
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2));
+    }
+    [data-theme="light"] .app-badge.ai { color: #6d28d9; background: rgba(139, 92, 246, 0.12); }
+
+    /* AI ASSISTANTS — featured row */
+    .ai-showcase { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
+    .ai-card {
+      position: relative; display: flex; align-items: center; gap: 14px; overflow: hidden;
+      min-height: 92px; padding: 16px 18px; border: 1px solid var(--border); border-radius: var(--radius);
+      background: var(--surface); color: var(--text); text-decoration: none;
+      transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.3s;
+      animation: fadeInUp 0.5s var(--ease-out) backwards;
+    }
+    .ai-card::after {
+      content: '→'; position: absolute; right: 16px; top: 50%; transform: translateY(-50%);
+      color: var(--text-muted); font-size: 15px; opacity: 0; transition: 0.3s var(--ease);
+    }
+    @media (hover: hover) {
+      .ai-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: var(--border-strong); }
+      .ai-card:hover::after { opacity: 1; right: 12px; }
+    }
+    .ai-card .app-icon { width: 44px; height: 44px; flex: 0 0 auto; font-size: 20px; border-radius: 12px; }
+    .ai-card-text { min-width: 0; }
+    .ai-card-label { display: block; font-size: 14px; font-weight: 700; letter-spacing: -0.01em; }
+    .ai-card-sub { display: block; margin-top: 2px; color: var(--text-muted); font-size: 12px; }
+    .ai-card-tag {
+      display: inline-block; margin-top: 6px; padding: 2px 8px; border-radius: var(--radius-pill);
+      border: 1px solid rgba(139, 92, 246, 0.35); background: rgba(139, 92, 246, 0.1);
+      color: #a78bfa; font-family: var(--mono); font-size: 9px; font-weight: 600; letter-spacing: 0.05em;
+    }
+    [data-theme="light"] .ai-card-tag { color: #6d28d9; }
 
     .no-results {
       display: none; grid-column: 1 / -1; padding: 40px; border: 1px dashed var(--border);
@@ -245,47 +278,16 @@
     }
     .no-results.visible { display: block; }
 
-    /* MODAL */
-    .widget-overlay {
-      position: fixed; inset: 0; z-index: var(--modal-z); display: flex; align-items: center; justify-content: center;
-      padding: 18px; background: rgba(0,0,0,0.75); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-      opacity: 0; pointer-events: none; transition: opacity 0.3s var(--ease);
-    }
-    .widget-overlay.active { opacity: 1; pointer-events: auto; }
-
-    .widget-modal {
-      width: min(100%, 500px); max-height: min(88vh, 760px); display: flex; flex-direction: column;
-      overflow: hidden; border: 1px solid var(--border-strong); border-radius: var(--radius);
-      background: var(--surface); box-shadow: var(--shadow);
-      transform: translateY(12px) scale(0.97); opacity: 0;
-      transition: transform 0.3s var(--ease), opacity 0.3s var(--ease);
-    }
-    .widget-overlay.active .widget-modal { transform: translateY(0) scale(1); opacity: 1; }
-
-    .widget-header {
-      display: flex; align-items: center; justify-content: space-between; gap: 16px;
-      padding: 16px 20px; border-bottom: 1px solid var(--border); background: var(--surface-2);
-    }
-    .widget-title { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 700; }
-    .widget-close {
-      width: 36px; height: 36px; display: grid; place-items: center; border-radius: 8px;
-      background: transparent; color: var(--text-muted); font-size: 22px; cursor: pointer; transition: 0.2s;
-    }
-    .widget-close:hover, .widget-close:focus-visible { background: var(--surface-3); color: var(--text); outline: none; }
-    .widget-close:active { transform: scale(0.9); }
-
-    .widget-body { flex: 1; overflow-y: auto; padding: 20px; overscroll-behavior: contain; }
-
-    /* COMMON WIDGET CONTROLS */
-    .control, .code-area, .note-area, .widget-body input[type="text"], .widget-body input[type="number"], .widget-body input[type="date"], .widget-body input[type="url"], .widget-body select, .widget-body textarea {
+    /* COMMON TOOL CONTROLS */
+    .control, .code-area, .note-area, .tool-shell input[type="text"], .tool-shell input[type="number"], .tool-shell input[type="date"], .tool-shell input[type="url"], .tool-shell select, .tool-shell textarea {
       width: 100%; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface-2); color: var(--text); outline: none; transition: 0.2s;
     }
-    .control, .widget-body input[type="text"], .widget-body input[type="number"], .widget-body input[type="date"], .widget-body input[type="url"], .widget-body select {
+    .control, .tool-shell input[type="text"], .tool-shell input[type="number"], .tool-shell input[type="date"], .tool-shell input[type="url"], .tool-shell select {
       min-height: 44px; padding: 10px 12px;
     }
     .code-area, .note-area { min-height: 200px; padding: 12px; resize: vertical; line-height: 1.5; }
     .code-area { font-family: var(--mono); font-size: 12px; }
-    .widget-body input:focus, .widget-body textarea:focus, .widget-body select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+    .tool-shell input:focus, .tool-shell textarea:focus, .tool-shell select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
 
     .tool-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
     .tool-btn {
@@ -377,9 +379,6 @@
       .apps-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 12px; }
       .app-tile { min-height: 130px; padding: 14px 8px; }
       .markdown-split { grid-template-columns: 1fr; }
-      .widget-overlay { align-items: flex-end; padding: 0; }
-      .widget-modal { max-height: 92vh; border-radius: 20px 20px 0 0; }
-      .widget-body { padding: 16px; }
       .converter-row { flex-wrap: wrap; }
       .converter-row .control { flex: 1 1 40%; }
       .ambient-glow { width: 100%; height: 400px; top: -5%; }
@@ -445,6 +444,23 @@
           </div>
         </div>
 
+        <div class="section-head" style="margin-bottom:14px">
+          <div>
+            <div class="eyebrow">AI Assistants</div>
+            <h2>GPT Tools, rebuilt in your browser</h2>
+            <p class="section-description">Each assistant now opens on its own full page with a real chat interface, powered by free Pollinations AI (gpt-4o).</p>
+          </div>
+        </div>
+        <div class="ai-showcase" id="aiShowcase" role="list" style="margin-bottom:38px"></div>
+
+        <div class="section-head" style="margin-bottom:14px">
+          <div>
+            <div class="eyebrow">Tools & Utilities</div>
+            <h2>Every app has its own page</h2>
+            <p class="section-description">No more pop-up widgets — each tool opens full-screen so you can actually work in it. Pick one below.</p>
+          </div>
+        </div>
+
         <div class="toolbar">
           <input class="search-box" id="appSearch" type="search" placeholder="Search apps and tools…" aria-label="Search apps and tools">
           <select class="category-filter" id="categoryFilter" aria-label="Filter by category">
@@ -466,16 +482,6 @@
     </main>
   </div>
 
-  <div class="widget-overlay" id="widgetOverlay" aria-hidden="true">
-    <div class="widget-modal" role="dialog" aria-modal="true" aria-labelledby="widgetTitle">
-      <div class="widget-header">
-        <div class="widget-title" id="widgetTitle">Tool</div>
-        <button class="widget-close" id="widgetClose" type="button" aria-label="Close tool">×</button>
-      </div>
-      <div class="widget-body" id="widgetBody"></div>
-    </div>
-  </div>
-
   <script>
     (() => {
       "use strict";
@@ -488,10 +494,6 @@
 
       const hamburger = $("#hamburger");
       const mobileMenu = $("#mobileMenu");
-      const overlay = $("#widgetOverlay");
-      const widgetBody = $("#widgetBody");
-      const widgetTitle = $("#widgetTitle");
-      const widgetClose = $("#widgetClose");
       const themeToggle = $("#themeToggle");
       const appsGrid = $("#appsGrid");
       const appSearch = $("#appSearch");
@@ -523,7 +525,7 @@
         if (mobileMenu.classList.contains("active") && !mobileMenu.contains(event.target) && !hamburger.contains(event.target)) closeMobileMenu();
       });
       document.addEventListener("keydown", event => {
-        if (event.key === "Escape") { closeMobileMenu(); if (overlay.classList.contains("active")) closeWidget(); }
+        if (event.key === "Escape") { closeMobileMenu(); }
       });
       window.addEventListener("resize", () => { if (window.innerWidth > 680) closeMobileMenu(); });
 
@@ -540,66 +542,63 @@
         localStorage.setItem("dih_theme", nextTheme);
       });
 
-      /* APP DATA */
+      /* APP DATA — every app now lives on its own page under /software/ */
       const APPS = [
-        { name: "InfohubGPT", desc: "Tech strategy assistant", icon: "🤖", category: "ai", type: "link", url: "https://chatgpt.com/g/g-6973b68a2b188191aaead719715ab703-infohubgpt-by-digital-infohub" },
-        { name: "TaskyGPT", desc: "Break down your goals", icon: "📋", category: "ai", type: "link", url: "https://chatgpt.com/g/g-6989f6b724fc8191aef0f7393ed70672-taskygpt-by-digital-infohub" },
-        { name: "Build Engine", desc: "Build, fix & optimise code", icon: "⚙️", category: "dev", type: "link", url: "https://chatgpt.com/g/g-6a5cf83ef9ac8191808e0530e843bf55-digital-infohub-build-engine" },
-        { name: "MarketLens", desc: "Markets & crypto briefing", icon: "📈", category: "finance", type: "link", url: "https://chatgpt.com/g/g-6a7ce7ab23988191bec905b74ec53adf-marketlensgpt" },
-        { name: "KayakMe Ocean", desc: "Local ocean conditions", icon: "🌊", category: "health", type: "link", url: "https://chatgpt.com/g/g-6a4ef0ab79388191a95edb5bcbbc7c80-kayakme-ocean-by-digital-infohub" },
-        { name: "CookinStepGPT", desc: "Recipe assistant", icon: "🍳", category: "ai", type: "link", url: "https://chatgpt.com/g/g-6994cb01a16c8191885299e8dbf64428-cookinstepgpt-by-digital-infohub" },
-        { name: "SaveSmartGPT", desc: "Finance helper", icon: "💰", category: "finance", type: "link", url: "https://chatgpt.com/g/g-6994de10b0b08191b778d0c80a577b86-savesmartgpt-by-digital-infohub" },
-        { name: "Calculator", desc: "Quick maths", icon: "🧮", category: "tools", type: "widget", widgetId: "calculator" },
-        { name: "Unit Converter", desc: "Length, weight & temperature", icon: "📐", category: "tools", type: "widget", widgetId: "converter" },
-        { name: "Password Generator", desc: "Secure random passwords", icon: "🔐", category: "tools", type: "widget", widgetId: "password" },
-        { name: "Color Picker", desc: "HEX, RGB & HSL values", icon: "🎨", category: "tools", type: "widget", widgetId: "color" },
-        { name: "JSON Formatter", desc: "Validate and format JSON", icon: "{ }", category: "dev", type: "widget", widgetId: "json" },
-        { name: "Markdown Preview", desc: "Write with live preview", icon: "📄", category: "dev", type: "widget", widgetId: "markdown" },
-        { name: "Base64 Encoder", desc: "Encode and decode text", icon: "🔄", category: "dev", type: "widget", widgetId: "base64" },
-        { name: "Regex Tester", desc: "Test regular expressions", icon: "🔍", category: "dev", type: "widget", widgetId: "regex" },
-        { name: "Word Counter", desc: "Analyse words and characters", icon: "📝", category: "tools", type: "widget", widgetId: "wordcount" },
-        { name: "Lorem Ipsum", desc: "Generate placeholder text", icon: "📜", category: "tools", type: "widget", widgetId: "lorem" },
-        { name: "Pomodoro", desc: "Focus and break cycles", icon: "🍅", category: "tasks", type: "widget", widgetId: "pomodoro" },
-        { name: "Breathing", desc: "4-7-8 relaxation timer", icon: "🫁", category: "health", type: "widget", widgetId: "breathing" },
-        { name: "Contrast Checker", desc: "Check colour accessibility", icon: "👁️", category: "dev", type: "widget", widgetId: "contrast" },
-        { name: "CSS Shadow Generator", desc: "Create box-shadow CSS", icon: "🌑", category: "dev", type: "widget", widgetId: "shadow" },
-        { name: "Quick Notes", desc: "Save notes in your browser", icon: "🗒️", category: "tasks", type: "widget", widgetId: "notes" },
-        { name: "Task List", desc: "Manage simple tasks", icon: "✅", category: "tasks", type: "widget", widgetId: "tasks" },
-        { name: "Habit Tracker", desc: "Track weekly habits", icon: "📊", category: "health", type: "widget", widgetId: "habits" },
-        { name: "Meeting Notes", desc: "Capture meeting details", icon: "🗣️", category: "tasks", type: "widget", widgetId: "meeting" },
-        { name: "Font Preview", desc: "Test typography quickly", icon: "🔤", category: "tools", type: "widget", widgetId: "font" },
-        { name: "Time Zone Converter", desc: "Compare world times", icon: "🌍", category: "tools", type: "widget", widgetId: "timezone" },
-        { name: "Color Palette", desc: "Generate colour harmonies", icon: "🌈", category: "tools", type: "widget", widgetId: "palette" },
-        { name: "API Request Tester", desc: "Test GET API requests", icon: "🔌", category: "dev", type: "widget", widgetId: "api" },
-        { name: "Invoice Calculator", desc: "Calculate invoice totals", icon: "🧾", category: "finance", type: "widget", widgetId: "invoice" },
-        { name: "Budget Calculator", desc: "Plan income and spending", icon: "💷", category: "finance", type: "widget", widgetId: "budget" },
-        { name: "Image Data Viewer", desc: "Inspect image dimensions", icon: "🖼️", category: "media", type: "widget", widgetId: "image" },
-        { name: "Games Hub", desc: "Play browser games", icon: "🎮", category: "games", type: "link", url: "/games" }
+        { name: "InfohubGPT", desc: "Tech strategy assistant", icon: "🤖", category: "ai", ai: true, page: "software/infohubgpt.html" },
+        { name: "TaskyGPT", desc: "Break down your goals", icon: "📋", category: "ai", ai: true, page: "software/taskygpt.html" },
+        { name: "Build Engine", desc: "Build, fix & optimise code", icon: "⚙️", category: "dev", ai: true, page: "software/buildengine.html" },
+        { name: "MarketLens", desc: "Markets & crypto briefing", icon: "📈", category: "finance", ai: true, page: "software/marketlens.html" },
+        { name: "KayakMe Ocean", desc: "Local ocean conditions", icon: "🌊", category: "health", ai: true, page: "software/kayakmeocean.html" },
+        { name: "CookinStepGPT", desc: "Recipe assistant", icon: "🍳", category: "ai", ai: true, page: "software/cookinstep.html" },
+        { name: "SaveSmartGPT", desc: "Finance helper", icon: "💰", category: "finance", ai: true, page: "software/savesmart.html" },
+        { name: "Calculator", desc: "Quick maths", icon: "🧮", category: "tools", page: "software/calculator.html" },
+        { name: "Unit Converter", desc: "Length, weight & temperature", icon: "📐", category: "tools", page: "software/converter.html" },
+        { name: "Password Generator", desc: "Secure random passwords", icon: "🔐", category: "tools", page: "software/password.html" },
+        { name: "JSON Formatter", desc: "Validate and format JSON", icon: "{ }", category: "dev", page: "software/json.html" },
+        { name: "Markdown Preview", desc: "Write with live preview", icon: "📄", category: "dev", page: "software/markdown.html" },
+        { name: "Games Hub", desc: "Play browser games", icon: "🎮", category: "games", url: "/games" }
       ];
 
-      /* APP GRID */
+      /* AI ASSISTANT SHOWCASE — featured cards linking to the dedicated chat pages */
+      function renderAiShowcase() {
+        const showcase = $("#aiShowcase");
+        showcase.innerHTML = "";
+        APPS.filter(app => app.ai).forEach((app, index) => {
+          const card = document.createElement("a");
+          card.className = "ai-card";
+          card.setAttribute("role", "listitem");
+          card.href = `/${app.page}`;
+          card.style.animationDelay = `${index * 0.05}s`;
+          card.addEventListener("click", () => haptic());
+          card.innerHTML = `
+            <span class="app-icon ${escapeHtml(app.category)}">${app.icon}</span>
+            <span class="ai-card-text">
+              <span class="ai-card-label">${escapeHtml(app.name)}</span>
+              <span class="ai-card-sub">${escapeHtml(app.desc)}</span>
+              <span class="ai-card-tag">Pollinations · gpt-4o</span>
+            </span>
+          `;
+          showcase.appendChild(card);
+        });
+      }
+
+      /* APP GRID — every app opens on its own dedicated page */
       function renderApps() {
         appsGrid.innerHTML = "";
         APPS.forEach((app, index) => {
-          const element = document.createElement(app.type === "link" ? "a" : "button");
+          const element = document.createElement("a");
           element.className = "app-tile";
           element.setAttribute("role", "listitem");
           element.dataset.name = `${app.name} ${app.desc}`.toLowerCase();
           element.dataset.category = app.category;
           element.style.animationDelay = `${index * 0.04}s`;
 
-          if (app.type === "link") {
-            element.href = app.url;
-            element.target = "_blank";
-            element.rel = "noopener noreferrer";
-            element.addEventListener("click", () => haptic());
-          } else {
-            element.type = "button";
-            element.addEventListener("click", () => { haptic(); openWidget(app); });
-          }
+          element.href = app.page ? `/${app.page}` : app.url;
+          if (!app.page) { element.target = "_blank"; element.rel = "noopener noreferrer"; }
+          element.addEventListener("click", () => haptic());
 
           element.innerHTML = `
-            <span class="app-badge">${app.type === "link" ? "↗" : "APP"}</span>
+            <span class="app-badge${app.ai ? " ai" : ""}">${app.ai ? "AI" : "OPEN"}</span>
             <span class="app-icon ${escapeHtml(app.category)}">${app.icon}</span>
             <span>
               <span class="app-label">${escapeHtml(app.name)}</span>
@@ -629,36 +628,6 @@
       appSearch.addEventListener("input", updateFilters);
       categoryFilter.addEventListener("change", () => { haptic(); updateFilters(); });
 
-      /* MODAL */
-      function openWidget(app) {
-        widgetTitle.textContent = `${app.icon} ${app.name}`;
-        widgetBody.innerHTML = "";
-        overlay.classList.add("active");
-        overlay.setAttribute("aria-hidden", "false");
-        document.body.style.overflow = "hidden";
-
-        const renderer = RENDERERS[app.widgetId];
-        if (renderer) {
-          renderer(widgetBody);
-        } else {
-          widgetBody.innerHTML = `<p style="color:var(--text-sub); text-align:center; padding:20px;">This tool is not available yet.</p>`;
-        }
-
-        setTimeout(() => {
-          $("input, textarea, select, button", widgetBody)?.focus();
-        }, 50);
-      }
-
-      function closeWidget() {
-        overlay.classList.remove("active");
-        overlay.setAttribute("aria-hidden", "true");
-        document.body.style.overflow = "";
-        setTimeout(() => { widgetBody.innerHTML = ""; }, 300);
-      }
-
-      widgetClose.addEventListener("click", () => { haptic(); closeWidget(); });
-      overlay.addEventListener("click", event => { if (event.target === overlay) { haptic(); closeWidget(); } });
-
       /* MOUSE TRACKING SPOTLIGHT */
       if (window.matchMedia('(hover: hover)').matches) {
         document.addEventListener('mousemove', (e) => {
@@ -670,735 +639,11 @@
         });
       }
 
-      /* WIDGETS */
-      function renderCalculator(container) {
-        container.innerHTML = `
-          <div class="calc-display" id="calcDisplay">0</div>
-          <div class="calc-grid">
-            <button class="calc-btn" data-value="C">C</button>
-            <button class="calc-btn" data-value="/">÷</button>
-            <button class="calc-btn" data-value="*">×</button>
-            <button class="calc-btn" data-value="BACK">⌫</button>
-            <button class="calc-btn" data-value="7">7</button>
-            <button class="calc-btn" data-value="8">8</button>
-            <button class="calc-btn" data-value="9">9</button>
-            <button class="calc-btn" data-value="-">−</button>
-            <button class="calc-btn" data-value="4">4</button>
-            <button class="calc-btn" data-value="5">5</button>
-            <button class="calc-btn" data-value="6">6</button>
-            <button class="calc-btn" data-value="+">+</button>
-            <button class="calc-btn" data-value="1">1</button>
-            <button class="calc-btn" data-value="2">2</button>
-            <button class="calc-btn" data-value="3">3</button>
-            <button class="calc-btn accent" data-value="=">=</button>
-            <button class="calc-btn" data-value="0" style="grid-column:span 2">0</button>
-            <button class="calc-btn" data-value=".">.</button>
-          </div>
-        `;
-        let expression = "";
-        const display = $("#calcDisplay", container);
-        $$(".calc-btn", container).forEach(button => {
-          button.addEventListener("click", () => {
-            haptic();
-            const value = button.dataset.value;
-            if (value === "C") expression = "";
-            else if (value === "BACK") expression = expression.slice(0, -1);
-            else if (value === "=") {
-              if (!expression) return;
-              if (!/^[0-9+\-*/.()\s]+$/.test(expression)) expression = "Error";
-              else {
-                try { expression = String(Function(`"use strict"; return (${expression})`)()); }
-                catch { expression = "Error"; }
-              }
-            } else {
-              if (expression === "Error") expression = "";
-              expression += value;
-            }
-            display.textContent = expression || "0";
-          });
-        });
-      }
-
-      function renderConverter(container) {
-        container.innerHTML = `
-          <div class="converter-row"><input class="control" id="convertValue" type="number" value="1" step="any"></div>
-          <div class="converter-row">
-            <select class="control" id="convertFrom">
-              <option value="m">Metres</option><option value="ft">Feet</option><option value="km">Kilometres</option>
-              <option value="mi">Miles</option><option value="kg">Kilograms</option><option value="lb">Pounds</option>
-              <option value="c">Celsius</option><option value="f">Fahrenheit</option>
-            </select>
-            <span style="color:var(--text-muted)">→</span>
-            <select class="control" id="convertTo">
-              <option value="ft">Feet</option><option value="m">Metres</option><option value="km">Kilometres</option>
-              <option value="mi">Miles</option><option value="kg">Kilograms</option><option value="lb">Pounds</option>
-              <option value="c">Celsius</option><option value="f">Fahrenheit</option>
-            </select>
-          </div>
-          <div class="converter-result" id="convertResult"></div>
-        `;
-        const valueInput = $("#convertValue", container), fromInput = $("#convertFrom", container), toInput = $("#convertTo", container), result = $("#convertResult", container);
-        const rates = { m: 1, ft: .3048, km: 1000, mi: 1609.344, kg: 1, lb: .45359237 };
-
-        function update() {
-          const value = Number(valueInput.value) || 0, from = fromInput.value, to = toInput.value;
-          let converted = value;
-          if (from === "c" && to === "f") converted = value * 9 / 5 + 32;
-          else if (from === "f" && to === "c") converted = (value - 32) * 5 / 9;
-          else if (["c", "f"].includes(from) || ["c", "f"].includes(to)) converted = NaN;
-          else converted = value * rates[from] / rates[to];
-          result.textContent = Number.isFinite(converted) ? `${Number(converted.toFixed(4))} ${to}` : "Choose compatible units";
-        }
-        [valueInput, fromInput, toInput].forEach(el => { el.addEventListener("input", update); el.addEventListener("change", update); });
-        update();
-      }
-
-      function renderPassword(container) {
-        container.innerHTML = `
-          <div class="password-output" id="passwordOutput">Generating…</div>
-          <div class="password-options">
-            <label class="password-option"><input id="passwordUpper" type="checkbox" checked> Uppercase letters</label>
-            <label class="password-option"><input id="passwordLower" type="checkbox" checked> Lowercase letters</label>
-            <label class="password-option"><input id="passwordNumbers" type="checkbox" checked> Numbers</label>
-            <label class="password-option"><input id="passwordSymbols" type="checkbox" checked> Symbols</label>
-            <label class="password-option">Length: <input id="passwordLength" type="range" min="8" max="64" value="16"> <span id="passwordLengthValue">16</span></label>
-          </div>
-          <div class="center-actions">
-            <button class="tool-btn primary" id="generatePassword">Generate</button>
-            <button class="tool-btn" id="copyPassword">Copy</button>
-          </div>
-          <div class="tool-message" id="passwordMessage"></div>
-        `;
-        const output = $("#passwordOutput", container), message = $("#passwordMessage", container), length = $("#passwordLength", container), lengthValue = $("#passwordLengthValue", container);
-        const groups = { upper: "ABCDEFGHIJKLMNOPQRSTUVWXYZ", lower: "abcdefghijklmnopqrstuvwxyz", numbers: "0123456789", symbols: "!@#$%^&*()_+-=[]{}|;:,.<>?" };
-
-        function randomCharacter(characters) {
-          const values = new Uint32Array(1); crypto.getRandomValues(values);
-          return characters[values[0] % characters.length];
-        }
-        function generate() {
-          let pool = "";
-          if ($("#passwordUpper", container).checked) pool += groups.upper;
-          if ($("#passwordLower", container).checked) pool += groups.lower;
-          if ($("#passwordNumbers", container).checked) pool += groups.numbers;
-          if ($("#passwordSymbols", container).checked) pool += groups.symbols;
-          if (!pool) { output.textContent = "Select at least one option"; return; }
-          let password = "";
-          for (let i = 0; i < Number(length.value); i++) password += randomCharacter(pool);
-          output.textContent = password; message.textContent = "";
-        }
-        length.addEventListener("input", () => { lengthValue.textContent = length.value; generate(); });
-        $("#generatePassword", container).addEventListener("click", () => { haptic(); generate(); });
-        $("#copyPassword", container).addEventListener("click", async () => {
-          haptic();
-          if (!output.textContent || output.textContent.includes("Select")) return;
-          try { await navigator.clipboard.writeText(output.textContent); message.textContent = "Copied to clipboard"; }
-          catch { message.textContent = "Copy was not available"; }
-        });
-        $$("input[type='checkbox']", container).forEach(input => { input.addEventListener("change", generate); });
-        generate();
-      }
-
-      function renderColor(container) {
-        container.innerHTML = `
-          <input id="colorInput" type="color" value="#3B82F6" style="width:100%;height:48px;border:0;cursor:pointer;background:transparent;border-radius:8px;">
-          <div class="color-preview" id="colorPreview"></div>
-          <div class="color-values">
-            <button class="color-value" data-color-value="hex"><small>HEX</small><span id="colorHex"></span></button>
-            <button class="color-value" data-color-value="rgb"><small>RGB</small><span id="colorRgb"></span></button>
-            <button class="color-value" data-color-value="hsl"><small>HSL</small><span id="colorHsl"></span></button>
-            <button class="color-value" data-color-value="css"><small>CSS</small><span id="colorCss"></span></button>
-          </div>
-          <div class="tool-message" id="colorMessage"></div>
-        `;
-        const input = $("#colorInput", container), preview = $("#colorPreview", container), message = $("#colorMessage", container);
-        function hexToRgb(hex) { return { r: parseInt(hex.slice(1, 3), 16), g: parseInt(hex.slice(3, 5), 16), b: parseInt(hex.slice(5, 7), 16) }; }
-        function rgbToHsl(r, g, b) {
-          r /= 255; g /= 255; b /= 255;
-          const max = Math.max(r, g, b), min = Math.min(r, g, b), diff = max - min;
-          let h = 0, s = 0, l = (max + min) / 2;
-          if (diff !== 0) {
-            s = diff / (1 - Math.abs(2 * l - 1));
-            if (max === r) h = 60 * (((g - b) / diff) % 6);
-            else if (max === g) h = 60 * ((b - r) / diff + 2);
-            else h = 60 * ((r - g) / diff + 4);
-          }
-          if (h < 0) h += 360;
-          return { h: Math.round(h), s: Math.round(s * 100), l: Math.round(l * 100) };
-        }
-        function update() {
-          const hex = input.value, { r, g, b } = hexToRgb(hex), { h, s, l } = rgbToHsl(r, g, b);
-          preview.style.background = hex;
-          $("#colorHex", container).textContent = hex;
-          $("#colorRgb", container).textContent = `${r}, ${g}, ${b}`;
-          $("#colorHsl", container).textContent = `${h}°, ${s}%, ${l}%`;
-          $("#colorCss", container).textContent = `rgb(${r} ${g} ${b})`;
-        }
-        input.addEventListener("input", update);
-        $$(".color-value", container).forEach(button => {
-          button.addEventListener("click", async () => {
-            haptic();
-            const type = button.dataset.colorValue;
-            const id = `color${type[0].toUpperCase()}${type.slice(1)}`;
-            const value = $(`#${id}`, container).textContent;
-            try { await navigator.clipboard.writeText(value); message.textContent = "Copied to clipboard"; }
-            catch { message.textContent = "Copy was not available"; }
-          });
-        });
-        update();
-      }
-
-      function renderJson(container) {
-        container.innerHTML = `
-          <textarea class="code-area" id="jsonInput" placeholder='{"name":"Digital Infohub","active":true}'></textarea>
-          <div class="tool-actions">
-            <button class="tool-btn primary" id="formatJson">Format</button>
-            <button class="tool-btn" id="minifyJson">Minify</button>
-            <button class="tool-btn" id="copyJson">Copy</button>
-          </div>
-          <div class="tool-message" id="jsonMessage"></div>
-        `;
-        const input = $("#jsonInput", container), message = $("#jsonMessage", container);
-        function process(minify = false) {
-          try {
-            const parsed = JSON.parse(input.value);
-            input.value = JSON.stringify(parsed, null, minify ? 0 : 2);
-            message.textContent = "Valid JSON"; message.style.color = "var(--green, #10b981)";
-          } catch (error) {
-            message.textContent = error.message; message.style.color = "var(--red, #ef4444)";
-          }
-        }
-        $("#formatJson", container).addEventListener("click", () => { haptic(); process(false); });
-        $("#minifyJson", container).addEventListener("click", () => { haptic(); process(true); });
-        $("#copyJson", container).addEventListener("click", async () => {
-          haptic();
-          try { await navigator.clipboard.writeText(input.value); message.textContent = "Copied to clipboard"; }
-          catch { message.textContent = "Copy was not available"; }
-        });
-      }
-
-      function renderMarkdown(container) {
-        container.innerHTML = `
-          <div class="markdown-split">
-            <textarea class="code-area" id="markdownInput" placeholder="# Heading\n\n**Bold text**\n\n- List item\n\n> Quote"></textarea>
-            <div class="markdown-preview" id="markdownPreview"><span style="color:var(--text-muted)">Preview appears here…</span></div>
-          </div>
-        `;
-        const input = $("#markdownInput", container), preview = $("#markdownPreview", container);
-        function escapeMarkdown(value) { return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
-        function render() {
-          let value = escapeMarkdown(input.value);
-          value = value.replace(/^### (.+)$/gm, "<h3>$1</h3>").replace(/^## (.+)$/gm, "<h2>$1</h2>").replace(/^# (.+)$/gm, "<h1>$1</h1>")
-            .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>").replace(/\*(.+?)\*/g, "<em>$1</em>").replace(/`(.+?)`/g, "<code>$1</code>")
-            .replace(/^> (.+)$/gm, "<blockquote>$1</blockquote>").replace(/^- (.+)$/gm, "<li>$1</li>").replace(/\n/g, "<br>");
-          preview.innerHTML = value || `<span style="color:var(--text-muted)">Preview appears here…</span>`;
-        }
-        input.addEventListener("input", render); render();
-      }
-
-      function renderWordCount(container) {
-        container.innerHTML = `
-          <textarea class="note-area" id="wordCountInput" placeholder="Type or paste text here…"></textarea>
-          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px;text-align:center">
-            <div style="padding:12px;background:var(--surface-2);border-radius:8px;border:1px solid var(--border)">
-              <div id="wordCount" style="font-size:24px;font-weight:700;color:var(--accent)">0</div><small style="color:var(--text-muted)">Words</small>
-            </div>
-            <div style="padding:12px;background:var(--surface-2);border-radius:8px;border:1px solid var(--border)">
-              <div id="characterCount" style="font-size:24px;font-weight:700;color:var(--accent)">0</div><small style="color:var(--text-muted)">Characters</small>
-            </div>
-            <div style="padding:12px;background:var(--surface-2);border-radius:8px;border:1px solid var(--border)">
-              <div id="sentenceCount" style="font-size:24px;font-weight:700;color:var(--accent)">0</div><small style="color:var(--text-muted)">Sentences</small>
-            </div>
-          </div>
-        `;
-        const input = $("#wordCountInput", container);
-        input.addEventListener("input", () => {
-          const text = input.value.trim();
-          $("#wordCount", container).textContent = text ? text.split(/\s+/).length : 0;
-          $("#characterCount", container).textContent = input.value.length;
-          $("#sentenceCount", container).textContent = text ? Math.max(1, (text.match(/[.!?]+/g) || []).length) : 0;
-        });
-      }
-
-      function renderContrast(container) {
-        container.innerHTML = `
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-            <label style="font-size:12px;color:var(--text-muted)">Foreground<input id="foregroundColor" type="color" value="#000000" style="display:block;width:100%;height:42px;margin-top:5px;border:0;cursor:pointer;background:transparent"></label>
-            <label style="font-size:12px;color:var(--text-muted)">Background<input id="backgroundColor" type="color" value="#ffffff" style="display:block;width:100%;height:42px;margin-top:5px;border:0;cursor:pointer;background:transparent"></label>
-          </div>
-          <div class="contrast-preview" id="contrastPreview">Sample Text</div>
-          <div class="contrast-ratio" id="contrastRatio">21:1</div>
-          <div class="contrast-status" id="contrastStatus"></div>
-        `;
-        const foreground = $("#foregroundColor", container), background = $("#backgroundColor", container), preview = $("#contrastPreview", container), ratio = $("#contrastRatio", container), status = $("#contrastStatus", container);
-        function luminance(hex) {
-          const rgb = [parseInt(hex.slice(1, 3), 16), parseInt(hex.slice(3, 5), 16), parseInt(hex.slice(5, 7), 16)].map(v => {
-            const c = v / 255; return c <= .03928 ? c / 12.92 : Math.pow((c + .055) / 1.055, 2.4);
-          });
-          return .2126 * rgb[0] + .7152 * rgb[1] + .0722 * rgb[2];
-        }
-        function update() {
-          const first = luminance(foreground.value), second = luminance(background.value);
-          const light = Math.max(first, second), dark = Math.min(first, second);
-          const value = (light + .05) / (dark + .05);
-          preview.style.color = foreground.value; preview.style.background = background.value;
-          ratio.textContent = `${value.toFixed(2)}:1`;
-          if (value >= 7) { status.textContent = "WCAG AAA pass"; status.style.color = "#10b981"; }
-          else if (value >= 4.5) { status.textContent = "WCAG AA pass"; status.style.color = "#f59e0b"; }
-          else { status.textContent = "WCAG contrast fail"; status.style.color = "#ef4444"; }
-        }
-        foreground.addEventListener("input", update); background.addEventListener("input", update); update();
-      }
-
-      function renderShadow(container) {
-        container.innerHTML = `
-          <div id="shadowPreview" style="width:150px;height:150px;margin:0 auto 24px;border-radius:14px;background:var(--surface-2);border:1px solid var(--border)"></div>
-          <label style="display:block;font-size:12px;color:var(--text-muted);margin-bottom:8px">Horizontal offset <input id="shadowX" type="range" min="-50" max="50" value="10" style="width:100%"></label>
-          <label style="display:block;font-size:12px;color:var(--text-muted);margin-bottom:8px">Vertical offset <input id="shadowY" type="range" min="-50" max="50" value="10" style="width:100%"></label>
-          <label style="display:block;font-size:12px;color:var(--text-muted);margin-bottom:8px">Blur <input id="shadowBlur" type="range" min="0" max="100" value="20" style="width:100%"></label>
-          <label style="display:block;font-size:12px;color:var(--text-muted);margin-bottom:8px">Opacity <input id="shadowOpacity" type="range" min="0" max="100" value="30" style="width:100%"></label>
-          <textarea class="code-area" id="shadowCode" readonly style="min-height:70px"></textarea>
-          <div class="tool-actions"><button class="tool-btn primary" id="copyShadow">Copy CSS</button></div>
-          <div class="tool-message" id="shadowMessage"></div>
-        `;
-        const preview = $("#shadowPreview", container), code = $("#shadowCode", container), message = $("#shadowMessage", container);
-        function update() {
-          const x = $("#shadowX", container).value, y = $("#shadowY", container).value, blur = $("#shadowBlur", container).value;
-          const opacity = Number($("#shadowOpacity", container).value) / 100;
-          const shadow = `${x}px ${y}px ${blur}px rgba(0,0,0,${opacity})`;
-          preview.style.boxShadow = shadow; code.value = `box-shadow: ${shadow};`;
-        }
-        $$("input[type='range']", container).forEach(input => { input.addEventListener("input", update); });
-        $("#copyShadow", container).addEventListener("click", async () => {
-          haptic();
-          try { await navigator.clipboard.writeText(code.value); message.textContent = "Copied to clipboard"; }
-          catch { message.textContent = "Copy was not available"; }
-        });
-        update();
-      }
-
-      function renderLorem(container) {
-        const sentence = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
-        container.innerHTML = `
-          <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-sub)">Paragraphs <input class="control" id="loremAmount" type="number" min="1" max="10" value="3" style="width:80px"></label>
-          <div class="tool-actions"><button class="tool-btn primary" id="generateLorem">Generate</button><button class="tool-btn" id="copyLorem">Copy</button></div>
-          <textarea class="code-area" id="loremOutput" readonly style="margin-top:12px"></textarea>
-        `;
-        const output = $("#loremOutput", container);
-        function generate() {
-          const amount = Math.min(10, Math.max(1, Number($("#loremAmount", container).value) || 3));
-          output.value = Array.from({ length: amount }, () => sentence).join("\n\n");
-        }
-        $("#generateLorem", container).addEventListener("click", () => { haptic(); generate(); });
-        $("#copyLorem", container).addEventListener("click", async () => {
-          haptic();
-          try { await navigator.clipboard.writeText(output.value); } catch {}
-        });
-        generate();
-      }
-
-      function renderBase64(container) {
-        container.innerHTML = `
-          <textarea class="code-area" id="base64Input" placeholder="Enter text…"></textarea>
-          <div class="tool-actions"><button class="tool-btn primary" id="encodeBase64">Encode</button><button class="tool-btn" id="decodeBase64">Decode</button></div>
-          <textarea class="code-area" id="base64Output" readonly placeholder="Result…" style="margin-top:12px"></textarea>
-        `;
-        const input = $("#base64Input", container), output = $("#base64Output", container);
-        $("#encodeBase64", container).addEventListener("click", () => {
-          haptic();
-          try { output.value = btoa(unescape(encodeURIComponent(input.value))); } catch { output.value = "Unable to encode"; }
-        });
-        $("#decodeBase64", container).addEventListener("click", () => {
-          haptic();
-          try { output.value = decodeURIComponent(escape(atob(input.value))); } catch { output.value = "Invalid Base64"; }
-        });
-      }
-
-      function renderRegex(container) {
-        container.innerHTML = `
-          <input class="control" id="regexPattern" placeholder="Pattern, for example: \\d+">
-          <textarea class="code-area" id="regexText" placeholder="Text to test…" style="margin-top:10px"></textarea>
-          <div id="regexResult" style="margin-top:10px;padding:12px;border-radius:8px;background:var(--surface-2);font-family:var(--mono);font-size:12px;white-space:pre-wrap;border:1px solid var(--border)">Enter a pattern and some text.</div>
-        `;
-        const pattern = $("#regexPattern", container), text = $("#regexText", container), result = $("#regexResult", container);
-        function test() {
-          if (!pattern.value) { result.textContent = "Enter a pattern and some text."; return; }
-          try {
-            const regex = new RegExp(pattern.value, "g"), matches = text.value.match(regex) || [];
-            result.textContent = matches.length ? `${matches.length} match(es):\n${matches.join("\n")}` : "No matches found.";
-          } catch (error) { result.textContent = `Invalid regular expression: ${error.message}`; }
-        }
-        pattern.addEventListener("input", test); text.addEventListener("input", test);
-      }
-
-      function renderPomodoro(container) {
-        container.innerHTML = `
-          <div class="timer-display" id="pomodoroDisplay">25:00</div>
-          <div class="center-actions"><button class="tool-btn primary" id="pomodoroStart">Start</button><button class="tool-btn" id="pomodoroReset">Reset</button></div>
-          <div class="center-actions" style="margin-top:14px">
-            <button class="tool-btn" data-minutes="25">Focus</button><button class="tool-btn" data-minutes="5">Short break</button><button class="tool-btn" data-minutes="15">Long break</button>
-          </div>
-        `;
-        const display = $("#pomodoroDisplay", container), start = $("#pomodoroStart", container);
-        let seconds = 25 * 60, timer = null, running = false;
-        function update() {
-          const m = Math.floor(seconds / 60), s = seconds % 60;
-          display.textContent = `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
-        }
-        start.addEventListener("click", () => {
-          haptic();
-          if (running) { clearInterval(timer); running = false; start.textContent = "Resume"; return; }
-          timer = setInterval(() => {
-            if (seconds <= 0) { clearInterval(timer); running = false; start.textContent = "Done"; return; }
-            seconds--; update();
-          }, 1000);
-          running = true; start.textContent = "Pause";
-        });
-        $("#pomodoroReset", container).addEventListener("click", () => {
-          haptic(); clearInterval(timer); seconds = 25 * 60; running = false; start.textContent = "Start"; update();
-        });
-        $$("[data-minutes]", container).forEach(button => {
-          button.addEventListener("click", () => {
-            haptic(); clearInterval(timer); seconds = Number(button.dataset.minutes) * 60; running = false; start.textContent = "Start"; update();
-          });
-        });
-        update();
-      }
-
-      function renderNotes(container) {
-        container.innerHTML = `
-          <textarea class="note-area" id="notesInput" placeholder="Write notes here…"></textarea>
-          <div class="tool-actions"><button class="tool-btn" id="clearNotes">Clear</button></div>
-          <div class="tool-message" id="notesMessage">Auto-saving locally</div>
-        `;
-        const input = $("#notesInput", container), message = $("#notesMessage", container);
-        input.value = localStorage.getItem("dih_notes") || "";
-        input.addEventListener("input", () => { localStorage.setItem("dih_notes", input.value); message.textContent = "Saved locally"; });
-        $("#clearNotes", container).addEventListener("click", () => {
-          haptic(); input.value = ""; localStorage.removeItem("dih_notes"); message.textContent = "Notes cleared";
-        });
-      }
-
-      function renderTasks(container) {
-        container.innerHTML = `
-          <div style="display:flex;gap:8px">
-            <input class="control" id="taskInput" placeholder="Add a task" style="flex:1">
-            <button class="tool-btn primary" id="addTask">Add</button>
-          </div>
-          <div class="task-list" id="taskList" style="display:grid;gap:8px;margin-top:12px"></div>
-        `;
-        const input = $("#taskInput", container), list = $("#taskList", container);
-        let tasks = JSON.parse(localStorage.getItem("dih_tasks") || "[]");
-        function save() { localStorage.setItem("dih_tasks", JSON.stringify(tasks)); }
-        function render() {
-          list.innerHTML = "";
-          if (!tasks.length) { list.innerHTML = `<p style="color:var(--text-muted);font-size:13px;text-align:center;padding:20px">No tasks yet.</p>`; return; }
-          tasks.forEach((task, index) => {
-            const row = document.createElement("div");
-            row.style.cssText = "display:flex;align-items:center;gap:10px;padding:12px;border-radius:8px;background:var(--surface-2);border:1px solid var(--border)";
-            row.innerHTML = `
-              <input type="checkbox" ${task.done ? "checked" : ""} style="accent-color:var(--accent);width:18px;height:18px;cursor:pointer">
-              <span style="flex:1;${task.done ? "text-decoration:line-through;color:var(--text-muted)" : ""}">${escapeHtml(task.text)}</span>
-              <button class="task-delete" style="background:none;color:var(--text-muted);font-size:18px;cursor:pointer;padding:4px">×</button>
-            `;
-            $("input", row).addEventListener("change", event => { tasks[index].done = event.target.checked; save(); render(); });
-            $(".task-delete", row).addEventListener("click", () => { haptic(); tasks.splice(index, 1); save(); render(); });
-            list.appendChild(row);
-          });
-        }
-        function addTask() {
-          if (!input.value.trim()) return;
-          tasks.push({ text: input.value.trim(), done: false });
-          input.value = ""; save(); render();
-        }
-        $("#addTask", container).addEventListener("click", () => { haptic(); addTask(); });
-        input.addEventListener("keydown", event => { if (event.key === "Enter") { haptic(); addTask(); } });
-        render();
-      }
-
-      function renderHabits(container) {
-        container.innerHTML = `
-          <div style="display:flex;gap:8px">
-            <input class="control" id="habitInput" placeholder="Add a habit" style="flex:1">
-            <button class="tool-btn primary" id="addHabit">Add</button>
-          </div>
-          <div id="habitList" style="display:grid;gap:10px;margin-top:12px"></div>
-        `;
-        const input = $("#habitInput", container), list = $("#habitList", container);
-        let habits = JSON.parse(localStorage.getItem("dih_habits") || "[]");
-        function save() { localStorage.setItem("dih_habits", JSON.stringify(habits)); }
-        function render() {
-          list.innerHTML = "";
-          habits.forEach((habit, index) => {
-            const row = document.createElement("div");
-            row.style.cssText = "padding:14px;border-radius:8px;background:var(--surface-2);border:1px solid var(--border)";
-            row.innerHTML = `
-              <div style="display:flex;justify-content:space-between;gap:8px;margin-bottom:10px">
-                <strong>${escapeHtml(habit.name)}</strong>
-                <button class="habit-delete" style="background:none;color:var(--text-muted);font-size:18px;cursor:pointer;padding:0">×</button>
-              </div>
-              <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px">
-                ${["M","T","W","T","F","S","S"].map((day, dayIndex) => `
-                  <button class="habit-day" data-day="${dayIndex}" style="padding:8px 2px;border:0;border-radius:6px;cursor:pointer;background:${habit.days?.includes(dayIndex) ? "var(--accent)" : "var(--surface-3)"};color:${habit.days?.includes(dayIndex) ? "white" : "var(--text-sub)"};font-size:11px;font-weight:600;transition:0.2s">${day}</button>
-                `).join("")}
-              </div>
-            `;
-            $(".habit-delete", row).addEventListener("click", () => { haptic(); habits.splice(index, 1); save(); render(); });
-            $$(".habit-day", row).forEach(dayButton => {
-              dayButton.addEventListener("click", () => {
-                habit.days ||= [];
-                const dayIndex = Number(dayButton.dataset.day), pos = habit.days.indexOf(dayIndex);
-                if (pos >= 0) habit.days.splice(pos, 1); else habit.days.push(dayIndex);
-                save(); render();
-              });
-            });
-            list.appendChild(row);
-          });
-        }
-        function addHabit() {
-          if (!input.value.trim()) return;
-          habits.push({ name: input.value.trim(), days: [] });
-          input.value = ""; save(); render();
-        }
-        $("#addHabit", container).addEventListener("click", () => { haptic(); addHabit(); });
-        input.addEventListener("keydown", event => { if (event.key === "Enter") { haptic(); addHabit(); } });
-        render();
-      }
-
-      function renderMeeting(container) {
-        container.innerHTML = `
-          <input class="control" id="meetingTitle" placeholder="Meeting title">
-          <div style="height:10px"></div>
-          <textarea class="note-area" id="meetingNotes" placeholder="Agenda, discussion points and actions…"></textarea>
-          <div class="tool-actions"><button class="tool-btn primary" id="saveMeeting">Save notes</button><button class="tool-btn" id="clearMeeting">Clear</button></div>
-          <div class="tool-message" id="meetingMessage"></div>
-        `;
-        const title = $("#meetingTitle", container), notes = $("#meetingNotes", container), message = $("#meetingMessage", container);
-        const saved = JSON.parse(localStorage.getItem("dih_meeting") || "null");
-        if (saved) { title.value = saved.title || ""; notes.value = saved.notes || ""; }
-        $("#saveMeeting", container).addEventListener("click", () => {
-          haptic();
-          localStorage.setItem("dih_meeting", JSON.stringify({ title: title.value, notes: notes.value }));
-          message.textContent = "Meeting notes saved";
-        });
-        $("#clearMeeting", container).addEventListener("click", () => {
-          haptic(); title.value = ""; notes.value = ""; localStorage.removeItem("dih_meeting"); message.textContent = "Meeting notes cleared";
-        });
-      }
-
-      function renderFont(container) {
-        container.innerHTML = `
-          <input class="control" id="fontText" value="The quick brown fox jumps over the lazy dog">
-          <div style="height:10px"></div>
-          <select class="control" id="fontFamily">
-            <option value="Inter, sans-serif">Inter</option><option value="Arial, sans-serif">Arial</option>
-            <option value="Georgia, serif">Georgia</option><option value="Verdana, sans-serif">Verdana</option>
-            <option value="'Courier New', monospace">Courier New</option>
-          </select>
-          <label style="display:block;margin-top:12px;color:var(--text-muted);font-size:12px">Font size <input id="fontSize" type="range" min="12" max="72" value="26" style="width:100%"></label>
-          <div id="fontPreview" style="margin-top:14px;padding:24px;border-radius:8px;background:var(--surface-2);text-align:center;font-size:26px;border:1px solid var(--border)">The quick brown fox jumps over the lazy dog</div>
-        `;
-        const text = $("#fontText", container), family = $("#fontFamily", container), size = $("#fontSize", container), preview = $("#fontPreview", container);
-        function update() { preview.textContent = text.value || "Preview text"; preview.style.fontFamily = family.value; preview.style.fontSize = `${size.value}px`; }
-        text.addEventListener("input", update); family.addEventListener("change", update); size.addEventListener("input", update);
-      }
-
-      function renderTimezone(container) {
-        container.innerHTML = `
-          <select class="control" id="timezoneSelect">
-            <option value="Europe/London">London</option><option value="Asia/Tokyo">Tokyo</option>
-            <option value="America/New_York">New York</option><option value="America/Los_Angeles">Los Angeles</option>
-            <option value="Australia/Sydney">Sydney</option><option value="Europe/Paris">Paris</option>
-          </select>
-          <div id="timezoneClock" style="margin-top:16px;padding:20px;border-radius:8px;background:var(--accent-soft);color:var(--accent);font-family:var(--mono);font-size:24px;text-align:center;border:1px solid var(--border)"></div>
-        `;
-        const select = $("#timezoneSelect", container), clock = $("#timezoneClock", container);
-        function update() {
-          clock.textContent = new Intl.DateTimeFormat("en-GB", { timeZone: select.value, dateStyle: "medium", timeStyle: "medium" }).format(new Date());
-        }
-        select.addEventListener("change", update); update();
-        const interval = setInterval(() => {
-          if (!overlay.classList.contains("active")) { clearInterval(interval); return; }
-          update();
-        }, 1000);
-      }
-
-      function renderPalette(container) {
-        container.innerHTML = `
-          <input id="paletteColor" type="color" value="#3B82F6" style="width:100%;height:48px;border:0;background:transparent;cursor:pointer;border-radius:8px">
-          <select class="control" id="paletteMode" style="margin-top:10px">
-            <option value="analogous">Analogous</option><option value="triadic">Triadic</option><option value="complementary">Complementary</option>
-          </select>
-          <div id="palettePreview" style="display:grid;grid-template-columns:repeat(5,1fr);height:72px;margin-top:14px;border-radius:8px;overflow:hidden;border:1px solid var(--border)"></div>
-          <div id="paletteValues" style="display:grid;gap:6px;margin-top:12px"></div>
-        `;
-        const color = $("#paletteColor", container), mode = $("#paletteMode", container), preview = $("#palettePreview", container), values = $("#paletteValues", container);
-        function hexToHsl(hex) {
-          let r = parseInt(hex.slice(1, 3), 16) / 255, g = parseInt(hex.slice(3, 5), 16) / 255, b = parseInt(hex.slice(5, 7), 16) / 255;
-          const max = Math.max(r, g, b), min = Math.min(r, g, b), diff = max - min;
-          let h = 0, s = 0, l = (max + min) / 2;
-          if (diff) {
-            s = diff / (1 - Math.abs(2 * l - 1));
-            if (max === r) h = 60 * (((g - b) / diff) % 6);
-            else if (max === g) h = 60 * ((b - r) / diff + 2);
-            else h = 60 * ((r - g) / diff + 4);
-          }
-          if (h < 0) h += 360;
-          return [h, s * 100, l * 100];
-        }
-        function hslToHex(h, s, l) {
-          s /= 100; l /= 100;
-          const c = (1 - Math.abs(2 * l - 1)) * s, x = c * (1 - Math.abs((h / 60) % 2 - 1)), m = l - c / 2;
-          let r = 0, g = 0, b = 0;
-          if (h < 60) [r, g, b] = [c, x, 0];
-          else if (h < 120) [r, g, b] = [x, c, 0];
-          else if (h < 180) [r, g, b] = [0, c, x];
-          else if (h < 240) [r, g, b] = [0, x, c];
-          else if (h < 300) [r, g, b] = [x, 0, c];
-          else [r, g, b] = [c, 0, x];
-          return "#" + [r, g, b].map(v => Math.round((v + m) * 255).toString(16).padStart(2, "0")).join("");
-        }
-        function update() {
-          const [h, s, l] = hexToHsl(color.value);
-          const offsets = mode.value === "triadic" ? [0, 120, 240, 60, 300] : mode.value === "complementary" ? [0, 180, 25, 205, 335] : [0, 30, 60, 330, 300];
-          const colours = offsets.map(offset => hslToHex((h + offset) % 360, s, l));
-          preview.innerHTML = colours.map(v => `<div style="background:${v}"></div>`).join("");
-          values.innerHTML = colours.map(v => `<button class="color-value" data-palette-value="${v}">${v}</button>`).join("");
-          $$(".color-value", values).forEach(button => {
-            button.addEventListener("click", async () => {
-              haptic();
-              try { await navigator.clipboard.writeText(button.dataset.paletteValue); } catch {}
-            });
-          });
-        }
-        color.addEventListener("input", update); mode.addEventListener("change", update); update();
-      }
-
-      function renderApi(container) {
-        container.innerHTML = `
-          <input class="control" id="apiUrl" type="url" value="https://jsonplaceholder.typicode.com/todos/1" placeholder="https://example.com/api">
-          <div class="tool-actions"><button class="tool-btn primary" id="sendApi">Send GET request</button></div>
-          <textarea class="code-area" id="apiOutput" readonly placeholder="Response…" style="margin-top:12px"></textarea>
-        `;
-        const url = $("#apiUrl", container), output = $("#apiOutput", container);
-        $("#sendApi", container).addEventListener("click", async () => {
-          haptic(); output.value = "Loading…";
-          try {
-            const response = await fetch(url.value);
-            const data = await response.json();
-            output.value = JSON.stringify(data, null, 2);
-          } catch (error) { output.value = `Request failed: ${error.message}`; }
-        });
-      }
-
-      function renderInvoice(container) {
-        container.innerHTML = `
-          <div id="invoiceRows" style="display:grid;gap:8px"></div>
-          <div class="tool-actions"><button class="tool-btn" id="addInvoiceRow">Add item</button></div>
-          <div style="margin-top:14px;padding:14px;border-radius:8px;background:var(--accent-soft);color:var(--accent);font-family:var(--mono);text-align:right;border:1px solid var(--border)">Total: <span id="invoiceTotal">£0.00</span></div>
-        `;
-        const rows = $("#invoiceRows", container), total = $("#invoiceTotal", container);
-        let items = [];
-        function render() {
-          rows.innerHTML = items.map((item, index) => `
-            <div style="display:grid;grid-template-columns:1fr 80px 80px 34px;gap:6px">
-              <input class="control invoice-description" data-index="${index}" value="${escapeHtml(item.description)}" placeholder="Description">
-              <input class="control invoice-quantity" data-index="${index}" type="number" min="0" value="${item.quantity}">
-              <input class="control invoice-price" data-index="${index}" type="number" min="0" step="0.01" value="${item.price}">
-              <button class="tool-btn invoice-delete" data-index="${index}" style="min-height:44px;padding:0">×</button>
-            </div>
-          `).join("");
-          const sum = items.reduce((amount, item) => amount + item.quantity * item.price, 0);
-          total.textContent = `£${sum.toFixed(2)}`;
-          $$(".invoice-description", rows).forEach(input => { input.addEventListener("input", event => { items[Number(event.target.dataset.index)].description = event.target.value; }); });
-          $$(".invoice-quantity", rows).forEach(input => { input.addEventListener("input", event => { items[Number(event.target.dataset.index)].quantity = Number(event.target.value) || 0; render(); }); });
-          $$(".invoice-price", rows).forEach(input => { input.addEventListener("input", event => { items[Number(event.target.dataset.index)].price = Number(event.target.value) || 0; render(); }); });
-          $$(".invoice-delete", rows).forEach(button => { button.addEventListener("click", () => { haptic(); items.splice(Number(button.dataset.index), 1); render(); }); });
-        }
-        $("#addInvoiceRow", container).addEventListener("click", () => { haptic(); items.push({ description: "", quantity: 1, price: 0 }); render(); });
-        items.push({ description: "", quantity: 1, price: 0 });
-        render();
-      }
-
-      function renderBudget(container) {
-        container.innerHTML = `
-          <input class="control" id="budgetIncome" type="number" placeholder="Monthly income">
-          <div style="height:8px"></div>
-          <input class="control" id="budgetHousing" type="number" placeholder="Housing">
-          <div style="height:8px"></div>
-          <input class="control" id="budgetBills" type="number" placeholder="Bills">
-          <div style="height:8px"></div>
-          <input class="control" id="budgetFood" type="number" placeholder="Food">
-          <div style="height:8px"></div>
-          <input class="control" id="budgetOther" type="number" placeholder="Other spending">
-          <div id="budgetResult" style="margin-top:14px;padding:16px;border-radius:8px;background:var(--accent-soft);color:var(--accent);font-family:var(--mono);text-align:center;border:1px solid var(--border)">Enter your figures</div>
-        `;
-        const fields = $$("input", container), result = $("#budgetResult", container);
-        function update() {
-          const income = Number($("#budgetIncome", container).value) || 0;
-          const expenses = fields.filter(f => f.id !== "budgetIncome").reduce((sum, f) => sum + (Number(f.value) || 0), 0);
-          result.textContent = `Remaining: £${(income - expenses).toFixed(2)}`;
-        }
-        fields.forEach(field => field.addEventListener("input", update));
-      }
-
-      function renderImage(container) {
-        container.innerHTML = `
-          <input id="imageInput" type="file" accept="image/*" style="display:none">
-          <button class="tool-btn primary" id="selectImage" style="width:100%">Select Image</button>
-          <div id="imageResult" style="margin-top:14px;padding:18px;border-radius:8px;background:var(--surface-2);color:var(--text-sub);text-align:center;border:1px solid var(--border)">Select an image</div>
-        `;
-        const input = $("#imageInput", container), result = $("#imageResult", container);
-        $("#selectImage", container).addEventListener("click", () => { haptic(); input.click(); });
-        input.addEventListener("change", () => {
-          const file = input.files[0]; if (!file) return;
-          const image = new Image();
-          image.onload = () => { result.textContent = `${file.name} — ${image.width} × ${image.height}px`; };
-          image.src = URL.createObjectURL(file);
-        });
-      }
-
-      function renderBreathing(container) {
-        container.innerHTML = `
-          <div style="text-align:center">
-            <h3 id="breathingLabel" style="margin-bottom:8px">Ready?</h3>
-            <p style="color:var(--text-muted);font-size:12px;margin-bottom:24px">4 seconds inhale · 7 seconds hold · 8 seconds exhale</p>
-            <div id="breathingCircle" style="width:120px;height:120px;display:grid;place-items:center;margin:0 auto 28px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-weight:700;font-size:18px;transition:transform 4s ease-in-out;border:2px solid var(--accent)">Start</div>
-            <div class="center-actions"><button class="tool-btn primary" id="startBreathing">Begin</button><button class="tool-btn" id="stopBreathing">Stop</button></div>
-          </div>
-        `;
-        const label = $("#breathingLabel", container), circle = $("#breathingCircle", container);
-        let active = false, timeoutId;
-        function cycle() {
-          if (!active) return;
-          label.textContent = "Inhale"; circle.textContent = "In"; circle.style.transform = "scale(1.45)";
-          timeoutId = setTimeout(() => {
-            if (!active) return;
-            label.textContent = "Hold"; circle.textContent = "Hold";
-            timeoutId = setTimeout(() => {
-              if (!active) return;
-              label.textContent = "Exhale"; circle.textContent = "Out"; circle.style.transform = "scale(1)";
-              timeoutId = setTimeout(cycle, 8000);
-            }, 7000);
-          }, 4000);
-        }
-        $("#startBreathing", container).addEventListener("click", () => { haptic(); if (!active) { active = true; cycle(); } });
-        $("#stopBreathing", container).addEventListener("click", () => { haptic(); active = false; clearTimeout(timeoutId); label.textContent = "Paused"; circle.textContent = "Start"; circle.style.transform = "scale(1)"; });
-      }
-
-      const RENDERERS = {
-        calculator: renderCalculator, converter: renderConverter, password: renderPassword, color: renderColor,
-        json: renderJson, markdown: renderMarkdown, wordcount: renderWordCount, contrast: renderContrast,
-        shadow: renderShadow, lorem: renderLorem, base64: renderBase64, regex: renderRegex,
-        pomodoro: renderPomodoro, notes: renderNotes, tasks: renderTasks, habits: renderHabits,
-        meeting: renderMeeting, font: renderFont, timezone: renderTimezone, palette: renderPalette,
-        api: renderApi, invoice: renderInvoice, budget: renderBudget, image: renderImage, breathing: renderBreathing
-      };
-
       function escapeHtml(value) {
         return String(value).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
       }
 
+      renderAiShowcase();
       renderApps();
     })();
   </script>
