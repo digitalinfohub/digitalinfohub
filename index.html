@@ -70,7 +70,7 @@
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 *:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
-html,body{height:100%;height:100dvh;font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;overflow:hidden}
+html,body{height:100%;min-height:100dvh;font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;overflow:hidden}
 body{display:flex;flex-direction:column}
 body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-gradient(ellipse at 50% 0%,rgba(10,132,255,.08) 0%,transparent 60%)}
 
@@ -129,7 +129,7 @@ body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-grad
 .desktop-folder-icon{font-size:28px}
 .desktop-folder-label{font-size:11px;color:var(--text-sub);font-weight:600;letter-spacing:.02em}
 
-.os-desktop{flex:1;display:flex;flex-direction:column;min-height:0;position:relative;overflow-y:auto;overflow-x:hidden;scroll-behavior:smooth}
+.os-desktop{flex:1;height:100%;display:flex;flex-direction:column;min-height:0;position:relative;overflow-y:auto;overflow-x:hidden;scroll-behavior:smooth}
 .os-desktop::-webkit-scrollbar{width:8px}
 .os-desktop::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
 .chat-container{flex:none;width:100%;max-width:840px;margin:0 auto;overflow-y:visible;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding:20px 16px 30px 16px;scroll-behavior:smooth;position:relative;display:none}
@@ -259,9 +259,16 @@ input:checked+.slider:before{transform:translateX(20px);background:var(--accent)
 
 /* ===== Homepage Content ===== */
 .home-content{width:100%;max-width:1080px;margin:0 auto;padding:0 24px;display:flex;flex-direction:column;gap:56px}
-body.chatting .home-content,body.chatting #homeTools,body.chatting #homeGuides,body.chatting #homeExploreMore,body.chatting #homeDailyInsight,body.chatting .home-footer{display:none}
+body.chatting .home-content,
+body.chatting #homeTools,
+body.chatting #homeGuides,
+body.chatting #homeExploreMore,
+body.chatting #homeDailyInsight,
+body.chatting .home-footer {
+  display: none !important;
+}
 
-.hero{text-align:center;padding:56px 0 8px;animation:heroIn .9s var(--ease) both;position:relative}
+.hero{text-align:center;padding:56px 0 8px;animation:heroIn .9s var(--ease) both;position:relative;opacity:1}
 @keyframes heroIn{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 .hero-glow{position:absolute;top:-30%;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,var(--accent-glow) 0%,transparent 70%);opacity:0.4;pointer-events:none;z-index:-1;animation:pulseGlow 8s ease-in-out infinite alternate}
 @keyframes pulseGlow{0%{transform:translateX(-50%) scale(1);opacity:0.3}100%{transform:translateX(-50%) scale(1.15);opacity:0.5}}
@@ -364,9 +371,33 @@ body.chatting .home-content,body.chatting #homeTools,body.chatting #homeGuides,b
   border: 1px solid rgba(10, 132, 255, 0.25);
   box-shadow: 0 30px 90px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(10, 132, 255, 0.1);
 }
-#newsletterModal input[type="email"]:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-soft);
+
+/* Back to Top Button */
+#backToTop {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 4px 12px rgba(10,132,255,0.3);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s var(--ease);
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+}
+#backToTop:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(10,132,255,0.4);
 }
 
 @media (max-width:767px){
@@ -659,6 +690,9 @@ body.chatting .home-content,body.chatting #homeTools,body.chatting #homeGuides,b
   </footer>
 </main>
 
+<!-- Back to Top Button -->
+<button id="backToTop" aria-label="Back to top">↑</button>
+
 <div class="widget-layer" id="widgetLayer"></div>
 
 <!-- Guide Modal -->
@@ -722,7 +756,7 @@ body.chatting .home-content,body.chatting #homeTools,body.chatting #homeGuides,b
   </div>
 </div>
 
-<!-- Newsletter Popup Modal -->
+<!-- Newsletter Popup Modal (Redirects to /subscribe) -->
 <div class="modal-overlay" id="newsletterModal">
   <div class="modal-content">
     <div class="modal-header">
@@ -732,16 +766,15 @@ body.chatting .home-content,body.chatting #homeTools,body.chatting #homeGuides,b
       <button class="os-btn" onclick="window.closeNewsletterModal()">✕</button>
     </div>
     <div class="modal-body" style="text-align: center;">
-      <p style="color: var(--text-sub); margin-bottom: 20px; font-size: 14px; line-height: 1.6;">
+      <p style="color: var(--text-sub); margin-bottom: 24px; font-size: 14px; line-height: 1.6;">
         Get weekly curated tech intelligence, market moves, and exclusive tool discoveries delivered straight to your inbox. No spam, ever.
       </p>
-      <form id="newsletterForm" style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px;">
-        <input type="email" placeholder="Enter your email address" required style="width: 100%; padding: 12px 16px; background: var(--surface-3); border: 1px solid var(--border); border-radius: 10px; color: var(--text); font-size: 14px; outline: none; transition: border-color 0.2s;">
-        <button type="submit" class="btn-primary" style="justify-content: center; border-radius: 10px;">Subscribe Now</button>
-      </form>
-      <label style="display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 12px; color: var(--text-muted); cursor: pointer; user-select: none; margin-top: 8px;">
+      <a href="/subscribe" class="btn-primary" style="justify-content: center; border-radius: 10px; width: 100%; margin-bottom: 16px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
+        Go to Subscribe Page <span style="font-size: 16px;">→</span>
+      </a>
+      <label style="display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 12px; color: var(--text-muted); cursor: pointer; user-select: none;">
         <input type="checkbox" id="neverShowNewsletter" style="accent-color: var(--accent); width: 14px; height: 14px;">
-        <span>I've already subscribed / Don't show this again</span>
+        <span>Don't show this popup again</span>
       </label>
     </div>
   </div>
@@ -1393,14 +1426,16 @@ tick(); setInterval(tick,1000);
   renderTicker(c,s);
 })();
 
-// ===== FIXED: Homepage scroll reveal animations =====
+// ===== Homepage enhancements: scroll reveal animations & Daily Insight =====
 (function(){
-  // FIXED: Elements are now visible by default on desktop, only animate on mobile
+  // CRITICAL FIX: Ensure body is not stuck in chatting mode on load
+  document.body.classList.remove('chatting');
+
   const isMobile = window.innerWidth < 768;
   const reveals = $$('.reveal');
   
+  // 1. Desktop: Make everything visible immediately. Mobile: Animate on scroll.
   if (isMobile && 'IntersectionObserver' in window) {
-    // Only use scroll animations on mobile
     const io = new IntersectionObserver(entries => {
       entries.forEach(en => {
         if (en.isIntersecting) {
@@ -1411,18 +1446,17 @@ tick(); setInterval(tick,1000);
     }, { threshold: 0.1 });
     
     reveals.forEach(el => {
-      el.classList.add('animating'); // Hide initially on mobile
+      el.classList.add('animating');
       io.observe(el);
     });
   } else {
-    // Desktop: Make everything visible immediately
     reveals.forEach(el => {
       el.style.opacity = '1';
       el.style.transform = 'translateY(0)';
     });
   }
 
-  // Smart "Welcome Back" Greeting
+  // 2. Smart "Welcome Back" Greeting
   const lastVisit = store.get('dih_last_visit', '');
   const today = new Date().toDateString();
   const heroSub = $('#heroSubText');
@@ -1440,7 +1474,7 @@ tick(); setInterval(tick,1000);
     store.set('dih_last_visit', today);
   }
 
-  // Daily Insight Feature
+  // 3. Daily Insight Feature with One-Click Copy
   const DAILY_INSIGHTS = [
     { icon: '💡', title: 'Productivity Hack', text: 'Use the "2-Minute Rule": If a task takes less than 2 minutes, do it immediately instead of adding it to your to-do list.' },
     { icon: '🔒', title: 'Security Tip', text: 'Enable passkeys wherever possible. They are more secure than passwords and resistant to phishing attacks.' },
@@ -1462,15 +1496,16 @@ tick(); setInterval(tick,1000);
   const insight = DAILY_INSIGHTS[insightIndex];
   const insightContainer = document.createElement('section');
   insightContainer.id = 'homeDailyInsight';
-  insightContainer.style.cssText = 'opacity:1;transform:none;'; // Ensure visible
+  insightContainer.style.cssText = 'opacity:1;transform:none;';
   insightContainer.innerHTML = `
-    <div class="explore-card" style="grid-column: 1 / -1; background: linear-gradient(135deg, var(--accent-soft), var(--surface-3)); border-color: var(--accent);">
-      <div style="display:flex;align-items:flex-start;gap:16px;width:100%">
+    <div class="explore-card" style="grid-column: 1 / -1; background: linear-gradient(135deg, var(--accent-soft), var(--surface-3)); border-color: var(--accent); position: relative;">
+      <button class="os-btn" id="copyInsightBtn" style="position: absolute; top: 16px; right: 16px; width: 32px; height: 32px; padding: 0; border-radius: 8px;" title="Copy to clipboard">📋</button>
+      <div style="display:flex;align-items:flex-start;gap:16px;width:100%; padding-right: 40px;">
         <div class="explore-icon" style="background:var(--accent);color:#fff;font-size:24px;width:48px;height:48px;flex-shrink:0">${insight.icon}</div>
         <div style="flex:1">
           <div style="font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">Daily Insight · ${new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}</div>
           <h4 style="font-size:16px;font-weight:700;margin-bottom:6px">${insight.title}</h4>
-          <span style="font-size:13px;color:var(--text-sub);line-height:1.6">${insight.text}</span>
+          <span style="font-size:13px;color:var(--text-sub);line-height:1.6" id="insightText">${insight.text}</span>
         </div>
       </div>
     </div>
@@ -1481,7 +1516,33 @@ tick(); setInterval(tick,1000);
     subscribeBand.parentNode.insertBefore(insightContainer, subscribeBand);
   }
 
-  // Newsletter Popup Logic
+  // Copy button logic
+  setTimeout(() => {
+    const copyBtn = $('#copyInsightBtn');
+    if (copyBtn) {
+      copyBtn.addEventListener('click', () => {
+        const text = $('#insightText').textContent;
+        navigator.clipboard.writeText(text).then(() => {
+          showToast('Insight copied to clipboard!', 'success');
+          copyBtn.textContent = '✅';
+          setTimeout(() => { copyBtn.textContent = '📋'; }, 2000);
+        }).catch(() => {
+          showToast('Failed to copy', 'error');
+        });
+      });
+    }
+  }, 100);
+
+  // 4. First-Visit Pro Tip Toast (Desktop only)
+  const hasSeenShortcut = store.get('dih_seen_shortcut', 'false');
+  if (hasSeenShortcut === 'false' && !isMobile) {
+    setTimeout(() => {
+      showToast('💡 Pro Tip: Press "/" or "Cmd/Ctrl+K" to instantly focus the AI search.', 'info');
+      store.set('dih_seen_shortcut', 'true');
+    }, 2500);
+  }
+
+  // 5. Newsletter Popup Logic
   const neverShow = store.get('dih_newsletter_dismissed', 'false') === 'true';
   if (!neverShow) {
     setTimeout(() => {
@@ -1501,17 +1562,38 @@ window.closeNewsletterModal = () => {
   $('#newsletterModal').classList.remove('active');
 };
 
-$('#newsletterForm').addEventListener('submit', (e) => {
-  e.preventDefault();
-  const email = e.target.querySelector('input[type="email"]').value;
-  showToast('Successfully subscribed! Welcome aboard.', 'success');
-  store.set('dih_newsletter_dismissed', 'true');
-  $('#newsletterModal').classList.remove('active');
-  e.target.reset();
-});
-
 $('#newsletterModal').addEventListener('click', e => {
   if (e.target.id === 'newsletterModal') window.closeNewsletterModal();
+});
+
+// Global Keyboard Shortcuts
+document.addEventListener('keydown', (e) => {
+  // Focus chat input on '/' or 'Cmd/Ctrl+K'
+  if ((e.key === '/' || (e.metaKey && e.key === 'k') || (e.ctrlKey && e.key === 'k')) && !e.target.matches('input, textarea')) {
+    e.preventDefault();
+    document.body.classList.add('chatting');
+    $('#chatInput').focus();
+  }
+  // Exit chat mode on Escape
+  if (e.key === 'Escape' && document.body.classList.contains('chatting')) {
+    window.exitChatMode();
+  }
+});
+
+// Back to Top Button Logic
+const backToTopBtn = $('#backToTop');
+const osDesktop = $('#osDesktop');
+osDesktop.addEventListener('scroll', () => {
+  if (osDesktop.scrollTop > 400) {
+    backToTopBtn.style.opacity = '1';
+    backToTopBtn.style.pointerEvents = 'auto';
+  } else {
+    backToTopBtn.style.opacity = '0';
+    backToTopBtn.style.pointerEvents = 'none';
+  }
+});
+backToTopBtn.addEventListener('click', () => {
+  osDesktop.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
 })();
