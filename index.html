@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
 <meta name="theme-color" content="#050505">
@@ -260,16 +259,18 @@ input:checked+.slider:before{transform:translateX(20px);background:var(--accent)
 
 /* ===== Homepage Content ===== */
 .home-content{width:100%;max-width:1080px;margin:0 auto;padding:0 24px;display:flex;flex-direction:column;gap:56px}
-body.chatting .home-content,body.chatting #homeTools,body.chatting #homeGuides,body.chatting #homeExploreMore,body.chatting .home-footer{display:none}
+body.chatting .home-content,body.chatting #homeTools,body.chatting #homeGuides,body.chatting #homeExploreMore,body.chatting #homeDailyInsight,body.chatting .home-footer{display:none}
 
-.hero{text-align:center;padding:56px 0 8px;animation:heroIn .9s var(--ease) both}
+.hero{text-align:center;padding:56px 0 8px;animation:heroIn .9s var(--ease) both;position:relative}
 @keyframes heroIn{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.hero-glow{position:absolute;top:-30%;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,var(--accent-glow) 0%,transparent 70%);opacity:0.4;pointer-events:none;z-index:-1;animation:pulseGlow 8s ease-in-out infinite alternate}
+@keyframes pulseGlow{0%{transform:translateX(-50%) scale(1);opacity:0.3}100%{transform:translateX(-50%) scale(1.15);opacity:0.5}}
 .hero-badge{display:inline-flex;align-items:center;gap:8px;padding:7px 16px;background:var(--accent-soft);border:1px solid rgba(10,132,255,.25);border-radius:var(--radius-pill);font-size:12px;font-weight:600;color:var(--accent);margin-bottom:22px;font-family:var(--mono);letter-spacing:.03em}
 .hero-badge .status-dot{width:7px;height:7px}
 .hero-title{font-size:clamp(32px,5.5vw,54px);font-weight:900;letter-spacing:-.035em;line-height:1.12;margin-bottom:16px}
 .hero-title .grad{background:linear-gradient(120deg,var(--accent),#5E5CE6 45%,var(--purple));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;background-size:200% 200%;animation:gradShift 6s ease infinite}
 @keyframes gradShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
-.hero-sub{font-size:16px;color:var(--text-sub);max-width:620px;margin:0 auto 30px;line-height:1.65}
+.hero-sub{font-size:16px;color:var(--text-sub);max-width:620px;margin:0 auto 30px;line-height:1.65;transition:opacity 0.3s ease}
 .hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
 .btn-primary,.btn-ghost{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:var(--radius-pill);font-size:14px;font-weight:700;text-decoration:none;font-family:var(--font);cursor:pointer;transition:all .25s var(--ease);border:none}
 .btn-primary{background:linear-gradient(135deg,var(--accent),#5E5CE6);color:#fff;box-shadow:0 6px 24px rgba(10,132,255,.35)}
@@ -349,10 +350,24 @@ body.chatting .home-content,body.chatting #homeTools,body.chatting #homeGuides,b
 .footer-links a:hover{color:var(--accent)}
 .footer-copy{font-size:11.5px;color:var(--text-muted);font-family:var(--mono)}
 
-.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+/* FIXED: Reveal animations - make elements visible by default, animate only when scrolling */
+.reveal{opacity:1;transform:translateY(0);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.reveal.animating{opacity:0;transform:translateY(26px)}
 .reveal.visible{opacity:1;transform:translateY(0)}
 .reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}.reveal.d3{transition-delay:.24s}
+
 @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}*{animation-duration:.01ms!important}}
+
+/* Newsletter Modal Specifics */
+#newsletterModal .modal-content {
+  max-width: 460px;
+  border: 1px solid rgba(10, 132, 255, 0.25);
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(10, 132, 255, 0.1);
+}
+#newsletterModal input[type="email"]:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
 
 @media (max-width:767px){
   .os-topbar{padding:0 12px;gap:8px}
@@ -384,6 +399,10 @@ body.chatting .home-content,body.chatting #homeTools,body.chatting #homeGuides,b
   .market-sparkline-wrapper{display:none}
   .app-grid{grid-template-columns:repeat(2,1fr);gap:12px}
   .right-sidebar{width:260px}
+  
+  /* Mobile reveal animations */
+  .reveal{opacity:0;transform:translateY(26px)}
+  .reveal.visible{opacity:1;transform:translateY(0)}
 }
 @media (max-width:380px){.ticker-shell{display:none}}
 </style>
@@ -435,12 +454,7 @@ body.chatting .home-content,body.chatting #homeTools,body.chatting #homeGuides,b
     <a href="/advertise" class="drawer-link">📣 Advertise</a>
     <a href="/subscribe" class="drawer-cta">✨ Subscribe Now</a>
     <div class="drawer-ad">
-      <ins class="adsbygoogle"
-           style="display:block"
-           data-ad-client="ca-pub-5443646750699471"
-           data-ad-slot="8451723433"
-           data-ad-format="auto"
-           data-full-width-responsive="true"></ins>
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5443646750699471" data-ad-slot="8451723433" data-ad-format="auto" data-full-width-responsive="true"></ins>
     </div>
   </div>
 </div>
@@ -460,7 +474,6 @@ body.chatting .home-content,body.chatting #homeTools,body.chatting #homeGuides,b
 
 <main class="os-desktop" id="osDesktop">
 
-  <!-- Eezee Analytics Component -->
   <div class="counter-wrap">
     <script async src="https://e-zeeinternet.com/t.js" data-site="ezi_992ceef652fd" data-mode="gdpr" data-theme="dark" data-shape="rounded" data-layout="row"></script>
     <div data-ezee-counter></div>
@@ -469,9 +482,10 @@ body.chatting .home-content,body.chatting #homeTools,body.chatting #homeGuides,b
   <div class="home-content" id="homeContent">
     <!-- Section 1: Introduction and Hero -->
     <section class="hero" id="homeHero">
+      <div class="hero-glow"></div>
       <div class="hero-badge"><span class="status-dot"></span> DISCOVER · USE · LEARN</div>
       <h1 class="hero-title">Technology, AI &amp; Digital Tools<br><span class="grad">That Matter.</span></h1>
-      <p class="hero-sub">Discover the latest developments in technology and AI, explore useful digital tools, and learn practical ways to make technology work better for you.</p>
+      <p class="hero-sub" id="heroSubText">Discover the latest developments in technology and AI, explore useful digital tools, and learn practical ways to make technology work better for you.</p>
       <div class="hero-actions">
         <a href="/blog" class="btn-primary">📝 Explore Latest Articles</a>
         <a href="/software" class="btn-ghost">🛠️ Discover Digital Tools</a>
@@ -587,7 +601,12 @@ body.chatting .home-content,body.chatting #homeTools,body.chatting #homeGuides,b
       </div>
     </section>
 
-    <!-- Section 6: Give Visitors a Reason to Return -->
+    <!-- Section 6: Daily Insight (Return Visitor Feature) -->
+    <section id="homeDailyInsight">
+      <!-- Dynamically populated by JS -->
+    </section>
+
+    <!-- Section 7: Give Visitors a Reason to Return -->
     <section class="subscribe-band reveal" id="homeSubscribe">
       <div>
         <h3>✉️ Never miss a signal in the noise</h3>
@@ -649,9 +668,7 @@ body.chatting .home-content,body.chatting #homeTools,body.chatting #homeGuides,b
       <h2 id="guideTitle">Guide Title</h2>
       <button class="os-btn" onclick="window.closeGuide()">✕</button>
     </div>
-    <div class="modal-body" id="guideBody">
-      <!-- Dynamic content injected here -->
-    </div>
+    <div class="modal-body" id="guideBody"></div>
   </div>
 </div>
 
@@ -701,6 +718,31 @@ body.chatting .home-content,body.chatting #homeTools,body.chatting #homeGuides,b
     <div class="modal-body">
       <p style="color:var(--text-sub);font-size:13px;margin-bottom:20px">Enhance your workspace. Click to install or uninstall widgets.</p>
       <div class="app-grid" id="appGrid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Newsletter Popup Modal -->
+<div class="modal-overlay" id="newsletterModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2 style="display:flex;align-items:center;gap:10px;">
+        <span style="font-size:24px;">✉️</span> Stay in the Loop
+      </h2>
+      <button class="os-btn" onclick="window.closeNewsletterModal()">✕</button>
+    </div>
+    <div class="modal-body" style="text-align: center;">
+      <p style="color: var(--text-sub); margin-bottom: 20px; font-size: 14px; line-height: 1.6;">
+        Get weekly curated tech intelligence, market moves, and exclusive tool discoveries delivered straight to your inbox. No spam, ever.
+      </p>
+      <form id="newsletterForm" style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px;">
+        <input type="email" placeholder="Enter your email address" required style="width: 100%; padding: 12px 16px; background: var(--surface-3); border: 1px solid var(--border); border-radius: 10px; color: var(--text); font-size: 14px; outline: none; transition: border-color 0.2s;">
+        <button type="submit" class="btn-primary" style="justify-content: center; border-radius: 10px;">Subscribe Now</button>
+      </form>
+      <label style="display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 12px; color: var(--text-muted); cursor: pointer; user-select: none; margin-top: 8px;">
+        <input type="checkbox" id="neverShowNewsletter" style="accent-color: var(--accent); width: 14px; height: 14px;">
+        <span>I've already subscribed / Don't show this again</span>
+      </label>
     </div>
   </div>
 </div>
@@ -1116,7 +1158,6 @@ function updateAutocomplete(){
   });
   panel.classList.toggle('active',list.length>0);
 }
-// Autocomplete on typing disabled as requested
 document.addEventListener('click',e=>{ if(!e.target.closest('.input-wrapper')) $('#autocompletePanel').classList.remove('active'); });
 
 function openSettings(){
@@ -1243,13 +1284,6 @@ window.exitChatMode = () => {
   $('#osDesktop').scrollTo({ top: 0, behavior: 'smooth' });
 };
 
-$('#heroAskBtn').addEventListener('click', () => {
-  window.enterChatMode();
-  const inp = $('#chatInput');
-  addMsg('bot', `<h2>Welcome to Digital Infohub 👋</h2><p style="color:var(--text-sub)">Your AI research terminal. Switch modes with the circles in the input bar, or just ask — I'll route it to the right tool automatically.</p><div class="chat-follow-ups"><button class="follow-up-btn" data-send="Market briefing">📊 Market briefing</button><button class="follow-up-btn" data-send="Latest tech news">📰 Tech news</button><button class="follow-up-btn" data-send="watchlist">📋 Watchlist</button><button class="follow-up-btn" data-open="settings">⚙️ Settings</button></div>`);
-  inp.focus({preventScroll:true});
-});
-
 const WM={
   state:{open:[]},
   init(){ try{ const s=JSON.parse(store.get('dih_widgets_v7','{"open":[]}')); if(s&&Array.isArray(s.open)) this.state=s; }catch(e){} this.state.open.forEach(t=>this.build(t)); this.grid(); },
@@ -1302,7 +1336,6 @@ const WM={
     if(t==='weather'){ const c=store.get('dih_weather_city',''); return c?`<div id="wd" style="text-align:center">Loading ${esc(c)}…</div>`:`<form id="wf" style="display:flex;gap:6px"><input id="wc" placeholder="City" style="flex:1;min-width:0;padding:8px 12px;background:var(--surface-3);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;outline:none"><button style="padding:8px 16px;background:var(--accent);color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:600">Go</button></form>`; }
     return `<div style="text-align:center;color:var(--text-muted);font-size:12px">Widget</div>`;
   },
-  timers:{},
   wire(t,el,body){
     const q=s=>body.querySelector(s);
     if(t==='calc'){ const d=q('#cd'); body.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{ const v=b.dataset.v; if(v==='C')d.value=''; else if(v==='='){ try{ d.value=Function('"use strict";return('+d.value+')')(); }catch(e){ d.value='Error'; } } else d.value+=v; })); }
@@ -1352,7 +1385,6 @@ window.toggleTheme=()=>{theme=theme==='dark'?'light':'dark';document.documentEle
 const tick=()=>$('#clock').textContent=new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
 tick(); setInterval(tick,1000);
 
-// Initialize AdSense
 (window.adsbygoogle = window.adsbygoogle || []).push({});
 
 (async()=>{
@@ -1361,16 +1393,127 @@ tick(); setInterval(tick,1000);
   renderTicker(c,s);
 })();
 
-// ===== Homepage enhancements: scroll reveal animations =====
+// ===== FIXED: Homepage scroll reveal animations =====
 (function(){
-  const reveals=$$('.reveal');
-  if('IntersectionObserver' in window){
-    const io=new IntersectionObserver(entries=>{
-      entries.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add('visible'); io.unobserve(en.target);} });
-    },{threshold:.12});
-    reveals.forEach(el=>io.observe(el));
-  } else { reveals.forEach(el=>el.classList.add('visible')); }
+  // FIXED: Elements are now visible by default on desktop, only animate on mobile
+  const isMobile = window.innerWidth < 768;
+  const reveals = $$('.reveal');
+  
+  if (isMobile && 'IntersectionObserver' in window) {
+    // Only use scroll animations on mobile
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(en => {
+        if (en.isIntersecting) {
+          en.target.classList.add('visible');
+          io.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    
+    reveals.forEach(el => {
+      el.classList.add('animating'); // Hide initially on mobile
+      io.observe(el);
+    });
+  } else {
+    // Desktop: Make everything visible immediately
+    reveals.forEach(el => {
+      el.style.opacity = '1';
+      el.style.transform = 'translateY(0)';
+    });
+  }
+
+  // Smart "Welcome Back" Greeting
+  const lastVisit = store.get('dih_last_visit', '');
+  const today = new Date().toDateString();
+  const heroSub = $('#heroSubText');
+  if (heroSub && lastVisit !== today) {
+    const lastDate = new Date(lastVisit);
+    const now = new Date();
+    const diffTime = Math.abs(now - lastDate);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    
+    if (!isNaN(diffDays) && diffDays > 0 && diffDays <= 7) {
+      heroSub.textContent = `Welcome back! It's been ${diffDays} day${diffDays > 1 ? 's' : ''}. We've curated new tools, insights, and market updates just for you.`;
+    } else if (!isNaN(diffDays) && diffDays > 7) {
+      heroSub.textContent = "Welcome back! A lot has changed in tech. Catch up on the latest AI breakthroughs, market moves, and new digital tools.";
+    }
+    store.set('dih_last_visit', today);
+  }
+
+  // Daily Insight Feature
+  const DAILY_INSIGHTS = [
+    { icon: '💡', title: 'Productivity Hack', text: 'Use the "2-Minute Rule": If a task takes less than 2 minutes, do it immediately instead of adding it to your to-do list.' },
+    { icon: '🔒', title: 'Security Tip', text: 'Enable passkeys wherever possible. They are more secure than passwords and resistant to phishing attacks.' },
+    { icon: '🤖', title: 'AI Prompt Tip', text: 'Assign a role to your AI: "Act as a senior software engineer reviewing this code for performance bottlenecks."' },
+    { icon: '📈', title: 'Market Mindset', text: 'Dollar-cost averaging (DCA) reduces the impact of volatility on your overall investment purchase price.' },
+    { icon: '⚡', title: 'Tech Shortcut', text: 'Press Win + V (Windows) or enable Clipboard History (macOS) to access your last 25 copied items, not just the last one.' }
+  ];
+
+  const insightDate = store.get('dih_insight_date', '');
+  let insightIndex = 0;
+  if (insightDate === today) {
+    insightIndex = parseInt(store.get('dih_insight_index', '0'));
+  } else {
+    insightIndex = Math.floor(Math.random() * DAILY_INSIGHTS.length);
+    store.set('dih_insight_date', today);
+    store.set('dih_insight_index', insightIndex.toString());
+  }
+  
+  const insight = DAILY_INSIGHTS[insightIndex];
+  const insightContainer = document.createElement('section');
+  insightContainer.id = 'homeDailyInsight';
+  insightContainer.style.cssText = 'opacity:1;transform:none;'; // Ensure visible
+  insightContainer.innerHTML = `
+    <div class="explore-card" style="grid-column: 1 / -1; background: linear-gradient(135deg, var(--accent-soft), var(--surface-3)); border-color: var(--accent);">
+      <div style="display:flex;align-items:flex-start;gap:16px;width:100%">
+        <div class="explore-icon" style="background:var(--accent);color:#fff;font-size:24px;width:48px;height:48px;flex-shrink:0">${insight.icon}</div>
+        <div style="flex:1">
+          <div style="font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">Daily Insight · ${new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}</div>
+          <h4 style="font-size:16px;font-weight:700;margin-bottom:6px">${insight.title}</h4>
+          <span style="font-size:13px;color:var(--text-sub);line-height:1.6">${insight.text}</span>
+        </div>
+      </div>
+    </div>
+  `;
+  
+  const subscribeBand = $('#homeSubscribe');
+  if (subscribeBand) {
+    subscribeBand.parentNode.insertBefore(insightContainer, subscribeBand);
+  }
+
+  // Newsletter Popup Logic
+  const neverShow = store.get('dih_newsletter_dismissed', 'false') === 'true';
+  if (!neverShow) {
+    setTimeout(() => {
+      if (!document.body.classList.contains('chatting')) {
+        $('#newsletterModal').classList.add('active');
+      }
+    }, 4000);
+  }
 })();
+
+// Newsletter Modal Handlers
+window.closeNewsletterModal = () => {
+  const neverShow = $('#neverShowNewsletter').checked;
+  if (neverShow) {
+    store.set('dih_newsletter_dismissed', 'true');
+  }
+  $('#newsletterModal').classList.remove('active');
+};
+
+$('#newsletterForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const email = e.target.querySelector('input[type="email"]').value;
+  showToast('Successfully subscribed! Welcome aboard.', 'success');
+  store.set('dih_newsletter_dismissed', 'true');
+  $('#newsletterModal').classList.remove('active');
+  e.target.reset();
+});
+
+$('#newsletterModal').addEventListener('click', e => {
+  if (e.target.id === 'newsletterModal') window.closeNewsletterModal();
+});
+
 })();
 </script>
 </body>
