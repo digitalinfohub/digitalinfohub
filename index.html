@@ -6,30 +6,54 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
 <meta name="theme-color" content="#050505">
 
-<title>Digital Infohub OS | AI Research Terminal</title>
+<title>Digital Infohub | AI Research, Tech News & Digital Tools</title>
 
 <!-- SEO -->
-<meta name="description" content="Digital Infohub OS: A premium, macOS-inspired AI research terminal for real-time markets, tech insights, and productivity.">
+<meta name="description" content="Discover the latest developments in technology and AI, explore useful digital tools, and learn practical ways to make technology work better for you.">
+<link rel="canonical" href="https://www.digitalinfohub.net/">
 
-<!-- Open Graph: Threads, Facebook, LinkedIn, WhatsApp, Discord -->
+<!-- Open Graph -->
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Digital Infohub OS">
-<meta property="og:url" content="https://digitalinfohub.net/">
-<meta property="og:title" content="Digital Infohub OS | AI Research Terminal">
-<meta property="og:description" content="A premium, macOS-inspired AI research terminal for real-time markets, tech insights, and productivity.">
-<meta property="og:image" content="https://images.unsplash.com/photo-1737505599159-5ffc1dcbc08f?q=80&amp;w=1200&amp;h=630&amp;fit=crop&amp;auto=format">
-<meta property="og:image:secure_url" content="https://images.unsplash.com/photo-1737505599159-5ffc1dcbc08f?q=80&amp;w=1200&amp;h=630&amp;fit=crop&amp;auto=format">
+<meta property="og:site_name" content="Digital Infohub">
+<meta property="og:url" content="https://www.digitalinfohub.net/">
+<meta property="og:title" content="Digital Infohub | AI Research, Tech News & Digital Tools">
+<meta property="og:description" content="Your curated digital discovery hub. Explore real-time markets, tech news, practical guides, and useful software tools.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1639322537228-f710d846310a?q=80&w=1200&h=630&fit=crop&auto=format">
+<meta property="og:image:secure_url" content="https://images.unsplash.com/photo-1639322537228-f710d846310a?q=80&w=1200&h=630&fit=crop&auto=format">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Digital Infohub OS AI research terminal preview">
+<meta property="og:image:alt" content="Digital Infohub AI Research and Digital Tools Interface">
 
 <!-- X / Twitter -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Digital Infohub OS | AI Research Terminal">
-<meta name="twitter:description" content="A premium, macOS-inspired AI research terminal for real-time markets, tech insights, and productivity.">
-<meta name="twitter:image" content="https://images.unsplash.com/photo-1737505599159-5ffc1dcbc08f?q=80&amp;w=1200&amp;h=630&amp;fit=crop&amp;auto=format">
-<meta name="twitter:image:alt" content="Digital Infohub OS AI research terminal preview">
+<meta name="twitter:title" content="Digital Infohub | AI Research, Tech News & Digital Tools">
+<meta name="twitter:description" content="Your curated digital discovery hub. Explore real-time markets, tech news, practical guides, and useful software tools.">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1639322537228-f710d846310a?q=80&w=1200&h=630&fit=crop&auto=format">
+<meta name="twitter:image:alt" content="Digital Infohub AI Research and Digital Tools Interface">
 
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Digital Infohub",
+  "url": "https://www.digitalinfohub.net/",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://www.digitalinfohub.net/?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Digital Infohub",
+  "url": "https://www.digitalinfohub.net/",
+  "logo": "https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png"
+}
+</script>
 
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -113,8 +137,10 @@ body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-grad
 body.chatting .chat-container{display:block}
 .chat-container::-webkit-scrollbar{width:8px}
 .chat-container::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+.chat-header{display:none;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--glass-border);margin-bottom:16px;position:sticky;top:0;background:var(--bg);z-index:10}
+body.chatting .chat-header{display:flex}
 .chat-thread{width:100%;max-width:800px;margin:0 auto;display:flex;flex-direction:column;gap:24px;position:relative;z-index:2}
-.counter-wrap{max-width:800px;margin:28px auto 0;display:flex;justify-content:center}
+.counter-wrap{max-width:800px;margin:10px auto 0;display:flex;justify-content:center;padding:0 24px}
 
 .msg{display:flex;gap:12px;animation:fadeInUp .45s var(--ease);max-width:100%;word-wrap:break-word}
 .msg.user{flex-direction:row-reverse}
@@ -234,7 +260,7 @@ input:checked+.slider:before{transform:translateX(20px);background:var(--accent)
 
 /* ===== Homepage Content ===== */
 .home-content{width:100%;max-width:1080px;margin:0 auto;padding:0 24px;display:flex;flex-direction:column;gap:56px}
-body.chatting .home-content,body.chatting #homeExplore,body.chatting #homeBlog,body.chatting .home-footer{display:none}
+body.chatting .home-content,body.chatting #homeTools,body.chatting #homeGuides,body.chatting #homeExploreMore,body.chatting .home-footer{display:none}
 
 .hero{text-align:center;padding:56px 0 8px;animation:heroIn .9s var(--ease) both}
 @keyframes heroIn{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
@@ -291,6 +317,24 @@ body.chatting .home-content,body.chatting #homeExplore,body.chatting #homeBlog,b
 .explore-card h4{font-size:14px;font-weight:700}
 .explore-card span{font-size:12px;color:var(--text-muted);line-height:1.5}
 
+.guide-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.guide-card{display:flex;flex-direction:column;gap:12px;padding:20px;background:var(--glass-bg);backdrop-filter:blur(30px);border:1px solid var(--glass-border);border-radius:var(--radius);cursor:pointer;transition:all .3s var(--ease)}
+.guide-card:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:0 12px 32px rgba(0,0,0,.3)}
+.guide-icon{font-size:28px}
+.guide-card h4{font-size:16px;font-weight:700;margin:0}
+.guide-card p{font-size:13px;color:var(--text-sub);line-height:1.5;margin:0}
+
+.guide-modal-content{max-width:600px}
+.guide-tabs{display:flex;gap:8px;margin-bottom:16px;border-bottom:1px solid var(--glass-border);padding-bottom:8px}
+.guide-tab{padding:8px 16px;background:transparent;border:none;color:var(--text-sub);font-weight:600;cursor:pointer;border-radius:8px;transition:all .2s;font-family:var(--font);font-size:14px}
+.guide-tab:hover{color:var(--text);background:var(--glass-highlight)}
+.guide-tab.active{background:var(--accent-soft);color:var(--accent)}
+.guide-panel{display:none}
+.guide-panel.active{display:block;animation:fadeIn .3s var(--ease)}
+.guide-panel ul{padding-left:20px;color:var(--text-sub);font-size:14px;line-height:1.7}
+.guide-panel li{margin-bottom:10px}
+.guide-panel code{background:var(--surface-3);padding:2px 6px;border-radius:4px;font-family:var(--mono);font-size:12px;color:var(--text)}
+
 .subscribe-band{position:relative;overflow:hidden;padding:36px 32px;border-radius:20px;background:linear-gradient(135deg,rgba(10,132,255,.14),rgba(94,92,230,.12) 50%,rgba(191,90,242,.14));border:1px solid rgba(10,132,255,.25);display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
 .subscribe-band::before{content:'';position:absolute;inset:-60%;background:conic-gradient(from 0deg,transparent 0deg,rgba(10,132,255,.14) 60deg,transparent 140deg);animation:bandSpin 12s linear infinite;pointer-events:none}
 @keyframes bandSpin{to{transform:rotate(360deg)}}
@@ -321,11 +365,13 @@ body.chatting .home-content,body.chatting #homeExplore,body.chatting #homeBlog,b
   .hero-title{font-size:clamp(26px,7.5vw,34px)}
   .blog-grid{grid-template-columns:1fr}
   .explore-grid{grid-template-columns:repeat(2,1fr)}
+  .guide-grid{grid-template-columns:1fr}
+  .guide-modal-content{max-width:90vw;margin:0 16px}
   .home-footer{padding:24px 16px calc(var(--nav-h) + 24px)}
   .chat-thread{gap:16px}
   .msg{gap:10px}
   .os-input-area{padding:0 12px 14px}
-body.chatting .os-input-area{bottom:5vh;padding:0 12px}
+  body.chatting .os-input-area{bottom:5vh;padding:0 12px}
   .input-shell{border-radius:24px;padding:6px}
   .mode-selector{gap:2px;padding-right:8px}
   .mode-btn{width:30px;height:30px;font-size:14px}
@@ -414,32 +460,32 @@ body.chatting .os-input-area{bottom:5vh;padding:0 12px}
 
 <main class="os-desktop" id="osDesktop">
 
+  <!-- Eezee Analytics Component -->
+  <div class="counter-wrap">
+    <script async src="https://e-zeeinternet.com/t.js" data-site="ezi_992ceef652fd" data-mode="gdpr" data-theme="dark" data-shape="rounded" data-layout="row"></script>
+    <div data-ezee-counter></div>
+  </div>
+
   <div class="home-content" id="homeContent">
-    <!-- HERO -->
+    <!-- Section 1: Introduction and Hero -->
     <section class="hero" id="homeHero">
-      <div class="hero-badge"><span class="status-dot"></span> LIVE · AI RESEARCH TERMINAL</div>
-      <h1 class="hero-title">Your window into<br><span class="grad">the digital universe</span></h1>
-      <p class="hero-sub">Ask the AI terminal anything — real-time markets, tech news and deep research — then dive into fresh articles from the Digital Infohub blog, updated every month.</p>
+      <div class="hero-badge"><span class="status-dot"></span> DISCOVER · USE · LEARN</div>
+      <h1 class="hero-title">Technology, AI &amp; Digital Tools<br><span class="grad">That Matter.</span></h1>
+      <p class="hero-sub">Discover the latest developments in technology and AI, explore useful digital tools, and learn practical ways to make technology work better for you.</p>
       <div class="hero-actions">
-        <button class="btn-primary" id="heroAskBtn">✨ Ask the AI Terminal</button>
-        <a href="/blog" class="btn-ghost">📝 Read the Blog</a>
-      </div>
-      <div class="hero-stats">
-        <div class="hero-stat"><b class="stat-accent" id="statPosts">14+</b><span>Blog Articles</span></div>
-        <div class="hero-stat"><b class="stat-green">Live</b><span>Market Ticker</span></div>
-        <div class="hero-stat"><b class="stat-purple">4-in-1</b><span>Search · Markets · News · GenAI</span></div>
-        <div class="hero-stat"><b class="stat-accent">Free</b><span>Forever</span></div>
+        <a href="/blog" class="btn-primary">📝 Explore Latest Articles</a>
+        <a href="/software" class="btn-ghost">🛠️ Discover Digital Tools</a>
       </div>
     </section>
 
-    <!-- LATEST FROM THE BLOG -->
+    <!-- Section 2: The Latest Discoveries -->
     <section id="homeBlog">
       <div class="home-section-head reveal">
         <div>
-          <h2>📰 Latest from the Blog</h2>
+          <h2>📰 Latest Discoveries</h2>
           <p>Fresh analysis on AI, markets, hardware and the creators shaping tech.</p>
         </div>
-        <a href="/blog" class="view-all-link">Visit the Blog <span class="arr">→</span></a>
+        <a href="/blog" class="view-all-link">View All Articles <span class="arr">→</span></a>
       </div>
       <div class="blog-grid">
         <a href="/post/tech-market-sell-off-october-2026" class="blog-card reveal d1">
@@ -481,42 +527,83 @@ body.chatting .os-input-area{bottom:5vh;padding:0 12px}
       </div>
     </section>
 
-    <!-- EXPLORE -->
-    <section id="homeExplore">
+    <!-- Section 3: Explore Digital Tools -->
+    <section id="homeTools">
       <div class="home-section-head reveal">
         <div>
-          <h2>🧭 Explore Digital Infohub</h2>
-          <p>More reasons to come back — new tools, products and stories every week.</p>
+          <h2>🛠️ Explore Digital Tools</h2>
+          <p>Practical software, AI utilities, and interactive experiences to level up your workflow.</p>
         </div>
+        <a href="/software" class="view-all-link">Explore All Tools <span class="arr">→</span></a>
       </div>
       <div class="explore-grid">
-        <a href="/blog" class="explore-card reveal"><div class="explore-icon">📝</div><h4>The Blog</h4><span>In-depth tech analysis, AI news and community spotlights.</span></a>
+        <a href="/software" class="explore-card reveal"><div class="explore-icon">⚙️</div><h4>Software Library</h4><span>Curated apps and tools to level up your workflow.</span></a>
         <a href="/techproducts" class="explore-card reveal d1"><div class="explore-icon">💻</div><h4>Tech Products</h4><span>Hands-on guides to the gadgets worth your money.</span></a>
-        <a href="/techtopics" class="explore-card reveal d2"><div class="explore-icon">🔬</div><h4>Tech Topics</h4><span>Explainers on AI, quantum, cybersecurity and more.</span></a>
-        <a href="/software" class="explore-card reveal d3"><div class="explore-icon">⚙️</div><h4>Software</h4><span>Curated apps and tools to level up your workflow.</span></a>
-        <a href="/games" class="explore-card reveal"><div class="explore-icon">🎮</div><h4>Games</h4><span>The best of gaming culture, indie gems and releases.</span></a>
-        <a href="#" class="explore-card reveal d1" onclick="window.openAppStore&&window.openAppStore();return false;"><div class="explore-icon">📦</div><h4>Mini Apps</h4><span>Pomodoro, QR generator, converters and more built in.</span></a>
-        <a href="/coincompass" class="explore-card reveal d2"><div class="explore-icon">🪙</div><h4>CoinCompass</h4><span>Navigate crypto markets with live data and charts.</span></a>
-        <a href="/about" class="explore-card reveal d3"><div class="explore-icon">ℹ️</div><h4>About Us</h4><span>The story behind Digital Infohub and our mission.</span></a>
+        <a href="#" class="explore-card reveal d2" onclick="window.openAppStore();return false;"><div class="explore-icon">📦</div><h4>Mini Apps</h4><span>Pomodoro, QR generator, converters and more built in.</span></a>
+        <a href="/coincompass" class="explore-card reveal d3"><div class="explore-icon">🪙</div><h4>CoinCompass</h4><span>Navigate crypto markets with live data and charts.</span></a>
       </div>
     </section>
 
-    <!-- SUBSCRIBE BAND -->
+    <!-- Section 4: Quick Guides and Practical Tips -->
+    <section id="homeGuides">
+      <div class="home-section-head reveal">
+        <div>
+          <h2>💡 Quick Guides & Practical Tips</h2>
+          <p>Straightforward advice to solve everyday digital problems, no jargon required.</p>
+        </div>
+      </div>
+      <div class="guide-grid">
+        <div class="guide-card reveal" onclick="window.openGuide('performance')">
+          <div class="guide-icon">🚀</div>
+          <h4>Make Your Computer Faster</h4>
+          <p>Simple, actionable steps to speed up your Windows PC or Mac without buying new hardware.</p>
+        </div>
+        <div class="guide-card reveal d1" onclick="window.openGuide('security')">
+          <div class="guide-icon">🛡️</div>
+          <h4>Stay Safe Online</h4>
+          <p>A quick checklist for strong passwords, multi-factor authentication, and spotting phishing attempts.</p>
+        </div>
+        <div class="guide-card reveal d2" onclick="window.openGuide('ai-productivity')">
+          <div class="guide-icon">🤖</div>
+          <h4>Make Better Use of AI Tools</h4>
+          <p>Practical prompts and workflows to save time and improve your everyday productivity.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: Explore More -->
+    <section id="homeExploreMore">
+      <div class="home-section-head reveal">
+        <div>
+          <h2>🧭 Explore More</h2>
+          <p>Games, community projects, and additional resources to keep you curious.</p>
+        </div>
+      </div>
+      <div class="explore-grid">
+        <a href="/games" class="explore-card reveal"><div class="explore-icon">🎮</div><h4>Games</h4><span>The best of gaming culture, indie gems and releases.</span></a>
+        <a href="/techtopics" class="explore-card reveal d1"><div class="explore-icon">🔬</div><h4>Tech Topics</h4><span>Deep dives into AI, quantum, cybersecurity and more.</span></a>
+        <a href="/about" class="explore-card reveal d2"><div class="explore-icon">ℹ️</div><h4>About Us</h4><span>The story behind Digital Infohub and our mission.</span></a>
+        <a href="/services" class="explore-card reveal d3"><div class="explore-icon">🛠️</div><h4>Services</h4><span>Custom development, automation, and AI integration.</span></a>
+      </div>
+    </section>
+
+    <!-- Section 6: Give Visitors a Reason to Return -->
     <section class="subscribe-band reveal" id="homeSubscribe">
       <div>
         <h3>✉️ Never miss a signal in the noise</h3>
-        <p>Join the Digital Infohub newsletter for weekly curated tech intelligence, market moves and exclusive deep dives.</p>
+        <p>Join the Digital Infohub newsletter for weekly curated tech intelligence, market moves, new tool discoveries, and exclusive deep dives.</p>
       </div>
       <a href="/subscribe" class="btn-primary" style="flex-shrink:0">Subscribe Free</a>
     </section>
   </div>
 
+  <!-- Chatbot Interface -->
   <div class="chat-container" id="chatContainer">
-    <div class="chat-thread" id="chatThread" role="log" aria-live="polite"></div>
-    <div class="counter-wrap">
-      <script async src="https://e-zeeinternet.com/t.js" data-site="ezi_992ceef652fd" data-mode="gdpr" data-theme="dark" data-shape="rounded" data-layout="row"></script>
-      <div data-ezee-counter></div>
+    <div class="chat-header" id="chatHeader">
+      <button class="btn-ghost" style="padding:8px 16px; font-size:13px; border-radius:8px;" onclick="window.exitChatMode()">← Back to Home</button>
+      <span style="font-size:12px; color:var(--text-muted); font-weight:600;">Digital Infohub AI</span>
     </div>
+    <div class="chat-thread" id="chatThread" role="log" aria-live="polite"></div>
   </div>
 
   <div class="os-input-area">
@@ -555,6 +642,20 @@ body.chatting .os-input-area{bottom:5vh;padding:0 12px}
 
 <div class="widget-layer" id="widgetLayer"></div>
 
+<!-- Guide Modal -->
+<div class="modal-overlay" id="guideModal">
+  <div class="modal-content guide-modal-content">
+    <div class="modal-header">
+      <h2 id="guideTitle">Guide Title</h2>
+      <button class="os-btn" onclick="window.closeGuide()">✕</button>
+    </div>
+    <div class="modal-body" id="guideBody">
+      <!-- Dynamic content injected here -->
+    </div>
+  </div>
+</div>
+
+<!-- Settings Modal -->
 <div class="modal-overlay" id="settingsModal">
   <div class="modal-content" style="max-width:520px">
     <div class="modal-header"><h2>⚙️ Settings</h2><button class="os-btn" onclick="window.closeSettings()">✕</button></div>
@@ -577,28 +678,12 @@ body.chatting .os-input-area{bottom:5vh;padding:0 12px}
       </div>
       <div id="watchlistTags" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px"></div>
 
-      <h3 style="font-size:14px;margin-bottom:16px;border-top:1px solid var(--glass-border);padding-top:20px">Preferences</h3>
-      <div style="display:flex;justify-content:space-between;align-items:center;padding:14px;background:var(--glass-highlight);border-radius:12px;border:1px solid var(--glass-border)">
-        <div><div style="font-size:13px;font-weight:600">Show Welcome Tour</div><div style="font-size:11px;color:var(--text-muted)">Onboarding guide on startup.</div></div>
-        <label class="switch"><input type="checkbox" id="toggleTour"><span class="slider"></span></label>
-      </div>
       <button id="saveSettingsBtn" style="width:100%;padding:12px;background:var(--accent);color:#fff;border:none;border-radius:10px;cursor:pointer;font-weight:600;font-size:14px;margin-top:24px">Save Settings</button>
     </div>
   </div>
 </div>
 
-<div class="modal-overlay" id="tourModal">
-  <div class="modal-content" style="max-width:450px">
-    <div class="modal-body" style="padding:40px 30px;text-align:center">
-      <div id="tourSlide" style="min-height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center"></div>
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:28px">
-        <label style="font-size:12px;color:var(--text-muted);display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" id="tourDontShow"> Don't show again</label>
-        <div style="display:flex;gap:10px"><button id="tourSkip" class="os-btn">Skip</button><button id="tourNext" class="os-btn active">Next</button></div>
-      </div>
-    </div>
-  </div>
-</div>
-
+<!-- Chart Modal -->
 <div class="modal-overlay" id="chartModal">
   <div class="modal-content" style="max-width:700px">
     <div class="modal-header"><h2 id="chartTitle">AAPL</h2><button class="os-btn" onclick="window.closeChartModal()">✕</button></div>
@@ -609,6 +694,7 @@ body.chatting .os-input-area{bottom:5vh;padding:0 12px}
   </div>
 </div>
 
+<!-- App Store Modal -->
 <div class="modal-overlay" id="appStoreModal">
   <div class="modal-content">
     <div class="modal-header"><h2>📦 App Store</h2><button class="os-btn" onclick="window.closeAppStore()">✕</button></div>
@@ -998,7 +1084,6 @@ async function handleSend(text){
     isProcessing=false;
     $('#chatSend').style.display='flex'; $('#chatStop').style.display='none';
     inp.disabled=false; inp.focus({preventScroll:true});
-    updateAutocomplete();
   }
 }
 window.handleSend=handleSend;
@@ -1031,15 +1116,13 @@ function updateAutocomplete(){
   });
   panel.classList.toggle('active',list.length>0);
 }
-$('#chatInput').addEventListener('focus',updateAutocomplete);
-$('#chatInput').addEventListener('input',updateAutocomplete);
+// Autocomplete on typing disabled as requested
 document.addEventListener('click',e=>{ if(!e.target.closest('.input-wrapper')) $('#autocompletePanel').classList.remove('active'); });
 
 function openSettings(){
   $('#settingsModal').classList.add('active');
   $('#toggleGenAI').checked = store.get('dih_genai_enabled','true')!=='false';
   $('#settingSystemPrompt').value = store.get('dih_ai_prompt',"You are Digital Infohub AI, an expert assistant for technology, financial markets, and productivity. Provide concise, sharp, and professional insights. Use clean markdown. When discussing markets, always include a brief strategic takeaway.");
-  $('#toggleTour').checked = store.get('dih_tour_seen','')!=='true';
   renderWatchlistTags();
 }
 window.openSettings=openSettings;
@@ -1048,7 +1131,6 @@ $('#settingsModal').addEventListener('click',e=>{if(e.target.id==='settingsModal
 $('#saveSettingsBtn').addEventListener('click',()=>{
   store.set('dih_genai_enabled',$('#toggleGenAI').checked);
   store.set('dih_ai_prompt',$('#settingSystemPrompt').value);
-  if(!$('#toggleTour').checked) store.set('dih_tour_seen','true'); else store.del('dih_tour_seen');
   showToast('Settings saved'); window.closeSettings();
 });
 function renderWatchlistTags(){
@@ -1068,23 +1150,105 @@ $('#addWatchlistBtn').addEventListener('click',()=>{
   $('#watchlistInput').value='';
 });
 
-const SLIDES=[
-  {i:'👋',t:'Welcome to Digital Infohub',d:'Your premium AI research terminal — markets, news, search and generative AI in one place.'},
-  {i:'🎯',t:'Smart Modes',d:'Switch modes with the circles in the input bar. Or just type — the terminal auto-switches to the right tool.'},
-  {i:'⚡',t:'Type-ahead suggestions',d:'Focus the input and suggestions appear above it. Click one to run it instantly.'},
-  {i:'📈',t:'Markets & Watchlist',d:'Tap the sidebar icon for quick actions. Say "add NVDA to watchlist", then "watchlist" to see your portfolio.'}
-];
-let slide=0;
-function renderSlide(){
-  const s=SLIDES[slide];
-  $('#tourSlide').innerHTML=`<div style="font-size:46px;margin-bottom:14px">${s.i}</div><h2 style="font-size:20px;font-weight:700;margin-bottom:10px">${esc(s.t)}</h2><p style="font-size:14px;color:var(--text-sub)">${esc(s.d)}</p>`;
-  $('#tourNext').textContent = slide===SLIDES.length-1?'Finish':'Next';
-}
-function showTour(){ if(store.get('dih_tour_seen','')==='true') return; slide=0; renderSlide(); $('#tourModal').classList.add('active'); }
-$('#tourNext').addEventListener('click',()=>{ if(slide<SLIDES.length-1){slide++;renderSlide();} else finishTour(); });
-$('#tourSkip').addEventListener('click',finishTour);
-$('#tourModal').addEventListener('click',e=>{if(e.target.id==='tourModal')finishTour();});
-function finishTour(){ if($('#tourDontShow').checked) store.set('dih_tour_seen','true'); $('#tourModal').classList.remove('active'); }
+// Guide Modal Logic
+const GUIDES = {
+  performance: {
+    title: '🚀 Make Your Computer Faster',
+    content: `
+      <div class="guide-tabs">
+        <button class="guide-tab active" onclick="window.switchGuideTab('win')">Windows</button>
+        <button class="guide-tab" onclick="window.switchGuideTab('mac')">macOS</button>
+      </div>
+      <div id="guide-win" class="guide-panel active">
+        <ul>
+          <li><strong>Disable Startup Apps:</strong> Press <code>Ctrl + Shift + Esc</code>, go to the Startup tab, and disable unnecessary programs.</li>
+          <li><strong>Free Up Disk Space:</strong> Use "Disk Cleanup" or "Storage Sense" to remove temporary files.</li>
+          <li><strong>Update Drivers:</strong> Ensure your graphics and chipset drivers are up to date via Windows Update or the manufacturer's website.</li>
+          <li><strong>Adjust Power Settings:</strong> Set your power plan to "High Performance" in the Control Panel.</li>
+        </ul>
+      </div>
+      <div id="guide-mac" class="guide-panel">
+        <ul>
+          <li><strong>Manage Login Items:</strong> Go to System Settings > General > Login Items and remove apps you don't need launching at startup.</li>
+          <li><strong>Clear Cache:</strong> Use built-in storage management (Apple Menu > About This Mac > Storage) to optimize and clear caches.</li>
+          <li><strong>Reduce Visual Effects:</strong> In System Settings > Accessibility > Display, enable "Reduce motion" and "Reduce transparency".</li>
+          <li><strong>Restart Regularly:</strong> A simple restart clears RAM and stops background processes that may have stalled.</li>
+        </ul>
+      </div>
+    `
+  },
+  security: {
+    title: '🛡️ Stay Safe Online',
+    content: `
+      <ul>
+        <li><strong>Use a Password Manager:</strong> Generate and store unique, complex passwords for every account. Never reuse passwords.</li>
+        <li><strong>Enable Multi-Factor Authentication (MFA):</strong> Turn on MFA/2FA for your email, banking, and social media accounts using an authenticator app.</li>
+        <li><strong>Spot Phishing:</strong> Check the sender's email address carefully. Hover over links before clicking to see the real destination. Be wary of urgent requests for money or personal info.</li>
+        <li><strong>Keep Software Updated:</strong> Enable automatic updates for your operating system, browser, and antivirus software to patch security vulnerabilities.</li>
+        <li><strong>Backup Your Data:</strong> Regularly back up important files to an external drive or a secure cloud service.</li>
+      </ul>
+    `
+  },
+  'ai-productivity': {
+    title: '🤖 Make Better Use of AI Tools',
+    content: `
+      <ul>
+        <li><strong>Be Specific:</strong> Provide clear context, desired format, and constraints in your prompts (e.g., "Summarize this article in 3 bullet points for a beginner").</li>
+        <li><strong>Iterate:</strong> Treat AI like a collaborator. If the first response isn't perfect, refine your prompt or ask it to adjust the tone, length, or focus.</li>
+        <li><strong>Verify Facts:</strong> AI can hallucinate. Always double-check important facts, dates, and code snippets before using them in production or sharing them.</li>
+        <li><strong>Automate Repetitive Tasks:</strong> Use AI to draft emails, format data, generate boilerplate code, or brainstorm ideas to save hours of manual work.</li>
+      </ul>
+    `
+  }
+};
+
+window.openGuide = (key) => {
+  const guide = GUIDES[key];
+  if (!guide) return;
+  $('#guideTitle').textContent = guide.title;
+  $('#guideBody').innerHTML = guide.content;
+  $('#guideModal').classList.add('active');
+};
+
+window.closeGuide = () => {
+  $('#guideModal').classList.remove('active');
+};
+
+window.switchGuideTab = (tab) => {
+  $$('.guide-tab').forEach(t => t.classList.remove('active'));
+  $$('.guide-panel').forEach(p => p.classList.remove('active'));
+  
+  const tabs = $$('.guide-tab');
+  if (tab === 'win') tabs[0].classList.add('active');
+  else if (tab === 'mac') tabs[1].classList.add('active');
+  
+  const panel = $(`#guide-${tab}`);
+  if (panel) panel.classList.add('active');
+};
+
+$('#guideModal').addEventListener('click', e => {
+  if (e.target.id === 'guideModal') window.closeGuide();
+});
+
+// Chatbot Navigation
+window.enterChatMode = (seed) => {
+  document.body.classList.add('chatting');
+  $('#chatHeader').style.display = 'flex';
+  if (seed) handleSend(seed);
+};
+
+window.exitChatMode = () => {
+  document.body.classList.remove('chatting');
+  $('#chatHeader').style.display = 'none';
+  $('#osDesktop').scrollTo({ top: 0, behavior: 'smooth' });
+};
+
+$('#heroAskBtn').addEventListener('click', () => {
+  window.enterChatMode();
+  const inp = $('#chatInput');
+  addMsg('bot', `<h2>Welcome to Digital Infohub 👋</h2><p style="color:var(--text-sub)">Your AI research terminal. Switch modes with the circles in the input bar, or just ask — I'll route it to the right tool automatically.</p><div class="chat-follow-ups"><button class="follow-up-btn" data-send="Market briefing">📊 Market briefing</button><button class="follow-up-btn" data-send="Latest tech news">📰 Tech news</button><button class="follow-up-btn" data-send="watchlist">📋 Watchlist</button><button class="follow-up-btn" data-open="settings">⚙️ Settings</button></div>`);
+  inp.focus({preventScroll:true});
+});
 
 const WM={
   state:{open:[]},
@@ -1195,20 +1359,9 @@ tick(); setInterval(tick,1000);
   WM.init();
   const [c,s]=await Promise.all([fetchCrypto(),fetchStocks()]);
   renderTicker(c,s);
-  setTimeout(showTour,700);
 })();
 
-// ===== Homepage enhancements: chat mode toggle & scroll reveal animations =====
-window.enterChatMode=(seed)=>{
-  document.body.classList.add('chatting');
-  if(seed) handleSend(seed);
-};
-$('#heroAskBtn').addEventListener('click',()=>{
-  enterChatMode();
-  const inp=$('#chatInput');
-  addMsg('bot',`<h2>Welcome to Digital Infohub OS 👋</h2><p style="color:var(--text-sub)">Your AI research terminal. Switch modes with the circles in the input bar, or just ask — I'll route it to the right tool automatically. Tap the ⚡ button for quick actions.</p><div class="chat-follow-ups"><button class="follow-up-btn" data-send="Market briefing">📊 Market briefing</button><button class="follow-up-btn" data-send="Latest tech news">📰 Tech news</button><button class="follow-up-btn" data-send="watchlist">📋 Watchlist</button><button class="follow-up-btn" data-open="settings">⚙️ Settings</button></div>`);
-  inp.focus({preventScroll:true});
-});
+// ===== Homepage enhancements: scroll reveal animations =====
 (function(){
   const reveals=$$('.reveal');
   if('IntersectionObserver' in window){
