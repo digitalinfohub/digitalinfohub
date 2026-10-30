@@ -82,7 +82,11 @@ body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-grad
 .status-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 .ticker-shell{flex:1;overflow:hidden;mask-image:linear-gradient(90deg,transparent,black 8%,black 92%,transparent)}
-.ticker-bar{display:inline-flex;padding:6px 0;animation:scroll 75s linear infinite;white-space:nowrap}
+.ticker-bar{display:inline-flex;padding:6px 0;animation:scroll 120s linear infinite;white-space:nowrap}
+/* Mobile specific ticker speed adjustment */
+@media (max-width: 768px) {
+  .ticker-bar { animation-duration: 140s; }
+}
 @keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 .ticker-item{display:inline-flex;align-items:center;gap:6px;padding:0 14px;font-size:11px;font-family:var(--mono);color:var(--text-sub);border-right:1px solid var(--border)}
 .ticker-item strong{color:var(--text);font-weight:600}
@@ -262,6 +266,8 @@ input:checked+.slider:before{transform:translateX(20px);background:var(--accent)
 body.chatting .home-content,
 body.chatting #homeTools,
 body.chatting #homeGuides,
+body.chatting #homeDevToolbox,
+body.chatting #homeHardware,
 body.chatting #homeExploreMore,
 body.chatting #homeDailyInsight,
 body.chatting .home-footer {
@@ -331,6 +337,22 @@ body.chatting .home-footer {
 .guide-icon{font-size:28px}
 .guide-card h4{font-size:16px;font-weight:700;margin:0}
 .guide-card p{font-size:13px;color:var(--text-sub);line-height:1.5;margin:0}
+
+.dev-tool-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.dev-tool-card{display:flex;flex-direction:column;gap:12px;padding:20px;background:var(--glass-bg);backdrop-filter:blur(30px);border:1px solid var(--glass-border);border-radius:var(--radius);cursor:pointer;transition:all .3s var(--ease);position:relative;overflow:hidden}
+.dev-tool-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--purple);opacity:0;transition:opacity .3s}
+.dev-tool-card:hover{transform:translateY(-4px);border-color:var(--purple);box-shadow:0 12px 32px rgba(0,0,0,.3)}
+.dev-tool-card:hover::before{opacity:1}
+.dev-tool-icon{font-size:28px}
+.dev-tool-card h4{font-size:16px;font-weight:700;margin:0}
+.dev-tool-card p{font-size:13px;color:var(--text-sub);line-height:1.5;margin:0}
+
+.hardware-table-wrapper{overflow-x:auto;border-radius:var(--radius);border:1px solid var(--glass-border);background:var(--glass-bg);backdrop-filter:blur(30px)}
+.hardware-table{width:100%;border-collapse:collapse;font-size:13px}
+.hardware-table th{background:var(--surface-3);padding:14px 16px;text-align:left;font-weight:700;color:var(--text);border-bottom:1px solid var(--border)}
+.hardware-table td{padding:14px 16px;border-bottom:1px solid var(--border);color:var(--text-sub)}
+.hardware-table tr:last-child td{border-bottom:none}
+.hardware-table .score{font-family:var(--mono);font-weight:700;color:var(--accent)}
 
 .guide-modal-content{max-width:600px}
 .guide-tabs{display:flex;gap:8px;margin-bottom:16px;border-bottom:1px solid var(--glass-border);padding-bottom:8px}
@@ -412,6 +434,7 @@ body.chatting .home-footer {
   .blog-grid{grid-template-columns:1fr}
   .explore-grid{grid-template-columns:repeat(2,1fr)}
   .guide-grid{grid-template-columns:1fr}
+  .dev-tool-grid{grid-template-columns:1fr}
   .guide-modal-content{max-width:90vw;margin:0 16px}
   .home-footer{padding:24px 16px calc(var(--nav-h) + 24px)}
   .chat-thread{gap:16px}
@@ -616,7 +639,88 @@ body.chatting .home-footer {
       </div>
     </section>
 
-    <!-- Section 5: Explore More -->
+    <!-- NEW Section 5: Developer Toolbox -->
+    <section id="homeDevToolbox">
+      <div class="home-section-head reveal">
+        <div>
+          <h2>👨‍💻 Developer Toolbox</h2>
+          <p>Essential cheat sheets and references for modern development workflows.</p>
+        </div>
+        <a href="/software" class="view-all-link">View All Resources <span class="arr">→</span></a>
+      </div>
+      <div class="dev-tool-grid">
+        <div class="dev-tool-card reveal" onclick="window.openGuide('git-cheatsheet')">
+          <div class="dev-tool-icon">🌳</div>
+          <h4>Git Command Cheat Sheet</h4>
+          <p>Master branching, merging, and rebasing with our essential Git reference guide.</p>
+        </div>
+        <div class="dev-tool-card reveal d1" onclick="window.openGuide('regex-guide')">
+          <div class="dev-tool-icon">🔍</div>
+          <h4>Regex Patterns Guide</h4>
+          <p>Common regular expression patterns for email validation, phone numbers, and data parsing.</p>
+        </div>
+        <div class="dev-tool-card reveal d2" onclick="window.openGuide('vscode-shortcuts')">
+          <div class="dev-tool-icon">⌨️</div>
+          <h4>VS Code Power Shortcuts</h4>
+          <p>Boost your coding speed with these hidden VS Code keyboard shortcuts and extensions.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEW Section 6: Hardware Benchmarks -->
+    <section id="homeHardware">
+      <div class="home-section-head reveal">
+        <div>
+          <h2>🖥️ Hardware Benchmarks</h2>
+          <p>Performance comparisons for the latest processors and GPUs.</p>
+        </div>
+      </div>
+      <div class="hardware-table-wrapper reveal">
+        <table class="hardware-table">
+          <thead>
+            <tr>
+              <th>Component</th>
+              <th>Type</th>
+              <th>Single-Core Score</th>
+              <th>Multi-Core Score</th>
+              <th>Power Efficiency</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Apple M4 Max</strong></td>
+              <td>ARM SoC</td>
+              <td class="score">3,850</td>
+              <td class="score">22,400</td>
+              <td><span style="color:var(--green)">Excellent</span></td>
+            </tr>
+            <tr>
+              <td><strong>Intel Core Ultra 9</strong></td>
+              <td>x86 Desktop</td>
+              <td class="score">3,420</td>
+              <td class="score">21,800</td>
+              <td><span style="color:var(--orange)">Moderate</span></td>
+            </tr>
+            <tr>
+              <td><strong>AMD Ryzen 9 9950X</strong></td>
+              <td>x86 Desktop</td>
+              <td class="score">3,380</td>
+              <td class="score">23,100</td>
+              <td><span style="color:var(--green)">Good</span></td>
+            </tr>
+            <tr>
+              <td><strong>NVIDIA RTX 5090</strong></td>
+              <td>GPU</td>
+              <td class="score">N/A</td>
+              <td class="score">48,500 (3DMark)</td>
+              <td><span style="color:var(--red)">High Draw</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Section 7: Explore More -->
     <section id="homeExploreMore">
       <div class="home-section-head reveal">
         <div>
@@ -632,12 +736,12 @@ body.chatting .home-footer {
       </div>
     </section>
 
-    <!-- Section 6: Daily Insight (Return Visitor Feature) -->
+    <!-- Section 8: Daily Insight (Return Visitor Feature) -->
     <section id="homeDailyInsight">
       <!-- Dynamically populated by JS -->
     </section>
 
-    <!-- Section 7: Give Visitors a Reason to Return -->
+    <!-- Section 9: Give Visitors a Reason to Return -->
     <section class="subscribe-band reveal" id="homeSubscribe">
       <div>
         <h3>✉️ Never miss a signal in the noise</h3>
@@ -1271,6 +1375,43 @@ const GUIDES = {
         <li><strong>Iterate:</strong> Treat AI like a collaborator. If the first response isn't perfect, refine your prompt or ask it to adjust the tone, length, or focus.</li>
         <li><strong>Verify Facts:</strong> AI can hallucinate. Always double-check important facts, dates, and code snippets before using them in production or sharing them.</li>
         <li><strong>Automate Repetitive Tasks:</strong> Use AI to draft emails, format data, generate boilerplate code, or brainstorm ideas to save hours of manual work.</li>
+      </ul>
+    `
+  },
+  'git-cheatsheet': {
+    title: '🌳 Git Command Cheat Sheet',
+    content: `
+      <ul>
+        <li><strong>Initialize:</strong> <code>git init</code> or <code>git clone [url]</code></li>
+        <li><strong>Status:</strong> <code>git status</code> (See what has changed)</li>
+        <li><strong>Add:</strong> <code>git add .</code> (Stage all changes)</li>
+        <li><strong>Commit:</strong> <code>git commit -m "message"</code></li>
+        <li><strong>Push:</strong> <code>git push origin main</code></li>
+        <li><strong>Branch:</strong> <code>git checkout -b feature-name</code></li>
+        <li><strong>Merge:</strong> <code>git merge feature-name</code></li>
+      </ul>
+    `
+  },
+  'regex-guide': {
+    title: '🔍 Regex Patterns Guide',
+    content: `
+      <ul>
+        <li><strong>Email:</strong> <code>^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$</code></li>
+        <li><strong>Phone (US):</strong> <code>^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$</code></li>
+        <li><strong>Date (YYYY-MM-DD):</strong> <code>^\d{4}-\d{2}-\d{2}$</code></li>
+        <li><strong>Hex Color:</strong> <code>^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$</code></li>
+      </ul>
+    `
+  },
+  'vscode-shortcuts': {
+    title: '⌨️ VS Code Power Shortcuts',
+    content: `
+      <ul>
+        <li><strong>Command Palette:</strong> <code>Cmd/Ctrl + Shift + P</code></li>
+        <li><strong>Quick Open:</strong> <code>Cmd/Ctrl + P</code></li>
+        <li><strong>Multi-Cursor:</strong> <code>Alt + Click</code> or <code>Cmd/Ctrl + D</code> (Select next occurrence)</li>
+        <li><strong>Toggle Terminal:</strong> <code>Ctrl + `</code></li>
+        <li><strong>Format Document:</strong> <code>Shift + Alt + F</code> (Win) or <code>Shift + Option + F</code> (Mac)</li>
       </ul>
     `
   }
