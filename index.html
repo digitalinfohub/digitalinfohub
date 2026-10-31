@@ -74,49 +74,46 @@ html,body{height:100%;min-height:100dvh;font-family:var(--font);background:var(-
 body{display:flex;flex-direction:column}
 body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-gradient(ellipse at 50% 0%,rgba(10,132,255,.08) 0%,transparent 60%)}
 
-.os-topbar{height:var(--topbar-h);background:var(--nav-bg);backdrop-filter:blur(40px) saturate(180%);border-bottom:1px solid var(--glass-border);display:flex;align-items:center;padding:0 20px;z-index:100;flex-shrink:0;gap:16px;position:relative}
+.os-topbar{height:var(--topbar-h);background:var(--nav-bg);backdrop-filter:blur(40px) saturate(180%);border-bottom:1px solid var(--glass-border);display:flex;align-items:center;padding:0 16px;z-index:100;flex-shrink:0;gap:12px;position:relative}
 .os-topbar::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent-soft),transparent)}
-.os-logo{font-weight:700;font-size:14px;letter-spacing:-.02em;display:flex;align-items:center;gap:10px;white-space:nowrap}
+.os-logo{font-weight:700;font-size:14px;letter-spacing:-.02em;display:flex;align-items:center;gap:8px;white-space:nowrap}
 .os-logo-icon{width:24px;height:24px;background:linear-gradient(135deg,var(--accent),#5E5CE6,var(--purple));border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;box-shadow:0 2px 10px rgba(10,132,255,.4)}
-.status-indicator{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-muted);font-family:var(--mono)}
+.status-indicator{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text-muted);font-family:var(--mono)}
 .status-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-.ticker-shell{flex:1;overflow:hidden;mask-image:linear-gradient(90deg,transparent,black 8%,black 92%,transparent)}
-.ticker-bar{display:inline-flex;padding:6px 0;animation:scroll 120s linear infinite;white-space:nowrap}
-/* Mobile specific ticker speed adjustment */
-@media (max-width: 768px) {
-  .ticker-bar { animation-duration: 140s; }
-}
+.ticker-shell{flex:1;overflow:hidden;mask-image:linear-gradient(90deg,transparent,black 5%,black 95%,transparent);min-width:0}
+.ticker-bar{display:inline-flex;padding:6px 0;animation:scroll 60s linear infinite;white-space:nowrap}
 @keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-.ticker-item{display:inline-flex;align-items:center;gap:6px;padding:0 14px;font-size:11px;font-family:var(--mono);color:var(--text-sub);border-right:1px solid var(--border)}
+.ticker-item{display:inline-flex;align-items:center;gap:5px;padding:0 12px;font-size:11px;font-family:var(--mono);color:var(--text-sub);border-right:1px solid var(--border)}
 .ticker-item strong{color:var(--text);font-weight:600}
 .ticker-item .up{color:var(--green)}.ticker-item .down{color:var(--red)}
-.os-actions{display:flex;gap:8px;align-items:center;flex-shrink:0}
-.os-btn{height:28px;padding:0 12px;background:var(--glass-highlight);border:1px solid var(--glass-border);color:var(--text-sub);border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s var(--ease);font-size:12px;font-weight:500;font-family:var(--font);gap:6px}
+.os-actions{display:flex;gap:6px;align-items:center;flex-shrink:0}
+.os-btn{height:28px;padding:0 10px;background:var(--glass-highlight);border:1px solid var(--glass-border);color:var(--text-sub);border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s var(--ease);font-size:12px;font-weight:500;font-family:var(--font);gap:5px}
 .os-btn:hover{background:rgba(255,255,255,.1);color:var(--text)}
 .os-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
-.os-clock{font-family:var(--mono);font-size:11px;color:var(--text-sub);padding:4px 10px;border:1px solid var(--glass-border);border-radius:6px;background:var(--glass-highlight)}
+.os-clock{font-family:var(--mono);font-size:11px;color:var(--text-sub);padding:4px 8px;border:1px solid var(--glass-border);border-radius:6px;background:var(--glass-highlight)}
 
-.os-nav{height:var(--nav-h);background:var(--nav-bg);backdrop-filter:blur(40px) saturate(180%);border-bottom:1px solid var(--glass-border);display:flex;align-items:center;padding:0 20px;flex-shrink:0;position:relative;z-index:99}
+.os-nav{height:var(--nav-h);background:var(--nav-bg);backdrop-filter:blur(40px) saturate(180%);border-bottom:1px solid var(--glass-border);display:flex;align-items:center;padding:0 16px;flex-shrink:0;position:relative;z-index:99}
 .nav-container{display:flex;align-items:center;gap:4px;overflow-x:auto;scrollbar-width:none;padding:4px 0;flex:1}
 .nav-container::-webkit-scrollbar{display:none}
-.nav-link{position:relative;display:flex;align-items:center;gap:6px;padding:8px 14px;font-size:13px;font-weight:500;color:var(--text-sub);text-decoration:none;border-radius:var(--radius-sm);transition:all .2s var(--ease);white-space:nowrap;flex-shrink:0;border:1px solid transparent}
+.nav-link{position:relative;display:flex;align-items:center;gap:5px;padding:7px 12px;font-size:13px;font-weight:500;color:var(--text-sub);text-decoration:none;border-radius:var(--radius-sm);transition:all .2s var(--ease);white-space:nowrap;flex-shrink:0;border:1px solid transparent}
 .nav-link:hover{color:var(--text);background:var(--glass-highlight)}
 .nav-link.active{color:var(--accent);background:var(--accent-soft);border-color:rgba(10,132,255,.2);font-weight:600}
 .nav-link.active::after{content:'';position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);width:20px;height:3px;background:var(--accent);border-radius:2px;box-shadow:0 0 8px var(--accent-glow)}
 .nav-icon{font-size:14px;opacity:.9}
-.nav-cta{margin-left:auto;padding:7px 16px;background:linear-gradient(135deg,var(--accent),#5E5CE6);color:#fff;font-weight:600;font-size:12px;border-radius:var(--radius-pill);text-decoration:none;display:flex;align-items:center;gap:6px;flex-shrink:0}
+.nav-cta{margin-left:auto;padding:7px 14px;background:linear-gradient(135deg,var(--accent),#5E5CE6);color:#fff;font-weight:600;font-size:12px;border-radius:var(--radius-pill);text-decoration:none;display:flex;align-items:center;gap:5px;flex-shrink:0}
 .nav-toggle{display:none;width:36px;height:36px;background:var(--glass-highlight);border:1px solid var(--glass-border);border-radius:8px;cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:4px;padding:8px}
 .nav-toggle span{display:block;width:16px;height:2px;background:var(--text);border-radius:1px}
 .sidebar-toggle{display:none;width:36px;height:36px;background:var(--glass-highlight);border:1px solid var(--glass-border);border-radius:8px;cursor:pointer;align-items:center;justify-content:center;font-size:16px}
-.mobile-drawer{position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(8px);z-index:500;display:none;opacity:0;transition:opacity .3s var(--ease)}
+
+.mobile-drawer{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(8px);z-index:500;display:none;opacity:0;transition:opacity .3s var(--ease)}
 .mobile-drawer.active{display:block;opacity:1}
-.drawer-content{position:absolute;top:0;left:0;right:0;background:var(--glass-bg);backdrop-filter:blur(40px);border-bottom:1px solid var(--glass-border);padding:16px;transform:translateY(-100%);transition:transform .4s var(--ease-spring);max-height:80vh;overflow-y:auto}
+.drawer-content{position:absolute;top:0;left:0;right:0;background:var(--glass-bg);backdrop-filter:blur(40px);border-bottom:1px solid var(--glass-border);padding:16px;transform:translateY(-100%);transition:transform .4s var(--ease-spring);max-height:85vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .mobile-drawer.active .drawer-content{transform:translateY(0)}
 .drawer-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--glass-border)}
 .drawer-header h3{font-size:16px;font-weight:700}
 .drawer-close{width:32px;height:32px;background:var(--surface-3);border:1px solid var(--border);border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--text)}
-.drawer-link{display:flex;align-items:center;gap:14px;padding:14px 16px;font-size:15px;font-weight:500;color:var(--text);text-decoration:none;border-radius:12px;margin-bottom:4px}
+.drawer-link{display:flex;align-items:center;gap:12px;padding:12px 14px;font-size:15px;font-weight:500;color:var(--text);text-decoration:none;border-radius:10px;margin-bottom:4px}
 .drawer-link:hover{background:var(--glass-highlight);color:var(--accent)}
 .drawer-cta{display:block;margin-top:12px;padding:14px;background:linear-gradient(135deg,var(--accent),#5E5CE6);color:#fff;font-weight:700;font-size:14px;border-radius:12px;text-align:center;text-decoration:none}
 .drawer-ad{margin-top:16px;padding:16px;background:var(--surface-3);border-radius:12px;border:1px solid var(--border)}
@@ -133,13 +130,13 @@ body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-grad
 .desktop-folder-icon{font-size:28px}
 .desktop-folder-label{font-size:11px;color:var(--text-sub);font-weight:600;letter-spacing:.02em}
 
-.os-desktop{flex:1;height:100%;display:flex;flex-direction:column;min-height:0;position:relative;overflow-y:auto;overflow-x:hidden;scroll-behavior:smooth}
-.os-desktop::-webkit-scrollbar{width:8px}
-.os-desktop::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
-.chat-container{flex:none;width:100%;max-width:840px;margin:0 auto;overflow-y:visible;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding:20px 16px 30px 16px;scroll-behavior:smooth;position:relative;display:none}
+.os-desktop{flex:1;height:100%;display:flex;flex-direction:column;min-height:0;position:relative;overflow-y:auto;overflow-x:hidden;scroll-behavior:smooth;-webkit-overflow-scrolling:touch}
+.os-desktop::-webkit-scrollbar{width:6px}
+.os-desktop::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+.chat-container{flex:none;width:100%;max-width:840px;margin:0 auto;overflow-y:visible;overflow-x:hidden;padding:20px 16px 30px 16px;scroll-behavior:smooth;position:relative;display:none}
 body.chatting .chat-container{display:block}
-.chat-container::-webkit-scrollbar{width:8px}
-.chat-container::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+.chat-container::-webkit-scrollbar{width:6px}
+.chat-container::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
 .chat-header{display:none;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--glass-border);margin-bottom:16px;position:sticky;top:0;background:var(--bg);z-index:10}
 body.chatting .chat-header{display:flex}
 .chat-thread{width:100%;max-width:800px;margin:0 auto;display:flex;flex-direction:column;gap:24px;position:relative;z-index:2}
@@ -184,8 +181,8 @@ body.chatting .chat-header{display:flex}
 .typing-indicator span:nth-child(2){animation-delay:.2s}.typing-indicator span:nth-child(3){animation-delay:.4s}
 @keyframes typing{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-8px);opacity:1}}
 
-.os-input-area{position:sticky;bottom:0;left:0;right:0;z-index:50;display:flex;justify-content:center;padding:0 20px 18px 20px;pointer-events:none;background:linear-gradient(to bottom,transparent,var(--bg) 55%)}
-body.chatting .os-input-area{position:sticky;bottom:5vh;background:none;padding:0 20px}
+.os-input-area{position:sticky;bottom:0;left:0;right:0;z-index:50;display:flex;justify-content:center;padding:0 16px 18px 16px;pointer-events:none;background:linear-gradient(to bottom,transparent,var(--bg) 55%)}
+body.chatting .os-input-area{position:sticky;bottom:5vh;background:none;padding:0 16px}
 .input-wrapper{pointer-events:auto;max-width:800px;width:100%;position:relative}
 .autocomplete-panel{display:none;flex-wrap:wrap;gap:8px;margin-bottom:10px;padding:10px 12px;background:var(--glass-bg);backdrop-filter:blur(24px);border:1px solid var(--glass-border);border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.22);animation:fadeInUp .2s var(--ease)}
 .autocomplete-panel.active{display:flex}
@@ -199,7 +196,7 @@ body.chatting .os-input-area{position:sticky;bottom:5vh;background:none;padding:
 .mode-btn.active{background:var(--accent-soft);color:var(--accent);border-color:var(--accent)}
 .mode-btn::after{content:attr(title);position:absolute;bottom:-30px;left:50%;transform:translateX(-50%);background:var(--surface-2);color:var(--text);font-size:11px;padding:4px 8px;border-radius:6px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s;border:1px solid var(--glass-border);z-index:100;font-weight:500}
 .mode-btn:hover::after{opacity:1}
-.ai-input{flex:1;background:none;border:none;outline:none;color:var(--text);font-size:17px;font-family:inherit;min-width:0;padding:12px 0}
+.ai-input{flex:1;background:none;border:none;outline:none;color:var(--text);font-size:16px;font-family:inherit;min-width:0;padding:12px 0}
 .ai-input::placeholder{color:var(--text-muted)}
 .ai-send{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--accent),#5E5CE6);color:#fff;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s var(--ease);font-size:17px;flex-shrink:0;box-shadow:0 4px 18px rgba(10,132,255,.3)}
 .ai-send:hover:not(:disabled){transform:scale(1.05)}
@@ -262,42 +259,35 @@ input:checked+.slider:before{transform:translateX(20px);background:var(--accent)
 #toast-container{position:fixed;bottom:100px;left:50%;transform:translateX(-50%);z-index:10000;display:flex;flex-direction:column;gap:8px;pointer-events:none;width:90%;max-width:400px}
 
 /* ===== Homepage Content ===== */
-.home-content{width:100%;max-width:1080px;margin:0 auto;padding:0 24px;display:flex;flex-direction:column;gap:56px}
+.home-content{width:100%;max-width:1080px;margin:0 auto;padding:0 20px;display:flex;flex-direction:column;gap:48px}
 body.chatting .home-content,
 body.chatting #homeTools,
 body.chatting #homeGuides,
-body.chatting #homeDevToolbox,
-body.chatting #homeHardware,
 body.chatting #homeExploreMore,
 body.chatting #homeDailyInsight,
 body.chatting .home-footer {
   display: none !important;
 }
 
-.hero{text-align:center;padding:56px 0 8px;animation:heroIn .9s var(--ease) both;position:relative;opacity:1}
+.hero{text-align:center;padding:48px 0 8px;animation:heroIn .9s var(--ease) both;position:relative;opacity:1}
 @keyframes heroIn{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 .hero-glow{position:absolute;top:-30%;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,var(--accent-glow) 0%,transparent 70%);opacity:0.4;pointer-events:none;z-index:-1;animation:pulseGlow 8s ease-in-out infinite alternate}
 @keyframes pulseGlow{0%{transform:translateX(-50%) scale(1);opacity:0.3}100%{transform:translateX(-50%) scale(1.15);opacity:0.5}}
 .hero-badge{display:inline-flex;align-items:center;gap:8px;padding:7px 16px;background:var(--accent-soft);border:1px solid rgba(10,132,255,.25);border-radius:var(--radius-pill);font-size:12px;font-weight:600;color:var(--accent);margin-bottom:22px;font-family:var(--mono);letter-spacing:.03em}
 .hero-badge .status-dot{width:7px;height:7px}
-.hero-title{font-size:clamp(32px,5.5vw,54px);font-weight:900;letter-spacing:-.035em;line-height:1.12;margin-bottom:16px}
+.hero-title{font-size:clamp(28px,6vw,54px);font-weight:900;letter-spacing:-.035em;line-height:1.12;margin-bottom:16px}
 .hero-title .grad{background:linear-gradient(120deg,var(--accent),#5E5CE6 45%,var(--purple));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;background-size:200% 200%;animation:gradShift 6s ease infinite}
 @keyframes gradShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
-.hero-sub{font-size:16px;color:var(--text-sub);max-width:620px;margin:0 auto 30px;line-height:1.65;transition:opacity 0.3s ease}
+.hero-sub{font-size:16px;color:var(--text-sub);max-width:620px;margin:0 auto 24px;line-height:1.65;transition:opacity 0.3s ease}
 .hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.btn-primary,.btn-ghost{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:var(--radius-pill);font-size:14px;font-weight:700;text-decoration:none;font-family:var(--font);cursor:pointer;transition:all .25s var(--ease);border:none}
+.btn-primary,.btn-ghost{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:var(--radius-pill);font-size:14px;font-weight:700;text-decoration:none;font-family:var(--font);cursor:pointer;transition:all .25s var(--ease);border:none}
 .btn-primary{background:linear-gradient(135deg,var(--accent),#5E5CE6);color:#fff;box-shadow:0 6px 24px rgba(10,132,255,.35)}
 .btn-primary:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 12px 34px rgba(10,132,255,.45)}
 .btn-ghost{background:var(--glass-highlight);color:var(--text);border:1px solid var(--border-strong)}
 .btn-ghost:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-3px);box-shadow:0 8px 24px var(--accent-glow)}
-.hero-stats{display:flex;justify-content:center;gap:36px;margin-top:38px;flex-wrap:wrap}
-.hero-stat{display:flex;flex-direction:column;align-items:center;gap:2px}
-.hero-stat b{font-size:22px;font-weight:800;font-family:var(--mono);letter-spacing:-.02em}
-.hero-stat span{font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;font-weight:600}
-.stat-accent{color:var(--accent)}.stat-green{color:var(--green)}.stat-purple{color:var(--purple)}
 
 .home-section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:22px;flex-wrap:wrap}
-.home-section-head h2{font-size:clamp(20px,3vw,26px);font-weight:800;letter-spacing:-.02em;display:flex;align-items:center;gap:10px}
+.home-section-head h2{font-size:clamp(20px,4vw,26px);font-weight:800;letter-spacing:-.02em;display:flex;align-items:center;gap:10px}
 .home-section-head p{font-size:13px;color:var(--text-muted);margin-top:4px}
 .view-all-link{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;background:var(--accent-soft);border:1px solid rgba(10,132,255,.25);color:var(--accent);font-size:13px;font-weight:700;border-radius:var(--radius-pill);text-decoration:none;transition:all .25s var(--ease);white-space:nowrap}
 .view-all-link:hover{background:var(--accent);color:#fff;transform:translateY(-2px);box-shadow:0 8px 20px var(--accent-glow)}
@@ -309,7 +299,7 @@ body.chatting .home-footer {
 .blog-card::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(10,132,255,.12),transparent 55%);opacity:0;transition:opacity .35s var(--ease);pointer-events:none}
 .blog-card:hover{transform:translateY(-8px);border-color:rgba(10,132,255,.4);box-shadow:0 24px 48px rgba(0,0,0,.35),0 0 0 1px rgba(10,132,255,.15)}
 .blog-card:hover::after{opacity:1}
-.blog-card-img{position:relative;height:170px;overflow:hidden;background:var(--surface-3)}
+.blog-card-img{position:relative;height:160px;overflow:hidden;background:var(--surface-3)}
 .blog-card-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease);display:block}
 .blog-card:hover .blog-card-img img{transform:scale(1.07)}
 .blog-card-tag{position:absolute;top:12px;left:12px;padding:5px 12px;background:rgba(5,5,5,.65);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.15);color:#fff;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;border-radius:var(--radius-pill)}
@@ -338,22 +328,6 @@ body.chatting .home-footer {
 .guide-card h4{font-size:16px;font-weight:700;margin:0}
 .guide-card p{font-size:13px;color:var(--text-sub);line-height:1.5;margin:0}
 
-.dev-tool-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
-.dev-tool-card{display:flex;flex-direction:column;gap:12px;padding:20px;background:var(--glass-bg);backdrop-filter:blur(30px);border:1px solid var(--glass-border);border-radius:var(--radius);cursor:pointer;transition:all .3s var(--ease);position:relative;overflow:hidden}
-.dev-tool-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--purple);opacity:0;transition:opacity .3s}
-.dev-tool-card:hover{transform:translateY(-4px);border-color:var(--purple);box-shadow:0 12px 32px rgba(0,0,0,.3)}
-.dev-tool-card:hover::before{opacity:1}
-.dev-tool-icon{font-size:28px}
-.dev-tool-card h4{font-size:16px;font-weight:700;margin:0}
-.dev-tool-card p{font-size:13px;color:var(--text-sub);line-height:1.5;margin:0}
-
-.hardware-table-wrapper{overflow-x:auto;border-radius:var(--radius);border:1px solid var(--glass-border);background:var(--glass-bg);backdrop-filter:blur(30px)}
-.hardware-table{width:100%;border-collapse:collapse;font-size:13px}
-.hardware-table th{background:var(--surface-3);padding:14px 16px;text-align:left;font-weight:700;color:var(--text);border-bottom:1px solid var(--border)}
-.hardware-table td{padding:14px 16px;border-bottom:1px solid var(--border);color:var(--text-sub)}
-.hardware-table tr:last-child td{border-bottom:none}
-.hardware-table .score{font-family:var(--mono);font-weight:700;color:var(--accent)}
-
 .guide-modal-content{max-width:600px}
 .guide-tabs{display:flex;gap:8px;margin-bottom:16px;border-bottom:1px solid var(--glass-border);padding-bottom:8px}
 .guide-tab{padding:8px 16px;background:transparent;border:none;color:var(--text-sub);font-weight:600;cursor:pointer;border-radius:8px;transition:all .2s;font-family:var(--font);font-size:14px}
@@ -364,8 +338,11 @@ body.chatting .home-footer {
 .guide-panel ul{padding-left:20px;color:var(--text-sub);font-size:14px;line-height:1.7}
 .guide-panel li{margin-bottom:10px}
 .guide-panel code{background:var(--surface-3);padding:2px 6px;border-radius:4px;font-family:var(--mono);font-size:12px;color:var(--text)}
+.external-links{display:flex;gap:10px;margin-top:20px;padding-top:16px;border-top:1px solid var(--glass-border)}
+.ext-link{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:var(--surface-3);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:12px;font-weight:600;text-decoration:none;transition:all .2s var(--ease)}
+.ext-link:hover{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
 
-.subscribe-band{position:relative;overflow:hidden;padding:36px 32px;border-radius:20px;background:linear-gradient(135deg,rgba(10,132,255,.14),rgba(94,92,230,.12) 50%,rgba(191,90,242,.14));border:1px solid rgba(10,132,255,.25);display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.subscribe-band{position:relative;overflow:hidden;padding:32px 24px;border-radius:20px;background:linear-gradient(135deg,rgba(10,132,255,.14),rgba(94,92,230,.12) 50%,rgba(191,90,242,.14));border:1px solid rgba(10,132,255,.25);display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
 .subscribe-band::before{content:'';position:absolute;inset:-60%;background:conic-gradient(from 0deg,transparent 0deg,rgba(10,132,255,.14) 60deg,transparent 140deg);animation:bandSpin 12s linear infinite;pointer-events:none}
 @keyframes bandSpin{to{transform:rotate(360deg)}}
 .subscribe-band h3{font-size:20px;font-weight:800;letter-spacing:-.02em;margin-bottom:6px;position:relative}
@@ -387,25 +364,50 @@ body.chatting .home-footer {
 
 @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}*{animation-duration:.01ms!important}}
 
-/* Newsletter Modal Specifics */
-#newsletterModal .modal-content {
-  max-width: 460px;
-  border: 1px solid rgba(10, 132, 255, 0.25);
-  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(10, 132, 255, 0.1);
+/* Floating Share Button */
+#shareFab {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), #5E5CE6);
+  color: #fff;
+  border: none;
+  box-shadow: 0 8px 24px rgba(10,132,255,0.4);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s var(--ease);
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  cursor: pointer;
+}
+#shareFab.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+#shareFab:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 12px 32px rgba(10,132,255,0.5);
 }
 
 /* Back to Top Button */
 #backToTop {
   position: fixed;
-  bottom: 24px;
+  bottom: 84px;
   right: 24px;
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: var(--accent);
-  color: #fff;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  color: var(--text);
   border: 1px solid var(--glass-border);
-  box-shadow: 0 4px 12px rgba(10,132,255,0.3);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
   opacity: 0;
   pointer-events: none;
   transition: all 0.3s var(--ease);
@@ -414,28 +416,31 @@ body.chatting .home-footer {
   align-items: center;
   justify-content: center;
   font-size: 18px;
-  backdrop-filter: blur(10px);
   cursor: pointer;
 }
+#backToTop.visible {
+  opacity: 1;
+  pointer-events: auto;
+ }
 #backToTop:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(10,132,255,0.4);
+  background: var(--surface-3);
 }
 
 @media (max-width:767px){
   .os-topbar{padding:0 12px;gap:8px}
-  .os-logo span,.os-btn-text,.os-clock,.status-indicator{display:none}
-  .os-nav{padding:0 12px;height:44px}
+  .os-logo span,.os-btn-text,.os-clock{display:none}
+  .status-indicator{display:none}
+  .os-nav{padding:0 12px;height:48px}
   .nav-container,.nav-cta{display:none}
   .nav-toggle,.sidebar-toggle{display:flex}
   .chat-container{padding:20px 12px 24px 12px}
-  .hero{padding:34px 16px 20px}
-  .hero-title{font-size:clamp(26px,7.5vw,34px)}
+  .hero{padding:32px 12px 16px}
+  .hero-title{font-size:clamp(26px,8vw,34px)}
   .blog-grid{grid-template-columns:1fr}
   .explore-grid{grid-template-columns:repeat(2,1fr)}
   .guide-grid{grid-template-columns:1fr}
-  .dev-tool-grid{grid-template-columns:1fr}
-  .guide-modal-content{max-width:90vw;margin:0 16px}
+  .guide-modal-content{max-width:92vw;margin:0 12px}
   .home-footer{padding:24px 16px calc(var(--nav-h) + 24px)}
   .chat-thread{gap:16px}
   .msg{gap:10px}
@@ -452,13 +457,23 @@ body.chatting .home-footer {
   .market-grid{grid-template-columns:1fr}
   .market-sparkline-wrapper{display:none}
   .app-grid{grid-template-columns:repeat(2,1fr);gap:12px}
-  .right-sidebar{width:260px}
+  .right-sidebar{width:280px}
   
   /* Mobile reveal animations */
   .reveal{opacity:0;transform:translateY(26px)}
   .reveal.visible{opacity:1;transform:translateY(0)}
+  
+  /* Mobile ticker fix */
+  .ticker-item{font-size:10px;padding:0 8px}
+  .ticker-shell{mask-image:linear-gradient(90deg,transparent,black 2%,black 98%,transparent)}
+  
+  #shareFab { bottom: 20px; right: 20px; width: 48px; height: 48px; }
+  #backToTop { bottom: 76px; right: 20px; width: 40px; height: 40px; }
 }
-@media (max-width:380px){.ticker-shell{display:none}}
+@media (max-width:380px){
+  .os-logo-icon{width:20px;height:20px;font-size:9px}
+  .ticker-item{font-size:9px;padding:0 6px}
+}
 </style>
 </head>
 <body>
@@ -497,16 +512,16 @@ body.chatting .home-footer {
       <h3>Navigation</h3>
       <button class="drawer-close" id="drawerClose">✕</button>
     </div>
-    <a href="/" class="drawer-link">🏠 Home</a>
-    <a href="/blog" class="drawer-link">📝 Blog</a>
-    <a href="/techproducts" class="drawer-link">💻 Tech Products</a>
-    <a href="/techtopics" class="drawer-link">🔬 Tech Topics</a>
-    <a href="/software" class="drawer-link">⚙️ Software</a>
-    <a href="/games" class="drawer-link">🎮 Games</a>
-    <a href="/about" class="drawer-link">ℹ️ About</a>
-    <a href="/services" class="drawer-link">🛠️ Services</a>
-    <a href="/advertise" class="drawer-link">📣 Advertise</a>
-    <a href="/subscribe" class="drawer-cta">✨ Subscribe Now</a>
+    <a href="/" class="drawer-link" onclick="window.closeMobileDrawer()">🏠 Home</a>
+    <a href="/blog" class="drawer-link" onclick="window.closeMobileDrawer()">📝 Blog</a>
+    <a href="/techproducts" class="drawer-link" onclick="window.closeMobileDrawer()">💻 Tech Products</a>
+    <a href="/techtopics" class="drawer-link" onclick="window.closeMobileDrawer()">🔬 Tech Topics</a>
+    <a href="/software" class="drawer-link" onclick="window.closeMobileDrawer()">⚙️ Software</a>
+    <a href="/games" class="drawer-link" onclick="window.closeMobileDrawer()">🎮 Games</a>
+    <a href="/about" class="drawer-link" onclick="window.closeMobileDrawer()">ℹ️ About</a>
+    <a href="/services" class="drawer-link" onclick="window.closeMobileDrawer()">🛠️ Services</a>
+    <a href="/advertise" class="drawer-link" onclick="window.closeMobileDrawer()">📣 Advertise</a>
+    <a href="/subscribe" class="drawer-cta" onclick="window.closeMobileDrawer()">✨ Subscribe Now</a>
     <div class="drawer-ad">
       <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5443646750699471" data-ad-slot="8451723433" data-ad-format="auto" data-full-width-responsive="true"></ins>
     </div>
@@ -537,7 +552,7 @@ body.chatting .home-footer {
     <!-- Section 1: Introduction and Hero -->
     <section class="hero" id="homeHero">
       <div class="hero-glow"></div>
-      <div class="hero-badge"><span class="status-dot"></span> DISCOVER · USE · LEARN</div>
+      <div class="hero-badge"><span class="status-dot"></span> <span id="dynamicBadge">DISCOVER · USE · LEARN</span></div>
       <h1 class="hero-title">Technology, AI &amp; Digital Tools<br><span class="grad">That Matter.</span></h1>
       <p class="hero-sub" id="heroSubText">Discover the latest developments in technology and AI, explore useful digital tools, and learn practical ways to make technology work better for you.</p>
       <div class="hero-actions">
@@ -546,7 +561,7 @@ body.chatting .home-footer {
       </div>
     </section>
 
-    <!-- Section 2: The Latest Discoveries -->
+    <!-- Section 2: The Latest Discoveries (Dynamically Shuffled) -->
     <section id="homeBlog">
       <div class="home-section-head reveal">
         <div>
@@ -555,43 +570,8 @@ body.chatting .home-footer {
         </div>
         <a href="/blog" class="view-all-link">View All Articles <span class="arr">→</span></a>
       </div>
-      <div class="blog-grid">
-        <a href="/post/tech-market-sell-off-october-2026" class="blog-card reveal d1">
-          <div class="blog-card-img">
-            <img src="https://images.unsplash.com/photo-1758073519996-6d3c63b4922c?q=80&w=1632&auto=format&fit=crop" alt="Tech market sell-off charts" loading="lazy">
-            <span class="blog-card-tag">Markets &amp; Technology</span>
-          </div>
-          <div class="blog-card-body">
-            <div class="blog-card-meta"><span>October 2026</span><span class="dot"></span><span>6 min read</span></div>
-            <h3>Tech Market Sell-Off: AI Capex Concerns and Geopolitical Tensions</h3>
-            <p>Global technology markets face a significant risk-off rotation as AI spending fatigue and crude oil spikes trigger widespread investor anxiety.</p>
-            <span class="blog-card-cta">Read article <span class="arr">→</span></span>
-          </div>
-        </a>
-        <a href="/post/ai-agent-economy-october-catalysts" class="blog-card reveal d2">
-          <div class="blog-card-img">
-            <img src="https://images.unsplash.com/photo-1639322537228-f710d846310a?q=80&w=1200&auto=format&fit=crop" alt="AI agent economy neural network" loading="lazy">
-            <span class="blog-card-tag">AI Economy</span>
-          </div>
-          <div class="blog-card-body">
-            <div class="blog-card-meta"><span>October 2026</span><span class="dot"></span><span>5 min read</span></div>
-            <h3>The AI Agent Economy: October Catalysts</h3>
-            <p>Exploring the key drivers and market shifts defining the AI agent economy this October — from autonomous workflows to new monetization models.</p>
-            <span class="blog-card-cta">Read article <span class="arr">→</span></span>
-          </div>
-        </a>
-        <a href="/post/meet-teamtbm" class="blog-card reveal d3">
-          <div class="blog-card-img">
-            <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1200&auto=format&fit=crop" alt="Young game creators at their stations" loading="lazy">
-            <span class="blog-card-tag">Community</span>
-          </div>
-          <div class="blog-card-body">
-            <div class="blog-card-meta"><span>October 2026</span><span class="dot"></span><span>4 min read</span></div>
-            <h3>Meet TeamTBM: Young Creators Building Games and Communities</h3>
-            <p>Discover TeamTBM, a group of young creators building games, digital communities, and creative projects since 2019 — including talks at Eastbourne DigiFest.</p>
-            <span class="blog-card-cta">Read article <span class="arr">→</span></span>
-          </div>
-        </a>
+      <div class="blog-grid" id="dynamicBlogGrid">
+        <!-- Populated by JS -->
       </div>
     </section>
 
@@ -612,7 +592,7 @@ body.chatting .home-footer {
       </div>
     </section>
 
-    <!-- Section 4: Quick Guides and Practical Tips -->
+    <!-- Section 4: Quick Guides and Practical Tips (Dynamically Shuffled) -->
     <section id="homeGuides">
       <div class="home-section-head reveal">
         <div>
@@ -620,107 +600,12 @@ body.chatting .home-footer {
           <p>Straightforward advice to solve everyday digital problems, no jargon required.</p>
         </div>
       </div>
-      <div class="guide-grid">
-        <div class="guide-card reveal" onclick="window.openGuide('performance')">
-          <div class="guide-icon">🚀</div>
-          <h4>Make Your Computer Faster</h4>
-          <p>Simple, actionable steps to speed up your Windows PC or Mac without buying new hardware.</p>
-        </div>
-        <div class="guide-card reveal d1" onclick="window.openGuide('security')">
-          <div class="guide-icon">🛡️</div>
-          <h4>Stay Safe Online</h4>
-          <p>A quick checklist for strong passwords, multi-factor authentication, and spotting phishing attempts.</p>
-        </div>
-        <div class="guide-card reveal d2" onclick="window.openGuide('ai-productivity')">
-          <div class="guide-icon">🤖</div>
-          <h4>Make Better Use of AI Tools</h4>
-          <p>Practical prompts and workflows to save time and improve your everyday productivity.</p>
-        </div>
+      <div class="guide-grid" id="dynamicGuideGrid">
+        <!-- Populated by JS -->
       </div>
     </section>
 
-    <!-- NEW Section 5: Developer Toolbox -->
-    <section id="homeDevToolbox">
-      <div class="home-section-head reveal">
-        <div>
-          <h2>👨‍💻 Developer Toolbox</h2>
-          <p>Essential cheat sheets and references for modern development workflows.</p>
-        </div>
-        <a href="/software" class="view-all-link">View All Resources <span class="arr">→</span></a>
-      </div>
-      <div class="dev-tool-grid">
-        <div class="dev-tool-card reveal" onclick="window.openGuide('git-cheatsheet')">
-          <div class="dev-tool-icon">🌳</div>
-          <h4>Git Command Cheat Sheet</h4>
-          <p>Master branching, merging, and rebasing with our essential Git reference guide.</p>
-        </div>
-        <div class="dev-tool-card reveal d1" onclick="window.openGuide('regex-guide')">
-          <div class="dev-tool-icon">🔍</div>
-          <h4>Regex Patterns Guide</h4>
-          <p>Common regular expression patterns for email validation, phone numbers, and data parsing.</p>
-        </div>
-        <div class="dev-tool-card reveal d2" onclick="window.openGuide('vscode-shortcuts')">
-          <div class="dev-tool-icon">⌨️</div>
-          <h4>VS Code Power Shortcuts</h4>
-          <p>Boost your coding speed with these hidden VS Code keyboard shortcuts and extensions.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- NEW Section 6: Hardware Benchmarks -->
-    <section id="homeHardware">
-      <div class="home-section-head reveal">
-        <div>
-          <h2>🖥️ Hardware Benchmarks</h2>
-          <p>Performance comparisons for the latest processors and GPUs.</p>
-        </div>
-      </div>
-      <div class="hardware-table-wrapper reveal">
-        <table class="hardware-table">
-          <thead>
-            <tr>
-              <th>Component</th>
-              <th>Type</th>
-              <th>Single-Core Score</th>
-              <th>Multi-Core Score</th>
-              <th>Power Efficiency</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>Apple M4 Max</strong></td>
-              <td>ARM SoC</td>
-              <td class="score">3,850</td>
-              <td class="score">22,400</td>
-              <td><span style="color:var(--green)">Excellent</span></td>
-            </tr>
-            <tr>
-              <td><strong>Intel Core Ultra 9</strong></td>
-              <td>x86 Desktop</td>
-              <td class="score">3,420</td>
-              <td class="score">21,800</td>
-              <td><span style="color:var(--orange)">Moderate</span></td>
-            </tr>
-            <tr>
-              <td><strong>AMD Ryzen 9 9950X</strong></td>
-              <td>x86 Desktop</td>
-              <td class="score">3,380</td>
-              <td class="score">23,100</td>
-              <td><span style="color:var(--green)">Good</span></td>
-            </tr>
-            <tr>
-              <td><strong>NVIDIA RTX 5090</strong></td>
-              <td>GPU</td>
-              <td class="score">N/A</td>
-              <td class="score">48,500 (3DMark)</td>
-              <td><span style="color:var(--red)">High Draw</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- Section 7: Explore More -->
+    <!-- Section 5: Explore More -->
     <section id="homeExploreMore">
       <div class="home-section-head reveal">
         <div>
@@ -736,12 +621,12 @@ body.chatting .home-footer {
       </div>
     </section>
 
-    <!-- Section 8: Daily Insight (Return Visitor Feature) -->
+    <!-- Section 6: Daily Insight (Return Visitor Feature) -->
     <section id="homeDailyInsight">
       <!-- Dynamically populated by JS -->
     </section>
 
-    <!-- Section 9: Give Visitors a Reason to Return -->
+    <!-- Section 7: Give Visitors a Reason to Return -->
     <section class="subscribe-band reveal" id="homeSubscribe">
       <div>
         <h3>✉️ Never miss a signal in the noise</h3>
@@ -794,7 +679,8 @@ body.chatting .home-footer {
   </footer>
 </main>
 
-<!-- Back to Top Button -->
+<!-- Floating Action Buttons -->
+<button id="shareFab" aria-label="Share Digital Infohub">🔗</button>
 <button id="backToTop" aria-label="Back to top">↑</button>
 
 <div class="widget-layer" id="widgetLayer"></div>
@@ -860,7 +746,7 @@ body.chatting .home-footer {
   </div>
 </div>
 
-<!-- Newsletter Popup Modal (Redirects to /subscribe) -->
+<!-- Newsletter Popup Modal -->
 <div class="modal-overlay" id="newsletterModal">
   <div class="modal-content">
     <div class="modal-header">
@@ -934,6 +820,8 @@ drawerClose.addEventListener('click',()=>mobileDrawer.classList.remove('active')
 sidebarToggle.addEventListener('click',()=>rightSidebar.classList.toggle('open'));
 sidebarClose.addEventListener('click',()=>rightSidebar.classList.remove('open'));
 rightSidebar.addEventListener('click',e=>{if(e.target===rightSidebar)rightSidebar.classList.remove('open');});
+
+window.closeMobileDrawer = () => mobileDrawer.classList.remove('active');
 
 let currentMode = store.get('dih_chat_mode','search');
 let isProcessing = false;
@@ -1328,10 +1216,12 @@ $('#addWatchlistBtn').addEventListener('click',()=>{
   $('#watchlistInput').value='';
 });
 
-// Guide Modal Logic
+// Guide Modal Logic with External Links
 const GUIDES = {
   performance: {
     title: '🚀 Make Your Computer Faster',
+    searchQuery: 'how to speed up computer windows mac',
+    wikiQuery: 'Computer performance',
     content: `
       <div class="guide-tabs">
         <button class="guide-tab active" onclick="window.switchGuideTab('win')">Windows</button>
@@ -1341,7 +1231,7 @@ const GUIDES = {
         <ul>
           <li><strong>Disable Startup Apps:</strong> Press <code>Ctrl + Shift + Esc</code>, go to the Startup tab, and disable unnecessary programs.</li>
           <li><strong>Free Up Disk Space:</strong> Use "Disk Cleanup" or "Storage Sense" to remove temporary files.</li>
-          <li><strong>Update Drivers:</strong> Ensure your graphics and chipset drivers are up to date via Windows Update or the manufacturer's website.</li>
+          <li><strong>Update Drivers:</strong> Ensure your graphics and chipset drivers are up to date via Windows Update.</li>
           <li><strong>Adjust Power Settings:</strong> Set your power plan to "High Performance" in the Control Panel.</li>
         </ul>
       </div>
@@ -1357,61 +1247,67 @@ const GUIDES = {
   },
   security: {
     title: '🛡️ Stay Safe Online',
+    searchQuery: 'how to stay safe online cybersecurity tips',
+    wikiQuery: 'Computer security',
     content: `
       <ul>
         <li><strong>Use a Password Manager:</strong> Generate and store unique, complex passwords for every account. Never reuse passwords.</li>
         <li><strong>Enable Multi-Factor Authentication (MFA):</strong> Turn on MFA/2FA for your email, banking, and social media accounts using an authenticator app.</li>
-        <li><strong>Spot Phishing:</strong> Check the sender's email address carefully. Hover over links before clicking to see the real destination. Be wary of urgent requests for money or personal info.</li>
-        <li><strong>Keep Software Updated:</strong> Enable automatic updates for your operating system, browser, and antivirus software to patch security vulnerabilities.</li>
+        <li><strong>Spot Phishing:</strong> Check the sender's email address carefully. Hover over links before clicking to see the real destination.</li>
+        <li><strong>Keep Software Updated:</strong> Enable automatic updates for your operating system, browser, and antivirus software.</li>
         <li><strong>Backup Your Data:</strong> Regularly back up important files to an external drive or a secure cloud service.</li>
       </ul>
     `
   },
   'ai-productivity': {
     title: '🤖 Make Better Use of AI Tools',
+    searchQuery: 'how to use AI tools for productivity prompts',
+    wikiQuery: 'Artificial intelligence applications',
     content: `
       <ul>
-        <li><strong>Be Specific:</strong> Provide clear context, desired format, and constraints in your prompts (e.g., "Summarize this article in 3 bullet points for a beginner").</li>
-        <li><strong>Iterate:</strong> Treat AI like a collaborator. If the first response isn't perfect, refine your prompt or ask it to adjust the tone, length, or focus.</li>
-        <li><strong>Verify Facts:</strong> AI can hallucinate. Always double-check important facts, dates, and code snippets before using them in production or sharing them.</li>
-        <li><strong>Automate Repetitive Tasks:</strong> Use AI to draft emails, format data, generate boilerplate code, or brainstorm ideas to save hours of manual work.</li>
+        <li><strong>Be Specific:</strong> Provide clear context, desired format, and constraints in your prompts (e.g., "Summarize this article in 3 bullet points").</li>
+        <li><strong>Iterate:</strong> Treat AI like a collaborator. If the first response isn't perfect, refine your prompt or ask it to adjust the tone.</li>
+        <li><strong>Verify Facts:</strong> AI can hallucinate. Always double-check important facts, dates, and code snippets before using them.</li>
+        <li><strong>Automate Repetitive Tasks:</strong> Use AI to draft emails, format data, generate boilerplate code, or brainstorm ideas.</li>
       </ul>
     `
   },
-  'git-cheatsheet': {
-    title: '🌳 Git Command Cheat Sheet',
+  'automation-bot': {
+    title: '🤖 Build Your First Automation Bot',
+    searchQuery: 'how to build a python automation bot beginner',
+    wikiQuery: 'Robotic process automation',
     content: `
       <ul>
-        <li><strong>Initialize:</strong> <code>git init</code> or <code>git clone [url]</code></li>
-        <li><strong>Status:</strong> <code>git status</code> (See what has changed)</li>
-        <li><strong>Add:</strong> <code>git add .</code> (Stage all changes)</li>
-        <li><strong>Commit:</strong> <code>git commit -m "message"</code></li>
-        <li><strong>Push:</strong> <code>git push origin main</code></li>
-        <li><strong>Branch:</strong> <code>git checkout -b feature-name</code></li>
-        <li><strong>Merge:</strong> <code>git merge feature-name</code></li>
+        <li><strong>Identify the Task:</strong> Choose a repetitive task (e.g., renaming files, scraping a webpage, or posting to social media).</li>
+        <li><strong>Choose Your Tool:</strong> Python is the industry standard. Libraries like <code>Selenium</code> or <code>Playwright</code> are great for browser automation.</li>
+        <li><strong>Start Small:</strong> Write a script that does one small thing perfectly before adding complexity.</li>
+        <li><strong>Schedule It:</strong> Use Windows Task Scheduler or macOS Cron to run your bot automatically at specific times.</li>
       </ul>
     `
   },
-  'regex-guide': {
-    title: '🔍 Regex Patterns Guide',
+  'crypto-wallets': {
+    title: '🔐 Understanding Crypto Wallets',
+    searchQuery: 'how to use crypto wallets safely beginner guide',
+    wikiQuery: 'Cryptocurrency wallet',
     content: `
       <ul>
-        <li><strong>Email:</strong> <code>^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$</code></li>
-        <li><strong>Phone (US):</strong> <code>^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$</code></li>
-        <li><strong>Date (YYYY-MM-DD):</strong> <code>^\d{4}-\d{2}-\d{2}$</code></li>
-        <li><strong>Hex Color:</strong> <code>^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$</code></li>
+        <li><strong>Hot vs. Cold:</strong> Hot wallets (like MetaMask) are connected to the internet and convenient for trading. Cold wallets (like Ledger) are offline and best for long-term storage.</li>
+        <li><strong>Seed Phrase is Sacred:</strong> Your 12-24 word recovery phrase is the ONLY way to recover your funds. Never share it, never type it into a website, and store it physically offline.</li>
+        <li><strong>Test First:</strong> Always send a tiny amount of crypto to a new wallet address first to verify it works before transferring large sums.</li>
+        <li><strong>Beware of Scams:</strong> No legitimate support team will ever DM you first or ask for your seed phrase.</li>
       </ul>
     `
   },
-  'vscode-shortcuts': {
-    title: '⌨️ VS Code Power Shortcuts',
+  'keyboard-shortcuts': {
+    title: '⌨️ Mastering Keyboard Shortcuts',
+    searchQuery: 'best keyboard shortcuts for productivity windows mac',
+    wikiQuery: 'Table of keyboard shortcuts',
     content: `
       <ul>
-        <li><strong>Command Palette:</strong> <code>Cmd/Ctrl + Shift + P</code></li>
-        <li><strong>Quick Open:</strong> <code>Cmd/Ctrl + P</code></li>
-        <li><strong>Multi-Cursor:</strong> <code>Alt + Click</code> or <code>Cmd/Ctrl + D</code> (Select next occurrence)</li>
-        <li><strong>Toggle Terminal:</strong> <code>Ctrl + `</code></li>
-        <li><strong>Format Document:</strong> <code>Shift + Alt + F</code> (Win) or <code>Shift + Option + F</code> (Mac)</li>
+        <li><strong>Universal Navigation:</strong> <code>Alt+Tab</code> (Win) or <code>Cmd+Tab</code> (Mac) to switch apps instantly.</li>
+        <li><strong>Browser Power:</strong> <code>Ctrl+T</code> / <code>Cmd+T</code> for a new tab. <code>Ctrl+Shift+T</code> / <code>Cmd+Shift+T</code> to reopen a closed tab (a lifesaver!).</li>
+        <li><strong>Text Editing:</strong> <code>Ctrl/Cmd + Arrow Keys</code> to jump word by word. <code>Ctrl/Cmd + Shift + Arrow</code> to highlight word by word.</li>
+        <li><strong>Window Management:</strong> <code>Win + Arrow Keys</code> to snap windows to halves or quarters of your screen instantly.</li>
       </ul>
     `
   }
@@ -1421,7 +1317,20 @@ window.openGuide = (key) => {
   const guide = GUIDES[key];
   if (!guide) return;
   $('#guideTitle').textContent = guide.title;
-  $('#guideBody').innerHTML = guide.content;
+  
+  let externalLinksHtml = '';
+  if (guide.searchQuery) {
+    const googleUrl = `https://www.google.com/search?q=${encodeURIComponent(guide.searchQuery)}`;
+    const wikiUrl = `https://en.wikipedia.org/wiki/Special:Search?search=${encodeURIComponent(guide.wikiQuery)}`;
+    externalLinksHtml = `
+      <div class="external-links">
+        <a href="${googleUrl}" target="_blank" rel="noopener" class="ext-link">🔍 Search on Google</a>
+        <a href="${wikiUrl}" target="_blank" rel="noopener" class="ext-link">📖 Read on Wikipedia</a>
+      </div>
+    `;
+  }
+  
+  $('#guideBody').innerHTML = guide.content + externalLinksHtml;
   $('#guideModal').classList.add('active');
 };
 
@@ -1567,15 +1476,72 @@ tick(); setInterval(tick,1000);
   renderTicker(c,s);
 })();
 
-// ===== Homepage enhancements: scroll reveal animations & Daily Insight =====
+// ===== DYNAMIC CONTENT SHUFFLER & HOMEPAGE ENHANCEMENTS =====
 (function(){
-  // CRITICAL FIX: Ensure body is not stuck in chatting mode on load
   document.body.classList.remove('chatting');
 
+  // 1. Dynamic Content Arrays
+  const BLOG_POSTS = [
+    { url: 'https://digitalinfohub.net/post/cybersecurity-ai-investment-2026', img: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1632&auto=format&fit=crop', tag: 'Cybersecurity', date: 'October 2026', read: '5 min', title: 'Cybersecurity & AI Investment Trends in 2026', desc: 'How artificial intelligence is reshaping cybersecurity investments and what it means for the future of digital defense.' },
+    { url: 'https://digitalinfohub.net/post/how-to-stay-safe-online-2026', img: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1632&auto=format&fit=crop', tag: 'Security', date: 'October 2026', read: '4 min', title: 'How to Stay Safe Online in 2026', desc: 'Essential, updated practices for protecting your digital identity, data, and devices in an increasingly connected world.' },
+    { url: 'https://digitalinfohub.net/post/tech-trends-october-2026', img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1632&auto=format&fit=crop', tag: 'Tech Trends', date: 'October 2026', read: '7 min', title: 'Top Tech Trends Defining October 2026', desc: 'From quantum computing breakthroughs to new AI hardware, here is what is shaping the technology landscape this month.' },
+    { url: 'https://www.digitalinfohub.net/post/meet-teamtbm', img: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1200&auto=format&fit=crop', tag: 'Community', date: 'October 2026', read: '4 min', title: 'Meet TeamTBM: Young Creators Building Games', desc: 'Discover TeamTBM, a group of young creators building games, digital communities, and creative projects since 2019.' },
+    { url: 'https://www.digitalinfohub.net/post/beating-syllabus-overload-with-smarter-medical-learning', img: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1632&auto=format&fit=crop', tag: 'EdTech', date: 'October 2026', read: '6 min', title: 'Beating Syllabus Overload with Smarter Medical Learning', desc: 'How AI-driven spaced repetition and interactive 3D models are helping medical students retain complex information faster.' },
+    { url: 'https://www.digitalinfohub.net/post/meet-miyabi-from-nomad-sculpt-to-blender', img: 'https://images.unsplash.com/photo-1617791160505-6f00504e3519?q=80&w=1632&auto=format&fit=crop', tag: '3D Art', date: 'October 2026', read: '5 min', title: 'Meet Miyabi: From Nomad Sculpt to Blender', desc: 'A deep dive into the workflow of a digital artist transitioning from mobile sculpting to professional desktop 3D pipelines.' }
+  ];
+
+  const GUIDES_LIST = [
+    { key: 'performance', icon: '🚀', title: 'Make Your Computer Faster', desc: 'Simple, actionable steps to speed up your Windows PC or Mac without buying new hardware.' },
+    { key: 'security', icon: '🛡️', title: 'Stay Safe Online', desc: 'A quick checklist for strong passwords, multi-factor authentication, and spotting phishing attempts.' },
+    { key: 'ai-productivity', icon: '🤖', title: 'Make Better Use of AI Tools', desc: 'Practical prompts and workflows to save time and improve your everyday productivity.' },
+    { key: 'automation-bot', icon: '⚙️', title: 'Build Your First Automation Bot', desc: 'A beginner-friendly guide to writing your first Python script to automate boring tasks.' },
+    { key: 'crypto-wallets', icon: '🔐', title: 'Understanding Crypto Wallets', desc: 'Learn the difference between hot and cold wallets, and how to keep your seed phrase safe.' },
+    { key: 'keyboard-shortcuts', icon: '⌨️', title: 'Mastering Keyboard Shortcuts', desc: 'Boost your daily workflow speed with these essential, often-overlooked keyboard combinations.' }
+  ];
+
+  // Shuffle function
+  const shuffle = (array) => {
+    const arr = [...array];
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  };
+
+  // 2. Populate Blog Grid (Pick 3 random)
+  const shuffledBlogs = shuffle(BLOG_POSTS).slice(0, 3);
+  const blogGrid = $('#dynamicBlogGrid');
+  blogGrid.innerHTML = shuffledBlogs.map((post, i) => `
+    <a href="${post.url}" class="blog-card reveal d${i+1}">
+      <div class="blog-card-img">
+        <img src="${post.img}" alt="${post.title}" loading="lazy">
+        <span class="blog-card-tag">${post.tag}</span>
+      </div>
+      <div class="blog-card-body">
+        <div class="blog-card-meta"><span>${post.date}</span><span class="dot"></span><span>${post.read} read</span></div>
+        <h3>${post.title}</h3>
+        <p>${post.desc}</p>
+        <span class="blog-card-cta">Read article <span class="arr">→</span></span>
+      </div>
+    </a>
+  `).join('');
+
+  // 3. Populate Guide Grid (Pick 3 random)
+  const shuffledGuides = shuffle(GUIDES_LIST).slice(0, 3);
+  const guideGrid = $('#dynamicGuideGrid');
+  guideGrid.innerHTML = shuffledGuides.map((guide, i) => `
+    <div class="guide-card reveal d${i+1}" onclick="window.openGuide('${guide.key}')">
+      <div class="guide-icon">${guide.icon}</div>
+      <h4>${guide.title}</h4>
+      <p>${guide.desc}</p>
+    </div>
+  `).join('');
+
+  // 4. Scroll Reveal Animations (Mobile optimized)
   const isMobile = window.innerWidth < 768;
   const reveals = $$('.reveal');
   
-  // 1. Desktop: Make everything visible immediately. Mobile: Animate on scroll.
   if (isMobile && 'IntersectionObserver' in window) {
     const io = new IntersectionObserver(entries => {
       entries.forEach(en => {
@@ -1597,25 +1563,32 @@ tick(); setInterval(tick,1000);
     });
   }
 
-  // 2. Smart "Welcome Back" Greeting
+  // 5. Smart "Welcome Back" & Dynamic Badge
   const lastVisit = store.get('dih_last_visit', '');
   const today = new Date().toDateString();
   const heroSub = $('#heroSubText');
-  if (heroSub && lastVisit !== today) {
-    const lastDate = new Date(lastVisit);
-    const now = new Date();
-    const diffTime = Math.abs(now - lastDate);
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  const dynamicBadge = $('#dynamicBadge');
+  
+  if (lastVisit !== today) {
+    dynamicBadge.textContent = '✨ NEW CONTENT EVERY VISIT';
+    dynamicBadge.style.color = 'var(--green)';
+    dynamicBadge.style.borderColor = 'rgba(48, 209, 88, 0.25)';
+    dynamicBadge.style.background = 'rgba(48, 209, 88, 0.15)';
     
-    if (!isNaN(diffDays) && diffDays > 0 && diffDays <= 7) {
-      heroSub.textContent = `Welcome back! It's been ${diffDays} day${diffDays > 1 ? 's' : ''}. We've curated new tools, insights, and market updates just for you.`;
-    } else if (!isNaN(diffDays) && diffDays > 7) {
-      heroSub.textContent = "Welcome back! A lot has changed in tech. Catch up on the latest AI breakthroughs, market moves, and new digital tools.";
+    if (heroSub && lastVisit !== '') {
+      const lastDate = new Date(lastVisit);
+      const now = new Date();
+      const diffDays = Math.ceil(Math.abs(now - lastDate) / (1000 * 60 * 60 * 24));
+      if (diffDays > 0 && diffDays <= 7) {
+        heroSub.textContent = `Welcome back! It's been ${diffDays} day${diffDays > 1 ? 's' : ''}. We've shuffled in fresh tools, insights, and market updates just for you.`;
+      } else if (diffDays > 7) {
+        heroSub.textContent = "Welcome back! A lot has changed. We've curated brand new AI breakthroughs, market moves, and digital tools for you today.";
+      }
     }
     store.set('dih_last_visit', today);
   }
 
-  // 3. Daily Insight Feature with One-Click Copy
+  // 6. Daily Insight Feature with One-Click Copy
   const DAILY_INSIGHTS = [
     { icon: '💡', title: 'Productivity Hack', text: 'Use the "2-Minute Rule": If a task takes less than 2 minutes, do it immediately instead of adding it to your to-do list.' },
     { icon: '🔒', title: 'Security Tip', text: 'Enable passkeys wherever possible. They are more secure than passwords and resistant to phishing attacks.' },
@@ -1644,7 +1617,7 @@ tick(); setInterval(tick,1000);
       <div style="display:flex;align-items:flex-start;gap:16px;width:100%; padding-right: 40px;">
         <div class="explore-icon" style="background:var(--accent);color:#fff;font-size:24px;width:48px;height:48px;flex-shrink:0">${insight.icon}</div>
         <div style="flex:1">
-          <div style="font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">Daily Insight · ${new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}</div>
+          <div style="font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">Daily Insight Unlocked · ${new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}</div>
           <h4 style="font-size:16px;font-weight:700;margin-bottom:6px">${insight.title}</h4>
           <span style="font-size:13px;color:var(--text-sub);line-height:1.6" id="insightText">${insight.text}</span>
         </div>
@@ -1657,14 +1630,13 @@ tick(); setInterval(tick,1000);
     subscribeBand.parentNode.insertBefore(insightContainer, subscribeBand);
   }
 
-  // Copy button logic
   setTimeout(() => {
     const copyBtn = $('#copyInsightBtn');
     if (copyBtn) {
       copyBtn.addEventListener('click', () => {
         const text = $('#insightText').textContent;
         navigator.clipboard.writeText(text).then(() => {
-          showToast('Insight copied to clipboard!', 'success');
+          showToast('Insight copied to clipboard! Share it with a friend.', 'success');
           copyBtn.textContent = '✅';
           setTimeout(() => { copyBtn.textContent = '📋'; }, 2000);
         }).catch(() => {
@@ -1674,7 +1646,7 @@ tick(); setInterval(tick,1000);
     }
   }, 100);
 
-  // 4. First-Visit Pro Tip Toast (Desktop only)
+  // 7. First-Visit Pro Tip Toast (Desktop only)
   const hasSeenShortcut = store.get('dih_seen_shortcut', 'false');
   if (hasSeenShortcut === 'false' && !isMobile) {
     setTimeout(() => {
@@ -1683,7 +1655,7 @@ tick(); setInterval(tick,1000);
     }, 2500);
   }
 
-  // 5. Newsletter Popup Logic
+  // 8. Newsletter Popup Logic
   const neverShow = store.get('dih_newsletter_dismissed', 'false') === 'true';
   if (!neverShow) {
     setTimeout(() => {
@@ -1709,31 +1681,52 @@ $('#newsletterModal').addEventListener('click', e => {
 
 // Global Keyboard Shortcuts
 document.addEventListener('keydown', (e) => {
-  // Focus chat input on '/' or 'Cmd/Ctrl+K'
   if ((e.key === '/' || (e.metaKey && e.key === 'k') || (e.ctrlKey && e.key === 'k')) && !e.target.matches('input, textarea')) {
     e.preventDefault();
     document.body.classList.add('chatting');
     $('#chatInput').focus();
   }
-  // Exit chat mode on Escape
   if (e.key === 'Escape' && document.body.classList.contains('chatting')) {
     window.exitChatMode();
   }
 });
 
-// Back to Top Button Logic
-const backToTopBtn = $('#backToTop');
+// Share Button Logic
+const shareFab = $('#shareFab');
 const osDesktop = $('#osDesktop');
+
 osDesktop.addEventListener('scroll', () => {
-  if (osDesktop.scrollTop > 400) {
-    backToTopBtn.style.opacity = '1';
-    backToTopBtn.style.pointerEvents = 'auto';
+  if (osDesktop.scrollTop > 300) {
+    shareFab.classList.add('visible');
+    $('#backToTop').classList.add('visible');
   } else {
-    backToTopBtn.style.opacity = '0';
-    backToTopBtn.style.pointerEvents = 'none';
+    shareFab.classList.remove('visible');
+    $('#backToTop').classList.remove('visible');
   }
 });
-backToTopBtn.addEventListener('click', () => {
+
+shareFab.addEventListener('click', async () => {
+  const shareData = {
+    title: 'Digital Infohub',
+    text: 'Check out Digital Infohub for the latest in AI, tech news, and practical digital tools!',
+    url: window.location.href
+  };
+  
+  try {
+    if (navigator.share) {
+      await navigator.share(shareData);
+      showToast('Thanks for sharing Digital Infohub! 🚀', 'success');
+    } else {
+      await navigator.clipboard.writeText(window.location.href);
+      showToast('Link copied to clipboard! Share it with your friends.', 'success');
+    }
+  } catch (err) {
+    // User cancelled share, do nothing
+  }
+});
+
+// Back to Top Button Logic
+$('#backToTop').addEventListener('click', () => {
   osDesktop.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
