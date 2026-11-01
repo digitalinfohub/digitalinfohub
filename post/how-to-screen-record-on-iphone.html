@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471"
+     crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Screen Record on iPhone: The Complete Guide</title>
+<meta name="description" content="Learn how to screen record on iPhone with the built-in Screen Recording tool. Step-by-step setup for Control Centre, recording with internal audio and microphone, editing, sharing, and pro tips for better recordings.">
+<meta property="og:title" content="How to Screen Record on iPhone: The Complete Guide">
+<meta property="og:description" content="A complete, step-by-step guide to recording your iPhone screen — adding the Control Centre button, capturing audio, trimming clips, and sharing recordings like a pro.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://images.unsplash.com/photo-1562577309-4932fdd64cd1?w=1200&h=630&fit=crop&q=80">
+
+<style>
+:root, [data-theme="light"] {
+  --bg: #fafaf9;
+  --surface: #ffffff;
+  --ink: #1c1917;
+  --ink-muted: #78716c;
+  --accent: #292524;
+  --border: #e7e5e4;
+  --toggle-icon: #1c1917;
+}
+
+[data-theme="dark"] {
+  --bg: #0c0a09;
+  --surface: #1c1917;
+  --ink: #e7e5e4;
+  --ink-muted: #a8a29e;
+  --accent: #d6d3d1;
+  --border: #292524;
+  --toggle-icon: #e7e5e4;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ---------- Controls ---------- */
+.controls {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.25rem;
+  z-index: 100;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.lang-switch {
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  overflow: hidden;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.lang-switch button {
+  border: none;
+  background: transparent;
+  color: var(--ink-muted);
+  font-family: inherit;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  padding: 0.55em 0.95em;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.lang-switch button:hover { color: var(--ink); }
+
+.lang-switch button.active {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.theme-toggle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle:hover { border-color: var(--ink-muted); }
+
+.theme-toggle svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: var(--toggle-icon);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke 0.3s ease;
+}
+
+.theme-toggle .icon-moon { display: block; }
+.theme-toggle .icon-sun { display: none; }
+
+[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+
+/* ---------- Language content ---------- */
+.lang-content { display: none; }
+.lang-content.active { display: block; }
+
+/* ---------- Header ---------- */
+header {
+  padding: 4rem 0 2rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2.5rem;
+  transition: border-color 0.3s ease;
+}
+
+.meta {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 1rem;
+  transition: color 0.3s ease;
+}
+
+h1 {
+  font-family: "Georgia", "Times New Roman", serif;
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin-bottom: 1rem;
+  transition: color 0.3s ease;
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  color: var(--ink-muted);
+  line-height: 1.6;
+  transition: color 0.3s ease;
+}
+
+/* CJK typography */
+html[lang="ja"] body { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", "Inter", sans-serif; }
+html[lang="ja"] h1 { font-family: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", Georgia, serif; line-height: 1.4; }
+html[lang="ja"] article p, html[lang="ja"] .subtitle { line-height: 1.95; }
+
+html[lang="zh-Hans"] body { font-family: "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", "Inter", sans-serif; }
+html[lang="zh-Hans"] h1 { font-family: "Songti SC", "Noto Serif SC", "SimSun", Georgia, serif; line-height: 1.4; }
+html[lang="zh-Hans"] article p, html[lang="zh-Hans"] .subtitle { line-height: 1.95; }
+
+/* ---------- Content ---------- */
+article p {
+  margin-bottom: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+article strong { font-weight: 600; }
+
+figure { margin: 2.5rem 0; }
+
+figure img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 2px;
+}
+
+figcaption {
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+  margin-top: 0.75rem;
+  letter-spacing: 0.02em;
+  transition: color 0.3s ease;
+}
+
+/* ---------- Links ---------- */
+a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--border);
+  transition: text-decoration-color 0.2s, color 0.3s ease;
+}
+
+a:hover { text-decoration-color: var(--ink); }
+
+.link-block {
+  display: block;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  text-decoration: none;
+  margin: 1.5rem 0;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.link-block:hover {
+  border-color: var(--ink-muted);
+  background: var(--surface);
+}
+
+.link-block .label {
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 0.25rem;
+  transition: color 0.3s ease;
+}
+
+.link-block .url {
+  font-size: 0.875rem;
+  word-break: break-all;
+  transition: color 0.3s ease;
+}
+
+/* ---------- Section headings ---------- */
+h2, h3 {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin: 3rem 0 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+/* ---------- Tags ---------- */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+  transition: border-color 0.3s ease;
+}
+
+.tag {
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+  text-decoration: none;
+  padding: 0.375rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  transition: all 0.2s;
+}
+
+.tag:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+@media (max-width: 600px) {
+  header { padding: 2.5rem 0 1.5rem; }
+  .controls { top: 1rem; right: 1rem; }
+  .theme-toggle { width: 36px; height: 36px; }
+  .theme-toggle svg { width: 16px; height: 16px; }
+  .lang-switch button { padding: 0.5em 0.7em; font-size: 0.68rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="controls">
+  <div class="lang-switch" role="group" aria-label="Language selection">
+    <button type="button" data-lang-btn="en" class="active">EN</button>
+    <button type="button" data-lang-btn="ja">日本語</button>
+    <button type="button" data-lang-btn="zh">中文</button>
+  </div>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+    <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+  </button>
+</div>
+
+<div class="container">
+
+  <!-- ================= ENGLISH ================= -->
+  <div class="lang-content active" data-lang="en" lang="en">
+    <header>
+      <p class="meta">Mobile Tips • Nov 2026 • 6 min read</p>
+      <h1>How to Screen Record on iPhone: The Complete Guide</h1>
+      <p class="subtitle">From tutorials and gameplay to bug reports and product demos, screen recording is one of the most useful iPhone skills. Here is how to set it up, use it, and get professional results.</p>
+    </header>
+
+    <article>
+      <p>Apple ships a powerful screen recorder built into every iPhone — no apps, no watermarks, no subscriptions. It captures everything on your screen as a video you can trim, share or edit later. Whether you're making a tutorial for a friend, documenting a bug for an app developer, or saving a gaming highlight, here's exactly how to use it.</p>
+
+      <figure>
+        <img src="https://images.unsplash.com/photo-1562577309-4932fdd64cd1?w=1200&h=630&fit=crop&q=80" alt="Hand holding an iPhone, illustrating how to screen record on iOS">
+        <figcaption>Your iPhone can record its own screen in high quality using a feature hidden in Settings.</figcaption>
+      </figure>
+
+      <h2>Step 1: Add Screen Recording to Control Centre</h2>
+      <p>The recorder lives in Control Centre, but it isn't always there by default. To add it:</p>
+      <ol>
+        <li>Open <strong>Settings &gt; Control Centre</strong>.</li>
+        <li>Scroll to <strong>More Controls</strong> and find <strong>Screen Recording</strong>.</li>
+        <li>Tap the green <strong>+</strong> button so it appears under <strong>Included Controls</strong>.</li>
+      </ol>
+      <p>You'll now see a record button (a filled circle inside a ring) whenever you swipe down from the top-right corner of the screen (or swipe up from the bottom on older iPhones with a Home button).</p>
+
+      <h2>Step 2: Start Your First Recording</h2>
+      <ol>
+        <li>Open <strong>Control Centre</strong>.</li>
+        <li>Tap the <strong>Screen Recording</strong> button. A three-second countdown begins — use it to switch to the app you want to capture.</li>
+        <li>The status bar (or Dynamic Island / time pill) turns <strong>red</strong> while recording.</li>
+        <li>To stop, tap the red indicator and confirm <strong>Stop Recording</strong>, or open Control Centre and tap the record button again.</li>
+      </ol>
+      <p>The video is saved automatically to the <strong>Photos</strong> app.</p>
+
+      <h2>Step 3: Record Audio — Internal Sound, Voice, or Both</h2>
+      <p>By default, screen recording captures the sounds your iPhone plays internally: music, effects, in-app audio. To also record your voice:</p>
+      <ol>
+        <li>Long-press the <strong>Screen Recording</strong> button in Control Centre.</li>
+        <li>Tap the <strong>Microphone</strong> icon so it shows <strong>Microphone On</strong>.</li>
+        <li>Tap <strong>Start Recording</strong>.</li>
+      </ol>
+      <p>With the microphone enabled, both internal audio and your narration are captured together — perfect for walkthroughs and commentary videos. Note that some apps (banking, streaming services) block their audio or content from recordings for copyright and security reasons.</p>
+
+      <h2>Step 4: Trim, Edit and Share Your Recording</h2>
+      <p>Open the clip in <strong>Photos</strong> and tap <strong>Edit</strong> to trim the start and end — handy for cutting off the countdown and the stop tap. From there you can:</p>
+      <ul>
+        <li><strong>Share instantly</strong> via AirDrop, Messages, Mail or any social app.</li>
+        <li><strong>Export the file</strong> to Files for uploading to cloud storage or desktop editors.</li>
+        <li><strong>Refine further</strong> in iMovie, CapCut or Final Cut Pro for mobile — add cuts, captions and music.</li>
+      </ul>
+
+      <h2>Useful Extras Most People Miss</h2>
+      <h3>Record Notifications Too (or Not)</h3>
+      <p>Screen recording captures pop-up notifications along with everything else. Turn on Do Not Disturb before recording to keep messages and calls off your footage.</p>
+      <h3>Add a Second Tap Target</h3>
+      <p>Back up in <strong>Settings &gt; Accessibility &gt; Touch &gt; Back Tap</strong>, you can assign <strong>Screen Recording</strong> to a double- or triple-tap on the back of your iPhone — a quick hands-free way to start and stop.</p>
+      <h3>Lock Rotation for Clean Footage</h3>
+      <p>Enable <strong>Portrait Orientation Lock</strong> in Control Centre so accidental rotations don't ruin the framing of your recording.</p>
+
+      <h2>Troubleshooting Screen Recording</h2>
+      <ul>
+        <li><strong>Button missing?</strong> Re-check Step 1 — Screen Recording must be under Included Controls.</li>
+        <li><strong>No sound in the clip?</strong> Make sure your iPhone isn't on silent, and that Microphone was turned on if you wanted voice-over.</li>
+        <li><strong>Greyed-out controls?</strong> Screen Time restrictions can disable recording; check Settings &gt; Screen Time &gt; Content &amp; Privacy Restrictions.</li>
+        <li><strong>Black screen in parts?</strong> That's expected DRM behaviour in protected apps like Netflix or banking software.</li>
+      </ul>
+
+      <h2>Conclusion</h2>
+      <p>Screen recording on iPhone takes about two minutes to set up and pays off every time you need to show someone what's happening on your device. Add the Control Centre button, decide whether you need the microphone, hit record — then trim and share straight from Photos. It's the fastest way to turn anything on your screen into a clean, shareable video.</p>
+
+      <p><strong>Stay Updated With Digital Infohub</strong></p>
+      <p>Explore more technology, AI tools, and digital projects at Digital Infohub.</p>
+
+      <a class="link-block" href="https://www.digitalinfohub.net/" target="_blank" rel="noopener">
+        <div class="label">Digital Infohub</div>
+        <div class="url">digitalinfohub.net</div>
+      </a>
+      <div class="tags">
+        <a class="tag" href="#">#iPhone</a>
+        <a class="tag" href="#">#iOS</a>
+        <a class="tag" href="#">#ScreenRecording</a>
+        <a class="tag" href="#">#Video</a>
+        <a class="tag" href="#">#TechTips</a>
+      </div>
+    </article>
+  </div>
+
+  <!-- ================= 日本語 ================= -->
+  <div class="lang-content" data-lang="ja" lang="ja">
+    <header>
+      <p class="meta">モバイルTips • 2026年11月 • 約6分</p>
+      <h1>iPhoneで画面収録する方法：完全ガイド</h1>
+      <p class="subtitle">チュートリアルやゲーム実況、バグ報告、製品デモまで、画面収録はiPhoneで最も便利な機能の一つ。設定方法から使い方、きれいに録るコツまでを解説します。</p>
+    </header>
+
+    <article>
+      <p>iPhoneには強力な「画面収録」機能が標準搭載されています。アプリの追加も透かしも不要です。友だちへの手順説明、開発者向けのバグ報告、ゲームのハイライト保存まで、使い方を完全に解説します。</p>
+
+      <figure>
+        <img src="https://images.unsplash.com/photo-1562577309-4932fdd64cd1?w=1200&h=630&fit=crop&q=80" alt="iPhoneを手に持つ写真。iOSの画面収録方法を解説">
+        <figcaption>設定を見つければ、iPhoneは自分の画面を高品質で録画できます。</figcaption>
+      </figure>
+
+      <h2>ステップ1：コントロールセンターに追加</h2>
+      <ol>
+        <li><strong>設定 &gt; コントロールセンター</strong>を開く。</li>
+        <li>「その他のコントロール」から<strong>画面収録</strong>を探す。</li>
+        <li>緑の＋ボタンをタップして追加する。</li>
+      </ol>
+      <p>これでコントロールセンターに録画ボタン（同心円のアイコン）が表示されます。</p>
+
+      <h2>ステップ2：初めての録画を開始</h2>
+      <ol>
+        <li>コントロールセンターを開く。</li>
+        <li><strong>画面収録</strong>をタップ。3秒のカウントダウン中に録りたいアプリへ切り替え。</li>
+        <li>録画中はステータスバー（またはDynamic Island）が赤になります。</li>
+        <li>停止するには赤い表示をタップして「停止」を確認。</li>
+      </ol>
+      <p>動画は自動的に<strong>フォト</strong>アプリに保存されます。</p>
+
+      <h2>ステップ3：音声を記録する</h2>
+      <p>既定では端末内部の音声のみを録音します。ナレーションも入れたい場合は、コントロールセンターで<strong>画面収録ボタンを長押し</strong>し、<strong>マイク</strong>をオンにしてから開始してください。銀行アプリや配信サービスは著作権・セキュリティの都合上、録画が制限されることがあります。</p>
+
+      <h2>ステップ4：編集と共有</h2>
+      <ul>
+        <li>フォトで<strong>編集</strong>を開くと冒頭と末尾をトリミングできます。</li>
+        <li>AirDrop、メッセージ、SNSへ即共有。</li>
+        <li>iMovieやCapCutでさらに本格的な編集が可能。</li>
+      </ul>
+
+      <h2>知っておくと便利な裏技</h2>
+      <h3>通知を写り込ませない</h3>
+      <p>録画前に集中モード（マナーモード）を有効にすると、通知ポップアップを映らずに済みます。</p>
+      <h3>背面タップで開始／停止</h3>
+      <p><strong>設定 &gt; アクセシビリティ &gt; タッチ &gt; バックタップ</strong>で画面収録を割り当てられます。</p>
+
+      <h2>まとめ</h2>
+      <p>iPhoneの画面収録は設定2分、活用場面は無数。コントロールセンターにボタンを追加し、マイクを使うかを決めて、録画→トリミング→共有の流れを身につけましょう。</p>
+
+      <p><strong>Digital Infohubで最新情報を</strong></p>
+      <p>テクノロジー、AIツール、デジタルプロジェクトの記事をもっと読む。</p>
+
+      <a class="link-block" href="https://www.digitalinfohub.net/" target="_blank" rel="noopener">
+        <div class="label">Digital Infohub</div>
+        <div class="url">digitalinfohub.net</div>
+      </a>
+      <div class="tags">
+        <a class="tag" href="#">#iPhone</a>
+        <a class="tag" href="#">#iOS</a>
+        <a class="tag" href="#">#ScreenRecording</a>
+        <a class="tag" href="#">#Video</a>
+        <a class="tag" href="#">#TechTips</a>
+      </div>
+    </article>
+  </div>
+
+  <!-- ================= 中文 ================= -->
+  <div class="lang-content" data-lang="zh" lang="zh-Hans">
+    <header>
+      <p class="meta">手机技巧 • 2026年11月 • 约6分钟阅读</p>
+      <h1>如何在 iPhone 上录屏：完整指南</h1>
+      <p class="subtitle">从教程、游戏实况到缺陷报告和产品演示，录屏是 iPhone 最实用的技能之一。本文介绍如何设置、使用录屏功能并获得专业效果。</p>
+    </header>
+
+    <article>
+      <p>iPhone 内置了强大的屏幕录制功能——无需第三方应用、无水印、无订阅费。无论是给朋友制作教程、向开发者报告缺陷，还是保存游戏精彩瞬间，本文带你完整掌握它。</p>
+
+      <figure>
+        <img src="https://images.unsplash.com/photo-1562577309-4932fdd64cd1?w=1200&h=630&fit=crop&q=80" alt="手持 iPhone 的照片，演示 iOS 屏幕录制方法">
+        <figcaption>只需在设置中找到该功能，iPhone 就能高质量录制自己的屏幕。</figcaption>
+      </figure>
+
+      <h2>第一步：把录屏添加到控制中心</h2>
+      <ol>
+        <li>打开<strong>设置 &gt; 控制中心</strong>。</li>
+        <li>在"更多控制"中找到<strong>屏幕录制</strong>。</li>
+        <li>点击绿色 + 按钮将其加入"included controls"。</li>
+      </ol>
+      <p>之后从屏幕右上角下滑（或有 Home 键机型的上滑）即可看到录制按钮。</p>
+
+      <h2>第二步：开始第一次录制</h2>
+      <ol>
+        <li>打开<strong>控制中心</strong>。</li>
+        <li>点击<strong>屏幕录制</strong>按钮，3 秒倒计时内切换到要录制的应用。</li>
+        <li>录制期间状态栏或灵动岛会变为<strong>红色</strong>。</li>
+        <li>点击红色指示条并确认<strong>停止录制</strong>即可结束。</li>
+      </ol>
+      <p>视频会自动保存到<strong>照片</strong> App。</p>
+
+      <h2>第三步：录制声音</h2>
+      <p>默认仅录制系统内部声音。若需同时录入解说，长按控制中心的录屏按钮，点亮<strong>麦克风</strong>后再开始录制。部分银行与流媒体应用出于版权与安全限制会被录成黑屏或静音。</p>
+
+      <h2>第四步：剪辑与分享</h2>
+      <ul>
+        <li>在照片中点<strong>编辑</strong>可裁剪开头和结尾。</li>
+        <li>通过 AirDrop、信息或社交平台即时分享。</li>
+        <li>用 iMovie、CapCut 进行更精细的剪辑。</li>
+      </ul>
+
+      <h2>实用小技巧</h2>
+      <h3>避免通知入镜</h3>
+      <p>录制前开启专注模式，防止消息弹窗出现在视频中。</p>
+      <h3>背部轻点快捷录制</h3>
+      <p>在<strong>设置 &gt; 辅助功能 &gt; 触控 &gt; 轻点背面</strong>中为录屏分配双击或三击手势。</p>
+
+      <h2>结语</h2>
+      <p>iPhone 录屏设置只需两分钟，却能在每一次"给你看看我屏幕上这个东西"时派上大用场。添加按钮、决定是否需要麦克风、录制、裁剪、分享——一气呵成。</p>
+
+      <p><strong>关注 Digital Infohub 获取更多信息</strong></p>
+      <p>在 Digital Infohub 探索更多科技、AI 工具与数字项目。</p>
+
+      <a class="link-block" href="https://www.digitalinfohub.net/" target="_blank" rel="noopener">
+        <div class="label">Digital Infohub</div>
+        <div class="url">digitalinfohub.net</div>
+      </a>
+      <div class="tags">
+        <a class="tag" href="#">#iPhone</a>
+        <a class="tag" href="#">#iOS</a>
+        <a class="tag" href="#">#ScreenRecording</a>
+        <a class="tag" href="#">#Video</a>
+        <a class="tag" href="#">#TechTips</a>
+      </div>
+    </article>
+  </div>
+
+</div>
+
+<script>
+(function() {
+  var html = document.documentElement;
+
+  /* ---------- Theme ---------- */
+  var toggle = document.getElementById('themeToggle');
+  var storedTheme = localStorage.getItem('theme');
+
+  if (storedTheme) {
+    html.setAttribute('data-theme', storedTheme);
+  } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    html.setAttribute('data-theme', 'dark');
+  }
+
+  toggle.addEventListener('click', function() {
+    var current = html.getAttribute('data-theme');
+    var next = current === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+
+  /* ---------- Language ---------- */
+  var titles = {
+    en: "How to Screen Record on iPhone: The Complete Guide",
+    ja: "iPhoneで画面収録する方法：完全ガイド",
+    zh: "如何在 iPhone 上录屏：完整指南"
+  };
+
+  var htmlLang = { en: 'en', ja: 'ja', zh: 'zh-Hans' };
+
+  function detectLang() {
+    var nav = (navigator.language || 'en').toLowerCase();
+    if (nav.indexOf('ja') === 0) return 'ja';
+    if (nav.indexOf('zh') === 0) return 'zh';
+    return 'en';
+  }
+
+  function setLang(lang) {
+    document.querySelectorAll('.lang-content').forEach(function(block) {
+      block.classList.toggle('active', block.getAttribute('data-lang') === lang);
+    });
+    document.querySelectorAll('[data-lang-btn]').forEach(function(btn) {
+      var isActive = btn.getAttribute('data-lang-btn') === lang;
+      btn.classList.toggle('active', isActive);
+      btn.setAttribute('aria-pressed', isActive);
+    });
+    html.setAttribute('lang', htmlLang[lang]);
+    document.title = titles[lang];
+    localStorage.setItem('lang', lang);
+  }
+
+  document.querySelectorAll('[data-lang-btn]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      setLang(btn.getAttribute('data-lang-btn'));
+    });
+  });
+
+  setLang(localStorage.getItem('lang') || detectLang());
+})();
+</script>
+
+</body>
+</html>
