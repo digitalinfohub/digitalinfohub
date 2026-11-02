@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471"
+     crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What Is the Newest iPhone in 2026? Latest Apple Models</title>
+<meta name="description" content="Discover the newest iPhone models in 2026, including the iPhone 18 Pro, iPhone 18 Pro Max and Apple's new foldable iPhone Duo.">
+<meta property="og:title" content="What Is the Newest iPhone in 2026? Latest Apple Models">
+<meta property="og:description" content="Discover the newest iPhone models in 2026, including the iPhone 18 Pro, iPhone 18 Pro Max and Apple's new foldable iPhone Duo.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://images.unsplash.com/photo-1695048133142-1a20484d2569?q=80&w=1200&auto=format&fit=crop">
+
+<style>
+:root, [data-theme="light"] {
+  --bg: #fafaf9;
+  --surface: #ffffff;
+  --ink: #1c1917;
+  --ink-muted: #78716c;
+  --accent: #292524;
+  --border: #e7e5e4;
+  --toggle-icon: #1c1917;
+}
+
+[data-theme="dark"] {
+  --bg: #0c0a09;
+  --surface: #1c1917;
+  --ink: #e7e5e4;
+  --ink-muted: #a8a29e;
+  --accent: #d6d3d1;
+  --border: #292524;
+  --toggle-icon: #e7e5e4;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ---------- Controls ---------- */
+.controls {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.25rem;
+  z-index: 100;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.lang-switch {
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  overflow: hidden;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.lang-switch button {
+  border: none;
+  background: transparent;
+  color: var(--ink-muted);
+  font-family: inherit;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  padding: 0.55em 0.95em;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.lang-switch button:hover { color: var(--ink); }
+
+.lang-switch button.active {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.theme-toggle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle:hover { border-color: var(--ink-muted); }
+
+.theme-toggle svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: var(--toggle-icon);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke 0.3s ease;
+}
+
+.theme-toggle .icon-moon { display: block; }
+.theme-toggle .icon-sun { display: none; }
+
+[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+
+/* ---------- Language content ---------- */
+.lang-content { display: none; }
+.lang-content.active { display: block; }
+
+/* ---------- Header ---------- */
+header {
+  padding: 4rem 0 2rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2.5rem;
+  transition: border-color 0.3s ease;
+}
+
+.meta {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 1rem;
+  transition: color 0.3s ease;
+}
+
+h1 {
+  font-family: "Georgia", "Times New Roman", serif;
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin-bottom: 1rem;
+  transition: color 0.3s ease;
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  color: var(--ink-muted);
+  line-height: 1.6;
+  transition: color 0.3s ease;
+}
+
+/* CJK typography */
+html[lang="ja"] body { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", "Inter", sans-serif; }
+html[lang="ja"] h1 { font-family: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", Georgia, serif; line-height: 1.4; }
+html[lang="ja"] article p, html[lang="ja"] .subtitle { line-height: 1.95; }
+
+html[lang="zh-Hans"] body { font-family: "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", "Inter", sans-serif; }
+html[lang="zh-Hans"] h1 { font-family: "Songti SC", "Noto Serif SC", "SimSun", Georgia, serif; line-height: 1.4; }
+html[lang="zh-Hans"] article p, html[lang="zh-Hans"] .subtitle { line-height: 1.95; }
+
+/* ---------- Content ---------- */
+article p {
+  margin-bottom: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+article strong { font-weight: 600; }
+
+figure { margin: 2.5rem 0; }
+
+figure img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 2px;
+}
+
+figcaption {
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+  margin-top: 0.75rem;
+  letter-spacing: 0.02em;
+  transition: color 0.3s ease;
+}
+
+/* ---------- Links ---------- */
+a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--border);
+  transition: text-decoration-color 0.2s, color 0.3s ease;
+}
+
+a:hover { text-decoration-color: var(--ink); }
+
+.link-block {
+  display: block;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  text-decoration: none;
+  margin: 1.5rem 0;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.link-block:hover {
+  border-color: var(--ink-muted);
+  background: var(--surface);
+}
+
+.link-block .label {
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 0.25rem;
+  transition: color 0.3s ease;
+}
+
+.link-block .url {
+  font-size: 0.875rem;
+  word-break: break-all;
+  transition: color 0.3s ease;
+}
+
+/* ---------- Section headings ---------- */
+h2, h3 {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin: 3rem 0 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+/* ---------- Tags ---------- */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+  transition: border-color 0.3s ease;
+}
+
+.tag {
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+  text-decoration: none;
+  padding: 0.375rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  transition: all 0.2s;
+}
+
+.tag:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+@media (max-width: 600px) {
+  header { padding: 2.5rem 0 1.5rem; }
+  .controls { top: 1rem; right: 1rem; }
+  .theme-toggle { width: 36px; height: 36px; }
+  .theme-toggle svg { width: 16px; height: 16px; }
+  .lang-switch button { padding: 0.5em 0.7em; font-size: 0.68rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="controls">
+  <div class="lang-switch" role="group" aria-label="Language selection">
+    <button type="button" data-lang-btn="en" class="active">EN</button>
+    <button type="button" data-lang-btn="ja">日本語</button>
+    <button type="button" data-lang-btn="zh">中文</button>
+  </div>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+    <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+  </button>
+</div>
+
+<div class="container">
+
+  <!-- ================= ENGLISH ================= -->
+  <div class="lang-content active" data-lang="en" lang="en">
+    <header>
+      <p class="meta">Apple News • Nov 2026 • 5 min read</p>
+      <h1>What Is the Newest iPhone in 2026? Latest Apple Models</h1>
+      <p class="subtitle">Discover the newest iPhone models in 2026, including the iPhone 18 Pro, iPhone 18 Pro Max and Apple's new foldable iPhone Duo.</p>
+    </header>
+
+    <article>
+      <p>Apple continues to expand its iPhone range with new designs, improved cameras and more powerful processors. As of November 2026, Apple's newest iPhone generation includes the iPhone 18 Pro series and the highly anticipated iPhone Duo.</p>
+
+      <figure>
+        <img src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?q=80&w=1200&auto=format&fit=crop" alt="Latest iPhone models displayed on a table representing the 2026 lineup">
+        <figcaption>The 2026 iPhone lineup features both traditional slab designs and a new foldable form factor.</figcaption>
+      </figure>
+
+      <h2>Latest iPhone Models</h2>
+      
+      <h3>iPhone Duo</h3>
+      <p>Apple's new foldable iPhone features a large flexible display and a completely different design from traditional iPhones. It represents Apple's first major step into the foldable market, offering a tablet-like experience in a pocketable device.</p>
+
+      <h3>iPhone 18 Pro</h3>
+      <p>The iPhone 18 Pro introduces Apple's A20 Pro processor, an upgraded camera system with variable aperture and improved performance for demanding tasks like gaming and video editing.</p>
+
+      <h3>iPhone 18 Pro Max</h3>
+      <p>The larger Pro model offers an expansive display, advanced photography features and improved battery life, making it the ultimate choice for power users and content creators.</p>
+
+      <h3>iPhone Air</h3>
+      <p>A particularly thin and lightweight iPhone designed for people who prefer a slimmer device without sacrificing core performance capabilities.</p>
+
+      <h3>iPhone 17 and iPhone 17e</h3>
+      <p>These remain excellent alternatives for people who don't necessarily need Apple's latest premium hardware but still want a reliable and modern iOS experience.</p>
+
+      <h2>Is the iPhone 18 Pro Worth Buying?</h2>
+      <p>The iPhone 18 Pro is worth considering if you want Apple's latest traditional smartphone design, advanced photography capabilities and improved performance. However, the iPhone Duo is worth investigating if a foldable design is more important to you and you value screen real estate over traditional durability.</p>
+
+      <h2>Final Thoughts</h2>
+      <p>Apple's 2026 iPhone lineup offers several different experiences, from traditional smartphones to foldable technology. The right choice depends on your budget and how you use your phone. Whether you prioritize camera quality, battery life or innovative form factors, there is a new iPhone tailored to your needs.</p>
+
+      <p><strong>Stay Updated With Digital Infohub</strong></p>
+      <p>Explore more technology insights, AI tools, and digital projects at Digital Infohub, founded by Ryan Green.</p>
+
+      <a class="link-block" href="https://www.digitalinfohub.net/" target="_blank" rel="noopener">
+        <div class="label">Digital Infohub</div>
+        <div class="url">digitalinfohub.net</div>
+      </a>
+      <div class="tags">
+        <a class="tag" href="#">#iPhone</a>
+        <a class="tag" href="#">#Apple</a>
+        <a class="tag" href="#">#iPhone18</a>
+        <a class="tag" href="#">#TechNews</a>
+        <a class="tag" href="#">#Foldable</a>
+      </div>
+    </article>
+  </div>
+
+  <!-- ================= 日本語 ================= -->
+  <div class="lang-content" data-lang="ja" lang="ja">
+    <header>
+      <p class="meta">Appleニュース • 2026年11月 • 約5分</p>
+      <h1>2026年の最新iPhoneは？最新のAppleモデルを紹介</h1>
+      <p class="subtitle">iPhone 18 Pro、iPhone 18 Pro Max、そしてAppleの新しい折りたたみ式iPhone Duoを含む、2026年の最新iPhoneモデルをご覧ください。</p>
+    </header>
+
+    <article>
+      <p>Appleは新しいデザイン、改良されたカメラ、より強力なプロセッサでiPhoneのラインナップを拡大し続けています。2026年11月現在、Appleの最新世代のiPhoneには、iPhone 18 Proシリーズと待望のiPhone Duoが含まれています。</p>
+
+      <figure>
+        <img src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?q=80&w=1200&auto=format&fit=crop" alt="2026年のラインナップを表すテーブル上に並べられた最新のiPhoneモデル">
+        <figcaption>2026年のiPhoneラインナップには、従来のスラブデザインと新しい折りたたみ式フォームファクターの両方が特徴です。</figcaption>
+      </figure>
+
+      <h2>最新のiPhoneモデル</h2>
+      
+      <h3>iPhone Duo</h3>
+      <p>Appleの新しい折りたたみ式iPhoneは、大型のフレキシブルディスプレイと従来のiPhoneとは完全に異なるデザインを採用しています。これは折りたたみ市場へのAppleの最初の大きな一歩であり、ポケットに入るデバイスでタブレットのような体験を提供します。</p>
+
+      <h3>iPhone 18 Pro</h3>
+      <p>iPhone 18 Proは、AppleのA20 Proプロセッサ、可変絞り付きのアップグレードされたカメラシステム、ゲームや動画編集などの要求の厳しいタスクのためのパフォーマンス向上を導入しました。</p>
+
+      <h3>iPhone 18 Pro Max</h3>
+      <p>より大きなProモデルは、広大なディスプレイ、高度な写真機能、改善されたバッテリー寿命を提供し、パワーユーザーやコンテンツクリエイターにとって究極の選択肢となります。</p>
+
+      <h3>iPhone Air</h3>
+      <p>コアのパフォーマンス能力を犠牲にすることなく、よりスリムなデバイスを好む人々のために設計された、特に薄く軽量なiPhoneです。</p>
+
+      <h3>iPhone 17 および iPhone 17e</h3>
+      <p>これらは、Appleの最新のプレミアムハードウェアを必ずしも必要としないが、信頼性の高いモダンなiOS体験を望む人々にとって優れた代替手段です。</p>
+
+      <h2>iPhone 18 Proを買う価値はあるか？</h2>
+      <p>Appleの最新の伝統的なスマートフォンデザイン、高度な写真機能、および改善されたパフォーマンスを求める場合、iPhone 18 Proは検討する価値があります。ただし、折りたたみデザインがより重要で、従来の耐久性よりも画面の広さを重視する場合、iPhone Duoを調査する価値があります。</p>
+
+      <h2>まとめ</h2>
+      <p>Appleの2026年のiPhoneラインナップは、従来のスマートフォンから折りたたみ技術まで、いくつかの異なる体験を提供します。正しい選択は、あなたの予算と電話の使用方法によって異なります。カメラの品質、バッテリー寿命、または革新的なフォームファクターのどれを優先するかにかかわらず、あなたのニーズに合わせた新しいiPhoneがあります。</p>
+
+      <p><strong>Digital Infohubで最新情報を</strong></p>
+      <p>Ryan Greenが設立したDigital Infohubで、テクノロジーの洞察、AIツール、デジタルプロジェクトの詳細をご覧ください。</p>
+
+      <a class="link-block" href="https://www.digitalinfohub.net/" target="_blank" rel="noopener">
+        <div class="label">Digital Infohub</div>
+        <div class="url">digitalinfohub.net</div>
+      </a>
+      <div class="tags">
+        <a class="tag" href="#">#iPhone</a>
+        <a class="tag" href="#">#Apple</a>
+        <a class="tag" href="#">#iPhone18</a>
+        <a class="tag" href="#">#TechNews</a>
+        <a class="tag" href="#">#Foldable</a>
+      </div>
+    </article>
+  </div>
+
+  <!-- ================= 中文 ================= -->
+  <div class="lang-content" data-lang="zh" lang="zh-Hans">
+    <header>
+      <p class="meta">苹果新闻 • 2026年11月 • 约5分钟阅读</p>
+      <h1>2026 年最新的 iPhone 是什么？最新苹果机型一览</h1>
+      <p class="subtitle">探索 2026 年最新的 iPhone 机型，包括 iPhone 18 Pro、iPhone 18 Pro Max 以及苹果全新的折叠屏 iPhone Duo。</p>
+    </header>
+
+    <article>
+      <p>苹果继续通过新设计、改进的摄像头和更强大的处理器来扩展其 iPhone 系列。截至 2026 年 11 月，苹果最新一代的 iPhone 包括 iPhone 18 Pro 系列和备受期待的 iPhone Duo。</p>
+
+      <figure>
+        <img src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?q=80&w=1200&auto=format&fit=crop" alt="代表 2026 年产品线的桌面上展示的最新 iPhone 机型">
+        <figcaption>2026 年的 iPhone 产品线既有传统的直板设计，也有全新的折叠形态。</figcaption>
+      </figure>
+
+      <h2>最新 iPhone 机型</h2>
+      
+      <h3>iPhone Duo</h3>
+      <p>苹果全新的折叠屏 iPhone 拥有大型柔性显示屏，其设计与传统 iPhone 截然不同。这标志着苹果在折叠屏市场迈出的第一步，为用户提供了口袋中即可携带的平板电脑般体验。</p>
+
+      <h3>iPhone 18 Pro</h3>
+      <p>iPhone 18 Pro 引入了苹果的 A20 Pro 处理器、带有可变光圈的升级摄像头系统，并为游戏和视频编辑等高要求任务提供了性能提升。</p>
+
+      <h3>iPhone 18 Pro Max</h3>
+      <p>更大的 Pro 型号提供了广阔的显示屏、先进的摄影功能和更长的电池续航时间，使其成为重度用户和内容创作者的终极选择。</p>
+
+      <h3>iPhone Air</h3>
+      <p>这是一款特别轻薄且重量轻的 iPhone，专为喜欢更纤薄设备但又不想牺牲核心性能的用户而设计。</p>
+
+      <h3>iPhone 17 和 iPhone 17e</h3>
+      <p>对于那些不一定需要苹果最新高端硬件，但仍希望获得可靠且现代 iOS 体验的用户来说，这些仍然是极好的替代方案。</p>
+
+      <h2>iPhone 18 Pro 值得购买吗？</h2>
+      <p>如果你想要苹果最新的传统智能手机设计、先进的摄影功能和提升的性能，iPhone 18 Pro 值得考虑。但是，如果折叠设计对你来说更重要，且你更看重屏幕空间而非传统耐用性，那么 iPhone Duo 值得研究。</p>
+
+      <h2>结语</h2>
+      <p>苹果 2026 年的 iPhone 产品线提供了多种不同的体验，从传统智能手机到折叠技术。正确的选择取决于你的预算以及你如何使用手机。无论你优先考虑的是相机质量、电池续航还是创新的形态因素，总有一款新的 iPhone 能满足你的需求。</p>
+
+      <p><strong>关注 Digital Infohub 获取更多信息</strong></p>
+      <p>在由 Ryan Green 创立的 Digital Infohub 探索更多科技见解、AI 工具和数字项目。</p>
+
+      <a class="link-block" href="https://www.digitalinfohub.net/" target="_blank" rel="noopener">
+        <div class="label">Digital Infohub</div>
+        <div class="url">digitalinfohub.net</div>
+      </a>
+      <div class="tags">
+        <a class="tag" href="#">#iPhone</a>
+        <a class="tag" href="#">#Apple</a>
+        <a class="tag" href="#">#iPhone18</a>
+        <a class="tag" href="#">#TechNews</a>
+        <a class="tag" href="#">#Foldable</a>
+      </div>
+    </article>
+  </div>
+
+</div>
+
+<script>
+(function() {
+  var html = document.documentElement;
+
+  /* ---------- Theme ---------- */
+  var toggle = document.getElementById('themeToggle');
+  var storedTheme = localStorage.getItem('theme');
+
+  if (storedTheme) {
+    html.setAttribute('data-theme', storedTheme);
+  } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    html.setAttribute('data-theme', 'dark');
+  }
+
+  toggle.addEventListener('click', function() {
+    var current = html.getAttribute('data-theme');
+    var next = current === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+
+  /* ---------- Language ---------- */
+  var titles = {
+    en: "What Is the Newest iPhone in 2026? Latest Apple Models",
+    ja: "2026年の最新iPhoneは？最新のAppleモデルを紹介",
+    zh: "2026 年最新的 iPhone 是什么？最新苹果机型一览"
+  };
+
+  var htmlLang = { en: 'en', ja: 'ja', zh: 'zh-Hans' };
+
+  function detectLang() {
+    var nav = (navigator.language || 'en').toLowerCase();
+    if (nav.indexOf('ja') === 0) return 'ja';
+    if (nav.indexOf('zh') === 0) return 'zh';
+    return 'en';
+  }
+
+  function setLang(lang) {
+    document.querySelectorAll('.lang-content').forEach(function(block) {
+      block.classList.toggle('active', block.getAttribute('data-lang') === lang);
+    });
+    document.querySelectorAll('[data-lang-btn]').forEach(function(btn) {
+      var isActive = btn.getAttribute('data-lang-btn') === lang;
+      btn.classList.toggle('active', isActive);
+      btn.setAttribute('aria-pressed', isActive);
+    });
+    html.setAttribute('lang', htmlLang[lang]);
+    document.title = titles[lang];
+    localStorage.setItem('lang', lang);
+  }
+
+  document.querySelectorAll('[data-lang-btn]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      setLang(btn.getAttribute('data-lang-btn'));
+    });
+  });
+
+  setLang(localStorage.getItem('lang') || detectLang());
+})();
+</script>
+
+</body>
+</html>
