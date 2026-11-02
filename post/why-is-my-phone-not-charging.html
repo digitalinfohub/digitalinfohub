@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471"
+     crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why Is My Phone Not Charging? 9 Fixes You Should Try</title>
+<meta name="description" content="Is your phone not charging? Discover common charging problems and practical solutions for iPhone and Samsung devices.">
+<meta property="og:title" content="Why Is My Phone Not Charging? 9 Fixes You Should Try">
+<meta property="og:description" content="Is your phone not charging? Discover common charging problems and practical solutions for iPhone and Samsung devices.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://images.unsplash.com/photo-1583863788434-e58a36330cf0?q=80&w=1200&auto=format&fit=crop">
+
+<style>
+:root, [data-theme="light"] {
+  --bg: #fafaf9;
+  --surface: #ffffff;
+  --ink: #1c1917;
+  --ink-muted: #78716c;
+  --accent: #292524;
+  --border: #e7e5e4;
+  --toggle-icon: #1c1917;
+}
+
+[data-theme="dark"] {
+  --bg: #0c0a09;
+  --surface: #1c1917;
+  --ink: #e7e5e4;
+  --ink-muted: #a8a29e;
+  --accent: #d6d3d1;
+  --border: #292524;
+  --toggle-icon: #e7e5e4;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ---------- Controls ---------- */
+.controls {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.25rem;
+  z-index: 100;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.lang-switch {
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  overflow: hidden;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.lang-switch button {
+  border: none;
+  background: transparent;
+  color: var(--ink-muted);
+  font-family: inherit;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  padding: 0.55em 0.95em;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.lang-switch button:hover { color: var(--ink); }
+
+.lang-switch button.active {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.theme-toggle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle:hover { border-color: var(--ink-muted); }
+
+.theme-toggle svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: var(--toggle-icon);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke 0.3s ease;
+}
+
+.theme-toggle .icon-moon { display: block; }
+.theme-toggle .icon-sun { display: none; }
+
+[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+
+/* ---------- Language content ---------- */
+.lang-content { display: none; }
+.lang-content.active { display: block; }
+
+/* ---------- Header ---------- */
+header {
+  padding: 4rem 0 2rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2.5rem;
+  transition: border-color 0.3s ease;
+}
+
+.meta {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 1rem;
+  transition: color 0.3s ease;
+}
+
+h1 {
+  font-family: "Georgia", "Times New Roman", serif;
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin-bottom: 1rem;
+  transition: color 0.3s ease;
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  color: var(--ink-muted);
+  line-height: 1.6;
+  transition: color 0.3s ease;
+}
+
+/* CJK typography */
+html[lang="ja"] body { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", "Inter", sans-serif; }
+html[lang="ja"] h1 { font-family: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", Georgia, serif; line-height: 1.4; }
+html[lang="ja"] article p, html[lang="ja"] .subtitle { line-height: 1.95; }
+
+html[lang="zh-Hans"] body { font-family: "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", "Inter", sans-serif; }
+html[lang="zh-Hans"] h1 { font-family: "Songti SC", "Noto Serif SC", "SimSun", Georgia, serif; line-height: 1.4; }
+html[lang="zh-Hans"] article p, html[lang="zh-Hans"] .subtitle { line-height: 1.95; }
+
+/* ---------- Content ---------- */
+article p {
+  margin-bottom: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+article strong { font-weight: 600; }
+
+figure { margin: 2.5rem 0; }
+
+figure img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 2px;
+}
+
+figcaption {
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+  margin-top: 0.75rem;
+  letter-spacing: 0.02em;
+  transition: color 0.3s ease;
+}
+
+/* ---------- Links ---------- */
+a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--border);
+  transition: text-decoration-color 0.2s, color 0.3s ease;
+}
+
+a:hover { text-decoration-color: var(--ink); }
+
+.link-block {
+  display: block;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  text-decoration: none;
+  margin: 1.5rem 0;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.link-block:hover {
+  border-color: var(--ink-muted);
+  background: var(--surface);
+}
+
+.link-block .label {
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 0.25rem;
+  transition: color 0.3s ease;
+}
+
+.link-block .url {
+  font-size: 0.875rem;
+  word-break: break-all;
+  transition: color 0.3s ease;
+}
+
+/* ---------- Section headings ---------- */
+h2, h3 {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin: 3rem 0 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+/* ---------- Tags ---------- */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+  transition: border-color 0.3s ease;
+}
+
+.tag {
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+  text-decoration: none;
+  padding: 0.375rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  transition: all 0.2s;
+}
+
+.tag:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+@media (max-width: 600px) {
+  header { padding: 2.5rem 0 1.5rem; }
+  .controls { top: 1rem; right: 1rem; }
+  .theme-toggle { width: 36px; height: 36px; }
+  .theme-toggle svg { width: 16px; height: 16px; }
+  .lang-switch button { padding: 0.5em 0.7em; font-size: 0.68rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="controls">
+  <div class="lang-switch" role="group" aria-label="Language selection">
+    <button type="button" data-lang-btn="en" class="active">EN</button>
+    <button type="button" data-lang-btn="ja">日本語</button>
+    <button type="button" data-lang-btn="zh">中文</button>
+  </div>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+    <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+  </button>
+</div>
+
+<div class="container">
+
+  <!-- ================= ENGLISH ================= -->
+  <div class="lang-content active" data-lang="en" lang="en">
+    <header>
+      <p class="meta">Mobile Tips • Nov 2026 • 5 min read</p>
+      <h1>Why Is My Phone Not Charging? 9 Fixes You Should Try</h1>
+      <p class="subtitle">Is your phone not charging? Discover common charging problems and practical solutions for iPhone and Samsung devices.</p>
+    </header>
+
+    <article>
+      <p>A phone that refuses to charge can be caused by several things, including a faulty cable, damaged charging port, software issues or battery problems.</p>
+      <p>Whether you use an iPhone, Samsung Galaxy or another Android phone, here are some things worth checking.</p>
+
+      <figure>
+        <img src="https://images.unsplash.com/photo-1583863788434-e58a36330cf0?q=80&w=1200&auto=format&fit=crop" alt="Smartphone plugged into a charger representing troubleshooting charging issues">
+        <figcaption>Most charging issues can be resolved by testing different cables, adapters, and ports.</figcaption>
+      </figure>
+
+      <h2>9 Ways to Fix a Phone That Won't Charge</h2>
+      <ol>
+        <li><strong>Try another charging cable:</strong> Your cable may be damaged internally even if it looks fine on the outside.</li>
+        <li><strong>Change the power adapter:</strong> Test another compatible charging plug to rule out a faulty brick.</li>
+        <li><strong>Check the power socket:</strong> Try a different wall socket to ensure the outlet itself is providing power.</li>
+        <li><strong>Inspect the charging port:</strong> Look for dust, lint, or debris that could prevent a proper connection. Use a wooden toothpick or compressed air to gently clean it.</li>
+        <li><strong>Restart your phone:</strong> Temporary software problems or background processes can sometimes interfere with the charging logic.</li>
+        <li><strong>Check for moisture warnings:</strong> If your phone detects liquid in the charging port, disconnect the charger immediately and allow it to dry naturally in a well-ventilated area.</li>
+        <li><strong>Try wireless charging:</strong> If your device supports it, this can help identify whether the physical charging port is the root of the problem.</li>
+        <li><strong>Check battery settings:</strong> Some phones limit charging or have "Optimized Battery Charging" enabled to protect long-term battery health.</li>
+        <li><strong>Install software updates:</strong> Check whether an operating system update is available, as bugs affecting power management are frequently patched.</li>
+      </ol>
+
+      <h2>Why Does My Phone Only Charge to 80%?</h2>
+      <p>Some modern smartphones include battery protection features that limit charging to around 80% to help preserve battery health and reduce chemical aging.</p>
+      <p>This doesn't necessarily mean your battery is faulty. Features like Apple's "Optimized Battery Charging" or Samsung's "Protect Battery" intentionally pause charging at 80% until you typically need to use the device.</p>
+
+      <h2>When Does Your Phone Need Repair?</h2>
+      <p>If you've tested different chargers and cables and your phone still won't charge, the battery, charging port or internal power management hardware may need professional inspection.</p>
+      <p>Never force objects into the charging port or use damaged, frayed charging accessories, as this can cause permanent short-circuits or fire hazards.</p>
+
+      <h2>Final Thoughts</h2>
+      <p>Before paying for a repair, test another cable, adapter and power socket. These simple checks can often identify the problem and save you an unnecessary trip to the repair shop.</p>
+
+      <p><strong>Stay Updated With Digital Infohub</strong></p>
+      <p>Explore more technology insights, AI tools, and digital projects at Digital Infohub, founded by Ryan Green.</p>
+
+      <a class="link-block" href="https://www.digitalinfohub.net/" target="_blank" rel="noopener">
+        <div class="label">Digital Infohub</div>
+        <div class="url">digitalinfohub.net</div>
+      </a>
+      <div class="tags">
+        <a class="tag" href="#">#Smartphone</a>
+        <a class="tag" href="#">#Charging</a>
+        <a class="tag" href="#">#TechTips</a>
+        <a class="tag" href="#">#iPhone</a>
+        <a class="tag" href="#">#Android</a>
+      </div>
+    </article>
+  </div>
+
+  <!-- ================= 日本語 ================= -->
+  <div class="lang-content" data-lang="ja" lang="ja">
+    <header>
+      <p class="meta">モバイルTips • 2026年11月 • 約5分</p>
+      <h1>スマホが充電されない原因は？試すべき9つの対処法</h1>
+      <p class="subtitle">スマホが充電されませんか？iPhoneやSamsungデバイス向けの一般的な充電トラブルと実用的な解決策をご紹介します。</p>
+    </header>
+
+    <article>
+      <p>スマホが充電されない原因は、ケーブルの故障、充電ポートの破損、ソフトウェアの問題、バッテリーの不具合など多岐にわたります。</p>
+      <p>iPhone、Samsung Galaxy、その他のAndroidスマホをお使いの方のために、確認すべきポイントをまとめました。</p>
+
+      <figure>
+        <img src="https://images.unsplash.com/photo-1583863788434-e58a36330cf0?q=80&w=1200&auto=format&fit=crop" alt="充電器に接続されたスマートフォン。充電トラブルシューティングのイメージ">
+        <figcaption>ほとんどの充電問題は、異なるケーブル、アダプター、ポートをテストすることで解決できます。</figcaption>
+      </figure>
+
+      <h2>充電されないスマホを直す9つの方法</h2>
+      <ol>
+        <li><strong>別の充電ケーブルを試す：</strong>外見は綺麗でも、ケーブルの内部が断線している可能性があります。</li>
+        <li><strong>ACアダプターを交換する：</strong>別の互換性のある充電プラグでテストし、アダプターの故障を除外します。</li>
+        <li><strong>電源コンセントを確認する：</strong>別の壁のコンセントを試して、コンセント自体に電力が来ているか確認します。</li>
+        <li><strong>充電ポートを点検する：</strong>正常な接続を妨げるほこりやゴミが入っていないか確認します。木製の爪楊枝やエアダスターで優しく掃除しましょう。</li>
+        <li><strong>スマホを再起動する：</strong>一時的なソフトウェアの問題やバックグラウンドプロセスが充電の妨げになっていることがあります。</li>
+        <li><strong>水分検出警告を確認する：</strong>充電ポートに液体が検出された場合は、直ちに充電器を取り外し、風通しの良い場所で自然乾燥させます。</li>
+        <li><strong>ワイヤレス充電を試す：</strong>対応機種の場合、物理的な充電ポートに問題があるかどうかを特定するのに役立ちます。</li>
+        <li><strong>バッテリー設定を確認する：</strong>一部のスマホは、バッテリーの長期的な健全性を保護するために充電を制限する設定が有効になっています。</li>
+        <li><strong>ソフトウェアアップデートをインストールする：</strong>OSのアップデートが利用可能かどうかを確認します。電源管理に関するバグは頻繁に修正されています。</li>
+      </ol>
+
+      <h2>スマホが80%までしか充電されないのはなぜ？</h2>
+      <p>最近のスマートフォンには、バッテリーの健全性を保ち、化学的な劣化を減らすために、充電を約80%に制限するバッテリー保護機能が搭載されているものがあります。</p>
+      <p>これは必ずしもバッテリーが故障していることを意味するわけではありません。Appleの「バッテリー充電の最適化」やSamsungの「バッテリーを保護」などの機能は、通常デバイスを使用するまで80%で意図的に充電を一時停止します。</p>
+
+      <h2>修理が必要なのはどんな時？</h2>
+      <p>異なる充電器やケーブルを試してもスマホが充電されない場合は、バッテリー、充電ポート、または内部の電源管理ハードウェアの専門的な点検が必要かもしれません。</p>
+      <p>充電ポートに無理やり物を差し込んだり、損傷した充電アクセサリーを使用したりしないでください。永久なショートや火災の原因となる可能性があります。</p>
+
+      <h2>まとめ</h2>
+      <p>修理に出す前に、別のケーブル、アダプター、電源コンセントを試してみましょう。これらの簡単な確認で、問題の原因を特定でき、不必要な修理代を節約できることがよくあります。</p>
+
+      <p><strong>Digital Infohubで最新情報を</strong></p>
+      <p>Ryan Greenが設立したDigital Infohubで、テクノロジーの洞察、AIツール、デジタルプロジェクトの詳細をご覧ください。</p>
+
+      <a class="link-block" href="https://www.digitalinfohub.net/" target="_blank" rel="noopener">
+        <div class="label">Digital Infohub</div>
+        <div class="url">digitalinfohub.net</div>
+      </a>
+      <div class="tags">
+        <a class="tag" href="#">#Smartphone</a>
+        <a class="tag" href="#">#Charging</a>
+        <a class="tag" href="#">#TechTips</a>
+        <a class="tag" href="#">#iPhone</a>
+        <a class="tag" href="#">#Android</a>
+      </div>
+    </article>
+  </div>
+
+  <!-- ================= 中文 ================= -->
+  <div class="lang-content" data-lang="zh" lang="zh-Hans">
+    <header>
+      <p class="meta">手机技巧 • 2026年11月 • 约5分钟阅读</p>
+      <h1>手机充不进电怎么办？你应该尝试的 9 种修复方法</h1>
+      <p class="subtitle">手机无法充电？了解 iPhone 和三星设备常见的充电问题及实用解决方案。</p>
+    </header>
+
+    <article>
+      <p>手机无法充电的原因有很多，包括数据线损坏、充电口受损、软件问题或电池故障。</p>
+      <p>无论你使用的是 iPhone、三星 Galaxy 还是其他安卓手机，这里有一些值得检查的排查步骤。</p>
+
+      <figure>
+        <img src="https://images.unsplash.com/photo-1583863788434-e58a36330cf0?q=80&w=1200&auto=format&fit=crop" alt="插在充电器上的智能手机，代表排查充电问题">
+        <figcaption>大多数充电问题都可以通过测试不同的数据线、适配器和接口来解决。</figcaption>
+      </figure>
+
+      <h2>修复手机无法充电的 9 种方法</h2>
+      <ol>
+        <li><strong>尝试另一根数据线：</strong>你的数据线外部可能看起来完好，但内部已经损坏。</li>
+        <li><strong>更换电源适配器：</strong>测试另一个兼容的充电插头，以排除充电头故障。</li>
+        <li><strong>检查电源插座：</strong>尝试换一个墙壁插座，确保插座本身正常供电。</li>
+        <li><strong>检查充电口：</strong>查看是否有灰尘、毛线或碎屑阻碍了正常连接。可以使用木质牙签或压缩空气轻轻清理。</li>
+        <li><strong>重启手机：</strong>临时的软件问题或后台进程有时会干扰充电逻辑。</li>
+        <li><strong>检查液体警告：</strong>如果手机检测到充电口有液体，请立即断开充电器，并让其在通风良好的地方自然风干。</li>
+        <li><strong>尝试无线充电：</strong>如果你的设备支持，这有助于确定是否是物理充电口的问题。</li>
+        <li><strong>检查电池设置：</strong>有些手机为了保护电池的长期健康，启用了“优化电池充电”或限制了充电上限。</li>
+        <li><strong>安装软件更新：</strong>检查是否有可用的操作系统更新，因为影响电源管理的 Bug 经常会被补丁修复。</li>
+      </ol>
+
+      <h2>为什么我的手机只能充到 80%？</h2>
+      <p>一些现代智能手机配备了电池保护功能，会将充电限制在 80% 左右，以帮助延长电池寿命并减少化学老化。</p>
+      <p>这并不一定意味着你的电池出现了故障。像苹果的“优化电池充电”或三星的“保护电池”功能，会有意在 80% 时暂停充电，直到你通常需要使用该设备为止。</p>
+
+      <h2>什么时候需要送修？</h2>
+      <p>如果你测试了不同的充电器和数据线，手机仍然无法充电，那么电池、充电口或内部电源管理硬件可能需要专业人员的检查。</p>
+      <p>切勿将异物强行插入充电口，也不要使用破损、裸露的充电配件，以免造成永久性短路或火灾隐患。</p>
+
+      <h2>结语</h2>
+      <p>在花钱维修之前，请先测试另一根数据线、适配器和电源插座。这些简单的检查通常就能找出问题所在，帮你省去不必要的维修费用。</p>
+
+      <p><strong>关注 Digital Infohub 获取更多信息</strong></p>
+      <p>在由 Ryan Green 创立的 Digital Infohub 探索更多科技见解、AI 工具和数字项目。</p>
+
+      <a class="link-block" href="https://www.digitalinfohub.net/" target="_blank" rel="noopener">
+        <div class="label">Digital Infohub</div>
+        <div class="url">digitalinfohub.net</div>
+      </a>
+      <div class="tags">
+        <a class="tag" href="#">#Smartphone</a>
+        <a class="tag" href="#">#Charging</a>
+        <a class="tag" href="#">#TechTips</a>
+        <a class="tag" href="#">#iPhone</a>
+        <a class="tag" href="#">#Android</a>
+      </div>
+    </article>
+  </div>
+
+</div>
+
+<script>
+(function() {
+  var html = document.documentElement;
+
+  /* ---------- Theme ---------- */
+  var toggle = document.getElementById('themeToggle');
+  var storedTheme = localStorage.getItem('theme');
+
+  if (storedTheme) {
+    html.setAttribute('data-theme', storedTheme);
+  } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    html.setAttribute('data-theme', 'dark');
+  }
+
+  toggle.addEventListener('click', function() {
+    var current = html.getAttribute('data-theme');
+    var next = current === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+
+  /* ---------- Language ---------- */
+  var titles = {
+    en: "Why Is My Phone Not Charging? 9 Fixes You Should Try",
+    ja: "スマホが充電されない原因は？試すべき9つの対処法",
+    zh: "手机充不进电怎么办？你应该尝试的 9 种修复方法"
+  };
+
+  var htmlLang = { en: 'en', ja: 'ja', zh: 'zh-Hans' };
+
+  function detectLang() {
+    var nav = (navigator.language || 'en').toLowerCase();
+    if (nav.indexOf('ja') === 0) return 'ja';
+    if (nav.indexOf('zh') === 0) return 'zh';
+    return 'en';
+  }
+
+  function setLang(lang) {
+    document.querySelectorAll('.lang-content').forEach(function(block) {
+      block.classList.toggle('active', block.getAttribute('data-lang') === lang);
+    });
+    document.querySelectorAll('[data-lang-btn]').forEach(function(btn) {
+      var isActive = btn.getAttribute('data-lang-btn') === lang;
+      btn.classList.toggle('active', isActive);
+      btn.setAttribute('aria-pressed', isActive);
+    });
+    html.setAttribute('lang', htmlLang[lang]);
+    document.title = titles[lang];
+    localStorage.setItem('lang', lang);
+  }
+
+  document.querySelectorAll('[data-lang-btn]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      setLang(btn.getAttribute('data-lang-btn'));
+    });
+  });
+
+  setLang(localStorage.getItem('lang') || detectLang());
+})();
+</script>
+
+</body>
+</html>
