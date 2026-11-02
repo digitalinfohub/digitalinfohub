@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471"
+     crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why Is My Face ID Not Working? 8 Ways to Fix Face ID</title>
+<meta name="description" content="Is Face ID not working on your iPhone? Discover common causes and simple troubleshooting steps to get facial recognition working again.">
+<meta property="og:title" content="Why Is My Face ID Not Working? 8 Ways to Fix Face ID">
+<meta property="og:description" content="Is Face ID not working on your iPhone? Discover common causes and simple troubleshooting steps to get facial recognition working again.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?q=80&w=1200&auto=format&fit=crop">
+
+<style>
+:root, [data-theme="light"] {
+  --bg: #fafaf9;
+  --surface: #ffffff;
+  --ink: #1c1917;
+  --ink-muted: #78716c;
+  --accent: #292524;
+  --border: #e7e5e4;
+  --toggle-icon: #1c1917;
+}
+
+[data-theme="dark"] {
+  --bg: #0c0a09;
+  --surface: #1c1917;
+  --ink: #e7e5e4;
+  --ink-muted: #a8a29e;
+  --accent: #d6d3d1;
+  --border: #292524;
+  --toggle-icon: #e7e5e4;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ---------- Controls ---------- */
+.controls {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.25rem;
+  z-index: 100;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.lang-switch {
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  overflow: hidden;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.lang-switch button {
+  border: none;
+  background: transparent;
+  color: var(--ink-muted);
+  font-family: inherit;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  padding: 0.55em 0.95em;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.lang-switch button:hover { color: var(--ink); }
+
+.lang-switch button.active {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.theme-toggle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle:hover { border-color: var(--ink-muted); }
+
+.theme-toggle svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: var(--toggle-icon);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke 0.3s ease;
+}
+
+.theme-toggle .icon-moon { display: block; }
+.theme-toggle .icon-sun { display: none; }
+
+[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+
+/* ---------- Language content ---------- */
+.lang-content { display: none; }
+.lang-content.active { display: block; }
+
+/* ---------- Header ---------- */
+header {
+  padding: 4rem 0 2rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2.5rem;
+  transition: border-color 0.3s ease;
+}
+
+.meta {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 1rem;
+  transition: color 0.3s ease;
+}
+
+h1 {
+  font-family: "Georgia", "Times New Roman", serif;
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin-bottom: 1rem;
+  transition: color 0.3s ease;
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  color: var(--ink-muted);
+  line-height: 1.6;
+  transition: color 0.3s ease;
+}
+
+/* CJK typography */
+html[lang="ja"] body { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", "Inter", sans-serif; }
+html[lang="ja"] h1 { font-family: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", Georgia, serif; line-height: 1.4; }
+html[lang="ja"] article p, html[lang="ja"] .subtitle { line-height: 1.95; }
+
+html[lang="zh-Hans"] body { font-family: "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", "Inter", sans-serif; }
+html[lang="zh-Hans"] h1 { font-family: "Songti SC", "Noto Serif SC", "SimSun", Georgia, serif; line-height: 1.4; }
+html[lang="zh-Hans"] article p, html[lang="zh-Hans"] .subtitle { line-height: 1.95; }
+
+/* ---------- Content ---------- */
+article p {
+  margin-bottom: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+article strong { font-weight: 600; }
+
+figure { margin: 2.5rem 0; }
+
+figure img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 2px;
+}
+
+figcaption {
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+  margin-top: 0.75rem;
+  letter-spacing: 0.02em;
+  transition: color 0.3s ease;
+}
+
+/* ---------- Links ---------- */
+a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--border);
+  transition: text-decoration-color 0.2s, color 0.3s ease;
+}
+
+a:hover { text-decoration-color: var(--ink); }
+
+.link-block {
+  display: block;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  text-decoration: none;
+  margin: 1.5rem 0;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.link-block:hover {
+  border-color: var(--ink-muted);
+  background: var(--surface);
+}
+
+.link-block .label {
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 0.25rem;
+  transition: color 0.3s ease;
+}
+
+.link-block .url {
+  font-size: 0.875rem;
+  word-break: break-all;
+  transition: color 0.3s ease;
+}
+
+/* ---------- Section headings ---------- */
+h2, h3 {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin: 3rem 0 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+/* ---------- Tags ---------- */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+  transition: border-color 0.3s ease;
+}
+
+.tag {
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+  text-decoration: none;
+  padding: 0.375rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  transition: all 0.2s;
+}
+
+.tag:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+@media (max-width: 600px) {
+  header { padding: 2.5rem 0 1.5rem; }
+  .controls { top: 1rem; right: 1rem; }
+  .theme-toggle { width: 36px; height: 36px; }
+  .theme-toggle svg { width: 16px; height: 16px; }
+  .lang-switch button { padding: 0.5em 0.7em; font-size: 0.68rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="controls">
+  <div class="lang-switch" role="group" aria-label="Language selection">
+    <button type="button" data-lang-btn="en" class="active">EN</button>
+    <button type="button" data-lang-btn="ja">日本語</button>
+    <button type="button" data-lang-btn="zh">中文</button>
+  </div>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+    <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+  </button>
+</div>
+
+<div class="container">
+
+  <!-- ================= ENGLISH ================= -->
+  <div class="lang-content active" data-lang="en" lang="en">
+    <header>
+      <p class="meta">Mobile Tips • Nov 2026 • 5 min read</p>
+      <h1>Why Is My Face ID Not Working? 8 Ways to Fix Face ID</h1>
+      <p class="subtitle">Face ID makes unlocking your iPhone, accessing apps, and confirming payments quick and convenient. However, when it suddenly stops recognising your face, it can become frustrating.</p>
+    </header>
+
+    <article>
+      <p>There are several reasons why Face ID might stop working, ranging from simple camera obstructions to underlying software problems. Before assuming the worst, try these straightforward troubleshooting steps to get your facial recognition back on track.</p>
+
+      <figure>
+        <img src="https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?q=80&w=1200&auto=format&fit=crop" alt="Close-up of an iPhone screen representing Face ID troubleshooting">
+        <figcaption>Most Face ID issues can be resolved with a few simple checks and adjustments.</figcaption>
+      </figure>
+
+      <h2>8 Ways to Fix Face ID</h2>
+      <ol>
+        <li><strong>Clean your front camera:</strong> Wipe the camera and sensor area at the top of your display to remove fingerprints, dust, and dirt that may be blocking the TrueDepth system.</li>
+        <li><strong>Check your screen protector:</strong> Make sure your screen protector or case isn't covering or interfering with the TrueDepth camera array.</li>
+        <li><strong>Check Face ID settings:</strong> Navigate to <strong>Settings &gt; Face ID &amp; Passcode</strong> and verify that Face ID is enabled for unlocking your iPhone, iTunes &amp; App Store, and other features.</li>
+        <li><strong>Restart your iPhone:</strong> A simple restart can resolve temporary software glitches that may be interfering with the sensor.</li>
+        <li><strong>Update iOS:</strong> Install any available software updates, as Apple frequently releases patches that fix Face ID bugs.</li>
+        <li><strong>Check your surroundings:</strong> Ensure your face is fully visible, well-lit, and that you're holding the phone at a suitable distance (about 10 to 20 inches from your face).</li>
+        <li><strong>Reset Face ID:</strong> Go to <strong>Settings &gt; Face ID &amp; Passcode &gt; Reset Face ID</strong>, then set it up again from scratch to refresh the facial map.</li>
+        <li><strong>Check for hardware damage:</strong> If your iPhone has been dropped, exposed to water, or repaired recently, the TrueDepth camera may have sustained physical damage and require professional attention.</li>
+      </ol>
+
+      <h2>When Should You Contact Apple?</h2>
+      <p>If Face ID still doesn't work after trying all these steps, there could be a deeper hardware issue. Apple Support or an authorised repair provider can run diagnostics to investigate further and determine if a component replacement is necessary.</p>
+
+      <h2>Final Thoughts</h2>
+      <p>Most Face ID problems can be resolved with a few simple checks. Start with cleaning the camera, verifying your settings, and restarting your device before considering a repair. Keeping your iOS updated and handling your device carefully will also help prevent future recognition issues.</p>
+
+      <p><strong>Stay Updated With Digital Infohub</strong></p>
+      <p>Explore more technology insights, AI tools, and digital projects at Digital Infohub, founded by Ryan Green.</p>
+
+      <a class="link-block" href="https://www.digitalinfohub.net/" target="_blank" rel="noopener">
+        <div class="label">Digital Infohub</div>
+        <div class="url">digitalinfohub.net</div>
+      </a>
+      <div class="tags">
+        <a class="tag" href="#">#iPhone</a>
+        <a class="tag" href="#">#FaceID</a>
+        <a class="tag" href="#">#Apple</a>
+        <a class="tag" href="#">#TechTips</a>
+        <a class="tag" href="#">#Troubleshooting</a>
+      </div>
+    </article>
+  </div>
+
+  <!-- ================= 日本語 ================= -->
+  <div class="lang-content" data-lang="ja" lang="ja">
+    <header>
+      <p class="meta">モバイルTips • 2026年11月 • 約5分</p>
+      <h1>Face IDが機能しない原因は？Face IDを修正する8つの方法</h1>
+      <p class="subtitle">Face IDは、iPhoneのロック解除、アプリへのアクセス、支払いの確認を素早く便利にします。しかし、突然顔を認識しなくなるとイライラするものです。</p>
+    </header>
+
+    <article>
+      <p>Face IDが機能しなくなる原因は、カメラの単純な汚れから根本的なソフトウェアの問題までさまざまです。最悪の状況を想定する前に、以下の簡単なトラブルシューティング手順を試して、顔認証を正常な状態に戻しましょう。</p>
+
+      <figure>
+        <img src="https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?q=80&w=1200&auto=format&fit=crop" alt="Face IDのトラブルシューティングを表すiPhoneスクリーンのクローズアップ">
+        <figcaption>ほとんどのFace IDの問題は、いくつかの簡単な確認と調整で解決できます。</figcaption>
+      </figure>
+
+      <h2>Face IDを修正する8つの方法</h2>
+      <ol>
+        <li><strong>フロントカメラを清掃する：</strong>指紋、ほこり、汚れがTrueDepthシステムを遮っていないか、ディスプレイ上部のカメラとセンサー周辺を拭き取ります。</li>
+        <li><strong>画面保護フィルムを確認する：</strong>スクリーンプロテクターやケースがTrueDepthカメラを覆ったり、干渉したりしていないか確認します。</li>
+        <li><strong>Face ID設定を確認する：</strong><strong>「設定」&gt;「Face IDとパスコード」</strong>に移動し、iPhoneのロック解除、iTunesおよびApp Storeなどの機能でFace IDが有効になっているか確認します。</li>
+        <li><strong>iPhoneを再起動する：</strong>センサーの干渉を引き起こしている可能性のある一時的なソフトウェアの不具合は、簡単な再起動で解決できることがあります。</li>
+        <li><strong>iOSを更新する：</strong>AppleはFace IDのバグを修正するパッチを頻繁にリリースしているため、利用可能なソフトウェアアップデートをインストールします。</li>
+        <li><strong>周囲の環境を確認する：</strong>顔が完全に見え、十分に照らされており、携帯電話を適切な距離（顔から約25〜50cm）で保持していることを確認します。</li>
+        <li><strong>Face IDをリセットする：</strong><strong>「設定」&gt;「Face IDとパスコード」&gt;「Face IDをリセット」</strong>に移動し、顔のマップを更新するために最初から再度設定します。</li>
+        <li><strong>ハードウェアの損傷を確認する：</strong>iPhoneを落下させたり、水にさらしたり、最近修理したりした場合は、TrueDepthカメラに物理的な損傷が生じており、専門的な対処が必要になる可能性があります。</li>
+      </ol>
+
+      <h2>いつAppleに連絡すべきか？</h2>
+      <p>これらの手順をすべて試してもFace IDが機能しない場合は、より深刻なハードウェアの問題が発生している可能性があります。Appleサポートまたは認定修理プロバイダーは、診断を実行してさらに調査し、部品の交換が必要かどうかを判断できます。</p>
+
+      <h2>まとめ</h2>
+      <p>ほとんどのFace IDの問題は、いくつかの簡単な確認で解決できます。修理を検討する前に、カメラの清掃、設定の確認、デバイスの再起動から始めましょう。iOSを最新の状態に保ち、デバイスを慎重に扱うことも、将来の認識問題を予防するのに役立ちます。</p>
+
+      <p><strong>Digital Infohubで最新情報を</strong></p>
+      <p>Ryan Greenが設立したDigital Infohubで、テクノロジーの洞察、AIツール、デジタルプロジェクトの詳細をご覧ください。</p>
+
+      <a class="link-block" href="https://www.digitalinfohub.net/" target="_blank" rel="noopener">
+        <div class="label">Digital Infohub</div>
+        <div class="url">digitalinfohub.net</div>
+      </a>
+      <div class="tags">
+        <a class="tag" href="#">#iPhone</a>
+        <a class="tag" href="#">#FaceID</a>
+        <a class="tag" href="#">#Apple</a>
+        <a class="tag" href="#">#TechTips</a>
+        <a class="tag" href="#">#Troubleshooting</a>
+      </div>
+    </article>
+  </div>
+
+  <!-- ================= 中文 ================= -->
+  <div class="lang-content" data-lang="zh" lang="zh-Hans">
+    <header>
+      <p class="meta">手机技巧 • 2026年11月 • 约5分钟阅读</p>
+      <h1>Face ID 无法使用怎么办？修复 Face ID 的 8 种方法</h1>
+      <p class="subtitle">Face ID 让解锁 iPhone、访问应用和确认支付变得快捷方便。然而，当它突然无法识别你的脸时，可能会让人感到沮丧。</p>
+    </header>
+
+    <article>
+      <p>Face ID 停止工作的原因有很多，从简单的摄像头遮挡到潜在的软件问题。在假设最坏的情况之前，请尝试以下简单的故障排除步骤，让你的面部识别恢复正常。</p>
+
+      <figure>
+        <img src="https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?q=80&w=1200&auto=format&fit=crop" alt="代表 Face ID 故障排除的 iPhone 屏幕特写">
+        <figcaption>大多数 Face ID 问题都可以通过几个简单的检查和调整来解决。</figcaption>
+      </figure>
+
+      <h2>修复 Face ID 的 8 种方法</h2>
+      <ol>
+        <li><strong>清洁前置摄像头：</strong>擦拭显示屏顶部的摄像头和传感器区域，去除可能阻挡原深感（TrueDepth）系统的指纹、灰尘和污垢。</li>
+        <li><strong>检查屏幕保护膜：</strong>确保你的屏幕保护膜或手机壳没有遮盖或干扰原深感摄像头阵列。</li>
+        <li><strong>检查 Face ID 设置：</strong>前往<strong>“设置” &gt; “Face ID 与密码”</strong>，验证是否已为解锁 iPhone、iTunes 与 App Store 等功能启用了 Face ID。</li>
+        <li><strong>重启 iPhone：</strong>简单的重启可以解决可能干扰传感器的临时软件故障。</li>
+        <li><strong>更新 iOS：</strong>安装任何可用的软件更新，因为 Apple 经常会发布修复 Face ID 错误的补丁。</li>
+        <li><strong>检查周围环境：</strong>确保你的脸部完全可见、光线充足，并且手机保持在合适的距离（距离脸部约 25 到 50 厘米）。</li>
+        <li><strong>重置 Face ID：</strong>前往<strong>“设置” &gt; “Face ID 与密码” &gt; “重置 Face ID”</strong>，然后从头开始重新设置以刷新面部映射。</li>
+        <li><strong>检查硬件损坏：</strong>如果你的 iPhone 最近摔过、接触过水或进行过维修，原深感摄像头可能已受到物理损坏，需要专业人员的关注。</li>
+      </ol>
+
+      <h2>何时应该联系 Apple？</h2>
+      <p>如果尝试了所有这些步骤后 Face ID 仍然无法工作，则可能存在更深层的硬件问题。Apple 支持部门或授权维修提供商可以运行诊断程序以进行进一步调查，并确定是否需要更换组件。</p>
+
+      <h2>结语</h2>
+      <p>大多数 Face ID 问题都可以通过几个简单的检查来解决。在考虑维修之前，请先从清洁摄像头、验证设置和重启设备开始。保持 iOS 更新并小心处理设备，也将有助于防止未来的识别问题。</p>
+
+      <p><strong>关注 Digital Infohub 获取更多信息</strong></p>
+      <p>在由 Ryan Green 创立的 Digital Infohub 探索更多科技见解、AI 工具和数字项目。</p>
+
+      <a class="link-block" href="https://www.digitalinfohub.net/" target="_blank" rel="noopener">
+        <div class="label">Digital Infohub</div>
+        <div class="url">digitalinfohub.net</div>
+      </a>
+      <div class="tags">
+        <a class="tag" href="#">#iPhone</a>
+        <a class="tag" href="#">#FaceID</a>
+        <a class="tag" href="#">#Apple</a>
+        <a class="tag" href="#">#TechTips</a>
+        <a class="tag" href="#">#Troubleshooting</a>
+      </div>
+    </article>
+  </div>
+
+</div>
+
+<script>
+(function() {
+  var html = document.documentElement;
+
+  /* ---------- Theme ---------- */
+  var toggle = document.getElementById('themeToggle');
+  var storedTheme = localStorage.getItem('theme');
+
+  if (storedTheme) {
+    html.setAttribute('data-theme', storedTheme);
+  } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    html.setAttribute('data-theme', 'dark');
+  }
+
+  toggle.addEventListener('click', function() {
+    var current = html.getAttribute('data-theme');
+    var next = current === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+
+  /* ---------- Language ---------- */
+  var titles = {
+    en: "Why Is My Face ID Not Working? 8 Ways to Fix Face ID",
+    ja: "Face IDが機能しない原因は？Face IDを修正する8つの方法",
+    zh: "Face ID 无法使用怎么办？修复 Face ID 的 8 种方法"
+  };
+
+  var htmlLang = { en: 'en', ja: 'ja', zh: 'zh-Hans' };
+
+  function detectLang() {
+    var nav = (navigator.language || 'en').toLowerCase();
+    if (nav.indexOf('ja') === 0) return 'ja';
+    if (nav.indexOf('zh') === 0) return 'zh';
+    return 'en';
+  }
+
+  function setLang(lang) {
+    document.querySelectorAll('.lang-content').forEach(function(block) {
+      block.classList.toggle('active', block.getAttribute('data-lang') === lang);
+    });
+    document.querySelectorAll('[data-lang-btn]').forEach(function(btn) {
+      var isActive = btn.getAttribute('data-lang-btn') === lang;
+      btn.classList.toggle('active', isActive);
+      btn.setAttribute('aria-pressed', isActive);
+    });
+    html.setAttribute('lang', htmlLang[lang]);
+    document.title = titles[lang];
+    localStorage.setItem('lang', lang);
+  }
+
+  document.querySelectorAll('[data-lang-btn]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      setLang(btn.getAttribute('data-lang-btn'));
+    });
+  });
+
+  setLang(localStorage.getItem('lang') || detectLang());
+})();
+</script>
+
+</body>
+</html>
