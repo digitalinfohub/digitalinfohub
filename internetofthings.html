@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Internet of Things Explained: Sensors and Risk | Digital Infohub</title>
+<meta name="description" content="What the Internet of Things is, how connected devices actually work, where IoT delivers value, and the security and privacy questions every deployment has to answer.">
+<meta name="keywords" content="internet of things, IoT explained, IoT security, smart home, industrial IoT, sensors">
+<meta name="author" content="Digital Infohub">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="theme-color" content="#0a0a0a">
+<meta name="color-scheme" content="dark light">
+<link rel="canonical" href="https://www.digitalinfohub.net/internetofthings">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Digital Infohub">
+<meta property="og:title" content="Internet of Things Explained: Sensors and Risk | Digital Infohub">
+<meta property="og:description" content="What the Internet of Things is, how connected devices actually work, where IoT delivers value, and the security and privacy questions every deployment has to answer.">
+<meta property="og:url" content="https://www.digitalinfohub.net/internetofthings">
+<meta property="og:image" content="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&h=630&fit=crop&auto=format">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Internet of Things Explained: Sensors and Risk">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Internet of Things Explained: Sensors and Risk | Digital Infohub">
+<meta name="twitter:description" content="What the Internet of Things is, how connected devices actually work, where IoT delivers value, and the security and privacy questions every deployment has to answer.">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&h=630&fit=crop&auto=format">
+
+<link rel="icon" type="image/png" href="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png">
+<link rel="apple-touch-icon" href="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://pagead2.googlesyndication.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<!-- AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471" crossorigin="anonymous"></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Internet of Things Explained: Sensors and Risk",
+  "description": "What the Internet of Things is, how connected devices actually work, where IoT delivers value, and the security and privacy questions every deployment has to answer.",
+  "image": [
+    "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&h=630&fit=crop&auto=format"
+  ],
+  "url": "https://www.digitalinfohub.net/internetofthings",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.digitalinfohub.net/internetofthings"
+  },
+  "datePublished": "2026-11-04",
+  "dateModified": "2026-11-04",
+  "inLanguage": "en",
+  "isAccessibleForFree": true,
+  "articleSection": "Infrastructure",
+  "keywords": "internet of things, IoT explained, IoT security, smart home, industrial IoT, sensors",
+  "wordCount": 537,
+  "author": {
+    "@type": "Organization",
+    "name": "Digital Infohub",
+    "url": "https://www.digitalinfohub.net/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Digital Infohub",
+    "url": "https://www.digitalinfohub.net/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png"
+    }
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.digitalinfohub.net/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Tech Topics",
+      "item": "https://www.digitalinfohub.net/techtopics"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Internet of Things",
+      "item": "https://www.digitalinfohub.net/internetofthings"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is a smart speaker an IoT device?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. It contains microphones and software, connects to cloud services and acts on voice input, which fits the definition even though it is marketed as a consumer product."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between IoT and industrial IoT?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Industrial IoT applies the same pattern to machines and infrastructure where reliability, determinism and safety standards are far stricter than in a home."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I secure a home full of connected devices?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Change default passwords, enable automatic updates, place devices on a guest or separate network, disable features you do not use, and replace hardware that no longer receives patches."
+      }
+    }
+  ]
+}
+</script>
+<style>
+:root {
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, monospace;
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+
+[data-theme="dark"] {
+  --bg: #0a0a0a;
+  --surface: #111111;
+  --surface-2: #161616;
+  --surface-3: #1a1a1a;
+  --border: rgba(255,255,255,0.06);
+  --border-strong: rgba(255,255,255,0.1);
+  --text: #f5f5f5;
+  --text-sub: #a1a1aa;
+  --text-muted: #71717a;
+  --accent: #6366f1;
+  --accent-soft: rgba(99,102,241,0.1);
+  --shadow: 0 4px 24px -6px rgba(0,0,0,0.4);
+}
+
+[data-theme="light"] {
+  --bg: #fafafa;
+  --surface: #ffffff;
+  --surface-2: #f4f4f5;
+  --surface-3: #e4e4e7;
+  --border: rgba(0,0,0,0.06);
+  --border-strong: rgba(0,0,0,0.12);
+  --text: #0a0a0a;
+  --text-sub: #52525b;
+  --text-muted: #a1a1aa;
+  --accent: #4f46e5;
+  --accent-soft: rgba(79,70,229,0.08);
+  --shadow: 0 4px 24px -6px rgba(0,0,0,0.08);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.shell { max-width: 820px; margin: 0 auto; padding: 32px 24px 80px; }
+
+/* NAVIGATION */
+.nav-shell {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--bg); border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  margin: -32px -24px 32px; padding: 0 24px;
+}
+.nav-bar {
+  max-width: 820px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 0; gap: 16px;
+}
+.nav-links { display: flex; gap: 4px; align-items: center; overflow-x: auto; scrollbar-width: none; }
+.nav-links::-webkit-scrollbar { display: none; }
+.nav-link {
+  padding: 8px 14px; background: none; border: 1px solid transparent;
+  color: var(--text-sub); border-radius: 8px; cursor: pointer;
+  font-size: 13px; font-weight: 500; text-decoration: none;
+  transition: all 0.2s var(--ease); white-space: nowrap;
+  font-family: inherit; display: flex; align-items: center; gap: 6px;
+}
+.nav-link:hover { color: var(--text); background: var(--surface-2); border-color: var(--border); }
+.nav-link.active { color: var(--accent); background: var(--accent-soft); border-color: var(--accent); }
+.nav-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.hamburger {
+  display: none; width: 36px; height: 36px;
+  border: 1px solid var(--border); background: var(--surface); color: var(--text-sub);
+  border-radius: var(--radius-sm); cursor: pointer;
+  align-items: center; justify-content: center;
+  font-size: 18px; transition: all 0.2s var(--ease); flex-shrink: 0;
+}
+.hamburger:hover { color: var(--text); background: var(--surface-2); border-color: var(--border-strong); }
+
+.mobile-menu {
+  display: none; position: absolute; top: 100%; left: 0; right: 0;
+  background: var(--surface); border-bottom: 1px solid var(--border);
+  padding: 8px 16px 16px; flex-direction: column; gap: 4px;
+  box-shadow: var(--shadow); animation: slideDown 0.2s var(--ease);
+}
+.mobile-menu.active { display: flex; }
+.mobile-menu .nav-link { width: 100%; justify-content: flex-start; padding: 12px 14px; font-size: 14px; }
+@keyframes slideDown { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+
+/* TOP BAR */
+.topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+.brand {
+  display: flex; align-items: center; gap: 10px;
+  font-weight: 700; font-size: 15px; letter-spacing: -0.01em;
+  text-decoration: none; color: var(--text);
+}
+.brand-logo {
+  width: 28px; height: 28px; border-radius: 8px;
+  background: var(--surface-2); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center; overflow: hidden;
+}
+.brand-logo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.topbar-actions { display: flex; gap: 6px; align-items: center; }
+.icon-btn {
+  width: 36px; height: 36px; border: 1px solid var(--border);
+  background: var(--surface); color: var(--text-sub);
+  border-radius: var(--radius-sm); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s var(--ease);
+}
+.icon-btn:hover { color: var(--text); border-color: var(--border-strong); background: var(--surface-2); }
+.icon-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* INDEX HEADER */
+.page-header { margin-bottom: 32px; }
+.page-title { font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 12px; }
+.page-desc { color: var(--text-sub); font-size: 16px; max-width: 620px; }
+.page-desc a, .article a.inline { color: var(--accent); text-decoration: none; font-weight: 500; }
+.page-desc a:hover, .article a.inline:hover { text-decoration: underline; }
+
+.topic-jump { display: flex; flex-wrap: wrap; gap: 8px; margin: 24px 0 8px; }
+.topic-jump a {
+  font-size: 12px; font-weight: 600; color: var(--text-sub);
+  border: 1px solid var(--border); background: var(--surface);
+  border-radius: 99px; padding: 6px 12px; text-decoration: none;
+  transition: all 0.2s var(--ease);
+}
+.topic-jump a:hover { color: var(--text); border-color: var(--accent); }
+
+.topic-group { margin-top: 40px; }
+.group-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 12px; padding-bottom: 12px; margin-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+  scroll-margin-top: 90px;
+}
+.group-head h2 { font-size: 20px; font-weight: 700; letter-spacing: -0.01em; }
+.group-count { font-family: var(--mono); font-size: 11px; color: var(--text-muted); }
+
+/* TOPIC CARDS */
+.topics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+}
+.topic-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 24px;
+  transition: all 0.25s var(--ease);
+  display: flex; flex-direction: column; gap: 10px;
+  position: relative; overflow: hidden;
+  text-align: left; color: inherit; font-family: inherit; width: 100%;
+  text-decoration: none;
+}
+.topic-card:hover {
+  transform: translateY(-4px); border-color: var(--accent);
+  box-shadow: var(--shadow);
+}
+.topic-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; transform: translateY(-4px); }
+.topic-icon {
+  width: 48px; height: 48px; border-radius: 12px;
+  background: var(--surface-2); display: flex; align-items: center; justify-content: center;
+  font-size: 24px; margin-bottom: 2px;
+}
+.topic-name { font-size: 18px; font-weight: 700; color: var(--text); }
+.topic-brief { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+.topic-more {
+  font-size: 12px; font-weight: 600; color: var(--accent);
+  margin-top: auto; padding-top: 6px;
+}
+.topic-arrow {
+  position: absolute; top: 24px; right: 24px;
+  color: var(--text-muted); opacity: 0; transition: opacity 0.2s; font-size: 18px;
+}
+.topic-card:hover .topic-arrow, .topic-card:focus-visible .topic-arrow { opacity: 1; color: var(--accent); }
+
+/* ARTICLE */
+.breadcrumb {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+  font-size: 12px; color: var(--text-muted); margin-bottom: 24px;
+}
+.breadcrumb a { color: var(--text-sub); text-decoration: none; }
+.breadcrumb a:hover { color: var(--accent); }
+.breadcrumb [aria-current] { color: var(--text); }
+
+.article { max-width: 720px; margin: 0 auto; }
+.article-head { margin-bottom: 28px; }
+.topic-chip {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--accent); background: var(--accent-soft);
+  border: 1px solid var(--border); border-radius: 99px;
+  padding: 6px 12px; margin-bottom: 16px;
+}
+.article h1 {
+  font-size: clamp(30px, 5vw, 40px); font-weight: 800;
+  letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 14px;
+}
+.article .lede { font-size: 17px; color: var(--text-sub); line-height: 1.65; margin-bottom: 18px; }
+.article-meta {
+  display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+  font-family: var(--mono); font-size: 11px; color: var(--text-muted);
+}
+.article-meta .dot { opacity: 0.5; }
+
+.toc {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 20px 24px; margin: 32px 0;
+}
+.toc h2 {
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--text-muted); margin-bottom: 12px; font-weight: 700;
+}
+.toc ol { margin: 0; padding-left: 20px; }
+.toc li { margin-bottom: 6px; font-size: 14px; }
+.toc a { color: var(--text-sub); text-decoration: none; }
+.toc a:hover { color: var(--accent); text-decoration: underline; }
+
+.article h2 {
+  font-size: 24px; font-weight: 700; letter-spacing: -0.01em;
+  margin: 40px 0 14px; scroll-margin-top: 90px;
+}
+.article h3 { font-size: 17px; font-weight: 700; margin: 0 0 8px; }
+.article p { color: var(--text-sub); margin-bottom: 16px; font-size: 16px; line-height: 1.75; }
+.article p strong { color: var(--text); font-weight: 600; }
+.article ul, .article ol { margin: 0 0 20px 22px; color: var(--text-sub); font-size: 15px; }
+.article li { margin-bottom: 8px; line-height: 1.6; }
+
+.callout {
+  border-left: 3px solid var(--accent);
+  background: var(--accent-soft);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 16px 20px; margin: 24px 0;
+  color: var(--text); font-size: 15px; line-height: 1.65;
+}
+
+.facts {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px; margin: 20px 0 8px;
+}
+.fact {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 16px;
+  font-size: 14px; color: var(--text-sub); line-height: 1.55;
+}
+
+.faq-item {
+  border: 1px solid var(--border); background: var(--surface);
+  border-radius: var(--radius-sm); padding: 18px 20px; margin-bottom: 12px;
+}
+.faq-item p { margin: 0; font-size: 15px; }
+
+.prevnext { display: flex; gap: 12px; margin: 40px 0; }
+.prevnext a {
+  flex: 1; display: flex; flex-direction: column; gap: 4px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 16px 18px;
+  text-decoration: none; transition: all 0.2s var(--ease);
+}
+.prevnext a:hover { border-color: var(--accent); transform: translateY(-2px); }
+.prevnext .pn-label { font-family: var(--mono); font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.prevnext .pn-name { font-size: 14px; font-weight: 600; color: var(--text); }
+.prevnext a.next { text-align: right; align-items: flex-end; }
+
+.article .related { margin-top: 40px; }
+.article .related .topics-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+.article .related .topic-card { padding: 18px; gap: 8px; }
+.article .related .topic-icon { width: 36px; height: 36px; font-size: 18px; border-radius: 9px; }
+.article .related .topic-name { font-size: 15px; }
+
+.source {
+  margin-top: 32px; padding-top: 20px; border-top: 1px solid var(--border);
+  font-size: 13px; color: var(--text-muted);
+}
+.source a { color: var(--accent); text-decoration: none; }
+.source a:hover { text-decoration: underline; }
+
+.explore { margin-top: 40px; }
+.explore-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
+.explore-grid a {
+  display: flex; align-items: center; gap: 10px;
+  border: 1px solid var(--border); background: var(--surface);
+  border-radius: var(--radius-sm); padding: 12px 14px;
+  text-decoration: none; color: var(--text-sub); font-size: 13px; font-weight: 500;
+  transition: all 0.2s var(--ease);
+}
+.explore-grid a:hover { border-color: var(--accent); color: var(--text); }
+
+/* ADS */
+.ad-box, .ad-box-inline {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 20px;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden; margin: 32px 0; min-height: 120px;
+}
+.ad-box-inline { min-height: 140px; }
+.ad-label {
+  font-family: var(--mono); font-size: 10px; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 8px; text-align: center;
+}
+.ad-box-ins { width: 100%; display: block; min-height: 100px; }
+
+/* FOOTER */
+.site-footer {
+  margin-top: 56px; padding-top: 28px; border-top: 1px solid var(--border);
+  display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center;
+  justify-content: space-between; font-size: 13px; color: var(--text-muted);
+}
+.site-footer nav { display: flex; flex-wrap: wrap; gap: 14px; }
+.site-footer a { color: var(--text-sub); text-decoration: none; }
+.site-footer a:hover { color: var(--accent); }
+
+@media (max-width: 640px) {
+  .shell { padding: 20px 16px 60px; }
+  .nav-shell { margin: -20px -16px 32px; padding: 0 16px; }
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .page-title { font-size: 26px; }
+  .topics-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .topic-card { padding: 18px; }
+  .topic-name { font-size: 15px; }
+  .topic-icon { width: 40px; height: 40px; font-size: 20px; }
+  .article h2 { font-size: 21px; margin-top: 32px; }
+  .article p { font-size: 15.5px; }
+  .prevnext { flex-direction: column; }
+  .prevnext a.next { text-align: left; align-items: flex-start; }
+}
+
+@media (max-width: 380px) {
+  .topics-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <nav class="nav-shell">
+    <div class="nav-bar">
+      <div class="nav-links">
+        <a href="/" class="nav-link">🏠 Home</a>
+        <a href="/blog" class="nav-link">📝 Blog</a>
+        <a href="/techtopics" class="nav-link active">💡 Tech Topics</a>
+        <a href="/software" class="nav-link">💻 Software</a>
+        <a href="/games" class="nav-link">🎮 Games</a>
+        <a href="/subscribe" class="nav-link">✉️ Subscribe</a>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">☰</button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="/" class="nav-link">🏠 Home</a>
+        <a href="/blog" class="nav-link">📝 Blog</a>
+        <a href="/techtopics" class="nav-link active">💡 Tech Topics</a>
+        <a href="/software" class="nav-link">💻 Software</a>
+        <a href="/games" class="nav-link">🎮 Games</a>
+        <a href="/subscribe" class="nav-link">✉️ Subscribe</a>
+    </div>
+  </nav>
+
+  <div class="topbar">
+    <a href="/" class="brand" aria-label="Digital Infohub home">
+      <span class="brand-logo">
+        <img src="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png" alt="" loading="lazy" width="28" height="28">
+      </span>
+      <span>Digital Infohub</span>
+    </a>
+    <div class="topbar-actions">
+      <button class="icon-btn" id="themeToggle" title="Toggle theme" aria-label="Toggle dark and light theme">
+        <svg id="themeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+      </button>
+    </div>
+  </div>
+
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/">Home</a>
+    <span aria-hidden="true">/</span>
+    <a href="/techtopics">Tech Topics</a>
+    <span aria-hidden="true">/</span>
+    <span aria-current="page">Internet of Things</span>
+  </nav>
+
+  <article class="article">
+    <header class="article-head">
+      <span class="topic-chip"><span aria-hidden="true">📡</span> Infrastructure &middot; Tech Topics</span>
+      <h1>Internet of Things Explained: Sensors and Risk</h1>
+      <p class="lede">The Internet of Things is what happens when everyday objects get sensors, connectivity and software, so they can report on the physical world and act on it.</p>
+      <div class="article-meta">
+        <span>Updated November 2026</span>
+        <span class="dot">&middot;</span>
+        <span>4 min read</span>
+        <span class="dot">&middot;</span>
+        <span>Digital Infohub</span>
+      </div>
+    </header>
+
+    <div class="ad-box-inline" role="complementary" aria-label="Advertisement">
+  <div style="width:100%;">
+    <div class="ad-label">Sponsored</div>
+    <ins class="adsbygoogle ad-box-ins"
+         style="display:block"
+         data-ad-client="ca-pub-5443646750699471"
+         data-ad-slot="8451723433"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+
+    <div class="toc">
+      <h2>In this guide</h2>
+      <ol>
+      <li><a href="#architecture">How an IoT system is put together</a></li>
+      <li><a href="#uses">Where IoT earns its cost</a></li>
+      <li><a href="#security">Security, privacy and long-term maintenance</a></li>
+      <li><a href="#starting">Starting a sensible IoT project</a></li>
+      </ol>
+    </div>
+
+    <p>A thermostat that reports temperature to an app is IoT. So is a factory sensor that predicts a bearing failure, a soil probe that triggers irrigation, and a fleet tracker that reroutes around traffic.</p>
+    <p>The category is defined by a pattern rather than a device: physical measurement, a network connection, and software that turns readings into action.</p>
+
+    <h2 id="architecture">How an IoT system is put together</h2>
+    <p>Devices contain sensors, a small processor and a radio. They usually talk to a gateway that bridges short-range protocols to the internet, and data lands in a cloud platform that stores it, applies rules and exposes it to dashboards or other systems.</p>
+    <p>Edge processing is increasingly common, because sending every raw reading to the cloud is expensive and slow. Filtering or aggregating at the gateway cuts bandwidth and lets a device react in milliseconds without a round trip.</p>
+    <ul>
+      <li>Device: sensors, actuators, firmware and limited compute.</li>
+      <li>Connectivity: Wi-Fi, cellular, Bluetooth, LoRaWAN or wired fieldbus.</li>
+      <li>Gateway: protocol translation, buffering, local rules and updates.</li>
+      <li>Platform: ingestion, storage, analytics, alerts and device management.</li>
+      <li>Application: dashboards, automation and integration with business systems.</li>
+    </ul>
+    <h2 id="uses">Where IoT earns its cost</h2>
+    <p>Industrial monitoring reduces unplanned downtime by catching vibration or temperature changes early. Utilities use smart meters to balance load. Logistics tracks assets and conditions such as temperature for cold-chain compliance. Buildings tune heating and lighting to occupancy.</p>
+    <p>Consumer IoT is the most visible segment, but the strongest business cases are usually unglamorous: a sensor that prevents one costly failure can pay for an entire deployment.</p>
+    <div class="ad-box-inline" role="complementary" aria-label="Advertisement">
+      <div style="width:100%;">
+        <div class="ad-label">Sponsored</div>
+        <ins class="adsbygoogle ad-box-ins"
+             style="display:block"
+             data-ad-client="ca-pub-5443646750699471"
+             data-ad-slot="8451723433"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      </div>
+    </div>
+    <h2 id="security">Security, privacy and long-term maintenance</h2>
+    <p>Connected devices are hard to secure because they are numerous, cheap, long-lived and often shipped with default passwords. Botnets built from poorly secured cameras and routers still cause some of the largest denial-of-service attacks on record.</p>
+    <p>Buy devices that publish firmware update support and change the default password immediately. On the network, put IoT on a separate segment so a compromised device cannot reach laptops or servers.</p>
+    <div class="callout">Ask one question before buying any connected device: how long will it receive security updates, and who is responsible for installing them?</div>
+    <h2 id="starting">Starting a sensible IoT project</h2>
+    <p>Pick one measurement that changes a decision, instrument it properly, and prove the value before scaling. Calibration and data quality decide whether the readings are trustworthy, and connectivity decisions dictate battery life and cost for years.</p>
+    <p>Plan for failure: devices lose connectivity, batteries die and clocks drift. Systems that buffer locally and reconcile later survive real deployments better than designs that assume a perfect network.</p>
+
+    <h2 id="key-facts">Key facts at a glance</h2>
+    <div class="facts">
+      <div class="fact">IoT is a pattern: sense, connect, decide, act.</div>
+      <div class="fact">Edge processing reduces bandwidth and latency for high-frequency data.</div>
+      <div class="fact">Default credentials on connected devices remain a major attack path.</div>
+      <div class="fact">Battery life and update support shape device choices more than raw specs.</div>
+    </div>
+
+    <h2 id="faq">Frequently asked questions</h2>
+      <div class="faq-item">
+        <h3>Is a smart speaker an IoT device?</h3>
+        <p>Yes. It contains microphones and software, connects to cloud services and acts on voice input, which fits the definition even though it is marketed as a consumer product.</p>
+      </div>
+      <div class="faq-item">
+        <h3>What is the difference between IoT and industrial IoT?</h3>
+        <p>Industrial IoT applies the same pattern to machines and infrastructure where reliability, determinism and safety standards are far stricter than in a home.</p>
+      </div>
+      <div class="faq-item">
+        <h3>How do I secure a home full of connected devices?</h3>
+        <p>Change default passwords, enable automatic updates, place devices on a guest or separate network, disable features you do not use, and replace hardware that no longer receives patches.</p>
+      </div>
+
+    <div class="source">
+      Further reading: <a href="https://en.wikipedia.org/wiki/Internet_of_things" target="_blank" rel="noopener noreferrer">Wikipedia &mdash; Internet of Things</a>
+    </div>
+
+  <nav class="prevnext" aria-label="More tech topics">
+    <a class="prev" href="/cybersecurity">
+      <span class="pn-label">&larr; Previous topic</span>
+      <span class="pn-name">Cybersecurity</span>
+    </a>
+    <a class="next" href="/quantumcomputing">
+      <span class="pn-label">Next topic &rarr;</span>
+      <span class="pn-name">Quantum Computing</span>
+    </a>
+  </nav>
+
+    <section class="related" aria-labelledby="related-heading">
+      <h2 id="related-heading">Related tech topics</h2>
+      <div class="topics-grid">
+        <a class="topic-card" href="/edgecomputing">
+          <div class="topic-icon" aria-hidden="true">📍</div>
+          <div class="topic-name">Edge Computing</div>
+          <div class="topic-brief">Why processing near the data wins on latency, bandwidth and privacy.</div>
+          <div class="topic-more">Read the guide &rarr;</div>
+        </a>
+        <a class="topic-card" href="/5gnetworks">
+          <div class="topic-icon" aria-hidden="true">📶</div>
+          <div class="topic-name">5G Networks</div>
+          <div class="topic-brief">Speed, latency and density, plus the spectrum physics behind coverage maps.</div>
+          <div class="topic-more">Read the guide &rarr;</div>
+        </a>
+        <a class="topic-card" href="/digitaltwins">
+          <div class="topic-icon" aria-hidden="true">🪞</div>
+          <div class="topic-name">Digital Twins</div>
+          <div class="topic-brief">Live virtual models that predict and optimise physical systems.</div>
+          <div class="topic-more">Read the guide &rarr;</div>
+        </a>
+      </div>
+    </section>
+
+    <section class="explore" aria-labelledby="explore-heading">
+      <h2 id="explore-heading">Keep exploring Digital Infohub</h2>
+      <div class="explore-grid">
+        <a href="/techtopics"><span aria-hidden="true">💡</span> All Tech Topics</a>
+        <a href="/blog"><span aria-hidden="true">📝</span> Latest articles</a>
+        <a href="/software"><span aria-hidden="true">💻</span> Free software</a>
+        <a href="/games"><span aria-hidden="true">🎮</span> Play free games</a>
+        <a href="/subscribe"><span aria-hidden="true">✉️</span> Newsletter</a>
+      </div>
+    </section>
+
+    <div class="ad-box-inline" role="complementary" aria-label="Advertisement">
+  <div style="width:100%;">
+    <div class="ad-label">Sponsored</div>
+    <ins class="adsbygoogle ad-box-ins"
+         style="display:block"
+         data-ad-client="ca-pub-5443646750699471"
+         data-ad-slot="8451723433"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+  </article>
+
+  <footer class="site-footer">
+    <span>&copy; 2026 Digital Infohub. All rights reserved.</span>
+    <nav aria-label="Site links">
+      <a href="/">Home</a>
+      <a href="/techtopics">Tech Topics</a>
+      <a href="/blog">Blog</a>
+      <a href="/about">About</a>
+      <a href="/advertise">Advertise</a>
+      <a href="/privacy-policy">Privacy</a>
+      <a href="https://digitalinfohub.net/">Main site</a>
+    </nav>
+  </footer>
+</div>
+
+<script>
+(function() {
+  'use strict';
+  var sunSvg = '<circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>';
+  var moonSvg = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+
+  var theme = 'dark';
+  try { theme = localStorage.getItem('dih_theme') || 'dark'; } catch (e) {}
+  document.documentElement.setAttribute('data-theme', theme);
+
+  var themeIcon = document.getElementById('themeIcon');
+  if (themeIcon) themeIcon.innerHTML = theme === 'dark' ? sunSvg : moonSvg;
+
+  var themeToggle = document.getElementById('themeToggle');
+  if (themeToggle) {
+    themeToggle.addEventListener('click', function() {
+      theme = theme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', theme);
+      try { localStorage.setItem('dih_theme', theme); } catch (e) {}
+      if (themeIcon) themeIcon.innerHTML = theme === 'dark' ? sunSvg : moonSvg;
+    });
+  }
+
+  var hamburger = document.getElementById('hamburger');
+  var mobileMenu = document.getElementById('mobileMenu');
+  if (hamburger && mobileMenu) {
+    hamburger.addEventListener('click', function() {
+      var isOpen = mobileMenu.classList.toggle('active');
+      hamburger.textContent = isOpen ? '\u00d7' : '\u2630';
+      hamburger.setAttribute('aria-expanded', isOpen);
+    });
+  }
+})();
+</script>
+</body>
+</html>
