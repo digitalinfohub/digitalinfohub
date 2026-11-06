@@ -1,3 +1,5 @@
 __pycache__/
 *.pyc
 /freebuff-sites-build/
+/sites-build/
+/.wrangler/

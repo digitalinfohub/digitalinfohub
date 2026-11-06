@@ -1,1736 +1,822 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="dark" data-dih="">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
-<meta name="theme-color" content="#050505">
-
-<title>Digital Infohub | AI Research, Tech News & Digital Tools</title>
-
-<!-- SEO -->
-<meta name="description" content="Discover the latest developments in technology and AI, explore useful digital tools, and learn practical ways to make technology work better for you.">
-<link rel="canonical" href="https://www.digitalinfohub.net/">
-
-<!-- Open Graph -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Digital Infohub — Tech Intelligence for Professionals</title>
+<meta name="description" content="AI research, market context, free software tools and plain-language tech guides for professionals, founders and business leaders. Updated daily.">
+<meta name="keywords" content="tech news, AI research, technology analysis, tech tools, market analysis, digital infohub">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="author" content="Digital Infohub">
+<meta name="theme-color" content="#07070c">
+<meta name="color-scheme" content="dark light">
+<link rel="canonical" href="https://digitalinfohub.net/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Digital Infohub">
-<meta property="og:url" content="https://www.digitalinfohub.net/">
-<meta property="og:title" content="Digital Infohub | AI Research, Tech News & Digital Tools">
-<meta property="og:description" content="Your curated digital discovery hub. Explore real-time markets, tech news, practical guides, and useful software tools.">
-<meta property="og:image" content="https://images.unsplash.com/photo-1639322537228-f710d846310a?q=80&w=1200&h=630&fit=crop&auto=format">
-<meta property="og:image:secure_url" content="https://images.unsplash.com/photo-1639322537228-f710d846310a?q=80&w=1200&h=630&fit=crop&auto=format">
+<meta property="og:title" content="Digital Infohub — Tech Intelligence for Professionals">
+<meta property="og:description" content="AI research, market context, free software tools and plain-language tech guides for professionals and business leaders.">
+<meta property="og:url" content="https://digitalinfohub.net/">
+<meta property="og:image" content="https://digitalinfohub.net/assets/og-cover.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Digital Infohub AI Research and Digital Tools Interface">
-
-<!-- X / Twitter -->
+<meta property="og:image:alt" content="Digital Infohub — tech intelligence for people who build, buy and invest in technology">
+<meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Digital Infohub | AI Research, Tech News & Digital Tools">
-<meta name="twitter:description" content="Your curated digital discovery hub. Explore real-time markets, tech news, practical guides, and useful software tools.">
-<meta name="twitter:image" content="https://images.unsplash.com/photo-1639322537228-f710d846310a?q=80&w=1200&h=630&fit=crop&auto=format">
-<meta name="twitter:image:alt" content="Digital Infohub AI Research and Digital Tools Interface">
+<meta name="twitter:title" content="Digital Infohub — Tech Intelligence for Professionals">
+<meta name="twitter:description" content="AI research, market context, free software tools and plain-language tech guides for professionals and business leaders.">
+<meta name="twitter:image" content="https://digitalinfohub.net/assets/og-cover.png">
 
-<!-- Structured Data -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "Digital Infohub",
-  "url": "https://www.digitalinfohub.net/",
-  "potentialAction": {
-    "@type": "SearchAction",
-    "target": "https://www.digitalinfohub.net/?q={search_term_string}",
-    "query-input": "required name=search_term_string"
-  }
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "Digital Infohub",
-  "url": "https://www.digitalinfohub.net/",
-  "logo": "https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png"
-}
-</script>
-
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
-<link rel="icon" href="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="icon" href="/assets/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preload" as="image" href="/assets/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://finnhub.io">
+<link rel="preconnect" href="https://api.coingecko.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer></script>
 
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+ {"@type":"Organization","@id":"https://digitalinfohub.net/#organization","name":"Digital Infohub","url":"https://digitalinfohub.net/","logo":{"@type":"ImageObject","url":"https://digitalinfohub.net/assets/icon-512.png","width":512,"height":512},"description":"Independent technology publication for professionals: AI, markets, software and practical guides."},
+ {"@type":"WebSite","@id":"https://digitalinfohub.net/#website","url":"https://digitalinfohub.net/","name":"Digital Infohub","publisher":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://digitalinfohub.net/blog?q={search_term_string}"},"query-input":"required name=search_term_string"}},
+ {"@type":"CollectionPage","@id":"https://digitalinfohub.net/#webpage","url":"https://digitalinfohub.net/","name":"Digital Infohub — Tech Intelligence for Professionals","description":"AI research, market context, free software tools and plain-language tech guides for professionals, founders and business leaders.","isPartOf":{"@id":"https://digitalinfohub.net/#website"},"inLanguage":"en"},
+ {"@type":"ItemList","name":"Featured technology analysis","itemListElement":[
+   {"@type":"ListItem","position":1,"url":"https://digitalinfohub.net/post/tech-market-sell-off-october-2026","name":"Tech market sell-off: what AI capex fatigue means for your portfolio"},
+   {"@type":"ListItem","position":2,"url":"https://digitalinfohub.net/post/ai-hardware-race-sept-2026","name":"The AI hardware race is moving beyond the cloud"},
+   {"@type":"ListItem","position":3,"url":"https://digitalinfohub.net/post/cybersecurity-ai-investment-2026","name":"Cybersecurity in the age of AI: where the money is going"}
+ ]}
+]}
+</script>
+
+<script>try{var t=localStorage.getItem('dih_theme')||'dark';document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<link rel="stylesheet" href="/assets/site.css">
 <style>
-:root{--font:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;--mono:'JetBrains Mono',monospace;--ease:cubic-bezier(.16,1,.3,1);--ease-spring:cubic-bezier(.34,1.56,.64,1);--radius:16px;--radius-sm:10px;--radius-pill:99px;--topbar-h:44px;--nav-h:52px;}
-[data-theme="dark"]{--bg:#050505;--surface:rgba(28,28,28,.85);--surface-2:rgba(44,44,46,.6);--surface-3:rgba(58,58,60,.5);--border:rgba(255,255,255,.08);--border-strong:rgba(255,255,255,.15);--text:#F5F5F7;--text-sub:#A1A1A6;--text-muted:#6E6E73;--accent:#0A84FF;--accent-soft:rgba(10,132,255,.15);--accent-glow:rgba(10,132,255,.3);--green:#30D158;--red:#FF453A;--orange:#FF9F0A;--purple:#BF5AF2;--glass-bg:rgba(25,25,25,.75);--glass-border:rgba(255,255,255,.1);--glass-highlight:rgba(255,255,255,.05);--nav-bg:rgba(18,18,18,.85);--chart-grid:rgba(255,255,255,.05);}
-[data-theme="light"]{--bg:#F5F5F7;--surface:rgba(255,255,255,.85);--surface-2:rgba(245,245,247,.8);--surface-3:rgba(230,230,232,.6);--border:rgba(0,0,0,.06);--border-strong:rgba(0,0,0,.1);--text:#1D1D1F;--text-sub:#515154;--text-muted:#86868B;--accent:#007AFF;--accent-soft:rgba(0,122,255,.1);--accent-glow:rgba(0,122,255,.2);--green:#28A745;--red:#FF3B30;--orange:#FF9500;--purple:#AF52DE;--glass-bg:rgba(255,255,255,.85);--glass-border:rgba(0,0,0,.08);--glass-highlight:rgba(255,255,255,.6);--nav-bg:rgba(255,255,255,.9);--chart-grid:rgba(0,0,0,.06);}
+/* ===================== Homepage ===================== */
+body{overflow-x:hidden}
+body::before{display:none}
 
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-*:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
-html,body{height:100%;min-height:100dvh;font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;overflow:hidden}
-body{display:flex;flex-direction:column}
-body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-gradient(ellipse at 50% 0%,rgba(10,132,255,.08) 0%,transparent 60%)}
+/* Header is shared; ticker sits directly beneath it. */
+.dih-ticker{position:sticky;top:var(--dih-head-h);z-index:890}
 
-.os-topbar{height:var(--topbar-h);background:var(--nav-bg);backdrop-filter:blur(40px) saturate(180%);border-bottom:1px solid var(--glass-border);display:flex;align-items:center;padding:0 16px;z-index:100;flex-shrink:0;gap:12px;position:relative}
-.os-topbar::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent-soft),transparent)}
-.os-logo{font-weight:700;font-size:14px;letter-spacing:-.02em;display:flex;align-items:center;gap:8px;white-space:nowrap}
-.os-logo-icon{width:24px;height:24px;background:linear-gradient(135deg,var(--accent),#5E5CE6,var(--purple));border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;box-shadow:0 2px 10px rgba(10,132,255,.4)}
-.status-indicator{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text-muted);font-family:var(--mono)}
-.status-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-.ticker-shell{flex:1;overflow:hidden;mask-image:linear-gradient(90deg,transparent,black 5%,black 95%,transparent);min-width:0}
-.ticker-bar{display:inline-flex;padding:6px 0;animation:scroll 60s linear infinite;white-space:nowrap}
-@keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-.ticker-item{display:inline-flex;align-items:center;gap:5px;padding:0 12px;font-size:11px;font-family:var(--mono);color:var(--text-sub);border-right:1px solid var(--border)}
-.ticker-item strong{color:var(--text);font-weight:600}
-.ticker-item .up{color:var(--green)}.ticker-item .down{color:var(--red)}
-.os-actions{display:flex;gap:6px;align-items:center;flex-shrink:0}
-.os-btn{height:28px;padding:0 10px;background:var(--glass-highlight);border:1px solid var(--glass-border);color:var(--text-sub);border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s var(--ease);font-size:12px;font-weight:500;font-family:var(--font);gap:5px}
-.os-btn:hover{background:rgba(255,255,255,.1);color:var(--text)}
-.os-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
-.os-clock{font-family:var(--mono);font-size:11px;color:var(--text-sub);padding:4px 8px;border:1px solid var(--glass-border);border-radius:6px;background:var(--glass-highlight)}
+main.os-desktop{
+  min-height:60vh;
+  padding:0 0 120px;
+  overflow:visible;
+}
 
-.os-nav{height:var(--nav-h);background:var(--nav-bg);backdrop-filter:blur(40px) saturate(180%);border-bottom:1px solid var(--glass-border);display:flex;align-items:center;padding:0 16px;flex-shrink:0;position:relative;z-index:99}
-.nav-container{display:flex;align-items:center;gap:4px;overflow-x:auto;scrollbar-width:none;padding:4px 0;flex:1}
-.nav-container::-webkit-scrollbar{display:none}
-.nav-link{position:relative;display:flex;align-items:center;gap:5px;padding:7px 12px;font-size:13px;font-weight:500;color:var(--text-sub);text-decoration:none;border-radius:var(--radius-sm);transition:all .2s var(--ease);white-space:nowrap;flex-shrink:0;border:1px solid transparent}
-.nav-link:hover{color:var(--text);background:var(--glass-highlight)}
-.nav-link.active{color:var(--accent);background:var(--accent-soft);border-color:rgba(10,132,255,.2);font-weight:600}
-.nav-link.active::after{content:'';position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);width:20px;height:3px;background:var(--accent);border-radius:2px;box-shadow:0 0 8px var(--accent-glow)}
-.nav-icon{font-size:14px;opacity:.9}
-.nav-cta{margin-left:auto;padding:7px 14px;background:linear-gradient(135deg,var(--accent),#5E5CE6);color:#fff;font-weight:600;font-size:12px;border-radius:var(--radius-pill);text-decoration:none;display:flex;align-items:center;gap:5px;flex-shrink:0}
-.nav-toggle{display:none;width:36px;height:36px;background:var(--glass-highlight);border:1px solid var(--glass-border);border-radius:8px;cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:4px;padding:8px}
-.nav-toggle span{display:block;width:16px;height:2px;background:var(--text);border-radius:1px}
-.sidebar-toggle{display:none;width:36px;height:36px;background:var(--glass-highlight);border:1px solid var(--glass-border);border-radius:8px;cursor:pointer;align-items:center;justify-content:center;font-size:16px}
+.home-content{
+  width:100%;max-width:var(--dih-max);margin:0 auto;
+  padding:0 22px;display:flex;flex-direction:column;gap:64px;
+}
+body.chatting .home-content{display:none}
+body[data-page="home"] .dih-footer{padding-bottom:84px}
+body.chatting main.os-desktop{padding-bottom:120px}
 
-.mobile-drawer{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(8px);z-index:500;display:none;opacity:0;transition:opacity .3s var(--ease)}
-.mobile-drawer.active{display:block;opacity:1}
-.drawer-content{position:absolute;top:0;left:0;right:0;background:var(--glass-bg);backdrop-filter:blur(40px);border-bottom:1px solid var(--glass-border);padding:16px;transform:translateY(-100%);transition:transform .4s var(--ease-spring);max-height:85vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
-.mobile-drawer.active .drawer-content{transform:translateY(0)}
-.drawer-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--glass-border)}
-.drawer-header h3{font-size:16px;font-weight:700}
-.drawer-close{width:32px;height:32px;background:var(--surface-3);border:1px solid var(--border);border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--text)}
-.drawer-link{display:flex;align-items:center;gap:12px;padding:12px 14px;font-size:15px;font-weight:500;color:var(--text);text-decoration:none;border-radius:10px;margin-bottom:4px}
-.drawer-link:hover{background:var(--glass-highlight);color:var(--accent)}
-.drawer-cta{display:block;margin-top:12px;padding:14px;background:linear-gradient(135deg,var(--accent),#5E5CE6);color:#fff;font-weight:700;font-size:14px;border-radius:12px;text-align:center;text-decoration:none}
-.drawer-ad{margin-top:16px;padding:16px;background:var(--surface-3);border-radius:12px;border:1px solid var(--border)}
+.dih-eyebrow{
+  display:inline-flex;align-items:center;gap:7px;font-family:var(--dih-mono);
+  font-size:10.5px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--dih-accent);
+}
 
-.right-sidebar{position:fixed;top:var(--topbar-h);right:0;bottom:0;width:280px;background:var(--glass-bg);backdrop-filter:blur(40px) saturate(180%);border-left:1px solid var(--glass-border);z-index:90;padding:20px;display:flex;flex-direction:column;gap:16px;overflow-y:auto;transform:translateX(100%);transition:transform .4s var(--ease-spring)}
-.right-sidebar.open{transform:translateX(0)}
-.sidebar-header{display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid var(--glass-border)}
-.sidebar-header h3{font-size:15px;font-weight:700}
-.sidebar-close{width:28px;height:28px;background:var(--surface-3);border:1px solid var(--border);border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--text)}
-.desktop-icons-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.desktop-folder{display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;transition:transform .2s var(--ease);padding:16px 12px;background:var(--glass-highlight);border:1px solid var(--glass-border);border-radius:12px}
-.desktop-folder:hover{transform:translateY(-2px);border-color:var(--accent);box-shadow:0 0 14px var(--accent-glow)}
-.desktop-folder:active{transform:scale(.94)}
-.desktop-folder-icon{font-size:28px}
-.desktop-folder-label{font-size:11px;color:var(--text-sub);font-weight:600;letter-spacing:.02em}
+.dih-section-head{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  gap:18px;flex-wrap:wrap;margin-bottom:22px;
+}
+.dih-section-head h2{
+  margin:0;font-size:clamp(22px,3.2vw,30px);font-weight:820;
+  letter-spacing:-.035em;line-height:1.15;
+}
+.dih-section-head p{margin:7px 0 0;color:var(--dih-text-muted);font-size:13.5px;max-width:600px;line-height:1.55}
+.dih-view-all{
+  display:inline-flex;align-items:center;gap:7px;padding:9px 16px;
+  border-radius:var(--dih-pill);border:1px solid var(--dih-border-strong);
+  background:var(--dih-surface-2);color:var(--dih-text);text-decoration:none;
+  font-size:12.5px;font-weight:700;white-space:nowrap;transition:all .25s var(--dih-ease);
+}
+.dih-view-all:hover{border-color:var(--dih-accent);color:var(--dih-accent);transform:translateY(-2px)}
+.dih-view-all span{transition:transform .25s var(--dih-ease)}
+.dih-view-all:hover span{transform:translateX(3px)}
 
-.os-desktop{flex:1;height:100%;display:flex;flex-direction:column;min-height:0;position:relative;overflow-y:auto;overflow-x:hidden;scroll-behavior:smooth;-webkit-overflow-scrolling:touch}
-.os-desktop::-webkit-scrollbar{width:6px}
-.os-desktop::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
-.chat-container{flex:none;width:100%;max-width:840px;margin:0 auto;overflow-y:visible;overflow-x:hidden;padding:20px 16px 30px 16px;scroll-behavior:smooth;position:relative;display:none}
+/* Hero */
+.hero{
+  position:relative;max-width:900px;margin:0 auto;text-align:center;
+  padding:66px 0 6px;
+}
+.hero-glow{
+  position:absolute;top:-120px;left:50%;transform:translateX(-50%);
+  width:min(820px,110%);height:460px;border-radius:50%;
+  background:radial-gradient(circle,rgba(76,141,255,.22),rgba(139,92,246,.1) 45%,transparent 70%);
+  filter:blur(20px);pointer-events:none;z-index:-1;
+  animation:dihGlow 9s ease-in-out infinite alternate;
+}
+@keyframes dihGlow{from{opacity:.55;transform:translateX(-50%) scale(.94)}to{opacity:.95;transform:translateX(-50%) scale(1.06)}}
+.hero .dih-pill{margin-bottom:20px;background:rgba(76,141,255,.08);border-color:rgba(76,141,255,.24);color:var(--dih-accent)}
+.hero h1{
+  margin:0 0 18px;font-size:clamp(34px,6.2vw,64px);font-weight:900;
+  letter-spacing:-.045em;line-height:1.03;
+}
+.hero h1 .grad{
+  background:linear-gradient(100deg,var(--dih-accent) 0%,#9b7bff 45%,var(--dih-accent-3) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  background-size:220% 220%;animation:dihGrad 8s ease infinite;
+}
+@keyframes dihGrad{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.hero-sub{
+  max-width:660px;margin:0 auto 26px;color:var(--dih-text-sub);
+  font-size:clamp(14.5px,1.7vw,17px);line-height:1.7;
+}
+.hero-sub b{color:var(--dih-text);font-weight:650}
+.hero-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+
+.hero-stats{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;
+  max-width:720px;margin:34px auto 0;text-align:left;
+}
+.hero-stat{
+  padding:14px 15px;border:1px solid var(--dih-border);border-radius:14px;
+  background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.01));
+}
+.hero-stat b{display:block;font-family:var(--dih-mono);font-size:19px;font-weight:700;letter-spacing:-.02em}
+.hero-stat span{font-size:11px;color:var(--dih-text-muted);letter-spacing:.02em}
+
+.hero-audience{
+  display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:22px;
+}
+.hero-audience span{
+  padding:6px 12px;border-radius:var(--dih-pill);border:1px dashed var(--dih-border-strong);
+  font-size:11.5px;color:var(--dih-text-muted);font-weight:600;
+}
+
+/* Market pulse */
+.pulse-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.pulse-card{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:15px 16px;border-radius:14px;border:1px solid var(--dih-border);
+  background:var(--dih-surface);text-decoration:none;color:var(--dih-text);
+  transition:all .25s var(--dih-ease);min-height:72px;
+}
+.pulse-card--wide{grid-column:1/-1;min-height:0;padding:13px 18px;background:linear-gradient(100deg,rgba(76,141,255,.13),rgba(124,92,255,.07));border-color:rgba(76,141,255,.28)}
+.pulse-card--wide .pulse-right{display:flex;align-items:center;gap:14px}
+.pulse-card:hover{border-color:rgba(76,141,255,.4);transform:translateY(-3px);background:var(--dih-surface-2)}
+.pulse-left{min-width:0}
+.pulse-sym{font-family:var(--dih-mono);font-size:13px;font-weight:700;letter-spacing:.02em}
+.pulse-name{font-size:11px;color:var(--dih-text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pulse-right{text-align:right;flex-shrink:0}
+.pulse-price{font-family:var(--dih-mono);font-size:13.5px;font-weight:700}
+.pulse-chg{font-family:var(--dih-mono);font-size:11px;font-weight:600}
+.pulse-chg.up{color:var(--dih-green)}.pulse-chg.down{color:var(--dih-red)}
+.pulse-skeleton{opacity:.6}
+.pulse-skeleton .pulse-price{color:var(--dih-text-muted)}
+.pulse-note{margin:12px 0 0;font-size:11px;color:var(--dih-text-muted);font-family:var(--dih-mono)}
+
+/* Articles */
+.article-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.article-card{
+  position:relative;display:flex;flex-direction:column;overflow:hidden;
+  border-radius:var(--dih-radius);border:1px solid var(--dih-border);
+  background:var(--dih-surface);color:var(--dih-text);text-decoration:none;
+  transition:transform .32s var(--dih-ease),border-color .32s,box-shadow .32s;
+}
+.article-card:hover{transform:translateY(-6px);border-color:rgba(76,141,255,.42);box-shadow:0 26px 60px rgba(0,0,0,.42)}
+.article-media{position:relative;aspect-ratio:16/10;overflow:hidden;background:var(--dih-surface-3)}
+.article-media img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s var(--dih-ease)}
+.article-card:hover .article-media img{transform:scale(1.06)}
+.article-tag{
+  position:absolute;left:11px;top:11px;padding:5px 10px;border-radius:var(--dih-pill);
+  background:rgba(5,6,12,.78);border:1px solid rgba(255,255,255,.16);
+  font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fff;
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+}
+.article-body{padding:16px 17px 18px;display:flex;flex-direction:column;gap:8px;flex:1}
+.article-meta{display:flex;align-items:center;gap:7px;font-family:var(--dih-mono);font-size:10.5px;color:var(--dih-text-muted)}
+.article-meta i{width:3px;height:3px;border-radius:50%;background:currentColor;font-style:normal}
+.article-card h3{margin:0;font-size:15.5px;font-weight:750;line-height:1.35;letter-spacing:-.015em}
+.article-card p{margin:0;font-size:12.5px;color:var(--dih-text-sub);line-height:1.55;flex:1}
+.article-cta{font-size:11.5px;font-weight:750;color:var(--dih-accent);display:inline-flex;align-items:center;gap:5px;margin-top:2px}
+.article-cta span{transition:transform .25s var(--dih-ease)}
+.article-card:hover .article-cta span{transform:translateX(4px)}
+
+.headline-list{display:grid;gap:0;margin-top:14px;border-top:1px solid var(--dih-border)}
+.headline{display:flex;align-items:center;gap:12px;padding:13px 2px;border-bottom:1px solid var(--dih-border);text-decoration:none;color:var(--dih-text)}
+.headline:hover .headline-title{color:var(--dih-accent)}
+.headline-num{font-family:var(--dih-mono);font-size:10px;color:var(--dih-text-muted);width:18px;flex-shrink:0}
+.headline-title{font-size:13.5px;font-weight:600;line-height:1.4;transition:color .2s}
+.headline-meta{margin-left:auto;font-family:var(--dih-mono);font-size:10px;color:var(--dih-text-muted);white-space:nowrap;flex-shrink:0}
+.headline-arrow{color:var(--dih-text-muted);font-size:13px;flex-shrink:0}
+
+/* Trending chips */
+.chip-cloud{display:flex;flex-wrap:wrap;gap:8px}
+.chip{
+  display:inline-flex;align-items:center;gap:6px;padding:8px 13px;border-radius:var(--dih-pill);
+  border:1px solid var(--dih-border);background:var(--dih-surface);color:var(--dih-text-sub);
+  text-decoration:none;font-size:12.5px;font-weight:600;transition:all .22s var(--dih-ease);
+}
+.chip:hover{border-color:var(--dih-accent);color:var(--dih-accent);background:var(--dih-accent-soft);transform:translateY(-2px)}
+.chip.strong{background:var(--dih-accent-soft);border-color:rgba(76,141,255,.3);color:var(--dih-accent)}
+
+/* Tools */
+.tool-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.tool-card{
+  display:flex;flex-direction:column;gap:9px;padding:18px;border-radius:var(--dih-radius);
+  border:1px solid var(--dih-border);background:var(--dih-surface);color:var(--dih-text);
+  text-decoration:none;transition:all .28s var(--dih-ease);position:relative;overflow:hidden;
+}
+.tool-card::after{
+  content:'';position:absolute;inset:0;border-radius:inherit;
+  background:radial-gradient(320px 160px at 100% 0%,rgba(76,141,255,.14),transparent 70%);
+  opacity:0;transition:opacity .28s;pointer-events:none;
+}
+.tool-card:hover{transform:translateY(-4px);border-color:rgba(76,141,255,.4);background:var(--dih-surface-2)}
+.tool-card:hover::after{opacity:1}
+.tool-icon{width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:18px;background:var(--dih-accent-soft);border:1px solid rgba(76,141,255,.2)}
+.tool-card strong{font-size:14px;font-weight:720}
+.tool-card span.tool-desc{font-size:12px;color:var(--dih-text-muted);line-height:1.5}
+.tool-card em{font-style:normal;margin-top:auto;font-size:11px;font-weight:700;color:var(--dih-accent);padding-top:4px}
+
+/* Guide cards */
+.guide-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.guide-card{
+  display:flex;flex-direction:column;gap:10px;padding:22px;border-radius:var(--dih-radius);
+  border:1px solid var(--dih-border);background:linear-gradient(165deg,var(--dih-surface-2),var(--dih-surface));
+  text-decoration:none;color:var(--dih-text);transition:all .28s var(--dih-ease);
+}
+.guide-card:hover{transform:translateY(-4px);border-color:rgba(139,92,246,.45);box-shadow:0 18px 40px rgba(0,0,0,.34)}
+.guide-ico{font-size:26px}
+.guide-card h3{margin:0;font-size:16px;font-weight:750;letter-spacing:-.02em}
+.guide-card p{margin:0;font-size:12.5px;color:var(--dih-text-sub);line-height:1.55}
+.guide-card ul{margin:2px 0 0;padding-left:17px;color:var(--dih-text-muted);font-size:11.5px;line-height:1.65}
+.guide-card em{font-style:normal;margin-top:auto;font-size:11.5px;font-weight:700;color:var(--dih-accent);padding-top:6px}
+
+/* Arcade band */
+.arcade-band{
+  display:flex;align-items:center;justify-content:space-between;gap:22px;flex-wrap:wrap;
+  padding:26px 24px;border-radius:20px;border:1px solid rgba(139,92,246,.28);
+  background:
+    radial-gradient(500px 220px at 0% 0%,rgba(139,92,246,.2),transparent 70%),
+    var(--dih-surface);
+  position:relative;overflow:hidden;
+}
+.arcade-band h2{margin:0 0 6px;font-size:clamp(20px,3vw,26px);font-weight:800;letter-spacing:-.03em}
+.arcade-band p{margin:0;font-size:13px;color:var(--dih-text-sub);max-width:520px;line-height:1.6}
+.arcade-emojis{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.arcade-emojis span{
+  width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;
+  background:var(--dih-surface-3);border:1px solid var(--dih-border);font-size:18px;
+  transition:transform .25s var(--dih-ease);
+}
+.arcade-band:hover .arcade-emojis span:nth-child(odd){transform:translateY(-4px) rotate(-4deg)}
+.arcade-band:hover .arcade-emojis span:nth-child(even){transform:translateY(3px) rotate(4deg)}
+
+/* Daily insight */
+.insight{
+  display:flex;align-items:flex-start;gap:16px;padding:22px;
+  border-radius:var(--dih-radius);border:1px solid rgba(76,141,255,.3);
+  background:linear-gradient(120deg,var(--dih-accent-soft),var(--dih-surface));
+  position:relative;
+}
+.insight-icon{width:46px;height:46px;border-radius:13px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:22px;background:var(--dih-accent);color:#fff}
+.insight-body{flex:1;min-width:0}
+.insight-label{font-family:var(--dih-mono);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--dih-accent);margin-bottom:5px}
+.insight h3{margin:0 0 5px;font-size:15px;font-weight:750}
+.insight p{margin:0;font-size:13px;color:var(--dih-text-sub);line-height:1.6}
+.insight-copy{
+  position:absolute;right:14px;top:14px;width:32px;height:32px;border-radius:9px;
+  border:1px solid var(--dih-border-strong);background:var(--dih-surface-2);color:var(--dih-text-sub);
+  cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;
+}
+.insight-copy:hover{color:var(--dih-accent);border-color:var(--dih-accent)}
+
+/* Newsletter band */
+.newsletter-band{
+  display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
+  padding:30px 26px;border-radius:20px;position:relative;overflow:hidden;
+  background:linear-gradient(120deg,rgba(76,141,255,.16),rgba(139,92,246,.12));
+  border:1px solid rgba(76,141,255,.28);
+}
+.newsletter-band::before{
+  content:'';position:absolute;inset:-80%;background:conic-gradient(from 0deg,transparent 0deg,rgba(76,141,255,.14) 70deg,transparent 150deg);
+  animation:dihSpin 16s linear infinite;pointer-events:none;
+}
+@keyframes dihSpin{to{transform:rotate(360deg)}}
+.newsletter-band > *{position:relative}
+.newsletter-band h2{margin:0 0 6px;font-size:clamp(20px,3vw,26px);font-weight:800;letter-spacing:-.03em}
+.newsletter-band p{margin:0;font-size:13px;color:var(--dih-text-sub);max-width:540px;line-height:1.6}
+.newsletter-form{display:flex;gap:8px;flex-wrap:wrap}
+.newsletter-form a{align-self:center}
+
+/* Chat */
+.chat-container{
+  display:none;width:100%;max-width:840px;margin:0 auto;
+  padding:26px 20px 150px;min-height:60vh;
+}
 body.chatting .chat-container{display:block}
-.chat-container::-webkit-scrollbar{width:6px}
-.chat-container::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
-.chat-header{display:none;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--glass-border);margin-bottom:16px;position:sticky;top:0;background:var(--bg);z-index:10}
+.chat-header{display:none;align-items:center;justify-content:space-between;gap:12px;padding:4px 0 18px;position:sticky;top:calc(var(--dih-head-h) + 40px);z-index:20;background:linear-gradient(180deg,var(--dih-bg) 70%,transparent)}
 body.chatting .chat-header{display:flex}
-.chat-thread{width:100%;max-width:800px;margin:0 auto;display:flex;flex-direction:column;gap:24px;position:relative;z-index:2}
-.counter-wrap{max-width:800px;margin:10px auto 0;display:flex;justify-content:center;padding:0 24px}
-
-.msg{display:flex;gap:12px;animation:fadeInUp .45s var(--ease);max-width:100%;word-wrap:break-word}
+.chat-thread{display:flex;flex-direction:column;gap:20px}
+.msg{display:flex;gap:11px;animation:dihMsg .4s var(--dih-ease);max-width:100%;word-wrap:break-word}
 .msg.user{flex-direction:row-reverse}
-@keyframes fadeInUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-.msg-avatar{width:36px;height:36px;border-radius:50%;background:var(--glass-bg);border:1px solid var(--glass-border);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-weight:700;overflow:hidden}
-.msg-avatar.bot{background:linear-gradient(135deg,rgba(10,132,255,.25),rgba(94,92,230,.25));border-color:rgba(10,132,255,.4);color:var(--accent)}
+@keyframes dihMsg{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.msg-avatar{width:34px;height:34px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-weight:700;overflow:hidden;border:1px solid var(--dih-border);background:var(--dih-surface-2)}
 .msg-avatar img{width:100%;height:100%;object-fit:cover}
+.msg-avatar.bot{background:linear-gradient(135deg,rgba(76,141,255,.25),rgba(139,92,246,.25));border-color:rgba(76,141,255,.4);color:var(--dih-accent)}
 .msg-body{flex:1;min-width:0}
-.msg-header{display:flex;align-items:center;gap:8px;margin-bottom:6px}
-.msg-role{font-size:12px;font-weight:600}
-.msg-time{font-size:10px;color:var(--text-muted);font-family:var(--mono)}
-.msg-content{font-size:15px;line-height:1.7;min-width:0}
-.msg-content p{margin-bottom:12px}.msg-content p:last-child{margin-bottom:0}
-.msg-content a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent-soft)}
-.msg-content a:hover{border-bottom-color:var(--accent)}
-.msg-content ul,.msg-content ol{margin:8px 0 12px 20px;color:var(--text-sub)}
-.msg-content li{margin-bottom:6px}
-.msg-content pre{background:var(--surface-3);padding:14px;border-radius:10px;overflow-x:auto;font-family:var(--mono);font-size:13px;margin:12px 0;border:1px solid var(--border)}
-.msg-content code{background:var(--surface-3);padding:2px 6px;border-radius:4px;font-family:var(--mono);font-size:13px}
+.msg-header{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.msg-role{font-size:11.5px;font-weight:700}
+.msg-time{font-family:var(--dih-mono);font-size:9.5px;color:var(--dih-text-muted)}
+.msg-content{font-size:14.5px;line-height:1.7;min-width:0}
+.msg-content p{margin:0 0 10px}.msg-content p:last-child{margin:0}
+.msg-content h2{font-size:17px;margin:4px 0 10px}
+.msg-content h3{font-size:15px;margin:4px 0 8px}
+.msg-content a{color:var(--dih-accent)}
+.msg-content ul,.msg-content ol{margin:8px 0 10px 20px;color:var(--dih-text-sub)}
+.msg-content code{background:var(--dih-surface-3);padding:2px 5px;border-radius:4px;font-family:var(--dih-mono);font-size:12.5px}
+.msg-content pre{background:var(--dih-surface-3);padding:13px;border-radius:10px;overflow-x:auto;font-family:var(--dih-mono);font-size:12.5px;margin:10px 0;border:1px solid var(--dih-border)}
 .msg-content pre code{background:none;padding:0}
-.msg-content blockquote{border-left:3px solid var(--accent);padding-left:14px;color:var(--text-sub);margin:12px 0;font-style:italic}
-.msg-content h1,.msg-content h2,.msg-content h3{margin:16px 0 8px;font-weight:700;line-height:1.3}
-.msg-content h1{font-size:20px}.msg-content h2{font-size:18px}.msg-content h3{font-size:16px}
-.table-wrap{overflow-x:auto;margin:12px 0;border-radius:10px;border:1px solid var(--border)}
-.msg-content table{width:100%;border-collapse:collapse;font-size:13px;margin:0}
-.msg-content th,.msg-content td{padding:10px 12px;border-bottom:1px solid var(--border);text-align:left}
-.msg-content th{background:var(--surface-3);font-weight:600}
-.msg.user .msg-content{background:linear-gradient(135deg,var(--accent),#5E5CE6);color:#fff;padding:12px 18px;border-radius:18px 18px 4px 18px;display:inline-block;max-width:100%;box-shadow:0 4px 16px rgba(10,132,255,.25)}
-.msg.user .msg-content strong{color:#fff}
-.msg.user .msg-content p{margin-bottom:0}
-.msg.bot .msg-content{background:var(--glass-bg);backdrop-filter:blur(20px) saturate(180%);padding:18px 20px;border-radius:18px 18px 18px 4px;border:1px solid var(--glass-border);box-shadow:0 8px 32px rgba(0,0,0,.12)}
-
-.chat-follow-ups{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
-.follow-up-btn{background:var(--glass-highlight);border:1px solid var(--glass-border);color:var(--text-sub);padding:9px 16px;border-radius:var(--radius-pill);font-size:12px;font-weight:500;cursor:pointer;transition:all .2s var(--ease);font-family:var(--font);display:inline-flex;align-items:center;gap:6px}
-.follow-up-btn:hover{background:var(--accent-soft);color:var(--accent);border-color:var(--accent)}
-.typing-indicator{display:flex;gap:5px;align-items:center;height:24px}
-.typing-indicator span{width:7px;height:7px;border-radius:50%;background:var(--accent);animation:typing 1.4s infinite ease-in-out;opacity:.6}
+.msg.bot .msg-content{background:var(--dih-surface);padding:16px 18px;border-radius:16px 16px 16px 4px;border:1px solid var(--dih-border)}
+.msg.user .msg-content{background:linear-gradient(125deg,var(--dih-accent),var(--dih-accent-2));color:#fff;padding:11px 16px;border-radius:16px 16px 4px 16px;display:inline-block;max-width:100%}
+.news-card{display:block;padding:14px;background:var(--dih-surface-2);border:1px solid var(--dih-border);border-radius:12px;text-decoration:none;color:var(--dih-text);margin-bottom:9px;transition:all .2s}
+.news-card:hover{border-color:var(--dih-accent);transform:translateX(3px)}
+.news-category{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--dih-accent);margin-bottom:5px}
+.news-title{font-size:13.5px;font-weight:650;line-height:1.4;margin-bottom:8px}
+.news-tldr{font-size:12px;color:var(--dih-text-sub);line-height:1.6;padding:10px 12px;background:var(--dih-surface-3);border-radius:8px;border-left:2px solid var(--dih-accent)}
+.market-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:9px;margin:10px 0}
+.market-item{display:flex;flex-direction:column;gap:2px;padding:12px 14px;background:var(--dih-surface-2);border:1px solid var(--dih-border);border-radius:12px;text-decoration:none;color:var(--dih-text)}
+.market-item:hover{border-color:var(--dih-accent)}
+.market-symbol{font-family:var(--dih-mono);font-size:12.5px;font-weight:700}
+.market-price{font-family:var(--dih-mono);font-size:13px;font-weight:700}
+.market-change{font-family:var(--dih-mono);font-size:10.5px}
+.market-change.up{color:var(--dih-green)}.market-change.down{color:var(--dih-red)}
+.chat-follow-ups{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+.follow-up-btn{background:var(--dih-surface-2);border:1px solid var(--dih-border);color:var(--dih-text-sub);padding:8px 13px;border-radius:var(--dih-pill);font-size:11.5px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s}
+.follow-up-btn:hover{background:var(--dih-accent-soft);color:var(--dih-accent);border-color:var(--dih-accent)}
+.typing-indicator{display:flex;gap:5px;align-items:center;height:20px}
+.typing-indicator span{width:6px;height:6px;border-radius:50%;background:var(--dih-accent);animation:dihType 1.4s infinite ease-in-out;opacity:.6}
 .typing-indicator span:nth-child(2){animation-delay:.2s}.typing-indicator span:nth-child(3){animation-delay:.4s}
-@keyframes typing{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-8px);opacity:1}}
+@keyframes dihType{0%,60%,100%{transform:translateY(0);opacity:.35}30%{transform:translateY(-6px);opacity:1}}
 
-.os-input-area{position:sticky;bottom:0;left:0;right:0;z-index:50;display:flex;justify-content:center;padding:0 16px 18px 16px;pointer-events:none;background:linear-gradient(to bottom,transparent,var(--bg) 55%)}
-body.chatting .os-input-area{position:sticky;bottom:5vh;background:none;padding:0 16px}
-.input-wrapper{pointer-events:auto;max-width:800px;width:100%;position:relative}
-.autocomplete-panel{display:none;flex-wrap:wrap;gap:8px;margin-bottom:10px;padding:10px 12px;background:var(--glass-bg);backdrop-filter:blur(24px);border:1px solid var(--glass-border);border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.22);animation:fadeInUp .2s var(--ease)}
-.autocomplete-panel.active{display:flex}
-.autocomplete-chip{padding:6px 12px;background:var(--surface-3);border:1px solid var(--border);border-radius:20px;font-size:12px;font-weight:500;color:var(--text-sub);cursor:pointer;transition:all .2s var(--ease);white-space:nowrap;display:flex;align-items:center;gap:6px;font-family:var(--font)}
-.autocomplete-chip:hover{background:var(--accent-soft);color:var(--accent);border-color:var(--accent);transform:translateY(-1px)}
-.input-shell{background:var(--surface);border:1px solid var(--border-strong);border-radius:28px;padding:8px 8px 8px 20px;display:flex;align-items:center;gap:10px;transition:all .3s var(--ease);box-shadow:0 10px 40px rgba(0,0,0,.12)}
-.input-shell:focus-within{border-color:var(--accent);box-shadow:0 15px 50px rgba(10,132,255,.16);transform:translateY(-2px)}
-.mode-selector{display:flex;gap:4px;padding-right:10px;border-right:1px solid var(--border);flex-shrink:0}
-.mode-btn{width:34px;height:34px;border-radius:50%;border:1px solid transparent;background:transparent;color:var(--text-muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;transition:all .2s var(--ease);position:relative}
-.mode-btn:hover{background:var(--glass-highlight);color:var(--text)}
-.mode-btn.active{background:var(--accent-soft);color:var(--accent);border-color:var(--accent)}
-.mode-btn::after{content:attr(title);position:absolute;bottom:-30px;left:50%;transform:translateX(-50%);background:var(--surface-2);color:var(--text);font-size:11px;padding:4px 8px;border-radius:6px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s;border:1px solid var(--glass-border);z-index:100;font-weight:500}
-.mode-btn:hover::after{opacity:1}
-.ai-input{flex:1;background:none;border:none;outline:none;color:var(--text);font-size:16px;font-family:inherit;min-width:0;padding:12px 0}
-.ai-input::placeholder{color:var(--text-muted)}
-.ai-send{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--accent),#5E5CE6);color:#fff;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s var(--ease);font-size:17px;flex-shrink:0;box-shadow:0 4px 18px rgba(10,132,255,.3)}
-.ai-send:hover:not(:disabled){transform:scale(1.05)}
-.ai-send:disabled{opacity:.3;cursor:not-allowed}
-.ai-stop{width:42px;height:42px;border-radius:50%;background:var(--red);color:#fff;border:none;align-items:center;justify-content:center;cursor:pointer;font-size:13px;flex-shrink:0;display:none}
-
-.switch{position:relative;display:inline-block;width:44px;height:24px;flex-shrink:0}
-.switch input{opacity:0;width:0;height:0}
-.slider{position:absolute;cursor:pointer;inset:0;background:var(--surface-3);transition:.3s;border-radius:24px;border:1px solid var(--border)}
-.slider:before{position:absolute;content:"";height:18px;width:18px;left:2px;bottom:2px;background:var(--text-muted);transition:.3s;border-radius:50%}
-input:checked+.slider{background:var(--accent-soft);border-color:var(--accent)}
-input:checked+.slider:before{transform:translateX(20px);background:var(--accent)}
-
-.widget-layer{position:fixed;inset:0;pointer-events:none;z-index:9999}
-.floating-widget{position:fixed;width:320px;background:var(--glass-bg);backdrop-filter:blur(40px) saturate(180%);border:1px solid var(--glass-border);border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.4);pointer-events:auto;display:flex;flex-direction:column;overflow:hidden;animation:widgetPopIn .5s var(--ease-spring);z-index:10000}
-@keyframes widgetPopIn{0%{opacity:0;transform:scale(.85) translateY(30px)}100%{opacity:1;transform:scale(1) translateY(0)}}
-.floating-widget.widget-minimized{height:44px!important;max-height:44px!important;overflow:hidden}
-.floating-widget.widget-minimized .widget-body{display:none}
-.floating-widget.widget-fullscreen{width:100vw!important;height:100vh!important;max-height:100vh!important;left:0!important;top:0!important;transform:none!important;border-radius:0!important;z-index:10001!important}
-.widget-header{padding:10px 14px;background:rgba(255,255,255,.03);border-bottom:1px solid var(--glass-border);display:flex;justify-content:space-between;align-items:center;cursor:grab;user-select:none;touch-action:none}
-.widget-controls{display:flex;gap:6px}
-.widget-btn{width:12px;height:12px;border-radius:50%;border:none;cursor:pointer;font-size:8px;color:transparent;transition:all .2s}
-.widget-btn.close{background:#FF5F56}.widget-btn.minimize{background:#FFBD2E}.widget-btn.fullscreen{background:#27C93F}
-.widget-header:hover .widget-btn{color:rgba(0,0,0,.6);font-weight:700}
-.widget-title{font-size:13px;font-weight:600;flex:1;text-align:center}
-.widget-body{padding:16px;flex:1;overflow-y:auto;max-height:60vh}
-.widget-resize-handle{position:absolute;bottom:0;right:0;width:20px;height:20px;cursor:nwse-resize;z-index:10}
-
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(12px);z-index:5000;display:none;align-items:center;justify-content:center;padding:20px}
-.modal-overlay.active{display:flex;animation:fadeIn .3s var(--ease)}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-.modal-content{width:100%;max-width:640px;background:var(--glass-bg);backdrop-filter:blur(40px);border:1px solid var(--glass-border);border-radius:24px;overflow:hidden;max-height:85vh;display:flex;flex-direction:column;box-shadow:0 30px 90px rgba(0,0,0,.6);animation:modalPop .4s var(--ease-spring)}
-@keyframes modalPop{0%{opacity:0;transform:scale(.94) translateY(16px)}100%{opacity:1;transform:scale(1) translateY(0)}}
-.modal-header{padding:18px 24px;border-bottom:1px solid var(--glass-border);display:flex;justify-content:space-between;align-items:center}
-.modal-header h2{font-size:17px;font-weight:700;display:flex;align-items:center;gap:10px}
-.modal-body{padding:24px;overflow-y:auto;flex:1}
-.app-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:16px}
-.app-card{background:var(--glass-highlight);border:1px solid var(--glass-border);border-radius:18px;padding:22px 14px;text-align:center;cursor:pointer;transition:all .25s var(--ease)}
-.app-card:hover{background:rgba(255,255,255,.1);transform:translateY(-4px);box-shadow:0 12px 30px rgba(0,0,0,.25)}
-.app-icon{font-size:38px;margin-bottom:12px;display:block}
-.app-name{font-size:13px;font-weight:600}
-.app-status{font-size:11px;color:var(--text-muted);margin-top:6px}
-.app-status.installed{color:var(--green);font-weight:600}
-.news-card{display:block;padding:18px;background:var(--glass-highlight);border:1px solid var(--glass-border);border-radius:14px;text-decoration:none;color:var(--text);transition:all .25s var(--ease);margin-bottom:12px}
-.news-card:hover{border-color:var(--accent);transform:translateX(4px)}
-.news-category{font-size:10px;font-weight:700;text-transform:uppercase;color:var(--accent);margin-bottom:6px;letter-spacing:.5px}
-.news-title{font-size:14px;font-weight:600;line-height:1.4;margin-bottom:10px}
-.news-tldr{font-size:12px;color:var(--text-sub);line-height:1.6;padding:12px 14px;background:var(--surface-3);border-radius:10px;border-left:2px solid var(--accent)}
-.market-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;margin-top:8px}
-.market-item{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:var(--glass-highlight);border:1px solid var(--glass-border);border-radius:14px;cursor:pointer;transition:all .25s var(--ease);gap:12px}
-.market-item:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.25)}
-.market-symbol{font-size:14px;font-weight:700;font-family:var(--mono)}
-.market-sparkline-wrapper{flex:1;display:flex;justify-content:center;min-width:40px}
-.market-sparkline{width:100%;max-width:65px;height:30px}
-.market-price-area{text-align:right;display:flex;flex-direction:column;align-items:flex-end}
-.market-price{font-size:14px;font-weight:700;font-family:var(--mono)}
-.market-change{font-size:11px;font-weight:600}
-.market-change.up{color:var(--green)}.market-change.down{color:var(--red)}
-.section-label{font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.6px;margin:16px 0 8px}
-#toast-container{position:fixed;bottom:100px;left:50%;transform:translateX(-50%);z-index:10000;display:flex;flex-direction:column;gap:8px;pointer-events:none;width:90%;max-width:400px}
-
-/* ===== Homepage Content ===== */
-.home-content{width:100%;max-width:1080px;margin:0 auto;padding:0 20px;display:flex;flex-direction:column;gap:48px}
-body.chatting .home-content,
-body.chatting #homeTools,
-body.chatting #homeGuides,
-body.chatting #homeExploreMore,
-body.chatting #homeDailyInsight,
-body.chatting .home-footer {
-  display: none !important;
+/* Ask dock */
+.ask-dock{
+  position:fixed;left:0;right:0;bottom:0;z-index:950;
+  display:flex;justify-content:center;
+  padding:12px 16px calc(12px + env(safe-area-inset-bottom));
+  background:linear-gradient(to bottom,transparent,var(--dih-bg) 55%);
+  pointer-events:none;
 }
-
-.hero{text-align:center;padding:48px 0 8px;animation:heroIn .9s var(--ease) both;position:relative;opacity:1}
-@keyframes heroIn{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
-.hero-glow{position:absolute;top:-30%;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,var(--accent-glow) 0%,transparent 70%);opacity:0.4;pointer-events:none;z-index:-1;animation:pulseGlow 8s ease-in-out infinite alternate}
-@keyframes pulseGlow{0%{transform:translateX(-50%) scale(1);opacity:0.3}100%{transform:translateX(-50%) scale(1.15);opacity:0.5}}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:7px 16px;background:var(--accent-soft);border:1px solid rgba(10,132,255,.25);border-radius:var(--radius-pill);font-size:12px;font-weight:600;color:var(--accent);margin-bottom:22px;font-family:var(--mono);letter-spacing:.03em}
-.hero-badge .status-dot{width:7px;height:7px}
-.hero-title{font-size:clamp(28px,6vw,54px);font-weight:900;letter-spacing:-.035em;line-height:1.12;margin-bottom:16px}
-.hero-title .grad{background:linear-gradient(120deg,var(--accent),#5E5CE6 45%,var(--purple));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;background-size:200% 200%;animation:gradShift 6s ease infinite}
-@keyframes gradShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
-.hero-sub{font-size:16px;color:var(--text-sub);max-width:620px;margin:0 auto 24px;line-height:1.65;transition:opacity 0.3s ease}
-.hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.btn-primary,.btn-ghost{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:var(--radius-pill);font-size:14px;font-weight:700;text-decoration:none;font-family:var(--font);cursor:pointer;transition:all .25s var(--ease);border:none}
-.btn-primary{background:linear-gradient(135deg,var(--accent),#5E5CE6);color:#fff;box-shadow:0 6px 24px rgba(10,132,255,.35)}
-.btn-primary:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 12px 34px rgba(10,132,255,.45)}
-.btn-ghost{background:var(--glass-highlight);color:var(--text);border:1px solid var(--border-strong)}
-.btn-ghost:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-3px);box-shadow:0 8px 24px var(--accent-glow)}
-
-.home-section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:22px;flex-wrap:wrap}
-.home-section-head h2{font-size:clamp(20px,4vw,26px);font-weight:800;letter-spacing:-.02em;display:flex;align-items:center;gap:10px}
-.home-section-head p{font-size:13px;color:var(--text-muted);margin-top:4px}
-.view-all-link{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;background:var(--accent-soft);border:1px solid rgba(10,132,255,.25);color:var(--accent);font-size:13px;font-weight:700;border-radius:var(--radius-pill);text-decoration:none;transition:all .25s var(--ease);white-space:nowrap}
-.view-all-link:hover{background:var(--accent);color:#fff;transform:translateY(-2px);box-shadow:0 8px 20px var(--accent-glow)}
-.view-all-link .arr{transition:transform .25s var(--ease)}
-.view-all-link:hover .arr{transform:translateX(3px)}
-
-.blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.blog-card{position:relative;display:flex;flex-direction:column;background:var(--glass-bg);backdrop-filter:blur(30px) saturate(160%);border:1px solid var(--glass-border);border-radius:var(--radius);overflow:hidden;text-decoration:none;color:var(--text);transition:transform .35s var(--ease),box-shadow .35s var(--ease),border-color .35s var(--ease)}
-.blog-card::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(10,132,255,.12),transparent 55%);opacity:0;transition:opacity .35s var(--ease);pointer-events:none}
-.blog-card:hover{transform:translateY(-8px);border-color:rgba(10,132,255,.4);box-shadow:0 24px 48px rgba(0,0,0,.35),0 0 0 1px rgba(10,132,255,.15)}
-.blog-card:hover::after{opacity:1}
-.blog-card-img{position:relative;height:160px;overflow:hidden;background:var(--surface-3)}
-.blog-card-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease);display:block}
-.blog-card:hover .blog-card-img img{transform:scale(1.07)}
-.blog-card-tag{position:absolute;top:12px;left:12px;padding:5px 12px;background:rgba(5,5,5,.65);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.15);color:#fff;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;border-radius:var(--radius-pill)}
-.blog-card-body{padding:18px;display:flex;flex-direction:column;flex:1;gap:8px}
-.blog-card-meta{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--text-muted);font-family:var(--mono)}
-.blog-card-meta .dot{width:3px;height:3px;border-radius:50%;background:var(--text-muted)}
-.blog-card h3{font-size:15px;font-weight:700;line-height:1.35;letter-spacing:-.01em;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.blog-card p{font-size:12.5px;color:var(--text-sub);line-height:1.55;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;flex:1}
-.blog-card-cta{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--accent);margin-top:4px}
-.blog-card-cta .arr{transition:transform .25s var(--ease)}
-.blog-card:hover .blog-card-cta .arr{transform:translateX(4px)}
-
-.explore-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.explore-card{display:flex;flex-direction:column;gap:10px;padding:20px 18px;background:var(--glass-bg);backdrop-filter:blur(30px);border:1px solid var(--glass-border);border-radius:var(--radius);text-decoration:none;color:var(--text);transition:all .3s var(--ease);position:relative;overflow:hidden}
-.explore-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--purple));transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
-.explore-card:hover{transform:translateY(-5px);border-color:var(--border-strong);box-shadow:0 16px 36px rgba(0,0,0,.3)}
-.explore-card:hover::before{transform:scaleX(1)}
-.explore-icon{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;background:var(--accent-soft);border:1px solid rgba(10,132,255,.2)}
-.explore-card h4{font-size:14px;font-weight:700}
-.explore-card span{font-size:12px;color:var(--text-muted);line-height:1.5}
-
-.guide-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
-.guide-card{display:flex;flex-direction:column;gap:12px;padding:20px;background:var(--glass-bg);backdrop-filter:blur(30px);border:1px solid var(--glass-border);border-radius:var(--radius);cursor:pointer;transition:all .3s var(--ease)}
-.guide-card:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:0 12px 32px rgba(0,0,0,.3)}
-.guide-icon{font-size:28px}
-.guide-card h4{font-size:16px;font-weight:700;margin:0}
-.guide-card p{font-size:13px;color:var(--text-sub);line-height:1.5;margin:0}
-
-.guide-modal-content{max-width:600px}
-.guide-tabs{display:flex;gap:8px;margin-bottom:16px;border-bottom:1px solid var(--glass-border);padding-bottom:8px}
-.guide-tab{padding:8px 16px;background:transparent;border:none;color:var(--text-sub);font-weight:600;cursor:pointer;border-radius:8px;transition:all .2s;font-family:var(--font);font-size:14px}
-.guide-tab:hover{color:var(--text);background:var(--glass-highlight)}
-.guide-tab.active{background:var(--accent-soft);color:var(--accent)}
-.guide-panel{display:none}
-.guide-panel.active{display:block;animation:fadeIn .3s var(--ease)}
-.guide-panel ul{padding-left:20px;color:var(--text-sub);font-size:14px;line-height:1.7}
-.guide-panel li{margin-bottom:10px}
-.guide-panel code{background:var(--surface-3);padding:2px 6px;border-radius:4px;font-family:var(--mono);font-size:12px;color:var(--text)}
-.external-links{display:flex;gap:10px;margin-top:20px;padding-top:16px;border-top:1px solid var(--glass-border)}
-.ext-link{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:var(--surface-3);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:12px;font-weight:600;text-decoration:none;transition:all .2s var(--ease)}
-.ext-link:hover{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
-
-.subscribe-band{position:relative;overflow:hidden;padding:32px 24px;border-radius:20px;background:linear-gradient(135deg,rgba(10,132,255,.14),rgba(94,92,230,.12) 50%,rgba(191,90,242,.14));border:1px solid rgba(10,132,255,.25);display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
-.subscribe-band::before{content:'';position:absolute;inset:-60%;background:conic-gradient(from 0deg,transparent 0deg,rgba(10,132,255,.14) 60deg,transparent 140deg);animation:bandSpin 12s linear infinite;pointer-events:none}
-@keyframes bandSpin{to{transform:rotate(360deg)}}
-.subscribe-band h3{font-size:20px;font-weight:800;letter-spacing:-.02em;margin-bottom:6px;position:relative}
-.subscribe-band p{font-size:13px;color:var(--text-sub);position:relative;max-width:520px}
-
-.home-footer{border-top:1px solid var(--glass-border);padding:40px 24px 48px;margin-top:8px}
-.home-footer-inner{max-width:1080px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
-.footer-brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:14px}
-.footer-links{display:flex;gap:18px;flex-wrap:wrap}
-.footer-links a{color:var(--text-muted);font-size:12.5px;text-decoration:none;transition:color .2s}
-.footer-links a:hover{color:var(--accent)}
-.footer-copy{font-size:11.5px;color:var(--text-muted);font-family:var(--mono)}
-
-/* FIXED: Reveal animations - make elements visible by default, animate only when scrolling */
-.reveal{opacity:1;transform:translateY(0);transition:opacity .7s var(--ease),transform .7s var(--ease)}
-.reveal.animating{opacity:0;transform:translateY(26px)}
-.reveal.visible{opacity:1;transform:translateY(0)}
-.reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}.reveal.d3{transition-delay:.24s}
-
-@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}*{animation-duration:.01ms!important}}
-
-/* Floating Share Button */
-#shareFab {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent), #5E5CE6);
-  color: #fff;
-  border: none;
-  box-shadow: 0 8px 24px rgba(10,132,255,0.4);
-  opacity: 0;
-  pointer-events: none;
-  transition: all 0.3s var(--ease);
-  z-index: 900;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 22px;
-  cursor: pointer;
+.ask-inner{pointer-events:auto;width:100%;max-width:720px}
+.ask-chips{display:none;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.ask-chips.active{display:flex}
+.ask-chip{padding:6px 11px;border-radius:var(--dih-pill);border:1px solid var(--dih-border);background:var(--dih-surface-2);color:var(--dih-text-sub);font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap}
+.ask-chip:hover{color:var(--dih-accent);border-color:var(--dih-accent)}
+.ask-form{
+  display:flex;align-items:center;gap:8px;padding:7px 7px 7px 15px;
+  background:rgba(16,17,26,.94);border:1px solid var(--dih-border-strong);border-radius:var(--dih-pill);
+  box-shadow:0 18px 50px rgba(0,0,0,.45);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);
+  transition:border-color .25s,box-shadow .25s;
 }
-#shareFab.visible {
-  opacity: 1;
-  pointer-events: auto;
-}
-#shareFab:hover {
-  transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 12px 32px rgba(10,132,255,0.5);
-}
+html[data-theme="light"] .ask-form{background:rgba(255,255,255,.96)}
+.ask-form:focus-within{border-color:var(--dih-accent);box-shadow:0 18px 50px rgba(76,141,255,.22)}
+.ask-modes{display:flex;gap:0;flex-shrink:0}
+.ask-mode{width:29px;height:29px;border-radius:50%;border:0;background:transparent;color:var(--dih-text-muted);cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center}
+.ask-mode.active{background:var(--dih-accent-soft);color:var(--dih-accent)}
+.ask-input{flex:1;min-width:0;background:none;border:0;outline:none;color:var(--dih-text);font-family:inherit;font-size:14px;padding:9px 2px}
+.ask-input::placeholder{color:var(--dih-text-muted)}
+.ask-send{width:38px;height:38px;border-radius:50%;border:0;background:linear-gradient(125deg,var(--dih-accent),var(--dih-accent-2));color:#fff;font-size:16px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.ask-send:hover{transform:scale(1.05)}
+.ask-stop{width:38px;height:38px;border-radius:50%;border:0;background:var(--dih-red);color:#fff;cursor:pointer;display:none;align-items:center;justify-content:center;flex-shrink:0;font-size:12px}
 
-/* Back to Top Button */
-#backToTop {
-  position: fixed;
-  bottom: 84px;
-  right: 24px;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: var(--glass-bg);
-  backdrop-filter: blur(10px);
-  color: var(--text);
-  border: 1px solid var(--glass-border);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  opacity: 0;
-  pointer-events: none;
-  transition: all 0.3s var(--ease);
-  z-index: 900;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  cursor: pointer;
+/* Continue reading */
+.resume{
+  display:none;align-items:center;gap:12px;padding:14px 16px;border-radius:14px;
+  border:1px solid var(--dih-border);background:var(--dih-surface-2);margin-top:24px;text-align:left;
 }
-#backToTop.visible {
-  opacity: 1;
-  pointer-events: auto;
- }
-#backToTop:hover {
-  transform: translateY(-2px);
-  background: var(--surface-3);
-}
+.resume.show{display:flex}
+.resume img{width:54px;height:54px;border-radius:10px;object-fit:cover}
+.resume div{flex:1;min-width:0}
+.resume span{font-family:var(--dih-mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--dih-accent)}
+.resume strong{display:block;font-size:13px;font-weight:650;line-height:1.35;margin-top:3px}
+.resume a{font-size:11.5px;font-weight:700;color:var(--dih-accent);text-decoration:none;white-space:nowrap}
 
-@media (max-width:767px){
-  .os-topbar{padding:0 12px;gap:8px}
-  .os-logo span,.os-btn-text,.os-clock{display:none}
-  .status-indicator{display:none}
-  .os-nav{padding:0 12px;height:48px}
-  .nav-container,.nav-cta{display:none}
-  .nav-toggle,.sidebar-toggle{display:flex}
-  .chat-container{padding:20px 12px 24px 12px}
-  .hero{padding:32px 12px 16px}
-  .hero-title{font-size:clamp(26px,8vw,34px)}
-  .blog-grid{grid-template-columns:1fr}
-  .explore-grid{grid-template-columns:repeat(2,1fr)}
-  .guide-grid{grid-template-columns:1fr}
-  .guide-modal-content{max-width:92vw;margin:0 12px}
-  .home-footer{padding:24px 16px calc(var(--nav-h) + 24px)}
-  .chat-thread{gap:16px}
-  .msg{gap:10px}
-  .os-input-area{padding:0 12px 14px}
-  body.chatting .os-input-area{bottom:5vh;padding:0 12px}
-  .input-shell{border-radius:24px;padding:6px}
-  .mode-selector{gap:2px;padding-right:8px}
-  .mode-btn{width:30px;height:30px;font-size:14px}
-  .mode-btn::after{display:none}
-  .ai-input{font-size:15px;padding:10px 0}
-  .ai-send,.ai-stop{width:38px;height:38px}
-  .floating-widget{width:92vw!important;max-width:360px!important;left:50%!important;top:50%!important;transform:translate(-50%,-50%)!important;max-height:75vh}
-  .widget-resize-handle{display:none}
-  .market-grid{grid-template-columns:1fr}
-  .market-sparkline-wrapper{display:none}
-  .app-grid{grid-template-columns:repeat(2,1fr);gap:12px}
-  .right-sidebar{width:280px}
-  
-  /* Mobile reveal animations */
-  .reveal{opacity:0;transform:translateY(26px)}
-  .reveal.visible{opacity:1;transform:translateY(0)}
-  
-  /* Mobile ticker fix */
-  .ticker-item{font-size:10px;padding:0 8px}
-  .ticker-shell{mask-image:linear-gradient(90deg,transparent,black 2%,black 98%,transparent)}
-  
-  #shareFab { bottom: 20px; right: 20px; width: 48px; height: 48px; }
-  #backToTop { bottom: 76px; right: 20px; width: 40px; height: 40px; }
+@media(max-width:920px){
+  .hero{padding-top:48px}
+  .pulse-grid,.tool-grid,.guide-cards,.article-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .article-grid .article-card:nth-child(3){display:none}
+  .hero-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
-@media (max-width:380px){
-  .os-logo-icon{width:20px;height:20px;font-size:9px}
-  .ticker-item{font-size:9px;padding:0 6px}
+@media(max-width:640px){
+  .home-content{padding:0 14px;gap:46px}
+  .hero{padding-top:36px}
+  .hero h1{font-size:clamp(30px,9.2vw,40px)}
+  .hero-sub{font-size:14px}
+  .hero .dih-pill{font-size:9.5px;padding:6px 11px;margin-bottom:16px}
+  .hero-actions{gap:8px}
+  .hero-actions .dih-btn{flex:1;padding:12px 14px;font-size:13px}
+  .hero-stats{gap:8px;margin-top:26px}
+  .hero-stat{padding:11px 12px}
+  .hero-stat b{font-size:16px}
+  .hero-stat span{font-size:9.5px}
+  .hero-audience{display:none}
+  .pulse-grid,.tool-grid,.guide-cards{grid-template-columns:1fr 1fr;gap:8px}
+  .pulse-card{padding:12px;min-height:64px}
+  .pulse-price{font-size:12px}
+  .article-grid{grid-template-columns:1fr}
+  .article-grid .article-card:nth-child(3){display:flex}
+  .article-media{aspect-ratio:16/9}
+  .headline-meta{display:none}
+  .headline-title{font-size:12.5px}
+  .dih-section-head{margin-bottom:16px}
+  .dih-section-head h2{font-size:21px}
+  .dih-section-head p{font-size:12.5px}
+  .dih-view-all{padding:8px 13px;font-size:11.5px}
+  .arcade-band,.newsletter-band,.insight{padding:18px}
+  .insight-copy{top:10px;right:10px}
+  .arcade-emojis span{width:34px;height:34px;font-size:16px}
+  .chat-container{padding:18px 14px 140px}
+  .msg-content{font-size:14px}
+  .msg.bot .msg-content{padding:14px}
+  .ask-dock{padding:9px 10px calc(9px + env(safe-area-inset-bottom))}
+  .ask-form{padding:6px 6px 6px 11px}
+  .ask-mode{width:26px;height:26px;font-size:12px}
+  .ask-input{font-size:14px;padding:8px 2px}
+  .ask-send,.ask-stop{width:36px;height:36px}
+  .ask-chips.active{overflow-x:auto;flex-wrap:nowrap;padding-bottom:3px}
+  .resume img{width:44px;height:44px}
+}
+@media(max-width:400px){
+  .ask-mode:nth-child(1){display:none}
+  .pulse-grid,.tool-grid,.guide-cards{grid-template-columns:1fr}
 }
 </style>
 </head>
-<body>
-
-<header class="os-topbar">
-  <div class="os-logo"><div class="os-logo-icon">◆</div><span>Digital Infohub</span></div>
-  <div class="status-indicator"><div class="status-dot"></div>Live</div>
-  <div class="ticker-shell"><div class="ticker-bar" id="tickerBar"></div></div>
-  <div class="os-actions">
-    <button class="os-btn" onclick="window.openAppStore()">📦<span class="os-btn-text">Apps</span></button>
-    <button class="os-btn" onclick="window.toggleTheme()">◑</button>
-    <div class="os-clock" id="clock">--:--</div>
+<body data-page="home">
+<!-- DIH:HEADER -->
+<header class="dih-header">
+  <div class="dih-header-inner">
+    <a class="dih-brand" href="/" aria-label="Digital Infohub home">
+      <img src="/assets/logo.png" alt="Digital Infohub logo" width="36" height="36">
+      <span class="dih-brand-text">Digital <b>Infohub</b></span>
+    </a>
+    <nav class="dih-nav" data-dih-nav aria-label="Primary navigation">
+      <a class="dih-link" href="/">Home</a>
+      <a class="dih-link" href="/blog">Blog</a>
+      <a class="dih-link" href="/techtopics">Tech Topics</a>
+      <a class="dih-link" href="/software">Software</a>
+      <a class="dih-link" href="/techproducts">Tech Products</a>
+      <a class="dih-link" href="/games">Games</a>
+      <a class="dih-link" href="/coincompass">Markets</a>
+    </nav>
+    <div class="dih-actions">
+      <a class="dih-tools" href="/software#tools" title="Free browser tools" aria-label="Free browser tools">⚡<span>Tools</span></a>
+      <button class="dih-icon" type="button" data-dih-theme aria-label="Switch theme" title="Switch theme">☀</button>
+      <a class="dih-cta" href="/subscribe">Subscribe</a>
+      <button class="dih-burger" id="dihBurger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="dihDrawer"><span></span><span></span><span></span></button>
+    </div>
   </div>
 </header>
-
-<nav class="os-nav">
-  <div class="nav-container">
-    <a href="/" class="nav-link active"><span class="nav-icon">🏠</span>Home</a>
-    <a href="/blog" class="nav-link"><span class="nav-icon">📝</span>Blog</a>
-    <a href="/techproducts" class="nav-link"><span class="nav-icon">💻</span>Tech Products</a>
-    <a href="/techtopics" class="nav-link"><span class="nav-icon">🔬</span>Tech Topics</a>
-    <a href="/software" class="nav-link"><span class="nav-icon">⚙️</span>Software</a>
-    <a href="/games" class="nav-link"><span class="nav-icon">🎮</span>Games</a>
-    <a href="/about" class="nav-link"><span class="nav-icon">ℹ️</span>About</a>
-    <a href="/services" class="nav-link"><span class="nav-icon">🛠️</span>Services</a>
-    <a href="/advertise" class="nav-link"><span class="nav-icon">📣</span>Advertise</a>
-  </div>
-  <a href="/subscribe" class="nav-cta">✨ Subscribe</a>
-  <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
-  <button class="sidebar-toggle" id="sidebarToggle" aria-label="Sidebar">⚡</button>
-</nav>
-
-<div class="mobile-drawer" id="mobileDrawer">
-  <div class="drawer-content">
-    <div class="drawer-header">
-      <h3>Navigation</h3>
-      <button class="drawer-close" id="drawerClose">✕</button>
+<div class="dih-drawer" id="dihDrawer" aria-label="Site menu">
+  <div class="dih-drawer-panel">
+    <div class="dih-drawer-grid">
+      <a class="dih-drawer-link" href="/">Home</a>
+      <a class="dih-drawer-link" href="/blog">Blog</a>
+      <a class="dih-drawer-link" href="/techtopics">Tech Topics</a>
+      <a class="dih-drawer-link" href="/software">Software</a>
+      <a class="dih-drawer-link" href="/techproducts">Tech Products</a>
+      <a class="dih-drawer-link" href="/games">Games</a>
+      <a class="dih-drawer-link" href="/coincompass">Markets</a>
+      <a class="dih-drawer-link" href="/about">About</a>
     </div>
-    <a href="/" class="drawer-link" onclick="window.closeMobileDrawer()">🏠 Home</a>
-    <a href="/blog" class="drawer-link" onclick="window.closeMobileDrawer()">📝 Blog</a>
-    <a href="/techproducts" class="drawer-link" onclick="window.closeMobileDrawer()">💻 Tech Products</a>
-    <a href="/techtopics" class="drawer-link" onclick="window.closeMobileDrawer()">🔬 Tech Topics</a>
-    <a href="/software" class="drawer-link" onclick="window.closeMobileDrawer()">⚙️ Software</a>
-    <a href="/games" class="drawer-link" onclick="window.closeMobileDrawer()">🎮 Games</a>
-    <a href="/about" class="drawer-link" onclick="window.closeMobileDrawer()">ℹ️ About</a>
-    <a href="/services" class="drawer-link" onclick="window.closeMobileDrawer()">🛠️ Services</a>
-    <a href="/advertise" class="drawer-link" onclick="window.closeMobileDrawer()">📣 Advertise</a>
-    <a href="/subscribe" class="drawer-cta" onclick="window.closeMobileDrawer()">✨ Subscribe Now</a>
-    <div class="drawer-ad">
-      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5443646750699471" data-ad-slot="8451723433" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <div class="dih-drawer-sub">
+      <a class="dih-drawer-link" href="/software#tools">⚡ Tools</a>
+      <a class="dih-drawer-link" href="/services">🧰 Services</a>
     </div>
+    <a class="dih-drawer-cta" href="/subscribe">✉️ Subscribe — weekly tech intel</a>
+    <p class="dih-drawer-note">Digital Infohub · Tech intelligence for people who build, buy and invest in technology.</p>
   </div>
 </div>
+<!-- /DIH:HEADER -->
 
-<div class="right-sidebar" id="rightSidebar">
-  <div class="sidebar-header">
-    <h3>Quick Actions</h3>
-    <button class="sidebar-close" id="sidebarClose">✕</button>
+<div class="dih-ticker" aria-label="Market and tech news ticker">
+  <div class="dih-ticker-label"><span class="dih-dot"></span> Live</div>
+  <div class="dih-ticker-vp" id="tickerViewport">
+    <div class="dih-ticker-track" id="tickerBar">
+      <a class="dih-ticker-item" href="/coincompass"><b>Markets</b> loading live prices…</a>
+    </div>
   </div>
-  <div class="desktop-icons-grid">
-    <div class="desktop-folder" onclick="window.triggerModeOverview('markets')"><div class="desktop-folder-icon">📊</div><div class="desktop-folder-label">Markets</div></div>
-    <div class="desktop-folder" onclick="window.triggerModeOverview('news')"><div class="desktop-folder-icon">💡</div><div class="desktop-folder-label">News</div></div>
-    <div class="desktop-folder" onclick="window.triggerModeOverview('genai')"><div class="desktop-folder-icon">🧠</div><div class="desktop-folder-label">Insights</div></div>
-    <div class="desktop-folder" onclick="window.openAppStore()"><div class="desktop-folder-icon">📦</div><div class="desktop-folder-label">Apps</div></div>
-  </div>
+  <a class="dih-ticker-more" href="/coincompass">Markets →</a>
 </div>
 
 <main class="os-desktop" id="osDesktop">
-
-  <div class="counter-wrap">
-    <script async src="https://e-zeeinternet.com/t.js" data-site="ezi_992ceef652fd" data-mode="gdpr" data-theme="dark" data-shape="rounded" data-layout="row"></script>
-    <div data-ezee-counter></div>
-  </div>
-
   <div class="home-content" id="homeContent">
-    <!-- Section 1: Introduction and Hero -->
+
+    <!-- Hero -->
     <section class="hero" id="homeHero">
-      <div class="hero-glow"></div>
-      <div class="hero-badge"><span class="status-dot"></span> <span id="dynamicBadge">DISCOVER · USE · LEARN</span></div>
-      <h1 class="hero-title">Technology, AI &amp; Digital Tools<br><span class="grad">That Matter.</span></h1>
-      <p class="hero-sub" id="heroSubText">Discover the latest developments in technology and AI, explore useful digital tools, and learn practical ways to make technology work better for you.</p>
+      <div class="hero-glow" aria-hidden="true"></div>
+      <span class="dih-pill"><span class="dih-dot"></span> <span id="dynamicBadge">Tech intelligence · updated daily</span></span>
+      <h1>Technology that matters,<br><span class="grad">explained for professionals.</span></h1>
+      <p class="hero-sub" id="heroSubText">AI research, market context and free tools — the signal your team needs, without the hype. Built for <b>builders, operators and investors</b> who have to make real decisions.</p>
       <div class="hero-actions">
-        <a href="/blog" class="btn-primary">📝 Explore Latest Articles</a>
-        <a href="/software" class="btn-ghost">🛠️ Discover Digital Tools</a>
+        <a class="dih-btn dih-btn-primary" href="/blog">Read today's briefing →</a>
+        <a class="dih-btn dih-btn-ghost" href="/software">Try the free tools</a>
       </div>
-    </section>
 
-    <!-- Section 2: The Latest Discoveries (Dynamically Shuffled) -->
-    <section id="homeBlog">
-      <div class="home-section-head reveal">
+      <div class="resume" id="resumeCard">
+        <img src="/assets/blog/ai-hardware-race-sept-2026.jpg" alt="">
         <div>
-          <h2>📰 Latest Discoveries</h2>
-          <p>Fresh analysis on AI, markets, hardware and the creators shaping tech.</p>
+          <span>Continue reading</span>
+          <strong id="resumeTitle">The AI hardware race is moving beyond the cloud</strong>
         </div>
-        <a href="/blog" class="view-all-link">View All Articles <span class="arr">→</span></a>
+        <a href="#" id="resumeLink">Resume →</a>
       </div>
-      <div class="blog-grid" id="dynamicBlogGrid">
-        <!-- Populated by JS -->
+
+      <div class="hero-stats">
+        <div class="hero-stat"><b>24</b><span>Tech guides</span></div>
+        <div class="hero-stat"><b>12</b><span>Free tools</span></div>
+        <div class="hero-stat"><b>Daily</b><span>Market data</span></div>
+        <div class="hero-stat"><b>0</b><span>Paywalls</span></div>
+      </div>
+
+      <div class="hero-audience">
+        <span>For engineering leaders</span>
+        <span>For founders &amp; operators</span>
+        <span>For analysts &amp; investors</span>
       </div>
     </section>
 
-    <!-- Section 3: Explore Digital Tools -->
-    <section id="homeTools">
-      <div class="home-section-head reveal">
+    <!-- Market pulse -->
+    <section class="pulse" id="marketPulse" aria-labelledby="pulseTitle">
+      <div class="dih-section-head">
         <div>
-          <h2>🛠️ Explore Digital Tools</h2>
-          <p>Practical software, AI utilities, and interactive experiences to level up your workflow.</p>
+          <span class="dih-eyebrow">Market pulse</span>
+          <h2 id="pulseTitle">Live prices, zero noise</h2>
+          <p>Stocks and crypto at a glance. Tap any card for the full dashboard.</p>
         </div>
-        <a href="/software" class="view-all-link">Explore All Tools <span class="arr">→</span></a>
+        <a class="dih-view-all" href="/coincompass">Open CoinCompass <span>→</span></a>
       </div>
-      <div class="explore-grid">
-        <a href="/software" class="explore-card reveal"><div class="explore-icon">⚙️</div><h4>Software Library</h4><span>Curated apps and tools to level up your workflow.</span></a>
-        <a href="/techproducts" class="explore-card reveal d1"><div class="explore-icon">💻</div><h4>Tech Products</h4><span>Hands-on guides to the gadgets worth your money.</span></a>
-        <a href="#" class="explore-card reveal d2" onclick="window.openAppStore();return false;"><div class="explore-icon">📦</div><h4>Mini Apps</h4><span>Pomodoro, QR generator, converters and more built in.</span></a>
-        <a href="/coincompass" class="explore-card reveal d3"><div class="explore-icon">🪙</div><h4>CoinCompass</h4><span>Navigate crypto markets with live data and charts.</span></a>
+      <div class="pulse-grid" id="pulseGrid">
+        <a class="pulse-card pulse-skeleton" href="/coincompass"><div class="pulse-left"><div class="pulse-sym">AAPL</div><div class="pulse-name">Apple</div></div><div class="pulse-right"><div class="pulse-price">—</div><div class="pulse-chg">loading</div></div></a>
+        <a class="pulse-card pulse-skeleton" href="/coincompass"><div class="pulse-left"><div class="pulse-sym">NVDA</div><div class="pulse-name">NVIDIA</div></div><div class="pulse-right"><div class="pulse-price">—</div><div class="pulse-chg">loading</div></div></a>
+        <a class="pulse-card pulse-skeleton" href="/coincompass"><div class="pulse-left"><div class="pulse-sym">MSFT</div><div class="pulse-name">Microsoft</div></div><div class="pulse-right"><div class="pulse-price">—</div><div class="pulse-chg">loading</div></div></a>
+        <a class="pulse-card pulse-skeleton" href="/coincompass"><div class="pulse-left"><div class="pulse-sym">BTC</div><div class="pulse-name">Bitcoin</div></div><div class="pulse-right"><div class="pulse-price">—</div><div class="pulse-chg">loading</div></div></a>
+        <a class="pulse-card pulse-skeleton" href="/coincompass"><div class="pulse-left"><div class="pulse-sym">ETH</div><div class="pulse-name">Ethereum</div></div><div class="pulse-right"><div class="pulse-price">—</div><div class="pulse-chg">loading</div></div></a>
+        <a class="pulse-card pulse-card--wide" href="/techtopics"><div class="pulse-left"><div class="pulse-sym">DEEP DIVES</div><div class="pulse-name">24 plain-language guides</div></div><div class="pulse-right"><div class="pulse-price">AI →</div><div class="pulse-chg up">Explore</div></div></a>
       </div>
+      <p class="pulse-note">Delayed quotes · not investment advice</p>
     </section>
 
-    <!-- Section 4: Quick Guides and Practical Tips (Dynamically Shuffled) -->
-    <section id="homeGuides">
-      <div class="home-section-head reveal">
+    <!-- Featured analysis -->
+    <section id="homeBriefing" aria-labelledby="briefingTitle">
+      <div class="dih-section-head">
         <div>
-          <h2>💡 Quick Guides & Practical Tips</h2>
-          <p>Straightforward advice to solve everyday digital problems, no jargon required.</p>
+          <span class="dih-eyebrow">Today's briefing</span>
+          <h2 id="briefingTitle">The stories shaping tech right now</h2>
+          <p>Analysis for people who have to act on it — not just read it.</p>
         </div>
+        <a class="dih-view-all" href="/blog">All articles <span>→</span></a>
       </div>
-      <div class="guide-grid" id="dynamicGuideGrid">
-        <!-- Populated by JS -->
+
+      <div class="article-grid" id="featuredGrid">
+        <a class="article-card" href="/post/tech-market-sell-off-october-2026" data-resume-title="Tech market sell-off: what AI capex fatigue means for your portfolio">
+          <div class="article-media"><img src="/assets/blog/tech-market-sell-off-october-2026.jpg" alt="Market chart showing a technology stock sell-off" loading="lazy" width="900" height="563"><span class="article-tag">Markets</span></div>
+          <div class="article-body">
+            <div class="article-meta"><span>October 2026</span><i></i><span>6 min read</span></div>
+            <h3>Tech market sell-off: what AI capex fatigue means for your portfolio</h3>
+            <p>AI spending fatigue and geopolitical risk just repriced the sector. Here is what changed, and what to watch next.</p>
+            <span class="article-cta">Read analysis <span>→</span></span>
+          </div>
+        </a>
+        <a class="article-card" href="/post/ai-hardware-race-sept-2026" data-resume-title="The AI hardware race is moving beyond the cloud">
+          <div class="article-media"><img src="/assets/blog/ai-hardware-race-sept-2026.jpg" alt="AI hardware and semiconductor components" loading="lazy" width="900" height="563"><span class="article-tag">AI &amp; hardware</span></div>
+          <div class="article-body">
+            <div class="article-meta"><span>September 2026</span><i></i><span>7 min read</span></div>
+            <h3>The AI hardware race is moving beyond the cloud</h3>
+            <p>Apple, Meta and Alibaba are pushing inference onto devices. That changes cost structures, privacy and product design.</p>
+            <span class="article-cta">Read analysis <span>→</span></span>
+          </div>
+        </a>
+        <a class="article-card" href="/post/cybersecurity-ai-investment-2026" data-resume-title="Cybersecurity in the age of AI: where the money is going">
+          <div class="article-media"><img src="/assets/blog/cybersecurity-ai-investment-2026.jpg" alt="Cybersecurity operations centre monitors" loading="lazy" width="900" height="563"><span class="article-tag">Cybersecurity</span></div>
+          <div class="article-body">
+            <div class="article-meta"><span>October 2026</span><i></i><span>5 min read</span></div>
+            <h3>Cybersecurity in the age of AI: where the money is going</h3>
+            <p>Security budgets are moving from perimeter tools to identity, detection and AI-assisted response. What buyers should know.</p>
+            <span class="article-cta">Read analysis <span>→</span></span>
+          </div>
+        </a>
+      </div>
+
+      <div class="headline-list">
+        <a class="headline" href="/post/tech-trends-october-2026"><span class="headline-num">01</span><span class="headline-title">Tech trends defining Q4 2026: quantum, agents and the new silicon race</span><span class="headline-meta">Trends · 7 min</span><span class="headline-arrow">→</span></a>
+        <a class="headline" href="/post/newest-iphone-2026"><span class="headline-num">02</span><span class="headline-title">Newest iPhone 2026: what changed, and who should actually upgrade</span><span class="headline-meta">Products · 5 min</span><span class="headline-arrow">→</span></a>
+        <a class="headline" href="/post/ai-wearables-2026"><span class="headline-num">03</span><span class="headline-title">AI wearables in 2026: the screen is finally disappearing</span><span class="headline-meta">Wearables · 8 min</span><span class="headline-arrow">→</span></a>
+        <a class="headline" href="/post/how-to-stay-safe-online-2026"><span class="headline-num">04</span><span class="headline-title">How to stay safe online in 2026: the professional's checklist</span><span class="headline-meta">Security · 4 min</span><span class="headline-arrow">→</span></a>
       </div>
     </section>
 
-    <!-- Section 5: Explore More -->
-    <section id="homeExploreMore">
-      <div class="home-section-head reveal">
+    <!-- Trending topics -->
+    <section id="homeTopicsNow" aria-labelledby="topicsNowTitle">
+      <div class="dih-section-head">
         <div>
-          <h2>🧭 Explore More</h2>
-          <p>Games, community projects, and additional resources to keep you curious.</p>
+          <span class="dih-eyebrow">Trending now</span>
+          <h2 id="topicsNowTitle">Pick your rabbit hole</h2>
+          <p>24 plain-language guides that get you fluent fast.</p>
         </div>
+        <a class="dih-view-all" href="/techtopics">All tech topics <span>→</span></a>
       </div>
-      <div class="explore-grid">
-        <a href="/games" class="explore-card reveal"><div class="explore-icon">🎮</div><h4>Games</h4><span>The best of gaming culture, indie gems and releases.</span></a>
-        <a href="/techtopics" class="explore-card reveal d1"><div class="explore-icon">🔬</div><h4>Tech Topics</h4><span>Deep dives into AI, quantum, cybersecurity and more.</span></a>
-        <a href="/about" class="explore-card reveal d2"><div class="explore-icon">ℹ️</div><h4>About Us</h4><span>The story behind Digital Infohub and our mission.</span></a>
-        <a href="/services" class="explore-card reveal d3"><div class="explore-icon">🛠️</div><h4>Services</h4><span>Custom development, automation, and AI integration.</span></a>
+      <div class="chip-cloud">
+        <a class="chip strong" href="/artificialintelligence">🧠 Artificial Intelligence</a>
+        <a class="chip strong" href="/cybersecurity">🛡️ Cybersecurity</a>
+        <a class="chip" href="/machinelearning">🤖 Machine Learning</a>
+        <a class="chip" href="/cloudcomputing">☁️ Cloud Computing</a>
+        <a class="chip" href="/quantumcomputing">⚛️ Quantum Computing</a>
+        <a class="chip" href="/semiconductors">🔌 Semiconductors</a>
+        <a class="chip" href="/robotics">🦾 Robotics</a>
+        <a class="chip" href="/blockchain">⛓️ Blockchain</a>
+        <a class="chip" href="/zerotrustsecurity">🔐 Zero Trust</a>
+        <a class="chip" href="/devops">🚀 DevOps</a>
+        <a class="chip" href="/internetofthings">📡 IoT</a>
+        <a class="chip" href="/5gnetworks">📶 5G Networks</a>
+        <a class="chip" href="/edgecomputing">🌐 Edge Computing</a>
+        <a class="chip" href="/opensource">🧩 Open Source</a>
       </div>
     </section>
 
-    <!-- Section 6: Daily Insight (Return Visitor Feature) -->
-    <section id="homeDailyInsight">
-      <!-- Dynamically populated by JS -->
+    <!-- Tools -->
+    <section id="homeTools" aria-labelledby="toolsTitle">
+      <div class="dih-section-head">
+        <div>
+          <span class="dih-eyebrow">The toolbox</span>
+          <h2 id="toolsTitle">Free tools, no signup</h2>
+          <p>Twelve utilities that run entirely in your browser. Bookmark the one you use daily.</p>
+        </div>
+        <a class="dih-view-all" href="/software">All 12 tools <span>→</span></a>
+      </div>
+      <div class="tool-grid">
+        <a class="tool-card" href="/software/infohubgpt"><span class="tool-icon">✨</span><strong>InfohubGPT</strong><span class="tool-desc">A fast AI assistant for research, drafting and analysis.</span><em>Open tool →</em></a>
+        <a class="tool-card" href="/software/marketlens"><span class="tool-icon">📈</span><strong>MarketLens</strong><span class="tool-desc">Markets and crypto briefings without the noise.</span><em>Open tool →</em></a>
+        <a class="tool-card" href="/software/json"><span class="tool-icon">🧩</span><strong>JSON Formatter</strong><span class="tool-desc">Format, validate and beautify JSON instantly.</span><em>Open tool →</em></a>
+        <a class="tool-card" href="/software/password"><span class="tool-icon">🔑</span><strong>Password Generator</strong><span class="tool-desc">Strong, unique passwords generated locally.</span><em>Open tool →</em></a>
+        <a class="tool-card" href="/software/markdown"><span class="tool-icon">📝</span><strong>Markdown Editor</strong><span class="tool-desc">Write with live preview and clean HTML export.</span><em>Open tool →</em></a>
+        <a class="tool-card" href="/software/converter"><span class="tool-icon">⚖️</span><strong>Unit Converter</strong><span class="tool-desc">Length, weight, temperature — one clean screen.</span><em>Open tool →</em></a>
+      </div>
     </section>
 
-    <!-- Section 7: Give Visitors a Reason to Return -->
-    <section class="subscribe-band reveal" id="homeSubscribe">
+    <!-- Deep dive guides -->
+    <section id="homeGuides" aria-labelledby="guidesTitle">
+      <div class="dih-section-head">
+        <div>
+          <span class="dih-eyebrow">Deep dives</span>
+          <h2 id="guidesTitle">Get fluent in one sitting</h2>
+          <p>No jargon, no fluff. Each guide gives you the mental model, the limits and the practical next step.</p>
+        </div>
+        <a class="dih-view-all" href="/techtopics">Browse guides <span>→</span></a>
+      </div>
+      <div class="guide-cards">
+        <a class="guide-card" href="/artificialintelligence">
+          <span class="guide-ico">🧠</span>
+          <h3>Artificial Intelligence</h3>
+          <p>What AI really means, how modern systems learn and where they break.</p>
+          <ul><li>Training vs inference</li><li>Where AI already runs your day</li><li>The limits worth knowing</li></ul>
+          <em>Read the guide →</em>
+        </a>
+        <a class="guide-card" href="/cybersecurity">
+          <span class="guide-ico">🛡️</span>
+          <h3>Cybersecurity</h3>
+          <p>The threats that matter and the controls that actually reduce risk.</p>
+          <ul><li>Identity is the new perimeter</li><li>Phishing and social engineering</li><li>A pragmatic security stack</li></ul>
+          <em>Read the guide →</em>
+        </a>
+        <a class="guide-card" href="/quantumcomputing">
+          <span class="guide-ico">⚛️</span>
+          <h3>Quantum Computing</h3>
+          <p>Qubits, error correction and the encryption migration to plan for.</p>
+          <ul><li>What quantum actually speeds up</li><li>Why error correction is hard</li><li>Post-quantum preparation</li></ul>
+          <em>Read the guide →</em>
+        </a>
+      </div>
+    </section>
+
+    <!-- Arcade -->
+    <section class="arcade-band" aria-labelledby="arcadeTitle">
       <div>
-        <h3>✉️ Never miss a signal in the noise</h3>
-        <p>Join the Digital Infohub newsletter for weekly curated tech intelligence, market moves, new tool discoveries, and exclusive deep dives.</p>
+        <span class="dih-eyebrow">Pixel Palace</span>
+        <h2 id="arcadeTitle">Take a five-minute break</h2>
+        <p>Eight free browser games — Snake, 2048, Pong, Memory, Typing Rush and more. No downloads, works on your phone.</p>
+        <div class="arcade-emojis" aria-hidden="true"><span>🎮</span><span>👾</span><span>🐍</span><span>🧠</span><span>⌨️</span><span>🕹️</span></div>
       </div>
-      <a href="/subscribe" class="btn-primary" style="flex-shrink:0">Subscribe Free</a>
+      <a class="dih-btn dih-btn-primary" href="/games">Enter the arcade →</a>
+    </section>
+
+    <!-- Daily insight -->
+    <section id="homeDailyInsight" aria-live="polite"></section>
+
+    <!-- Newsletter -->
+    <section class="newsletter-band" aria-labelledby="newsletterTitle">
+      <div>
+        <h2 id="newsletterTitle">✉️ One email a week. All the signal.</h2>
+        <p>The AI, market and software stories that matter — plus new tools before anyone else. Free, no spam, unsubscribe anytime.</p>
+      </div>
+      <div class="newsletter-form">
+        <a class="dih-btn dih-btn-primary" href="/subscribe">Subscribe free →</a>
+      </div>
+    </section>
+
+    <!-- Explore -->
+    <section class="dih-explore" aria-labelledby="exploreTitle" style="margin-top:0;padding:0;max-width:none">
+      <div class="dih-explore-head">
+        <h2 id="exploreTitle">Where to next?</h2>
+        <p>The rest of the hub, one click away.</p>
+      </div>
+      <div class="dih-explore-grid">
+        <a class="dih-explore-card" href="/techproducts"><span class="dih-explore-icon">💻</span><strong>Tech Products</strong><span>Buying guides for hardware that earns its place.</span><em>Explore →</em></a>
+        <a class="dih-explore-card" href="/techtopics"><span class="dih-explore-icon">🔬</span><strong>Tech Topics</strong><span>24 guides from AI to zero trust.</span><em>Explore →</em></a>
+        <a class="dih-explore-card" href="/coincompass"><span class="dih-explore-icon">🧭</span><strong>CoinCompass</strong><span>Track crypto and market context calmly.</span><em>Explore →</em></a>
+        <a class="dih-explore-card" href="/services"><span class="dih-explore-icon">🧰</span><strong>Services</strong><span>Automation and AI integration for your team.</span><em>Explore →</em></a>
+      </div>
     </section>
   </div>
 
-  <!-- Chatbot Interface -->
+</main>
+
+  <!-- Chat -->
   <div class="chat-container" id="chatContainer">
     <div class="chat-header" id="chatHeader">
-      <button class="btn-ghost" style="padding:8px 16px; font-size:13px; border-radius:8px;" onclick="window.exitChatMode()">← Back to Home</button>
-      <span style="font-size:12px; color:var(--text-muted); font-weight:600;">Digital Infohub AI</span>
+      <button class="dih-btn dih-btn-ghost" type="button" id="chatBack" style="padding:8px 14px;font-size:12px">← Back to home</button>
+      <span style="font-size:11.5px;color:var(--dih-text-muted);font-weight:600">Digital Infohub AI</span>
     </div>
     <div class="chat-thread" id="chatThread" role="log" aria-live="polite"></div>
   </div>
 
-  <div class="os-input-area">
-    <div class="input-wrapper">
-      <div class="autocomplete-panel" id="autocompletePanel"></div>
-      <form class="input-shell" id="chatForm" autocomplete="off">
-        <div class="mode-selector">
-          <button type="button" class="mode-btn active" data-mode="search" title="Web Search">🔍</button>
-          <button type="button" class="mode-btn" data-mode="markets" title="Tech Markets">📈</button>
-          <button type="button" class="mode-btn" data-mode="news" title="Tech News">📰</button>
-          <button type="button" class="mode-btn" data-mode="genai" title="Generative AI">✨</button>
-          <button type="button" class="mode-btn" data-mode="settings" title="Settings">⚙️</button>
+  <div class="ask-dock">
+    <div class="ask-inner">
+      <div class="ask-chips" id="askChips"></div>
+      <form class="ask-form" id="chatForm" autocomplete="off">
+        <div class="ask-modes" role="group" aria-label="Assistant mode">
+          <button type="button" class="ask-mode active" data-mode="search" title="Ask anything">🔍</button>
+          <button type="button" class="ask-mode" data-mode="markets" title="Markets">📈</button>
+          <button type="button" class="ask-mode" data-mode="news" title="Tech news">📰</button>
+          <button type="button" class="ask-mode" data-mode="genai" title="AI assistant">✨</button>
         </div>
-        <input class="ai-input" id="chatInput" type="text" placeholder="Ask anything..." aria-label="Message">
-        <button class="ai-stop" id="chatStop" type="button" aria-label="Stop">⏹</button>
-        <button class="ai-send" id="chatSend" type="submit" aria-label="Send">→</button>
+        <input class="ask-input" id="chatInput" type="text" placeholder="Ask anything — or press / to focus" aria-label="Ask Digital Infohub AI">
+        <button class="ask-stop" id="chatStop" type="button" aria-label="Stop">⏹</button>
+        <button class="ask-send" id="chatSend" type="submit" aria-label="Send">→</button>
       </form>
     </div>
   </div>
 
-  <footer class="home-footer" id="homeFooter">
-    <div class="home-footer-inner">
-      <div class="footer-brand"><div class="os-logo-icon">◆</div> Digital Infohub</div>
-      <div class="footer-links">
-        <a href="/blog">Blog</a>
-        <a href="/about">About</a>
-        <a href="/services">Services</a>
-        <a href="/advertise">Advertise</a>
-        <a href="/subscribe">Subscribe</a>
-        <a href="/privacy-policy">Privacy</a>
-      </div>
-      <div class="footer-copy">© 2026 Digital Infohub · All rights reserved</div>
-    </div>
-  </footer>
-</main>
+  <div id="toast-container"></div>
 
-<!-- Floating Action Buttons -->
-<button id="shareFab" aria-label="Share Digital Infohub">🔗</button>
-<button id="backToTop" aria-label="Back to top">↑</button>
 
-<div class="widget-layer" id="widgetLayer"></div>
-
-<!-- Guide Modal -->
-<div class="modal-overlay" id="guideModal">
-  <div class="modal-content guide-modal-content">
-    <div class="modal-header">
-      <h2 id="guideTitle">Guide Title</h2>
-      <button class="os-btn" onclick="window.closeGuide()">✕</button>
-    </div>
-    <div class="modal-body" id="guideBody"></div>
-  </div>
-</div>
-
-<!-- Settings Modal -->
-<div class="modal-overlay" id="settingsModal">
-  <div class="modal-content" style="max-width:520px">
-    <div class="modal-header"><h2>⚙️ Settings</h2><button class="os-btn" onclick="window.closeSettings()">✕</button></div>
-    <div class="modal-body">
-      <h3 style="font-size:14px;margin-bottom:16px">Generative AI</h3>
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding:14px;background:var(--glass-highlight);border-radius:12px;border:1px solid var(--glass-border)">
-        <div><div style="font-size:13px;font-weight:600">Enable AI Assistant</div><div style="font-size:11px;color:var(--text-muted)">Allows custom generated responses.</div></div>
-        <label class="switch"><input type="checkbox" id="toggleGenAI" checked><span class="slider"></span></label>
-      </div>
-      <div style="margin-bottom:16px">
-        <label style="font-size:12px;font-weight:600;display:block;margin-bottom:6px">Custom System Prompt</label>
-        <textarea id="settingSystemPrompt" style="width:100%;height:100px;background:var(--surface-3);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:10px;font-family:var(--font);font-size:12px;resize:vertical;outline:none"></textarea>
-      </div>
-      <div style="padding:12px;background:var(--surface-3);border-radius:8px;font-size:12px;color:var(--text-sub);margin-bottom:24px"><strong style="color:var(--text)">Active Model:</strong> gpt-4o-mini (via Pollinations free tier)</div>
-
-      <h3 style="font-size:14px;margin-bottom:16px;border-top:1px solid var(--glass-border);padding-top:20px">Market Watchlist</h3>
-      <div style="display:flex;gap:8px;margin-bottom:12px">
-        <input type="text" id="watchlistInput" placeholder="Add ticker (e.g. AAPL)" style="flex:1;padding:10px 14px;background:var(--surface-3);border:1px solid var(--border);border-radius:8px;color:var(--text);outline:none;font-size:13px">
-        <button id="addWatchlistBtn" style="padding:10px 18px;background:var(--accent);color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:600;font-size:13px">Add</button>
-      </div>
-      <div id="watchlistTags" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px"></div>
-
-      <button id="saveSettingsBtn" style="width:100%;padding:12px;background:var(--accent);color:#fff;border:none;border-radius:10px;cursor:pointer;font-weight:600;font-size:14px;margin-top:24px">Save Settings</button>
-    </div>
-  </div>
-</div>
-
-<!-- Chart Modal -->
-<div class="modal-overlay" id="chartModal">
-  <div class="modal-content" style="max-width:700px">
-    <div class="modal-header"><h2 id="chartTitle">AAPL</h2><button class="os-btn" onclick="window.closeChartModal()">✕</button></div>
-    <div style="padding:12px 20px;display:flex;gap:8px;border-bottom:1px solid var(--glass-border)">
-      <button class="os-btn tf-btn active" data-tf="1D">1D</button><button class="os-btn tf-btn" data-tf="1W">1W</button><button class="os-btn tf-btn" data-tf="1M">1M</button>
-    </div>
-    <div style="padding:20px;height:300px;position:relative"><canvas id="priceChart"></canvas></div>
-  </div>
-</div>
-
-<!-- App Store Modal -->
-<div class="modal-overlay" id="appStoreModal">
-  <div class="modal-content">
-    <div class="modal-header"><h2>📦 App Store</h2><button class="os-btn" onclick="window.closeAppStore()">✕</button></div>
-    <div class="modal-body">
-      <p style="color:var(--text-sub);font-size:13px;margin-bottom:20px">Enhance your workspace. Click to install or uninstall widgets.</p>
-      <div class="app-grid" id="appGrid"></div>
-    </div>
-  </div>
-</div>
-
-<!-- Newsletter Popup Modal -->
-<div class="modal-overlay" id="newsletterModal">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h2 style="display:flex;align-items:center;gap:10px;">
-        <span style="font-size:24px;">✉️</span> Stay in the Loop
-      </h2>
-      <button class="os-btn" onclick="window.closeNewsletterModal()">✕</button>
-    </div>
-    <div class="modal-body" style="text-align: center;">
-      <p style="color: var(--text-sub); margin-bottom: 24px; font-size: 14px; line-height: 1.6;">
-        Get weekly curated tech intelligence, market moves, and exclusive tool discoveries delivered straight to your inbox. No spam, ever.
-      </p>
-      <a href="/subscribe" class="btn-primary" style="justify-content: center; border-radius: 10px; width: 100%; margin-bottom: 16px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
-        Go to Subscribe Page <span style="font-size: 16px;">→</span>
+<!-- DIH:FOOTER -->
+<footer class="dih-footer">
+  <div class="dih-footer-inner">
+    <div class="dih-footer-brand">
+      <a class="dih-brand" href="/" aria-label="Digital Infohub home">
+        <img src="/assets/logo.png" alt="Digital Infohub logo" width="40" height="40">
+        <span class="dih-brand-text">Digital <b>Infohub</b></span>
       </a>
-      <label style="display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 12px; color: var(--text-muted); cursor: pointer; user-select: none;">
-        <input type="checkbox" id="neverShowNewsletter" style="accent-color: var(--accent); width: 14px; height: 14px;">
-        <span>Don't show this popup again</span>
-      </label>
+      <p>The independent hub for tech professionals and business leaders: AI research, market moves, practical guides and free tools.</p>
+      <span class="dih-pill"><span class="dih-dot"></span> Updated daily</span>
+    </div>
+    <div class="dih-footer-col">
+      <h3>Explore</h3>
+      <a href="/blog">Blog &amp; analysis</a>
+      <a href="/techtopics">Tech Topics</a>
+      <a href="/software">Software &amp; tools</a>
+      <a href="/techproducts">Tech Products</a>
+      <a href="/games">Pixel Palace</a>
+    </div>
+    <div class="dih-footer-col">
+      <h3>Company</h3>
+      <a href="/about">About</a>
+      <a href="/services">Services</a>
+      <a href="/advertise">Advertise</a>
+      <a href="/coincompass">CoinCompass</a>
+      <a href="/privacy-policy">Privacy</a>
+    </div>
+    <div class="dih-footer-col dih-footer-cta">
+      <h3>Stay ahead</h3>
+      <p>One email a week: the AI, market and software stories that actually matter.</p>
+      <a class="dih-btn dih-btn-primary" href="/subscribe">Subscribe free</a>
     </div>
   </div>
-</div>
-
-<div id="toast-container"></div>
-
-<script>
-(function(){
-'use strict';
-
-const store = {
-  get(k,d){ try{ const v=localStorage.getItem(k); return v===null?d:v; }catch(e){ return d; } },
-  set(k,v){ try{ localStorage.setItem(k,String(v)); }catch(e){} },
-  del(k){ try{ localStorage.removeItem(k); }catch(e){} }
-};
-
-const CONFIG = {
-  LOGO_URL:"https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png",
-  BOT_NAME:"Digital Infohub AI",
-  FINNHUB_KEY:"d9t07ohr01qqd5j2v6rgd9t07ohr01qqd5j2v6s0",
-  FEEDS:{ tech:{name:'Tech',url:'https://techcrunch.com/feed/'}, markets:{name:'Markets',url:'https://rss.nytimes.com/services/xml/rss/nyt/Business.xml'} },
-  STOCKS:['AAPL','MSFT','GOOGL','AMZN','NVDA','TSLA','SPY','QQQ'],
-  CRYPTO:{BTC:'bitcoin',ETH:'ethereum',SOL:'solana',XRP:'ripple',DOGE:'dogecoin',ADA:'cardano',AVAX:'avalanche-2',DOT:'polkadot',LINK:'chainlink',MATIC:'matic-network'}
-};
-
-const COMPANY_MAP = {'apple':'AAPL','microsoft':'MSFT','google':'GOOGL','alphabet':'GOOGL','amazon':'AMZN','nvidia':'NVDA','tesla':'TSLA','meta':'META','facebook':'META','netflix':'NFLX','amd':'AMD','intel':'INTC'};
-const CRYPTO_MAP = {'bitcoin':'BTC','ethereum':'ETH','solana':'SOL','ripple':'XRP','dogecoin':'DOGE','cardano':'ADA','avalanche':'AVAX','polkadot':'DOT'};
-
-function extractTickers(query) {
-    const l = query.toLowerCase();
-    const found = new Set();
-    CONFIG.STOCKS.forEach(t => { if (l.includes(t.toLowerCase())) found.add(t); });
-    Object.keys(CONFIG.CRYPTO).forEach(t => { if (l.includes(t.toLowerCase())) found.add(t); });
-    for (const [name, ticker] of Object.entries(COMPANY_MAP)) { if (l.includes(name)) found.add(ticker); }
-    for (const [name, ticker] of Object.entries(CRYPTO_MAP)) { if (l.includes(name)) found.add(ticker); }
-    return Array.from(found);
-}
-
-const $=s=>document.querySelector(s), $$=s=>document.querySelectorAll(s);
-const esc=s=>{const d=document.createElement('div');d.textContent=s==null?'':String(s);return d.innerHTML;};
-const chatContainer=$('#chatContainer'), thread=$('#chatThread');
-const timeoutFetch=(url,opts,ms=8000)=>{const c=new AbortController();const t=setTimeout(()=>c.abort(),ms);return fetch(url,Object.assign({},opts,{signal:c.signal})).finally(()=>clearTimeout(t));};
-
-const navToggle=$('#navToggle'), mobileDrawer=$('#mobileDrawer');
-const sidebarToggle=$('#sidebarToggle'), rightSidebar=$('#rightSidebar');
-const drawerClose=$('#drawerClose'), sidebarClose=$('#sidebarClose');
-
-navToggle.addEventListener('click',()=>mobileDrawer.classList.toggle('active'));
-mobileDrawer.addEventListener('click',e=>{if(e.target===mobileDrawer)mobileDrawer.classList.remove('active');});
-drawerClose.addEventListener('click',()=>mobileDrawer.classList.remove('active'));
-
-sidebarToggle.addEventListener('click',()=>rightSidebar.classList.toggle('open'));
-sidebarClose.addEventListener('click',()=>rightSidebar.classList.remove('open'));
-rightSidebar.addEventListener('click',e=>{if(e.target===rightSidebar)rightSidebar.classList.remove('open');});
-
-window.closeMobileDrawer = () => mobileDrawer.classList.remove('active');
-
-let currentMode = store.get('dih_chat_mode','search');
-let isProcessing = false;
-
-const MODE_NAMES={search:'Web Search',markets:'Tech Markets',news:'Tech News',genai:'Generative AI'};
-const PLACEHOLDERS={search:"Search the web for anything...",markets:"Ask about stocks, crypto, or 'watchlist'...",news:"Search tech news by keyword...",genai:"Ask me to write, brainstorm, or explain..."};
-
-function setMode(mode,silent){
-  if(mode==='settings'){ openSettings(); return; }
-  if(!MODE_NAMES[mode]) mode='search';
-  currentMode=mode; store.set('dih_chat_mode',mode);
-  $$('.mode-btn').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode));
-  $('#chatInput').placeholder=PLACEHOLDERS[mode];
-  if(!silent) updateAutocomplete();
-}
-setMode(currentMode,true);
-$$('.mode-btn').forEach(b=>b.addEventListener('click',e=>{e.preventDefault();setMode(b.dataset.mode);}));
-
-window.triggerModeOverview=function(mode){
-  setMode(mode);
-  const cmd={markets:'Market briefing',news:'Latest tech news',genai:'Show investing tips'}[mode];
-  if(cmd) handleSend(cmd);
-  if(window.innerWidth<768) rightSidebar.classList.remove('open');
-};
-
-function detectIntent(q){
-  const l=q.toLowerCase(); const s={search:0,markets:0,news:0,genai:0};
-  if(/\b(stock|stocks|market|markets|crypto|bitcoin|btc|ethereum|eth|solana|nasdaq|s&p|sp500|ticker|shares|dividend|portfolio|forex|commodity|watchlist)\b/.test(l)) s.markets+=4;
-  if(/\b(price of|how is|compare|add .* to watchlist|remove .* from watchlist)\b/.test(l)) s.markets+=2;
-  if(/\b(news|headlines|latest|breaking|announced|released|update|updates|cybersecurity|launch)\b/.test(l)) s.news+=4;
-  if(/\b(what is|who is|where is|when did|how to|explain|define|definition|tutorial|guide|recipe|weather)\b/.test(l)) s.search+=2;
-  if(/\b(write|story|poem|essay|brainstorm|idea|ideas|creative|summarise|summarize|translate|code|script|tip|tips|advice|strategy)\b/.test(l)) s.genai+=3;
-  let best=null,max=0;
-  for(const m in s) if(s[m]>max){max=s[m];best=m;}
-  return (max>=3 && best!==currentMode) ? {autoSwitch:true,mode:best} : {autoSwitch:false,mode:currentMode};
-}
-
-function sanitize(html){
-  return html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi,'').replace(/\son\w+\s*=\s*"[^"]*"/gi,'').replace(/\son\w+\s*=\s*'[^']*'/gi,'').replace(/javascript:/gi,'#');
-}
-function formatMarkdown(text){
-  let html;
-  try{ html = window.marked ? marked.parse(String(text),{breaks:true,gfm:true}) : esc(text).replace(/\n/g,'<br>'); }
-  catch(e){ html = esc(text).replace(/\n/g,'<br>'); }
-  html = sanitize(html);
-  html = html.replace(/<table([\s\S]*?)>/g,'<div class="table-wrap"><table$1>');
-  html = html.replace(/<\/table>/g,'</table></div>');
-  return html;
-}
-
-function showToast(msg,type='success'){
-  const t=document.createElement('div');
-  const bg=type==='success'?'var(--green)':type==='error'?'var(--red)':'var(--accent)';
-  t.style.cssText=`background:var(--glass-bg);backdrop-filter:blur(20px);border:1px solid var(--glass-border);border-left:3px solid ${bg};color:var(--text);padding:14px 18px;border-radius:12px;font-size:13px;font-weight:500;box-shadow:0 10px 40px rgba(0,0,0,.3);display:flex;align-items:center;gap:10px;animation:fadeInUp .3s var(--ease)`;
-  t.innerHTML=`<span>${type==='success'?'✅':type==='error'?'⚠️':'ℹ️'}</span><span>${esc(msg)}</span>`;
-  $('#toast-container').appendChild(t);
-  setTimeout(()=>{t.style.opacity='0';t.style.transition='all .3s';setTimeout(()=>t.remove(),300);},3200);
-}
-function scrollToBottom(force){ const d=$('#osDesktop'); if(document.body.classList.contains('chatting')){ d.scrollTo({top:d.scrollHeight,behavior:force?'auto':'smooth'}); } chatContainer.scrollTo({top:chatContainer.scrollHeight,behavior:force?'auto':'smooth'}); }
-
-function sparkline(up){
-  let y=50,p='M 0 50 ';const t=up?-1.2:1.2;
-  for(let i=1;i<=24;i++){const x=(i/24)*100;y=Math.max(15,Math.min(85,y+t+(Math.random()-.5)*12));p+=`L ${x} ${y} `;}
-  const c=up?'#30D158':'#FF453A',g=(up?'gU':'gD')+Math.random();
-  return `<svg viewBox="0 0 100 100" preserveAspectRatio="none" class="market-sparkline"><defs><linearGradient id="${g}" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="${c}" stop-opacity=".5"/><stop offset="100%" stop-color="${c}" stop-opacity="0"/></linearGradient></defs><path d="${p} L 100 100 L 0 100 Z" fill="url(#${g})"/><path d="${p}" fill="none" stroke="${c}" stroke-width="2.5" vector-effect="non-scaling-stroke" stroke-linecap="round"/></svg>`;
-}
-
-async function fetchStocks(list){
-  list=list||CONFIG.STOCKS; if(!list.length) return [];
-  try{
-    const r=await Promise.allSettled(list.map(s=>timeoutFetch(`https://finnhub.io/api/v1/quote?symbol=${s}&token=${CONFIG.FINNHUB_KEY}`).then(x=>x.json()).then(d=>({s,d})),9000));
-    return r.filter(x=>x.status==='fulfilled'&&x.value.d&&x.value.d.c).map(x=>({symbol:x.value.s,price:Number(x.value.d.c).toFixed(2),changePct:Number(x.value.d.dp||0).toFixed(2),up:(x.value.d.d||0)>=0}));
-  }catch(e){ return []; }
-}
-async function fetchCrypto(list){
-  list=list||Object.keys(CONFIG.CRYPTO).slice(0,4);
-  const pairs=list.filter(s=>CONFIG.CRYPTO[s]).map(s=>[s,CONFIG.CRYPTO[s]]);
-  if(!pairs.length) return [];
-  try{
-    const r=await timeoutFetch(`https://api.coingecko.com/api/v3/simple/price?ids=${pairs.map(p=>p[1]).join(',')}&vs_currencies=usd&include_24hr_change=true`);
-    const d=await r.json();
-    return pairs.map(([sym,id])=>{
-      const v=d&&d[id]; if(!v||v.usd==null) return null;
-      const ch=v.usd_24h_change||0;
-      return {symbol:sym,price:Number(v.usd).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}),changePct:Number(ch).toFixed(2),up:ch>=0};
-    }).filter(Boolean);
-  }catch(e){ return []; }
-}
-async function fetchRSS(url,name){
-  try{
-    const r=await timeoutFetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`);
-    const d=await r.json();
-    return (d.items||[]).map(i=>({title:String(i.title||'').replace(/<[^>]*>/g,'').trim(),link:i.link||'#',date:i.pubDate?new Date(i.pubDate).toLocaleDateString('en-US',{month:'short',day:'numeric'}):'',source:name,tldr:String(i.description||'').replace(/<[^>]*>/g,'').trim().substring(0,150)}));
-  }catch(e){ return []; }
-}
-function renderTicker(c,s){
-  const el=$('#tickerBar'), all=[...(c||[]),...(s||[])];
-  if(!all.length){el.style.display='none';return;}
-  el.innerHTML=[...all,...all].map(a=>`<div class="ticker-item"><strong>${esc(a.symbol)}</strong> $${esc(a.price)} <span class="${a.up?'up':'down'}">${a.up?'▲':'▼'} ${esc(a.changePct)}%</span></div>`).join('');
-}
-
-function getWatchlist(){ try{ const v=JSON.parse(store.get('dih_watchlist','["AAPL","MSFT","NVDA","BTC"]')); return Array.isArray(v)?v:[]; }catch(e){ return ['AAPL','MSFT','NVDA','BTC']; } }
-function saveWatchlist(l){ store.set('dih_watchlist',JSON.stringify(l)); }
-
-async function processWebSearch(q){
-  try{
-    const r=await timeoutFetch(`https://api.duckduckgo.com/?q=${encodeURIComponent(q)}&format=json&no_html=1`,{},6000);
-    const d=await r.json();
-    if(d&&d.AbstractText){
-      let h=`<h2>🔍 ${esc(d.Heading||q)}</h2><div class="news-tldr">${esc(d.AbstractText)}</div>`;
-      if(d.AbstractURL) h+=`<a href="${esc(d.AbstractURL)}" target="_blank" rel="noopener" style="font-size:12px;display:inline-block;margin-top:8px">Read more →</a>`;
-      return h;
-    }
-  }catch(e){}
-  try{
-    const r=await timeoutFetch(`https://api.allorigins.win/raw?url=${encodeURIComponent('https://html.duckduckgo.com/html/?q='+encodeURIComponent(q))}`,{},9000);
-    const txt=await r.text();
-    const doc=new DOMParser().parseFromString(txt,'text/html');
-    const out=[];
-    doc.querySelectorAll('.result').forEach(el=>{
-      const a=el.querySelector('a.result__a'); const t=el.querySelector('.result__snippet');
-      if(a&&a.textContent.trim()) out.push({title:a.textContent.trim(),link:a.href,snippet:t?t.textContent.trim():''});
-    });
-    if(out.length){
-      return `<h2>🔍 Results for "${esc(q)}"</h2>`+out.slice(0,4).map(x=>`<a class="news-card" href="${esc(x.link)}" target="_blank" rel="noopener"><div class="news-title">${esc(x.title)}</div><div class="news-tldr">${esc(x.snippet)}</div></a>`).join('');
-    }
-  }catch(e){}
-  return `<a class="news-card" href="https://duckduckgo.com/?q=${encodeURIComponent(q)}" target="_blank" rel="noopener"><div class="news-title">Search "${esc(q)}" on DuckDuckGo →</div></a>`;
-}
-
-function marketGrid(title, stocks, crypto, highlight=[]){
-    const hlSet = new Set(highlight.map(h=>String(h).toUpperCase()));
-    const hlStyle = 'border-color: var(--accent); box-shadow: 0 0 16px var(--accent-glow); background: var(--accent-soft);';
-    let h = `<h2>${esc(title)}</h2><p style="color:var(--text-sub);font-size:13px">Live snapshot · click any asset for a chart</p>`;
-    if(stocks?.length){
-        h += `<div class="section-label">Equities</div><div class="market-grid">`;
-        h += stocks.map(s => {
-            const isHl = hlSet.has(s.symbol);
-            return `<div class="market-item" style="${isHl ? hlStyle : ''}" data-sym="${esc(s.symbol)}" data-price="${esc(s.price)}" data-up="${s.up}"><div><div class="market-symbol">${esc(s.symbol)}</div></div><div class="market-sparkline-wrapper">${sparkline(s.up)}</div><div class="market-price-area"><div class="market-price">$${esc(s.price)}</div><div class="market-change ${s.up?'up':'down'}">${s.up?'▲':'▼'} ${esc(s.changePct)}%</div></div></div>`;
-        }).join('');
-        h += `</div>`;
-    }
-    if(crypto?.length){
-        h += `<div class="section-label">Crypto</div><div class="market-grid">`;
-        h += crypto.map(s => {
-            const isHl = hlSet.has(s.symbol);
-            return `<div class="market-item" style="${isHl ? hlStyle : ''}" data-sym="${esc(s.symbol)}" data-price="${esc(s.price).replace(/,/g,'')}" data-up="${s.up}"><div><div class="market-symbol">${esc(s.symbol)}</div></div><div class="market-sparkline-wrapper">${sparkline(s.up)}</div><div class="market-price-area"><div class="market-price">$${esc(s.price)}</div><div class="market-change ${s.up?'up':'down'}">${s.up?'▲':'▼'} ${esc(s.changePct)}%</div></div></div>`;
-        }).join('');
-        h += `</div>`;
-    }
-    if(!stocks?.length && !crypto?.length) h+=`<p>No assets matched.</p>`;
-    h+=`<p style="margin-top:16px;font-size:11px;color:var(--text-muted)">Live data · prices may be delayed</p>`;
-    return h;
-}
-
-async function processMarkets(q){
-    const l=q.toLowerCase().trim();
-    const add=l.match(/add\s+([a-z0-9\-]+)\s+to\s+watchlist/);
-    if(add){ const t=add[1].toUpperCase(); const wl=getWatchlist(); if(!wl.includes(t)){wl.push(t);saveWatchlist(wl);} renderWatchlistTags(); return `<p>✅ Added <strong>${esc(t)}</strong> to your watchlist. Say <em>watchlist</em> to view it.</p>`; }
-    const rem=l.match(/remove\s+([a-z0-9\-]+)\s+from\s+watchlist/);
-    if(rem){ const t=rem[1].toUpperCase(); saveWatchlist(getWatchlist().filter(x=>x!==t)); renderWatchlistTags(); return `<p>✅ Removed <strong>${esc(t)}</strong> from your watchlist.</p>`; }
-
-    const isWL = /^(my\s+)?(watchlist|portfolio)$/.test(l);
-    let allStocks=[],allCrypto=[];
-    if(isWL){
-        const wl=getWatchlist();
-        if(!wl.length) return `<p>Your watchlist is empty. Add tickers in Settings, or say "add AAPL to watchlist".</p>`;
-        const cry=wl.filter(w=>CONFIG.CRYPTO[w]), eq=wl.filter(w=>!CONFIG.CRYPTO[w]);
-        [allStocks,allCrypto]=await Promise.all([fetchStocks(eq),fetchCrypto(cry)]);
-        return marketGrid('📋 Your Watchlist',allStocks,allCrypto,[]);
-    }
-
-    [allStocks,allCrypto]=await Promise.all([fetchStocks(),fetchCrypto()]);
-    if(!allStocks.length&&!allCrypto.length){
-        return `<p>⚠️ Live market data is unreachable right now. I can search the web for the latest instead.</p><div class="chat-follow-ups"><button class="follow-up-btn" data-send="Latest technology market news">🔍 Search instead</button></div>`;
-    }
-
-    const isOverview = !l || l.includes('briefing') || l==='markets' || l==='tech markets' || l==='market';
-    const highlighted = extractTickers(q);
-
-    if (isOverview && !highlighted.length) {
-        return marketGrid('📊 Full Market Briefing', allStocks, allCrypto, []);
-    }
-
-    let title = '📊 Market Overview';
-    if (highlighted.length) {
-        title = `📊 Market Overview · Highlighting ${highlighted.join(', ')}`;
-    }
-    return marketGrid(title, allStocks, allCrypto, highlighted);
-}
-
-async function processNews(q){
-    const l=q.toLowerCase().trim();
-    const feed=(l.includes('market')||l.includes('finance'))?CONFIG.FEEDS.markets:CONFIG.FEEDS.tech;
-    let items=await fetchRSS(feed.url,feed.name);
-    if(!items.length) return `<p>⚠️ Couldn't reach the ${esc(feed.name)} feed right now. Try again shortly.</p>`;
-
-    const generic=/^(latest\s+)?(tech\s+)?(news|headlines)$/.test(l);
-    let highlightKeyword = '';
-    if (!generic && l && l !== 'news') {
-        highlightKeyword = l;
-    }
-
-    let h=`<h2>📰 ${esc(feed.name)} Headlines</h2>`;
-    if (highlightKeyword) {
-        const matches = items.filter(i => (i.title + ' ' + i.tldr).toLowerCase().includes(highlightKeyword));
-        if (matches.length === 0) {
-            h += `<p style="color:var(--text-muted);font-size:13px">No exact matches for "<strong>${esc(q)}</strong>", showing latest ${esc(feed.name)} news instead.</p>`;
-        } else {
-            h += `<p style="color:var(--text-sub);font-size:13px">Highlighting stories matching "<strong>${esc(q)}</strong>"</p>`;
-        }
-    }
-
-    const hlStyle = 'border-left: 3px solid var(--accent); background: var(--accent-soft);';
-    h += items.slice(0, 6).map(n => {
-        const isMatch = highlightKeyword && (n.title + ' ' + n.tldr).toLowerCase().includes(highlightKeyword);
-        return `<a class="news-card" href="${esc(n.link)}" target="_blank" rel="noopener" style="${isMatch ? hlStyle : ''}"><div class="news-category">${esc(n.source)} · ${esc(n.date)}</div><div class="news-title">${esc(n.title)}</div><div class="news-tldr"><strong>TL;DR:</strong> ${esc(n.tldr)}</div></a>`;
-    }).join('');
-    return h;
-}
-
-let genHistory=[];
-async function processGenAI(q){
-  if(store.get('dih_genai_enabled','true')==='false'){
-    return `<p>⚠️ <strong>Generative AI is disabled.</strong> You can enable it in Settings.</p><div class="chat-follow-ups"><button class="follow-up-btn" data-open="settings">⚙️ Open Settings</button></div>`;
-  }
-  genHistory.push({role:'user',content:q});
-  if(genHistory.length>8) genHistory=genHistory.slice(-8);
-  const sys=store.get('dih_ai_prompt',"You are Digital Infohub AI, an expert assistant for technology, financial markets, and productivity. Provide concise, sharp, and professional insights. Use clean markdown. When discussing markets, always include a brief strategic takeaway.")||"You are a helpful assistant.";
-  try{
-    const r=await timeoutFetch("https://text.pollinations.ai/openai",{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'openai',messages:[{role:'system',content:sys},...genHistory],temperature:0.7})},25000);
-    if(!r.ok) throw new Error('HTTP '+r.status);
-    let reply='';
-    const ct=r.headers.get('content-type')||'';
-    if(ct.includes('json')){ const d=await r.json(); reply=d?.choices?.[0]?.message?.content||''; }
-    else { reply=await r.text(); }
-    if(!reply||!reply.trim()) throw new Error('empty');
-    genHistory.push({role:'assistant',content:reply});
-    return formatMarkdown(reply)+`<p style="margin-top:16px;font-size:11px;color:var(--text-muted);opacity:.75">✨ Pollinations AI · gpt-4o-mini model · free tier</p>`;
-  }catch(e){
-    genHistory.pop();
-    throw new Error('GenAI Failed');
-  }
-}
-
-let chart=null, cPrice=0, cUp=true;
-window.openChartModal=function(sym,price,up){
-  cPrice=parseFloat(String(price).replace(/,/g,''))||0; cUp=!!up;
-  $('#chartTitle').textContent=`${sym} — $${price}`;
-  $('#chartTitle').style.color=cUp?'var(--green)':'var(--red)';
-  $('#chartModal').classList.add('active');
-  $$('.tf-btn').forEach(b=>b.classList.remove('active'));
-  $('.tf-btn[data-tf="1D"]').classList.add('active');
-  drawChart('1D');
-};
-window.closeChartModal=function(){ $('#chartModal').classList.remove('active'); if(chart){chart.destroy();chart=null;} };
-$$('.tf-btn').forEach(b=>b.addEventListener('click',()=>{ $$('.tf-btn').forEach(x=>x.classList.remove('active')); b.classList.add('active'); drawChart(b.dataset.tf); }));
-function drawChart(tf){
-  const cv=$('#priceChart'); if(!cv||!window.Chart) return;
-  if(chart) chart.destroy();
-  const ctx=cv.getContext('2d');
-  const n=tf==='1D'?24:tf==='1W'?7:30;
-  const labels=[],data=[]; let p=cPrice*(cUp?0.95:1.05);
-  for(let i=0;i<n;i++){ p+=(Math.random()-(cUp?0.4:0.6))*(cPrice*0.02); data.push(p); labels.push(tf==='1D'?`${i}:00`:`D${i+1}`); }
-  data[data.length-1]=cPrice;
-  const col=cUp?'#30D158':'#FF453A';
-  const g=ctx.createLinearGradient(0,0,0,300); g.addColorStop(0,col+'40'); g.addColorStop(1,col+'00');
-  const muted=getComputedStyle(document.documentElement).getPropertyValue('--text-muted').trim()||'#888';
-  const grid=getComputedStyle(document.documentElement).getPropertyValue('--chart-grid').trim()||'rgba(128,128,128,.1)';
-  chart=new Chart(ctx,{type:'line',data:{labels,datasets:[{data,borderColor:col,backgroundColor:g,borderWidth:2.5,fill:true,tension:.4,pointRadius:0,pointHoverRadius:6}]},
-    options:{responsive:true,maintainAspectRatio:false,animation:{duration:800},plugins:{legend:{display:false}},
-      scales:{x:{grid:{display:false},ticks:{color:muted,maxTicksLimit:6,font:{family:'JetBrains Mono',size:10}}},y:{grid:{color:grid},ticks:{color:muted,font:{family:'JetBrains Mono',size:10}}}}}});
-}
-$('#chartModal').addEventListener('click',e=>{if(e.target.id==='chartModal')window.closeChartModal();});
-
-function addMsg(role,html){
-  const d=document.createElement('div'); d.className='msg '+role;
-  const av=role==='bot'?`<img src="${CONFIG.LOGO_URL}" alt="">`:'U';
-  d.innerHTML=`<div class="msg-avatar ${role}">${av}</div><div class="msg-body"><div class="msg-header"><span class="msg-role">${role==='bot'?CONFIG.BOT_NAME:'You'}</span><span class="msg-time">${new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'})}</span></div><div class="msg-content">${html}</div></div>`;
-  thread.appendChild(d);
-  d.querySelectorAll('.market-item').forEach(mi=>mi.addEventListener('click',()=>window.openChartModal(mi.dataset.sym,mi.dataset.price,mi.dataset.up==='true')));
-  d.querySelectorAll('.follow-up-btn').forEach(b=>{
-    b.addEventListener('click',()=>{ if(b.dataset.open==='settings'){openSettings();return;} if(b.dataset.mode) setMode(b.dataset.mode); handleSend(b.dataset.send); });
-  });
-  scrollToBottom(true);
-}
-function showThinking(){
-  const d=document.createElement('div'); d.className='msg bot';
-  d.innerHTML=`<div class="msg-avatar bot"><img src="${CONFIG.LOGO_URL}" alt=""></div><div class="msg-body"><div class="msg-content"><div class="typing-indicator"><span></span><span></span><span></span></div></div></div>`;
-  thread.appendChild(d); scrollToBottom(true); return d;
-}
-
-async function handleSend(text){
-  if(isProcessing) return;
-  text=(text||'').trim(); if(!text) return;
-  document.body.classList.add('chatting');
-  const it=detectIntent(text);
-  if(it.autoSwitch){ setMode(it.mode); showToast('Switched to '+MODE_NAMES[it.mode],'info'); }
-
-  isProcessing=true;
-  const inp=$('#chatInput');
-  inp.disabled=true; $('#chatSend').style.display='none'; $('#chatStop').style.display='flex';
-  $('#autocompletePanel').classList.remove('active');
-  addMsg('user',esc(text)); inp.value='';
-  const th=showThinking();
-  try{
-    let out='';
-    if(currentMode==='markets') out=await processMarkets(text);
-    else if(currentMode==='news') out=await processNews(text);
-    else if(currentMode==='genai') {
-        try {
-            out = await processGenAI(text);
-        } catch(genErr) {
-            const fallbacks = ['search', 'news', 'markets'];
-            const fb = fallbacks[Math.floor(Math.random() * fallbacks.length)];
-            out = `<p style="color:var(--orange)">⚠️ Generative AI is temporarily unavailable. Falling back to <strong>${MODE_NAMES[fb]}</strong>...</p><hr style="border:none;border-top:1px solid var(--border);margin:12px 0">`;
-            if (fb === 'search') out += await processWebSearch(text);
-            else if (fb === 'news') out += await processNews(text);
-            else if (fb === 'markets') out += await processMarkets(text);
-        }
-    }
-    else out=await processWebSearch(text);
-    th.remove(); addMsg('bot',out);
-  }catch(err){
-    th.remove(); addMsg('bot',`<p>⚠️ Something went wrong. Please try again.</p><div class="chat-follow-ups"><button class="follow-up-btn" data-send="${esc(text)}">🔄 Retry</button></div>`);
-  }finally{
-    isProcessing=false;
-    $('#chatSend').style.display='flex'; $('#chatStop').style.display='none';
-    inp.disabled=false; inp.focus({preventScroll:true});
-  }
-}
-window.handleSend=handleSend;
-$('#chatForm').addEventListener('submit',e=>{e.preventDefault();handleSend($('#chatInput').value);});
-$('#chatStop').addEventListener('click',()=>{ isProcessing=false; $('#chatSend').style.display='flex'; $('#chatStop').style.display='none'; $('#chatInput').disabled=false; });
-
-const SUGGEST={
-  search:[{i:'🔍',t:'How does WebGPU work'},{i:'🔍',t:'Latest breakthroughs in quantum computing'},{i:'🔍',t:'Best productivity apps 2025'}],
-  markets:[{i:'📊',t:'Market briefing'},{i:'📋',t:'watchlist'},{i:'📈',t:'How is NVDA doing'},{i:'🪙',t:'Bitcoin price'},{i:'➕',t:'Add TSLA to watchlist'}],
-  news:[{i:'📰',t:'Latest tech news'},{i:'🤖',t:'AI'},{i:'🔒',t:'Cybersecurity'},{i:'🍏',t:'Apple'},{i:'🎮',t:'Gaming'}],
-  genai:[{i:'💡',t:'Brainstorm app ideas'},{i:'📝',t:'Explain WebGPU simply'},{i:'💻',t:'Write a python script'},{i:'💰',t:'Show investing tips'}]
-};
-function updateAutocomplete(){
-  const panel=$('#autocompletePanel'); const v=$('#chatInput').value.trim().toLowerCase();
-  let list=[];
-  const base=SUGGEST[currentMode]||SUGGEST.search;
-  if(v){
-    getWatchlist().forEach(t=>{ if(t.toLowerCase().includes(v)) list.push({i:'📈',t:`How is ${t} doing`}); });
-    base.forEach(s=>{ if(s.t.toLowerCase().includes(v)) list.push(s); });
-    if(!list.length) list=base;
-  } else list=base;
-  panel.innerHTML='';
-  list.slice(0,5).forEach(s=>{
-    const b=document.createElement('button'); b.type='button'; b.className='autocomplete-chip';
-    const ic=document.createElement('span'); ic.textContent=s.i;
-    const tx=document.createElement('span'); tx.textContent=s.t;
-    b.append(ic,tx);
-    b.addEventListener('click',()=>{ $('#chatInput').value=s.t; handleSend(s.t); });
-    panel.appendChild(b);
-  });
-  panel.classList.toggle('active',list.length>0);
-}
-document.addEventListener('click',e=>{ if(!e.target.closest('.input-wrapper')) $('#autocompletePanel').classList.remove('active'); });
-
-function openSettings(){
-  $('#settingsModal').classList.add('active');
-  $('#toggleGenAI').checked = store.get('dih_genai_enabled','true')!=='false';
-  $('#settingSystemPrompt').value = store.get('dih_ai_prompt',"You are Digital Infohub AI, an expert assistant for technology, financial markets, and productivity. Provide concise, sharp, and professional insights. Use clean markdown. When discussing markets, always include a brief strategic takeaway.");
-  renderWatchlistTags();
-}
-window.openSettings=openSettings;
-window.closeSettings=()=>$('#settingsModal').classList.remove('active');
-$('#settingsModal').addEventListener('click',e=>{if(e.target.id==='settingsModal')window.closeSettings();});
-$('#saveSettingsBtn').addEventListener('click',()=>{
-  store.set('dih_genai_enabled',$('#toggleGenAI').checked);
-  store.set('dih_ai_prompt',$('#settingSystemPrompt').value);
-  showToast('Settings saved'); window.closeSettings();
-});
-function renderWatchlistTags(){
-  const c=$('#watchlistTags'); c.innerHTML='';
-  getWatchlist().forEach(t=>{
-    const d=document.createElement('div');
-    d.style.cssText='display:flex;align-items:center;gap:6px;padding:6px 12px;background:var(--surface-3);border-radius:20px;font-size:12px;font-weight:600;font-family:var(--mono)';
-    d.textContent=t;
-    const x=document.createElement('span'); x.textContent='✕'; x.style.cssText='cursor:pointer;color:var(--red);margin-left:4px';
-    x.addEventListener('click',()=>{ saveWatchlist(getWatchlist().filter(v=>v!==t)); renderWatchlistTags(); });
-    d.appendChild(x); c.appendChild(d);
-  });
-}
-$('#addWatchlistBtn').addEventListener('click',()=>{
-  const v=$('#watchlistInput').value.trim().toUpperCase(); if(!v) return;
-  const wl=getWatchlist(); if(!wl.includes(v)){wl.push(v);saveWatchlist(wl);renderWatchlistTags();}
-  $('#watchlistInput').value='';
-});
-
-// Guide Modal Logic with External Links
-const GUIDES = {
-  performance: {
-    title: '🚀 Make Your Computer Faster',
-    searchQuery: 'how to speed up computer windows mac',
-    wikiQuery: 'Computer performance',
-    content: `
-      <div class="guide-tabs">
-        <button class="guide-tab active" onclick="window.switchGuideTab('win')">Windows</button>
-        <button class="guide-tab" onclick="window.switchGuideTab('mac')">macOS</button>
-      </div>
-      <div id="guide-win" class="guide-panel active">
-        <ul>
-          <li><strong>Disable Startup Apps:</strong> Press <code>Ctrl + Shift + Esc</code>, go to the Startup tab, and disable unnecessary programs.</li>
-          <li><strong>Free Up Disk Space:</strong> Use "Disk Cleanup" or "Storage Sense" to remove temporary files.</li>
-          <li><strong>Update Drivers:</strong> Ensure your graphics and chipset drivers are up to date via Windows Update.</li>
-          <li><strong>Adjust Power Settings:</strong> Set your power plan to "High Performance" in the Control Panel.</li>
-        </ul>
-      </div>
-      <div id="guide-mac" class="guide-panel">
-        <ul>
-          <li><strong>Manage Login Items:</strong> Go to System Settings > General > Login Items and remove apps you don't need launching at startup.</li>
-          <li><strong>Clear Cache:</strong> Use built-in storage management (Apple Menu > About This Mac > Storage) to optimize and clear caches.</li>
-          <li><strong>Reduce Visual Effects:</strong> In System Settings > Accessibility > Display, enable "Reduce motion" and "Reduce transparency".</li>
-          <li><strong>Restart Regularly:</strong> A simple restart clears RAM and stops background processes that may have stalled.</li>
-        </ul>
-      </div>
-    `
-  },
-  security: {
-    title: '🛡️ Stay Safe Online',
-    searchQuery: 'how to stay safe online cybersecurity tips',
-    wikiQuery: 'Computer security',
-    content: `
-      <ul>
-        <li><strong>Use a Password Manager:</strong> Generate and store unique, complex passwords for every account. Never reuse passwords.</li>
-        <li><strong>Enable Multi-Factor Authentication (MFA):</strong> Turn on MFA/2FA for your email, banking, and social media accounts using an authenticator app.</li>
-        <li><strong>Spot Phishing:</strong> Check the sender's email address carefully. Hover over links before clicking to see the real destination.</li>
-        <li><strong>Keep Software Updated:</strong> Enable automatic updates for your operating system, browser, and antivirus software.</li>
-        <li><strong>Backup Your Data:</strong> Regularly back up important files to an external drive or a secure cloud service.</li>
-      </ul>
-    `
-  },
-  'ai-productivity': {
-    title: '🤖 Make Better Use of AI Tools',
-    searchQuery: 'how to use AI tools for productivity prompts',
-    wikiQuery: 'Artificial intelligence applications',
-    content: `
-      <ul>
-        <li><strong>Be Specific:</strong> Provide clear context, desired format, and constraints in your prompts (e.g., "Summarize this article in 3 bullet points").</li>
-        <li><strong>Iterate:</strong> Treat AI like a collaborator. If the first response isn't perfect, refine your prompt or ask it to adjust the tone.</li>
-        <li><strong>Verify Facts:</strong> AI can hallucinate. Always double-check important facts, dates, and code snippets before using them.</li>
-        <li><strong>Automate Repetitive Tasks:</strong> Use AI to draft emails, format data, generate boilerplate code, or brainstorm ideas.</li>
-      </ul>
-    `
-  },
-  'automation-bot': {
-    title: '🤖 Build Your First Automation Bot',
-    searchQuery: 'how to build a python automation bot beginner',
-    wikiQuery: 'Robotic process automation',
-    content: `
-      <ul>
-        <li><strong>Identify the Task:</strong> Choose a repetitive task (e.g., renaming files, scraping a webpage, or posting to social media).</li>
-        <li><strong>Choose Your Tool:</strong> Python is the industry standard. Libraries like <code>Selenium</code> or <code>Playwright</code> are great for browser automation.</li>
-        <li><strong>Start Small:</strong> Write a script that does one small thing perfectly before adding complexity.</li>
-        <li><strong>Schedule It:</strong> Use Windows Task Scheduler or macOS Cron to run your bot automatically at specific times.</li>
-      </ul>
-    `
-  },
-  'crypto-wallets': {
-    title: '🔐 Understanding Crypto Wallets',
-    searchQuery: 'how to use crypto wallets safely beginner guide',
-    wikiQuery: 'Cryptocurrency wallet',
-    content: `
-      <ul>
-        <li><strong>Hot vs. Cold:</strong> Hot wallets (like MetaMask) are connected to the internet and convenient for trading. Cold wallets (like Ledger) are offline and best for long-term storage.</li>
-        <li><strong>Seed Phrase is Sacred:</strong> Your 12-24 word recovery phrase is the ONLY way to recover your funds. Never share it, never type it into a website, and store it physically offline.</li>
-        <li><strong>Test First:</strong> Always send a tiny amount of crypto to a new wallet address first to verify it works before transferring large sums.</li>
-        <li><strong>Beware of Scams:</strong> No legitimate support team will ever DM you first or ask for your seed phrase.</li>
-      </ul>
-    `
-  },
-  'keyboard-shortcuts': {
-    title: '⌨️ Mastering Keyboard Shortcuts',
-    searchQuery: 'best keyboard shortcuts for productivity windows mac',
-    wikiQuery: 'Table of keyboard shortcuts',
-    content: `
-      <ul>
-        <li><strong>Universal Navigation:</strong> <code>Alt+Tab</code> (Win) or <code>Cmd+Tab</code> (Mac) to switch apps instantly.</li>
-        <li><strong>Browser Power:</strong> <code>Ctrl+T</code> / <code>Cmd+T</code> for a new tab. <code>Ctrl+Shift+T</code> / <code>Cmd+Shift+T</code> to reopen a closed tab (a lifesaver!).</li>
-        <li><strong>Text Editing:</strong> <code>Ctrl/Cmd + Arrow Keys</code> to jump word by word. <code>Ctrl/Cmd + Shift + Arrow</code> to highlight word by word.</li>
-        <li><strong>Window Management:</strong> <code>Win + Arrow Keys</code> to snap windows to halves or quarters of your screen instantly.</li>
-      </ul>
-    `
-  }
-};
-
-window.openGuide = (key) => {
-  const guide = GUIDES[key];
-  if (!guide) return;
-  $('#guideTitle').textContent = guide.title;
-  
-  let externalLinksHtml = '';
-  if (guide.searchQuery) {
-    const googleUrl = `https://www.google.com/search?q=${encodeURIComponent(guide.searchQuery)}`;
-    const wikiUrl = `https://en.wikipedia.org/wiki/Special:Search?search=${encodeURIComponent(guide.wikiQuery)}`;
-    externalLinksHtml = `
-      <div class="external-links">
-        <a href="${googleUrl}" target="_blank" rel="noopener" class="ext-link">🔍 Search on Google</a>
-        <a href="${wikiUrl}" target="_blank" rel="noopener" class="ext-link">📖 Read on Wikipedia</a>
-      </div>
-    `;
-  }
-  
-  $('#guideBody').innerHTML = guide.content + externalLinksHtml;
-  $('#guideModal').classList.add('active');
-};
-
-window.closeGuide = () => {
-  $('#guideModal').classList.remove('active');
-};
-
-window.switchGuideTab = (tab) => {
-  $$('.guide-tab').forEach(t => t.classList.remove('active'));
-  $$('.guide-panel').forEach(p => p.classList.remove('active'));
-  
-  const tabs = $$('.guide-tab');
-  if (tab === 'win') tabs[0].classList.add('active');
-  else if (tab === 'mac') tabs[1].classList.add('active');
-  
-  const panel = $(`#guide-${tab}`);
-  if (panel) panel.classList.add('active');
-};
-
-$('#guideModal').addEventListener('click', e => {
-  if (e.target.id === 'guideModal') window.closeGuide();
-});
-
-// Chatbot Navigation
-window.enterChatMode = (seed) => {
-  document.body.classList.add('chatting');
-  $('#chatHeader').style.display = 'flex';
-  if (seed) handleSend(seed);
-};
-
-window.exitChatMode = () => {
-  document.body.classList.remove('chatting');
-  $('#chatHeader').style.display = 'none';
-  $('#osDesktop').scrollTo({ top: 0, behavior: 'smooth' });
-};
-
-const WM={
-  state:{open:[]},
-  init(){ try{ const s=JSON.parse(store.get('dih_widgets_v7','{"open":[]}')); if(s&&Array.isArray(s.open)) this.state=s; }catch(e){} this.state.open.forEach(t=>this.build(t)); this.grid(); },
-  save(){ store.set('dih_widgets_v7',JSON.stringify(this.state)); },
-  open(t){ if(!this.state.open.includes(t)){ this.state.open.push(t); this.save(); this.build(t); this.grid(); showToast(this.name(t)+' installed'); } },
-  close(t){ this.state.open=this.state.open.filter(w=>w!==t); this.save(); document.getElementById('widget-'+t)?.remove(); this.grid(); },
-  min(t){ document.getElementById('widget-'+t)?.classList.toggle('widget-minimized'); },
-  full(t){ document.getElementById('widget-'+t)?.classList.toggle('widget-fullscreen'); },
-  toggle(t){ this.state.open.includes(t)?this.close(t):this.open(t); },
-  name(t){ return {weather:'Weather',calc:'Calculator',notes:'Notes',timer:'Focus Timer',converter:'Converter',password:'Password Gen',bookmarks:'Bookmarks',gainers:'Crypto Gainers',stopwatch:'Stopwatch',quote:'Quote',dice:'Dice Roller',color:'Color Picker'}[t]||t; },
-  title(t){ return {weather:'🌤️ Weather',calc:'🧮 Calculator',notes:'📝 Notes',timer:'⏱️ Timer',converter:'⚖️ Converter',password:'🔑 Password',bookmarks:'🔖 Bookmarks',gainers:'🚀 Gainers',stopwatch:'⏲️ Stopwatch',quote:'💭 Quote',dice:'🎲 Dice',color:'🎨 Color'}[t]||t; },
-  grid(){
-    const g=$('#appGrid'); if(!g) return;
-    const apps=[['weather','🌤️','Weather'],['notes','📝','Notes'],['calc','🧮','Calculator'],['timer','⏱️','Focus Timer'],['converter','⚖️','Converter'],['password','🔑','Password Gen'],['bookmarks','🔖','Bookmarks'],['gainers','🚀','Crypto Gainers'],['stopwatch','⏲️','Stopwatch'],['quote','💭','Quote'],['dice','🎲','Dice Roller'],['color','🎨','Color Picker']];
-    g.innerHTML='';
-    apps.forEach(([t,i,n])=>{
-      const on=this.state.open.includes(t);
-      const c=document.createElement('div'); c.className='app-card';
-      c.innerHTML=`<div class="app-icon">${i}</div><div class="app-name">${n}</div><div class="app-status ${on?'installed':''}">${on?'✅ Installed':'Tap to Install'}</div>`;
-      c.addEventListener('click',()=>this.toggle(t));
-      g.appendChild(c);
-    });
-  },
-  build(t){
-    if(document.getElementById('widget-'+t)) return;
-    const el=document.createElement('div'); el.id='widget-'+t; el.className='floating-widget';
-    if(window.innerWidth<768){ el.style.cssText+='left:50%;top:50%;transform:translate(-50%,-50%)'; }
-    else { const o=this.state.open.length*36; el.style.cssText+=`right:${20+o}px;top:${140+o}px`; }
-    el.innerHTML=`<div class="widget-header"><div class="widget-controls"><button class="widget-btn close"></button><button class="widget-btn minimize"></button><button class="widget-btn fullscreen"></button></div><span class="widget-title">${this.title(t)}</span><div style="width:36px"></div></div><div class="widget-body"></div><div class="widget-resize-handle"></div>`;
-    el.querySelector('.close').addEventListener('click',()=>this.close(t));
-    el.querySelector('.minimize').addEventListener('click',()=>this.min(t));
-    el.querySelector('.fullscreen').addEventListener('click',()=>this.full(t));
-    const body=el.querySelector('.widget-body');
-    body.innerHTML=this.html(t);
-    $('#widgetLayer').appendChild(el);
-    this.wire(t,el,body);
-  },
-  html(t){
-    if(t==='calc') return `<input id="cd" readonly style="width:100%;padding:12px;background:var(--surface-3);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--mono);font-size:20px;text-align:right;margin-bottom:12px;outline:none"><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">${['C','(',')','/','7','8','9','*','4','5','6','-','1','2','3','+','0','.','=',''].map(b=>b?`<button data-v="${b}" style="padding:12px;background:${['+','-','*','/','=','C','(',')'].includes(b)?'var(--accent-soft)':'var(--surface-3)'};color:${['+','-','*','/','=','C','(',')'].includes(b)?'var(--accent)':'var(--text)'};border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:16px;font-weight:600">${b}</button>`:'<div></div>').join('')}</div>`;
-    if(t==='notes') return `<textarea id="na" style="width:100%;height:190px;background:var(--surface-3);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:12px;font-size:13px;resize:none;outline:none" placeholder="Notes…">${store.get('dih_notes','')}</textarea>`;
-    if(t==='timer') return `<div style="text-align:center"><div id="td" style="font-size:44px;font-weight:800;font-family:var(--mono);margin:14px 0">25:00</div><button id="tb" style="padding:10px 22px;background:var(--green);color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:700">Start</button></div>`;
-    if(t==='password') return `<div id="pr" style="background:var(--surface-3);padding:14px;border-radius:8px;font-family:var(--mono);font-size:14px;word-break:break-all;text-align:center;margin-bottom:12px"></div><button id="pg" style="width:100%;padding:10px;background:var(--accent);color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:700">Generate</button>`;
-    if(t==='quote') return `<div id="qt" style="font-size:14px;font-style:italic;text-align:center;line-height:1.6;margin-bottom:10px"></div><div id="qa" style="font-size:12px;color:var(--text-muted);text-align:center;margin-bottom:12px"></div><button id="qr" style="width:100%;padding:8px;background:var(--accent);color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:600;font-size:12px">New Quote</button>`;
-    if(t==='dice') return `<div id="dr" style="font-size:52px;text-align:center;margin:12px 0">🎲</div><div style="display:flex;gap:8px;justify-content:center"><button data-s="6" class="db" style="padding:8px 14px;background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent);border-radius:8px;cursor:pointer;font-weight:700">d6</button><button data-s="20" class="db" style="padding:8px 14px;background:var(--surface-3);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-weight:700">d20</button><button data-s="100" class="db" style="padding:8px 14px;background:var(--surface-3);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-weight:700">d100</button></div>`;
-    if(t==='color') return `<div id="cp" style="height:100px;border-radius:12px;margin-bottom:12px"></div><div id="ch" style="font-family:var(--mono);font-weight:800;text-align:center;margin-bottom:6px"></div><button id="cg" style="width:100%;padding:10px;background:var(--accent);color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:700">Generate</button>`;
-    if(t==='gainers') return `<div id="gd" style="color:var(--text-muted);font-size:12px;text-align:center">Loading…</div>`;
-    if(t==='bookmarks') return `<form id="bf" style="display:flex;gap:6px;margin-bottom:10px"><input id="bn" placeholder="Name" style="flex:1;min-width:0;padding:8px;background:var(--surface-3);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:12px;outline:none"><input id="bu" placeholder="URL" style="flex:1.5;min-width:0;padding:8px;background:var(--surface-3);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:12px;outline:none"><button style="padding:8px 12px;background:var(--accent);color:#fff;border:none;border-radius:6px;cursor:pointer">+</button></form><div id="bl"></div>`;
-    if(t==='converter') return `<label style="font-size:11px;font-weight:700;color:var(--text-muted)">°C → °F</label><div style="display:flex;gap:8px;margin:6px 0 16px"><input id="cc" type="number" placeholder="°C" style="flex:1;min-width:0;padding:8px;background:var(--surface-3);border:1px solid var(--border);border-radius:8px;color:var(--text);outline:none"><input id="cf" readonly style="flex:1;min-width:0;padding:8px;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;color:var(--accent);outline:none"></div><label style="font-size:11px;font-weight:700;color:var(--text-muted)">ft → m</label><div style="display:flex;gap:8px;margin-top:6px"><input id="lf" type="number" placeholder="ft" style="flex:1;min-width:0;padding:8px;background:var(--surface-3);border:1px solid var(--border);border-radius:8px;color:var(--text);outline:none"><input id="lm" readonly style="flex:1;min-width:0;padding:8px;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;color:var(--accent);outline:none"></div>`;
-    if(t==='stopwatch') return `<div id="sd" style="font-size:34px;font-weight:800;font-family:var(--mono);text-align:center;margin:12px 0">00:00.00</div><div style="display:flex;gap:8px;justify-content:center"><button id="ss" style="padding:9px 16px;background:var(--green);color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:700;font-size:12px">Start</button><button id="sl" style="padding:9px 16px;background:var(--surface-3);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-weight:700;font-size:12px">Lap</button><button id="sr" style="padding:9px 16px;background:var(--surface-3);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-weight:700;font-size:12px">Reset</button></div>`;
-    if(t==='weather'){ const c=store.get('dih_weather_city',''); return c?`<div id="wd" style="text-align:center">Loading ${esc(c)}…</div>`:`<form id="wf" style="display:flex;gap:6px"><input id="wc" placeholder="City" style="flex:1;min-width:0;padding:8px 12px;background:var(--surface-3);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;outline:none"><button style="padding:8px 16px;background:var(--accent);color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:600">Go</button></form>`; }
-    return `<div style="text-align:center;color:var(--text-muted);font-size:12px">Widget</div>`;
-  },
-  wire(t,el,body){
-    const q=s=>body.querySelector(s);
-    if(t==='calc'){ const d=q('#cd'); body.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{ const v=b.dataset.v; if(v==='C')d.value=''; else if(v==='='){ try{ d.value=Function('"use strict";return('+d.value+')')(); }catch(e){ d.value='Error'; } } else d.value+=v; })); }
-    if(t==='notes'){ q('#na').addEventListener('input',e=>store.set('dih_notes',e.target.value)); }
-    if(t==='timer'){ let left=1500,iv=null; const d=q('#td'),b=q('#tb'); b.addEventListener('click',()=>{ if(iv){clearInterval(iv);iv=null;b.textContent='Start';b.style.background='var(--green)';} else { iv=setInterval(()=>{ if(left>0){left--;d.textContent=`${String(Math.floor(left/60)).padStart(2,'0')}:${String(left%60).padStart(2,'0')}`;} else {clearInterval(iv);iv=null;b.textContent='Start';b.style.background='var(--green)';d.textContent='Done!';} },1000); b.textContent='Pause'; b.style.background='var(--orange)'; } }); }
-    if(t==='password'){ const r=q('#pr'); const gen=()=>{ const c="ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789!@#$%&*"; let p=''; for(let i=0;i<16;i++)p+=c[Math.floor(Math.random()*c.length)]; r.textContent=p; }; gen(); q('#pg').addEventListener('click',gen); }
-    if(t==='quote'){ const Q=[["The only way to do great work is to love what you do.","Steve Jobs"],["Risk comes from not knowing what you're doing.","Warren Buffett"],["Price is what you pay. Value is what you get.","Warren Buffett"],["Stay hungry, stay foolish.","Stewart Brand"],["The secret of getting ahead is getting started.","Mark Twain"]]; const show=()=>{const x=Q[Math.floor(Math.random()*Q.length)];q('#qt').textContent='"'+x[0]+'"';q('#qa').textContent='— '+x[1];}; show(); q('#qr').addEventListener('click',show); }
-    if(t==='dice'){ const r=q('#dr'); body.querySelectorAll('.db').forEach(b=>b.addEventListener('click',()=>{const s=+b.dataset.s;r.textContent=Math.floor(Math.random()*s)+1;})); }
-    if(t==='color'){ const p=q('#cp'),h=q('#ch'); const g=()=>{const c='#'+[0,0,0].map(()=>Math.floor(Math.random()*256).toString(16).padStart(2,'0')).join('');p.style.background=c;h.textContent=c.toUpperCase();}; g(); q('#cg').addEventListener('click',g); }
-    if(t==='gainers'){ (async()=>{ try{ const r=await timeoutFetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=5&page=1'); const d=await r.json(); q('#gd').innerHTML=(d||[]).map(c=>`<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px"><strong>${esc(String(c.symbol).toUpperCase())}</strong><span>$${Number(c.current_price||0).toLocaleString()}</span><span style="color:${(c.price_change_percentage_24h||0)>=0?'var(--green)':'var(--red)'}">${(c.price_change_percentage_24h||0).toFixed(2)}%</span></div>`).join('') || 'No data'; }catch(e){ q('#gd').textContent='Unavailable'; } })(); }
-    if(t==='bookmarks'){ let bm=[]; try{ bm=JSON.parse(store.get('dih_bookmarks','[]'))||[]; }catch(e){} const list=q('#bl'); const draw=()=>{ list.innerHTML=bm.map((b,i)=>`<div style="display:flex;align-items:center;gap:8px;padding:8px;background:var(--surface-3);border-radius:6px;margin-bottom:6px"><a href="${esc(b.url)}" target="_blank" rel="noopener" style="flex:1;color:var(--accent);font-size:12px;text-decoration:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(b.name)}</a><span class="bx" data-i="${i}" style="cursor:pointer;color:var(--red)">✕</span></div>`).join('')||'<div style="color:var(--text-muted);font-size:12px;text-align:center">No bookmarks</div>'; list.querySelectorAll('.bx').forEach(x=>x.addEventListener('click',()=>{bm.splice(+x.dataset.i,1);store.set('dih_bookmarks',JSON.stringify(bm));draw();})); }; draw(); q('#bf').addEventListener('submit',e=>{e.preventDefault(); const n=q('#bn').value.trim(); let u=q('#bu').value.trim(); if(n&&u){ if(!/^https?:\/\//.test(u))u='https://'+u; bm.push({name:n,url:u}); store.set('dih_bookmarks',JSON.stringify(bm)); q('#bn').value='';q('#bu').value=''; draw(); } }); }
-    if(t==='converter'){ const c=q('#cc'),f=q('#cf'); c.addEventListener('input',()=>f.value=c.value?(parseFloat(c.value)*9/5+32).toFixed(1):''); const a=q('#lf'),m=q('#lm'); a.addEventListener('input',()=>m.value=a.value?(parseFloat(a.value)*0.3048).toFixed(2):''); }
-    if(t==='stopwatch'){ let st=0,el2=0,iv=null; const d=q('#sd'),b=q('#ss'); const fmt=ms=>`${String(Math.floor(ms/60000)).padStart(2,'0')}:${String(Math.floor(ms%60000/1000)).padStart(2,'0')}.${String(Math.floor(ms%1000/10)).padStart(2,'0')}`; b.addEventListener('click',()=>{ if(iv){el2+=Date.now()-st;clearInterval(iv);iv=null;b.textContent='Start';b.style.background='var(--green)';} else {st=Date.now();iv=setInterval(()=>d.textContent=fmt(el2+Date.now()-st),50);b.textContent='Stop';b.style.background='var(--orange)';} }); q('#sr').addEventListener('click',()=>{clearInterval(iv);iv=null;el2=0;d.textContent='00:00.00';b.textContent='Start';}); q('#sl').addEventListener('click',()=>{}); }
-    if(t==='weather'){ const em=c=>c===0?'☀️':c<=3?'⛅':c<=48?'🌫️':c<=67?'🌧️':c<=77?'🌨️':c<=86?'🌨️':'⛈️';
-      const go=async(city)=>{ const box=q('#wd')||body; try{ const g=await timeoutFetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1`); const gd=await g.json(); if(!gd.results?.length) throw 0; const l=gd.results[0]; const w=await timeoutFetch(`https://api.open-meteo.com/v1/forecast?latitude=${l.latitude}&longitude=${l.longitude}&current_weather=true`); const wd=await w.json(); const x=wd.current_weather; box.innerHTML=`<div style="text-align:center"><div style="font-weight:700">${esc(l.name)}</div><div style="font-size:44px">${em(x.weathercode)}</div><div style="font-size:32px;font-weight:800;font-family:var(--mono)">${x.temperature}°C</div><div style="font-size:11px;color:var(--text-muted)">Wind ${x.windspeed} km/h</div></div>`; }catch(e){ box.innerHTML='<div style="color:var(--red);font-size:12px;text-align:center">City not found</div>'; } };
-      const city=store.get('dih_weather_city',''); if(city) go(city);
-      const form=q('#wf'); if(form) form.addEventListener('submit',e=>{e.preventDefault();const v=q('#wc').value.trim(); if(v){store.set('dih_weather_city',v); body.innerHTML=`<div id="wd" style="text-align:center">Loading…</div>`; this.wire(t,el,body); go(v);} });
-    }
-  }
-};
-window.WidgetManager=WM;
-
-let aw=null,ox=0,oy=0,zc=10000,rs=false,rw=null,sw=0,sh=0,sx=0,sy=0;
-document.addEventListener('pointerdown',e=>{
-  const rh=e.target.closest('.widget-resize-handle');
-  if(rh&&window.innerWidth>=768){ rs=true; rw=rh.closest('.floating-widget'); sw=rw.offsetWidth; sh=rw.offsetHeight; sx=e.clientX; sy=e.clientY; rw.style.transition='none'; e.preventDefault(); return; }
-  const h=e.target.closest('.widget-header'); if(!h||e.target.closest('.widget-btn')) return;
-  aw=h.closest('.floating-widget'); if(!aw) return;
-  if(aw.style.transform&&aw.style.transform.includes('translate')){ const r=aw.getBoundingClientRect(); aw.style.left=r.left+'px'; aw.style.top=r.top+'px'; aw.style.transform='none'; }
-  const r=aw.getBoundingClientRect(); ox=e.clientX-r.left; oy=e.clientY-r.top; aw.style.zIndex=++zc; aw.style.transition='none';
-});
-document.addEventListener('pointermove',e=>{
-  if(rs&&rw){ rw.style.width=Math.max(280,sw+e.clientX-sx)+'px'; rw.style.height=Math.max(200,sh+e.clientY-sy)+'px'; return; }
-  if(!aw) return;
-  let x=Math.max(0,Math.min(e.clientX-ox,innerWidth-aw.offsetWidth)), y=Math.max(0,Math.min(e.clientY-oy,innerHeight-aw.offsetHeight));
-  aw.style.left=x+'px'; aw.style.top=y+'px'; aw.style.right='auto'; aw.style.transform='none';
-});
-document.addEventListener('pointerup',()=>{ rs=false; rw=null; if(aw){aw.style.transition='';} aw=null; });
-
-window.openAppStore=()=>{$('#appStoreModal').classList.add('active');WM.grid();};
-window.closeAppStore=()=>$('#appStoreModal').classList.remove('active');
-$('#appStoreModal').addEventListener('click',e=>{if(e.target.id==='appStoreModal')window.closeAppStore();});
-
-let theme=store.get('dih_theme','dark');
-document.documentElement.setAttribute('data-theme',theme);
-window.toggleTheme=()=>{theme=theme==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',theme);store.set('dih_theme',theme);};
-const tick=()=>$('#clock').textContent=new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
-tick(); setInterval(tick,1000);
-
-(window.adsbygoogle = window.adsbygoogle || []).push({});
-
-(async()=>{
-  WM.init();
-  const [c,s]=await Promise.all([fetchCrypto(),fetchStocks()]);
-  renderTicker(c,s);
-})();
-
-// ===== DYNAMIC CONTENT SHUFFLER & HOMEPAGE ENHANCEMENTS =====
-(function(){
-  document.body.classList.remove('chatting');
-
-  // 1. Dynamic Content Arrays
-  const BLOG_POSTS = [
-    { url: 'https://digitalinfohub.net/post/cybersecurity-ai-investment-2026', img: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1632&auto=format&fit=crop', tag: 'Cybersecurity', date: 'October 2026', read: '5 min', title: 'Cybersecurity & AI Investment Trends in 2026', desc: 'How artificial intelligence is reshaping cybersecurity...' },
-    { url: 'https://digitalinfohub.net/post/how-to-stay-safe-online-2026', img: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1632&auto=format&fit=crop', tag: 'Security', date: 'October 2026', read: '4 min', title: 'How to Stay Safe Online in 2026', desc: 'Essential, updated practices for protecting your digital identity...' },
-    { url: 'https://digitalinfohub.net/post/tech-trends-october-2026', img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1632&auto=format&fit=crop', tag: 'Tech Trends', date: 'October 2026', read: '7 min', title: 'Top Tech Trends Defining October 2026', desc: 'From quantum computing breakthroughs to new AI hardware...' },
-    { url: 'https://www.digitalinfohub.net/post/meet-teamtbm', img: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1200&auto=format&fit=crop', tag: 'Community', date: 'October 2026', read: '4 min', title: 'Meet TeamTBM: Young Creators Building Games', desc: 'Discover TeamTBM, a group of young creators building games...' },
-    { url: 'https://www.digitalinfohub.net/post/beating-syllabus-overload-with-smarter-medical-learning', img: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1632&auto=format&fit=crop', tag: 'EdTech', date: 'October 2026', read: '6 min', title: 'Beating Syllabus Overload with Smarter Medical Learning', desc: 'Medical and health science students often face an overwhelming amount of information...' },
-    { url: 'https://www.digitalinfohub.net/post/meet-miyabi-from-nomad-sculpt-to-blender', img: 'https://images.unsplash.com/photo-1617791160505-6f00504e3519?q=80&w=1632&auto=format&fit=crop', tag: '3D Art', date: 'October 2026', read: '5 min', title: 'Meet Miyabi: From Nomad Sculpt to Blender', desc: 'A deep dive into the workflow of a digital artist transitioning...' }
-  ];
-
-  const GUIDES_LIST = [
-    { key: 'performance', icon: '🚀', title: 'Make Your Computer Faster', desc: 'Simple, actionable steps to speed up your Windows PC or Mac without buying new hardware.' },
-    { key: 'security', icon: '🛡️', title: 'Stay Safe Online', desc: 'A quick checklist for strong passwords, multi-factor authentication, and spotting phishing attempts.' },
-    { key: 'ai-productivity', icon: '🤖', title: 'Make Better Use of AI Tools', desc: 'Practical prompts and workflows to save time and improve your everyday productivity.' },
-    { key: 'automation-bot', icon: '⚙️', title: 'Build Your First Automation Bot', desc: 'A beginner-friendly guide to writing your first Python script to automate boring tasks.' },
-    { key: 'crypto-wallets', icon: '🔐', title: 'Understanding Crypto Wallets', desc: 'Learn the difference between hot and cold wallets, and how to keep your seed phrase safe.' },
-    { key: 'keyboard-shortcuts', icon: '⌨️', title: 'Mastering Keyboard Shortcuts', desc: 'Boost your daily workflow speed with these essential, often-overlooked keyboard combinations.' }
-  ];
-
-  // Shuffle function
-  const shuffle = (array) => {
-    const arr = [...array];
-    for (let i = arr.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
-    return arr;
-  };
-
-  // 2. Populate Blog Grid (Pick 3 random)
-  const shuffledBlogs = shuffle(BLOG_POSTS).slice(0, 3);
-  const blogGrid = $('#dynamicBlogGrid');
-  blogGrid.innerHTML = shuffledBlogs.map((post, i) => `
-    <a href="${post.url}" class="blog-card reveal d${i+1}">
-      <div class="blog-card-img">
-        <img src="${post.img}" alt="${post.title}" loading="lazy">
-        <span class="blog-card-tag">${post.tag}</span>
-      </div>
-      <div class="blog-card-body">
-        <div class="blog-card-meta"><span>${post.date}</span><span class="dot"></span><span>${post.read} read</span></div>
-        <h3>${post.title}</h3>
-        <p>${post.desc}</p>
-        <span class="blog-card-cta">Read article <span class="arr">→</span></span>
-      </div>
-    </a>
-  `).join('');
-
-  // 3. Populate Guide Grid (Pick 3 random)
-  const shuffledGuides = shuffle(GUIDES_LIST).slice(0, 3);
-  const guideGrid = $('#dynamicGuideGrid');
-  guideGrid.innerHTML = shuffledGuides.map((guide, i) => `
-    <div class="guide-card reveal d${i+1}" onclick="window.openGuide('${guide.key}')">
-      <div class="guide-icon">${guide.icon}</div>
-      <h4>${guide.title}</h4>
-      <p>${guide.desc}</p>
-    </div>
-  `).join('');
-
-  // 4. Scroll Reveal Animations (Mobile optimized)
-  const isMobile = window.innerWidth < 768;
-  const reveals = $$('.reveal');
-  
-  if (isMobile && 'IntersectionObserver' in window) {
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(en => {
-        if (en.isIntersecting) {
-          en.target.classList.add('visible');
-          io.unobserve(en.target);
-        }
-      });
-    }, { threshold: 0.1 });
-    
-    reveals.forEach(el => {
-      el.classList.add('animating');
-      io.observe(el);
-    });
-  } else {
-    reveals.forEach(el => {
-      el.style.opacity = '1';
-      el.style.transform = 'translateY(0)';
-    });
-  }
-
-  // 5. Smart "Welcome Back" & Dynamic Badge
-  const lastVisit = store.get('dih_last_visit', '');
-  const today = new Date().toDateString();
-  const heroSub = $('#heroSubText');
-  const dynamicBadge = $('#dynamicBadge');
-  
-  if (lastVisit !== today) {
-    dynamicBadge.textContent = '✨ NEW CONTENT EVERY VISIT';
-    dynamicBadge.style.color = 'var(--green)';
-    dynamicBadge.style.borderColor = 'rgba(48, 209, 88, 0.25)';
-    dynamicBadge.style.background = 'rgba(48, 209, 88, 0.15)';
-    
-    if (heroSub && lastVisit !== '') {
-      const lastDate = new Date(lastVisit);
-      const now = new Date();
-      const diffDays = Math.ceil(Math.abs(now - lastDate) / (1000 * 60 * 60 * 24));
-      if (diffDays > 0 && diffDays <= 7) {
-        heroSub.textContent = `Welcome back! It's been ${diffDays} day${diffDays > 1 ? 's' : ''}. We've shuffled in fresh tools, insights, and market updates just for you.`;
-      } else if (diffDays > 7) {
-        heroSub.textContent = "Welcome back! A lot has changed. We've curated brand new AI breakthroughs, market moves, and digital tools for you today.";
-      }
-    }
-    store.set('dih_last_visit', today);
-  }
-
-  // 6. Daily Insight Feature with One-Click Copy
-  const DAILY_INSIGHTS = [
-    { icon: '💡', title: 'Productivity Hack', text: 'Use the "2-Minute Rule": If a task takes less than 2 minutes, do it immediately instead of adding it to your to-do list.' },
-    { icon: '🔒', title: 'Security Tip', text: 'Enable passkeys wherever possible. They are more secure than passwords and resistant to phishing attacks.' },
-    { icon: '🤖', title: 'AI Prompt Tip', text: 'Assign a role to your AI: "Act as a senior software engineer reviewing this code for performance bottlenecks."' },
-    { icon: '📈', title: 'Market Mindset', text: 'Dollar-cost averaging (DCA) reduces the impact of volatility on your overall investment purchase price.' },
-    { icon: '⚡', title: 'Tech Shortcut', text: 'Press Win + V (Windows) or enable Clipboard History (macOS) to access your last 25 copied items, not just the last one.' }
-  ];
-
-  const insightDate = store.get('dih_insight_date', '');
-  let insightIndex = 0;
-  if (insightDate === today) {
-    insightIndex = parseInt(store.get('dih_insight_index', '0'));
-  } else {
-    insightIndex = Math.floor(Math.random() * DAILY_INSIGHTS.length);
-    store.set('dih_insight_date', today);
-    store.set('dih_insight_index', insightIndex.toString());
-  }
-  
-  const insight = DAILY_INSIGHTS[insightIndex];
-  const insightContainer = document.createElement('section');
-  insightContainer.id = 'homeDailyInsight';
-  insightContainer.style.cssText = 'opacity:1;transform:none;';
-  insightContainer.innerHTML = `
-    <div class="explore-card" style="grid-column: 1 / -1; background: linear-gradient(135deg, var(--accent-soft), var(--surface-3)); border-color: var(--accent); position: relative;">
-      <button class="os-btn" id="copyInsightBtn" style="position: absolute; top: 16px; right: 16px; width: 32px; height: 32px; padding: 0; border-radius: 8px;" title="Copy to clipboard">📋</button>
-      <div style="display:flex;align-items:flex-start;gap:16px;width:100%; padding-right: 40px;">
-        <div class="explore-icon" style="background:var(--accent);color:#fff;font-size:24px;width:48px;height:48px;flex-shrink:0">${insight.icon}</div>
-        <div style="flex:1">
-          <div style="font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">Daily Insight Unlocked · ${new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}</div>
-          <h4 style="font-size:16px;font-weight:700;margin-bottom:6px">${insight.title}</h4>
-          <span style="font-size:13px;color:var(--text-sub);line-height:1.6" id="insightText">${insight.text}</span>
-        </div>
-      </div>
-    </div>
-  `;
-  
-  const subscribeBand = $('#homeSubscribe');
-  if (subscribeBand) {
-    subscribeBand.parentNode.insertBefore(insightContainer, subscribeBand);
-  }
-
-  setTimeout(() => {
-    const copyBtn = $('#copyInsightBtn');
-    if (copyBtn) {
-      copyBtn.addEventListener('click', () => {
-        const text = $('#insightText').textContent;
-        navigator.clipboard.writeText(text).then(() => {
-          showToast('Insight copied to clipboard! Share it with a friend.', 'success');
-          copyBtn.textContent = '✅';
-          setTimeout(() => { copyBtn.textContent = '📋'; }, 2000);
-        }).catch(() => {
-          showToast('Failed to copy', 'error');
-        });
-      });
-    }
-  }, 100);
-
-  // 7. First-Visit Pro Tip Toast (Desktop only)
-  const hasSeenShortcut = store.get('dih_seen_shortcut', 'false');
-  if (hasSeenShortcut === 'false' && !isMobile) {
-    setTimeout(() => {
-      showToast('💡 Pro Tip: Press "/" or "Cmd/Ctrl+K" to instantly focus the AI search.', 'info');
-      store.set('dih_seen_shortcut', 'true');
-    }, 2500);
-  }
-
-  // 8. Newsletter Popup Logic
-  const neverShow = store.get('dih_newsletter_dismissed', 'false') === 'true';
-  if (!neverShow) {
-    setTimeout(() => {
-      if (!document.body.classList.contains('chatting')) {
-        $('#newsletterModal').classList.add('active');
-      }
-    }, 4000);
-  }
-})();
-
-// Newsletter Modal Handlers
-window.closeNewsletterModal = () => {
-  const neverShow = $('#neverShowNewsletter').checked;
-  if (neverShow) {
-    store.set('dih_newsletter_dismissed', 'true');
-  }
-  $('#newsletterModal').classList.remove('active');
-};
-
-$('#newsletterModal').addEventListener('click', e => {
-  if (e.target.id === 'newsletterModal') window.closeNewsletterModal();
-});
-
-// Global Keyboard Shortcuts
-document.addEventListener('keydown', (e) => {
-  if ((e.key === '/' || (e.metaKey && e.key === 'k') || (e.ctrlKey && e.key === 'k')) && !e.target.matches('input, textarea')) {
-    e.preventDefault();
-    document.body.classList.add('chatting');
-    $('#chatInput').focus();
-  }
-  if (e.key === 'Escape' && document.body.classList.contains('chatting')) {
-    window.exitChatMode();
-  }
-});
-
-// Share Button Logic
-const shareFab = $('#shareFab');
-const osDesktop = $('#osDesktop');
-
-osDesktop.addEventListener('scroll', () => {
-  if (osDesktop.scrollTop > 300) {
-    shareFab.classList.add('visible');
-    $('#backToTop').classList.add('visible');
-  } else {
-    shareFab.classList.remove('visible');
-    $('#backToTop').classList.remove('visible');
-  }
-});
-
-shareFab.addEventListener('click', async () => {
-  const shareData = {
-    title: 'Digital Infohub',
-    text: 'Check out Digital Infohub for the latest in AI, tech news, and practical digital tools!',
-    url: window.location.href
-  };
-  
-  try {
-    if (navigator.share) {
-      await navigator.share(shareData);
-      showToast('Thanks for sharing Digital Infohub! 🚀', 'success');
-    } else {
-      await navigator.clipboard.writeText(window.location.href);
-      showToast('Link copied to clipboard! Share it with your friends.', 'success');
-    }
-  } catch (err) {
-    // User cancelled share, do nothing
-  }
-});
-
-// Back to Top Button Logic
-$('#backToTop').addEventListener('click', () => {
-  osDesktop.scrollTo({ top: 0, behavior: 'smooth' });
-});
-
-})();
-</script>
+  <div class="dih-footer-bottom">
+    <span>© 2026 Digital Infohub · Independent technology publication</span>
+    <nav aria-label="Footer links">
+      <a href="/blog">Blog</a>
+      <a href="/techtopics">Guides</a>
+      <a href="/software">Tools</a>
+      <a href="/sitemap.xml">Sitemap</a>
+      <a href="mailto:services@digitalinfohub.net">Contact</a>
+    </nav>
+  </div>
+</footer>
+<!-- /DIH:FOOTER -->
+
+<script src="/assets/site.js" defer></script>
+<script src="/assets/home-app.js" defer></script>
 </body>
 </html>

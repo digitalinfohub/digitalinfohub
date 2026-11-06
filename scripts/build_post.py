@@ -4,6 +4,8 @@ import json, re, sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from apply_site import process as apply_site_process  # noqa: E402
 TEMPLATE = ROOT / "scripts" / "template.html"
 POSTS_DIR = ROOT / "_posts"
 OUT_DIR = ROOT / "post"
@@ -44,7 +46,9 @@ def build(slug):
     for k, v in reps.items():
         html = html.replace(k, v)
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    (OUT_DIR / f"{slug}.html").write_text(html, encoding="utf-8")
+    out = OUT_DIR / f"{slug}.html"
+    out.write_text(html, encoding="utf-8")
+    apply_site_process(out)
     print(f"built post/{slug}.html")
 
 if __name__ == "__main__":

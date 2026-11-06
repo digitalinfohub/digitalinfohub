@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.digitalinfohub.net/sitemap.xml
+Sitemap: https://digitalinfohub.net/sitemap.xml

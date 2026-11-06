@@ -21,7 +21,9 @@ class Handler(http.server.SimpleHTTPRequestHandler):
     def send_head(self):
         path = self.path.split("?")[0].split("#")[0]
         local = self.translate_path(path)
-        if not os.path.exists(local) and not path.endswith("/"):
+        # Match GitHub Pages: /software resolves software.html even when a
+        # same-named directory exists.
+        if not path.endswith("/") and "." not in os.path.basename(path):
             html = local + ".html"
             if os.path.exists(html):
                 self.path = path + ".html"

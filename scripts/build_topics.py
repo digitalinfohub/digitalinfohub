@@ -22,13 +22,15 @@ from topics_part3 import TOPICS as PART3  # noqa: E402
 from topics_part4 import TOPICS as PART4  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
-SITE = "https://www.digitalinfohub.net"
+SITE = "https://digitalinfohub.net"
 SITE_NAME = "Digital Infohub"
 LOGO = "https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png"
 ADSENSE = "ca-pub-5443646750699471"
 AD_SLOT = "8451723433"
 UPDATED = "2026-11-04"
 TODAY = date.today().isoformat()
+
+from apply_site import process as apply_site_process  # noqa: E402
 
 ALL = PART1 + PART2 + PART3 + PART4
 TOPICS = {t["slug"]: t for t in ALL}
@@ -892,12 +894,14 @@ def build_topic(slug):
         raise SystemExit(f"Unknown topic: {slug}")
     out = ROOT / f"{slug}.html"
     out.write_text(render_topic(TOPICS[slug]), encoding="utf-8")
+    apply_site_process(out)
     print(f"built {out.name}")
 
 
 def build_index():
     out = ROOT / "techtopics.html"
     out.write_text(render_index(), encoding="utf-8")
+    apply_site_process(out)
     print("built techtopics.html")
 
 
@@ -912,7 +916,7 @@ def build_sitemap():
         add(slug, "0.8", "monthly", UPDATED)
     add("techtopics", "0.9", "weekly", UPDATED)
     add("", "1.0", "daily")
-    for hub in ["blog", "software", "games", "subscribe", "about", "advertise", "services", "techproducts", "privacy-policy"]:
+    for hub in ["blog", "software", "techtopics", "games", "subscribe", "about", "advertise", "services", "techproducts", "coincompass", "expense-tracker", "pomodoro", "privacy-policy"]:
         if (ROOT / f"{hub}.html").exists():
             add(hub, "0.7", "weekly")
     for sub in ["software", "post"]:
