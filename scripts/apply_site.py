@@ -11,11 +11,20 @@ their own builders and are skipped here.
 import json
 import re
 import sys
+from html import unescape
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from chrome import SITE, explore_html, footer_html, header_html, script_tag  # noqa: E402
+from images import (  # noqa: E402
+    TOPIC_IMAGES,
+    ambient_html,
+    gallery_html,
+    image_alt,
+    image_key_for,
+    share_url,
+)
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -30,9 +39,17 @@ GENERATED = {
     "3dprinting.html", "biotechnology.html", "greentechnology.html",
     "digitaltwins.html", "zerotrustsecurity.html", "serverlesscomputing.html",
     "neuromorphiccomputing.html",
+    "augmentedreality.html", "drones.html", "nanotechnology.html",
+    "spacetechnology.html", "wearabletechnology.html", "smartcities.html",
 }
 
 PAGE_META = {
+    "techtopics.html": {
+        "kind": "techtopics", "type": "website",
+        "title": "Tech Topics: Plain-Language Guides to AI, Cloud and More",
+        "desc": "30 plain-language guides to AI, cloud, security, quantum, robotics and the technology shaping business — no jargon, no hype.",
+        "keywords": "tech topics, technology guides, what is AI, cloud computing, cybersecurity, quantum computing, robotics",
+    },
     "blog.html": {
         "kind": "blog", "type": "website",
         "title": "Tech Blog: AI, Hardware & Market Analysis | Digital Infohub",
@@ -93,6 +110,22 @@ PAGE_META = {
         "desc": "How Digital Infohub handles data, cookies, advertising and analytics.",
         "keywords": "privacy policy, digital infohub privacy, cookies",
     },
+    "news.html": {
+        "kind": "news", "type": "website",
+        "title": "Live Tech News: AI, Startups and Hardware | Digital Infohub",
+        "desc": "Fresh technology headlines from TechCrunch, updated through the day, with context and links to the Digital Infohub guides behind the story.",
+        "keywords": "tech news, live tech headlines, AI news, startup news, hardware news, technology updates",
+        "share_title": "Live tech news, without the doomscroll",
+        "share_desc": "Fresh AI, startup and hardware headlines, updated through the day and linked to the guides that explain them.",
+    },
+    "quiz.html": {
+        "kind": "quiz", "type": "website",
+        "title": "Tech Quiz: Test Your AI, Security and Cloud Knowledge",
+        "desc": "Take six quick technology quizzes on AI, cybersecurity, cloud, blockchain, quantum and IoT. Get a grade for every topic and see what to learn next.",
+        "keywords": "tech quiz, AI quiz, cybersecurity quiz, cloud computing quiz, blockchain quiz, technology test",
+        "share_title": "How well do you actually know tech?",
+        "share_desc": "Six quick quizzes on AI, security, cloud, blockchain, quantum and IoT. Get a grade for every topic and a guide for what to learn next.",
+    },
     "expense-tracker.html": {
         "kind": "tool", "type": "website",
         "title": "Free Expense Tracker | Digital Infohub",
@@ -124,6 +157,8 @@ TOOL_TITLES = {
 def strip_injected(html: str) -> str:
     for start, end in [
         ("<!-- DIH:HEAD -->", "<!-- /DIH:HEAD -->"),
+        ("<!-- DIH:GALLERY -->", "<!-- /DIH:GALLERY -->"),
+        ("<!-- DIH:AMBIENT -->", "<!-- /DIH:AMBIENT -->"),
         ("<!-- DIH:HEADER -->", "<!-- /DIH:HEADER -->"),
         ("<!-- DIH:EXPLORE -->", "<!-- /DIH:EXPLORE -->"),
         ("<!-- DIH:FOOTER -->", "<!-- /DIH:FOOTER -->"),
@@ -145,11 +180,21 @@ def canonical(rel: Path) -> str:
     return f"{SITE}/{slug}" if slug else f"{SITE}/"
 
 
+def unescape_all(text: str) -> str:
+    """Decode nested entities left behind by older builds, without eating real text."""
+    for _ in range(6):
+        decoded = unescape(text or "")
+        if decoded == text:
+            break
+        text = decoded
+    return text
+
+
 def first_text(html: str, tag: str) -> str:
     m = re.search(rf"<{tag}[^>]*>(.*?)</{tag}>", html, re.I | re.S)
     if not m:
         return ""
-    return re.sub(r"<[^>]+>", " ", m.group(1)).replace("&amp;", "&").strip()
+    return clean(unescape_all(re.sub(r"<[^>]+>", " ", m.group(1))).strip())
 
 
 def clean(text: str) -> str:
@@ -159,14 +204,170 @@ def clean(text: str) -> str:
 def existing_meta(html: str):
     t = re.search(r"<title[^>]*>(.*?)</title>", html, re.I | re.S)
     d = re.search(r'<meta\s+name="description"[^>]*content="([^"]*)"', html, re.I)
-    return (clean(re.sub(r"\s+", " ", t.group(1))) if t else "", clean(d.group(1)) if d else "")
+    title = clean(re.sub(r"\s+", " ", t.group(1))) if t else ""
+    desc = clean(d.group(1)) if d else ""
+    return unescape_all(title), unescape_all(desc)
+
+
+def existing_keywords(html: str) -> str:
+    m = re.search(r'<meta\s+name="keywords"[^>]*content="([^"]*)"', html, re.I)
+    return clean(unescape_all(m.group(1))) if m else ""
+
+
+# Sharper share copy for the hub pages. The <title> stays keyword-led; the
+# social headline is written to earn the click without turning into clickbait.
+SHARE_COPY = {
+    "techtopics.html": {
+        "share_title": "30 plain-language guides to the tech that matters",
+        "desc": "Understand AI, cloud, security, quantum, robotics and more without the jargon. Every guide gives you the mental model, the limits and the next step.",
+    },
+    "blog.html": {
+        "share_title": "The tech stories that actually matter",
+        "desc": "Sharp, practical analysis of AI, cybersecurity, hardware and the forces moving tech markets — for professionals who have to act on it.",
+        "keywords": "tech blog, AI analysis, technology news, cybersecurity, hardware reviews, market analysis, 2026",
+    },
+    "software.html": {
+        "share_title": "12 free browser tools that replace paid software",
+        "desc": "AI assistants, formatters, converters and productivity tools that run locally in your browser. No signup, no install, no tracking.",
+        "keywords": "free online tools, AI assistant, calculator, unit converter, JSON formatter, password generator, browser tools",
+    },
+    "techproducts.html": {
+        "share_title": "Tech that earns its place: 2026 buying guides",
+        "desc": "Hands-on buying guidance for laptops, phones, audio and wearables — chosen for professionals and small teams, not spec-sheet bragging rights.",
+        "keywords": "tech products, gadget reviews, buying guide, laptops, phones, wearables, 2026",
+    },
+    "games.html": {
+        "share_title": "Take a five-minute break in Pixel Palace",
+        "desc": "Eight free browser games — Snake, 2048, Pong, Memory and more. No downloads, no accounts, works on desktop and mobile.",
+        "keywords": "free browser games, online arcade, snake game, 2048, pong, typing game",
+    },
+    "subscribe.html": {
+        "share_title": "One email a week. All the signal.",
+        "desc": "The AI, market and software stories that matter, plus new tools before anyone else. Free, no spam, unsubscribe anytime.",
+        "keywords": "tech newsletter, AI newsletter, technology updates, digital infohub newsletter",
+    },
+    "about.html": {
+        "share_title": "Independent tech intelligence, built by a small team",
+        "desc": "Digital Infohub is an independent technology publication for professionals and business leaders, built with modern tooling and human review.",
+        "keywords": "about digital infohub, independent tech publication, technology platform",
+    },
+    "services.html": {
+        "share_title": "Automation and AI integration for small teams",
+        "desc": "Custom builds, workflow automation and AI integration that remove repetitive work — scoped for small businesses and independent teams.",
+        "keywords": "AI integration services, automation, custom software, digital infohub services",
+    },
+    "advertise.html": {
+        "share_title": "Reach tech professionals who make buying decisions",
+        "desc": "Put your product in front of developers, founders and technology leaders with clear, respectful advertising that respects their attention.",
+        "keywords": "advertise, tech audience, developer marketing, digital infohub advertising",
+    },
+    "coincompass.html": {
+        "share_title": "Crypto and stock graphs, without the noise",
+        "desc": "A calm, private dashboard for crypto and market context: live prices, portfolio tracking and risk signals in one place.",
+        "keywords": "crypto tracker, market tracker, bitcoin, portfolio, coincompass, crypto charts, stock charts",
+    },
+    "privacy-policy.html": {
+        "desc": "How Digital Infohub handles data, cookies, advertising and analytics — plainly explained.",
+    },
+}
+
+
+# Search-result and social copy for posts whose original headlines were long.
+POST_META = {
+    "ai-agent-economy-october-catalysts": {
+        "title": "AI Agents Meet October's Market Catalysts | Digital Infohub",
+        "share_title": "AI agents meet October's market catalysts",
+    },
+    "ai-math-robotics-security-sept-2026": {
+        "title": "AI, Maths, Robotics and Security: Tech This Week | Digital Infohub",
+        "share_title": "AI, maths, robotics and security: the week in tech",
+    },
+    "ai-model-wars-august-2026": {
+        "title": "AI Model Wars: DeepSeek, Grok and Qwen Compared | Digital Infohub",
+        "share_title": "AI model wars: DeepSeek, Grok and Qwen compared",
+    },
+    "ai-wearables-2026": {
+        "title": "AI Wearables 2026: Smart Glasses Take Over | Digital Infohub",
+        "share_title": "AI wearables 2026: smart glasses take over",
+    },
+    "beating-syllabus-overload-with-smarter-medical-learning": {
+        "title": "Beating Syllabus Overload with Smarter Learning | Digital Infohub",
+        "share_title": "Beating syllabus overload with smarter learning",
+    },
+    "cybersecurity-ai-investment-2026": {
+        "title": "Is Cybersecurity the Next Big AI-Era Investment? | Digital Infohub",
+        "share_title": "Is cybersecurity the next big AI-era investment?",
+    },
+    "greygrid-studio-shows-that-great-design-doesn-t-need-to-be-loud": {
+        "title": "GreyGrid.Studio: Quiet Design That Works | Digital Infohub",
+        "desc": "Clean design is hard to get right. GreyGrid.Studio shows how typography, composition and restraint beat visual overload.",
+        "share_title": "Great design doesn't need to be loud",
+    },
+    "how-to-clear-cache-on-iphone": {
+        "desc": "Clear cache on iPhone safely: Safari website data, app caches, offloading apps and storage fixes, step by step for 2026.",
+        "share_title": "How to clear cache on iPhone — safely",
+    },
+    "how-to-screen-record-on-iphone": {
+        "desc": "How to screen record on iPhone: Control Centre setup, internal audio, microphone sound, editing and sharing, step by step.",
+        "share_title": "How to screen record on iPhone",
+    },
+    "how-to-stay-safe-online-2026": {
+        "title": "Staying Safe Online in 2026: Beyond the Basics | Digital Infohub",
+        "desc": "Passwords, MFA, phone security and AI-driven threats: a practical 2026 checklist for staying safe online.",
+        "share_title": "Staying safe online in 2026: beyond the basics",
+    },
+    "meet-teamtbm": {
+        "title": "Meet TeamTBM: Young Creators Building Games | Digital Infohub",
+        "desc": "Meet TeamTBM, the young creators building games and digital communities since 2019, with recent talks at Eastbourne DigiFest.",
+        "share_title": "Meet TeamTBM: young creators building games",
+    },
+    "newest-apple-watch-2026": {
+        "title": "Newest Apple Watch 2026: Series 12 and Ultra 4 | Digital Infohub",
+        "share_title": "Newest Apple Watch 2026: Series 12 and Ultra 4",
+    },
+    "newest-ipad-2026": {
+        "title": "Newest iPad 2026: Models, Features and Which to Buy | Digital Infohub",
+        "share_title": "Newest iPad 2026: models and features",
+    },
+    "newest-iphone-2026": {
+        "title": "Newest iPhone 2026: iPhone 18 Pro and Foldable Duo | Digital Infohub",
+        "share_title": "Newest iPhone 2026: iPhone 18 Pro and foldable Duo",
+    },
+    "newest-samsung-phone-2026": {
+        "title": "Newest Samsung Phone 2026: S26 and Fold8 Explained | Digital Infohub",
+        "share_title": "Newest Samsung phone 2026: S26 and Fold8",
+    },
+    "quantum-computing-breakthroughs-2026": {
+        "title": "Quantum Computing in 2026: Breakthroughs That Matter | Digital Infohub",
+        "share_title": "Quantum computing in 2026: breakthroughs that matter",
+    },
+    "small-biz-philly-a-great-resource-for-local-entrepreneurs": {
+        "title": "Small Biz Philly: A Resource for Local Entrepreneurs | Digital Infohub",
+        "share_title": "Small Biz Philly: a resource for local entrepreneurs",
+    },
+    "tech-market-sell-off-october-2026": {
+        "title": "Tech Sell-Off: AI Capex and Geopolitical Risk | Digital Infohub",
+        "desc": "The tech sell-off explained: AI capital-spending concerns, geopolitical risk and what moved Nasdaq, the S&P 500 and safe havens.",
+        "share_title": "Tech sell-off: AI capex and geopolitical risk",
+    },
+    "tech-trends-october-2026": {
+        "title": "The 3 Tech Trends Defining Late 2026 | Digital Infohub",
+        "share_title": "The 3 tech trends defining late 2026",
+    },
+    "top-tech-headlines-sept-2026": {
+        "title": "Top Tech Headlines: Nvidia, OpenAI and AI Copyright | Digital Infohub",
+        "share_title": "Top tech headlines: Nvidia, OpenAI and AI copyright",
+    },
+}
 
 
 def choose_meta(rel: Path, html: str):
     key = rel.name
     old_title, old_desc = existing_meta(html)
     if key in PAGE_META:
-        return PAGE_META[key]
+        meta = dict(PAGE_META[key])
+        meta.update(SHARE_COPY.get(key, {}))
+        return meta
     if rel.parent.name == "software":
         h1 = first_text(html, "h1") or rel.stem.title()
         title = old_title if ("Digital Infohub" in old_title and "free browser tool" not in old_title.lower()) else f"{h1} — Free Browser Tool | Digital Infohub"
@@ -178,14 +379,29 @@ def choose_meta(rel: Path, html: str):
         }
     if rel.parent.name == "post":
         h1 = first_text(html, "h1") or rel.stem.replace("-", " ").title()
-        title = old_title or h1
+        override = POST_META.get(rel.stem, {})
+        title = override.get("title") or old_title or h1
         if "Digital Infohub" not in title:
             title = f"{title} | Digital Infohub"
+        desc = override.get("desc") or old_desc or f"{h1} — analysis and practical context from Digital Infohub."
         return {
             "kind": "post", "type": "article",
             "title": title,
-            "desc": old_desc or f"{h1} — analysis and practical context from Digital Infohub.",
-            "keywords": "technology, AI, digital infohub",
+            "desc": desc,
+            "keywords": existing_keywords(html) or "technology, AI, digital infohub",
+            "share_title": override.get("share_title") or re.sub(r"\s*\|\s*Digital Infohub.*$", "", title),
+        }
+    stem = rel.stem
+    if stem in TOPIC_IMAGES:
+        title = old_title or f"{first_text(html, 'h1') or stem.title()} | Digital Infohub"
+        if "Digital Infohub" not in title:
+            title = f"{title} | Digital Infohub"
+        return {
+            "kind": "techtopics", "type": "article",
+            "title": title,
+            "desc": old_desc or f"{first_text(html, 'h1')} — a plain-language guide from Digital Infohub.",
+            "keywords": existing_keywords(html) or "technology guide, digital infohub",
+            "share_title": re.sub(r"\s*\|\s*Digital Infohub.*$", "", title),
         }
     if key in TOOL_TITLES:
         name, desc = TOOL_TITLES[key]
@@ -213,10 +429,15 @@ def seo_block(rel: Path, meta: dict, html_snapshot=None) -> str:
     desc = clean(meta["desc"])
     keywords = meta.get("keywords", "")
     kind = meta.get("kind", "blog")
+    image = meta.get("image") or f"{SITE}/assets/og-cover.png"
+    image_alt = meta.get("image_alt") or "Digital Infohub — tech intelligence for professionals"
+    share_title = meta.get("share_title") or title
+    share_desc = clean(meta.get("share_desc") or desc)
     section = {
         "blog": "Blog", "techtopics": "Tech Topics", "software": "Software",
         "software-detail": "Software", "techproducts": "Tech Products",
         "games": "Games", "tool": "Tools", "coincompass": "CoinCompass", "post": "Blog",
+        "news": "News", "quiz": "Quiz",
     }.get(kind, "")
 
     crumbs = [{"@type": "ListItem", "position": 1, "name": "Home", "item": f"{SITE}/"}]
@@ -250,7 +471,7 @@ def seo_block(rel: Path, meta: dict, html_snapshot=None) -> str:
                 "isPartOf": {"@id": f"{SITE}/#website"},
                 "about": {"@id": f"{SITE}/#organization"},
                 "inLanguage": "en",
-                "primaryImageOfPage": {"@type": "ImageObject", "url": f"{SITE}/assets/og-cover.png"},
+                "primaryImageOfPage": {"@type": "ImageObject", "url": image, "width": 1200, "height": 630},
             },
     ]
     if not existing_ld:
@@ -268,19 +489,21 @@ def seo_block(rel: Path, meta: dict, html_snapshot=None) -> str:
 <link rel="canonical" href="{url}">
 <meta property="og:type" content="{meta.get('type', 'website')}">
 <meta property="og:site_name" content="Digital Infohub">
-<meta property="og:title" content="{escape_attr(title)}">
-<meta property="og:description" content="{escape_attr(desc)}">
+<meta property="og:title" content="{escape_attr(share_title)}">
+<meta property="og:description" content="{escape_attr(share_desc)}">
 <meta property="og:url" content="{url}">
-<meta property="og:image" content="{SITE}/assets/og-cover.png">
+<meta property="og:image" content="{escape_attr(image)}">
+<meta property="og:image:secure_url" content="{escape_attr(image)}">
+<meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Digital Infohub — tech intelligence for professionals">
+<meta property="og:image:alt" content="{escape_attr(image_alt)}">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="{escape_attr(title)}">
-<meta name="twitter:description" content="{escape_attr(desc)}">
-<meta name="twitter:image" content="{SITE}/assets/og-cover.png">
-<meta name="twitter:image:alt" content="Digital Infohub">
+<meta name="twitter:title" content="{escape_attr(share_title)}">
+<meta name="twitter:description" content="{escape_attr(share_desc)}">
+<meta name="twitter:image" content="{escape_attr(image)}">
+<meta name="twitter:image:alt" content="{escape_attr(image_alt)}">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
 <link rel="icon" href="/assets/favicon.ico" sizes="any">
@@ -328,7 +551,7 @@ def update_head(html: str, rel: Path, meta: dict) -> str:
 
 def update_body(html: str, rel: Path, meta: dict) -> str:
     kind = meta.get("kind", "blog")
-    page = "tool" if kind == "tool" else ("games" if kind == "games" else ("subscribe" if kind == "subscribe" else ("coincompass" if kind == "coincompass" else "")))
+    page = "tool" if kind == "tool" else ("games" if kind == "games" else ("subscribe" if kind == "subscribe" else ("coincompass" if kind == "coincompass" else ("news" if kind == "news" else ("quiz" if kind == "quiz" else "")))))
     attr = f' data-page="{page}"' if page else ""
 
     m = re.search(r"<body([^>]*)>", html, re.I)
@@ -343,19 +566,54 @@ def update_body(html: str, rel: Path, meta: dict) -> str:
         html = re.sub(r"<html([^>]*)>", r'<html\1 data-dih="">', html, count=1, flags=re.I)
 
     body_open = re.search(r"<body[^>]*>", html, re.I)
-    html = html[: body_open.end()] + "\n" + header_html() + html[body_open.end():]
+    html = html[: body_open.end()] + "\n" + ambient_html(str(rel)) + "\n" + header_html() + html[body_open.end():]
 
-    tail = explore_html(kind) + "\n" + footer_html() + "\n" + script_tag() + "\n"
+    tail = gallery_html(str(rel), kind) + "\n" + explore_html(kind) + "\n" + footer_html() + "\n" + script_tag() + "\n"
     idx = html.rfind("</body>")
     if idx == -1:
         return html
     return html[:idx] + tail + html[idx:]
 
 
+def strip_visuals(html: str) -> str:
+    for start, end in [
+        ("<!-- DIH:GALLERY -->", "<!-- /DIH:GALLERY -->"),
+        ("<!-- DIH:AMBIENT -->", "<!-- /DIH:AMBIENT -->"),
+    ]:
+        html = re.sub(re.escape(start) + r".*?" + re.escape(end) + r"\n?", "", html, flags=re.S)
+    return html
+
+
+def process_index(path: Path) -> bool:
+    """Homepage: keep its hand-authored head and chrome, add the visual layer."""
+    rel = path.relative_to(ROOT)
+    html = path.read_text(encoding="utf-8")
+    cleaned = strip_visuals(html)
+    body_open = re.search(r"<body[^>]*>", cleaned, re.I)
+    if not body_open:
+        return False
+    cleaned = cleaned[: body_open.end()] + "\n" + ambient_html(str(rel)) + cleaned[body_open.end():]
+    marker = "<!-- DIH:FOOTER -->"
+    if marker in cleaned:
+        cleaned = cleaned.replace(marker, gallery_html(str(rel), "home") + "\n" + marker, 1)
+    else:
+        idx = cleaned.rfind('<footer class="dih-footer"')
+        if idx == -1:
+            return False
+        cleaned = cleaned[:idx] + gallery_html(str(rel), "home") + "\n" + cleaned[idx:]
+    if cleaned != html:
+        path.write_text(cleaned, encoding="utf-8")
+        return True
+    return False
+
+
 def process(path: Path) -> bool:
     rel = path.relative_to(ROOT)
     html = path.read_text(encoding="utf-8")
     meta = choose_meta(rel, html)
+    image_id = image_key_for(str(rel))
+    meta["image"] = share_url(image_id)
+    meta["image_alt"] = image_alt(image_id)
     updated = update_body(update_head(html, rel, meta), rel, meta)
     if updated != html:
         path.write_text(updated, encoding="utf-8")
@@ -382,4 +640,8 @@ if __name__ == "__main__":
         if path.exists() and process(path):
             print("updated", path.relative_to(ROOT))
             changed += 1
+    index = ROOT / "index.html"
+    if index.exists() and process_index(index):
+        print("updated index.html")
+        changed += 1
     print(f"{changed} page(s) updated")

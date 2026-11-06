@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-dih="">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Smart Cities: Sensors, Data and Public Trust | Digital Infohub</title>
+<meta name="description" content="What makes a city smart: connected infrastructure, digital twins, mobility data and the governance questions that decide whether residents trust it.">
+<meta name="color-scheme" content="dark light">
+
+<!-- Open Graph -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://pagead2.googlesyndication.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<!-- AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471" crossorigin="anonymous"></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Smart Cities: Sensors, Data and Public Trust",
+  "description": "What makes a city smart: connected infrastructure, digital twins, mobility data and the governance questions that decide whether residents trust it.",
+  "image": [
+    "https://images.unsplash.com/photo-1758073519996-6d3c63b4922c?w=1200&h=630&fit=crop&auto=format&q=80&fm=jpg"
+  ],
+  "url": "https://digitalinfohub.net/smartcities",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://digitalinfohub.net/smartcities"
+  },
+  "datePublished": "2026-11-04",
+  "dateModified": "2026-11-04",
+  "inLanguage": "en",
+  "isAccessibleForFree": true,
+  "articleSection": "Emerging",
+  "keywords": "smart cities, urban technology, city sensors, digital twin city, smart mobility, public data",
+  "wordCount": 525,
+  "author": {
+    "@type": "Organization",
+    "name": "Digital Infohub",
+    "url": "https://digitalinfohub.net/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Digital Infohub",
+    "url": "https://digitalinfohub.net/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png"
+    }
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://digitalinfohub.net/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Tech Topics",
+      "item": "https://digitalinfohub.net/techtopics"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Smart Cities",
+      "item": "https://digitalinfohub.net/smartcities"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is a digital twin in a city?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It is a live virtual model of a physical system, fed by sensor and operational data. Planners use it to simulate changes, and operators use it to detect and diagnose problems."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are smart cities just surveillance cities?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "They can become that if data collection is broad, opaque and unaccountable. The alternative is purpose-limited sensing, clear retention rules, independent oversight and public reporting."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is a realistic first smart-city project?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Start with a narrow operational problem, such as streetlight energy use, water leakage or bus reliability. Instrument it, publish the baseline and measure whether the intervention improved the outcome."
+      }
+    }
+  ]
+}
+</script>
+<style>
+:root {
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, monospace;
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+
+[data-theme="dark"] {
+  --bg: #0a0a0a;
+  --surface: #111111;
+  --surface-2: #161616;
+  --surface-3: #1a1a1a;
+  --border: rgba(255,255,255,0.06);
+  --border-strong: rgba(255,255,255,0.1);
+  --text: #f5f5f5;
+  --text-sub: #a1a1aa;
+  --text-muted: #71717a;
+  --accent: #6366f1;
+  --accent-soft: rgba(99,102,241,0.1);
+  --shadow: 0 4px 24px -6px rgba(0,0,0,0.4);
+}
+
+[data-theme="light"] {
+  --bg: #fafafa;
+  --surface: #ffffff;
+  --surface-2: #f4f4f5;
+  --surface-3: #e4e4e7;
+  --border: rgba(0,0,0,0.06);
+  --border-strong: rgba(0,0,0,0.12);
+  --text: #0a0a0a;
+  --text-sub: #52525b;
+  --text-muted: #a1a1aa;
+  --accent: #4f46e5;
+  --accent-soft: rgba(79,70,229,0.08);
+  --shadow: 0 4px 24px -6px rgba(0,0,0,0.08);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.shell { max-width: 820px; margin: 0 auto; padding: 32px 24px 80px; }
+
+/* NAVIGATION */
+.nav-shell {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--bg); border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  margin: -32px -24px 32px; padding: 0 24px;
+}
+.nav-bar {
+  max-width: 820px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 0; gap: 16px;
+}
+.nav-links { display: flex; gap: 4px; align-items: center; overflow-x: auto; scrollbar-width: none; }
+.nav-links::-webkit-scrollbar { display: none; }
+.nav-link {
+  padding: 8px 14px; background: none; border: 1px solid transparent;
+  color: var(--text-sub); border-radius: 8px; cursor: pointer;
+  font-size: 13px; font-weight: 500; text-decoration: none;
+  transition: all 0.2s var(--ease); white-space: nowrap;
+  font-family: inherit; display: flex; align-items: center; gap: 6px;
+}
+.nav-link:hover { color: var(--text); background: var(--surface-2); border-color: var(--border); }
+.nav-link.active { color: var(--accent); background: var(--accent-soft); border-color: var(--accent); }
+.nav-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.hamburger {
+  display: none; width: 36px; height: 36px;
+  border: 1px solid var(--border); background: var(--surface); color: var(--text-sub);
+  border-radius: var(--radius-sm); cursor: pointer;
+  align-items: center; justify-content: center;
+  font-size: 18px; transition: all 0.2s var(--ease); flex-shrink: 0;
+}
+.hamburger:hover { color: var(--text); background: var(--surface-2); border-color: var(--border-strong); }
+
+.mobile-menu {
+  display: none; position: absolute; top: 100%; left: 0; right: 0;
+  background: var(--surface); border-bottom: 1px solid var(--border);
+  padding: 8px 16px 16px; flex-direction: column; gap: 4px;
+  box-shadow: var(--shadow); animation: slideDown 0.2s var(--ease);
+}
+.mobile-menu.active { display: flex; }
+.mobile-menu .nav-link { width: 100%; justify-content: flex-start; padding: 12px 14px; font-size: 14px; }
+@keyframes slideDown { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+
+/* TOP BAR */
+.topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+.brand {
+  display: flex; align-items: center; gap: 10px;
+  font-weight: 700; font-size: 15px; letter-spacing: -0.01em;
+  text-decoration: none; color: var(--text);
+}
+.brand-logo {
+  width: 28px; height: 28px; border-radius: 8px;
+  background: var(--surface-2); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center; overflow: hidden;
+}
+.brand-logo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.topbar-actions { display: flex; gap: 6px; align-items: center; }
+.icon-btn {
+  width: 36px; height: 36px; border: 1px solid var(--border);
+  background: var(--surface); color: var(--text-sub);
+  border-radius: var(--radius-sm); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s var(--ease);
+}
+.icon-btn:hover { color: var(--text); border-color: var(--border-strong); background: var(--surface-2); }
+.icon-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* INDEX HEADER */
+.page-header { margin-bottom: 32px; }
+.page-title { font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 12px; }
+.page-desc { color: var(--text-sub); font-size: 16px; max-width: 620px; }
+.page-desc a, .article a.inline { color: var(--accent); text-decoration: none; font-weight: 500; }
+.page-desc a:hover, .article a.inline:hover { text-decoration: underline; }
+
+.topic-jump { display: flex; flex-wrap: wrap; gap: 8px; margin: 24px 0 8px; }
+.topic-jump a {
+  font-size: 12px; font-weight: 600; color: var(--text-sub);
+  border: 1px solid var(--border); background: var(--surface);
+  border-radius: 99px; padding: 6px 12px; text-decoration: none;
+  transition: all 0.2s var(--ease);
+}
+.topic-jump a:hover { color: var(--text); border-color: var(--accent); }
+
+.topic-group { margin-top: 40px; }
+.group-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 12px; padding-bottom: 12px; margin-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+  scroll-margin-top: 90px;
+}
+.group-head h2 { font-size: 20px; font-weight: 700; letter-spacing: -0.01em; }
+.group-count { font-family: var(--mono); font-size: 11px; color: var(--text-muted); }
+
+/* TOPIC CARDS */
+.topics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+}
+.topic-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 24px;
+  transition: all 0.25s var(--ease);
+  display: flex; flex-direction: column; gap: 10px;
+  position: relative; overflow: hidden;
+  text-align: left; color: inherit; font-family: inherit; width: 100%;
+  text-decoration: none;
+}
+.topic-card:hover {
+  transform: translateY(-4px); border-color: var(--accent);
+  box-shadow: var(--shadow);
+}
+.topic-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; transform: translateY(-4px); }
+.topic-icon {
+  width: 48px; height: 48px; border-radius: 12px;
+  background: var(--surface-2); display: flex; align-items: center; justify-content: center;
+  font-size: 24px; margin-bottom: 2px;
+}
+.topic-name { font-size: 18px; font-weight: 700; color: var(--text); }
+.topic-brief { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+.topic-more {
+  font-size: 12px; font-weight: 600; color: var(--accent);
+  margin-top: auto; padding-top: 6px;
+}
+.topic-arrow {
+  position: absolute; top: 24px; right: 24px;
+  color: var(--text-muted); opacity: 0; transition: opacity 0.2s; font-size: 18px;
+}
+.topic-card:hover .topic-arrow, .topic-card:focus-visible .topic-arrow { opacity: 1; color: var(--accent); }
+
+/* ARTICLE */
+.breadcrumb {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+  font-size: 12px; color: var(--text-muted); margin-bottom: 24px;
+}
+.breadcrumb a { color: var(--text-sub); text-decoration: none; }
+.breadcrumb a:hover { color: var(--accent); }
+.breadcrumb [aria-current] { color: var(--text); }
+
+.article { max-width: 720px; margin: 0 auto; }
+.article-head { margin-bottom: 28px; }
+.topic-chip {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--accent); background: var(--accent-soft);
+  border: 1px solid var(--border); border-radius: 99px;
+  padding: 6px 12px; margin-bottom: 16px;
+}
+.article h1 {
+  font-size: clamp(30px, 5vw, 40px); font-weight: 800;
+  letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 14px;
+}
+.article .lede { font-size: 17px; color: var(--text-sub); line-height: 1.65; margin-bottom: 18px; }
+.article-meta {
+  display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+  font-family: var(--mono); font-size: 11px; color: var(--text-muted);
+}
+.article-meta .dot { opacity: 0.5; }
+
+.toc {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 20px 24px; margin: 32px 0;
+}
+.toc h2 {
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--text-muted); margin-bottom: 12px; font-weight: 700;
+}
+.toc ol { margin: 0; padding-left: 20px; }
+.toc li { margin-bottom: 6px; font-size: 14px; }
+.toc a { color: var(--text-sub); text-decoration: none; }
+.toc a:hover { color: var(--accent); text-decoration: underline; }
+
+.article h2 {
+  font-size: 24px; font-weight: 700; letter-spacing: -0.01em;
+  margin: 40px 0 14px; scroll-margin-top: 90px;
+}
+.article h3 { font-size: 17px; font-weight: 700; margin: 0 0 8px; }
+.article p { color: var(--text-sub); margin-bottom: 16px; font-size: 16px; line-height: 1.75; }
+.article p strong { color: var(--text); font-weight: 600; }
+.article ul, .article ol { margin: 0 0 20px 22px; color: var(--text-sub); font-size: 15px; }
+.article li { margin-bottom: 8px; line-height: 1.6; }
+
+.callout {
+  border-left: 3px solid var(--accent);
+  background: var(--accent-soft);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 16px 20px; margin: 24px 0;
+  color: var(--text); font-size: 15px; line-height: 1.65;
+}
+
+.facts {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px; margin: 20px 0 8px;
+}
+.fact {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 16px;
+  font-size: 14px; color: var(--text-sub); line-height: 1.55;
+}
+
+.faq-item {
+  border: 1px solid var(--border); background: var(--surface);
+  border-radius: var(--radius-sm); padding: 18px 20px; margin-bottom: 12px;
+}
+.faq-item p { margin: 0; font-size: 15px; }
+
+.prevnext { display: flex; gap: 12px; margin: 40px 0; }
+.prevnext a {
+  flex: 1; display: flex; flex-direction: column; gap: 4px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 16px 18px;
+  text-decoration: none; transition: all 0.2s var(--ease);
+}
+.prevnext a:hover { border-color: var(--accent); transform: translateY(-2px); }
+.prevnext .pn-label { font-family: var(--mono); font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.prevnext .pn-name { font-size: 14px; font-weight: 600; color: var(--text); }
+.prevnext a.next { text-align: right; align-items: flex-end; }
+
+.article .related { margin-top: 40px; }
+.article .related .topics-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+.article .related .topic-card { padding: 18px; gap: 8px; }
+.article .related .topic-icon { width: 36px; height: 36px; font-size: 18px; border-radius: 9px; }
+.article .related .topic-name { font-size: 15px; }
+
+.source {
+  margin-top: 32px; padding-top: 20px; border-top: 1px solid var(--border);
+  font-size: 13px; color: var(--text-muted);
+}
+.source a { color: var(--accent); text-decoration: none; }
+.source a:hover { text-decoration: underline; }
+
+.explore { margin-top: 40px; }
+.explore-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
+.explore-grid a {
+  display: flex; align-items: center; gap: 10px;
+  border: 1px solid var(--border); background: var(--surface);
+  border-radius: var(--radius-sm); padding: 12px 14px;
+  text-decoration: none; color: var(--text-sub); font-size: 13px; font-weight: 500;
+  transition: all 0.2s var(--ease);
+}
+.explore-grid a:hover { border-color: var(--accent); color: var(--text); }
+
+/* ADS */
+.ad-box, .ad-box-inline {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 20px;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden; margin: 32px 0; min-height: 120px;
+}
+.ad-box-inline { min-height: 140px; }
+.ad-label {
+  font-family: var(--mono); font-size: 10px; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 8px; text-align: center;
+}
+.ad-box-ins { width: 100%; display: block; min-height: 100px; }
+
+/* FOOTER */
+.site-footer {
+  margin-top: 56px; padding-top: 28px; border-top: 1px solid var(--border);
+  display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center;
+  justify-content: space-between; font-size: 13px; color: var(--text-muted);
+}
+.site-footer nav { display: flex; flex-wrap: wrap; gap: 14px; }
+.site-footer a { color: var(--text-sub); text-decoration: none; }
+.site-footer a:hover { color: var(--accent); }
+
+@media (max-width: 640px) {
+  .shell { padding: 20px 16px 60px; }
+  .nav-shell { margin: -20px -16px 32px; padding: 0 16px; }
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .page-title { font-size: 26px; }
+  .topics-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .topic-card { padding: 18px; }
+  .topic-name { font-size: 15px; }
+  .topic-icon { width: 40px; height: 40px; font-size: 20px; }
+  .article h2 { font-size: 21px; margin-top: 32px; }
+  .article p { font-size: 15.5px; }
+  .prevnext { flex-direction: column; }
+  .prevnext a.next { text-align: left; align-items: flex-start; }
+}
+
+@media (max-width: 380px) {
+  .topics-grid { grid-template-columns: 1fr; }
+}
+</style>
+<!-- DIH:HEAD -->
+<script>try{var t=localStorage.getItem('dih_theme')||'dark';document.documentElement.setAttribute('data-theme',t);document.documentElement.setAttribute('data-dih','');}catch(e){document.documentElement.setAttribute('data-dih','');}</script>
+<meta name="theme-color" content="#07070c">
+<meta name="color-scheme" content="dark light">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="author" content="Digital Infohub">
+<meta name="keywords" content="smart cities, urban technology, city sensors, digital twin city, smart mobility, public data">
+<link rel="canonical" href="https://digitalinfohub.net/smartcities">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Digital Infohub">
+<meta property="og:title" content="Smart Cities: Sensors, Data and Public Trust">
+<meta property="og:description" content="What makes a city smart: connected infrastructure, digital twins, mobility data and the governance questions that decide whether residents trust it.">
+<meta property="og:url" content="https://digitalinfohub.net/smartcities">
+<meta property="og:image" content="https://images.unsplash.com/photo-1758073519996-6d3c63b4922c?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta property="og:image:secure_url" content="https://images.unsplash.com/photo-1758073519996-6d3c63b4922c?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Abstract blue field of glowing technology dots representing a connected network">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Smart Cities: Sensors, Data and Public Trust">
+<meta name="twitter:description" content="What makes a city smart: connected infrastructure, digital twins, mobility data and the governance questions that decide whether residents trust it.">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1758073519996-6d3c63b4922c?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta name="twitter:image:alt" content="Abstract blue field of glowing technology dots representing a connected network">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="icon" href="/assets/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://digitalinfohub.net/#organization","name":"Digital Infohub","url":"https://digitalinfohub.net/","logo":{"@type":"ImageObject","url":"https://digitalinfohub.net/assets/icon-512.png","width":512,"height":512},"description":"Independent technology publication for professionals: AI, markets, software and practical guides.","sameAs":[]},{"@type":"WebSite","@id":"https://digitalinfohub.net/#website","url":"https://digitalinfohub.net/","name":"Digital Infohub","publisher":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://digitalinfohub.net/blog?q={search_term_string}"},"query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://digitalinfohub.net/smartcities#webpage","url":"https://digitalinfohub.net/smartcities","name":"Smart Cities: Sensors, Data and Public Trust | Digital Infohub","description":"What makes a city smart: connected infrastructure, digital twins, mobility data and the governance questions that decide whether residents trust it.","isPartOf":{"@id":"https://digitalinfohub.net/#website"},"about":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","primaryImageOfPage":{"@type":"ImageObject","url":"https://images.unsplash.com/photo-1758073519996-6d3c63b4922c?w=1200&h=630&fit=crop&auto=format&q=80&fm=jpg","width":1200,"height":630}}]}</script>
+<!-- /DIH:HEAD -->
+</head>
+<body>
+<!-- DIH:AMBIENT -->
+<div class="dih-ambient" aria-hidden="true" style="--dih-ambient:url('https://images.unsplash.com/photo-1758073519996-6d3c63b4922c?w=1600&amp;h=900&amp;fit=crop&amp;auto=format&amp;q=45')"></div>
+<!-- /DIH:AMBIENT -->
+<!-- DIH:HEADER -->
+<header class="dih-header">
+  <div class="dih-header-inner">
+    <a class="dih-brand" href="/" aria-label="Digital Infohub home">
+      <img src="/assets/logo.png" alt="Digital Infohub logo" width="36" height="36">
+      <span class="dih-brand-text">Digital <b>Infohub</b></span>
+    </a>
+    <nav class="dih-nav" data-dih-nav aria-label="Primary navigation">
+      <a class="dih-link" href="/">Home</a>
+      <a class="dih-link" href="/blog">Blog</a>
+      <a class="dih-link" href="/techtopics">Tech Topics</a>
+      <a class="dih-link" href="/software">Software</a>
+      <a class="dih-link" href="/techproducts">Tech Products</a>
+      <a class="dih-link" href="/games">Games</a>
+      <a class="dih-link" href="/coincompass">Markets</a>
+    </nav>
+    <div class="dih-actions">
+      <a class="dih-tools" href="/software#tools" title="Free browser tools" aria-label="Free browser tools">⚡<span>Tools</span></a>
+      <button class="dih-icon" type="button" data-dih-theme aria-label="Switch theme" title="Switch theme">☀</button>
+      <a class="dih-cta" href="/subscribe">Subscribe</a>
+      <button class="dih-burger" id="dihBurger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="dihDrawer"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+<div class="dih-drawer" id="dihDrawer" aria-label="Site menu">
+  <div class="dih-drawer-panel">
+    <div class="dih-drawer-grid">
+      <a class="dih-drawer-link" href="/">Home</a>
+      <a class="dih-drawer-link" href="/blog">Blog</a>
+      <a class="dih-drawer-link" href="/techtopics">Tech Topics</a>
+      <a class="dih-drawer-link" href="/software">Software</a>
+      <a class="dih-drawer-link" href="/techproducts">Tech Products</a>
+      <a class="dih-drawer-link" href="/games">Games</a>
+      <a class="dih-drawer-link" href="/coincompass">Markets</a>
+    </div>
+    <div class="dih-drawer-sub">
+      <a class="dih-drawer-link" href="/news">📰 Tech News</a>
+      <a class="dih-drawer-link" href="/quiz">🎯 Tech Quiz</a>
+      <a class="dih-drawer-link" href="/software#tools">⚡ Tools</a>
+      <a class="dih-drawer-link" href="/services">🧰 Services</a>
+    </div>
+    <a class="dih-drawer-cta" href="/subscribe">✉️ Subscribe — weekly tech intel</a>
+    <p class="dih-drawer-note">Digital Infohub · Tech intelligence for people who build, buy and invest in technology.</p>
+  </div>
+</div>
+<!-- /DIH:HEADER -->
+
+<div class="shell">
+  <nav class="nav-shell">
+    <div class="nav-bar">
+      <div class="nav-links">
+        <a href="/" class="nav-link">🏠 Home</a>
+        <a href="/blog" class="nav-link">📝 Blog</a>
+        <a href="/techtopics" class="nav-link active">💡 Tech Topics</a>
+        <a href="/software" class="nav-link">💻 Software</a>
+        <a href="/games" class="nav-link">🎮 Games</a>
+        <a href="/subscribe" class="nav-link">✉️ Subscribe</a>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">☰</button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="/" class="nav-link">🏠 Home</a>
+        <a href="/blog" class="nav-link">📝 Blog</a>
+        <a href="/techtopics" class="nav-link active">💡 Tech Topics</a>
+        <a href="/software" class="nav-link">💻 Software</a>
+        <a href="/games" class="nav-link">🎮 Games</a>
+        <a href="/subscribe" class="nav-link">✉️ Subscribe</a>
+    </div>
+  </nav>
+
+  <div class="topbar">
+    <a href="/" class="brand" aria-label="Digital Infohub home">
+      <span class="brand-logo">
+        <img src="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png" alt="" loading="lazy" width="28" height="28">
+      </span>
+      <span>Digital Infohub</span>
+    </a>
+    <div class="topbar-actions">
+      <button class="icon-btn" id="themeToggle" title="Toggle theme" aria-label="Toggle dark and light theme">
+        <svg id="themeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+      </button>
+    </div>
+  </div>
+
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/">Home</a>
+    <span aria-hidden="true">/</span>
+    <a href="/techtopics">Tech Topics</a>
+    <span aria-hidden="true">/</span>
+    <span aria-current="page">Smart Cities</span>
+  </nav>
+
+  <article class="article">
+    <header class="article-head">
+      <span class="topic-chip"><span aria-hidden="true">🏙️</span> Emerging &middot; Tech Topics</span>
+      <h1>Smart Cities: Sensors, Data and Public Trust</h1>
+      <p class="lede">A smart city uses data and connected infrastructure to run services more efficiently, but the hard part is governance rather than technology.</p>
+      <div class="article-meta">
+        <span>Updated November 2026</span>
+        <span class="dot">&middot;</span>
+        <span>4 min read</span>
+        <span class="dot">&middot;</span>
+        <span>Digital Infohub</span>
+      </div>
+    </header>
+
+    <div class="ad-box-inline" role="complementary" aria-label="Advertisement">
+  <div style="width:100%;">
+    <div class="ad-label">Sponsored</div>
+    <ins class="adsbygoogle ad-box-ins"
+         style="display:block"
+         data-ad-client="ca-pub-5443646750699471"
+         data-ad-slot="8451723433"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+
+    <div class="toc">
+      <h2>In this guide</h2>
+      <ol>
+      <li><a href="#layers">The layers of a smart city</a></li>
+      <li><a href="#mobility">Mobility and digital twins</a></li>
+      <li><a href="#trust">Privacy, equity and accountability</a></li>
+      </ol>
+    </div>
+
+    <p>Cities are systems of systems: transport, water, power, waste, housing and emergency services all interact. Smart-city projects try to instrument those systems, share data between them and use the result to make better decisions.</p>
+    <p>The technology is often less difficult than the politics. A sensor network can measure air quality, but it cannot decide who owns the data, who is accountable when an algorithm is wrong, or whether residents were consulted. Those questions determine whether a project is useful or merely well-funded.</p>
+
+    <h2 id="layers">The layers of a smart city</h2>
+    <p>The first layer is sensing: cameras, air-quality monitors, parking sensors, smart meters and vehicle telemetry. The second is connectivity, usually a mix of fibre, cellular and low-power radio. The third is a data platform that normalises and shares information across departments.</p>
+    <p>The final layer is action: dynamic traffic signals, predictive maintenance, emergency response and public dashboards. Value appears when data crosses a departmental boundary, which is exactly where procurement, privacy and ownership conflicts tend to appear.</p>
+    <ul>
+      <li>Sensing: what is happening in the physical city.</li>
+      <li>Connectivity: moving data reliably and securely.</li>
+      <li>Platform: common standards, identity and access control.</li>
+      <li>Action: operational decisions and public services.</li>
+    </ul>
+    <h2 id="mobility">Mobility and digital twins</h2>
+    <p>Transport is the most visible use case. Real-time vehicle and passenger data can adjust signals, prioritise buses, guide drivers to available parking and help planners model a new cycle lane before building it. The risk is optimising for cars because cars are easiest to measure.</p>
+    <p>A digital twin is a live model of a physical system, such as a district, a water network or a transit corridor. It lets planners test scenarios and operators diagnose failures. A twin is only as good as its data and its assumptions; a beautiful 3D model with stale inputs is a presentation, not a tool.</p>
+    <div class="callout">A smart city is not a vendor product. It is a governance commitment to share data, measure outcomes and let residents see the evidence.</div>
+    <div class="ad-box-inline" role="complementary" aria-label="Advertisement">
+      <div style="width:100%;">
+        <div class="ad-label">Sponsored</div>
+        <ins class="adsbygoogle ad-box-ins"
+             style="display:block"
+             data-ad-client="ca-pub-5443646750699471"
+             data-ad-slot="8451723433"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      </div>
+    </div>
+    <h2 id="trust">Privacy, equity and accountability</h2>
+    <p>Urban sensors can reveal where people live, work and gather. Cameras raise surveillance concerns, and algorithmic decisions about policing, housing or benefits can encode bias. Privacy impact assessments, data minimisation and independent oversight are not optional extras.</p>
+    <p>Equity matters too. A service that only works for people with a smartphone excludes those without one. Good projects keep analog channels open, publish performance data and give residents a way to challenge automated decisions.</p>
+
+    <h2 id="key-facts">Key facts at a glance</h2>
+    <div class="facts">
+      <div class="fact">Smart-city value comes from integrating data across departments.</div>
+      <div class="fact">Transport and infrastructure maintenance are the most common starting points.</div>
+      <div class="fact">Digital twins are only useful when their data is current and governed.</div>
+      <div class="fact">Privacy, equity and accountability decide public trust.</div>
+    </div>
+
+    <h2 id="faq">Frequently asked questions</h2>
+      <div class="faq-item">
+        <h3>What is a digital twin in a city?</h3>
+        <p>It is a live virtual model of a physical system, fed by sensor and operational data. Planners use it to simulate changes, and operators use it to detect and diagnose problems.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Are smart cities just surveillance cities?</h3>
+        <p>They can become that if data collection is broad, opaque and unaccountable. The alternative is purpose-limited sensing, clear retention rules, independent oversight and public reporting.</p>
+      </div>
+      <div class="faq-item">
+        <h3>What is a realistic first smart-city project?</h3>
+        <p>Start with a narrow operational problem, such as streetlight energy use, water leakage or bus reliability. Instrument it, publish the baseline and measure whether the intervention improved the outcome.</p>
+      </div>
+
+    <div class="source">
+      Further reading: <a href="https://en.wikipedia.org/wiki/Smart_city" target="_blank" rel="noopener noreferrer">Wikipedia &mdash; Smart Cities</a>
+    </div>
+
+  <nav class="prevnext" aria-label="More tech topics">
+    <a class="prev" href="/wearabletechnology">
+      <span class="pn-label">&larr; Previous topic</span>
+      <span class="pn-name">Wearable Technology</span>
+    </a>
+  </nav>
+
+    <section class="related" aria-labelledby="related-heading">
+      <h2 id="related-heading">Related tech topics</h2>
+      <div class="topics-grid">
+        <a class="topic-card" href="/internetofthings">
+          <div class="topic-icon" aria-hidden="true">📡</div>
+          <div class="topic-name">Internet of Things</div>
+          <div class="topic-brief">Sensors, gateways and the security questions every device raises.</div>
+          <div class="topic-more">Read the guide &rarr;</div>
+        </a>
+        <a class="topic-card" href="/edgecomputing">
+          <div class="topic-icon" aria-hidden="true">📍</div>
+          <div class="topic-name">Edge Computing</div>
+          <div class="topic-brief">Why processing near the data wins on latency, bandwidth and privacy.</div>
+          <div class="topic-more">Read the guide &rarr;</div>
+        </a>
+        <a class="topic-card" href="/cybersecurity">
+          <div class="topic-icon" aria-hidden="true">🛡️</div>
+          <div class="topic-name">Cybersecurity</div>
+          <div class="topic-brief">The threats that matter and the controls that actually reduce risk.</div>
+          <div class="topic-more">Read the guide &rarr;</div>
+        </a>
+      </div>
+    </section>
+
+    <section class="explore" aria-labelledby="explore-heading">
+      <h2 id="explore-heading">Keep exploring Digital Infohub</h2>
+      <div class="explore-grid">
+        <a href="/techtopics"><span aria-hidden="true">💡</span> All Tech Topics</a>
+        <a href="/blog"><span aria-hidden="true">📝</span> Latest articles</a>
+        <a href="/software"><span aria-hidden="true">💻</span> Free software</a>
+        <a href="/games"><span aria-hidden="true">🎮</span> Play free games</a>
+        <a href="/subscribe"><span aria-hidden="true">✉️</span> Newsletter</a>
+      </div>
+    </section>
+
+    <div class="ad-box-inline" role="complementary" aria-label="Advertisement">
+  <div style="width:100%;">
+    <div class="ad-label">Sponsored</div>
+    <ins class="adsbygoogle ad-box-ins"
+         style="display:block"
+         data-ad-client="ca-pub-5443646750699471"
+         data-ad-slot="8451723433"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+  </article>
+
+  <footer class="site-footer">
+    <span>&copy; 2026 Digital Infohub. All rights reserved.</span>
+    <nav aria-label="Site links">
+      <a href="/">Home</a>
+      <a href="/techtopics">Tech Topics</a>
+      <a href="/blog">Blog</a>
+      <a href="/about">About</a>
+      <a href="/advertise">Advertise</a>
+      <a href="/privacy-policy">Privacy</a>
+      <a href="https://digitalinfohub.net/">Main site</a>
+    </nav>
+  </footer>
+</div>
+
+<script>
+(function() {
+  'use strict';
+  var sunSvg = '<circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>';
+  var moonSvg = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+
+  var theme = 'dark';
+  try { theme = localStorage.getItem('dih_theme') || 'dark'; } catch (e) {}
+  document.documentElement.setAttribute('data-theme', theme);
+
+  var themeIcon = document.getElementById('themeIcon');
+  if (themeIcon) themeIcon.innerHTML = theme === 'dark' ? sunSvg : moonSvg;
+
+  var themeToggle = document.getElementById('themeToggle');
+  if (themeToggle) {
+    themeToggle.addEventListener('click', function() {
+      theme = theme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', theme);
+      try { localStorage.setItem('dih_theme', theme); } catch (e) {}
+      if (themeIcon) themeIcon.innerHTML = theme === 'dark' ? sunSvg : moonSvg;
+    });
+  }
+
+  var hamburger = document.getElementById('hamburger');
+  var mobileMenu = document.getElementById('mobileMenu');
+  if (hamburger && mobileMenu) {
+    hamburger.addEventListener('click', function() {
+      var isOpen = mobileMenu.classList.toggle('active');
+      hamburger.textContent = isOpen ? '\u00d7' : '\u2630';
+      hamburger.setAttribute('aria-expanded', isOpen);
+    });
+  }
+})();
+</script>
+<!-- DIH:GALLERY -->
+<section class="dih-gallery" aria-labelledby="dihGalleryTitle">
+  <div class="dih-gallery-head">
+    <div>
+      <span class="dih-gallery-eyebrow">Visual briefing</span>
+      <h2 id="dihGalleryTitle">Technology, in focus</h2>
+      <p>Fast context on the ideas shaping the industry, with a guide for every one.</p>
+    </div>
+    <a class="dih-gallery-all" href="/techtopics">All 30 tech guides <span aria-hidden="true">&rarr;</span></a>
+  </div>
+  <div class="dih-gallery-grid">
+      <a class="dih-gallery-card" href="/blockchain">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1639762681057-408e52192e55?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=72" alt="Floating translucent cubes in a dark blue space" width="800" height="500" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Markets</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Tokenised everything</strong>
+          <span>Tokenisation promises faster settlement and fractional ownership. The technology works; the regulatory and custody questions are what slow adoption.</span>
+          <em>Read the blockchain guide &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/coincompass">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1590859808308-3d2d9c515b1a?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=72" alt="Abstract blue data waves resembling a market chart" width="800" height="500" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Markets</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Riding the market cycle</strong>
+          <span>Tech stocks and crypto move on the same liquidity tide more often than investors admit. Watching rates, earnings and risk appetite together beats chasing headlines.</span>
+          <em>Open CoinCompass &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/3dprinting">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1649406458887-2b6561c36a4d?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=72" alt="Wireframe lightbulb glowing against a dark background" width="800" height="500" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">3D printing</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>From idea to prototype</strong>
+          <span>Additive manufacturing turns a CAD file into a physical part in hours. It is best for complex geometry, small batches and parts that would be costly to machine.</span>
+          <em>Read the 3D printing guide &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/software">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1483058712412-4245e9b90334?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=72" alt="Mac computer on a desk with the words Do More on screen" width="800" height="500" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Software</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Tools for deep work</strong>
+          <span>The best productivity tools disappear into a routine. Pick a small set, learn their shortcuts and stop rebuilding your system every month.</span>
+          <em>Browse free tools &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/virtualreality">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=72" alt="Person wearing a virtual reality headset in blue light" width="800" height="500" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">VR &amp; AR</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>The next interface</strong>
+          <span>VR and AR are finding real work in training, design review and simulation. The hardware is improving faster than the comfort and content problems.</span>
+          <em>Read the VR guide &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/internetofthings">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1758073519996-6d3c63b4922c?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=72" alt="Abstract blue field of glowing technology dots representing a connected network" width="800" height="500" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">IoT</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Connected by default</strong>
+          <span>A modern factory floor now runs more connected sensors than laptops. The value is in the data, but every new endpoint is also a new door to defend.</span>
+          <em>Read the IoT guide &rarr;</em>
+        </span>
+      </a>
+  </div>
+  <p class="dih-gallery-credit">Photography by Unsplash contributors. Cards link to related Digital Infohub guides.</p>
+</section>
+<!-- /DIH:GALLERY -->
+<!-- DIH:EXPLORE -->
+<section class="dih-explore" aria-labelledby="dihExploreTitle">
+  <div class="dih-explore-head">
+    <h2 id="dihExploreTitle">Go deeper on the tech that matters</h2>
+    <p>Guides that make you the most informed person in the room.</p>
+  </div>
+  <div class="dih-explore-grid">
+      <a class="dih-explore-card" href="/blog">
+        <span class="dih-explore-icon" aria-hidden="true">📝</span>
+        <strong>Blog &amp; analysis</strong>
+        <span>Deep dives on AI, hardware, markets and digital culture.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/software">
+        <span class="dih-explore-icon" aria-hidden="true">🛠️</span>
+        <strong>Software &amp; tools</strong>
+        <span>Free AI assistants and browser utilities that run locally.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/techproducts">
+        <span class="dih-explore-icon" aria-hidden="true">💻</span>
+        <strong>Tech Products</strong>
+        <span>Hands-on buying guidance for work, creativity and play.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/subscribe">
+        <span class="dih-explore-icon" aria-hidden="true">✉️</span>
+        <strong>Subscribe</strong>
+        <span>Weekly tech intelligence in your inbox, free.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/quiz">
+        <span class="dih-explore-icon" aria-hidden="true">🎯</span>
+        <strong>Tech Quiz</strong>
+        <span>Six quick quizzes with a grade for every topic.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/news">
+        <span class="dih-explore-icon" aria-hidden="true">📰</span>
+        <strong>Tech News</strong>
+        <span>Live headlines from the industry, updated through the day.</span>
+        <em>Explore →</em>
+      </a>
+  </div>
+</section>
+<!-- /DIH:EXPLORE -->
+<!-- DIH:FOOTER -->
+<footer class="dih-footer">
+  <div class="dih-footer-inner">
+    <div class="dih-footer-brand">
+      <a class="dih-brand" href="/" aria-label="Digital Infohub home">
+        <img src="/assets/logo.png" alt="Digital Infohub logo" width="40" height="40">
+        <span class="dih-brand-text">Digital <b>Infohub</b></span>
+      </a>
+      <p>The independent hub for tech professionals and business leaders: AI research, market moves, practical guides and free tools.</p>
+      <span class="dih-pill"><span class="dih-dot"></span> Updated daily</span>
+    </div>
+    <div class="dih-footer-col">
+      <h3>Explore</h3>
+      <a href="/blog">Blog &amp; analysis</a>
+      <a href="/techtopics">Tech Topics</a>
+      <a href="/software">Software &amp; tools</a>
+      <a href="/techproducts">Tech Products</a>
+      <a href="/games">Pixel Palace</a>
+      <a href="/news">Live tech news</a>
+      <a href="/quiz">Tech quiz</a>
+    </div>
+    <div class="dih-footer-col">
+      <h3>Company</h3>
+      <a href="/about">About</a>
+      <a href="/services">Services</a>
+      <a href="/advertise">Advertise</a>
+      <a href="/coincompass">CoinCompass</a>
+      <a href="/privacy-policy">Privacy</a>
+    </div>
+    <div class="dih-footer-col dih-footer-cta">
+      <h3>Stay ahead</h3>
+      <p>One email a week: the AI, market and software stories that actually matter.</p>
+      <a class="dih-btn dih-btn-primary" href="/subscribe">Subscribe free</a>
+    </div>
+  </div>
+  <div class="dih-footer-bottom">
+    <span>© 2026 Digital Infohub · Independent technology publication</span>
+    <nav aria-label="Footer links">
+      <a href="/blog">Blog</a>
+      <a href="/techtopics">Guides</a>
+      <a href="/software">Tools</a>
+      <a href="/sitemap.xml">Sitemap</a>
+      <a href="mailto:services@digitalinfohub.net">Contact</a>
+    </nav>
+  </div>
+</footer>
+<!-- /DIH:FOOTER -->
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

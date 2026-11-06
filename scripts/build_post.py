@@ -6,6 +6,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from apply_site import process as apply_site_process  # noqa: E402
+from images import share_url, POST_IMAGES  # noqa: E402
 TEMPLATE = ROOT / "scripts" / "template.html"
 POSTS_DIR = ROOT / "_posts"
 OUT_DIR = ROOT / "post"
@@ -34,7 +35,7 @@ def build(slug):
         "{{TITLE_TAG}}": data["title"]["en"],
         "{{META_DESC}}": data["meta_description"],
         "{{OG_DESC}}": data["og_description"],
-        "{{OG_IMAGE}}": data["og_image"],
+        "{{OG_IMAGE}}": data.get("og_image") or share_url(POST_IMAGES.get(slug, "network")),
         "{{JS_TITLES}}": ",\n    ".join(f"{l}: {json.dumps(data['title'][l], ensure_ascii=False)}" for l in LANGS),
         "{{TAGS}}": "\n        ".join(f'<a class="tag" href="#">{t}</a>' for t in data["tags"]),
     }

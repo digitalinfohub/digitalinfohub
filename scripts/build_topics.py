@@ -20,6 +20,7 @@ from topics_part1 import TOPICS as PART1  # noqa: E402
 from topics_part2 import TOPICS as PART2  # noqa: E402
 from topics_part3 import TOPICS as PART3  # noqa: E402
 from topics_part4 import TOPICS as PART4  # noqa: E402
+from topics_part5 import TOPICS as PART5  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 SITE = "https://digitalinfohub.net"
@@ -31,8 +32,9 @@ UPDATED = "2026-11-04"
 TODAY = date.today().isoformat()
 
 from apply_site import process as apply_site_process  # noqa: E402
+from images import TOPIC_IMAGES, share_url  # noqa: E402
 
-ALL = PART1 + PART2 + PART3 + PART4
+ALL = PART1 + PART2 + PART3 + PART4 + PART5
 TOPICS = {t["slug"]: t for t in ALL}
 
 # Display order used on /techtopics (matches the original page order).
@@ -43,6 +45,8 @@ ORDER = [
     "edgecomputing", "web3", "semiconductors", "3dprinting", "biotechnology",
     "greentechnology", "digitaltwins", "zerotrustsecurity", "serverlesscomputing",
     "neuromorphiccomputing",
+    "augmentedreality", "drones", "nanotechnology", "spacetechnology",
+    "wearabletechnology", "smartcities",
 ]
 
 CATEGORIES = ["Foundations", "Infrastructure", "Engineering", "Security", "Web3", "Hardware", "Emerging"]
@@ -72,6 +76,12 @@ BRIEF = {
     "zerotrustsecurity": "Verify every request instead of trusting the network perimeter.",
     "serverlesscomputing": "Event-driven execution, per-request billing and the trade-offs.",
     "neuromorphiccomputing": "Brain-inspired chips that spend almost no power when idle.",
+    "augmentedreality": "How AR overlays the real world, and where it is already useful.",
+    "drones": "Flight, inspection and the rules that decide where UAVs can go.",
+    "nanotechnology": "Engineering at the atomic scale, from chips to medicine.",
+    "spacetechnology": "Cheaper launch, smarter satellites and the new space economy.",
+    "wearabletechnology": "Health sensors, smart rings and ambient computing on the body.",
+    "smartcities": "Urban sensors, digital twins and the trust problem.",
 }
 
 CSS = """
@@ -593,7 +603,7 @@ def article_ld(t, url):
         "@type": "TechArticle",
         "headline": t["title"],
         "description": t["meta"],
-        "image": [t["image"]],
+        "image": [share_url(TOPIC_IMAGES.get(t["slug"], "network"))],
         "url": url,
         "mainEntityOfPage": {"@type": "WebPage", "@id": url},
         "datePublished": UPDATED,
@@ -661,6 +671,7 @@ def related_card(slug):
 
 def render_topic(t):
     url = f"{SITE}/{t['slug']}"
+    share_image = share_url(TOPIC_IMAGES.get(t["slug"], "network"))
     read_mins = max(4, round(word_count(t) / 220))
 
     toc_items = "\n".join(
@@ -703,7 +714,7 @@ def render_topic(t):
 
     related = "\n".join(related_card(s) for s in t["related"])
 
-    return f'''{head_html(t["title"], t["meta"], url, t["image"], t["keywords"],
+    return f'''{head_html(t["title"], t["meta"], url, share_image, t["keywords"],
                            extra_ld=[article_ld(t, url), breadcrumb_ld(t["name"], url), faq_ld(t)])}
 <body>
 
@@ -854,7 +865,7 @@ def render_index():
     }
 
     return f'''{head_html(title, description, url,
-                         "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&h=630&fit=crop&q=80",
+                         share_url("circuit"),
                          keywords=["tech topics", "technology guides", "what is AI", "cloud computing",
                                    "cybersecurity", "quantum computing", "explained"],
                          og_type="website",
@@ -870,8 +881,12 @@ def render_index():
     <h1 class="page-title">Tech Topics</h1>
     <p class="page-desc">Plain-language guides to the ideas shaping our digital world. Every topic below has an in-depth guide covering how it works, where it is used and what to watch for. Start anywhere, or browse our <a href="/blog">latest articles</a> and <a href="/software">free software</a>.</p>
     <nav class="topic-jump" aria-label="Jump to a category">
-{jump}
+{chr(10).join(jump)}
     </nav>
+    <div class="dih-guide-actions">
+      <a class="dih-guide-action primary" href="/quiz"><span aria-hidden="true">🎯</span><strong>Test yourself</strong><span>Six quick tech quizzes with a grade for every topic.</span></a>
+      <a class="dih-guide-action" href="/news"><span aria-hidden="true">📰</span><strong>Live tech news</strong><span>Fresh headlines even when the blog is quiet.</span></a>
+    </div>
   </header>
 
   {ad_block()}
@@ -916,7 +931,7 @@ def build_sitemap():
         add(slug, "0.8", "monthly", UPDATED)
     add("techtopics", "0.9", "weekly", UPDATED)
     add("", "1.0", "daily")
-    for hub in ["blog", "software", "techtopics", "games", "subscribe", "about", "advertise", "services", "techproducts", "coincompass", "expense-tracker", "pomodoro", "privacy-policy"]:
+    for hub in ["blog", "software", "techtopics", "games", "subscribe", "about", "advertise", "services", "techproducts", "coincompass", "expense-tracker", "pomodoro", "privacy-policy", "news", "quiz"]:
         if (ROOT / f"{hub}.html").exists():
             add(hub, "0.7", "weekly")
     for sub in ["software", "post"]:

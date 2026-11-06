@@ -26,6 +26,8 @@ TARGETS = {
     "/techproducts": ("💻", "Tech Products", "Hands-on buying guidance for work, creativity and play."),
     "/games": ("🎮", "Pixel Palace", "Free arcade games, playable on desktop and mobile."),
     "/coincompass": ("🧭", "CoinCompass", "Track crypto and market context in one place."),
+    "/news": ("📰", "Tech News", "Live headlines from the industry, updated through the day."),
+    "/quiz": ("🎯", "Tech Quiz", "Six quick quizzes with a grade for every topic."),
     "/subscribe": ("✉️", "Subscribe", "Weekly tech intelligence in your inbox, free."),
     "/about": ("ℹ️", "About", "Who builds Digital Infohub and why."),
     "/services": ("🧰", "Services", "Automation, AI integration and custom builds."),
@@ -35,7 +37,7 @@ TARGETS = {
 
 EXPLORE = {
     "blog": ["/techtopics", "/software", "/coincompass", "/subscribe"],
-    "techtopics": ["/blog", "/software", "/techproducts", "/subscribe"],
+    "techtopics": ["/blog", "/software", "/techproducts", "/subscribe", "/quiz", "/news"],
     "software": ["/blog", "/techtopics", "/coincompass", "/games"],
     "software-detail": ["/software", "/blog", "/techtopics", "/games"],
     "techproducts": ["/blog", "/software", "/techtopics", "/games"],
@@ -45,6 +47,8 @@ EXPLORE = {
     "advertise": ["/services", "/about", "/subscribe", "/blog"],
     "subscribe": ["/blog", "/techtopics", "/software", "/games"],
     "coincompass": ["/blog", "/techtopics", "/software", "/subscribe"],
+    "news": ["/quiz", "/blog", "/techtopics", "/subscribe"],
+    "quiz": ["/techtopics", "/news", "/blog", "/software"],
     "privacy": ["/about", "/subscribe", "/blog", "/services"],
     "tool": ["/software", "/blog", "/techtopics", "/coincompass"],
     "post": ["/blog", "/techtopics", "/software", "/subscribe"],
@@ -65,6 +69,8 @@ _HEADINGS = {
     "privacy": "Explore the hub",
     "tool": "More free tools",
     "post": "Keep the momentum",
+    "news": "Turn headlines into understanding",
+    "quiz": "Find your next rabbit hole",
 }
 
 _SUBS = {
@@ -82,6 +88,8 @@ _SUBS = {
     "privacy": "Everything else Digital Infohub publishes.",
     "tool": "Ten more browser tools are waiting in the suite.",
     "post": "Related guides, tools and analysis from the hub.",
+    "news": "The story behind the headline is usually a guide away.",
+    "quiz": "A score is useful. Knowing what to read next is better.",
 }
 
 
@@ -119,6 +127,8 @@ def header_html(prefix: str = "") -> str:
 {drawer}
     </div>
     <div class="dih-drawer-sub">
+      <a class="dih-drawer-link" href="/news">📰 Tech News</a>
+      <a class="dih-drawer-link" href="/quiz">🎯 Tech Quiz</a>
       <a class="dih-drawer-link" href="/software#tools">⚡ Tools</a>
       <a class="dih-drawer-link" href="/services">🧰 Services</a>
     </div>
@@ -176,6 +186,8 @@ def footer_html() -> str:
       <a href="/software">Software &amp; tools</a>
       <a href="/techproducts">Tech Products</a>
       <a href="/games">Pixel Palace</a>
+      <a href="/news">Live tech news</a>
+      <a href="/quiz">Tech quiz</a>
     </div>
     <div class="dih-footer-col">
       <h3>Company</h3>

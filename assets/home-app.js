@@ -248,7 +248,7 @@
   function markdown(text) {
     var html;
     try {
-      html = window.marked ? marked.parse(String(text), { breaks: true, gfm: true }) : esc(text).replace(/\n/g, '<br>');
+      html = window.dihMarkdown ? window.dihMarkdown(String(text)) : (window.marked ? marked.parse(String(text), { breaks: true, gfm: true }) : esc(text).replace(/\n/g, '<br>'));
     } catch (e) { html = esc(text).replace(/\n/g, '<br>'); }
     return sanitize(html);
   }

@@ -96,7 +96,7 @@
       'main > section', '.shell > .section', '.article > header', '.post-header',
       '.dih-explore', '.dih-footer-inner > *', '.folder-card', '.topic-card',
       '.service-card', '.product-card', '.tool-card', '.card', '.cab', '.guide-card',
-      '.hero', '.home-section', '.pulse', '.section'
+      '.hero', '.home-section', '.pulse', '.section', '.dih-gallery-card'
     ];
     var nodes = [];
     selectors.forEach(function (sel) {
@@ -215,7 +215,7 @@
 
     var shown = false;
     function show() {
-      if (shown) return;
+      if (shown || document.body.classList.contains('digi-on')) return;
       shown = true;
       card.classList.add('show');
       setTimeout(function () { hide(KEY); }, 22000);
@@ -236,6 +236,85 @@
     var timer = setTimeout(show, 14000);
     window.addEventListener('scroll', function () {
       if (!shown && window.scrollY > 900) { clearTimeout(timer); show(); }
+    }, { passive: true });
+  }
+
+  /* ------------------------------------------------------- what's new popup */
+  function initPulse() {
+    var KEY = 'dih_pulse_seen';
+    if (/^\/(privacy-policy|subscribe)/.test(location.pathname)) return;
+    var onboarding = document.getElementById('onboarding');
+    if (onboarding && !onboarding.classList.contains('hidden')) return;
+    var last = parseInt(store(KEY) || '0', 10);
+    if (last && Date.now() - last < 1000 * 60 * 60 * 24 * 3) return;
+
+    var items = [
+      {
+        img: 'https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=140&h=140&fit=crop&auto=format&q=70',
+        kicker: 'AI · 4 min read',
+        title: 'Inside the AI brain',
+        text: 'What large models actually learn, and where a human still has to check the work.',
+        href: '/artificialintelligence',
+        cta: 'Read the AI guide'
+      },
+      {
+        img: 'https://images.unsplash.com/photo-1590859808308-3d2d9c515b1a?w=140&h=140&fit=crop&auto=format&q=70',
+        kicker: 'Markets · live dashboard',
+        title: 'Crypto and stock graphs, without the noise',
+        text: 'CoinCompass now plots the trend beside the price, so context comes first.',
+        href: '/coincompass',
+        cta: 'Open CoinCompass'
+      },
+      {
+        img: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=140&h=140&fit=crop&auto=format&q=70',
+        kicker: 'Security · 5 min read',
+        title: 'Security is an identity problem',
+        text: 'Most breaches start with a stolen session, not a broken firewall.',
+        href: '/cybersecurity',
+        cta: 'Read the security guide'
+      },
+      {
+        img: 'https://images.unsplash.com/photo-1644088379091-d574269d422f?w=140&h=140&fit=crop&auto=format&q=70',
+        kicker: 'Tech trends · analysis',
+        title: 'The stories shaping tech right now',
+        text: 'AI capex, on-device inference and the security spending shift, in one briefing.',
+        href: '/blog',
+        cta: 'Open today\'s briefing'
+      }
+    ];
+    var item = items[Math.floor(Math.random() * items.length)];
+    var el = document.createElement('aside');
+    el.className = 'dih-pulse';
+    el.setAttribute('aria-label', 'What is new at Digital Infohub');
+    el.innerHTML =
+      '<img src="' + item.img + '" alt="" width="62" height="62" loading="lazy">' +
+      '<div class="dih-pulse-body">' +
+        '<span class="dih-pulse-kicker">' + item.kicker + '</span>' +
+        '<strong class="dih-pulse-title">' + item.title + '</strong>' +
+        '<span class="dih-pulse-text">' + item.text + '</span>' +
+        '<a class="dih-pulse-link" href="' + item.href + '">' + item.cta + ' →</a>' +
+      '</div>' +
+      '<button type="button" class="dih-pulse-close" aria-label="Close what is new">✕</button>';
+    document.body.appendChild(el);
+
+    var dismissed = false;
+    function show() {
+      if (dismissed || document.body.classList.contains('digi-on') || el.classList.contains('show')) return;
+      el.classList.add('show');
+    }
+    function close() {
+      if (dismissed) return;
+      dismissed = true;
+      el.classList.remove('show');
+      store(KEY, Date.now());
+      setTimeout(function () { el.remove(); }, 450);
+    }
+    el.querySelector('.dih-pulse-close').addEventListener('click', close);
+    el.querySelector('.dih-pulse-link').addEventListener('click', function () { store(KEY, Date.now()); });
+
+    var timer = setTimeout(show, 32000);
+    window.addEventListener('scroll', function () {
+      if (window.scrollY > 1400) { clearTimeout(timer); show(); }
     }, { passive: true });
   }
 
@@ -274,7 +353,17 @@
   initTop();
   initInstall();
   initStreak();
+  initPulse();
 
   /* Keep the page in sync with a theme change made by legacy page scripts. */
   document.querySelectorAll('[data-dih-theme]').forEach(function () {});
+})();
+
+/* Digi is deliberately separate from the legacy chrome script. */
+(function () {
+  if (window.__dihDigiLoaded) return;
+  var script = document.createElement('script');
+  script.src = '/assets/digi.js';
+  script.defer = true;
+  document.head.appendChild(script);
 })();
