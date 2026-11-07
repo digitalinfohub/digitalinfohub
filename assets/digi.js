@@ -12,6 +12,8 @@
   var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var path = (location.pathname || '/').replace(/\/+$/, '').replace(/\.html$/, '') || '/';
   if (path === '/index') path = '/';
+  /* /digi is the full Digi experience — no corner companion needed there. */
+  if (path === '/digi') return;
 
   function read(key) {
     try { return window.localStorage.getItem(key); } catch (e) { return null; }
@@ -49,9 +51,9 @@
 
     if (path === '/') {
       return {
-        intro: "Hi, I'm Digi — your guide to Digital Infohub. There are 30 plain-language guides, 12 free browser tools and a live tech-news desk. What would you like to explore?",
+        intro: "Hi, I'm Digi — your guide to Digital Infohub. I can explain a tech topic, find a guide, check the headlines or take you to the markets. There's something here whether you're curious or a pro.",
         fact: 'Did you know? Digital Infohub has 30 guides, 12 free tools, six graded quizzes and a live TechCrunch desk — all without a paywall.',
-        actions: [A('Find a guide', '/techtopics'), A('Take a quiz', '/quiz'), A('Live tech news', '/news')]
+        actions: [A('Open full Digi chat', '/digi'), A('Find a guide', '/techtopics'), A('Live tech news', '/news')]
       };
     }
     if (path === '/news') {
@@ -464,6 +466,10 @@
   }
 
   function openCenter() {
+    if (location.pathname.replace(/\/+$/, '').replace(/\.html$/, '') === '/digi') {
+      location.href = '/digi';
+      return;
+    }
     if (overlayOpen) return;
     if (isSnoozed()) wake();
     closeBubble(false);
@@ -673,16 +679,24 @@
     var ctx = pageContext();
     if (!ctx || !bubble) return;
 
-    setTimeout(function () {
-      if (overlayOpen || isSnoozed() || bubbleDismissed || document.hidden) return;
-      var current = pageContext();
-      speak(Math.random() < 0.55 ? current.fact : current.intro, current.actions);
-      playChime();
-    }, 6500);
+    /* Keep the automatic nudge out of the way on phones and on the pages
+       that already lead with Digi or a dense dashboard. The corner avatar
+       still opens the guide on demand. */
+    var quietPage = path === '/' || path === '/coincompass';
+    if (window.innerWidth > 720 && !quietPage) {
+      setTimeout(function () {
+        if (overlayOpen || isSnoozed() || bubbleDismissed || document.hidden) return;
+        var current = pageContext();
+        speak(Math.random() < 0.55 ? current.fact : current.intro, current.actions);
+        playChime();
+      }, 6500);
+    }
 
     var seen = false;
     try { seen = window.sessionStorage.getItem(CENTER_KEY) === '1'; } catch (e) {}
-    if (!seen) {
+    /* The homepage has a prominent Ask Digi bar; do not cover it with an
+       automatic full-screen card. The corner helper still introduces Digi. */
+    if (!seen && !quietPage && window.innerWidth > 720) {
       setTimeout(function () {
         if (overlayOpen || isSnoozed() || document.hidden || userInteracted) return;
         try { window.sessionStorage.setItem(CENTER_KEY, '1'); } catch (e) {}

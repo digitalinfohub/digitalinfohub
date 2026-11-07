@@ -10,6 +10,7 @@ SITE = "https://digitalinfohub.net"
 
 NAV = [
     ("/", "Home"),
+    ("/digi", "Digi"),
     ("/blog", "Blog"),
     ("/techtopics", "Tech Topics"),
     ("/software", "Software"),
@@ -20,6 +21,7 @@ NAV = [
 
 TARGETS = {
     "/": ("🏠", "Homepage", "Today's tech briefing, tools and market pulse."),
+    "/digi": ("✨", "Digi AI guide", "Ask anything — tech, markets, design or everyday life."),
     "/blog": ("📝", "Blog & analysis", "Deep dives on AI, hardware, markets and digital culture."),
     "/techtopics": ("🔬", "Tech Topics", "Plain-language guides to the technology shaping business."),
     "/software": ("🛠️", "Software & tools", "Free AI assistants and browser utilities that run locally."),
@@ -133,7 +135,7 @@ def header_html(prefix: str = "") -> str:
       <a class="dih-drawer-link" href="/services">🧰 Services</a>
     </div>
     <a class="dih-drawer-cta" href="/subscribe">✉️ Subscribe — weekly tech intel</a>
-    <p class="dih-drawer-note">Digital Infohub · Tech intelligence for people who build, buy and invest in technology.</p>
+    <p class="dih-drawer-note">Digital Infohub · Tech for everyone, with a guide for every question.</p>
   </div>
 </div>
 <!-- /DIH:HEADER -->"""
@@ -176,7 +178,7 @@ def footer_html() -> str:
         <img src="/assets/logo.png" alt="Digital Infohub logo" width="40" height="40">
         <span class="dih-brand-text">Digital <b>Infohub</b></span>
       </a>
-      <p>The independent hub for tech professionals and business leaders: AI research, market moves, practical guides and free tools.</p>
+      <p>The independent tech hub for everyone: AI research, market moves, practical guides, free tools and Digi, your AI guide.</p>
       <span class="dih-pill"><span class="dih-dot"></span> Updated daily</span>
     </div>
     <div class="dih-footer-col">
@@ -186,6 +188,7 @@ def footer_html() -> str:
       <a href="/software">Software &amp; tools</a>
       <a href="/techproducts">Tech Products</a>
       <a href="/games">Pixel Palace</a>
+      <a href="/digi">Digi AI guide</a>
       <a href="/news">Live tech news</a>
       <a href="/quiz">Tech quiz</a>
     </div>

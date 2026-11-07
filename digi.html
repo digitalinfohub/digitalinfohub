@@ -1,0 +1,1689 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-dih="">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Digi — Ask anything | Digital Infohub</title>
+<meta name="description" content="Digi is the AI guide to Digital Infohub. Ask about tech news, markets, weather, development, design, everyday technology and anything else you are curious about.">
+<meta name="theme-color" content="#07070c">
+<meta name="color-scheme" content="dark light">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="author" content="Digital Infohub">
+<meta name="keywords" content="Digi, AI chatbot, tech assistant, tech news, markets, weather, development, design, digital infohub">
+<link rel="canonical" href="https://digitalinfohub.net/digi">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Digital Infohub">
+<meta property="og:title" content="Digi — Ask anything | Digital Infohub">
+<meta property="og:description" content="Tech news, markets, weather, development, design and everything in between. Ask Digi, the AI guide to Digital Infohub.">
+<meta property="og:url" content="https://digitalinfohub.net/digi">
+<meta property="og:image" content="https://digitalinfohub.net/assets/og-cover.png">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Digi — Ask anything | Digital Infohub">
+<meta name="twitter:description" content="Tech news, markets, weather, development, design and everything in between. Ask Digi, the AI guide to Digital Infohub.">
+<meta name="twitter:image" content="https://digitalinfohub.net/assets/og-cover.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="icon" href="/assets/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://text.pollinations.ai">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+<script>try{var t=localStorage.getItem('dih_theme')||'dark';document.documentElement.setAttribute('data-theme',t);document.documentElement.setAttribute('data-dih','');}catch(e){document.documentElement.setAttribute('data-dih','');}</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+ {"@type":"WebApplication","name":"Digi","url":"https://digitalinfohub.net/digi","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","description":"Digi is an AI guide to Digital Infohub for tech news, markets, development, design and everyday technology questions.","isPartOf":{"@type":"WebSite","name":"Digital Infohub","url":"https://digitalinfohub.net/"}},
+ {"@type":"BreadcrumbList","itemListElement":[
+   {"@type":"ListItem","position":1,"name":"Home","item":"https://digitalinfohub.net/"},
+   {"@type":"ListItem","position":2,"name":"Digi","item":"https://digitalinfohub.net/digi"}
+ ]}
+]}
+</script>
+<style>
+/* ==========================================================================
+   Digi — full-screen AI guide
+   ========================================================================== */
+html[data-dih] body.dg-page{
+  --dg-max:900px;
+  height:100dvh;
+  min-height:100dvh;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  background:var(--dih-bg)!important;
+}
+html[data-dih] body.dg-page::before{display:none}
+
+/* Ambient canvas */
+.dg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.dg-canvas::after{
+  content:'';position:absolute;inset:0;
+  background-image:linear-gradient(rgba(255,255,255,.028) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.028) 1px,transparent 1px);
+  background-size:64px 64px;
+  -webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 38%,#000 20%,transparent 78%);
+  mask-image:radial-gradient(ellipse 70% 60% at 50% 38%,#000 20%,transparent 78%);
+}
+html[data-theme="light"] .dg-canvas::after{background-image:linear-gradient(rgba(12,18,34,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(12,18,34,.05) 1px,transparent 1px)}
+.dg-blob{position:absolute;border-radius:50%;filter:blur(70px);opacity:.5;will-change:transform}
+.dg-blob.a{width:52vw;height:52vw;min-width:420px;min-height:420px;left:-12vw;top:-16vw;background:radial-gradient(circle,rgba(76,141,255,.4),transparent 68%);animation:dgDriftA 22s ease-in-out infinite alternate}
+.dg-blob.b{width:46vw;height:46vw;min-width:360px;min-height:360px;right:-10vw;top:-8vw;background:radial-gradient(circle,rgba(139,92,246,.36),transparent 68%);animation:dgDriftB 26s ease-in-out infinite alternate}
+.dg-blob.c{width:40vw;height:40vw;min-width:320px;min-height:320px;left:30vw;bottom:-22vw;background:radial-gradient(circle,rgba(34,211,238,.18),transparent 70%);animation:dgDriftC 30s ease-in-out infinite alternate}
+@keyframes dgDriftA{to{transform:translate(6vw,4vh) scale(1.1)}}
+@keyframes dgDriftB{to{transform:translate(-5vw,6vh) scale(1.08)}}
+@keyframes dgDriftC{to{transform:translate(-4vw,-4vh) scale(1.12)}}
+
+/* Top bar */
+.dg-top{
+  position:relative;z-index:5;flex:0 0 auto;
+  display:flex;align-items:center;gap:14px;
+  width:100%;max-width:1060px;margin:0 auto;
+  padding:calc(14px + env(safe-area-inset-top)) 22px 10px;
+}
+.dg-brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--dih-text);min-width:0;border-radius:12px}
+.dg-brand img{width:34px;height:34px;border-radius:10px;object-fit:cover;box-shadow:0 0 0 1px var(--dih-border),0 8px 20px rgba(0,0,0,.4)}
+.dg-brand-text{display:flex;align-items:baseline;gap:5px;font-size:14px;font-weight:700;letter-spacing:-.02em;white-space:nowrap}
+.dg-brand-text b{font-weight:800;background:linear-gradient(100deg,var(--dih-accent),var(--dih-accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.dg-brand-sep{color:var(--dih-text-muted);font-weight:400}
+.dg-brand-digi{color:var(--dih-accent);font-weight:750}
+
+.dg-clock{
+  display:flex;align-items:center;gap:9px;margin-left:6px;
+  padding:6px 11px;border:1px solid var(--dih-border);border-radius:var(--dih-pill);
+  background:rgba(255,255,255,.03);
+  font-family:var(--dih-mono);font-size:10.5px;color:var(--dih-text-muted);
+  white-space:nowrap;cursor:pointer;appearance:none;-webkit-appearance:none;text-align:left;
+  transition:border-color .2s var(--dih-ease),background .2s var(--dih-ease),color .2s var(--dih-ease);
+}
+.dg-clock:hover{border-color:var(--dih-border-strong);background:var(--dih-surface-2);color:var(--dih-text-sub)}
+.dg-clock:focus-visible{outline:2px solid var(--dih-accent);outline-offset:2px}
+.dg-clock .dg-clock-caret{font-size:8px;line-height:1;opacity:.6}
+html[data-theme="light"] .dg-clock{background:rgba(255,255,255,.7)}
+.dg-clock .dg-date{color:var(--dih-text-sub);font-weight:600}
+.dg-clock .dg-time{color:var(--dih-accent);font-weight:700;letter-spacing:.02em}
+.dg-clock .dg-live-dot{width:5px;height:5px;border-radius:50%;background:#37d67a;box-shadow:0 0 0 3px rgba(55,214,122,.13);animation:dgPip 2.4s ease-in-out infinite}
+
+.dg-tools{margin-left:auto;display:flex;align-items:center;gap:6px;flex-shrink:0}
+.dg-tool{
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  min-height:36px;padding:7px 12px;border-radius:10px;
+  border:1px solid var(--dih-border);background:rgba(255,255,255,.03);color:var(--dih-text-sub);
+  font:inherit;font-size:11.5px;font-weight:650;text-decoration:none;cursor:pointer;
+  transition:.2s var(--dih-ease);
+}
+.dg-tool:hover{color:var(--dih-text);border-color:var(--dih-border-strong);background:var(--dih-surface-2);transform:translateY(-1px)}
+.dg-tool.icon{width:36px;padding:0;font-size:14px}
+.dg-tool:focus-visible{outline:2px solid var(--dih-accent);outline-offset:2px}
+html[data-theme="light"] .dg-tool{background:rgba(255,255,255,.7)}
+
+/* Stage */
+.dg-main{
+  position:relative;z-index:2;flex:1 1 auto;min-height:0;
+  width:100%;max-width:var(--dg-max);margin:0 auto;
+  display:flex;flex-direction:column;overflow:hidden;
+  padding:0 20px;
+}
+
+/* Intro / hero */
+.dg-intro{
+  flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+  padding:10px 0 22px;
+  scrollbar-width:none;
+}
+.dg-intro::-webkit-scrollbar{display:none}
+.dg-orb{
+  position:relative;width:178px;height:190px;flex:0 0 auto;
+  display:grid;place-items:center;margin-bottom:12px;
+  animation:dgFloat 5.4s ease-in-out infinite;
+}
+.dg-orb img{
+  position:relative;z-index:3;width:132px;height:160px;object-fit:contain;
+  filter:drop-shadow(0 18px 28px rgba(0,0,0,.55));
+  animation:dgArrive .8s var(--dih-ease) both;
+}
+.dg-orb-halo{
+  position:absolute;inset:6px -4px 0;border-radius:50%;z-index:1;
+  background:radial-gradient(ellipse at 50% 55%,rgba(76,141,255,.4),rgba(139,92,246,.14) 48%,transparent 72%);
+  filter:blur(14px);animation:dgHalo 4.2s ease-in-out infinite alternate;
+}
+.dg-orb-ring{
+  position:absolute;z-index:2;border-radius:50%;
+  border:1px solid rgba(139,92,246,.3);
+  pointer-events:none;
+}
+.dg-orb-ring.r1{inset:24px 14px 30px;border-color:rgba(76,141,255,.35);transform:rotate(-18deg) scaleY(.64);animation:dgRing 12s linear infinite}
+.dg-orb-ring.r2{inset:8px 0 14px;border-color:rgba(34,211,238,.2);transform:rotate(24deg) scaleY(.52);animation:dgRing 18s linear infinite reverse}
+.dg-orb-ring i{
+  position:absolute;top:50%;left:-3px;width:6px;height:6px;border-radius:50%;
+  background:var(--dih-accent-3);box-shadow:0 0 12px rgba(34,211,238,.9);
+}
+.dg-orb-ring.r2 i{background:var(--dih-accent-2);box-shadow:0 0 12px rgba(139,92,246,.9);left:auto;right:-3px}
+.dg-orb-status{
+  position:absolute;right:8px;bottom:16px;z-index:4;
+  display:inline-flex;align-items:center;gap:5px;
+  padding:4px 9px;border-radius:var(--dih-pill);
+  border:1px solid var(--dih-border);background:rgba(8,9,16,.82);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  color:var(--dih-text-sub);font-family:var(--dih-mono);font-size:8.5px;letter-spacing:.06em;text-transform:uppercase;
+}
+.dg-orb-status .dot{width:5px;height:5px;border-radius:50%;background:#37d67a;animation:dgPip 2.4s ease-in-out infinite}
+html[data-theme="light"] .dg-orb-status{background:rgba(255,255,255,.9)}
+
+.dg-kicker{
+  display:inline-flex;align-items:center;gap:7px;margin:0 0 8px;
+  color:var(--dih-accent);font-family:var(--dih-mono);font-size:9px;font-weight:750;
+  letter-spacing:.16em;text-transform:uppercase;
+}
+.dg-intro h1{
+  margin:0 0 10px;font-size:clamp(34px,6.4vw,56px);font-weight:870;letter-spacing:-.05em;line-height:1.02;
+  color:var(--dih-text);
+}
+.dg-intro h1 span{
+  background:linear-gradient(100deg,var(--dih-accent),var(--dih-accent-2) 55%,var(--dih-accent-3));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  background-size:220% 220%;animation:dgGrad 8s ease infinite;
+}
+.dg-tagline{
+  max-width:590px;margin:0 0 20px;color:var(--dih-text-sub);
+  font-size:clamp(13.5px,1.8vw,15.5px);line-height:1.7;
+}
+.dg-tagline b{color:var(--dih-text);font-weight:650}
+.dg-suggestions{display:flex;flex-wrap:wrap;justify-content:center;gap:7px;max-width:660px}
+.dg-suggestion{
+  padding:8px 13px;border-radius:var(--dih-pill);
+  border:1px solid var(--dih-border);background:rgba(255,255,255,.035);
+  color:var(--dih-text-sub);font:inherit;font-size:11.5px;font-weight:600;
+  cursor:pointer;transition:.2s var(--dih-ease);
+}
+.dg-suggestion:hover{color:var(--dih-accent);border-color:rgba(76,141,255,.45);background:var(--dih-accent-soft);transform:translateY(-2px)}
+html[data-theme="light"] .dg-suggestion{background:rgba(255,255,255,.75)}
+.dg-intro-meta{
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;
+  margin:18px 0 0;color:var(--dih-text-muted);font-family:var(--dih-mono);font-size:9.5px;
+}
+.dg-intro-meta .sep{opacity:.5}
+.dg-intro-meta strong{color:var(--dih-text-sub);font-weight:600}
+
+/* Conversation */
+.dg-conversation{
+  flex:1 1 auto;min-height:0;display:none;flex-direction:column;
+}
+body.dg-chatting .dg-intro{display:none}
+body.dg-chatting .dg-conversation{display:flex;animation:dgFade .4s var(--dih-ease)}
+.dg-thread{
+  flex:0 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;
+  padding:14px 2px 20px;display:flex;flex-direction:column;gap:20px;
+  scrollbar-width:thin;scrollbar-color:var(--dih-border-strong) transparent;
+  scroll-behavior:smooth;
+}
+.dg-thread::-webkit-scrollbar{width:6px}
+.dg-thread::-webkit-scrollbar-thumb{background:var(--dih-border-strong);border-radius:99px}
+.dg-msg{display:flex;gap:11px;align-items:flex-start;animation:dgMsg .45s var(--dih-ease) both;max-width:100%}
+.dg-msg.user{flex-direction:row-reverse}
+.dg-msg-avatar{
+  flex:0 0 34px;width:34px;height:38px;border-radius:11px;overflow:hidden;
+  display:grid;place-items:center;
+  border:1px solid var(--dih-border);background:var(--dih-surface-2);
+  color:var(--dih-text-sub);font-size:11px;font-weight:750;
+}
+.dg-msg-avatar img{width:100%;height:100%;object-fit:contain;padding:2px}
+.dg-msg.user .dg-msg-avatar{background:linear-gradient(135deg,var(--dih-accent),var(--dih-accent-2));color:#fff;border-color:transparent}
+.dg-msg-main{min-width:0;max-width:min(100%,720px)}
+.dg-msg.user .dg-msg-main{display:flex;flex-direction:column;align-items:flex-end}
+.dg-msg-head{display:flex;align-items:center;gap:8px;margin-bottom:5px;font-size:10px;color:var(--dih-text-muted);font-family:var(--dih-mono)}
+.dg-msg.user .dg-msg-head{flex-direction:row-reverse}
+.dg-msg-name{font-weight:700;color:var(--dih-text-sub);letter-spacing:.02em}
+.dg-msg.user .dg-msg-name{color:var(--dih-accent)}
+.dg-msg-time{opacity:.8}
+.dg-bubble{
+  padding:14px 17px;border-radius:16px 16px 16px 5px;
+  border:1px solid var(--dih-border);
+  background:linear-gradient(170deg,rgba(255,255,255,.045),rgba(255,255,255,.015)),var(--dih-surface);
+  color:var(--dih-text);font-size:14.5px;line-height:1.68;
+  overflow-wrap:anywhere;
+}
+html[data-theme="light"] .dg-bubble{background:var(--dih-surface)}
+.dg-msg.user .dg-bubble{
+  border-radius:16px 16px 5px 16px;
+  background:linear-gradient(125deg,var(--dih-accent),var(--dih-accent-2));
+  border-color:transparent;color:#fff;font-size:14px;
+}
+.dg-bubble > *:first-child{margin-top:0}
+.dg-bubble > *:last-child{margin-bottom:0}
+.dg-bubble p{margin:0 0 10px}
+.dg-bubble h2{font-size:18px;margin:6px 0 9px;letter-spacing:-.02em}
+.dg-bubble h3{font-size:15.5px;margin:6px 0 8px;letter-spacing:-.01em}
+.dg-bubble ul,.dg-bubble ol{margin:8px 0 10px 20px;padding:0;color:var(--dih-text-sub)}
+.dg-bubble li{margin:3px 0}
+.dg-bubble a{color:var(--dih-accent);font-weight:600;text-decoration:underline;text-underline-offset:2px;text-decoration-color:rgba(76,141,255,.35)}
+.dg-bubble a:hover{text-decoration-color:var(--dih-accent)}
+.dg-bubble code{font-family:var(--dih-mono);font-size:12.5px;background:var(--dih-surface-3);padding:2px 5px;border-radius:4px}
+.dg-bubble pre{background:var(--dih-surface-3);border:1px solid var(--dih-border);border-radius:10px;padding:12px;overflow-x:auto;margin:10px 0}
+.dg-bubble pre code{background:none;padding:0;font-size:12px}
+.dg-bubble blockquote{margin:10px 0;padding-left:12px;border-left:2px solid var(--dih-accent);color:var(--dih-text-sub)}
+.dg-bubble table{width:100%;border-collapse:collapse;margin:10px 0;font-size:13px}
+.dg-bubble th,.dg-bubble td{border:1px solid var(--dih-border);padding:7px 9px;text-align:left}
+.dg-bubble th{background:var(--dih-surface-2);font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--dih-text-muted)}
+.dg-bubble .dg-note{display:inline-flex;align-items:center;gap:6px;margin-top:9px;font-family:var(--dih-mono);font-size:9.5px;color:var(--dih-text-muted)}
+.dg-bubble .dg-note.dg-weather-note{display:block;line-height:1.65;overflow-wrap:anywhere}
+.dg-actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.dg-action{
+  display:inline-flex;align-items:center;gap:5px;padding:7px 11px;border-radius:var(--dih-pill);
+  border:1px solid rgba(76,141,255,.3);background:rgba(76,141,255,.08);
+  color:var(--dih-accent);font:inherit;font-size:10.5px;font-weight:700;line-height:1.3;
+  text-decoration:none;cursor:pointer;transition:.2s var(--dih-ease);
+}
+.dg-action:hover{background:rgba(76,141,255,.16);border-color:var(--dih-accent);transform:translateY(-1px)}
+.dg-typing{display:inline-flex;align-items:center;gap:5px;padding:4px 2px}
+.dg-typing span{width:6px;height:6px;border-radius:50%;background:var(--dih-accent);animation:dgType 1.4s infinite ease-in-out;opacity:.55}
+.dg-typing span:nth-child(2){animation-delay:.18s}
+.dg-typing span:nth-child(3){animation-delay:.36s}
+.dg-thread-hint{text-align:center;color:var(--dih-text-muted);font-family:var(--dih-mono);font-size:9.5px;padding:2px 0 8px}
+
+/* Composer */
+.dg-composer-wrap{
+  position:relative;z-index:4;flex:0 0 auto;
+  width:100%;max-width:var(--dg-max);margin:0 auto;
+  padding:6px 20px calc(12px + env(safe-area-inset-bottom));
+  background:linear-gradient(to bottom,transparent,var(--dih-bg) 32%);
+}
+.dg-composer{
+  display:flex;align-items:flex-end;gap:8px;
+  padding:7px 7px 7px 16px;
+  border:1px solid var(--dih-border-strong);border-radius:22px;
+  background:rgba(16,17,26,.94);
+  box-shadow:0 20px 55px rgba(0,0,0,.45),0 0 0 1px rgba(76,141,255,.04) inset;
+  -webkit-backdrop-filter:blur(22px);backdrop-filter:blur(22px);
+  transition:border-color .25s,box-shadow .25s;
+}
+html[data-theme="light"] .dg-composer{background:rgba(255,255,255,.95)}
+.dg-composer:focus-within{border-color:rgba(76,141,255,.65);box-shadow:0 20px 55px rgba(0,0,0,.4),0 0 0 4px var(--dih-accent-soft)}
+.dg-input{
+  flex:1;min-width:0;min-height:44px;max-height:150px;padding:10px 0;
+  border:0;background:none;outline:none;resize:none;
+  color:var(--dih-text);font:inherit;font-size:15px;line-height:1.45;
+}
+.dg-input::placeholder{color:var(--dih-text-muted)}
+.dg-send,.dg-stop{
+  flex:0 0 auto;height:44px;min-width:44px;padding:0 18px;
+  border:0;border-radius:var(--dih-pill);cursor:pointer;
+  background:linear-gradient(125deg,var(--dih-accent),var(--dih-accent-2));color:#fff;
+  font:inherit;font-size:12.5px;font-weight:750;letter-spacing:.02em;
+  display:inline-flex;align-items:center;justify-content:center;gap:4px;
+  box-shadow:0 6px 18px rgba(76,141,255,.28);
+  transition:.2s var(--dih-ease);
+}
+.dg-send:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.dg-send:active{transform:scale(.97)}
+.dg-send:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.dg-stop{display:none;background:var(--dih-red);box-shadow:none;font-size:11px}
+body.dg-busy .dg-send{display:none}
+body.dg-busy .dg-stop{display:inline-flex}
+.dg-foot{
+  display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;
+  margin:7px 4px 0;color:var(--dih-text-muted);font-family:var(--dih-mono);font-size:9px;letter-spacing:.01em;
+}
+.dg-foot kbd{font-family:inherit;padding:1px 4px;border:1px solid var(--dih-border);border-radius:4px;color:var(--dih-text-sub)}
+/* Keep Digi's status messages out of the composer's way. */
+body.dg-page #dihToast{top:calc(74px + env(safe-area-inset-top));bottom:auto;max-width:calc(100vw - 32px);text-align:center}
+.dg-mode-tag{display:inline-flex;align-items:center;gap:5px;color:var(--dih-text-muted)}
+.dg-mode-tag b{color:var(--dih-accent);font-weight:650}
+
+/* Settings */
+.dg-scrim{position:fixed;inset:0;z-index:40;background:rgba(4,5,11,.66);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);opacity:0;visibility:hidden;transition:.3s var(--dih-ease)}
+.dg-scrim.is-open{opacity:1;visibility:visible}
+.dg-panel{
+  position:fixed;top:0;right:0;bottom:0;z-index:41;
+  width:min(420px,100%);overflow-y:auto;
+  padding:calc(20px + env(safe-area-inset-top)) 22px calc(24px + env(safe-area-inset-bottom));
+  background:linear-gradient(165deg,rgba(19,21,36,.995),rgba(8,9,16,.995));
+  border-left:1px solid var(--dih-border-strong);
+  box-shadow:-24px 0 80px rgba(0,0,0,.5);
+  transform:translateX(102%);transition:transform .36s var(--dih-ease);
+}
+html[data-theme="light"] .dg-panel{background:linear-gradient(165deg,#fff,#f7f8fc)}
+.dg-panel.is-open{transform:none}
+.dg-panel-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:20px}
+.dg-panel-head h2{margin:3px 0 0;font-size:25px;font-weight:820;letter-spacing:-.04em}
+.dg-close{width:34px;height:34px;border-radius:50%;border:1px solid var(--dih-border);background:var(--dih-surface-2);color:var(--dih-text-sub);font:inherit;font-size:14px;cursor:pointer;flex:0 0 auto}
+.dg-close:hover{color:var(--dih-text);border-color:var(--dih-border-strong)}
+.dg-field{margin-bottom:22px}
+.dg-label{display:block;margin-bottom:8px;color:var(--dih-text);font-size:12px;font-weight:700;letter-spacing:.01em}
+.dg-sub{display:block;margin:-4px 0 10px;color:var(--dih-text-muted);font-size:11px;line-height:1.55}
+.dg-select-wrap{position:relative}
+.dg-select{
+  width:100%;min-height:44px;padding:10px 38px 10px 12px;
+  border:1px solid var(--dih-border);border-radius:11px;
+  background:var(--dih-surface-2);color:var(--dih-text);
+  font:inherit;font-size:12.5px;line-height:1.3;outline:none;cursor:pointer;
+  appearance:none;-webkit-appearance:none;
+}
+.dg-select:focus{border-color:var(--dih-accent);box-shadow:0 0 0 3px var(--dih-accent-soft)}
+.dg-select-wrap::after{content:'▾';position:absolute;right:13px;top:50%;transform:translateY(-55%);pointer-events:none;color:var(--dih-text-muted);font-size:10px;line-height:1}
+.dg-place-note{margin:8px 0 0;color:var(--dih-text-muted);font-family:var(--dih-mono);font-size:9px;line-height:1.6}
+html[data-theme="light"] .dg-select{background:#fff}
+.dg-modes{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.dg-mode{
+  display:flex;align-items:center;gap:8px;padding:10px 11px;
+  border:1px solid var(--dih-border);border-radius:11px;
+  background:var(--dih-surface-2);color:var(--dih-text-sub);
+  font:inherit;font-size:11.5px;font-weight:600;text-align:left;cursor:pointer;
+  transition:.2s var(--dih-ease);
+}
+.dg-mode span{font-size:14px}
+.dg-mode:hover{border-color:var(--dih-border-strong);color:var(--dih-text)}
+.dg-mode.is-on{border-color:rgba(76,141,255,.6);background:var(--dih-accent-soft);color:var(--dih-accent)}
+html[data-theme="light"] .dg-mode{background:#fff}
+.dg-custom{
+  width:100%;min-height:104px;padding:11px 12px;resize:vertical;
+  border:1px solid var(--dih-border);border-radius:11px;
+  background:var(--dih-surface-2);color:var(--dih-text);
+  font:inherit;font-size:12.5px;line-height:1.55;outline:none;
+}
+.dg-custom:focus{border-color:var(--dih-accent);box-shadow:0 0 0 3px var(--dih-accent-soft)}
+.dg-custom::placeholder{color:var(--dih-text-muted)}
+.dg-styles{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:4px;border:1px solid var(--dih-border);border-radius:12px;background:var(--dih-surface-2)}
+.dg-style{padding:9px 4px;border:0;border-radius:9px;background:transparent;color:var(--dih-text-muted);font:inherit;font-size:11px;font-weight:650;cursor:pointer}
+.dg-style.is-on{background:var(--dih-surface);color:var(--dih-accent);box-shadow:0 1px 5px rgba(0,0,0,.12)}
+html[data-theme="light"] .dg-style.is-on{background:#fff}
+.dg-panel-foot{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.dg-btn{
+  flex:1 1 auto;min-height:42px;padding:10px 16px;border-radius:var(--dih-pill);
+  border:1px solid var(--dih-border);background:var(--dih-surface-2);color:var(--dih-text);
+  font:inherit;font-size:12px;font-weight:700;cursor:pointer;
+}
+.dg-btn.primary{border-color:transparent;background:linear-gradient(125deg,var(--dih-accent),var(--dih-accent-2));color:#fff}
+.dg-btn:hover{filter:brightness(1.06)}
+.dg-reset{width:100%;margin-top:14px;padding:8px;border:0;background:none;color:var(--dih-text-muted);font:inherit;font-size:10.5px;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.dg-reset:hover{color:var(--dih-text)}
+.dg-credit{margin:22px 0 0;padding-top:14px;border-top:1px solid var(--dih-border);color:var(--dih-text-muted);font-family:var(--dih-mono);font-size:9px;line-height:1.7}
+.dg-credit a{color:var(--dih-accent);text-decoration:none}
+.dg-credit a:hover{text-decoration:underline}
+
+/* Motion */
+@keyframes dgFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes dgArrive{from{opacity:0;transform:translateY(18px) scale(.9)}to{opacity:1;transform:none}}
+@keyframes dgHalo{from{opacity:.55;transform:scale(.94)}to{opacity:.95;transform:scale(1.06)}}
+@keyframes dgRing{to{transform:rotate(342deg) scaleY(.64)}}
+@keyframes dgGrad{0%,100%{background-position:0 50%}50%{background-position:100% 50%}}
+@keyframes dgPip{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+@keyframes dgType{0%,60%,100%{transform:translateY(0);opacity:.35}30%{transform:translateY(-5px);opacity:1}}
+@keyframes dgMsg{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes dgFade{from{opacity:0}to{opacity:1}}
+
+@media(max-width:680px){
+  .dg-top{padding:calc(10px + env(safe-area-inset-top)) 14px 8px;gap:8px}
+  .dg-brand-text{display:none}
+  .dg-clock{margin-left:0;padding:5px 8px;gap:6px;font-size:9px}
+  .dg-clock .dg-date{display:inline;font-size:8.5px;letter-spacing:0}
+  .dg-tool span{display:none}
+  .dg-tool{padding:7px;width:34px;height:34px;min-height:34px;justify-content:center}
+  .dg-tool.icon{width:34px}
+  .dg-main{padding:0 13px}
+  .dg-composer-wrap{padding:4px 12px calc(10px + env(safe-area-inset-bottom))}
+  .dg-composer{padding:5px 5px 5px 13px;border-radius:19px}
+  .dg-input{font-size:16px;min-height:42px}
+  .dg-send,.dg-stop{height:42px;min-width:42px;padding:0 15px}
+  .dg-foot{font-size:8.5px}
+  .dg-foot .dg-kbd{display:none}
+  .dg-orb{width:150px;height:162px;margin-bottom:8px}
+  .dg-orb img{width:110px;height:136px}
+  .dg-intro h1{font-size:clamp(31px,10vw,42px)}
+  .dg-tagline{font-size:13px;margin-bottom:16px}
+  .dg-suggestion{font-size:10.5px;padding:7px 10px}
+  .dg-suggestions{gap:6px}
+  .dg-intro{padding-bottom:14px}
+  .dg-bubble{font-size:14px;padding:12px 14px}
+  .dg-thread{gap:16px}
+  .dg-panel{width:100%;border-left:0}
+  .dg-panel h2{font-size:23px}
+}
+@media(max-width:390px){
+  .dg-suggestion:nth-child(n+5){display:none}
+  .dg-msg-avatar{display:none}
+  .dg-mode{font-size:11px;padding:9px}
+}
+@media(prefers-reduced-motion:reduce){
+  .dg-blob,.dg-orb,.dg-orb img,.dg-orb-halo,.dg-orb-ring,.dg-intro h1 span,.dg-orb-status .dot{animation:none!important}
+  .dg-thread{scroll-behavior:auto}
+  .dg-msg,.dg-conversation{animation:none!important}
+  .dg-panel,.dg-scrim,.dg-tool,.dg-suggestion,.dg-action{transition:none!important}
+}
+</style>
+</head>
+<body class="dg-page">
+<div class="dg-canvas" aria-hidden="true">
+  <span class="dg-blob a"></span>
+  <span class="dg-blob b"></span>
+  <span class="dg-blob c"></span>
+</div>
+
+<header class="dg-top">
+  <a class="dg-brand" href="/" aria-label="Digital Infohub home">
+    <img src="/assets/logo.png" alt="Digital Infohub logo" width="34" height="34">
+    <span class="dg-brand-text">Digital <b>Infohub</b><span class="dg-brand-sep">/</span><span class="dg-brand-digi">Digi</span></span>
+  </a>
+  <button class="dg-clock" type="button" id="dgClock" aria-haspopup="dialog" aria-controls="dgSettings" title="Set time and weather location" aria-label="Set time and weather location">
+    <span class="dg-live-dot" aria-hidden="true"></span>
+    <span class="dg-date" id="dgDate">—</span>
+    <span class="dg-time" id="dgTime">--:--</span>
+    <span class="dg-clock-caret" aria-hidden="true">▾</span>
+  </button>
+  <div class="dg-tools">
+    <button class="dg-tool" type="button" id="dgNew" title="Start a new chat">＋<span>New</span></button>
+    <button class="dg-tool" type="button" id="dgSettingsOpen" aria-haspopup="dialog" aria-controls="dgSettings" title="Digi settings">⚙<span>Settings</span></button>
+    <button class="dg-tool icon" type="button" id="dgTheme" aria-label="Switch theme" title="Switch theme">☀</button>
+    <a class="dg-tool icon" href="/" aria-label="Back to Digital Infohub" title="Back home">←</a>
+  </div>
+</header>
+
+<main class="dg-main">
+  <section class="dg-intro" id="dgIntro" aria-labelledby="dgTitle">
+    <div class="dg-orb" aria-hidden="true">
+      <span class="dg-orb-halo"></span>
+      <span class="dg-orb-ring r1"><i></i></span>
+      <span class="dg-orb-ring r2"><i></i></span>
+      <img src="/assets/digi.png" alt="Digi, the Digital Infohub AI guide" width="132" height="160" draggable="false" decoding="async">
+      <span class="dg-orb-status"><span class="dot"></span>Online</span>
+    </div>
+    <p class="dg-kicker"><span class="dg-live-dot" aria-hidden="true"></span> Digi · your AI guide</p>
+    <h1 id="dgTitle">Ask me <span>anything.</span></h1>
+    <p class="dg-tagline">Tech news, markets, weather, development, design, everyday questions — <b>and so much more.</b> I'll answer clearly, then point you to the parts of Digital Infohub worth your time.</p>
+    <div class="dg-suggestions" id="dgSuggestions" aria-label="Suggested questions">
+      <button class="dg-suggestion" type="button" data-q="What's happening in tech today?">📰 What's happening in tech?</button>
+      <button class="dg-suggestion" type="button" data-q="How are the markets doing right now?">📈 Market snapshot</button>
+      <button class="dg-suggestion" id="dgWeatherChip" type="button" data-q="What's the weather where I am?">🌤️ Weather where I am</button>
+      <button class="dg-suggestion" type="button" data-q="Explain quantum computing simply">⚛️ Explain quantum simply</button>
+      <button class="dg-suggestion" type="button" data-q="Help me choose a laptop for work and study">💻 Help me pick a laptop</button>
+      <button class="dg-suggestion" type="button" data-q="Give me a 20-minute plan to learn about AI">🎓 Learn AI in 20 minutes</button>
+      <button class="dg-suggestion" type="button" data-q="Surprise me with something worth reading">✨ Surprise me</button>
+    </div>
+    <p class="dg-intro-meta">
+      <span><strong>Live AI</strong> with a rule-based backup</span>
+      <span class="sep">·</span>
+      <span id="dgIntroMode">Auto mode</span>
+      <span class="sep">·</span>
+      <span>Free, no signup</span>
+    </p>
+  </section>
+
+  <section class="dg-conversation" id="dgConversation" aria-label="Conversation with Digi">
+    <div class="dg-thread" id="dgThread" role="log" aria-live="polite" aria-relevant="additions"></div>
+    <p class="dg-thread-hint">Digi can make mistakes. Check anything important.</p>
+  </section>
+</main>
+
+<div class="dg-composer-wrap">
+  <form class="dg-composer" id="dgForm" autocomplete="off">
+    <textarea class="dg-input" id="dgInput" rows="1" maxlength="2000" placeholder="Ask Digi anything…" aria-label="Message Digi" enterkeyhint="send"></textarea>
+    <button class="dg-send" id="dgSend" type="submit">Ask ↑</button>
+    <button class="dg-stop" id="dgStop" type="button" aria-label="Stop Digi">Stop</button>
+  </form>
+  <p class="dg-foot">
+    <span class="dg-kbd"><kbd>Enter</kbd> to send · <kbd>Shift</kbd> + <kbd>Enter</kbd> for a new line</span>
+    <span class="dg-mode-tag" id="dgModeTag">Mode: <b>Auto</b></span>
+  </p>
+</div>
+
+<div class="dg-scrim" id="dgScrim" aria-hidden="true"></div>
+<aside class="dg-panel" id="dgSettings" role="dialog" aria-modal="true" aria-labelledby="dgSettingsTitle" aria-hidden="true">
+  <div class="dg-panel-head">
+    <div>
+      <p class="dg-kicker">DIGI · SETTINGS</p>
+      <h2 id="dgSettingsTitle">Make Digi yours</h2>
+    </div>
+    <button class="dg-close" type="button" id="dgSettingsClose" aria-label="Close settings">✕</button>
+  </div>
+
+  <div class="dg-field">
+    <label class="dg-label" for="dgPlace">Time &amp; weather location</label>
+    <span class="dg-sub">The clock, time answers and weather use this location. “My location” follows your device.</span>
+    <div class="dg-select-wrap">
+      <select class="dg-select" id="dgPlace" aria-describedby="dgPlaceNote"></select>
+    </div>
+    <p class="dg-place-note" id="dgPlaceNote">Using your device time zone.</p>
+  </div>
+
+  <div class="dg-field">
+    <span class="dg-label">What should Digi focus on?</span>
+    <span class="dg-sub">Auto reads each question and switches focus for you. Pick a mode to keep Digi in one lane.</span>
+    <div class="dg-modes" id="dgModeList" role="radiogroup" aria-label="Digi focus mode">
+      <button class="dg-mode" type="button" data-mode="auto" role="radio" aria-checked="false"><span>✨</span> Auto-detect</button>
+      <button class="dg-mode" type="button" data-mode="tech" role="radio" aria-checked="false"><span>📰</span> Tech news</button>
+      <button class="dg-mode" type="button" data-mode="markets" role="radio" aria-checked="false"><span>📈</span> Markets</button>
+      <button class="dg-mode" type="button" data-mode="world" role="radio" aria-checked="false"><span>🌍</span> World news</button>
+      <button class="dg-mode" type="button" data-mode="dev" role="radio" aria-checked="false"><span>🧑‍💻</span> Development</button>
+      <button class="dg-mode" type="button" data-mode="design" role="radio" aria-checked="false"><span>🎨</span> Design</button>
+      <button class="dg-mode" type="button" data-mode="everyday" role="radio" aria-checked="false"><span>🧰</span> Everyday tech</button>
+      <button class="dg-mode" type="button" data-mode="study" role="radio" aria-checked="false"><span>🎓</span> Study &amp; explain</button>
+    </div>
+  </div>
+
+  <div class="dg-field">
+    <label class="dg-label" for="dgCustom">Custom instructions <span style="color:var(--dih-text-muted);font-weight:500">(optional)</span></label>
+    <span class="dg-sub">Tell Digi who you are, what you already know, or how you like answers.</span>
+    <textarea class="dg-custom" id="dgCustom" maxlength="600" placeholder="e.g. I'm a designer learning to code. Keep answers short, skip the basics, and give me one practical next step."></textarea>
+  </div>
+
+  <div class="dg-field">
+    <span class="dg-label">Answer style</span>
+    <span class="dg-sub">How deep should Digi go by default?</span>
+    <div class="dg-styles" id="dgStyleList" role="radiogroup" aria-label="Answer style">
+      <button class="dg-style" type="button" data-style="concise" role="radio" aria-checked="false">Concise</button>
+      <button class="dg-style" type="button" data-style="balanced" role="radio" aria-checked="false">Balanced</button>
+      <button class="dg-style" type="button" data-style="deep" role="radio" aria-checked="false">Deep</button>
+    </div>
+  </div>
+
+  <div class="dg-panel-foot">
+    <button class="dg-btn primary" type="button" id="dgDone">Done</button>
+  </div>
+  <button class="dg-reset" type="button" id="dgReset">Reset Digi settings</button>
+  <p class="dg-credit">Digi artwork by <a href="https://artifys.wixsite.com/artifyspace" target="_blank" rel="noopener noreferrer">Artify Space</a>. Live answers use Pollinations AI; when it is unavailable Digi falls back to a built-in guide. Verify important facts — especially money, health and legal questions.</p>
+</aside>
+
+<div id="toast-container"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer></script>
+<script src="/assets/chat-markdown.js" defer></script>
+<script>
+(function () {
+  'use strict';
+
+  /* ------------------------------------------------------------------ data */
+  var ARTIFY = 'https://artifys.wixsite.com/artifyspace';
+  var SETTINGS_KEY = 'dih_digi_settings';
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var MODES = {
+    auto:     { label: 'Auto',         icon: '✨' },
+    tech:     { label: 'Tech news',    icon: '📰' },
+    markets:  { label: 'Markets',      icon: '📈' },
+    world:    { label: 'World news',   icon: '🌍' },
+    dev:      { label: 'Development',  icon: '🧑‍💻' },
+    design:   { label: 'Design',       icon: '🎨' },
+    everyday: { label: 'Everyday tech',icon: '🧰' },
+    study:    { label: 'Study',        icon: '🎓' }
+  };
+  var STYLES = { concise: 'Concise — short answers, only the useful bits.', balanced: 'Balanced — a clear explanation with the key context.', deep: 'Deep — thorough, with structure, examples and trade-offs.' };
+
+  var PLACE_GROUPS = ['Americas', 'Europe', 'Africa & Middle East', 'Asia & Pacific'];
+  var PLACES = {
+    newyork: { name: 'New York', country: 'United States', group: 'Americas', lat: 40.7128, lon: -74.0060, tz: 'America/New_York' },
+    losangeles: { name: 'Los Angeles', country: 'United States', group: 'Americas', lat: 34.0522, lon: -118.2437, tz: 'America/Los_Angeles' },
+    chicago: { name: 'Chicago', country: 'United States', group: 'Americas', lat: 41.8781, lon: -87.6298, tz: 'America/Chicago' },
+    toronto: { name: 'Toronto', country: 'Canada', group: 'Americas', lat: 43.6532, lon: -79.3832, tz: 'America/Toronto' },
+    mexicocity: { name: 'Mexico City', country: 'Mexico', group: 'Americas', lat: 19.4326, lon: -99.1332, tz: 'America/Mexico_City' },
+    saopaulo: { name: 'São Paulo', country: 'Brazil', group: 'Americas', lat: -23.5505, lon: -46.6333, tz: 'America/Sao_Paulo' },
+    buenosaires: { name: 'Buenos Aires', country: 'Argentina', group: 'Americas', lat: -34.6037, lon: -58.3816, tz: 'America/Argentina/Buenos_Aires' },
+    london: { name: 'London', country: 'United Kingdom', group: 'Europe', lat: 51.5074, lon: -0.1278, tz: 'Europe/London' },
+    dublin: { name: 'Dublin', country: 'Ireland', group: 'Europe', lat: 53.3498, lon: -6.2603, tz: 'Europe/Dublin' },
+    lisbon: { name: 'Lisbon', country: 'Portugal', group: 'Europe', lat: 38.7223, lon: -9.1393, tz: 'Europe/Lisbon' },
+    paris: { name: 'Paris', country: 'France', group: 'Europe', lat: 48.8566, lon: 2.3522, tz: 'Europe/Paris' },
+    berlin: { name: 'Berlin', country: 'Germany', group: 'Europe', lat: 52.5200, lon: 13.4050, tz: 'Europe/Berlin' },
+    madrid: { name: 'Madrid', country: 'Spain', group: 'Europe', lat: 40.4168, lon: -3.7038, tz: 'Europe/Madrid' },
+    rome: { name: 'Rome', country: 'Italy', group: 'Europe', lat: 41.9028, lon: 12.4964, tz: 'Europe/Rome' },
+    amsterdam: { name: 'Amsterdam', country: 'Netherlands', group: 'Europe', lat: 52.3676, lon: 4.9041, tz: 'Europe/Amsterdam' },
+    vienna: { name: 'Vienna', country: 'Austria', group: 'Europe', lat: 48.2082, lon: 16.3738, tz: 'Europe/Vienna' },
+    zurich: { name: 'Zurich', country: 'Switzerland', group: 'Europe', lat: 47.3769, lon: 8.5417, tz: 'Europe/Zurich' },
+    stockholm: { name: 'Stockholm', country: 'Sweden', group: 'Europe', lat: 59.3293, lon: 18.0686, tz: 'Europe/Stockholm' },
+    istanbul: { name: 'Istanbul', country: 'Turkey', group: 'Europe', lat: 41.0082, lon: 28.9784, tz: 'Europe/Istanbul' },
+    moscow: { name: 'Moscow', country: 'Russia', group: 'Europe', lat: 55.7558, lon: 37.6173, tz: 'Europe/Moscow' },
+    lagos: { name: 'Lagos', country: 'Nigeria', group: 'Africa & Middle East', lat: 6.5244, lon: 3.3792, tz: 'Africa/Lagos' },
+    nairobi: { name: 'Nairobi', country: 'Kenya', group: 'Africa & Middle East', lat: -1.2921, lon: 36.8219, tz: 'Africa/Nairobi' },
+    cairo: { name: 'Cairo', country: 'Egypt', group: 'Africa & Middle East', lat: 30.0444, lon: 31.2357, tz: 'Africa/Cairo' },
+    johannesburg: { name: 'Johannesburg', country: 'South Africa', group: 'Africa & Middle East', lat: -26.2041, lon: 28.0473, tz: 'Africa/Johannesburg' },
+    dubai: { name: 'Dubai', country: 'United Arab Emirates', group: 'Africa & Middle East', lat: 25.2048, lon: 55.2708, tz: 'Asia/Dubai' },
+    mumbai: { name: 'Mumbai', country: 'India', group: 'Asia & Pacific', lat: 19.0760, lon: 72.8777, tz: 'Asia/Kolkata' },
+    delhi: { name: 'New Delhi', country: 'India', group: 'Asia & Pacific', lat: 28.6139, lon: 77.2090, tz: 'Asia/Kolkata' },
+    singapore: { name: 'Singapore', country: 'Singapore', group: 'Asia & Pacific', lat: 1.3521, lon: 103.8198, tz: 'Asia/Singapore' },
+    hongkong: { name: 'Hong Kong', country: 'Hong Kong', group: 'Asia & Pacific', lat: 22.3193, lon: 114.1694, tz: 'Asia/Hong_Kong' },
+    shanghai: { name: 'Shanghai', country: 'China', group: 'Asia & Pacific', lat: 31.2304, lon: 121.4737, tz: 'Asia/Shanghai' },
+    tokyo: { name: 'Tokyo', country: 'Japan', group: 'Asia & Pacific', lat: 35.6762, lon: 139.6503, tz: 'Asia/Tokyo' },
+    seoul: { name: 'Seoul', country: 'South Korea', group: 'Asia & Pacific', lat: 37.5665, lon: 126.9780, tz: 'Asia/Seoul' },
+    bangkok: { name: 'Bangkok', country: 'Thailand', group: 'Asia & Pacific', lat: 13.7563, lon: 100.5018, tz: 'Asia/Bangkok' },
+    jakarta: { name: 'Jakarta', country: 'Indonesia', group: 'Asia & Pacific', lat: -6.2088, lon: 106.8456, tz: 'Asia/Jakarta' },
+    sydney: { name: 'Sydney', country: 'Australia', group: 'Asia & Pacific', lat: -33.8688, lon: 151.2093, tz: 'Australia/Sydney' },
+    auckland: { name: 'Auckland', country: 'New Zealand', group: 'Asia & Pacific', lat: -36.8509, lon: 174.7645, tz: 'Pacific/Auckland' }
+  };
+
+  var AUTO_HINTS = [
+    { mode: 'markets', keys: ['market', 'markets', 'stock', 'stocks', 'share', 'shares', 'crypto', 'bitcoin', 'btc', 'ethereum', 'eth', 'nasdaq', 'portfolio', 'invest', 'investing', 'ticker', 'dividend', 'inflation', 'interest rate'] },
+    { mode: 'world', keys: ['world news', 'geopolitics', 'election', 'war', 'conflict', 'climate', 'global', 'country', 'politics'] },
+    { mode: 'tech', keys: ['tech news', 'headline', 'headlines', 'ai news', 'launch', 'startup', 'apple', 'nvidia', 'openai', 'google', 'microsoft', 'chip', 'semiconductor'] },
+    { mode: 'dev', keys: ['code', 'coding', 'developer', 'javascript', 'python', 'css', 'html', 'react', 'api', 'debug', 'deploy', 'git', 'database', 'sql', 'backend', 'frontend', 'typescript'] },
+    { mode: 'design', keys: ['design', 'designer', 'ux', 'ui', 'typography', 'colour', 'color', 'layout', 'brand', 'figma', 'accessibility', 'logo'] },
+    { mode: 'study', keys: ['study', 'learn', 'learning', 'explain', 'exam', 'revision', 'teach', 'beginner', 'course', 'understand', 'what is', 'how does'] },
+    { mode: 'everyday', keys: ['laptop', 'phone', 'iphone', 'android', 'wifi', 'wi-fi', 'battery', 'printer', 'password', 'email', 'subscribe', 'password', 'backup', 'router', 'tv', 'headphones'] }
+  ];
+
+  var SITE_INDEX = [
+    { title: 'Artificial intelligence guide', url: '/artificialintelligence', keys: ['ai', 'artificial intelligence', 'llm', 'model', 'neural'] },
+    { title: 'Machine learning guide', url: '/machinelearning', keys: ['machine learning', 'training', 'dataset', 'model'] },
+    { title: 'Cybersecurity guide', url: '/cybersecurity', keys: ['security', 'cyber', 'phishing', 'breach', 'password'] },
+    { title: 'Zero trust guide', url: '/zerotrustsecurity', keys: ['zero trust', 'identity', 'perimeter'] },
+    { title: 'Cloud computing guide', url: '/cloudcomputing', keys: ['cloud', 'aws', 'azure', 'server'] },
+    { title: 'Quantum computing guide', url: '/quantumcomputing', keys: ['quantum', 'qubit'] },
+    { title: 'Semiconductor guide', url: '/semiconductors', keys: ['chip', 'chips', 'semiconductor', 'silicon'] },
+    { title: 'Robotics guide', url: '/robotics', keys: ['robot', 'robotics', 'automation'] },
+    { title: 'Blockchain guide', url: '/blockchain', keys: ['blockchain', 'ledger', 'web3'] },
+    { title: 'DevOps guide', url: '/devops', keys: ['devops', 'deploy', 'pipeline', 'kubernetes'] },
+    { title: 'Big data guide', url: '/bigdata', keys: ['data', 'analytics', 'database'] },
+    { title: 'Cybersecurity', url: '/cybersecurity', keys: ['security'] },
+    { title: 'IoT guide', url: '/internetofthings', keys: ['iot', 'sensor', 'sensors'] },
+    { title: '5G networks guide', url: '/5gnetworks', keys: ['5g', 'network', 'latency'] },
+    { title: 'Virtual reality guide', url: '/virtualreality', keys: ['vr', 'virtual reality', 'headset'] },
+    { title: 'Augmented reality guide', url: '/augmentedreality', keys: ['ar', 'augmented reality'] },
+    { title: 'Wearables guide', url: '/wearabletechnology', keys: ['wearable', 'wearables', 'watch'] },
+    { title: 'Space technology guide', url: '/spacetechnology', keys: ['space', 'satellite', 'rocket'] },
+    { title: 'Green technology guide', url: '/greentechnology', keys: ['green', 'climate', 'sustainability'] },
+    { title: 'Smart cities guide', url: '/smartcities', keys: ['smart city', 'smart cities', 'city', 'urban'] },
+    { title: 'Open source guide', url: '/opensource', keys: ['open source', 'github', 'licence', 'license'] },
+    { title: 'Tech buying guides', url: '/techproducts', keys: ['buy', 'laptop', 'phone', 'product', 'gadget'] },
+    { title: 'Free browser tools', url: '/software', keys: ['tool', 'tools', 'json', 'markdown', 'calculator', 'converter', 'password generator'] },
+    { title: 'InfohubGPT', url: '/software/infohubgpt', keys: ['infohubgpt', 'gpt'] },
+    { title: 'Live tech news', url: '/news', keys: ['news', 'headlines', 'techcrunch'] },
+    { title: 'CoinCompass markets', url: '/coincompass', keys: ['market', 'markets', 'crypto', 'bitcoin', 'stocks'] },
+    { title: 'Tech quiz', url: '/quiz', keys: ['quiz', 'test', 'grade'] },
+    { title: 'Pixel Palace arcade', url: '/games', keys: ['game', 'games', 'arcade'] },
+    { title: 'All 30 tech guides', url: '/techtopics', keys: ['guide', 'guides', 'topic', 'topics', 'learn'] },
+    { title: 'Blog & analysis', url: '/blog', keys: ['blog', 'analysis', 'article', 'briefing'] },
+    { title: 'Subscribe', url: '/subscribe', keys: ['newsletter', 'subscribe', 'email'] },
+    { title: 'Services', url: '/services', keys: ['service', 'services', 'automation', 'consulting'] }
+  ];
+
+  var RULES = [
+    {
+      keys: ['hello', 'hi', 'hey', 'yo', 'good morning', 'good evening'],
+      reply: "Hey — I'm Digi. 👋 I'm the AI guide for Digital Infohub. Ask me about tech, markets, code, design, or whatever you're trying to figure out. No question is too basic.",
+      actions: [{ label: '📰 What’s happening in tech?', prompt: "What's happening in tech today?" }, { label: '📈 Market snapshot', prompt: 'How are the markets doing right now?' }, { label: '✨ Surprise me', prompt: 'Surprise me with something worth reading' }]
+    },
+    {
+      keys: ['who are you', 'what are you', 'your name', 'about digi'],
+      reply: "I'm **Digi**, the guide built into Digital Infohub. I mix live AI with a rule-based map of the site, so I can explain a topic, pull a market snapshot, scan today's headlines, and send you straight to the right guide.\n\nI'm for everyone: the curious, students, makers, designers, developers, founders and investors.",
+      actions: [{ label: 'Browse all 30 guides', href: '/techtopics' }, { label: 'Open the toolbox', href: '/software' }, { label: 'Take a quiz', href: '/quiz' }]
+    },
+    {
+      keys: ['what can you do', 'help', 'how do you work', 'capabilities'],
+      reply: "A few things I'm good at:\n\n- **Explain** a tech idea in plain language\n- **Scan** live tech or world headlines\n- **Check** a market snapshot (delayed, not advice)\n- **Route** you to the right guide, tool, quiz or analysis\n- **Brainstorm** code, design and product ideas\n\nAsk naturally — or open **Settings** and tell me what to focus on.",
+      actions: [{ label: '📰 Tech news', prompt: "What's happening in tech today?" }, { label: '📈 Markets', prompt: 'How are the markets doing right now?' }, { label: '🎓 Learn something', prompt: 'Give me a 20-minute plan to learn about AI' }]
+    },
+    {
+      keys: ['ai', 'artificial intelligence', 'llm', 'large language model', 'neural network'],
+      reply: "**AI, in one breath:** a model learns patterns from data, then uses those patterns to produce a useful output — a answer, a summary, an image, a prediction.\n\nFor a proper mental model, start with the plain-language AI guide, then try the quiz. If you want the technical layer, the machine learning guide covers training, data and evaluation.",
+      actions: [{ label: 'Read the AI guide', href: '/artificialintelligence' }, { label: 'Machine learning guide', href: '/machinelearning' }, { label: 'AI quiz', href: '/quiz' }]
+    },
+    {
+      keys: ['security', 'cyber', 'cybersecurity', 'phishing', 'breach', 'zero trust'],
+      reply: "Most breaches start with identity — a stolen session, a reused password, a convincing phish — not a broken firewall.\n\nThe practical order: turn on passkeys or a password manager, shorten access, then add detection. The security and zero-trust guides go deeper without the vendor pitch.",
+      actions: [{ label: 'Security guide', href: '/cybersecurity' }, { label: 'Zero trust guide', href: '/zerotrustsecurity' }, { label: 'Security quiz', href: '/quiz' }]
+    },
+    {
+      keys: ['quantum', 'qubit'],
+      reply: "Quantum computers are not 'faster computers'. They use qubits that behave differently, and they're promising for specific problems like simulation and some optimisation.\n\nError correction is the hard part, and that's why practical timelines are longer than headlines suggest. Start with the guide; there's also a post-quantum security angle worth knowing.",
+      actions: [{ label: 'Quantum guide', href: '/quantumcomputing' }, { label: 'Cybersecurity guide', href: '/cybersecurity' }, { label: 'Browse guides', href: '/techtopics' }]
+    },
+    {
+      keys: ['chip', 'chips', 'semiconductor', 'silicon', 'nvidia', 'gpu'],
+      reply: "Chips are the bottleneck behind the AI boom. Designing a leading-edge chip is one problem; manufacturing it at scale is another — and the capacity is concentrated in very few places.\n\nThe semiconductor guide follows the path from design to fabrication, and the AI hardware analysis explains why inference is moving onto devices.",
+      actions: [{ label: 'Semiconductor guide', href: '/semiconductors' }, { label: 'AI hardware analysis', href: '/post/ai-hardware-race-sept-2026' }, { label: 'Tech news', href: '/news' }]
+    },
+    {
+      keys: ['robot', 'robots', 'robotics', 'automation'],
+      reply: "Robotics is less about humanoid demos and more about sensing, actuation and reliability. A robot that works 95% of the time is often not useful yet — the last 5% is the product.\n\nThe robotics guide covers the stack, where autonomy struggles, and what is actually shipping.",
+      actions: [{ label: 'Robotics guide', href: '/robotics' }, { label: 'AI guide', href: '/artificialintelligence' }, { label: 'Browse guides', href: '/techtopics' }]
+    },
+    {
+      keys: ['cloud', 'aws', 'azure', 'server', 'infrastructure'],
+      reply: "Cloud is someone else's computer — plus a very large catalogue of managed services. The useful questions are about latency, data location, cost shape and what you don't want to operate yourself.\n\nIf you're choosing an architecture, the cloud and edge guides are the fastest way to get the trade-offs straight.",
+      actions: [{ label: 'Cloud guide', href: '/cloudcomputing' }, { label: 'Edge computing guide', href: '/edgecomputing' }, { label: 'DevOps guide', href: '/devops' }]
+    },
+    {
+      keys: ['code', 'coding', 'developer', 'javascript', 'python', 'react', 'css', 'html', 'api', 'debug', 'deploy'],
+      reply: "I can help you reason through code. Paste the error, the snippet, or the goal, and tell me what you expected to happen.\n\nFor the fundamentals, the DevOps and open-source guides on the site are a good complement. If you want a tool instead, the toolbox has JSON, markdown, password and converter utilities.",
+      actions: [{ label: 'DevOps guide', href: '/devops' }, { label: 'Open source guide', href: '/opensource' }, { label: 'Free tools', href: '/software' }]
+    },
+    {
+      keys: ['design', 'designer', 'ux', 'ui', 'typography', 'layout', 'accessibility', 'figma'],
+      reply: "Good design is mostly decisions about hierarchy, contrast and what to leave out. Start with the job the person is trying to do, then make the next action obvious.\n\nIf you're working on an interface, check contrast and keyboard access early — those are cheap to fix at the start and expensive later.",
+      actions: [{ label: 'Tech products', href: '/techproducts' }, { label: 'Free tools', href: '/software' }, { label: 'Ask about a specific screen', prompt: 'How should I lay out a simple dashboard for beginners?' }]
+    },
+    {
+      keys: ['laptop', 'phone', 'iphone', 'android', 'headphones', 'buy', 'buying', 'gadget'],
+      reply: "For a buying decision, ignore the spec sheet until you know the job. The useful filters are: how much you move it, what software you need, how long you keep it, and whether battery or screen matters more.\n\nThe buying guides compare the trade-offs, and the semiconductor guide explains why some specs matter more than the marketing suggests.",
+      actions: [{ label: 'Tech buying guides', href: '/techproducts' }, { label: 'Semiconductor guide', href: '/semiconductors' }, { label: 'Free tools', href: '/software' }]
+    },
+    {
+      keys: ['blockchain', 'crypto', 'web3', 'bitcoin', 'ethereum'],
+      reply: "A blockchain is a shared record that no single party can quietly rewrite. That's genuinely useful for settlement and provenance — and unnecessary for most databases.\n\nFor prices and trends, open CoinCompass. For the concept, the blockchain guide separates the useful part from the token hype.",
+      actions: [{ label: 'CoinCompass', href: '/coincompass' }, { label: 'Blockchain guide', href: '/blockchain' }, { label: 'Market snapshot', prompt: 'How are the markets doing right now?' }]
+    },
+    {
+      keys: ['study', 'learn', 'revision', 'exam', 'beginner', 'teach me'],
+      reply: "A simple 20-minute loop: **5 minutes** to read the guide's mental model, **5 minutes** to write it in your own words, **5 minutes** to take the quiz, and **5 minutes** to find one real example.\n\nTell me the topic and I'll build the plan around it.",
+      actions: [{ label: 'Browse guides', href: '/techtopics' }, { label: 'Take a quiz', href: '/quiz' }, { label: 'Ask for a study plan', prompt: 'Build me a 20-minute study plan for cybersecurity.' }]
+    },
+    {
+      keys: ['newsletter', 'subscribe', 'email'],
+      reply: "The newsletter is one email a week: the AI, market and software stories worth knowing, plus new tools before they're promoted on the site. It's free and there's no paywall.",
+      actions: [{ label: 'Subscribe free', href: '/subscribe' }, { label: 'Read the blog', href: '/blog' }, { label: 'Live tech news', href: '/news' }]
+    },
+    {
+      keys: ['tool', 'tools', 'json', 'markdown', 'password generator', 'calculator', 'converter'],
+      reply: "The toolbox has 12 free browser utilities. The useful ones for most people: JSON formatter, markdown editor, password generator, unit converter and the Pomodoro timer.\n\nThey run locally in your browser — no signup, no upload.",
+      actions: [{ label: 'Open the toolbox', href: '/software' }, { label: 'JSON formatter', href: '/software/json' }, { label: 'Password generator', href: '/software/password' }]
+    },
+    {
+      keys: ['game', 'games', 'arcade', 'snake', '2048', 'pong'],
+      reply: "The arcade has eight browser games — Snake, 2048, Pong, Memory, Typing Rush and more. No downloads, works on a phone, and it's a decent way to reset your attention for five minutes.",
+      actions: [{ label: 'Enter the arcade', href: '/games' }, { label: 'Take a quiz', href: '/quiz' }, { label: 'Live tech news', href: '/news' }]
+    },
+    {
+      keys: ['thanks', 'thank you', 'cheers'],
+      reply: "Anytime. If you want a next step, the guide index is the best rabbit hole on the site — 30 plain-language explainers, from AI to smart cities.",
+      actions: [{ label: 'Browse all 30 guides', href: '/techtopics' }, { label: 'Live tech news', href: '/news' }, { label: 'Take a quiz', href: '/quiz' }]
+    }
+  ];
+
+  /* --------------------------------------------------------------- elements */
+  var $ = function (s, root) { return (root || document).querySelector(s); };
+  var $$ = function (s, root) { return Array.prototype.slice.call((root || document).querySelectorAll(s)); };
+
+  var els = {
+    intro: $('#dgIntro'),
+    conversation: $('#dgConversation'),
+    thread: $('#dgThread'),
+    form: $('#dgForm'),
+    input: $('#dgInput'),
+    send: $('#dgSend'),
+    stop: $('#dgStop'),
+    clock: $('#dgClock'),
+    date: $('#dgDate'),
+    time: $('#dgTime'),
+    place: $('#dgPlace'),
+    placeNote: $('#dgPlaceNote'),
+    weatherChip: $('#dgWeatherChip'),
+    settingsOpen: $('#dgSettingsOpen'),
+    modeTag: $('#dgModeTag'),
+    introMode: $('#dgIntroMode'),
+    settings: $('#dgSettings'),
+    scrim: $('#dgScrim'),
+    custom: $('#dgCustom'),
+    theme: $('#dgTheme'),
+    toast: $('#dihToast')
+  };
+
+  var settings = { mode: 'auto', custom: '', style: 'balanced', place: 'auto' };
+  var settingsReturnFocus = null;
+  var history = [];
+  var busy = false;
+  var controller = null;
+  var lastTopic = 'auto';
+  var activeTopic = 'auto';
+  var started = false;
+  var lastWeather = null;
+
+  /* ---------------------------------------------------------------- helpers */
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function readSettings() {
+    try {
+      var raw = JSON.parse(localStorage.getItem(SETTINGS_KEY) || '{}');
+      if (raw && typeof raw === 'object') {
+        if (MODES[raw.mode]) settings.mode = raw.mode;
+        if (typeof raw.custom === 'string') settings.custom = raw.custom;
+        if (STYLES[raw.style]) settings.style = raw.style;
+        if (raw.place === 'auto' || placeById(raw.place)) settings.place = raw.place;
+      }
+    } catch (e) {}
+  }
+  function saveSettings() {
+    try { localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings)); } catch (e) {}
+  }
+  function placeById(id) {
+    return id && Object.prototype.hasOwnProperty.call(PLACES, id) ? PLACES[id] : null;
+  }
+  function selectedPlace() {
+    return settings.place && settings.place !== 'auto' ? placeById(settings.place) : null;
+  }
+  function populatePlaces() {
+    if (!els.place || els.place.options.length) return;
+    var auto = document.createElement('option');
+    auto.value = 'auto';
+    auto.textContent = 'My location (device time zone)';
+    els.place.appendChild(auto);
+    var groups = {};
+    PLACE_GROUPS.forEach(function (name) {
+      var group = document.createElement('optgroup');
+      group.label = name;
+      groups[name] = group;
+      els.place.appendChild(group);
+    });
+    Object.keys(PLACES).forEach(function (id) {
+      var place = PLACES[id];
+      var group = groups[place.group] || groups[PLACE_GROUPS[0]];
+      var option = document.createElement('option');
+      option.value = id;
+      option.textContent = place.name + (place.country && place.country !== place.name ? ', ' + place.country : '');
+      group.appendChild(option);
+    });
+  }
+  function updatePlaceUI() {
+    var place = selectedPlace();
+    if (els.place) els.place.value = place ? settings.place : 'auto';
+    if (els.placeNote) {
+      els.placeNote.textContent = place
+        ? 'Clock and weather use ' + place.name + ' · ' + place.tz + '. Click the clock to change this.'
+        : 'Clock uses your device time zone (' + localZone() + '). Weather uses your device location when asked.';
+    }
+    if (els.weatherChip) {
+      els.weatherChip.textContent = place ? '🌤️ Weather in ' + place.name : '🌤️ Weather where I am';
+      els.weatherChip.dataset.q = place ? 'Weather' : "What's the weather where I am?";
+    }
+  }
+  function toast(message) {
+    if (!els.toast) {
+      els.toast = document.createElement('div');
+      els.toast.id = 'dihToast';
+      els.toast.setAttribute('role', 'status');
+      document.body.appendChild(els.toast);
+    }
+    els.toast.textContent = message;
+    els.toast.classList.add('show');
+    clearTimeout(els.toast._timer);
+    els.toast._timer = setTimeout(function () { els.toast.classList.remove('show'); }, 3000);
+  }
+  function localZone() {
+    try { return Intl.DateTimeFormat().resolvedOptions().timeZone || 'your local time'; }
+    catch (e) { return 'your local time'; }
+  }
+  function shortZone(now, tz) {
+    try {
+      var opts = { timeZoneName: 'short' };
+      if (tz) opts.timeZone = tz;
+      var parts = new Intl.DateTimeFormat('en-GB', opts).formatToParts(now);
+      for (var i = 0; i < parts.length; i++) if (parts[i].type === 'timeZoneName') return parts[i].value;
+    } catch (e) {}
+    return '';
+  }
+  function clock() {
+    var now = new Date();
+    var place = selectedPlace();
+    var tz = place ? place.tz : '';
+    var compact = window.innerWidth <= 680;
+    var dateOpts = { weekday: 'short', day: 'numeric', month: 'short' };
+    var timeOpts = { hour: '2-digit', minute: '2-digit', hour12: false };
+    if (!compact) { dateOpts.year = 'numeric'; timeOpts.second = '2-digit'; }
+    if (tz) { dateOpts.timeZone = tz; timeOpts.timeZone = tz; }
+    var date = now.toLocaleDateString('en-GB', dateOpts);
+    var time = now.toLocaleTimeString('en-GB', timeOpts);
+    if (els.date) els.date.textContent = date;
+    if (els.time) els.time.textContent = time;
+    if (els.clock) {
+      var label = place ? 'Time in ' + place.name : 'Your local time';
+      var zone = place ? place.tz : localZone();
+      var short = shortZone(now, tz);
+      els.clock.title = label + ' · ' + zone + (short ? ' (' + short + ')' : '') + ' · Click to change location';
+      els.clock.setAttribute('aria-label', label + ' · ' + zone + (short ? ', ' + short : '') + '. Change time and weather location.');
+    }
+  }
+  function stamp() {
+    var place = selectedPlace();
+    var opts = { hour: '2-digit', minute: '2-digit' };
+    if (place) opts.timeZone = place.tz;
+    return new Date().toLocaleTimeString('en-GB', opts);
+  }
+  function detectTopic(q) {
+    var lower = ' ' + String(q).toLowerCase() + ' ';
+    var best = null;
+    var score = 0;
+    AUTO_HINTS.forEach(function (group) {
+      var hits = 0;
+      group.keys.forEach(function (key) {
+        if (key.indexOf(' ') !== -1) { if (lower.indexOf(key) !== -1) hits += 2; }
+        else if (new RegExp('(^|[^a-z0-9])' + key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '([^a-z0-9]|$)', 'i').test(lower)) hits += 1;
+      });
+      if (hits > score) { score = hits; best = group.mode; }
+    });
+    return score > 0 ? best : 'everyday';
+  }
+  function topicFor(q) {
+    activeTopic = settings.mode === 'auto' ? detectTopic(q) : settings.mode;
+    if (activeTopic !== lastTopic) {
+      lastTopic = activeTopic;
+      if (settings.mode === 'auto') toast('Digi focused on ' + MODES[activeTopic].label);
+    }
+    updateModeTag();
+    return activeTopic;
+  }
+  function updateModeTag() {
+    var label = settings.mode === 'auto'
+      ? 'Auto' + (activeTopic && activeTopic !== 'auto' ? ' → ' + MODES[activeTopic].label : '')
+      : MODES[settings.mode].label;
+    if (els.modeTag) els.modeTag.innerHTML = 'Mode: <b>' + esc(label) + '</b>';
+    if (els.introMode) els.introMode.textContent = settings.mode === 'auto' ? 'Auto mode' : MODES[settings.mode].label + ' mode';
+  }
+  function siteLinksFor(q) {
+    var lower = String(q || '').toLowerCase();
+    var out = [];
+    SITE_INDEX.forEach(function (page) {
+      for (var i = 0; i < page.keys.length; i++) {
+        var key = page.keys[i];
+        var hit = key.indexOf(' ') !== -1 ? lower.indexOf(key) !== -1 : new RegExp('(^|[^a-z0-9])' + key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '([^a-z0-9]|$)', 'i').test(lower);
+        if (hit) {
+          if (!out.some(function (x) { return x.href === page.url; })) out.push({ label: page.title, href: page.url });
+          break;
+        }
+      }
+    });
+    return out.slice(0, 3);
+  }
+  function fallbackRule(q) {
+    var lower = String(q || '').toLowerCase();
+    for (var i = 0; i < RULES.length; i++) {
+      for (var j = 0; j < RULES[i].keys.length; j++) {
+        var key = RULES[i].keys[j];
+        var hit = key.indexOf(' ') !== -1 ? lower.indexOf(key) !== -1 : new RegExp('(^|[^a-z0-9])' + key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '([^a-z0-9]|$)', 'i').test(lower);
+        if (hit) return RULES[i];
+      }
+    }
+    return null;
+  }
+  function fetchJson(url, timeout) {
+    var c = new AbortController();
+    var t = setTimeout(function () { c.abort(); }, timeout || 9000);
+    return fetch(url, { signal: c.signal, headers: { accept: 'application/json' } })
+      .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .finally(function () { clearTimeout(t); });
+  }
+
+  /* ------------------------------------------------------------- markdown */
+  function markdown(text) {
+    var html;
+    try {
+      if (window.dihMarkdown) html = window.dihMarkdown(String(text));
+      else if (window.marked) html = window.marked.parse(String(text), { breaks: true, gfm: true });
+      else html = esc(text).replace(/\n/g, '<br>');
+    } catch (e) { html = esc(text).replace(/\n/g, '<br>'); }
+    return String(html)
+      .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '')
+      .replace(/\son\w+\s*=\s*"[^"]*"/gi, '')
+      .replace(/\son\w+\s*=\s*'[^']*'/gi, '')
+      .replace(/javascript:/gi, '#');
+  }
+
+  /* --------------------------------------------------------------- rendering */
+  function scrollThread(force) {
+    var thread = els.thread;
+    if (thread) thread.scrollTo({ top: thread.scrollHeight, behavior: force || reduced ? 'auto' : 'smooth' });
+  }
+  function actionButton(action) {
+    var node;
+    if (action.href) {
+      node = document.createElement('a');
+      node.href = action.href;
+      node.className = 'dg-action';
+      node.innerHTML = esc(action.label) + ' <span aria-hidden="true">→</span>';
+    } else {
+      node = document.createElement('button');
+      node.type = 'button';
+      node.className = 'dg-action';
+      node.textContent = action.label;
+      node.addEventListener('click', function () { send(action.prompt || action.label); });
+    }
+    return node;
+  }
+  function addMessage(role, html, actions, extra) {
+    var wrap = document.createElement('div');
+    wrap.className = 'dg-msg ' + role;
+    var avatar = role === 'bot'
+      ? '<div class="dg-msg-avatar"><img src="/assets/digi.png" alt="" width="34" height="38"></div>'
+      : '<div class="dg-msg-avatar">You</div>';
+    wrap.innerHTML = avatar +
+      '<div class="dg-msg-main">' +
+        '<div class="dg-msg-head"><span class="dg-msg-name">' + (role === 'bot' ? 'Digi' : 'You') + '</span><span class="dg-msg-time">' + stamp() + '</span></div>' +
+        '<div class="dg-bubble">' + html + (extra || '') + '</div>' +
+        '<div class="dg-actions"></div>' +
+      '</div>';
+    var actionBox = wrap.querySelector('.dg-actions');
+    (actions || []).forEach(function (action) { if (action) actionBox.appendChild(actionButton(action)); });
+    if (!actionBox.children.length) actionBox.remove();
+    els.thread.appendChild(wrap);
+    scrollThread(true);
+    return wrap;
+  }
+  function typing() {
+    var wrap = document.createElement('div');
+    wrap.className = 'dg-msg bot';
+    wrap.innerHTML = '<div class="dg-msg-avatar"><img src="/assets/digi.png" alt="" width="34" height="38"></div>' +
+      '<div class="dg-msg-main"><div class="dg-msg-head"><span class="dg-msg-name">Digi</span><span class="dg-msg-time">thinking…</span></div>' +
+      '<div class="dg-bubble"><span class="dg-typing" aria-label="Digi is thinking"><span></span><span></span><span></span></span></div></div>';
+    els.thread.appendChild(wrap);
+    scrollThread(true);
+    return wrap;
+  }
+  function startChat() {
+    if (!started) {
+      started = true;
+      document.body.classList.add('dg-chatting');
+    }
+  }
+
+  /* -------------------------------------------------------------- local data */
+  function timeReply() {
+    var now = new Date();
+    var place = selectedPlace();
+    var tz = place ? place.tz : '';
+    var dateOpts = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+    var timeOpts = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+    if (tz) { dateOpts.timeZone = tz; timeOpts.timeZone = tz; }
+    var date = now.toLocaleDateString('en-GB', dateOpts);
+    var time = now.toLocaleTimeString('en-GB', timeOpts);
+    var zone = place ? place.tz : localZone();
+    var short = shortZone(now, tz);
+    var text = place
+      ? "It's **" + time + "** on **" + date + "** in **" + esc(place.name) + "** (**" + zone + (short ? ', ' + short : '') + "**).\n\nThe clock at the top is set to " + esc(place.name) + ", and weather follows the same location. Click the clock to change it."
+      : "It's **" + time + "** on **" + date + "** — your device's local time (**" + zone + (short ? ', ' + short : '') + "**).\n\nThe clock at the top uses the same time zone, so it follows you rather than a fixed server clock. If that's not right, click the clock and choose a location.";
+    return {
+      text: text,
+      actions: [
+        { label: place ? '🌤️ Weather in ' + place.name : '🌤️ Weather where I am', prompt: place ? 'Weather' : "What's the weather where I am?" },
+        { label: '📰 What’s happening in tech?', prompt: "What's happening in tech today?" }
+      ]
+    };
+  }
+
+  /* ------------------------------------------------------------- weather */
+  var WMO = {
+    0: ['Clear sky', '☀️', '🌙'], 1: ['Mainly clear', '🌤️', '🌙'], 2: ['Partly cloudy', '⛅', '☁️'], 3: ['Overcast', '☁️', '☁️'],
+    45: ['Fog', '🌫️', '🌫️'], 48: ['Rime fog', '🌫️', '🌫️'],
+    51: ['Light drizzle', '🌦️', '🌧️'], 53: ['Drizzle', '🌦️', '🌧️'], 55: ['Heavy drizzle', '🌧️', '🌧️'], 56: ['Freezing drizzle', '🌧️', '🌧️'], 57: ['Freezing drizzle', '🌧️', '🌧️'],
+    61: ['Light rain', '🌦️', '🌧️'], 63: ['Rain', '🌧️', '🌧️'], 65: ['Heavy rain', '🌧️', '🌧️'], 66: ['Freezing rain', '🌧️', '🌧️'], 67: ['Freezing rain', '🌧️', '🌧️'],
+    71: ['Light snow', '🌨️', '🌨️'], 73: ['Snow', '🌨️', '🌨️'], 75: ['Heavy snow', '❄️', '❄️'], 77: ['Snow grains', '🌨️', '🌨️'],
+    80: ['Rain showers', '🌦️', '🌧️'], 81: ['Rain showers', '🌧️', '🌧️'], 82: ['Heavy showers', '⛈️', '🌧️'], 85: ['Snow showers', '🌨️', '🌨️'], 86: ['Heavy snow showers', '❄️', '❄️'],
+    95: ['Thunderstorm', '⛈️', '⛈️'], 96: ['Thunderstorm with hail', '⛈️', '⛈️'], 99: ['Thunderstorm with hail', '⛈️', '⛈️']
+  };
+  function weatherMeta(code, isDay) {
+    var row = WMO[Number(code)] || ['Mixed conditions', '🌡️', '🌡️'];
+    return { label: row[0], icon: Number(isDay) === 0 ? row[2] : row[1] };
+  }
+  function tempText(c) {
+    if (c == null || !isFinite(Number(c))) return '—';
+    var n = Number(c);
+    return Math.round(n) + '°C (' + Math.round(n * 9 / 5 + 32) + '°F)';
+  }
+  function windText(kmh) {
+    if (kmh == null || !isFinite(Number(kmh))) return '—';
+    var n = Number(kmh);
+    return Math.round(n) + ' km/h (' + Math.round(n * 0.621371) + ' mph)';
+  }
+  function zoneCity(tz) {
+    var parts = String(tz || '').split('/');
+    if (parts.length < 2) return '';
+    var city = parts[parts.length - 1].replace(/_/g, ' ');
+    return /^(utc|gmt|unknown)$/i.test(city) ? '' : city;
+  }
+  function isWeatherQuery(lower) {
+    if (/\b(weather|forecast)\b/.test(lower)) return true;
+    if (/\b(will it (rain|snow)|is it (raining|snowing|sunny|cloudy)|how (hot|cold|warm) is it|do i need an umbrella|what should i wear)\b/.test(lower)) return true;
+    return /\b(rain|snow|sunny|cloudy|windy|humidity|temperature|umbrella)\b/.test(lower) &&
+      /\b(today|tomorrow|tonight|now|outside|here|where i am|my location|near me|this week|weekend|in [a-z])\b/.test(lower);
+  }
+  function weatherCity(lower) {
+    var match = lower.match(/\b(?:in|for|at)\s+([a-z][a-z .'-]{1,50}?)(?=\s+(?:today|tomorrow|tonight|this week|next few days|weekend|right now|now|please)\b|[?.!,]|$)/i);
+    if (!match) return '';
+    var city = match[1].replace(/\s+/g, ' ').trim();
+    return /^(the )?(morning|afternoon|evening|night|weekend|week|today|tomorrow|here|my location|me)$/i.test(city) ? '' : city;
+  }
+  function placeLabel(place) {
+    var bits = [place.name];
+    if (place.region && place.region !== place.name) bits.push(place.region);
+    if (place.country && place.country !== place.region) bits.push(place.country);
+    return bits.filter(Boolean).slice(0, 3).join(', ');
+  }
+  function geocodeWeatherCity(city) {
+    return fetchJson('https://geocoding-api.open-meteo.com/v1/search?name=' + encodeURIComponent(city) + '&count=1&language=en&format=json', 8000).then(function (d) {
+      var r = d && d.results && d.results[0];
+      if (!r) { var e = new Error('city-not-found'); e.code = 'city'; throw e; }
+      return { lat: Number(r.latitude), lon: Number(r.longitude), name: r.name, region: r.admin1 || '', country: r.country || r.country_code || '', source: 'search' };
+    });
+  }
+  function devicePosition() {
+    return new Promise(function (resolve, reject) {
+      if (!navigator.geolocation || !navigator.geolocation.getCurrentPosition) { reject(new Error('geolocation-unsupported')); return; }
+      navigator.geolocation.getCurrentPosition(function (pos) {
+        resolve({ lat: pos.coords.latitude, lon: pos.coords.longitude, name: '', region: '', country: '', source: 'device' });
+      }, function (err) {
+        reject(err || new Error('geolocation-denied'));
+      }, { enableHighAccuracy: false, timeout: 9000, maximumAge: 600000 });
+    });
+  }
+  function networkPosition() {
+    return fetchJson('https://ipwho.is/', 8000).then(function (d) {
+      if (!d || d.success === false || d.latitude == null || d.longitude == null) throw new Error('network-location');
+      return {
+        lat: Number(d.latitude), lon: Number(d.longitude),
+        name: d.city || d.region || d.country || '',
+        region: d.region || '', country: d.country || '', source: 'network'
+      };
+    });
+  }
+  function currentWeatherPlace() {
+    return devicePosition().catch(function () { return networkPosition(); });
+  }
+  function selectedWeatherPlace() {
+    var place = selectedPlace();
+    return place ? { lat: place.lat, lon: place.lon, name: place.name, region: '', country: place.country, source: 'selected' } : null;
+  }
+  function weatherActions() {
+    return [
+      { label: 'Tomorrow', prompt: 'Weather tomorrow' },
+      { label: 'Next few days', prompt: 'Weather this week' },
+      { label: 'Weather where I am', prompt: 'Weather where I am' }
+    ];
+  }
+  function weatherText(data, place) {
+    var current = data.current || {};
+    var daily = data.daily || {};
+    var codes = daily.weather_code || [];
+    var highs = daily.temperature_2m_max || [];
+    var lows = daily.temperature_2m_min || [];
+    var rains = daily.precipitation_probability_max || [];
+    var currentMeta = weatherMeta(current.weather_code, current.is_day);
+    var todayMeta = weatherMeta(codes[0], 1);
+    var lines = [];
+    lines.push('**' + currentMeta.icon + ' ' + currentMeta.label + '** in **' + placeLabel(place) + '**');
+    lines.push('**' + tempText(current.temperature_2m) + '** right now · feels like **' + tempText(current.apparent_temperature) + '**.');
+    var details = [];
+    if (current.relative_humidity_2m != null) details.push('Humidity **' + Math.round(current.relative_humidity_2m) + '%**');
+    if (current.wind_speed_10m != null) details.push('Wind **' + windText(current.wind_speed_10m) + '**');
+    if (rains[0] != null) details.push('Rain chance today **' + Math.round(rains[0]) + '%**');
+    if (details.length) lines.push(details.join(' · '));
+    if (highs[0] != null && lows[0] != null) lines.push('Today: ' + todayMeta.icon + ' ' + todayMeta.label + ' · high **' + tempText(highs[0]) + '** / low **' + tempText(lows[0]) + '**.');
+    var days = [];
+    var times = daily.time || [];
+    for (var i = 1; i < times.length && i < 4; i++) {
+      var meta = weatherMeta(codes[i], 1);
+      var row = '- **' + (i === 1 ? 'Tomorrow' : new Date(times[i] + 'T12:00:00').toLocaleDateString('en-GB', { weekday: 'short' })) + '** · ' + meta.icon + ' ' + meta.label + ' · ' + tempText(highs[i]) + ' / ' + tempText(lows[i]);
+      if (rains[i] != null) row += ' · ' + Math.round(rains[i]) + '% rain';
+      days.push(row);
+    }
+    if (days.length) lines.push('**Next few days**\n' + days.join('\n'));
+    if (data.timezone) {
+      try {
+        var localTime = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: data.timezone }).format(new Date());
+        lines.push('Local time there: **' + localTime + '** (' + data.timezone + ').');
+      } catch (e) {}
+    }
+    if (place.source === 'network') lines.push('Your device location wasn’t available, so this uses an approximate network location.');
+    return lines.join('\n\n');
+  }
+  function weatherReply(q) {
+    var lower = String(q || '').toLowerCase();
+    var city = weatherCity(lower);
+    var followUp = /\b(today|tomorrow|tonight|this week|next few days|weekend)\b/.test(lower);
+    var forcedCurrent = /\b(where i am|near me|my location|here)\b/.test(lower);
+    var placePromise;
+    if (city) placePromise = geocodeWeatherCity(city);
+    else if (forcedCurrent) placePromise = currentWeatherPlace();
+    else if (lastWeather && followUp) placePromise = Promise.resolve(lastWeather);
+    else if (selectedPlace()) placePromise = Promise.resolve(selectedWeatherPlace());
+    else placePromise = currentWeatherPlace();
+    return placePromise.then(function (place) {
+      lastWeather = place;
+      var url = 'https://api.open-meteo.com/v1/forecast?latitude=' + encodeURIComponent(place.lat) + '&longitude=' + encodeURIComponent(place.lon) +
+        '&current=temperature_2m,apparent_temperature,relative_humidity_2m,is_day,precipitation,weather_code,wind_speed_10m' +
+        '&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=auto&forecast_days=4';
+      return fetchJson(url, 10000).then(function (data) {
+        if (!place.name) {
+          var cityName = zoneCity(data.timezone);
+          place.name = cityName ? cityName + ' area' : 'Your location';
+        }
+        var sourceLabel = place.source === 'selected' ? 'selected location' : place.source === 'network' ? 'approximate network location' : place.source === 'device' ? 'your device location' : 'searched location';
+        return {
+          text: markdown(weatherText(data, place)) + '<span class="dg-note dg-weather-note">🌤 Weather by <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> · ' + esc(sourceLabel) + ' · updated ' + stamp() + '</span>',
+          actions: weatherActions(),
+          html: true
+        };
+      }, function () {
+        return {
+          text: "The live weather service isn't responding right now. I don't want to guess at conditions — try again in a moment, or check a local forecast.",
+          actions: [{ label: 'Try again', prompt: 'Weather where I am' }, { label: 'Weather in London', prompt: 'Weather in London' }, { label: 'Weather in New York', prompt: 'Weather in New York' }]
+        };
+      });
+    }, function (err) {
+      var cityError = err && err.code === 'city';
+      return {
+        text: cityError
+          ? "I couldn't find that place. Try a city name like **London** or **New York** — or ask **weather where I am** and I'll use your location."
+          : "I couldn't get your location. Allow location access, or tell me a city — for example **weather in London**.",
+        actions: [{ label: 'Weather in London', prompt: 'Weather in London' }, { label: 'Weather in New York', prompt: 'Weather in New York' }, { label: 'Weather where I am', prompt: 'Weather where I am' }]
+      };
+    });
+  }
+
+  function newsReply(kind) {
+    var world = kind === 'world';
+    var local = world ? Promise.reject(new Error('world')) : fetchJson('/api/news', 7000).then(function (d) {
+      if (!d || !d.items || !d.items.length) throw new Error('empty');
+      return d.items.slice(0, 4);
+    });
+    return local.catch(function () {
+      var feed = world ? 'https://feeds.bbci.co.uk/news/world/rss.xml' : 'https://techcrunch.com/feed/';
+      return fetchJson('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(feed) + '&count=6', 9000).then(function (d) {
+        return (d.items || []).slice(0, 4).map(function (i) {
+          return {
+            title: String(i.title || '').replace(/<[^>]*>/g, ''),
+            link: i.link,
+            summary: String(i.description || '').replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').slice(0, 180),
+            date: (i.pubDate || '').slice(0, 16)
+          };
+        });
+      });
+    }).then(function (items) {
+      if (!items || !items.length) throw new Error('empty');
+      var body = items.map(function (i) {
+        return '**[' + i.title + '](' + i.link + ')**\n' + (i.summary ? i.summary + '…' : '');
+      }).join('\n\n');
+      return {
+        text: (world ? "Here's what's moving in the world right now:" : "Here's the latest from the tech desk:") + '\n\n' + body +
+          '\n\n<span class="dg-note">Live feed · ' + esc(new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })) + '</span>',
+        actions: world
+          ? [{ label: 'Live tech news', href: '/news' }, { label: 'Tech guides', href: '/techtopics' }, { label: 'Read the blog', href: '/blog' }]
+          : [{ label: 'Open the news desk', href: '/news' }, { label: 'Read the blog', href: '/blog' }, { label: 'Browse guides', href: '/techtopics' }]
+      };
+    }).catch(function () {
+      return {
+        text: "The live feed isn't answering right now. The Digital Infohub news desk is the best place to check next — it has the latest headlines with the site's own context.",
+        actions: [{ label: 'Open the news desk', href: '/news' }, { label: 'Read the blog', href: '/blog' }, { label: 'Browse guides', href: '/techtopics' }]
+      };
+    });
+  }
+
+  var CRYPTO = { BTC: 'bitcoin', ETH: 'ethereum', SOL: 'solana', XRP: 'ripple', DOGE: 'dogecoin', ADA: 'cardano', BNB: 'binancecoin' };
+  var STOCKS = { AAPL: 'Apple', NVDA: 'NVIDIA', MSFT: 'Microsoft', GOOGL: 'Alphabet', AMZN: 'Amazon', TSLA: 'Tesla', META: 'Meta', AMD: 'AMD', NFLX: 'Netflix' };
+
+  function fmtMoney(n) {
+    if (!isFinite(n)) return '—';
+    return n >= 1000 ? '$' + Math.round(n).toLocaleString('en-US') : '$' + Number(n).toFixed(2);
+  }
+  function knownSymbols(q) {
+    var upper = String(q || '').toUpperCase();
+    var found = [];
+    Object.keys(STOCKS).forEach(function (s) { if (new RegExp('(^|[^A-Z])' + s + '([^A-Z]|$)').test(upper)) found.push({ type: 'stock', sym: s, name: STOCKS[s] }); });
+    Object.keys(CRYPTO).forEach(function (s) { if (new RegExp('(^|[^A-Z])' + s + '([^A-Z]|$)').test(upper)) found.push({ type: 'crypto', sym: s, id: CRYPTO[s] }); });
+    return found.slice(0, 3);
+  }
+  function marketReply(q) {
+    var picks = knownSymbols(q);
+    var stocks = picks.filter(function (p) { return p.type === 'stock'; });
+    var coins = picks.filter(function (p) { return p.type === 'crypto'; });
+    if (!picks.length) {
+      stocks = [{ type: 'stock', sym: 'AAPL', name: 'Apple' }, { type: 'stock', sym: 'NVDA', name: 'NVIDIA' }, { type: 'stock', sym: 'MSFT', name: 'Microsoft' }];
+      coins = [{ type: 'crypto', sym: 'BTC', id: 'bitcoin' }, { type: 'crypto', sym: 'ETH', id: 'ethereum' }];
+    }
+    var jobs = [];
+    stocks.forEach(function (s) {
+      var url = 'https://finnhub.io/api/v1/quote?symbol=' + s.sym + '&token=d9t07ohr01qqd5j2v6rgd9t07ohr01qqd5j2v6s0';
+      jobs.push(fetchJson(url, 8000).then(function (d) {
+        if (!d || d.c == null) throw new Error('no quote');
+        return { sym: s.sym, name: s.name, price: Number(d.c), pct: Number(d.dp || 0) };
+      }).catch(function () { return null; }));
+    });
+    coins.forEach(function (c) {
+      jobs.push(fetchJson('https://api.coingecko.com/api/v3/simple/price?ids=' + c.id + '&vs_currencies=usd&include_24hr_change=true', 8000).then(function (d) {
+        var v = d && d[c.id];
+        if (!v || v.usd == null) throw new Error('no price');
+        return { sym: c.sym, name: c.sym, price: Number(v.usd), pct: Number(v.usd_24h_change || 0), crypto: true };
+      }).catch(function () { return null; }));
+    });
+    return Promise.all(jobs).then(function (rows) {
+      rows = rows.filter(Boolean);
+      if (!rows.length) throw new Error('market offline');
+      var verb = picks.length && rows.length === 1 ? 'Here is the latest quote' : 'Here is the latest snapshot';
+      var body = verb + ':\n\n| Asset | Price | 24h |\n| --- | --- | --- |\n' + rows.map(function (r) {
+        return '| **' + r.sym + '** ' + (r.name && r.name !== r.sym ? '(' + r.name + ')' : '') + ' | ' + fmtMoney(r.price) + ' | ' + (r.pct >= 0 ? '▲' : '▼') + ' ' + Math.abs(r.pct).toFixed(2) + '% |';
+      }).join('\n') + '\n\n<span class="dg-note">Delayed quotes · not investment advice</span>';
+      return {
+        text: body,
+        actions: [{ label: 'Open CoinCompass', href: '/coincompass' }, { label: 'Market analysis', href: '/post/tech-market-sell-off-october-2026' }, { label: 'Ask about a stock', prompt: 'What is the outlook for NVDA?' }]
+      };
+    }).catch(function () {
+      return {
+        text: "Live market data isn't responding right now. CoinCompass has the full graphs and context when it reconnects — it's worth opening instead of trusting a stale number.",
+        actions: [{ label: 'Open CoinCompass', href: '/coincompass' }, { label: 'Market analysis', href: '/post/tech-market-sell-off-october-2026' }, { label: 'Read the blog', href: '/blog' }]
+      };
+    });
+  }
+
+  function surpriseReply() {
+    var picks = [];
+    while (picks.length < 3) {
+      var p = SITE_INDEX[Math.floor(Math.random() * SITE_INDEX.length)];
+      if (!picks.some(function (x) { return x.url === p.url; })) picks.push(p);
+    }
+    return {
+      text: "Here's something worth your attention:\n\n" + picks.map(function (p) {
+        return '- **[' + p.title + '](' + p.url + ')** — a short, useful detour.';
+      }).join('\n') + "\n\nWant a different direction? Ask me for something specific and I'll narrow it down.",
+      actions: picks.map(function (p) { return { label: p.title, href: p.url }; })
+    };
+  }
+
+  function localReply(q) {
+    var lower = String(q || '').toLowerCase().trim();
+    if (!lower) return null;
+    if (isWeatherQuery(lower)) return weatherReply(q);
+    if (/(what('| i)?s the (time|date)|what time is it|current time|today'?s date|what day is it)/.test(lower)) return Promise.resolve(timeReply());
+    if (/(world news|global headlines|what'?s happening in the world|world headlines)/.test(lower)) return newsReply('world');
+    if (/(tech news|tech headlines|latest news|headlines|what'?s happening in tech|today'?s tech)/.test(lower)) {
+      if (lower.indexOf('market') === -1) return newsReply('tech');
+    }
+    if (/(market snapshot|markets? (today|now|doing)|how are the markets|stock market today)/.test(lower)) return marketReply('');
+    if (/(price|quote|how is|how'?s|how are|worth|trading at|doing)/.test(lower) && knownSymbols(q).length) return marketReply(q);
+    if (/(surprise me|what should i (read|explore|do)|recommend something|show me something|something worth reading)/.test(lower)) return Promise.resolve(surpriseReply());
+    return null;
+  }
+
+  /* --------------------------------------------------------------- AI prompt */
+  function systemPrompt(topic) {
+    var now = new Date();
+    var place = selectedPlace();
+    var tz = place ? place.tz : '';
+    var dateOpts = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+    var timeOpts = { hour: '2-digit', minute: '2-digit', hour12: false };
+    if (tz) { dateOpts.timeZone = tz; timeOpts.timeZone = tz; }
+    var date = now.toLocaleDateString('en-GB', dateOpts);
+    var time = now.toLocaleTimeString('en-GB', timeOpts);
+    var when = place ? 'time in ' + place.name : 'the reader’s local time';
+    var focus = topic === 'auto' ? 'Read the question and choose the best focus (tech news, markets, development, design, everyday tech or study).' : STYLES[settings.style] + ' Current focus: ' + MODES[topic].label + '.';
+    var custom = String(settings.custom || '').trim().slice(0, 600);
+    return [
+      'You are Digi, the friendly AI guide of Digital Infohub (https://digitalinfohub.net), an independent tech publication for everyone — curious beginners, students, makers, designers, developers, founders and investors.',
+      'Your job: answer clearly and usefully, then connect the answer to the right part of the site with markdown links. You are part guide, part analyst, part teacher. Never condescending, never hype.',
+      'The current date is ' + date + ' and the time is ' + time + ' (' + when + '). Use this when a question is time-sensitive, but never invent live prices, headlines, weather or events you cannot verify.',
+      'Focus for this answer: ' + focus,
+      'Answer style: ' + (STYLES[settings.style] || STYLES.balanced),
+      custom ? 'Reader\'s custom instructions: ' + custom : '',
+      'Use short markdown sections, bullets and concrete examples. Prefer one useful next step over a long list. Keep the answer under ~220 words unless the user asks for depth.',
+      'Site map (use full paths as markdown links): Home /, AI /artificialintelligence, machine learning /machinelearning, security /cybersecurity, zero trust /zerotrustsecurity, cloud /cloudcomputing, quantum /quantumcomputing, semiconductors /semiconductors, robotics /robotics, blockchain /blockchain, DevOps /devops, IoT /internetofthings, 5G /5gnetworks, AR /augmentedreality, VR /virtualreality, wearables /wearabletechnology, space /spacetechnology, green tech /greentechnology, smart cities /smartcities, open source /opensource, all 30 guides /techtopics, live news /news, markets /coincompass, free tools /software, tech products /techproducts, quiz /quiz, games /games, blog /blog, subscribe /subscribe, services /services, Digi /digi.',
+      'For live prices or headlines, say the data is delayed and link to CoinCompass or the news desk instead of quoting numbers from memory. Markets: not investment advice. Health, legal and safety questions: be careful and recommend a qualified professional. If you do not know something, say so plainly.',
+      'If the user asks about Digital Infohub itself, describe it warmly as a free hub for tech guides, live news, markets, tools and games for everyone. Tell them they can open Settings in Digi to change focus, add custom instructions or pick an answer style.'
+    ].filter(Boolean).join('\n\n');
+  }
+
+  function pollinations(q, topic) {
+    controller = new AbortController();
+    var timer = setTimeout(function () { controller.abort(); }, 32000);
+    var messages = [{ role: 'system', content: systemPrompt(topic) }].concat(history.slice(-10)).concat([{ role: 'user', content: q }]);
+    return fetch('https://text.pollinations.ai/openai', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      signal: controller.signal,
+      body: JSON.stringify({ model: 'openai', messages: messages, temperature: settings.style === 'deep' ? 0.45 : 0.65, referrer: 'digital-infohub' })
+    }).then(function (r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      var type = r.headers.get('content-type') || '';
+      if (type.indexOf('json') !== -1) {
+        return r.json().then(function (d) {
+          var reply = d && d.choices && d.choices[0] && d.choices[0].message ? d.choices[0].message.content : (typeof d === 'string' ? d : '');
+          if (!reply || !reply.trim()) throw new Error('empty');
+          return reply.trim();
+        });
+      }
+      return r.text().then(function (t) {
+        if (!t || !t.trim()) throw new Error('empty');
+        return t.trim();
+      });
+    }).finally(function () { clearTimeout(timer); controller = null; });
+  }
+
+  function fallbackReply(q) {
+    var rule = fallbackRule(q);
+    if (rule) return { text: rule.reply, actions: rule.actions || [], local: true };
+    var links = siteLinksFor(q);
+    var actions = links.map(function (l) { return { label: l.label, href: l.href }; });
+    actions.push({ label: 'Browse all 30 guides', href: '/techtopics' });
+    actions.push({ label: 'Live tech news', href: '/news' });
+    return {
+      text: "I don't have a perfect built-in answer for that one yet — the live model is the part that handles the long tail. Try asking in a slightly different way, or start from one of these corners of the site.\n\nYou can also open **Settings** and tell me what you're trying to do; that gives me more to work with.",
+      actions: actions.slice(0, 4),
+      local: true
+    };
+  }
+
+  /* ------------------------------------------------------------------- send */
+  function setBusy(on) {
+    busy = on;
+    document.body.classList.toggle('dg-busy', on);
+    if (els.input) els.input.disabled = false;
+    if (els.send) els.send.disabled = on;
+  }
+
+  function send(text) {
+    text = String(text || '').trim().slice(0, 2000);
+    if (!text || busy) return;
+    startChat();
+    setBusy(true);
+    if (els.input) { els.input.value = ''; autoGrow(); }
+
+    var topic = topicFor(text);
+    addMessage('user', esc(text));
+    var th = typing();
+
+    var local = localReply(text);
+    var task = local
+      ? Promise.resolve(local)
+      : pollinations(text, topic).then(function (reply) {
+          history.push({ role: 'user', content: text });
+          history.push({ role: 'assistant', content: reply });
+          if (history.length > 12) history = history.slice(-12);
+          var actions = [];
+          if (topic === 'markets') actions = [{ label: 'Open CoinCompass', href: '/coincompass' }, { label: 'Market analysis', href: '/post/tech-market-sell-off-october-2026' }];
+          else if (topic === 'world') actions = [{ label: 'Open the news desk', href: '/news' }, { label: 'Tech guides', href: '/techtopics' }];
+          else if (topic === 'design' || topic === 'dev') actions = [{ label: 'Free tools', href: '/software' }, { label: 'DevOps guide', href: '/devops' }];
+          else if (topic === 'study') actions = [{ label: 'Browse guides', href: '/techtopics' }, { label: 'Take a quiz', href: '/quiz' }];
+          else actions = [{ label: 'Live tech news', href: '/news' }, { label: 'Browse guides', href: '/techtopics' }];
+          return { text: markdown(reply) + '<span class="dg-note">✨ Live AI · verify anything important</span>', actions: actions, html: true };
+        }).catch(function (err) {
+          if (err && err.name === 'AbortError') return { aborted: true };
+          var fb = fallbackReply(text);
+          return {
+            text: markdown(fb.text) + '<span class="dg-note">⚡ Live AI unavailable — built-in guide used</span>',
+            actions: fb.actions,
+            html: true
+          };
+        });
+
+    task.then(function (result) {
+      th.remove();
+      if (result && result.aborted) { setBusy(false); return; }
+      var html = result.html ? result.text : markdown(result.text);
+      addMessage('bot', html, result.actions);
+      setBusy(false);
+      if (els.input) els.input.focus({ preventScroll: true });
+    }).catch(function () {
+      th.remove();
+      addMessage('bot', markdown(fallbackReply(text).text), fallbackReply(text).actions);
+      setBusy(false);
+    });
+  }
+
+  /* ---------------------------------------------------------------- composer */
+  function autoGrow() {
+    if (!els.input) return;
+    els.input.style.height = 'auto';
+    els.input.style.height = Math.min(els.input.scrollHeight, 150) + 'px';
+  }
+  function openSettings(focusPlace, trigger) {
+    settingsReturnFocus = trigger || els.settingsOpen;
+    els.settings.classList.add('is-open');
+    els.settings.setAttribute('aria-hidden', 'false');
+    els.scrim.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    setTimeout(function () {
+      var target = focusPlace && els.place ? els.place : $('#dgSettingsClose');
+      if (target) target.focus();
+    }, 60);
+  }
+  function closeSettings() {
+    els.settings.classList.remove('is-open');
+    els.settings.setAttribute('aria-hidden', 'true');
+    els.scrim.classList.remove('is-open');
+    document.body.style.overflow = '';
+    if (settingsReturnFocus) settingsReturnFocus.focus();
+    settingsReturnFocus = null;
+  }
+  function syncSettingsUI() {
+    $$('.dg-mode').forEach(function (b) {
+      var on = b.dataset.mode === settings.mode;
+      b.classList.toggle('is-on', on);
+      b.setAttribute('aria-checked', on ? 'true' : 'false');
+    });
+    $$('.dg-style').forEach(function (b) {
+      var on = b.dataset.style === settings.style;
+      b.classList.toggle('is-on', on);
+      b.setAttribute('aria-checked', on ? 'true' : 'false');
+    });
+    if (els.custom) els.custom.value = settings.custom || '';
+    updateModeTag();
+    updatePlaceUI();
+  }
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    try { localStorage.setItem('dih_theme', theme); } catch (e) {}
+    if (els.theme) {
+      els.theme.textContent = theme === 'dark' ? '☀' : '☾';
+      els.theme.setAttribute('aria-label', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+      els.theme.title = els.theme.getAttribute('aria-label');
+    }
+  }
+  function resetChat() {
+    history = [];
+    els.thread.innerHTML = '';
+    started = false;
+    activeTopic = settings.mode === 'auto' ? 'auto' : settings.mode;
+    lastTopic = activeTopic;
+    document.body.classList.remove('dg-chatting');
+    updateModeTag();
+    if (els.input) { els.input.value = ''; autoGrow(); els.input.focus({ preventScroll: true }); }
+    window.scrollTo(0, 0);
+  }
+
+  /* ------------------------------------------------------------------ init */
+  function init() {
+    populatePlaces();
+    readSettings();
+    syncSettingsUI();
+    clock();
+    setInterval(clock, 1000);
+
+    var savedTheme = 'dark';
+    try { savedTheme = localStorage.getItem('dih_theme') || 'dark'; } catch (e) {}
+    applyTheme(savedTheme === 'light' ? 'light' : 'dark');
+
+    if (els.theme) els.theme.addEventListener('click', function () {
+      applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    });
+
+    if (els.form) els.form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      send(els.input.value);
+    });
+    if (els.input) {
+      els.input.addEventListener('input', autoGrow);
+      els.input.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) {
+          e.preventDefault();
+          send(els.input.value);
+        }
+      });
+    }
+    if (els.stop) els.stop.addEventListener('click', function () {
+      if (controller) { try { controller.abort(); } catch (e) {} }
+      setBusy(false);
+      var t = $('.dg-typing'); if (t) { var m = t.closest('.dg-msg'); if (m) m.remove(); }
+      addMessage('bot', markdown("Stopped. Ask me something else whenever you're ready."), []);
+    });
+
+    $$('.dg-suggestion').forEach(function (b) {
+      b.addEventListener('click', function () { send(b.dataset.q); });
+    });
+
+    $('#dgNew').addEventListener('click', resetChat);
+    $('#dgSettingsOpen').addEventListener('click', function () { openSettings(false, els.settingsOpen); });
+    if (els.clock) els.clock.addEventListener('click', function () { openSettings(true, els.clock); });
+    $('#dgSettingsClose').addEventListener('click', closeSettings);
+    els.scrim.addEventListener('click', closeSettings);
+    $('#dgDone').addEventListener('click', function () { saveSettings(); syncSettingsUI(); closeSettings(); toast('Settings saved'); });
+
+    $$('.dg-mode').forEach(function (b) {
+      b.addEventListener('click', function () {
+        settings.mode = MODES[b.dataset.mode] ? b.dataset.mode : 'auto';
+        if (settings.mode !== 'auto') { activeTopic = settings.mode; lastTopic = settings.mode; }
+        else { activeTopic = 'auto'; lastTopic = 'auto'; }
+        saveSettings();
+        syncSettingsUI();
+      });
+    });
+    $$('.dg-style').forEach(function (b) {
+      b.addEventListener('click', function () {
+        if (!STYLES[b.dataset.style]) return;
+        settings.style = b.dataset.style;
+        saveSettings();
+        syncSettingsUI();
+      });
+    });
+    els.custom.addEventListener('input', function () {
+      settings.custom = els.custom.value.slice(0, 600);
+      saveSettings();
+    });
+    if (els.place) els.place.addEventListener('change', function () {
+      var value = els.place.value;
+      settings.place = value === 'auto' || placeById(value) ? value : 'auto';
+      lastWeather = null;
+      saveSettings();
+      updatePlaceUI();
+      clock();
+    });
+    $('#dgReset').addEventListener('click', function () {
+      settings = { mode: 'auto', custom: '', style: 'balanced', place: 'auto' };
+      lastWeather = null;
+      saveSettings();
+      syncSettingsUI();
+      clock();
+      toast('Digi settings reset');
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        if (els.settings.classList.contains('is-open')) closeSettings();
+      }
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        if (els.input) els.input.focus();
+      }
+    });
+
+    var q = new URLSearchParams(location.search).get('q');
+    if (q) {
+      var clean = q.trim().slice(0, 500);
+      if (clean) setTimeout(function () { send(clean); }, 300);
+    }
+    var finePointer = !window.matchMedia || window.matchMedia('(pointer: fine)').matches;
+    if (els.input && finePointer && window.innerWidth > 680) els.input.focus({ preventScroll: true });
+    autoGrow();
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+</body>
+</html>

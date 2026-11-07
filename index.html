@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Digital Infohub — Tech Intelligence for Professionals</title>
-<meta name="description" content="AI research, market moves, free tools and plain-language tech guides — the daily briefing for professionals who need signal, not hype.">
+<title>Digital Infohub — Tech, explained for everyone</title>
+<meta name="description" content="AI, markets, apps and the ideas shaping your world — in plain language, with free tools and Digi, the AI guide that answers anything and shows you where to go next.">
 <meta name="keywords" content="tech news, AI research, technology analysis, tech tools, market analysis, digital infohub">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 <meta name="author" content="Digital Infohub">
@@ -13,8 +13,8 @@
 <link rel="canonical" href="https://digitalinfohub.net/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Digital Infohub">
-<meta property="og:title" content="The tech briefing for people who build, buy and invest">
-<meta property="og:description" content="AI research, market moves and free tools — the daily signal for professionals who need to understand what changes next.">
+<meta property="og:title" content="Tech, explained for everyone">
+<meta property="og:description" content="AI, markets, development, design and the ideas shaping your world — with free tools and Digi, your AI guide. Built for the curious, the builders and the pros.">
 <meta property="og:url" content="https://digitalinfohub.net/">
 <meta property="og:image" content="https://images.unsplash.com/photo-1758073519996-6d3c63b4922c?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
 <meta property="og:image:secure_url" content="https://images.unsplash.com/photo-1758073519996-6d3c63b4922c?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
@@ -24,8 +24,8 @@
 <meta property="og:image:alt" content="Abstract blue field of glowing technology dots representing a connected network">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The tech briefing for people who build, buy and invest">
-<meta name="twitter:description" content="AI research, market moves and free tools — the daily signal for professionals who need to understand what changes next.">
+<meta name="twitter:title" content="Tech, explained for everyone">
+<meta name="twitter:description" content="AI, markets, development, design and the ideas shaping your world — with free tools and Digi, your AI guide. Built for the curious, the builders and the pros.">
 <meta name="twitter:image" content="https://images.unsplash.com/photo-1758073519996-6d3c63b4922c?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
 <meta name="twitter:image:alt" content="Abstract blue field of glowing technology dots representing a connected network">
 
@@ -107,7 +107,7 @@ body.chatting main.os-desktop{padding-bottom:120px}
 
 /* Hero */
 .hero{
-  position:relative;max-width:900px;margin:0 auto;text-align:center;
+  position:relative;width:100%;max-width:900px;margin:0 auto;text-align:center;
   padding:66px 0 6px;
 }
 .hero-glow{
@@ -135,6 +135,50 @@ body.chatting main.os-desktop{padding-bottom:120px}
 }
 .hero-sub b{color:var(--dih-text);font-weight:650}
 .hero-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+
+/* Ask Digi — the front door to the AI guide */
+.hero-ask{
+  position:relative;display:flex;align-items:center;gap:8px;
+  max-width:660px;margin:0 auto 10px;padding:8px 8px 8px 16px;
+  border:1px solid rgba(76,141,255,.42);border-radius:var(--dih-pill);
+  background:linear-gradient(120deg,rgba(16,18,32,.96),rgba(13,14,24,.96));
+  box-shadow:0 22px 60px rgba(0,0,0,.45),0 0 0 5px rgba(76,141,255,.055),0 0 44px rgba(76,141,255,.16);
+  transition:border-color .25s,box-shadow .3s,transform .3s var(--dih-ease);
+}
+html[data-theme="light"] .hero-ask{background:rgba(255,255,255,.96)}
+.hero-ask:focus-within{border-color:var(--dih-accent);box-shadow:0 24px 70px rgba(0,0,0,.42),0 0 0 6px var(--dih-accent-soft),0 0 60px rgba(76,141,255,.24);transform:translateY(-2px)}
+.hero-ask-spark{font-size:16px;line-height:1;flex-shrink:0}
+.hero-ask-input{
+  flex:1;min-width:0;padding:11px 2px;border:0;background:none;outline:none;
+  color:var(--dih-text);font-family:inherit;font-size:15px;
+}
+.hero-ask-input::placeholder{color:var(--dih-text-muted)}
+.hero-ask-btn{
+  flex-shrink:0;display:inline-flex;align-items:center;gap:6px;
+  padding:11px 18px;border:0;border-radius:var(--dih-pill);cursor:pointer;
+  background:linear-gradient(125deg,var(--dih-accent),var(--dih-accent-2));color:#fff;
+  font-family:inherit;font-size:12.5px;font-weight:750;letter-spacing:.01em;
+  box-shadow:0 8px 20px rgba(76,141,255,.32);transition:transform .2s,filter .2s;
+}
+.hero-ask-btn:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.hero-ask-btn:active{transform:scale(.97)}
+.hero-ask-hints{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;max-width:660px;margin:0 auto}
+.hero-ask-hints button{
+  padding:6px 11px;border:1px solid var(--dih-border);border-radius:var(--dih-pill);
+  background:transparent;color:var(--dih-text-muted);font-family:inherit;
+  font-size:10.5px;font-weight:600;cursor:pointer;transition:.2s var(--dih-ease);
+}
+.hero-ask-hints button:hover{color:var(--dih-accent);border-color:rgba(76,141,255,.45);background:var(--dih-accent-soft)}
+@media(max-width:640px){
+  .hero-ask{padding:6px 6px 6px 12px;gap:6px;margin-bottom:9px}
+  .hero-ask-input{font-size:16px;padding:9px 2px}
+  .hero-ask-btn{padding:10px 14px;font-size:12px}
+  .hero-ask-btn span{display:none}
+  .hero-ask-hints{justify-content:flex-start;overflow-x:auto;flex-wrap:nowrap;padding-bottom:3px;scrollbar-width:none}
+  .hero-ask-hints::-webkit-scrollbar{display:none}
+  .hero-ask-hints button{white-space:nowrap;flex-shrink:0;font-size:10px}
+  .hero-actions{margin-top:16px}
+}
 
 .hero-stats{
   display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;
@@ -413,7 +457,7 @@ html[data-theme="light"] .ask-form{background:rgba(255,255,255,.96)}
 @media(max-width:640px){
   .home-content{padding:0 14px;gap:46px}
   .hero{padding-top:36px}
-  .hero h1{font-size:clamp(30px,9.2vw,40px)}
+  .hero h1{font-size:clamp(25px,7vw,32px)}
   .hero-sub{font-size:14px}
   .hero .dih-pill{font-size:9.5px;padding:6px 11px;margin-bottom:16px}
   .hero-actions{gap:8px}
@@ -468,6 +512,7 @@ html[data-theme="light"] .ask-form{background:rgba(255,255,255,.96)}
     </a>
     <nav class="dih-nav" data-dih-nav aria-label="Primary navigation">
       <a class="dih-link" href="/">Home</a>
+      <a class="dih-link" href="/digi">Digi</a>
       <a class="dih-link" href="/blog">Blog</a>
       <a class="dih-link" href="/techtopics">Tech Topics</a>
       <a class="dih-link" href="/software">Software</a>
@@ -487,20 +532,22 @@ html[data-theme="light"] .ask-form{background:rgba(255,255,255,.96)}
   <div class="dih-drawer-panel">
     <div class="dih-drawer-grid">
       <a class="dih-drawer-link" href="/">Home</a>
+      <a class="dih-drawer-link" href="/digi">Digi</a>
       <a class="dih-drawer-link" href="/blog">Blog</a>
       <a class="dih-drawer-link" href="/techtopics">Tech Topics</a>
       <a class="dih-drawer-link" href="/software">Software</a>
       <a class="dih-drawer-link" href="/techproducts">Tech Products</a>
       <a class="dih-drawer-link" href="/games">Games</a>
       <a class="dih-drawer-link" href="/coincompass">Markets</a>
-      <a class="dih-drawer-link" href="/about">About</a>
     </div>
     <div class="dih-drawer-sub">
+      <a class="dih-drawer-link" href="/news">📰 Tech News</a>
+      <a class="dih-drawer-link" href="/quiz">🎯 Tech Quiz</a>
       <a class="dih-drawer-link" href="/software#tools">⚡ Tools</a>
       <a class="dih-drawer-link" href="/services">🧰 Services</a>
     </div>
     <a class="dih-drawer-cta" href="/subscribe">✉️ Subscribe — weekly tech intel</a>
-    <p class="dih-drawer-note">Digital Infohub · Tech intelligence for people who build, buy and invest in technology.</p>
+    <p class="dih-drawer-note">Digital Infohub · Tech for everyone, with a guide for every question.</p>
   </div>
 </div>
 <!-- /DIH:HEADER -->
@@ -528,11 +575,24 @@ html[data-theme="light"] .ask-form{background:rgba(255,255,255,.96)}
     <!-- Hero -->
     <section class="hero" id="homeHero">
       <div class="hero-glow" aria-hidden="true"></div>
-      <span class="dih-pill"><span class="dih-dot"></span> <span id="dynamicBadge">Tech intelligence · updated daily</span></span>
-      <h1>Technology that matters,<br><span class="grad">explained for professionals.</span></h1>
-      <p class="hero-sub" id="heroSubText">AI research, market context and free tools — the signal your team needs, without the hype. Built for <b>builders, operators and investors</b> who have to make real decisions.</p>
+      <span class="dih-pill"><span class="dih-dot"></span> <span id="dynamicBadge">Tech intelligence · for everyone</span></span>
+      <h1>Technology makes sense<br><span class="grad">when someone explains it.</span></h1>
+      <p class="hero-sub" id="heroSubText">AI, markets, apps and the ideas shaping your world — in plain language, with free tools and <b>Digi</b>, your AI guide. Built for the curious, the builders and the pros.</p>
+
+      <form class="hero-ask" action="/digi" method="get" data-ask-digi role="search">
+        <span class="hero-ask-spark" aria-hidden="true">✨</span>
+        <input class="hero-ask-input" type="search" name="q" placeholder="Ask Digi anything — tech, markets, design, everyday life…" aria-label="Ask Digi a question" autocomplete="off" maxlength="500">
+        <button class="hero-ask-btn" type="submit">Ask Digi <span aria-hidden="true">→</span></button>
+      </form>
+      <div class="hero-ask-hints" aria-label="Example questions">
+        <button type="button" data-ask-q="What's happening in tech today?">What's happening in tech?</button>
+        <button type="button" data-ask-q="How are the markets doing right now?">Market snapshot</button>
+        <button type="button" data-ask-q="Explain quantum computing simply">Explain quantum simply</button>
+        <button type="button" data-ask-q="Help me choose a laptop for work and study">Help me pick a laptop</button>
+      </div>
+
       <div class="hero-actions">
-        <a class="dih-btn dih-btn-primary" href="/blog">Read today's briefing →</a>
+        <a class="dih-btn dih-btn-ghost" href="/techtopics">Explore 30 guides</a>
         <a class="dih-btn dih-btn-ghost" href="/software">Try the free tools</a>
         <a class="dih-btn dih-btn-ghost" href="/quiz">Take the tech quiz</a>
       </div>
@@ -554,9 +614,9 @@ html[data-theme="light"] .ask-form{background:rgba(255,255,255,.96)}
       </div>
 
       <div class="hero-audience">
-        <span>For engineering leaders</span>
-        <span>For founders &amp; operators</span>
-        <span>For analysts &amp; investors</span>
+        <span>For the curious</span>
+        <span>For students &amp; makers</span>
+        <span>For builders &amp; pros</span>
       </div>
     </section>
 
@@ -776,33 +836,9 @@ html[data-theme="light"] .ask-form{background:rgba(255,255,255,.96)}
 
 </main>
 
-  <!-- Chat -->
-  <div class="chat-container" id="chatContainer">
-    <div class="chat-header" id="chatHeader">
-      <button class="dih-btn dih-btn-ghost" type="button" id="chatBack" style="padding:8px 14px;font-size:12px">← Back to home</button>
-      <span style="font-size:11.5px;color:var(--dih-text-muted);font-weight:600">Digital Infohub AI</span>
-    </div>
-    <div class="chat-thread" id="chatThread" role="log" aria-live="polite"></div>
-  </div>
-
-  <div class="ask-dock">
-    <div class="ask-inner">
-      <div class="ask-chips" id="askChips"></div>
-      <form class="ask-form" id="chatForm" autocomplete="off">
-        <div class="ask-modes" role="group" aria-label="Assistant mode">
-          <button type="button" class="ask-mode active" data-mode="search" title="Ask anything">🔍</button>
-          <button type="button" class="ask-mode" data-mode="markets" title="Markets">📈</button>
-          <button type="button" class="ask-mode" data-mode="news" title="Tech news">📰</button>
-          <button type="button" class="ask-mode" data-mode="genai" title="AI assistant">✨</button>
-        </div>
-        <input class="ask-input" id="chatInput" type="text" placeholder="Ask anything — or press / to focus" aria-label="Ask Digital Infohub AI">
-        <button class="ask-stop" id="chatStop" type="button" aria-label="Stop">⏹</button>
-        <button class="ask-send" id="chatSend" type="submit" aria-label="Send">→</button>
-      </form>
-    </div>
-  </div>
-
   <div id="toast-container"></div>
+
+
 
 
 <!-- DIH:GALLERY -->
@@ -916,7 +952,7 @@ html[data-theme="light"] .ask-form{background:rgba(255,255,255,.96)}
         <img src="/assets/logo.png" alt="Digital Infohub logo" width="40" height="40">
         <span class="dih-brand-text">Digital <b>Infohub</b></span>
       </a>
-      <p>The independent hub for tech professionals and business leaders: AI research, market moves, practical guides and free tools.</p>
+      <p>The independent tech hub for everyone: AI research, market moves, practical guides, free tools and Digi, your AI guide.</p>
       <span class="dih-pill"><span class="dih-dot"></span> Updated daily</span>
     </div>
     <div class="dih-footer-col">
@@ -926,6 +962,9 @@ html[data-theme="light"] .ask-form{background:rgba(255,255,255,.96)}
       <a href="/software">Software &amp; tools</a>
       <a href="/techproducts">Tech Products</a>
       <a href="/games">Pixel Palace</a>
+      <a href="/digi">Digi AI guide</a>
+      <a href="/news">Live tech news</a>
+      <a href="/quiz">Tech quiz</a>
     </div>
     <div class="dih-footer-col">
       <h3>Company</h3>
@@ -956,7 +995,6 @@ html[data-theme="light"] .ask-form{background:rgba(255,255,255,.96)}
 
 <script src="/assets/site.js" defer></script>
 <script src="/assets/news.js" defer></script>
-<script src="/assets/chat-markdown.js" defer></script>
 <script src="/assets/home-app.js" defer></script>
 </body>
 </html>

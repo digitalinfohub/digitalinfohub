@@ -318,6 +318,126 @@
     }, { passive: true });
   }
 
+  /* ------------------------------------------------------- Ask Digi launcher */
+  function initAskDigi() {
+    var path = location.pathname.replace(/\/+$/, '').replace(/\.html$/, '') || '/';
+    if (path === '/index') path = '/';
+    /* /digi is the full experience; it does not need a second way in. */
+    if (path === '/digi' || window.__dihAskLoaded) return;
+    window.__dihAskLoaded = true;
+
+    var launch = document.createElement('div');
+    launch.className = 'dih-ask-launch';
+    launch.innerHTML =
+      '<button type="button" class="dih-ask-pill" id="dihAskOpen" aria-haspopup="dialog" aria-controls="dihAskOverlay">' +
+        '<span class="dih-ask-spark" aria-hidden="true">✨</span>' +
+        '<span class="dih-ask-label">Ask Digi <b>anything</b></span>' +
+        '<span class="dih-ask-key" aria-hidden="true">Ask</span>' +
+      '</button>';
+    document.body.appendChild(launch);
+
+    var overlay = document.createElement('div');
+    overlay.className = 'dih-ask-overlay';
+    overlay.id = 'dihAskOverlay';
+    overlay.setAttribute('aria-hidden', 'true');
+    overlay.innerHTML =
+      '<div class="dih-ask-modal" role="dialog" aria-modal="true" aria-labelledby="dihAskTitle">' +
+        '<button type="button" class="dih-ask-close" id="dihAskClose" aria-label="Close Ask Digi">✕</button>' +
+        '<div class="dih-ask-art" aria-hidden="true">' +
+          '<img src="/assets/digi.png" alt="" width="92" height="112" decoding="async">' +
+        '</div>' +
+        '<span class="dih-ask-kicker"><span class="dih-ask-pip"></span> DIGI · AI GUIDE</span>' +
+        '<h2 id="dihAskTitle">Ask Digi <span>anything.</span></h2>' +
+        '<p class="dih-ask-sub">Tech news, markets, development, design, everyday questions — <b>and so much more.</b> Digi answers clearly, then shows you the best of Digital Infohub.</p>' +
+        '<form class="dih-ask-form" action="/digi" method="get" id="dihAskForm" role="search">' +
+          '<input class="dih-ask-input" id="dihAskInput" name="q" type="search" placeholder="e.g. Explain AI agents, or how are the markets doing?" aria-label="Ask Digi a question" autocomplete="off" maxlength="500">' +
+          '<button class="dih-ask-submit" type="submit">Ask <span aria-hidden="true">→</span></button>' +
+        '</form>' +
+        '<div class="dih-ask-chips">' +
+          '<button type="button" data-ask-q="What&#39;s happening in tech today?">📰 Tech news</button>' +
+          '<button type="button" data-ask-q="How are the markets doing right now?">📈 Markets</button>' +
+          '<button type="button" data-ask-q="Explain quantum computing simply">⚛️ Explain quantum</button>' +
+          '<button type="button" data-ask-q="Help me choose a laptop for work and study">💻 Pick a laptop</button>' +
+        '</div>' +
+        '<p class="dih-ask-note">Free · no signup · live AI with a built-in backup</p>' +
+      '</div>';
+    document.body.appendChild(overlay);
+
+    var btn = document.getElementById('dihAskOpen');
+    var closeBtn = document.getElementById('dihAskClose');
+    var form = document.getElementById('dihAskForm');
+    var input = document.getElementById('dihAskInput');
+    var open = false;
+
+    function go(q) {
+      q = String(q || '').replace(/\s+/g, ' ').trim();
+      location.href = q ? '/digi?q=' + encodeURIComponent(q.slice(0, 500)) : '/digi';
+    }
+
+    function openOverlay() {
+      open = true;
+      overlay.classList.add('is-open');
+      overlay.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('dih-ask-open');
+      setTimeout(function () { if (input) input.focus({ preventScroll: true }); }, 80);
+    }
+    function closeOverlay() {
+      open = false;
+      overlay.classList.remove('is-open');
+      overlay.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('dih-ask-open');
+      if (btn) btn.focus({ preventScroll: true });
+    }
+    function checkVisibility() {
+      if (!btn) return;
+      var doc = document.documentElement;
+      var isHome = location.pathname === '/' || /\/index\.html$/.test(location.pathname);
+      /* The homepage already has the big hero composer at the top, so its
+         floating pill only returns near the bottom of the page. */
+      var nearTop = !isHome && window.scrollY < 230;
+      var nearBottom = window.scrollY + window.innerHeight > doc.scrollHeight - 900;
+      launch.classList.toggle('is-on', !open && (nearTop || nearBottom));
+    }
+
+    if (btn) btn.addEventListener('click', openOverlay);
+    if (closeBtn) closeBtn.addEventListener('click', closeOverlay);
+    overlay.addEventListener('click', function (e) { if (e.target === overlay) closeOverlay(); });
+    if (form) form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      go(input.value);
+    });
+
+    document.querySelectorAll('[data-ask-q]').forEach(function (chip) {
+      chip.addEventListener('click', function () { go(chip.getAttribute('data-ask-q')); });
+    });
+
+    /* The homepage (and any future page) can hand a query straight to Digi. */
+    document.querySelectorAll('form[data-ask-digi]').forEach(function (pageForm) {
+      pageForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var field = pageForm.querySelector('input[name="q"]');
+        go(field ? field.value : '');
+      });
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        if (open) closeOverlay(); else openOverlay();
+      }
+      if (e.key === 'Escape' && open) closeOverlay();
+    });
+
+    var ticking = false;
+    window.addEventListener('scroll', function () {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () { checkVisibility(); ticking = false; });
+    }, { passive: true });
+    window.addEventListener('resize', checkVisibility);
+    checkVisibility();
+  }
+
   /* --------------------------------------------------- daily visit streak */
   function initStreak() {
     var key = 'dih_streak';
@@ -353,6 +473,7 @@
   initTop();
   initInstall();
   initStreak();
+  initAskDigi();
   initPulse();
 
   /* Keep the page in sync with a theme change made by legacy page scripts. */

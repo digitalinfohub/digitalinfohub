@@ -100,9 +100,9 @@ PAGE_META = {
     },
     "coincompass.html": {
         "kind": "coincompass", "type": "website",
-        "title": "CoinCompass — Crypto & Market Tracker | Digital Infohub",
-        "desc": "A calm, private dashboard for crypto and market context: track holdings, watch momentum and understand your risk.",
-        "keywords": "crypto tracker, market tracker, bitcoin, portfolio, coincompass",
+        "title": "CoinCompass — Live Crypto & Stock Prices | Digital Infohub",
+        "desc": "Live crypto and stock prices with clean trend graphs, a simple monthly money check and somewhere useful to go next. No signup.",
+        "keywords": "crypto tracker, stock prices, bitcoin price, market tracker, coincompass",
     },
     "privacy-policy.html": {
         "kind": "privacy", "type": "website",
@@ -568,7 +568,10 @@ def update_body(html: str, rel: Path, meta: dict) -> str:
     body_open = re.search(r"<body[^>]*>", html, re.I)
     html = html[: body_open.end()] + "\n" + ambient_html(str(rel)) + "\n" + header_html() + html[body_open.end():]
 
-    tail = gallery_html(str(rel), kind) + "\n" + explore_html(kind) + "\n" + footer_html() + "\n" + script_tag() + "\n"
+    # CoinCompass is deliberately minimal: it owns its "keep exploring" shelf
+    # and does not need the gallery or the generic explore grid.
+    tail = "" if kind == "coincompass" else gallery_html(str(rel), kind) + "\n" + explore_html(kind) + "\n"
+    tail += footer_html() + "\n" + script_tag() + "\n"
     idx = html.rfind("</body>")
     if idx == -1:
         return html
@@ -626,7 +629,7 @@ def targets():
         return [ROOT / a for a in sys.argv[1:]]
     pages = []
     for p in sorted(ROOT.glob("*.html")):
-        if p.name in GENERATED or p.name == "index.html":
+        if p.name in GENERATED or p.name in ("index.html", "digi.html"):
             continue
         pages.append(p)
     pages += sorted((ROOT / "software").glob("*.html"))
