@@ -692,7 +692,7 @@ html[data-theme="light"] .dg-style.is-on{background:#fff}
     { title: 'CoinCompass markets', url: '/coincompass', keys: ['market', 'markets', 'crypto', 'bitcoin', 'stocks'] },
     { title: 'Tech quiz', url: '/quiz', keys: ['quiz', 'test', 'grade'] },
     { title: 'Pixel Palace arcade', url: '/games', keys: ['game', 'games', 'arcade'] },
-    { title: 'All 30 tech guides', url: '/techtopics', keys: ['guide', 'guides', 'topic', 'topics', 'learn'] },
+    { title: 'All 35 tech guides', url: '/techtopics', keys: ['guide', 'guides', 'topic', 'topics', 'learn'] },
     { title: 'Blog & analysis', url: '/blog', keys: ['blog', 'analysis', 'article', 'briefing'] },
     { title: 'Subscribe', url: '/subscribe', keys: ['newsletter', 'subscribe', 'email'] },
     { title: 'Services', url: '/services', keys: ['service', 'services', 'automation', 'consulting'] }
@@ -707,7 +707,7 @@ html[data-theme="light"] .dg-style.is-on{background:#fff}
     {
       keys: ['who are you', 'what are you', 'your name', 'about digi'],
       reply: "I'm **Digi**, the guide built into Digital Infohub. I mix live AI with a rule-based map of the site, so I can explain a topic, pull a market snapshot, scan today's headlines, and send you straight to the right guide.\n\nI'm for everyone: the curious, students, makers, designers, developers, founders and investors.",
-      actions: [{ label: 'Browse all 30 guides', href: '/techtopics' }, { label: 'Open the toolbox', href: '/software' }, { label: 'Take a quiz', href: '/quiz' }]
+      actions: [{ label: 'Browse all 35 guides', href: '/techtopics' }, { label: 'Open the toolbox', href: '/software' }, { label: 'Take a quiz', href: '/quiz' }]
     },
     {
       keys: ['what can you do', 'help', 'how do you work', 'capabilities'],
@@ -787,7 +787,7 @@ html[data-theme="light"] .dg-style.is-on{background:#fff}
     {
       keys: ['thanks', 'thank you', 'cheers'],
       reply: "Anytime. If you want a next step, the guide index is the best rabbit hole on the site — 30 plain-language explainers, from AI to smart cities.",
-      actions: [{ label: 'Browse all 30 guides', href: '/techtopics' }, { label: 'Live tech news', href: '/news' }, { label: 'Take a quiz', href: '/quiz' }]
+      actions: [{ label: 'Browse all 35 guides', href: '/techtopics' }, { label: 'Live tech news', href: '/news' }, { label: 'Take a quiz', href: '/quiz' }]
     }
   ];
 
@@ -1415,7 +1415,7 @@ html[data-theme="light"] .dg-style.is-on{background:#fff}
       'Answer style: ' + (STYLES[settings.style] || STYLES.balanced),
       custom ? 'Reader\'s custom instructions: ' + custom : '',
       'Use short markdown sections, bullets and concrete examples. Prefer one useful next step over a long list. Keep the answer under ~220 words unless the user asks for depth.',
-      'Site map (use full paths as markdown links): Home /, AI /artificialintelligence, machine learning /machinelearning, security /cybersecurity, zero trust /zerotrustsecurity, cloud /cloudcomputing, quantum /quantumcomputing, semiconductors /semiconductors, robotics /robotics, blockchain /blockchain, DevOps /devops, IoT /internetofthings, 5G /5gnetworks, AR /augmentedreality, VR /virtualreality, wearables /wearabletechnology, space /spacetechnology, green tech /greentechnology, smart cities /smartcities, open source /opensource, all 30 guides /techtopics, live news /news, markets /coincompass, free tools /software, tech products /techproducts, quiz /quiz, games /games, blog /blog, subscribe /subscribe, services /services, Digi /digi.',
+      'Site map (use full paths as markdown links): Home /, AI /artificialintelligence, machine learning /machinelearning, security /cybersecurity, zero trust /zerotrustsecurity, cloud /cloudcomputing, quantum /quantumcomputing, semiconductors /semiconductors, robotics /robotics, blockchain /blockchain, DevOps /devops, IoT /internetofthings, 5G /5gnetworks, AR /augmentedreality, VR /virtualreality, wearables /wearabletechnology, space /spacetechnology, green tech /greentechnology, smart cities /smartcities, open source /opensource, all 35 guides /techtopics, live news /news, markets /coincompass, free tools /software, tech products /techproducts, quiz /quiz, games /games, blog /blog, subscribe /subscribe, services /services, Digi /digi.',
       'For live prices or headlines, say the data is delayed and link to CoinCompass or the news desk instead of quoting numbers from memory. Markets: not investment advice. Health, legal and safety questions: be careful and recommend a qualified professional. If you do not know something, say so plainly.',
       'If the user asks about Digital Infohub itself, describe it warmly as a free hub for tech guides, live news, markets, tools and games for everyone. Tell them they can open Settings in Digi to change focus, add custom instructions or pick an answer style.'
     ].filter(Boolean).join('\n\n');
@@ -1452,7 +1452,7 @@ html[data-theme="light"] .dg-style.is-on{background:#fff}
     if (rule) return { text: rule.reply, actions: rule.actions || [], local: true };
     var links = siteLinksFor(q);
     var actions = links.map(function (l) { return { label: l.label, href: l.href }; });
-    actions.push({ label: 'Browse all 30 guides', href: '/techtopics' });
+    actions.push({ label: 'Browse all 35 guides', href: '/techtopics' });
     actions.push({ label: 'Live tech news', href: '/news' });
     return {
       text: "I don't have a perfect built-in answer for that one yet — the live model is the part that handles the long tail. Try asking in a slightly different way, or start from one of these corners of the site.\n\nYou can also open **Settings** and tell me what you're trying to do; that gives me more to work with.",
