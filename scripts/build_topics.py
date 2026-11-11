@@ -21,6 +21,7 @@ from topics_part2 import TOPICS as PART2  # noqa: E402
 from topics_part3 import TOPICS as PART3  # noqa: E402
 from topics_part4 import TOPICS as PART4  # noqa: E402
 from topics_part5 import TOPICS as PART5  # noqa: E402
+from topics_part6 import TOPICS as PART6  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 SITE = "https://digitalinfohub.net"
@@ -34,7 +35,7 @@ TODAY = date.today().isoformat()
 from apply_site import process as apply_site_process  # noqa: E402
 from images import TOPIC_IMAGES, share_url  # noqa: E402
 
-ALL = PART1 + PART2 + PART3 + PART4 + PART5
+ALL = PART1 + PART2 + PART3 + PART4 + PART5 + PART6
 TOPICS = {t["slug"]: t for t in ALL}
 
 # Display order used on /techtopics (matches the original page order).
@@ -47,6 +48,7 @@ ORDER = [
     "neuromorphiccomputing",
     "augmentedreality", "drones", "nanotechnology", "spacetechnology",
     "wearabletechnology", "smartcities",
+    "spatialcomputing", "autonomousvehicles", "digitalidentity", "humanoidrobots", "datacenters",
 ]
 
 CATEGORIES = ["Foundations", "Infrastructure", "Engineering", "Security", "Web3", "Hardware", "Emerging"]
@@ -82,6 +84,11 @@ BRIEF = {
     "spacetechnology": "Cheaper launch, smarter satellites and the new space economy.",
     "wearabletechnology": "Health sensors, smart rings and ambient computing on the body.",
     "smartcities": "Urban sensors, digital twins and the trust problem.",
+    "spatialcomputing": "Headsets, tracking and where 3D interfaces actually help.",
+    "autonomousvehicles": "Sensors, autonomy levels and the edge cases that decide safety.",
+    "digitalidentity": "Passkeys, verification and who controls your credentials.",
+    "humanoidrobots": "Balance, hands and why general-purpose labour is still hard.",
+    "datacenters": "Power, cooling and the physical cost of the AI boom.",
 }
 
 CSS = """

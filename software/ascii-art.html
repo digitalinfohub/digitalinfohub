@@ -76,6 +76,7 @@
 <link rel="stylesheet" href="/assets/site.css">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://digitalinfohub.net/#organization","name":"Digital Infohub","url":"https://digitalinfohub.net/","logo":{"@type":"ImageObject","url":"https://digitalinfohub.net/assets/icon-512.png","width":512,"height":512},"description":"Independent technology publication for professionals: AI, markets, software and practical guides.","sameAs":[]},{"@type":"WebSite","@id":"https://digitalinfohub.net/#website","url":"https://digitalinfohub.net/","name":"Digital Infohub","publisher":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://digitalinfohub.net/blog?q={search_term_string}"},"query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://digitalinfohub.net/software/ascii-art#webpage","url":"https://digitalinfohub.net/software/ascii-art","name":"Image to ASCII Art Converter — Free Browser Tool | Digital Infohub","description":"Convert any photo into ASCII art in your browser. Adjust width, character set and contrast, then copy or download the text. Nothing is uploaded.","isPartOf":{"@id":"https://digitalinfohub.net/#website"},"about":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","primaryImageOfPage":{"@type":"ImageObject","url":"https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&h=630&fit=crop&auto=format&q=80&fm=jpg","width":1200,"height":630}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://digitalinfohub.net/"},{"@type":"ListItem","position":2,"name":"Software","item":"https://digitalinfohub.net/software"},{"@type":"ListItem","position":3,"name":"Image to ASCII Art Converter — Free Browser Tool","item":"https://digitalinfohub.net/software/ascii-art"}]}]}</script>
 <!-- /DIH:HEAD -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471" crossorigin="anonymous"></script>
 </head>
 <body>
 <!-- DIH:AMBIENT -->
@@ -252,8 +253,7 @@
     empty.style.display = 'none';
   }
 
-  drop.addEventListener('click', function (e) { if (e.target.tagName !== 'INPUT') fileInput.click(); });
-  fileInput.addEventListener('change', function () { loadFile(fileInput.files[0]); });
+  fileInput.addEventListener('change', function () { loadFile(fileInput.files[0]); fileInput.value = ''; });
 
   ['dragenter', 'dragover'].forEach(function (ev) {
     drop.addEventListener(ev, function (e) { e.preventDefault(); drop.classList.add('over'); });

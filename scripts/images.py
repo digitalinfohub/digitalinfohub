@@ -325,6 +325,11 @@ TOPIC_IMAGES = {
     "spacetechnology": "earth",
     "wearabletechnology": "vr",
     "smartcities": "dots",
+    "spatialcomputing": "vr",
+    "autonomousvehicles": "network",
+    "digitalidentity": "security",
+    "humanoidrobots": "cubes-c",
+    "datacenters": "earth",
 }
 
 POST_IMAGES = {
@@ -423,7 +428,7 @@ def gallery_html(page_key: str, kind: str = "blog") -> str:
       <h2 id="dihGalleryTitle">Technology, in focus</h2>
       <p>Fast context on the ideas shaping the industry, with a guide for every one.</p>
     </div>
-    <a class="dih-gallery-all" href="/techtopics">All 30 tech guides <span aria-hidden="true">&rarr;</span></a>
+    <a class="dih-gallery-all" href="/techtopics">All 35 tech guides <span aria-hidden="true">&rarr;</span></a>
   </div>
   <div class="dih-gallery-grid">
 {chr(10).join(cards)}

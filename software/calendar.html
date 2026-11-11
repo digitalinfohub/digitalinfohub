@@ -51,6 +51,10 @@
 .ev button{width:22px;height:22px;border:0;border-radius:6px;background:transparent;color:var(--dih-text-muted);cursor:pointer;flex-shrink:0;font-size:11px}
 .ev button:hover{background:rgba(251,113,133,.12);color:var(--dih-red)}
 .ev-empty{padding:14px 6px;text-align:center;color:var(--dih-text-muted);font-size:11.5px;line-height:1.6}
+.ev-agenda{display:flex;flex-direction:column;gap:5px;margin:0 0 12px;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--dih-text-muted)}
+.ev-agenda select{width:100%;padding:9px 11px;border-radius:9px;border:1px solid var(--dih-border);background:var(--dih-surface-2);color:var(--dih-text);font:inherit;font-size:12.5px;font-weight:600;text-transform:none;letter-spacing:0;outline:none}
+.ev-agenda select:focus{border-color:var(--dih-accent);box-shadow:0 0 0 3px var(--dih-accent-soft)}
+.ev.focus{border-color:var(--dih-accent);box-shadow:0 0 0 1px var(--dih-accent) inset}
 .cal-note{margin:12px 0 0;font-size:10.5px;color:var(--dih-text-muted);line-height:1.6}
 @media(max-width:860px){.cal-layout{grid-template-columns:1fr}.cal-side{order:2}}
 @media(max-width:640px){
@@ -95,6 +99,7 @@
 <link rel="stylesheet" href="/assets/site.css">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://digitalinfohub.net/#organization","name":"Digital Infohub","url":"https://digitalinfohub.net/","logo":{"@type":"ImageObject","url":"https://digitalinfohub.net/assets/icon-512.png","width":512,"height":512},"description":"Independent technology publication for professionals: AI, markets, software and practical guides.","sameAs":[]},{"@type":"WebSite","@id":"https://digitalinfohub.net/#website","url":"https://digitalinfohub.net/","name":"Digital Infohub","publisher":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://digitalinfohub.net/blog?q={search_term_string}"},"query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://digitalinfohub.net/software/calendar#webpage","url":"https://digitalinfohub.net/software/calendar","name":"Calendar App — Private Month Planner | Digital Infohub","description":"A clean calendar that runs in your browser. Add events to any day, browse months and keep everything saved locally.","isPartOf":{"@id":"https://digitalinfohub.net/#website"},"about":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","primaryImageOfPage":{"@type":"ImageObject","url":"https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&h=630&fit=crop&auto=format&q=80&fm=jpg","width":1200,"height":630}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://digitalinfohub.net/"},{"@type":"ListItem","position":2,"name":"Software","item":"https://digitalinfohub.net/software"},{"@type":"ListItem","position":3,"name":"Calendar App — Private Month Planner","item":"https://digitalinfohub.net/software/calendar"}]}]}</script>
 <!-- /DIH:HEAD -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471" crossorigin="anonymous"></script>
 </head>
 <body>
 <!-- DIH:AMBIENT -->
@@ -173,6 +178,10 @@
       <div class="tp-panel">
         <h2 id="dayTitle">Today</h2>
         <p class="sub" id="daySub">Select a day to add an event.</p>
+        <label class="ev-agenda" id="agendaWrap" hidden>
+          <span>Upcoming on this day</span>
+          <select id="dayAgenda" aria-label="Events on the selected day"></select>
+        </label>
         <form class="ev-form" id="eventForm">
           <div class="row">
             <input id="evTime" type="time" value="09:00" aria-label="Event time">
@@ -253,6 +262,19 @@
     var list = $('eventList');
     list.innerHTML = '';
     var items = (events[selected] || []).slice().sort(function (a, b) { return (a.time || '').localeCompare(b.time || ''); });
+    var agendaWrap = $('agendaWrap'), agenda = $('dayAgenda');
+    agenda.innerHTML = '';
+    if (items.length) {
+      agendaWrap.hidden = false;
+      items.forEach(function (item) {
+        var opt = document.createElement('option');
+        opt.value = item.id;
+        opt.textContent = (item.time || '—') + ' — ' + item.title;
+        agenda.appendChild(opt);
+      });
+    } else {
+      agendaWrap.hidden = true;
+    }
     if (!items.length) {
       list.innerHTML = '<div class="ev-empty">No events yet. Add one above.</div>';
       return;
@@ -260,6 +282,7 @@
     items.forEach(function (item) {
       var row = document.createElement('div');
       row.className = 'ev';
+      row.dataset.id = item.id;
       row.innerHTML = '<time></time><span></span><button type="button" aria-label="Delete event">✕</button>';
       row.querySelector('time').textContent = item.time || '—';
       row.querySelector('span').textContent = item.title;
@@ -280,6 +303,14 @@
     events[selected].push({ id: 'e' + Date.now(), time: $('evTime').value, title: title });
     $('evTitle').value = '';
     save(); render();
+  });
+  $('dayAgenda').addEventListener('change', function () {
+    var id = this.value;
+    Array.prototype.forEach.call(document.querySelectorAll('#eventList .ev'), function (row) {
+      var match = row.dataset.id === id;
+      row.classList.toggle('focus', match);
+      if (match) row.scrollIntoView({ block: 'nearest' });
+    });
   });
   $('prev').addEventListener('click', function () { view = new Date(view.getFullYear(), view.getMonth() - 1, 1); render(); });
   $('next').addEventListener('click', function () { view = new Date(view.getFullYear(), view.getMonth() + 1, 1); render(); });

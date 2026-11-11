@@ -75,6 +75,7 @@
 <link rel="stylesheet" href="/assets/site.css">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://digitalinfohub.net/#organization","name":"Digital Infohub","url":"https://digitalinfohub.net/","logo":{"@type":"ImageObject","url":"https://digitalinfohub.net/assets/icon-512.png","width":512,"height":512},"description":"Independent technology publication for professionals: AI, markets, software and practical guides.","sameAs":[]},{"@type":"WebSite","@id":"https://digitalinfohub.net/#website","url":"https://digitalinfohub.net/","name":"Digital Infohub","publisher":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://digitalinfohub.net/blog?q={search_term_string}"},"query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://digitalinfohub.net/software/webp-to-png#webpage","url":"https://digitalinfohub.net/software/webp-to-png","name":"WebP to PNG Converter — Batch and Private | Digital Infohub","description":"Convert WebP images to PNG in your browser. Batch conversion, previews and downloads without uploading a file.","isPartOf":{"@id":"https://digitalinfohub.net/#website"},"about":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","primaryImageOfPage":{"@type":"ImageObject","url":"https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&h=630&fit=crop&auto=format&q=80&fm=jpg","width":1200,"height":630}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://digitalinfohub.net/"},{"@type":"ListItem","position":2,"name":"Software","item":"https://digitalinfohub.net/software"},{"@type":"ListItem","position":3,"name":"WebP to PNG Converter — Batch and Private","item":"https://digitalinfohub.net/software/webp-to-png"}]}]}</script>
 <!-- /DIH:HEAD -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471" crossorigin="anonymous"></script>
 </head>
 <body>
 <!-- DIH:AMBIENT -->
@@ -234,7 +235,6 @@
     });
   }
 
-  drop.addEventListener('click', function (e) { if (e.target.tagName !== 'INPUT') filesInput.click(); });
   filesInput.addEventListener('change', function () { handleFiles(filesInput.files); filesInput.value = ''; });
   ['dragenter', 'dragover'].forEach(function (ev) {
     drop.addEventListener(ev, function (e) { e.preventDefault(); drop.classList.add('over'); });

@@ -16,6 +16,7 @@
     err.style.display = 'none';
     stage.innerHTML = '';
     var box = document.createElement('div');
+    box.style.cssText = 'width:100%;min-width:0;display:flex;align-items:center;justify-content:center';
     stage.appendChild(box);
     try {
       new window.QRCode(box, {
@@ -31,9 +32,17 @@
       return;
     }
     canvas = box.querySelector('canvas');
-    var fallbackImg = box.querySelector('img');
-    if (fallbackImg) fallbackImg.style.display = 'none';
-    if (!canvas) { showError('Could not draw the QR code in this browser.'); return; }
+    var shownImage = box.querySelector('img');
+    if (shownImage) {
+      shownImage.style.display = 'block';
+      shownImage.style.width = '100%';
+      shownImage.style.height = 'auto';
+      if (canvas) canvas.style.display = 'none';
+    } else if (canvas) {
+      canvas.style.width = '100%';
+      canvas.style.height = 'auto';
+    }
+    if (!canvas && !shownImage) { showError('Could not draw the QR code in this browser.'); return; }
     meta.textContent = value.length + ' characters · ' + ec.value + ' error correction';
     [downloadBtn, download2, copyBtn].forEach(function (b) { b.disabled = false; });
   }

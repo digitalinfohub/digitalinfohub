@@ -27,8 +27,9 @@
 .btn.primary:hover{filter:brightness(1.08);color:#fff}
 .tp-actions{display:flex;gap:8px;flex-wrap:wrap}
 .qr-preview{display:flex;flex-direction:column;align-items:center;gap:12px;padding:18px;border-radius:16px;border:1px solid var(--dih-border);background:var(--dih-surface);position:sticky;top:calc(var(--dih-head-h, 64px) + 16px)}
-.qr-stage{width:100%;aspect-ratio:1;display:flex;align-items:center;justify-content:center;background:#fff;border-radius:12px;padding:10px;overflow:hidden}
-.qr-stage canvas{width:100%!important;height:auto!important;display:block}
+.qr-stage{width:100%;aspect-ratio:1;display:flex;align-items:center;justify-content:center;background:#fff;border-radius:12px;padding:12px;overflow:hidden}
+.qr-stage>div{width:100%;min-width:0;display:flex;align-items:center;justify-content:center}
+.qr-stage canvas,.qr-stage img{width:100%!important;height:auto!important;max-width:100%!important;display:block;image-rendering:pixelated}
 .qr-empty{color:#5a6070;font-size:12px;text-align:center;line-height:1.6;padding:16px}
 .qr-meta{width:100%;text-align:center;font-family:var(--dih-mono);font-size:10px;color:var(--dih-text-muted);line-height:1.6;word-break:break-all}
 .qr-actions{display:flex;gap:7px;width:100%}
@@ -75,6 +76,7 @@
 <link rel="stylesheet" href="/assets/site.css">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://digitalinfohub.net/#organization","name":"Digital Infohub","url":"https://digitalinfohub.net/","logo":{"@type":"ImageObject","url":"https://digitalinfohub.net/assets/icon-512.png","width":512,"height":512},"description":"Independent technology publication for professionals: AI, markets, software and practical guides.","sameAs":[]},{"@type":"WebSite","@id":"https://digitalinfohub.net/#website","url":"https://digitalinfohub.net/","name":"Digital Infohub","publisher":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://digitalinfohub.net/blog?q={search_term_string}"},"query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://digitalinfohub.net/software/qr-code-generator#webpage","url":"https://digitalinfohub.net/software/qr-code-generator","name":"QR Code Generator — Free PNG Download | Digital Infohub","description":"Create a QR code for any link or text, choose size and error correction, then download a sharp PNG. No signup.","isPartOf":{"@id":"https://digitalinfohub.net/#website"},"about":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","primaryImageOfPage":{"@type":"ImageObject","url":"https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&h=630&fit=crop&auto=format&q=80&fm=jpg","width":1200,"height":630}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://digitalinfohub.net/"},{"@type":"ListItem","position":2,"name":"Software","item":"https://digitalinfohub.net/software"},{"@type":"ListItem","position":3,"name":"QR Code Generator — Free PNG Download","item":"https://digitalinfohub.net/software/qr-code-generator"}]}]}</script>
 <!-- /DIH:HEAD -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471" crossorigin="anonymous"></script>
 </head>
 <body>
 <!-- DIH:AMBIENT -->
