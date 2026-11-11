@@ -931,7 +931,7 @@ def build_sitemap():
         add(slug, "0.8", "monthly", UPDATED)
     add("techtopics", "0.9", "weekly", UPDATED)
     add("", "1.0", "daily")
-    for hub in ["blog", "software", "techtopics", "games", "subscribe", "about", "advertise", "services", "techproducts", "coincompass", "digi", "expense-tracker", "pomodoro", "privacy-policy", "news", "quiz"]:
+    for hub in ["blog", "software", "techtopics", "games", "subscribe", "about", "advertise", "services", "contact", "techproducts", "coincompass", "digi", "expense-tracker", "pomodoro", "privacy-policy", "news", "quiz"]:
         if (ROOT / f"{hub}.html").exists():
             add(hub, "0.7", "weekly")
     for sub in ["software", "post"]:

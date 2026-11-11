@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-dih="">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>To-Do List App — Private and Instant | Digital Infohub</title>
+<meta name="description" content="A fast to-do list that saves in your browser. Add, complete, filter and clear tasks with no account or sync.">
+<style>
+.tp{width:100%;max-width:840px;margin:0 auto;padding:40px 22px 90px}
+.tp-head{max-width:700px;margin-bottom:22px}
+.tp-eyebrow{font-family:var(--dih-mono);font-size:10px;font-weight:750;letter-spacing:.12em;text-transform:uppercase;color:var(--dih-accent);display:inline-flex;gap:7px;align-items:center}
+.tp-head h1{margin:10px 0 10px;font-size:clamp(30px,5vw,46px);font-weight:860;letter-spacing:-.045em;line-height:1.06}
+.tp-head h1 span{background:linear-gradient(100deg,var(--dih-accent),var(--dih-accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.tp-head p{margin:0;color:var(--dih-text-sub);font-size:14px;line-height:1.7}
+.td-panel{border:1px solid var(--dih-border);border-radius:18px;background:var(--dih-surface);padding:20px}
+.td-add{display:flex;gap:8px}
+.td-add input{flex:1;min-width:0;padding:12px 14px;border-radius:11px;border:1px solid var(--dih-border);background:var(--dih-surface-2);color:var(--dih-text);font:inherit;font-size:14px;outline:none}
+.td-add input:focus{border-color:var(--dih-accent);box-shadow:0 0 0 3px var(--dih-accent-soft)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:11px 16px;border-radius:11px;border:1px solid var(--dih-border);background:var(--dih-surface-2);color:var(--dih-text);font:inherit;font-size:12.5px;font-weight:700;cursor:pointer;transition:.2s}
+.btn:hover{border-color:var(--dih-accent);color:var(--dih-accent)}
+.btn.primary{border-color:transparent;background:linear-gradient(125deg,var(--dih-accent),var(--dih-accent-2));color:#fff;box-shadow:0 8px 22px rgba(76,141,255,.26)}
+.btn.primary:hover{filter:brightness(1.08);color:#fff}
+.td-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:16px 0 12px}
+.td-filters{display:flex;gap:4px;padding:4px;border:1px solid var(--dih-border);border-radius:999px;background:var(--dih-surface-2)}
+.td-filter{padding:6px 12px;border:0;border-radius:999px;background:transparent;color:var(--dih-text-muted);font:inherit;font-size:11px;font-weight:700;cursor:pointer;transition:.2s}
+.td-filter.on{background:var(--dih-surface);color:var(--dih-accent);box-shadow:0 1px 5px rgba(0,0,0,.18)}
+.td-count{font-family:var(--dih-mono);font-size:10.5px;color:var(--dih-text-muted)}
+.td-progress{height:6px;border-radius:999px;background:var(--dih-surface-3);overflow:hidden;margin-bottom:14px}
+.td-progress i{display:block;height:100%;width:0;border-radius:inherit;background:linear-gradient(90deg,var(--dih-accent),var(--dih-accent-2));transition:width .3s}
+.td-list{display:flex;flex-direction:column;gap:7px}
+.td-item{display:flex;align-items:center;gap:11px;padding:12px 13px;border-radius:11px;border:1px solid var(--dih-border);background:var(--dih-surface-2);transition:.18s;animation:tdIn .25s ease}
+@keyframes tdIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.td-item:hover{border-color:rgba(76,141,255,.3)}
+.td-check{width:21px;height:21px;flex-shrink:0;border-radius:7px;border:1.5px solid var(--dih-border-strong);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:transparent;font-size:11px;font-weight:900;transition:.18s}
+.td-item.done .td-check{background:var(--dih-green);border-color:var(--dih-green);color:#04140d}
+.td-text{flex:1;min-width:0;font-size:13.5px;line-height:1.45;word-break:break-word;cursor:pointer}
+.td-item.done .td-text{text-decoration:line-through;color:var(--dih-text-muted)}
+.td-date{font-family:var(--dih-mono);font-size:9.5px;color:var(--dih-text-muted);white-space:nowrap}
+.td-del{width:28px;height:28px;border-radius:8px;border:0;background:transparent;color:var(--dih-text-muted);cursor:pointer;font-size:13px;flex-shrink:0}
+.td-del:hover{background:rgba(251,113,133,.12);color:var(--dih-red)}
+.td-empty{padding:38px 16px;text-align:center;color:var(--dih-text-muted);font-size:12.5px;line-height:1.65}
+.td-empty b{display:block;color:var(--dih-text);font-size:14px;margin-bottom:4px}
+.td-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-top:14px}
+.td-foot a{font-size:11px;color:var(--dih-text-muted);text-decoration:none}
+.td-foot a:hover{color:var(--dih-red)}
+.td-note{margin:14px 0 0;font-size:11px;color:var(--dih-text-muted);line-height:1.65}
+@media(max-width:640px){.tp{padding:26px 14px 70px}.td-panel{padding:14px}.td-add{flex-wrap:wrap}.td-add input{width:100%;flex-basis:100%}.td-add .btn{width:100%}.td-date{display:none}}
+</style>
+<!-- DIH:HEAD -->
+<script>try{var t=localStorage.getItem('dih_theme')||'dark';document.documentElement.setAttribute('data-theme',t);document.documentElement.setAttribute('data-dih','');}catch(e){document.documentElement.setAttribute('data-dih','');}</script>
+<meta name="theme-color" content="#07070c">
+<meta name="color-scheme" content="dark light">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="author" content="Digital Infohub">
+<meta name="keywords" content="to do list, todo app, task list, free checklist, private todo">
+<link rel="canonical" href="https://digitalinfohub.net/software/todo">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Digital Infohub">
+<meta property="og:title" content="To-Do List App — Private and Instant | Digital Infohub">
+<meta property="og:description" content="A fast to-do list that saves in your browser. Add, complete, filter and clear tasks with no account or sync.">
+<meta property="og:url" content="https://digitalinfohub.net/software/todo">
+<meta property="og:image" content="https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta property="og:image:secure_url" content="https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Glowing blue network lines and nodes forming a digital mesh">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="To-Do List App — Private and Instant | Digital Infohub">
+<meta name="twitter:description" content="A fast to-do list that saves in your browser. Add, complete, filter and clear tasks with no account or sync.">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta name="twitter:image:alt" content="Glowing blue network lines and nodes forming a digital mesh">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="icon" href="/assets/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://digitalinfohub.net/#organization","name":"Digital Infohub","url":"https://digitalinfohub.net/","logo":{"@type":"ImageObject","url":"https://digitalinfohub.net/assets/icon-512.png","width":512,"height":512},"description":"Independent technology publication for professionals: AI, markets, software and practical guides.","sameAs":[]},{"@type":"WebSite","@id":"https://digitalinfohub.net/#website","url":"https://digitalinfohub.net/","name":"Digital Infohub","publisher":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://digitalinfohub.net/blog?q={search_term_string}"},"query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://digitalinfohub.net/software/todo#webpage","url":"https://digitalinfohub.net/software/todo","name":"To-Do List App — Private and Instant | Digital Infohub","description":"A fast to-do list that saves in your browser. Add, complete, filter and clear tasks with no account or sync.","isPartOf":{"@id":"https://digitalinfohub.net/#website"},"about":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","primaryImageOfPage":{"@type":"ImageObject","url":"https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&h=630&fit=crop&auto=format&q=80&fm=jpg","width":1200,"height":630}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://digitalinfohub.net/"},{"@type":"ListItem","position":2,"name":"Software","item":"https://digitalinfohub.net/software"},{"@type":"ListItem","position":3,"name":"To-Do List App — Private and Instant","item":"https://digitalinfohub.net/software/todo"}]}]}</script>
+<!-- /DIH:HEAD -->
+</head>
+<body>
+<!-- DIH:AMBIENT -->
+<div class="dih-ambient" aria-hidden="true" style="--dih-ambient:url('https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1600&amp;h=900&amp;fit=crop&amp;auto=format&amp;q=45')"></div>
+<!-- /DIH:AMBIENT -->
+<!-- DIH:HEADER -->
+<header class="dih-header">
+  <div class="dih-header-inner">
+    <a class="dih-brand" href="/" aria-label="Digital Infohub home">
+      <img src="/assets/logo.png" alt="Digital Infohub logo" width="36" height="36">
+      <span class="dih-brand-text">Digital <b>Infohub</b></span>
+    </a>
+    <nav class="dih-nav" data-dih-nav aria-label="Primary navigation">
+      <a class="dih-link" href="/">Home</a>
+      <a class="dih-link" href="/digi">Digi</a>
+      <a class="dih-link" href="/blog">Blog</a>
+      <a class="dih-link" href="/techtopics">Tech Topics</a>
+      <a class="dih-link" href="/software">Software</a>
+      <a class="dih-link" href="/techproducts">Tech Products</a>
+      <a class="dih-link" href="/games">Games</a>
+      <a class="dih-link" href="/coincompass">Markets</a>
+    </nav>
+    <div class="dih-actions">
+      <a class="dih-tools" href="/software#tools" title="Free browser tools" aria-label="Free browser tools">⚡<span>Tools</span></a>
+      <button class="dih-icon" type="button" data-dih-theme aria-label="Switch theme" title="Switch theme">☀</button>
+      <a class="dih-cta" href="/subscribe">Subscribe</a>
+      <button class="dih-burger" id="dihBurger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="dihDrawer"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+<div class="dih-drawer" id="dihDrawer" aria-label="Site menu">
+  <div class="dih-drawer-panel">
+    <div class="dih-drawer-grid">
+      <a class="dih-drawer-link" href="/">Home</a>
+      <a class="dih-drawer-link" href="/digi">Digi</a>
+      <a class="dih-drawer-link" href="/blog">Blog</a>
+      <a class="dih-drawer-link" href="/techtopics">Tech Topics</a>
+      <a class="dih-drawer-link" href="/software">Software</a>
+      <a class="dih-drawer-link" href="/techproducts">Tech Products</a>
+      <a class="dih-drawer-link" href="/games">Games</a>
+      <a class="dih-drawer-link" href="/coincompass">Markets</a>
+    </div>
+    <div class="dih-drawer-sub">
+      <a class="dih-drawer-link" href="/news">📰 Tech News</a>
+      <a class="dih-drawer-link" href="/quiz">🎯 Tech Quiz</a>
+      <a class="dih-drawer-link" href="/software#tools">⚡ Tools</a>
+      <a class="dih-drawer-link" href="/services">🧰 Services</a>
+      <a class="dih-drawer-link" href="/contact">✉️ Contact</a>
+    </div>
+    <a class="dih-drawer-cta" href="/subscribe">✉️ Subscribe — weekly tech intel</a>
+    <p class="dih-drawer-note">Digital Infohub · Tech for everyone, with a guide for every question.</p>
+  </div>
+</div>
+<!-- /DIH:HEADER -->
+<main class="tp">
+  <header class="tp-head">
+    <span class="tp-eyebrow"><span class="dih-dot"></span> Free tool · saves on this device</span>
+    <h1>To-do list, <span>without the clutter.</span></h1>
+    <p>Write it down, tick it off, move on. Your list saves automatically in this browser — no account, no sync, no noise.</p>
+  </header>
+  <section class="td-panel" aria-labelledby="listTitle">
+    <h2 id="listTitle" style="position:absolute;left:-9999px">To-do list</h2>
+    <form class="td-add" id="todoForm">
+      <input id="todoInput" type="text" placeholder="Add a task and press Enter…" maxlength="200" autocomplete="off" required aria-label="New task">
+      <button class="btn primary" type="submit">Add task</button>
+    </form>
+    <div class="td-bar">
+      <div class="td-filters" role="group" aria-label="Filter tasks">
+        <button class="td-filter on" type="button" data-filter="all">All</button>
+        <button class="td-filter" type="button" data-filter="active">Active</button>
+        <button class="td-filter" type="button" data-filter="done">Done</button>
+      </div>
+      <span class="td-count" id="count">0 tasks</span>
+    </div>
+    <div class="td-progress" aria-hidden="true"><i id="progress"></i></div>
+    <div class="td-list" id="list" role="list"></div>
+    <div class="td-empty" id="empty"><b>Nothing here yet.</b>Add your first task above. It saves as you type, so you can close the tab and come back.</div>
+    <div class="td-foot">
+      <a href="#" id="clearDone">Clear completed</a>
+      <a href="#" id="clearAll">Delete all</a>
+    </div>
+    <p class="td-note">Tasks are stored with local storage in this browser only. Clearing site data or using private browsing will remove them.</p>
+  </section>
+</main>
+<script>
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var KEY = 'dih_todo_v1';
+  var todos = [], filter = 'all';
+  try { todos = JSON.parse(localStorage.getItem(KEY) || '[]'); } catch (e) { todos = []; }
+
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(todos)); } catch (e) {} }
+  function esc(text) { return String(text).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+
+  function render() {
+    var list = $('list');
+    var visible = todos.filter(function (t) {
+      return filter === 'all' || (filter === 'active' && !t.done) || (filter === 'done' && t.done);
+    });
+    list.innerHTML = '';
+    visible.forEach(function (todo) {
+      var row = document.createElement('div');
+      row.className = 'td-item' + (todo.done ? ' done' : '');
+      row.setAttribute('role', 'listitem');
+      row.innerHTML = '<button class="td-check" type="button" aria-label="Toggle task">✓</button>' +
+        '<span class="td-text">' + esc(todo.text) + '</span>' +
+        '<span class="td-date">' + (todo.date || '') + '</span>' +
+        '<button class="td-del" type="button" aria-label="Delete task">✕</button>';
+      row.querySelector('.td-check').addEventListener('click', function () { toggle(todo.id); });
+      row.querySelector('.td-text').addEventListener('click', function () { toggle(todo.id); });
+      row.querySelector('.td-del').addEventListener('click', function () { remove(todo.id); });
+      list.appendChild(row);
+    });
+
+    var done = todos.filter(function (t) { return t.done; }).length;
+    var pct = todos.length ? Math.round(done / todos.length * 100) : 0;
+    $('progress').style.width = pct + '%';
+    $('count').textContent = todos.length + ' task' + (todos.length === 1 ? '' : 's') + ' · ' + done + ' done';
+    $('empty').style.display = visible.length ? 'none' : 'block';
+    if (!todos.length) $('empty').innerHTML = '<b>Nothing here yet.</b>Add your first task above. It saves as you type, so you can close the tab and come back.';
+    else if (!visible.length) $('empty').innerHTML = '<b>No ' + filter + ' tasks.</b>Switch the filter to see the rest.';
+  }
+
+  function toggle(id) {
+    todos = todos.map(function (t) { return t.id === id ? Object.assign({}, t, { done: !t.done }) : t; });
+    save(); render();
+  }
+  function remove(id) {
+    todos = todos.filter(function (t) { return t.id !== id; });
+    save(); render();
+  }
+
+  $('todoForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var input = $('todoInput');
+    var text = input.value.trim();
+    if (!text) return;
+    todos.unshift({
+      id: 'x' + Date.now() + Math.random().toString(16).slice(2, 6),
+      text: text,
+      done: false,
+      date: new Date().toLocaleDateString(undefined, { month: 'short', day: 'numeric' })
+    });
+    input.value = '';
+    save(); render();
+  });
+
+  document.querySelectorAll('.td-filter').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      filter = btn.dataset.filter;
+      document.querySelectorAll('.td-filter').forEach(function (b) { b.classList.toggle('on', b === btn); });
+      render();
+    });
+  });
+  $('clearDone').addEventListener('click', function (e) {
+    e.preventDefault();
+    if (!todos.some(function (t) { return t.done; })) return;
+    todos = todos.filter(function (t) { return !t.done; });
+    save(); render();
+  });
+  $('clearAll').addEventListener('click', function (e) {
+    e.preventDefault();
+    if (!todos.length) return;
+    if (confirm('Delete all tasks? This cannot be undone.')) { todos = []; save(); render(); }
+  });
+
+  render();
+})();
+</script>
+<!-- DIH:GALLERY -->
+<section class="dih-gallery" aria-labelledby="dihGalleryTitle">
+  <div class="dih-gallery-head">
+    <div>
+      <span class="dih-gallery-eyebrow">Visual briefing</span>
+      <h2 id="dihGalleryTitle">Technology, in focus</h2>
+      <p>Fast context on the ideas shaping the industry, with a guide for every one.</p>
+    </div>
+    <a class="dih-gallery-all" href="/techtopics">All 30 tech guides <span aria-hidden="true">&rarr;</span></a>
+  </div>
+  <div class="dih-gallery-grid">
+      <a class="dih-gallery-card" href="/techproducts">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=72" alt="Slim laptop on a desk lit with cool blue light" width="800" height="500" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Hardware</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>The laptop still runs the world</strong>
+          <span>Desktops and laptops remain where deep work happens. The buying decision now centres on battery efficiency, memory bandwidth and how well the machine handles AI-assisted software.</span>
+          <em>Tech buying guides &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/semiconductors">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1782155789465-9bae14cbfba5?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=72" alt="Macro photograph of a dense electronic circuit board" width="800" height="500" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Semiconductors</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Inside the silicon bottleneck</strong>
+          <span>A leading-edge chip can take months to fabricate and thousands of steps to test. That complexity is why semiconductor capacity became a strategic asset.</span>
+          <em>Read the semiconductor guide &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/cybersecurity">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=72" alt="Cybersecurity concept with a glowing padlock over code" width="800" height="500" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Cybersecurity</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Security is an identity problem</strong>
+          <span>Most breaches start with a stolen session or a weak credential, not a broken firewall. Strong identity checks and short-lived access do more than another perimeter tool.</span>
+          <em>Read the security guide &rarr;</em>
+        </span>
+      </a>
+  </div>
+  <p class="dih-gallery-credit">Photography by Unsplash contributors. Cards link to related Digital Infohub guides.</p>
+</section>
+<!-- /DIH:GALLERY -->
+<!-- DIH:EXPLORE -->
+<section class="dih-explore" aria-labelledby="dihExploreTitle">
+  <div class="dih-explore-head">
+    <h2 id="dihExploreTitle">More from the software suite</h2>
+    <p>Every tool in the suite is free and runs in your browser.</p>
+  </div>
+  <div class="dih-explore-grid">
+      <a class="dih-explore-card" href="/software">
+        <span class="dih-explore-icon" aria-hidden="true">🛠️</span>
+        <strong>Software &amp; tools</strong>
+        <span>Free AI assistants and browser utilities that run locally.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/blog">
+        <span class="dih-explore-icon" aria-hidden="true">📝</span>
+        <strong>Blog &amp; analysis</strong>
+        <span>Deep dives on AI, hardware, markets and digital culture.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/techtopics">
+        <span class="dih-explore-icon" aria-hidden="true">🔬</span>
+        <strong>Tech Topics</strong>
+        <span>Plain-language guides to the technology shaping business.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/games">
+        <span class="dih-explore-icon" aria-hidden="true">🎮</span>
+        <strong>Pixel Palace</strong>
+        <span>Free arcade games, playable on desktop and mobile.</span>
+        <em>Explore →</em>
+      </a>
+  </div>
+</section>
+<!-- /DIH:EXPLORE -->
+<!-- DIH:FOOTER -->
+<footer class="dih-footer">
+  <div class="dih-footer-inner">
+    <div class="dih-footer-brand">
+      <a class="dih-brand" href="/" aria-label="Digital Infohub home">
+        <img src="/assets/logo.png" alt="Digital Infohub logo" width="40" height="40">
+        <span class="dih-brand-text">Digital <b>Infohub</b></span>
+      </a>
+      <p>The independent tech hub for everyone: AI research, market moves, practical guides, free tools and Digi, your AI guide.</p>
+      <span class="dih-pill"><span class="dih-dot"></span> Updated daily</span>
+    </div>
+    <div class="dih-footer-col">
+      <h3>Explore</h3>
+      <a href="/blog">Blog &amp; analysis</a>
+      <a href="/techtopics">Tech Topics</a>
+      <a href="/software">Software &amp; tools</a>
+      <a href="/techproducts">Tech Products</a>
+      <a href="/games">Pixel Palace</a>
+      <a href="/digi">Digi AI guide</a>
+      <a href="/news">Live tech news</a>
+      <a href="/quiz">Tech quiz</a>
+    </div>
+    <div class="dih-footer-col">
+      <h3>Company</h3>
+      <a href="/about">About</a>
+      <a href="/services">Services</a>
+      <a href="/advertise">Advertise</a>
+      <a href="/coincompass">CoinCompass</a>
+      <a href="/privacy-policy">Privacy</a>
+    </div>
+    <div class="dih-footer-col dih-footer-cta">
+      <h3>Stay ahead</h3>
+      <p>One email a week: the AI, market and software stories that actually matter.</p>
+      <a class="dih-btn dih-btn-primary" href="/subscribe">Subscribe free</a>
+    </div>
+  </div>
+  <div class="dih-footer-bottom">
+    <span>© 2026 Digital Infohub · Independent technology publication</span>
+    <nav aria-label="Footer links">
+      <a href="/blog">Blog</a>
+      <a href="/techtopics">Guides</a>
+      <a href="/software">Tools</a>
+      <a href="/contact">Contact</a>
+      <a href="/sitemap.xml">Sitemap</a>
+    </nav>
+  </div>
+</footer>
+<!-- /DIH:FOOTER -->
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

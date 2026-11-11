@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-dih="">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Hex Colour Picker — Shades, Harmonies &amp; Contrast | Digital Infohub</title>
+<meta name="description" content="Pick a colour and copy HEX, RGB, HSL or CMYK in one click. Explore shades, tints, harmonies and WCAG contrast. Free and offline.">
+<style>
+.tp{width:100%;max-width:1040px;margin:0 auto;padding:40px 22px 90px}
+.tp-head{max-width:720px;margin-bottom:22px}
+.tp-eyebrow{font-family:var(--dih-mono);font-size:10px;font-weight:750;letter-spacing:.12em;text-transform:uppercase;color:var(--dih-accent);display:inline-flex;gap:7px;align-items:center}
+.tp-head h1{margin:10px 0 10px;font-size:clamp(30px,5vw,46px);font-weight:860;letter-spacing:-.045em;line-height:1.06}
+.tp-head h1 span{background:linear-gradient(100deg,var(--dih-accent),var(--dih-accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.tp-head p{margin:0;color:var(--dih-text-sub);font-size:14px;line-height:1.7}
+.tp-panel{border:1px solid var(--dih-border);border-radius:18px;background:var(--dih-surface);padding:20px}
+.cp-top{display:grid;grid-template-columns:220px minmax(0,1fr);gap:18px;align-items:start}
+.swatch{aspect-ratio:1;border-radius:16px;border:1px solid var(--dih-border-strong);display:flex;align-items:flex-end;justify-content:space-between;padding:14px;font-family:var(--dih-mono);font-size:13px;font-weight:700;transition:background .15s}
+.swatch button{background:rgba(0,0,0,.35);border:0;color:#fff;border-radius:8px;padding:5px 8px;font:inherit;font-size:10px;cursor:pointer}
+.cp-controls{display:flex;flex-direction:column;gap:12px}
+.cp-controls label{display:block;font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--dih-text-muted);margin-bottom:5px}
+.cp-native{display:flex;gap:10px;align-items:center}
+.cp-native input[type=color]{width:64px;height:46px;border:1px solid var(--dih-border);border-radius:10px;background:var(--dih-surface-2);padding:3px;cursor:pointer}
+.cp-native input[type=text]{flex:1;min-width:0;padding:11px 13px;border-radius:10px;border:1px solid var(--dih-border);background:var(--dih-surface-2);color:var(--dih-text);font-family:var(--dih-mono);font-size:16px;font-weight:700;letter-spacing:.04em;outline:none;text-transform:uppercase}
+.cp-native input[type=text]:focus{border-color:var(--dih-accent);box-shadow:0 0 0 3px var(--dih-accent-soft)}
+.cp-values{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.cp-value{padding:10px 11px;border-radius:10px;border:1px solid var(--dih-border);background:var(--dih-surface-2);cursor:pointer;text-align:left;font:inherit;color:var(--dih-text);transition:.2s}
+.cp-value:hover{border-color:var(--dih-accent);background:var(--dih-accent-soft)}
+.cp-value span{display:block;font-size:9px;letter-spacing:.07em;text-transform:uppercase;color:var(--dih-text-muted);margin-bottom:3px}
+.cp-value b{display:block;font-family:var(--dih-mono);font-size:12px;font-weight:700;word-break:break-word}
+.cp-block{margin-top:22px}
+.cp-block h2{margin:0 0 10px;font-size:12px;font-weight:750;letter-spacing:.03em;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.cp-block h2 span{font-family:var(--dih-mono);font-size:9.5px;font-weight:600;color:var(--dih-text-muted);letter-spacing:.04em}
+.scale{display:grid;grid-template-columns:repeat(11,1fr);gap:4px}
+.scale button{height:34px;border:1px solid rgba(255,255,255,.08);border-radius:6px;cursor:pointer;transition:transform .15s}
+.scale button:hover{transform:translateY(-2px)}
+.harmony{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.harmony button{display:flex;flex-direction:column;gap:5px;padding:0;border:1px solid var(--dih-border);border-radius:10px;overflow:hidden;background:var(--dih-surface-2);cursor:pointer;font:inherit;color:var(--dih-text-sub)}
+.harmony button i{display:block;height:44px}
+.harmony button small{padding:0 0 6px;font-family:var(--dih-mono);font-size:9px;text-align:center}
+.contrast-row{display:grid;grid-template-columns:1fr 1fr auto;gap:10px;align-items:end}
+.contrast-row label{display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--dih-text-muted);margin-bottom:5px}
+.contrast-row input[type=text]{width:100%;padding:9px 11px;border-radius:9px;border:1px solid var(--dih-border);background:var(--dih-surface-2);color:var(--dih-text);font-family:var(--dih-mono);font-size:12px;text-transform:uppercase}
+.contrast-preview{display:flex;align-items:center;justify-content:center;min-height:74px;border-radius:12px;border:1px solid var(--dih-border);margin-top:10px;font-size:15px;font-weight:700}
+.badge{display:inline-flex;align-items:center;gap:5px;padding:4px 9px;border-radius:999px;background:var(--dih-accent-soft);border:1px solid rgba(76,141,255,.28);color:var(--dih-accent);font-family:var(--dih-mono);font-size:9px;font-weight:700}
+.badge.pass{background:rgba(52,211,153,.1);border-color:rgba(52,211,153,.32);color:var(--dih-green)}
+.badge.fail{background:rgba(251,113,133,.1);border-color:rgba(251,113,133,.3);color:var(--dih-red)}
+.recent{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}
+.recent button{width:34px;height:34px;border-radius:9px;border:1px solid var(--dih-border-strong);cursor:pointer}
+.tp-note{margin:14px 0 0;font-size:11px;color:var(--dih-text-muted);line-height:1.6}
+.tp-toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,20px);z-index:1200;padding:9px 14px;border-radius:999px;background:var(--dih-surface-3);border:1px solid var(--dih-border-strong);color:var(--dih-text);font-size:12px;font-weight:650;opacity:0;visibility:hidden;transition:.25s;box-shadow:0 12px 30px rgba(0,0,0,.35)}
+.tp-toast.show{opacity:1;visibility:visible;transform:translate(-50%,0)}
+@media(max-width:820px){.cp-top{grid-template-columns:1fr}.swatch{aspect-ratio:2.2;min-height:140px}.cp-values{grid-template-columns:1fr 1fr}.harmony{grid-template-columns:repeat(5,1fr)}}
+@media(max-width:640px){.tp{padding:26px 14px 70px}.tp-panel{padding:14px}.cp-head p{font-size:13px}.scale{grid-template-columns:repeat(6,1fr)}.contrast-row{grid-template-columns:1fr 1fr}.contrast-row .contrast-badge-cell{grid-column:1/-1}}
+</style>
+<!-- DIH:HEAD -->
+<script>try{var t=localStorage.getItem('dih_theme')||'dark';document.documentElement.setAttribute('data-theme',t);document.documentElement.setAttribute('data-dih','');}catch(e){document.documentElement.setAttribute('data-dih','');}</script>
+<meta name="theme-color" content="#07070c">
+<meta name="color-scheme" content="dark light">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="author" content="Digital Infohub">
+<meta name="keywords" content="hex color picker, color converter, rgb to hex, hsl converter, contrast checker">
+<link rel="canonical" href="https://digitalinfohub.net/software/color-picker">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Digital Infohub">
+<meta property="og:title" content="Hex Colour Picker — Shades, Harmonies &amp; Contrast | Digital Infohub">
+<meta property="og:description" content="Pick a colour and copy HEX, RGB, HSL or CMYK in one click. Explore shades, tints, harmonies and WCAG contrast. Free and offline.">
+<meta property="og:url" content="https://digitalinfohub.net/software/color-picker">
+<meta property="og:image" content="https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta property="og:image:secure_url" content="https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Glowing blue network lines and nodes forming a digital mesh">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Hex Colour Picker — Shades, Harmonies &amp; Contrast | Digital Infohub">
+<meta name="twitter:description" content="Pick a colour and copy HEX, RGB, HSL or CMYK in one click. Explore shades, tints, harmonies and WCAG contrast. Free and offline.">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta name="twitter:image:alt" content="Glowing blue network lines and nodes forming a digital mesh">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="icon" href="/assets/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://digitalinfohub.net/#organization","name":"Digital Infohub","url":"https://digitalinfohub.net/","logo":{"@type":"ImageObject","url":"https://digitalinfohub.net/assets/icon-512.png","width":512,"height":512},"description":"Independent technology publication for professionals: AI, markets, software and practical guides.","sameAs":[]},{"@type":"WebSite","@id":"https://digitalinfohub.net/#website","url":"https://digitalinfohub.net/","name":"Digital Infohub","publisher":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://digitalinfohub.net/blog?q={search_term_string}"},"query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://digitalinfohub.net/software/color-picker#webpage","url":"https://digitalinfohub.net/software/color-picker","name":"Hex Colour Picker — Shades, Harmonies & Contrast | Digital Infohub","description":"Pick a colour and copy HEX, RGB, HSL or CMYK in one click. Explore shades, tints, harmonies and WCAG contrast. Free and offline.","isPartOf":{"@id":"https://digitalinfohub.net/#website"},"about":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","primaryImageOfPage":{"@type":"ImageObject","url":"https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&h=630&fit=crop&auto=format&q=80&fm=jpg","width":1200,"height":630}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://digitalinfohub.net/"},{"@type":"ListItem","position":2,"name":"Software","item":"https://digitalinfohub.net/software"},{"@type":"ListItem","position":3,"name":"Hex Colour Picker — Shades, Harmonies & Contrast","item":"https://digitalinfohub.net/software/color-picker"}]}]}</script>
+<!-- /DIH:HEAD -->
+</head>
+<body>
+<!-- DIH:AMBIENT -->
+<div class="dih-ambient" aria-hidden="true" style="--dih-ambient:url('https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1600&amp;h=900&amp;fit=crop&amp;auto=format&amp;q=45')"></div>
+<!-- /DIH:AMBIENT -->
+<!-- DIH:HEADER -->
+<header class="dih-header">
+  <div class="dih-header-inner">
+    <a class="dih-brand" href="/" aria-label="Digital Infohub home">
+      <img src="/assets/logo.png" alt="Digital Infohub logo" width="36" height="36">
+      <span class="dih-brand-text">Digital <b>Infohub</b></span>
+    </a>
+    <nav class="dih-nav" data-dih-nav aria-label="Primary navigation">
+      <a class="dih-link" href="/">Home</a>
+      <a class="dih-link" href="/digi">Digi</a>
+      <a class="dih-link" href="/blog">Blog</a>
+      <a class="dih-link" href="/techtopics">Tech Topics</a>
+      <a class="dih-link" href="/software">Software</a>
+      <a class="dih-link" href="/techproducts">Tech Products</a>
+      <a class="dih-link" href="/games">Games</a>
+      <a class="dih-link" href="/coincompass">Markets</a>
+    </nav>
+    <div class="dih-actions">
+      <a class="dih-tools" href="/software#tools" title="Free browser tools" aria-label="Free browser tools">⚡<span>Tools</span></a>
+      <button class="dih-icon" type="button" data-dih-theme aria-label="Switch theme" title="Switch theme">☀</button>
+      <a class="dih-cta" href="/subscribe">Subscribe</a>
+      <button class="dih-burger" id="dihBurger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="dihDrawer"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+<div class="dih-drawer" id="dihDrawer" aria-label="Site menu">
+  <div class="dih-drawer-panel">
+    <div class="dih-drawer-grid">
+      <a class="dih-drawer-link" href="/">Home</a>
+      <a class="dih-drawer-link" href="/digi">Digi</a>
+      <a class="dih-drawer-link" href="/blog">Blog</a>
+      <a class="dih-drawer-link" href="/techtopics">Tech Topics</a>
+      <a class="dih-drawer-link" href="/software">Software</a>
+      <a class="dih-drawer-link" href="/techproducts">Tech Products</a>
+      <a class="dih-drawer-link" href="/games">Games</a>
+      <a class="dih-drawer-link" href="/coincompass">Markets</a>
+    </div>
+    <div class="dih-drawer-sub">
+      <a class="dih-drawer-link" href="/news">📰 Tech News</a>
+      <a class="dih-drawer-link" href="/quiz">🎯 Tech Quiz</a>
+      <a class="dih-drawer-link" href="/software#tools">⚡ Tools</a>
+      <a class="dih-drawer-link" href="/services">🧰 Services</a>
+      <a class="dih-drawer-link" href="/contact">✉️ Contact</a>
+    </div>
+    <a class="dih-drawer-cta" href="/subscribe">✉️ Subscribe — weekly tech intel</a>
+    <p class="dih-drawer-note">Digital Infohub · Tech for everyone, with a guide for every question.</p>
+  </div>
+</div>
+<!-- /DIH:HEADER -->
+<main class="tp">
+  <header class="tp-head">
+    <span class="tp-eyebrow"><span class="dih-dot"></span> Free tool · runs locally</span>
+    <h1>Hex <span>colour picker.</span></h1>
+    <p>Pick a colour, copy any format, and build a palette that works. Every value is calculated in your browser — no account, no upload, no tracking.</p>
+  </header>
+  <section class="tp-panel">
+    <div class="cp-top">
+      <div class="swatch" id="swatch" aria-label="Selected colour preview"><span id="swatchHex">#4C8DFF</span><button type="button" id="swatchCopy">Copy</button></div>
+      <div class="cp-controls">
+        <div>
+          <label for="hexInput">HEX value</label>
+          <div class="cp-native">
+            <input type="color" id="nativePicker" value="#4c8dff" aria-label="Colour picker">
+            <input type="text" id="hexInput" value="#4C8DFF" maxlength="7" spellcheck="false" autocomplete="off" aria-label="Hex colour value">
+          </div>
+        </div>
+        <div class="cp-values" id="values">
+          <button class="cp-value" data-copy="hex" type="button"><span>HEX</span><b id="vHex">#4C8DFF</b></button>
+          <button class="cp-value" data-copy="rgb" type="button"><span>RGB</span><b id="vRgb">76, 141, 255</b></button>
+          <button class="cp-value" data-copy="hsl" type="button"><span>HSL</span><b id="vHsl">216, 100%, 65%</b></button>
+          <button class="cp-value" data-copy="cmyk" type="button"><span>CMYK</span><b id="vCmyk">70, 45, 0, 0</b></button>
+        </div>
+        <div>
+          <label>Recently used</label>
+          <div class="recent" id="recent" aria-label="Recent colours"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cp-block">
+      <h2>Shades &amp; tints <span>click to select</span></h2>
+      <div class="scale" id="scale"></div>
+    </div>
+
+    <div class="cp-block">
+      <h2>Harmonies <span>colour-theory pairs</span></h2>
+      <div class="harmony" id="harmony"></div>
+    </div>
+
+    <div class="cp-block">
+      <h2>Contrast check <span>WCAG 2.1</span></h2>
+      <div class="contrast-row">
+        <div><label for="textColor">Text colour</label><input type="text" id="textColor" value="#FFFFFF" maxlength="7" spellcheck="false"></div>
+        <div><label for="bgColor">Background</label><input type="text" id="bgColor" value="#4C8DFF" maxlength="7" spellcheck="false"></div>
+        <div class="contrast-badge-cell"><span class="badge" id="contrastBadge">—</span></div>
+      </div>
+      <div class="contrast-preview" id="contrastPreview" style="background:#4C8DFF;color:#FFFFFF">Readable text preview</div>
+      <p class="tp-note" id="contrastNote">Aim for 4.5:1 for normal text and 3:1 for large text (WCAG AA).</p>
+    </div>
+  </section>
+  <div class="tp-toast" id="toast" role="status"></div>
+</main>
+<script>
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var hexInput = $('hexInput'), nativePicker = $('nativePicker'), swatch = $('swatch');
+  var recentWrap = $('recent'), scale = $('scale'), harmony = $('harmony'), toast = $('toast');
+  var recent = [];
+  try { recent = JSON.parse(localStorage.getItem('dih_picker_recent') || '[]'); } catch (e) { recent = []; }
+
+  function clamp(n, min, max) { return Math.min(max, Math.max(min, n)); }
+  function pad(v) { return v.toString(16).padStart(2, '0').toUpperCase(); }
+  function normalize(value) {
+    var v = String(value || '').trim().replace(/^#/, '');
+    if (/^[0-9a-f]{3}$/i.test(v)) v = v.split('').map(function (c) { return c + c; }).join('');
+    return /^[0-9a-f]{6}$/i.test(v) ? '#' + v.toUpperCase() : null;
+  }
+  function toRgb(hex) {
+    return { r: parseInt(hex.slice(1, 3), 16), g: parseInt(hex.slice(3, 5), 16), b: parseInt(hex.slice(5, 7), 16) };
+  }
+  function toHex(rgb) { return '#' + pad(clamp(Math.round(rgb.r), 0, 255)) + pad(clamp(Math.round(rgb.g), 0, 255)) + pad(clamp(Math.round(rgb.b), 0, 255)); }
+  function rgbToHsl(rgb) {
+    var r = rgb.r / 255, g = rgb.g / 255, b = rgb.b / 255;
+    var max = Math.max(r, g, b), min = Math.min(r, g, b);
+    var h = 0, s = 0, l = (max + min) / 2;
+    if (max !== min) {
+      var d = max - min;
+      s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+      if (max === r) h = (g - b) / d + (g < b ? 6 : 0);
+      else if (max === g) h = (b - r) / d + 2;
+      else h = (r - g) / d + 4;
+      h /= 6;
+    }
+    return { h: Math.round(h * 360), s: Math.round(s * 100), l: Math.round(l * 100) };
+  }
+  function hslToRgb(h, s, l) {
+    h = ((h % 360) + 360) % 360 / 360; s /= 100; l /= 100;
+    if (s === 0) { var v = l * 255; return { r: v, g: v, b: v }; }
+    var q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+    var p = 2 * l - q;
+    function hue(t) {
+      if (t < 0) t += 1; if (t > 1) t -= 1;
+      if (t < 1 / 6) return p + (q - p) * 6 * t;
+      if (t < 1 / 2) return q;
+      if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+      return p;
+    }
+    return { r: hue(h + 1 / 3) * 255, g: hue(h) * 255, b: hue(h - 1 / 3) * 255 };
+  }
+  function luminance(rgb) {
+    var a = [rgb.r, rgb.g, rgb.b].map(function (v) {
+      v /= 255;
+      return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+    });
+    return 0.2126 * a[0] + 0.7152 * a[1] + 0.0722 * a[2];
+  }
+  function ratio(a, b) {
+    var la = luminance(a), lb = luminance(b);
+    return (Math.max(la, lb) + 0.05) / (Math.min(la, lb) + 0.05);
+  }
+  function showToast(text) {
+    toast.textContent = text;
+    toast.classList.add('show');
+    clearTimeout(showToast.timer);
+    showToast.timer = setTimeout(function () { toast.classList.remove('show'); }, 1500);
+  }
+  function copy(text) {
+    if (navigator.clipboard) navigator.clipboard.writeText(text).then(function () { showToast('Copied ' + text); }).catch(function () {});
+    else showToast(text);
+  }
+
+  var current = '#4C8DFF';
+
+  function setColor(hex, remember) {
+    var normalized = normalize(hex);
+    if (!normalized) return;
+    current = normalized;
+    var rgb = toRgb(current), hsl = rgbToHsl(rgb);
+    var r = rgb.r, g = rgb.g, b = rgb.b;
+    var k = 1 - Math.max(r, g, b) / 255;
+    var c = k === 1 ? 0 : (1 - r / 255 - k) / (1 - k);
+    var m = k === 1 ? 0 : (1 - g / 255 - k) / (1 - k);
+    var y = k === 1 ? 0 : (1 - b / 255 - k) / (1 - k);
+
+    $('swatchHex').textContent = current;
+    swatch.style.background = current;
+    swatch.style.color = luminance(rgb) > 0.45 ? '#0a0a12' : '#ffffff';
+    hexInput.value = current;
+    nativePicker.value = current.toLowerCase();
+    $('vHex').textContent = current;
+    $('vRgb').textContent = r + ', ' + g + ', ' + b;
+    $('vHsl').textContent = hsl.h + '°, ' + hsl.s + '%, ' + hsl.l + '%';
+    $('vCmyk').textContent = Math.round(c * 100) + ', ' + Math.round(m * 100) + ', ' + Math.round(y * 100) + ', ' + Math.round(k * 100);
+
+    scale.innerHTML = '';
+    for (var i = 0; i <= 10; i++) {
+      var mix = i / 10;
+      var shade = toHex({ r: r * mix, g: g * mix, b: b * mix });
+      var tint = toHex({ r: r + (255 - r) * mix, g: g + (255 - g) * mix, b: b + (255 - b) * mix });
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.style.background = mix <= 0.5 ? shade : tint;
+      btn.title = (mix <= 0.5 ? 'Shade ' : 'Tint ') + Math.round(mix * 200) + '% — ' + (mix <= 0.5 ? shade : tint);
+      btn.addEventListener('click', (function (h) { return function () { setColor(h, true); }; })(mix <= 0.5 ? shade : tint));
+      scale.appendChild(btn);
+    }
+
+    var harmonies = [
+      ['Complementary', hsl.h + 180],
+      ['Analogous −30°', hsl.h - 30],
+      ['Analogous +30°', hsl.h + 30],
+      ['Triadic +120°', hsl.h + 120],
+      ['Triadic −120°', hsl.h - 120]
+    ];
+    harmony.innerHTML = '';
+    harmonies.forEach(function (pair) {
+      var h2 = toHex(hslToRgb(pair[1], hsl.s, hsl.l));
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.innerHTML = '<i style="background:' + h2 + '"></i><small>' + h2 + '</small>';
+      btn.title = pair[0];
+      btn.addEventListener('click', function () { setColor(h2, true); });
+      harmony.appendChild(btn);
+    });
+
+    $('bgColor').value = current;
+    updateContrast();
+    if (remember !== false) rememberColor(current);
+  }
+
+  function rememberColor(hex) {
+    recent = [hex].concat(recent.filter(function (c) { return c !== hex; })).slice(0, 12);
+    try { localStorage.setItem('dih_picker_recent', JSON.stringify(recent)); } catch (e) {}
+    recentWrap.innerHTML = '';
+    recent.forEach(function (c) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.style.background = c;
+      btn.title = c;
+      btn.addEventListener('click', function () { setColor(c, false); });
+      recentWrap.appendChild(btn);
+    });
+  }
+
+  function updateContrast() {
+    var fg = normalize($('textColor').value);
+    var bg = normalize($('bgColor').value);
+    var preview = $('contrastPreview'), badge = $('contrastBadge'), note = $('contrastNote');
+    if (!fg || !bg) { badge.textContent = 'Invalid colour'; badge.className = 'badge fail'; return; }
+    var rr = ratio(toRgb(fg), toRgb(bg));
+    preview.style.background = bg;
+    preview.style.color = fg;
+    preview.textContent = 'Readable text preview';
+    var aa = rr >= 4.5, aaLarge = rr >= 3, aaa = rr >= 7;
+    badge.className = 'badge ' + (aa ? 'pass' : 'fail');
+    badge.textContent = rr.toFixed(2) + ':1 · ' + (aaa ? 'AAA' : aa ? 'AA' : aaLarge ? 'AA Large only' : 'Fail');
+    note.textContent = aa ? 'Passes WCAG AA for normal text.' : aaLarge ? 'Passes only for large text (18pt+/14pt bold). Increase contrast for body copy.' : 'Fails WCAG. Darken the background or lighten the text.';
+  }
+
+  hexInput.addEventListener('input', function () {
+    var n = normalize(hexInput.value);
+    if (n) setColor(n, true);
+  });
+  hexInput.addEventListener('blur', function () { hexInput.value = current; });
+  nativePicker.addEventListener('input', function () { setColor(nativePicker.value, true); });
+  $('swatchCopy').addEventListener('click', function () { copy(current); });
+  $('values').addEventListener('click', function (e) {
+    var btn = e.target.closest('.cp-value');
+    if (!btn) return;
+    var kind = btn.dataset.copy;
+    if (kind === 'hex') copy(current);
+    else if (kind === 'rgb') copy('rgb(' + $('vRgb').textContent + ')');
+    else if (kind === 'hsl') copy('hsl(' + $('vHsl').textContent + ')');
+    else copy($('vCmyk').textContent);
+  });
+  ['textColor', 'bgColor'].forEach(function (id) {
+    $(id).addEventListener('input', function (e) {
+      var n = normalize(e.target.value);
+      if (n) updateContrast();
+    });
+  });
+
+  setColor(current, false);
+  recent.forEach(function (c) { rememberColor(c); });
+})();
+</script>
+<!-- DIH:GALLERY -->
+<section class="dih-gallery" aria-labelledby="dihGalleryTitle">
+  <div class="dih-gallery-head">
+    <div>
+      <span class="dih-gallery-eyebrow">Visual briefing</span>
+      <h2 id="dihGalleryTitle">Technology, in focus</h2>
+      <p>Fast context on the ideas shaping the industry, with a guide for every one.</p>
+    </div>
+    <a class="dih-gallery-all" href="/techtopics">All 30 tech guides <span aria-hidden="true">&rarr;</span></a>
+  </div>
+  <div class="dih-gallery-grid">
+      <a class="dih-gallery-card" href="/artificialintelligence">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=72" alt="Glowing digital brain made of blue and violet neural connections" width="800" height="500" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Artificial intelligence</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Inside the AI brain</strong>
+          <span>Large models learn statistical patterns from enormous text corpora. They can draft, summarise and reason usefully, but they still need verification where mistakes are expensive.</span>
+          <em>Read the AI guide &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/edgecomputing">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1663895064411-fff0ab8a9797?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=72" alt="Blue and violet abstract technology shapes with depth" width="800" height="500" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Edge computing</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Designed for the edge</strong>
+          <span>Processing data near the device cuts round trips and bandwidth bills. It also creates a fleet of small systems that must be updated and secured remotely.</span>
+          <em>Read the edge guide &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/techproducts">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1614624532983-4ce03382d63d?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=72" alt="Clean desktop workspace with monitor, keyboard and warm lighting" width="800" height="500" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Productivity</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>The productive desk</strong>
+          <span>A good desk setup removes friction: one cable, one screen, one place for everything. The same principle applies to the software you use every day.</span>
+          <em>Build a better setup &rarr;</em>
+        </span>
+      </a>
+  </div>
+  <p class="dih-gallery-credit">Photography by Unsplash contributors. Cards link to related Digital Infohub guides.</p>
+</section>
+<!-- /DIH:GALLERY -->
+<!-- DIH:EXPLORE -->
+<section class="dih-explore" aria-labelledby="dihExploreTitle">
+  <div class="dih-explore-head">
+    <h2 id="dihExploreTitle">More from the software suite</h2>
+    <p>Every tool in the suite is free and runs in your browser.</p>
+  </div>
+  <div class="dih-explore-grid">
+      <a class="dih-explore-card" href="/software">
+        <span class="dih-explore-icon" aria-hidden="true">🛠️</span>
+        <strong>Software &amp; tools</strong>
+        <span>Free AI assistants and browser utilities that run locally.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/blog">
+        <span class="dih-explore-icon" aria-hidden="true">📝</span>
+        <strong>Blog &amp; analysis</strong>
+        <span>Deep dives on AI, hardware, markets and digital culture.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/techtopics">
+        <span class="dih-explore-icon" aria-hidden="true">🔬</span>
+        <strong>Tech Topics</strong>
+        <span>Plain-language guides to the technology shaping business.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/games">
+        <span class="dih-explore-icon" aria-hidden="true">🎮</span>
+        <strong>Pixel Palace</strong>
+        <span>Free arcade games, playable on desktop and mobile.</span>
+        <em>Explore →</em>
+      </a>
+  </div>
+</section>
+<!-- /DIH:EXPLORE -->
+<!-- DIH:FOOTER -->
+<footer class="dih-footer">
+  <div class="dih-footer-inner">
+    <div class="dih-footer-brand">
+      <a class="dih-brand" href="/" aria-label="Digital Infohub home">
+        <img src="/assets/logo.png" alt="Digital Infohub logo" width="40" height="40">
+        <span class="dih-brand-text">Digital <b>Infohub</b></span>
+      </a>
+      <p>The independent tech hub for everyone: AI research, market moves, practical guides, free tools and Digi, your AI guide.</p>
+      <span class="dih-pill"><span class="dih-dot"></span> Updated daily</span>
+    </div>
+    <div class="dih-footer-col">
+      <h3>Explore</h3>
+      <a href="/blog">Blog &amp; analysis</a>
+      <a href="/techtopics">Tech Topics</a>
+      <a href="/software">Software &amp; tools</a>
+      <a href="/techproducts">Tech Products</a>
+      <a href="/games">Pixel Palace</a>
+      <a href="/digi">Digi AI guide</a>
+      <a href="/news">Live tech news</a>
+      <a href="/quiz">Tech quiz</a>
+    </div>
+    <div class="dih-footer-col">
+      <h3>Company</h3>
+      <a href="/about">About</a>
+      <a href="/services">Services</a>
+      <a href="/advertise">Advertise</a>
+      <a href="/coincompass">CoinCompass</a>
+      <a href="/privacy-policy">Privacy</a>
+    </div>
+    <div class="dih-footer-col dih-footer-cta">
+      <h3>Stay ahead</h3>
+      <p>One email a week: the AI, market and software stories that actually matter.</p>
+      <a class="dih-btn dih-btn-primary" href="/subscribe">Subscribe free</a>
+    </div>
+  </div>
+  <div class="dih-footer-bottom">
+    <span>© 2026 Digital Infohub · Independent technology publication</span>
+    <nav aria-label="Footer links">
+      <a href="/blog">Blog</a>
+      <a href="/techtopics">Guides</a>
+      <a href="/software">Tools</a>
+      <a href="/contact">Contact</a>
+      <a href="/sitemap.xml">Sitemap</a>
+    </nav>
+  </div>
+</footer>
+<!-- /DIH:FOOTER -->
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

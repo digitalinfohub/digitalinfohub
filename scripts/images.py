@@ -354,6 +354,9 @@ POST_IMAGES = {
     "could-babav-be-your-next-ai-social-media-assistant": "dots",
     "cybersecurity-ai-investment-2026": "security",
     "greygrid-studio-shows-that-great-design-doesn-t-need-to-be-loud": "abstract",
+    "investment-ideas-2026": "waves",
+    "what-will-tech-look-like-in-the-future": "earth",
+    "what-does-tech-look-like-today": "circuit",
 }
 
 

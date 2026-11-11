@@ -473,6 +473,7 @@
       <a class="dih-drawer-link" href="/quiz">🎯 Tech Quiz</a>
       <a class="dih-drawer-link" href="/software#tools">⚡ Tools</a>
       <a class="dih-drawer-link" href="/services">🧰 Services</a>
+      <a class="dih-drawer-link" href="/contact">✉️ Contact</a>
     </div>
     <a class="dih-drawer-cta" href="/subscribe">✉️ Subscribe — weekly tech intel</a>
     <p class="dih-drawer-note">Digital Infohub · Tech for everyone, with a guide for every question.</p>
@@ -633,6 +634,13 @@
 
       /* APP DATA — every app now lives on its own page under /software/ */
       const APPS = [
+        { name: "Image to ASCII", desc: "Turn photos into text art", icon: "AA", category: "media", page: "software/ascii-art.html" },
+        { name: "Hex Colour Picker", desc: "Colours, palettes & contrast", icon: "🎨", category: "tools", page: "software/color-picker.html" },
+        { name: "Task Timer", desc: "Time-box every task", icon: "⏳", category: "tasks", page: "software/task-timer.html" },
+        { name: "To-Do List", desc: "A simple, private task list", icon: "✅", category: "tasks", page: "software/todo.html" },
+        { name: "WebP to PNG", desc: "Convert images locally", icon: "🖼️", category: "media", page: "software/webp-to-png.html" },
+        { name: "QR Code Generator", desc: "Make and download QR codes", icon: "🔳", category: "tools", page: "software/qr-code-generator.html" },
+        { name: "Calendar", desc: "Month planner with events", icon: "📅", category: "tasks", page: "software/calendar.html" },
         { name: "InfohubGPT", desc: "Tech strategy assistant", icon: "🤖", category: "ai", ai: true, page: "software/infohubgpt.html" },
         { name: "TaskyGPT", desc: "Break down your goals", icon: "📋", category: "ai", ai: true, page: "software/taskygpt.html" },
         { name: "Build Engine", desc: "Build, fix & optimise code", icon: "⚙️", category: "dev", ai: true, page: "software/buildengine.html" },
@@ -871,8 +879,8 @@
       <a href="/blog">Blog</a>
       <a href="/techtopics">Guides</a>
       <a href="/software">Tools</a>
+      <a href="/contact">Contact</a>
       <a href="/sitemap.xml">Sitemap</a>
-      <a href="mailto:services@digitalinfohub.net">Contact</a>
     </nav>
   </div>
 </footer>

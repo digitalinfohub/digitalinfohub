@@ -1,112 +1,99 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark" data-dih="">
 <head>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471"
-crossorigin="anonymous"></script>
 <meta charset="UTF-8">
-<title>Services — AI Integration &amp; Automation | Digital Infohub</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-<meta name="description" content="Custom builds, workflow automation and AI integration that remove repetitive work — scoped for small businesses and independent teams.">
-<meta name="color-scheme" content="dark light">
-<!-- Sharing Meta Tags -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Services &amp; Pricing — Websites, Design and Ads | Digital Infohub</title>
+<meta name="description" content="Website hosting from £40/year, graphic design from £20, social media from £10/month and homepage advertising for £100/year — plus everything that stays free.">
 <style>
-:root {
---font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
---mono: 'JetBrains Mono', ui-monospace, monospace;
---ease: cubic-bezier(0.22, 0.61, 0.36, 1);
---radius: 12px;
---radius-sm: 8px;
+.svc-wrap{width:100%;max-width:1060px;margin:0 auto;padding:44px 22px 90px}
+.svc-hero{position:relative;padding:8px 0 34px;max-width:760px}
+.svc-eyebrow{display:inline-flex;align-items:center;gap:7px;font-family:var(--dih-mono);font-size:10px;font-weight:750;letter-spacing:.13em;text-transform:uppercase;color:var(--dih-accent)}
+.svc-hero h1{margin:12px 0 12px;font-size:clamp(32px,5.6vw,54px);font-weight:880;letter-spacing:-.05em;line-height:1.03}
+.svc-hero h1 span{background:linear-gradient(100deg,var(--dih-accent),var(--dih-accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.svc-hero p{margin:0;color:var(--dih-text-sub);font-size:15px;line-height:1.7;max-width:660px}
+.svc-hero-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:22px}
+.svc-split{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 46px}
+.svc-split-card{padding:20px;border-radius:16px;border:1px solid var(--dih-border);background:var(--dih-surface)}
+.svc-split-card.paid{border-color:rgba(76,141,255,.34);background:linear-gradient(160deg,rgba(76,141,255,.12),var(--dih-surface))}
+.svc-split-card.free{border-color:rgba(52,211,153,.3);background:linear-gradient(160deg,rgba(52,211,153,.1),var(--dih-surface))}
+.svc-split-card h2{margin:0 0 6px;font-size:16px;font-weight:780;letter-spacing:-.02em}
+.svc-split-card p{margin:0;font-size:12.5px;line-height:1.6;color:var(--dih-text-sub)}
+.svc-split-card em{display:block;margin-top:10px;font-style:normal;font-family:var(--dih-mono);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--dih-text-muted)}
+
+.svc-section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:0 0 18px}
+.svc-section-head h2{margin:0;font-size:clamp(23px,3.4vw,32px);font-weight:840;letter-spacing:-.04em}
+.svc-section-head p{margin:6px 0 0;color:var(--dih-text-sub);font-size:13px;line-height:1.6;max-width:620px}
+.svc-tag{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:var(--dih-pill);font-family:var(--dih-mono);font-size:9.5px;font-weight:750;letter-spacing:.08em;text-transform:uppercase}
+.svc-tag.paid{background:rgba(76,141,255,.12);border:1px solid rgba(76,141,255,.3);color:var(--dih-accent)}
+.svc-tag.free{background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.3);color:var(--dih-green)}
+
+.svc-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.svc-card{display:flex;flex-direction:column;padding:20px 20px 18px;border-radius:16px;border:1px solid var(--dih-border);background:var(--dih-surface);transition:.22s var(--dih-ease)}
+.svc-card:hover{border-color:rgba(76,141,255,.4);transform:translateY(-3px);background:var(--dih-surface-2)}
+.svc-card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:12px}
+.svc-icon{width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:18px;background:var(--dih-accent-soft);border:1px solid rgba(76,141,255,.22);flex-shrink:0}
+.svc-price{text-align:right;flex-shrink:0}
+.svc-price b{display:block;font-family:var(--dih-mono);font-size:19px;font-weight:750;letter-spacing:-.03em;line-height:1.1}
+.svc-price span{display:block;font-size:9.5px;color:var(--dih-text-muted);letter-spacing:.05em;text-transform:uppercase;margin-top:2px}
+.svc-card h3{margin:0 0 7px;font-size:15px;font-weight:750;letter-spacing:-.015em}
+.svc-card > p{margin:0 0 12px;font-size:12.5px;line-height:1.62;color:var(--dih-text-sub)}
+.svc-list{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px;font-size:11.8px;color:var(--dih-text-sub);line-height:1.5}
+.svc-list li{display:flex;gap:7px}
+.svc-list li::before{content:"✓";color:var(--dih-green);font-weight:800;flex-shrink:0}
+.svc-card-foot{margin-top:auto;padding-top:13px;display:flex;align-items:center;justify-content:space-between;gap:10px;border-top:1px solid var(--dih-border);font-size:11px}
+.svc-card-foot span{font-family:var(--dih-mono);color:var(--dih-text-muted);font-size:10px}
+.svc-card-foot a{color:var(--dih-accent);font-weight:700;text-decoration:none;white-space:nowrap}
+.svc-card-foot a:hover{text-decoration:underline}
+
+.svc-note{margin:16px 0 0;padding:13px 15px;border-radius:12px;border:1px dashed var(--dih-border-strong);background:var(--dih-surface);color:var(--dih-text-muted);font-size:11.5px;line-height:1.65}
+.svc-note b{color:var(--dih-text-sub)}
+
+.svc-free{margin-top:52px;padding:26px 24px 24px;border-radius:22px;border:1px solid rgba(52,211,153,.24);background:radial-gradient(620px 300px at 0% 0%,rgba(52,211,153,.1),transparent 72%),var(--dih-surface)}
+.svc-free-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin-top:18px}
+.svc-free-card{padding:18px;border-radius:14px;border:1px solid var(--dih-border);background:var(--dih-surface-2);display:flex;flex-direction:column;gap:7px}
+.svc-free-card h3{margin:0;font-size:14px;font-weight:750;display:flex;align-items:center;gap:7px}
+.svc-free-card p{margin:0;font-size:12.3px;line-height:1.62;color:var(--dih-text-sub);flex:1}
+.svc-free-card em{font-style:normal;font-size:10.5px;font-weight:700;color:var(--dih-green)}
+.svc-free-card a{color:var(--dih-text);text-decoration:none;font-weight:700}
+.svc-free-card a:hover{color:var(--dih-accent)}
+
+.svc-steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;counter-reset:step;margin-top:16px}
+.svc-step{position:relative;padding:16px 14px;border-radius:13px;border:1px solid var(--dih-border);background:var(--dih-surface)}
+.svc-step::before{counter-increment:step;content:"0" counter(step);display:block;font-family:var(--dih-mono);font-size:10px;font-weight:750;color:var(--dih-accent);margin-bottom:7px}
+.svc-step strong{display:block;font-size:12.5px;font-weight:750;margin-bottom:4px}
+.svc-step span{font-size:11px;line-height:1.55;color:var(--dih-text-muted)}
+
+.svc-faq{display:flex;flex-direction:column;gap:8px;margin-top:16px}
+.svc-faq details{border:1px solid var(--dih-border);border-radius:12px;background:var(--dih-surface);overflow:hidden}
+.svc-faq summary{cursor:pointer;padding:14px 16px;font-size:13px;font-weight:700;list-style:none;display:flex;justify-content:space-between;gap:12px;align-items:center}
+.svc-faq summary::-webkit-details-marker{display:none}
+.svc-faq summary::after{content:"+";font-family:var(--dih-mono);color:var(--dih-text-muted);font-size:15px}
+.svc-faq details[open] summary::after{content:"–"}
+.svc-faq p{margin:0;padding:0 16px 15px;font-size:12.5px;line-height:1.7;color:var(--dih-text-sub)}
+
+.svc-cta{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-top:46px;padding:26px 24px;border-radius:20px;border:1px solid rgba(76,141,255,.3);background:linear-gradient(120deg,rgba(76,141,255,.16),rgba(139,92,246,.1))}
+.svc-cta h2{margin:0 0 5px;font-size:clamp(20px,3vw,26px);font-weight:820;letter-spacing:-.035em}
+.svc-cta p{margin:0;font-size:12.5px;line-height:1.6;color:var(--dih-text-sub);max-width:560px}
+.svc-cta-actions{display:flex;gap:9px;flex-wrap:wrap}
+
+@media(max-width:900px){
+  .svc-grid{grid-template-columns:1fr 1fr}
+  .svc-free-grid{grid-template-columns:1fr 1fr}
+  .svc-steps{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
-[data-theme="dark"] {
---bg: #0a0a0a; --surface: #111111; --surface-2: #161616; --surface-3: #1a1a1a;
---border: rgba(255,255,255,0.06); --border-strong: rgba(255,255,255,0.1);
---text: #f5f5f5; --text-sub: #a1a1aa; --text-muted: #71717a;
---accent: #6366f1; --accent-soft: rgba(99,102,241,0.1);
---shadow: 0 4px 24px -6px rgba(0,0,0,0.4);
-}
-[data-theme="light"] {
---bg: #fafafa; --surface: #ffffff; --surface-2: #f4f4f5; --surface-3: #e4e4e7;
---border: rgba(0,0,0,0.06); --border-strong: rgba(0,0,0,0.12);
---text: #0a0a0a; --text-sub: #52525b; --text-muted: #a1a1aa;
---accent: #4f46e5; --accent-soft: rgba(79,70,229,0.08);
---shadow: 0 4px 24px -6px rgba(0,0,0,0.08);
-}
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body { font-family: var(--font); background: var(--bg); color: var(--text); min-height: 100vh; line-height: 1.6; -webkit-font-smoothing: antialiased; transition: background 0.3s ease, color 0.3s ease; }
-.shell { max-width: 820px; margin: 0 auto; padding: 32px 24px 80px; }
-/* ═══ NAVIGATION ═══ */
-.nav-shell { 
-  position: sticky; 
-  top: 0; 
-  z-index: 100; 
-  background: var(--bg); 
-  border-bottom: 1px solid var(--border); 
-  backdrop-filter: blur(12px); 
-  -webkit-backdrop-filter: blur(12px); 
-  margin: -32px -24px 32px; 
-  padding: 0 24px; 
-  transform: translateZ(0); 
-  -webkit-transform: translateZ(0);
-}
-.nav-bar { max-width: 820px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 12px 0; gap: 16px; }
-.nav-links { display: flex; gap: 4px; align-items: center; overflow-x: auto; scrollbar-width: none; }
-.nav-links::-webkit-scrollbar { display: none; }
-.nav-link { padding: 8px 14px; background: none; border: 1px solid transparent; color: var(--text-sub); border-radius: 8px; cursor: pointer; font-family: inherit; font-size: 13px; font-weight: 500; transition: all 0.2s var(--ease); white-space: nowrap; display: flex; align-items: center; gap: 6px; text-decoration: none; }
-.nav-link:hover { color: var(--text); background: var(--surface-2); border-color: var(--border); }
-.nav-link.active { color: var(--accent); background: var(--accent-soft); border-color: var(--accent); }
-/* Hamburger Button - Hidden on Desktop */
-.hamburger { display: none; width: 36px; height: 36px; border: 1px solid var(--border); background: var(--surface); color: var(--text); border-radius: var(--radius-sm); cursor: pointer; align-items: center; justify-content: center; font-size: 18px; transition: all 0.2s var(--ease); flex-shrink: 0; }
-.hamburger:hover { background: var(--surface-2); border-color: var(--border-strong); }
-/* Mobile Menu Dropdown */
-.mobile-menu {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  z-index: 1000; 
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
-  padding: 8px 16px 16px;
-  flex-direction: column;
-  gap: 4px;
-  box-shadow: var(--shadow);
-  animation: slideDown 0.2s var(--ease);
-}
-.mobile-menu.active { display: flex; }
-.mobile-menu .nav-link { width: 100%; justify-content: flex-start; padding: 12px 14px; font-size: 14px; }
-@keyframes slideDown { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
-/* ═══ TOP BAR ═══ */
-.topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 48px; }
-.brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 15px; letter-spacing: -0.01em; text-decoration: none; color: var(--text); }
-.brand-logo { width: 28px; height: 28px; border-radius: 8px; background: var(--surface-2); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; }
-.brand-logo img { width: 100%; height: 100%; object-fit: cover; }
-.icon-btn { width: 36px; height: 36px; border: 1px solid var(--border); background: var(--surface); color: var(--text-sub); border-radius: var(--radius-sm); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s var(--ease); }
-.icon-btn:hover { color: var(--text); border-color: var(--border-strong); background: var(--surface-2); }
-/* ═══ SERVICES SECTION ═══ */
-.section { margin-bottom: 48px; }
-.section-head { margin-bottom: 24px; }
-.eyebrow { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); font-weight: 600; font-family: var(--mono); margin-bottom: 4px; }
-.services-intro { font-size: 16px; color: var(--text-sub); line-height: 1.7; margin-bottom: 32px; }
-.services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
-.service-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; transition: all 0.2s var(--ease); }
-.service-card:hover { border-color: var(--border-strong); background: var(--surface-2); transform: translateY(-2px); }
-.service-icon { font-size: 32px; margin-bottom: 12px; }
-.service-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; color: var(--text); }
-.service-desc { font-size: 13px; color: var(--text-sub); line-height: 1.6; }
-.contact-card { background: var(--accent-soft); border: 1px solid var(--accent); border-radius: var(--radius); padding: 32px; text-align: center; margin-top: 32px; }
-.contact-email { font-size: 18px; font-weight: 600; color: var(--accent); text-decoration: none; display: inline-block; margin-top: 12px; padding: 12px 24px; background: var(--surface); border-radius: var(--radius-sm); transition: all 0.2s var(--ease); }
-.contact-email:hover { background: var(--surface-2); transform: translateY(-2px); }
-@media (max-width: 640px) {
-.shell { padding: 20px 16px 60px; }
-.nav-shell { margin: -20px -16px 32px; padding: 0 16px; }
-.nav-links { display: none; }
-.hamburger { display: flex; }
-.services-grid { grid-template-columns: 1fr; }
+@media(max-width:640px){
+  .svc-wrap{padding:28px 14px 70px}
+  .svc-hero{padding-bottom:24px}
+  .svc-hero p{font-size:13.5px}
+  .svc-split{grid-template-columns:1fr;margin-bottom:36px}
+  .svc-grid,.svc-free-grid{grid-template-columns:1fr}
+  .svc-free{padding:20px 14px;margin-top:40px}
+  .svc-steps{grid-template-columns:1fr 1fr}
+  .svc-card{padding:18px}
+  .svc-cta{padding:20px 16px;margin-top:36px}
+  .svc-cta-actions{width:100%}
+  .svc-cta-actions .dih-btn{flex:1;justify-content:center}
 }
 </style>
 <!-- DIH:HEAD -->
@@ -115,12 +102,12 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); min-
 <meta name="color-scheme" content="dark light">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 <meta name="author" content="Digital Infohub">
-<meta name="keywords" content="AI integration services, automation, custom software, digital infohub services">
+<meta name="keywords" content="website hosting price, graphic design pricing, social media marketing, advertise on tech site, digital infohub services">
 <link rel="canonical" href="https://digitalinfohub.net/services">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Digital Infohub">
-<meta property="og:title" content="Automation and AI integration for small teams">
-<meta property="og:description" content="Custom builds, workflow automation and AI integration that remove repetitive work — scoped for small businesses and independent teams.">
+<meta property="og:title" content="Services with the price on the page">
+<meta property="og:description" content="Website hosting from £40/year, graphic design from £20, social media from £10/month and homepage advertising for £100/year — plus everything that stays free.">
 <meta property="og:url" content="https://digitalinfohub.net/services">
 <meta property="og:image" content="https://images.unsplash.com/photo-1649406458887-2b6561c36a4d?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
 <meta property="og:image:secure_url" content="https://images.unsplash.com/photo-1649406458887-2b6561c36a4d?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
@@ -130,8 +117,8 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); min-
 <meta property="og:image:alt" content="Wireframe lightbulb glowing against a dark background">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Automation and AI integration for small teams">
-<meta name="twitter:description" content="Custom builds, workflow automation and AI integration that remove repetitive work — scoped for small businesses and independent teams.">
+<meta name="twitter:title" content="Services with the price on the page">
+<meta name="twitter:description" content="Website hosting from £40/year, graphic design from £20, social media from £10/month and homepage advertising for £100/year — plus everything that stays free.">
 <meta name="twitter:image" content="https://images.unsplash.com/photo-1649406458887-2b6561c36a4d?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
 <meta name="twitter:image:alt" content="Wireframe lightbulb glowing against a dark background">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
@@ -143,7 +130,7 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); min-
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/site.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://digitalinfohub.net/#organization","name":"Digital Infohub","url":"https://digitalinfohub.net/","logo":{"@type":"ImageObject","url":"https://digitalinfohub.net/assets/icon-512.png","width":512,"height":512},"description":"Independent technology publication for professionals: AI, markets, software and practical guides.","sameAs":[]},{"@type":"WebSite","@id":"https://digitalinfohub.net/#website","url":"https://digitalinfohub.net/","name":"Digital Infohub","publisher":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://digitalinfohub.net/blog?q={search_term_string}"},"query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://digitalinfohub.net/services#webpage","url":"https://digitalinfohub.net/services","name":"Services — AI Integration & Automation | Digital Infohub","description":"Custom builds, workflow automation and AI integration that remove repetitive work — scoped for small businesses and independent teams.","isPartOf":{"@id":"https://digitalinfohub.net/#website"},"about":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","primaryImageOfPage":{"@type":"ImageObject","url":"https://images.unsplash.com/photo-1649406458887-2b6561c36a4d?w=1200&h=630&fit=crop&auto=format&q=80&fm=jpg","width":1200,"height":630}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://digitalinfohub.net/"},{"@type":"ListItem","position":2,"name":"Services — AI Integration & Automation","item":"https://digitalinfohub.net/services"}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://digitalinfohub.net/#organization","name":"Digital Infohub","url":"https://digitalinfohub.net/","logo":{"@type":"ImageObject","url":"https://digitalinfohub.net/assets/icon-512.png","width":512,"height":512},"description":"Independent technology publication for professionals: AI, markets, software and practical guides.","sameAs":[]},{"@type":"WebSite","@id":"https://digitalinfohub.net/#website","url":"https://digitalinfohub.net/","name":"Digital Infohub","publisher":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://digitalinfohub.net/blog?q={search_term_string}"},"query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://digitalinfohub.net/services#webpage","url":"https://digitalinfohub.net/services","name":"Services & Pricing — Websites, Design and Ads | Digital Infohub","description":"Website hosting from £40/year, graphic design from £20, social media from £10/month and homepage advertising for £100/year — plus everything that stays free.","isPartOf":{"@id":"https://digitalinfohub.net/#website"},"about":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","primaryImageOfPage":{"@type":"ImageObject","url":"https://images.unsplash.com/photo-1649406458887-2b6561c36a4d?w=1200&h=630&fit=crop&auto=format&q=80&fm=jpg","width":1200,"height":630}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://digitalinfohub.net/"},{"@type":"ListItem","position":2,"name":"Services & Pricing — Websites, Design and Ads","item":"https://digitalinfohub.net/services"}]}]}</script>
 <!-- /DIH:HEAD -->
 </head>
 <body>
@@ -192,149 +179,237 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); min-
       <a class="dih-drawer-link" href="/quiz">🎯 Tech Quiz</a>
       <a class="dih-drawer-link" href="/software#tools">⚡ Tools</a>
       <a class="dih-drawer-link" href="/services">🧰 Services</a>
+      <a class="dih-drawer-link" href="/contact">✉️ Contact</a>
     </div>
     <a class="dih-drawer-cta" href="/subscribe">✉️ Subscribe — weekly tech intel</a>
     <p class="dih-drawer-note">Digital Infohub · Tech for everyone, with a guide for every question.</p>
   </div>
 </div>
 <!-- /DIH:HEADER -->
-<div class="shell">
-<nav class="nav-shell">
-<div class="nav-bar">
-<!-- Desktop Nav -->
-<div class="nav-links">
-<a href="/" class="nav-link">🏠 Home</a>
-<a href="/blog" class="nav-link">📝 Blog</a>
-<a href="/techtopics" class="nav-link">💡 Tech Topics</a>
-<a href="/software" class="nav-link">💻 Software</a>
-<a href="/services" class="nav-link active">🛠️ Services</a>
-<a href="/games" class="nav-link">🎮 Games</a>
-<a href="/subscribe" class="nav-link">✉️ Subscribe</a>
-</div>
-<!-- Mobile Hamburger -->
-<button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">☰</button>
-</div>
-<!-- Mobile Dropdown Menu -->
-<div class="mobile-menu" id="mobileMenu">
-<a href="/" class="nav-link">🏠 Home</a>
-<a href="/blog" class="nav-link">📝 Blog</a>
-<a href="/techtopics" class="nav-link">💡 Tech Topics</a>
-<a href="/software" class="nav-link">💻 Software</a>
-<a href="/services" class="nav-link active">🛠️ Services</a>
-<a href="/games" class="nav-link">🎮 Games</a>
-<a href="/subscribe" class="nav-link">✉️ Subscribe</a>
-</div>
-</nav>
+<main class="svc-wrap">
+  <header class="svc-hero">
+    <span class="svc-eyebrow"><span class="dih-dot"></span> Services &amp; pricing</span>
+    <h1>Two ways to work<br><span>with Digital Infohub.</span></h1>
+    <p>Pay only for the services you need — with the price on the page, not behind a sales call. Everything else on the site, from the browser apps to the tech news, stays free for everyone.</p>
+    <div class="svc-hero-actions">
+      <a class="dih-btn dih-btn-primary" href="/contact">Start an enquiry →</a>
+      <a class="dih-btn dih-btn-ghost" href="#free">See what's free</a>
+    </div>
+  </header>
 
-<!-- TOP BAR -->
-<div class="topbar">
-<a href="https://digitalinfohub.net" class="brand">
-<span class="brand-logo"><img src="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png" alt="" loading="lazy"></span>
-<span>Digital Infohub</span>
-</a>
-<button class="icon-btn" id="themeToggle" title="Toggle theme" aria-label="Toggle theme">
-<svg id="themeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
-</button>
-</div>
+  <div class="svc-split" aria-label="Paid services and free resources">
+    <div class="svc-split-card paid">
+      <h2>💼 Paid services</h2>
+      <p>Done-for-you hosting, design, social media, blog features and advertising. Fixed starting prices, scoped in writing before work begins.</p>
+      <em>Prices in GBP · edits quoted per revision</em>
+    </div>
+    <div class="svc-split-card free">
+      <h2>🎁 Free community resources</h2>
+      <p>Pre-built browser apps, tech news and digital strategy guidance. Free because Digital Infohub is supported by advertising, not paywalls.</p>
+      <em>No account · no download · no charge</em>
+    </div>
+  </div>
 
-<!-- SERVICES SECTION -->
-<section class="section">
-<div class="section-head">
-<div class="eyebrow">What We Offer</div>
-<h1 style="font-size:24px;font-weight:700;margin-bottom:16px;">Our Services</h1>
-<p class="services-intro">Digital Infohub offers creative design, digital content, and technology resources, including web and graphic design, browser-based web apps, tech news, and promotional sponsorships for brands and creators.</p>
-</div>
+  <section id="paid" aria-labelledby="paidTitle">
+    <div class="svc-section-head">
+      <div>
+        <span class="svc-tag paid">Paid services</span>
+        <h2 id="paidTitle" style="margin-top:10px">Clear prices, clear scope</h2>
+        <p>Each price below is a starting point. Larger scopes are quoted up front, so you know the total before anything is built.</p>
+      </div>
+      <a class="dih-btn dih-btn-ghost" href="/contact">Get a quote</a>
+    </div>
 
-<div class="services-grid">
-<div class="service-card">
-<div class="service-icon">🎨</div>
-<div class="service-title">Web Design</div>
-<div class="service-desc">Custom, responsive websites that look great on any device. Modern designs optimized for performance and user experience.</div>
-</div>
+    <div class="svc-grid">
+      <article class="svc-card">
+        <div class="svc-card-top">
+          <span class="svc-icon" aria-hidden="true">🌐</span>
+          <div class="svc-price"><b>£40</b><span>per year</span></div>
+        </div>
+        <h3>Frontend Website Hosting</h3>
+        <p>A complete front-end site, hosted without a server to maintain. Ideal for informational sites, contact pages or a clear business pricing display.</p>
+        <ul class="svc-list">
+          <li>Domain sourcing and setup</li>
+          <li>Server-free hosting and deployment</li>
+          <li>Ongoing site management</li>
+          <li>Mobile-responsive build</li>
+        </ul>
+        <div class="svc-card-foot"><span>£5 per edit / change / revision</span><a href="/contact?service=hosting">Enquire →</a></div>
+      </article>
 
-<div class="service-card">
-<div class="service-icon">🖌️</div>
-<div class="service-title">Graphic Design</div>
-<div class="service-desc">Eye-catching visuals for your brand including logos, marketing materials, social media graphics, and more.</div>
-</div>
+      <article class="svc-card">
+        <div class="svc-card-top">
+          <span class="svc-icon" aria-hidden="true">🎨</span>
+          <div class="svc-price"><b>£20</b><span>from</span></div>
+        </div>
+        <h3>Graphic Design</h3>
+        <p>Logos, social graphics, banners and print-ready artwork for your brand. Final price depends on scope.</p>
+        <ul class="svc-list">
+          <li>Brand-consistent visuals</li>
+          <li>Web and social formats</li>
+          <li>Print-ready exports</li>
+          <li>Source files on request</li>
+        </ul>
+        <div class="svc-card-foot"><span>£2 per edit / revision</span><a href="/contact?service=design">Enquire →</a></div>
+      </article>
 
-<div class="service-card">
-<div class="service-icon">💻</div>
-<div class="service-title">Browser-Based Web Apps</div>
-<div class="service-desc">Custom web applications that run directly in your browser. No downloads required, accessible from anywhere.</div>
-</div>
+      <article class="svc-card">
+        <div class="svc-card-top">
+          <span class="svc-icon" aria-hidden="true">📣</span>
+          <div class="svc-price"><b>£20</b><span>per month</span></div>
+        </div>
+        <h3>Social Media Marketing</h3>
+        <p>Your posts marketed through Digital Infohub's own social media channels, putting your brand in front of a technology audience.</p>
+        <ul class="svc-list">
+          <li>Published via Digital Infohub channels</li>
+          <li>Post scheduling and captions</li>
+          <li>Monthly activity summary</li>
+          <li>Cancel any month</li>
+        </ul>
+        <div class="svc-card-foot"><span>£2 per revision / edit</span><a href="/contact?service=smm">Enquire →</a></div>
+      </article>
 
-<div class="service-card">
-<div class="service-icon">📰</div>
-<div class="service-title">Tech News & Content</div>
-<div class="service-desc">Stay informed with our latest tech news, tutorials, and insights on AI, software development, and digital trends.</div>
-</div>
+      <article class="svc-card">
+        <div class="svc-card-top">
+          <span class="svc-icon" aria-hidden="true">📱</span>
+          <div class="svc-price"><b>£10</b><span>per month</span></div>
+        </div>
+        <h3>Social Media Management</h3>
+        <p>We post on your own channels. Digital Infohub requests access or an invite to your page and manages the posting on your behalf.</p>
+        <ul class="svc-list">
+          <li>Access or invite to your page</li>
+          <li>Posting on your behalf</li>
+          <li>Caption and hashtag support</li>
+          <li>Your account stays yours</li>
+        </ul>
+        <div class="svc-card-foot"><span>£2 per revision / edit</span><a href="/contact?service=management">Enquire →</a></div>
+      </article>
 
-<div class="service-card">
-<div class="service-icon">🤝</div>
-<div class="service-title">Promotional Sponsorships</div>
-<div class="service-desc">Partner with us to reach our audience. We offer sponsorship opportunities for brands and creators looking to expand their reach.</div>
-</div>
+      <article class="svc-card">
+        <div class="svc-card-top">
+          <span class="svc-icon" aria-hidden="true">📝</span>
+          <div class="svc-price"><b>£10</b><span>one-time</span></div>
+        </div>
+        <h3>Blog Feature</h3>
+        <p>A one-time feature article about your product, project or story, published and linked from the Digital Infohub blog.</p>
+        <ul class="svc-list">
+          <li>Written and formatted for the blog</li>
+          <li>Permanent article link</li>
+          <li>Included in the blog index</li>
+          <li>Shareable on social</li>
+        </ul>
+        <div class="svc-card-foot"><span>£2 per edit / revision</span><a href="/contact?service=blog">Enquire →</a></div>
+      </article>
 
-<div class="service-card">
-<div class="service-icon">🚀</div>
-<div class="service-title">Digital Strategy</div>
-<div class="service-desc">Consulting services to help you navigate the digital landscape and grow your online presence effectively.</div>
-</div>
-</div>
+      <article class="svc-card">
+        <div class="svc-card-top">
+          <span class="svc-icon" aria-hidden="true">🪧</span>
+          <div class="svc-price"><b>£100</b><span>per year</span></div>
+        </div>
+        <h3>Website Advertising</h3>
+        <p>Put your brand on the Digital Infohub homepage for a full year. Choose a homepage sponsorship listing or a homepage banner ad.</p>
+        <ul class="svc-list">
+          <li>Homepage sponsorship listing</li>
+          <li>or homepage banner ad</li>
+          <li>Link to your site or offer</li>
+          <li>12 months of visibility</li>
+        </ul>
+        <div class="svc-card-foot"><span>One placement, one year</span><a href="/contact?service=ads">Enquire →</a></div>
+      </article>
+    </div>
 
-<div class="contact-card">
-<div class="eyebrow">Get In Touch</div>
-<h2 style="font-size:20px;font-weight:700;margin:8px 0 16px;">Ready to Work Together?</h2>
-<p style="font-size:14px;color:var(--text-sub);margin-bottom:16px;">Contact us to discuss your project or sponsorship opportunities.</p>
-<a href="mailto:services@digitalinfohub.net" class="contact-email">📧 services@digitalinfohub.net</a>
-</div>
-</section>
-</div>
+    <p class="svc-note"><b>How pricing works:</b> the listed price covers the standard scope described on each card. If your project needs more pages, formats or posts, you get a written quote before work starts. Revisions are charged per edit at the rate shown on the card, so a small text change stays a small cost.</p>
+  </section>
 
-<script>
-(function() {
-'use strict';
-const $ = s => document.querySelector(s);
-const $$ = s => Array.from(document.querySelectorAll(s));
+  <section class="svc-free" id="free" aria-labelledby="freeTitle">
+    <div class="svc-section-head">
+      <div>
+        <span class="svc-tag free">Free · supported by ads</span>
+        <h2 id="freeTitle" style="margin-top:10px">Free for everyone, always</h2>
+        <p>These are not trials or lead magnets. They are fully built, public resources that anyone can use without paying, signing up or installing anything.</p>
+      </div>
+    </div>
+    <div class="svc-free-grid">
+      <div class="svc-free-card">
+        <h3>⚡ Browser-based web apps</h3>
+        <p>Every app in the software suite is already built in advance by Digital Infohub and served free, directly on the site. That includes the AI assistants and the productivity tools — calculators, converters, formatters, timers and more. Nothing is generated per visitor and nothing is gated.</p>
+        <em>Free because the site is supported by ad revenue.</em>
+        <a href="/software">Open the software suite →</a>
+      </div>
+      <div class="svc-free-card">
+        <h3>📰 Tech news &amp; analysis</h3>
+        <p>Technology news is free for everyone. Stories link back to the original sources so you can read the primary reporting yourself, and the blog analysis stays open without a paywall.</p>
+        <em>Free because the site is supported by ads.</em>
+        <a href="/news">Read the tech news desk →</a>
+      </div>
+      <div class="svc-free-card">
+        <h3>🧭 Digital strategy guidance</h3>
+        <p>Digital strategy help is a free resource here, not a paid engagement. Ask Digi for a starting plan, then use the plain-language guides to make the decision yourself — from choosing hardware to tightening security.</p>
+        <em>Free guidance · no consultation fee.</em>
+        <a href="/digi">Ask Digi for guidance →</a>
+      </div>
+    </div>
+  </section>
 
-// Theme Toggle
-const themeToggle = $('#themeToggle');
-const themeIcon = $('#themeIcon');
-const sunIcon = '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>';
-const moonIcon = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+  <section aria-labelledby="processTitle" style="margin-top:46px">
+    <div class="svc-section-head">
+      <div>
+        <span class="svc-tag paid">Paid work · process</span>
+        <h2 id="processTitle" style="margin-top:10px">How a paid project runs</h2>
+        <p>Small, predictable steps. You always know what happens next and what it costs.</p>
+      </div>
+    </div>
+    <div class="svc-steps">
+      <div class="svc-step"><strong>Enquiry</strong><span>Tell us what you need through the contact form.</span></div>
+      <div class="svc-step"><strong>Scope &amp; quote</strong><span>You get a fixed written scope and total price.</span></div>
+      <div class="svc-step"><strong>Build</strong><span>We build, write or design the agreed deliverable.</span></div>
+      <div class="svc-step"><strong>Revisions</strong><span>Edits at the per-revision rate on each card.</span></div>
+      <div class="svc-step"><strong>Launch</strong><span>Go live, publish or hand over the finished files.</span></div>
+    </div>
+  </section>
 
-let isDark = localStorage.getItem('theme') !== 'light';
-const applyTheme = () => {
-document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
-themeIcon.innerHTML = isDark ? sunIcon : moonIcon;
-localStorage.setItem('theme', isDark ? 'dark' : 'light');
-};
-applyTheme();
-themeToggle.addEventListener('click', () => { isDark = !isDark; applyTheme(); });
+  <section aria-labelledby="faqTitle" style="margin-top:46px">
+    <div class="svc-section-head">
+      <div>
+        <span class="svc-tag paid">Questions</span>
+        <h2 id="faqTitle" style="margin-top:10px">Before you get in touch</h2>
+      </div>
+    </div>
+    <div class="svc-faq">
+      <details>
+        <summary>What counts as an edit or revision?</summary>
+        <p>Any change requested after the first version is delivered: wording, images, colours, layout tweaks or a new version of a graphic. Each round is charged at the per-revision rate shown on that service. Grouping your feedback into one round keeps the cost down.</p>
+      </details>
+      <details>
+        <summary>Why is hosting only £40 a year?</summary>
+        <p>The sites we build are front-end only and hosted without a traditional server, so there is no monthly server bill to pass on. The annual fee covers the domain sourcing, deployment and ongoing management. Bigger builds are quoted separately because scope varies.</p>
+      </details>
+      <details>
+        <summary>Do you need my social media password?</summary>
+        <p>No. For management on your own channels we ask for an access grant or a page invite through the platform itself. You keep ownership and can remove access at any time.</p>
+      </details>
+      <details>
+        <summary>Are the free tools really free?</summary>
+        <p>Yes. The browser apps, tech news and digital strategy guidance are free for everyone. Digital Infohub is supported by advertising revenue, so you never need an account or a subscription to use them.</p>
+      </details>
+      <details>
+        <summary>Can I advertise without buying anything else?</summary>
+        <p>Yes. Website advertising is a standalone placement: £100 per year for a homepage sponsorship listing or a homepage banner ad. Tell us which format you want in the contact form.</p>
+      </details>
+    </div>
+  </section>
 
-// Mobile Menu Toggle - FIXED: Now runs after DOM is ready
-const hamburger = $('#hamburger');
-const mobileMenu = $('#mobileMenu');
-
-if (hamburger && mobileMenu) {
-hamburger.addEventListener('click', () => {
-const isOpen = mobileMenu.classList.toggle('active');
-hamburger.textContent = isOpen ? '×' : '☰';
-hamburger.setAttribute('aria-expanded', isOpen);
-});
-
-// Close mobile menu when clicking a link inside it
-$$('#mobileMenu .nav-link').forEach(link => {
-link.addEventListener('click', () => {
-mobileMenu.classList.remove('active');
-hamburger.textContent = '☰';
-hamburger.setAttribute('aria-expanded', 'false');
-});
-});
-}
-})();
-</script>
+  <section class="svc-cta" aria-labelledby="ctaTitle">
+    <div>
+      <h2 id="ctaTitle">Tell us what you need.</h2>
+      <p>Send a short brief and you'll get a scoped quote — or a pointer to the free resource that already solves it.</p>
+    </div>
+    <div class="svc-cta-actions">
+      <a class="dih-btn dih-btn-primary" href="/contact">Open the contact form →</a>
+      <a class="dih-btn dih-btn-ghost" href="mailto:services@digitalinfohub.net">Email us</a>
+    </div>
+  </section>
+</main>
 <!-- DIH:GALLERY -->
 <section class="dih-gallery" aria-labelledby="dihGalleryTitle">
   <div class="dih-gallery-head">
@@ -470,8 +545,8 @@ hamburger.setAttribute('aria-expanded', 'false');
       <a href="/blog">Blog</a>
       <a href="/techtopics">Guides</a>
       <a href="/software">Tools</a>
+      <a href="/contact">Contact</a>
       <a href="/sitemap.xml">Sitemap</a>
-      <a href="mailto:services@digitalinfohub.net">Contact</a>
     </nav>
   </div>
 </footer>

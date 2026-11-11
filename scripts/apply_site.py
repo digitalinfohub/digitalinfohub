@@ -88,9 +88,57 @@ PAGE_META = {
     },
     "services.html": {
         "kind": "services", "type": "website",
-        "title": "Services — AI Integration & Automation | Digital Infohub",
-        "desc": "Custom builds, workflow automation and AI integration for small businesses and independent teams.",
-        "keywords": "AI integration services, automation, custom software, digital infohub services",
+        "title": "Services & Pricing — Websites, Design and Ads | Digital Infohub",
+        "desc": "Clear pricing for website hosting, graphic design, social media, blog features and homepage advertising — plus the free tools and news open to everyone.",
+        "keywords": "website hosting price, graphic design pricing, social media marketing, advertise on tech site, digital infohub services",
+    },
+    "ascii-art.html": {
+        "kind": "software-detail", "type": "website",
+        "title": "Image to ASCII Art Converter — Free Browser Tool | Digital Infohub",
+        "desc": "Convert any photo into ASCII art in your browser. Adjust width, character set and contrast, then copy or download the text. Nothing is uploaded.",
+        "keywords": "image to ascii, ascii art generator, photo to text art, free browser tool",
+    },
+    "color-picker.html": {
+        "kind": "software-detail", "type": "website",
+        "title": "Hex Colour Picker — Shades, Harmonies & Contrast | Digital Infohub",
+        "desc": "Pick a colour and copy HEX, RGB, HSL or CMYK in one click. Explore shades, tints, harmonies and WCAG contrast. Free and offline.",
+        "keywords": "hex color picker, color converter, rgb to hex, hsl converter, contrast checker",
+    },
+    "task-timer.html": {
+        "kind": "software-detail", "type": "website",
+        "title": "Task Timer — Time-Box Your Work | Digital Infohub",
+        "desc": "Give each task a time box, start a countdown and get a sound when it ends. Saves on your device and works offline.",
+        "keywords": "task timer, countdown timer, time boxing, focus timer, free productivity tool",
+    },
+    "todo.html": {
+        "kind": "software-detail", "type": "website",
+        "title": "To-Do List App — Private and Instant | Digital Infohub",
+        "desc": "A fast to-do list that saves in your browser. Add, complete, filter and clear tasks with no account or sync.",
+        "keywords": "to do list, todo app, task list, free checklist, private todo",
+    },
+    "webp-to-png.html": {
+        "kind": "software-detail", "type": "website",
+        "title": "WebP to PNG Converter — Batch and Private | Digital Infohub",
+        "desc": "Convert WebP images to PNG in your browser. Batch conversion, previews and downloads without uploading a file.",
+        "keywords": "webp to png, convert webp, image converter, batch image conversion, free browser tool",
+    },
+    "qr-code-generator.html": {
+        "kind": "software-detail", "type": "website",
+        "title": "QR Code Generator — Free PNG Download | Digital Infohub",
+        "desc": "Create a QR code for any link or text, choose size and error correction, then download a sharp PNG. No signup.",
+        "keywords": "qr code generator, free qr code, qr code png, url qr code, make qr code",
+    },
+    "calendar.html": {
+        "kind": "software-detail", "type": "website",
+        "title": "Calendar App — Private Month Planner | Digital Infohub",
+        "desc": "A clean calendar that runs in your browser. Add events to any day, browse months and keep everything saved locally.",
+        "keywords": "calendar app, online calendar, month planner, event planner, private calendar",
+    },
+    "contact.html": {
+        "kind": "services", "type": "website",
+        "title": "Contact Digital Infohub | Enquiries and Support",
+        "desc": "Contact Digital Infohub about website hosting, design, social media, blog features, advertising or a free tool. Messages go straight to services@digitalinfohub.net.",
+        "keywords": "contact digital infohub, tech support, advertising enquiry, website hosting enquiry",
     },
     "advertise.html": {
         "kind": "advertise", "type": "website",
@@ -252,9 +300,14 @@ SHARE_COPY = {
         "keywords": "about digital infohub, independent tech publication, technology platform",
     },
     "services.html": {
-        "share_title": "Automation and AI integration for small teams",
-        "desc": "Custom builds, workflow automation and AI integration that remove repetitive work — scoped for small businesses and independent teams.",
-        "keywords": "AI integration services, automation, custom software, digital infohub services",
+        "share_title": "Services with the price on the page",
+        "desc": "Website hosting from £40/year, graphic design from £20, social media from £10/month and homepage advertising for £100/year — plus everything that stays free.",
+        "keywords": "website hosting price, graphic design pricing, social media marketing, advertise on tech site, digital infohub services",
+    },
+    "contact.html": {
+        "share_title": "Talk to Digital Infohub",
+        "desc": "Questions about a service, advertising or a free tool? Send a message straight to the Digital Infohub inbox.",
+        "keywords": "contact digital infohub, tech support, advertising enquiry",
     },
     "advertise.html": {
         "share_title": "Reach tech professionals who make buying decisions",

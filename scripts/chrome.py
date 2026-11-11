@@ -35,6 +35,7 @@ TARGETS = {
     "/services": ("🧰", "Services", "Automation, AI integration and custom builds."),
     "/advertise": ("📣", "Advertise", "Reach an audience of tech professionals and founders."),
     "/privacy-policy": ("🔒", "Privacy", "How Digital Infohub handles your data."),
+    "/contact": ("✉️", "Contact", "Questions about services, advertising or the site? Send a message."),
 }
 
 EXPLORE = {
@@ -133,6 +134,7 @@ def header_html(prefix: str = "") -> str:
       <a class="dih-drawer-link" href="/quiz">🎯 Tech Quiz</a>
       <a class="dih-drawer-link" href="/software#tools">⚡ Tools</a>
       <a class="dih-drawer-link" href="/services">🧰 Services</a>
+      <a class="dih-drawer-link" href="/contact">✉️ Contact</a>
     </div>
     <a class="dih-drawer-cta" href="/subscribe">✉️ Subscribe — weekly tech intel</a>
     <p class="dih-drawer-note">Digital Infohub · Tech for everyone, with a guide for every question.</p>
@@ -212,8 +214,8 @@ def footer_html() -> str:
       <a href="/blog">Blog</a>
       <a href="/techtopics">Guides</a>
       <a href="/software">Tools</a>
+      <a href="/contact">Contact</a>
       <a href="/sitemap.xml">Sitemap</a>
-      <a href="mailto:services@digitalinfohub.net">Contact</a>
     </nav>
   </div>
 </footer>

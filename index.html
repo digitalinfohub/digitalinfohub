@@ -448,6 +448,30 @@ html[data-theme="light"] .ask-form{background:rgba(255,255,255,.96)}
 .resume strong{display:block;font-size:13px;font-weight:650;line-height:1.35;margin-top:3px}
 .resume a{font-size:11.5px;font-weight:700;color:var(--dih-accent);text-decoration:none;white-space:nowrap}
 
+/* App / PWA install band */
+.pwa-band{
+  display:grid;grid-template-columns:minmax(0,1fr) 214px;gap:26px;align-items:center;
+  padding:28px 26px;border-radius:22px;border:1px solid rgba(76,141,255,.32);
+  background:radial-gradient(520px 260px at 0% 0%,rgba(76,141,255,.2),transparent 70%),radial-gradient(420px 240px at 100% 100%,rgba(139,92,246,.16),transparent 70%),var(--dih-surface);
+  position:relative;overflow:hidden;
+}
+.pwa-copy h2{margin:8px 0 7px;font-size:clamp(22px,3.4vw,32px);font-weight:850;letter-spacing:-.04em;line-height:1.12}
+.pwa-copy > p{margin:0;font-size:13px;line-height:1.65;color:var(--dih-text-sub);max-width:520px}
+.pwa-badges{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0 0}
+.pwa-badge{display:inline-flex;align-items:center;gap:5px;padding:5px 10px;border-radius:var(--dih-pill);border:1px solid var(--dih-border);background:var(--dih-surface-2);font-size:10px;font-weight:650;color:var(--dih-text-sub)}
+.pwa-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.pwa-hint{margin:10px 0 0;font-size:11px;line-height:1.55;color:var(--dih-text-muted)}
+.pwa-state{display:inline-flex;align-items:center;gap:5px;margin:8px 0 0;font-family:var(--dih-mono);font-size:9.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--dih-text-muted)}
+.pwa-state.ok{color:var(--dih-green)}
+.pwa-state::before{content:'';width:5px;height:5px;border-radius:50%;background:currentColor}
+.pwa-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin:16px 0 0;padding:0;list-style:none;max-width:640px}
+.pwa-steps li{display:flex;align-items:center;gap:7px;padding:8px 9px;border-radius:9px;border:1px dashed var(--dih-border-strong);font-size:10px;line-height:1.4;color:var(--dih-text-sub)}
+.pwa-steps b{display:flex;align-items:center;justify-content:center;width:17px;height:17px;flex-shrink:0;border-radius:50%;background:var(--dih-accent-soft);color:var(--dih-accent);font-family:var(--dih-mono);font-size:9px}
+.pwa-qr{display:flex;flex-direction:column;align-items:center;gap:7px;padding:12px;border-radius:16px;border:1px solid var(--dih-border);background:var(--dih-surface-2);text-align:center}
+.pwa-qr img{display:block;width:100%;height:auto;border-radius:10px;background:#fff;padding:7px}
+.pwa-qr span{font-size:11px;font-weight:700}
+.pwa-qr small{font-size:9.5px;line-height:1.45;color:var(--dih-text-muted)}
+
 @media(max-width:920px){
   .hero{padding-top:48px}
   .pulse-grid,.tool-grid,.guide-cards,.article-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -467,6 +491,13 @@ html[data-theme="light"] .ask-form{background:rgba(255,255,255,.96)}
   .hero-stat b{font-size:16px}
   .hero-stat span{font-size:9.5px}
   .hero-audience{display:none}
+  .pwa-band{grid-template-columns:1fr;gap:16px;padding:20px 16px}
+  .pwa-qr{flex-direction:row;align-items:center;text-align:left;gap:12px;padding:10px}
+  .pwa-qr img{width:104px;flex-shrink:0}
+  .pwa-qr span{font-size:10.5px}
+  .pwa-qr small{font-size:9px}
+  .pwa-steps{grid-template-columns:1fr;gap:5px}
+  .pwa-actions .dih-btn{flex:1;justify-content:center}
   .pulse-grid,.tool-grid,.guide-cards{grid-template-columns:1fr 1fr;gap:8px}
   .pulse-card{padding:12px;min-height:64px}
   .pulse-price{font-size:12px}
@@ -545,6 +576,7 @@ html[data-theme="light"] .ask-form{background:rgba(255,255,255,.96)}
       <a class="dih-drawer-link" href="/quiz">🎯 Tech Quiz</a>
       <a class="dih-drawer-link" href="/software#tools">⚡ Tools</a>
       <a class="dih-drawer-link" href="/services">🧰 Services</a>
+      <a class="dih-drawer-link" href="/contact">✉️ Contact</a>
     </div>
     <a class="dih-drawer-cta" href="/subscribe">✉️ Subscribe — weekly tech intel</a>
     <p class="dih-drawer-note">Digital Infohub · Tech for everyone, with a guide for every question.</p>
@@ -608,7 +640,7 @@ html[data-theme="light"] .ask-form{background:rgba(255,255,255,.96)}
 
       <div class="hero-stats">
         <div class="hero-stat"><b>30</b><span>Tech guides</span></div>
-        <div class="hero-stat"><b>12</b><span>Free tools</span></div>
+        <div class="hero-stat"><b>20</b><span>Free tools</span></div>
         <div class="hero-stat"><b>Daily</b><span>Market data</span></div>
         <div class="hero-stat"><b>0</b><span>Paywalls</span></div>
       </div>
@@ -617,6 +649,36 @@ html[data-theme="light"] .ask-form{background:rgba(255,255,255,.96)}
         <span>For the curious</span>
         <span>For students &amp; makers</span>
         <span>For builders &amp; pros</span>
+      </div>
+    </section>
+
+    <!-- Save to home screen / PWA -->
+    <section class="pwa-band" id="homeApp" aria-labelledby="pwaTitle">
+      <div class="pwa-copy">
+        <span class="dih-eyebrow"><span class="dih-dot"></span> Digital Infohub app</span>
+        <h2 id="pwaTitle">Save it to your home screen.</h2>
+        <p>Guides, free tools and live markets — one tap from your phone. No app store, no download. Installed, it opens full-screen like a native app and keeps working when the signal drops.</p>
+        <div class="pwa-badges">
+          <span class="pwa-badge">⚡ Opens instantly</span>
+          <span class="pwa-badge">📶 Works offline</span>
+          <span class="pwa-badge">🔒 No account needed</span>
+        </div>
+        <div class="pwa-actions">
+          <button class="dih-btn dih-btn-primary" id="pwaInstall" type="button">Install the app</button>
+          <a class="dih-btn dih-btn-ghost" href="#pwaHow">How it works</a>
+        </div>
+        <p class="pwa-hint" id="pwaHint">On iPhone: tap Share, then “Add to Home Screen”.</p>
+        <p class="pwa-state" id="pwaState">Works like a native app</p>
+        <ol class="pwa-steps" id="pwaHow">
+          <li><b>1</b> Open the site on your phone</li>
+          <li><b>2</b> Tap Share or the browser menu</li>
+          <li><b>3</b> Choose “Add to Home Screen”</li>
+        </ol>
+      </div>
+      <div class="pwa-qr">
+        <img src="/assets/pwa-qr.png" alt="QR code linking to Digital Infohub so you can install the app on your phone" width="214" height="214" loading="lazy" decoding="async">
+        <span>Scan with your phone camera</span>
+        <small>Opens digitalinfohub.net ready to add to your home screen.</small>
       </div>
     </section>
 
@@ -745,9 +807,9 @@ html[data-theme="light"] .ask-form{background:rgba(255,255,255,.96)}
         <div>
           <span class="dih-eyebrow">The toolbox</span>
           <h2 id="toolsTitle">Free tools, no signup</h2>
-          <p>Twelve utilities that run entirely in your browser. Bookmark the one you use daily.</p>
+          <p>Twenty utilities that run entirely in your browser. Bookmark the one you use daily.</p>
         </div>
-        <a class="dih-view-all" href="/software">All 12 tools <span>→</span></a>
+        <a class="dih-view-all" href="/software">All free tools <span>→</span></a>
       </div>
       <div class="tool-grid">
         <a class="tool-card" href="/software/infohubgpt"><span class="tool-icon">✨</span><strong>InfohubGPT</strong><span class="tool-desc">A fast AI assistant for research, drafting and analysis.</span><em>Open tool →</em></a>
@@ -986,8 +1048,8 @@ html[data-theme="light"] .ask-form{background:rgba(255,255,255,.96)}
       <a href="/blog">Blog</a>
       <a href="/techtopics">Guides</a>
       <a href="/software">Tools</a>
+      <a href="/contact">Contact</a>
       <a href="/sitemap.xml">Sitemap</a>
-      <a href="mailto:services@digitalinfohub.net">Contact</a>
     </nav>
   </div>
 </footer>
@@ -996,5 +1058,6 @@ html[data-theme="light"] .ask-form{background:rgba(255,255,255,.96)}
 <script src="/assets/site.js" defer></script>
 <script src="/assets/news.js" defer></script>
 <script src="/assets/home-app.js" defer></script>
+<script src="/assets/pwa.js" defer></script>
 </body>
 </html>

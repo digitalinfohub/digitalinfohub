@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-dih="">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>WebP to PNG Converter — Batch and Private | Digital Infohub</title>
+<meta name="description" content="Convert WebP images to PNG in your browser. Batch conversion, previews and downloads without uploading a file.">
+<style>
+.tp{width:100%;max-width:960px;margin:0 auto;padding:40px 22px 90px}
+.tp-head{max-width:720px;margin-bottom:22px}
+.tp-eyebrow{font-family:var(--dih-mono);font-size:10px;font-weight:750;letter-spacing:.12em;text-transform:uppercase;color:var(--dih-accent);display:inline-flex;gap:7px;align-items:center}
+.tp-head h1{margin:10px 0 10px;font-size:clamp(30px,5vw,46px);font-weight:860;letter-spacing:-.045em;line-height:1.06}
+.tp-head h1 span{background:linear-gradient(100deg,var(--dih-accent),var(--dih-accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.tp-head p{margin:0;color:var(--dih-text-sub);font-size:14px;line-height:1.7}
+.tp-panel{border:1px solid var(--dih-border);border-radius:18px;background:var(--dih-surface);padding:20px}
+.drop{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;min-height:180px;padding:22px;border:1.5px dashed var(--dih-border-strong);border-radius:14px;background:var(--dih-surface-2);text-align:center;cursor:pointer;transition:.2s}
+.drop:hover,.drop.over{border-color:var(--dih-accent);background:var(--dih-accent-soft)}
+.drop b{font-size:14px}.drop span{font-size:11.5px;color:var(--dih-text-muted);line-height:1.55}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 14px;border-radius:10px;border:1px solid var(--dih-border);background:var(--dih-surface-2);color:var(--dih-text);font:inherit;font-size:12px;font-weight:700;cursor:pointer;text-decoration:none;transition:.2s}
+.btn:hover{border-color:var(--dih-accent);color:var(--dih-accent)}
+.btn.primary{border-color:transparent;background:linear-gradient(125deg,var(--dih-accent),var(--dih-accent-2));color:#fff}
+.btn.primary:hover{filter:brightness(1.08);color:#fff}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.tp-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;align-items:center}
+.tp-status{font-size:11.5px;color:var(--dih-text-muted)}
+.files{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:16px}
+.file{display:flex;gap:11px;padding:11px;border-radius:12px;border:1px solid var(--dih-border);background:var(--dih-surface-2);align-items:center}
+.file img{width:64px;height:64px;object-fit:cover;border-radius:9px;background:var(--dih-surface-3);flex-shrink:0}
+.file-main{flex:1;min-width:0}
+.file-main strong{display:block;font-size:11.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.file-main span{display:block;font-family:var(--dih-mono);font-size:9.5px;color:var(--dih-text-muted);margin-top:3px;line-height:1.5}
+.file-main a{display:inline-block;margin-top:5px;font-size:10.5px;font-weight:700;color:var(--dih-accent);text-decoration:none}
+.file-main a:hover{text-decoration:underline}
+.file .ok{color:var(--dih-green)}
+.tp-note{margin:16px 0 0;font-size:11px;color:var(--dih-text-muted);line-height:1.65}
+.tp-tips{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:22px}
+.tip{padding:14px 15px;border-radius:12px;border:1px solid var(--dih-border);background:var(--dih-surface)}
+.tip strong{display:block;font-size:12px;margin-bottom:4px}.tip span{font-size:11.5px;line-height:1.55;color:var(--dih-text-muted)}
+@media(max-width:760px){.files{grid-template-columns:1fr}.tp-tips{grid-template-columns:1fr}}
+@media(max-width:640px){.tp{padding:26px 14px 70px}.tp-panel{padding:14px}.drop{min-height:150px}}
+</style>
+<!-- DIH:HEAD -->
+<script>try{var t=localStorage.getItem('dih_theme')||'dark';document.documentElement.setAttribute('data-theme',t);document.documentElement.setAttribute('data-dih','');}catch(e){document.documentElement.setAttribute('data-dih','');}</script>
+<meta name="theme-color" content="#07070c">
+<meta name="color-scheme" content="dark light">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="author" content="Digital Infohub">
+<meta name="keywords" content="webp to png, convert webp, image converter, batch image conversion, free browser tool">
+<link rel="canonical" href="https://digitalinfohub.net/software/webp-to-png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Digital Infohub">
+<meta property="og:title" content="WebP to PNG Converter — Batch and Private | Digital Infohub">
+<meta property="og:description" content="Convert WebP images to PNG in your browser. Batch conversion, previews and downloads without uploading a file.">
+<meta property="og:url" content="https://digitalinfohub.net/software/webp-to-png">
+<meta property="og:image" content="https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta property="og:image:secure_url" content="https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Glowing blue network lines and nodes forming a digital mesh">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="WebP to PNG Converter — Batch and Private | Digital Infohub">
+<meta name="twitter:description" content="Convert WebP images to PNG in your browser. Batch conversion, previews and downloads without uploading a file.">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta name="twitter:image:alt" content="Glowing blue network lines and nodes forming a digital mesh">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="icon" href="/assets/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://digitalinfohub.net/#organization","name":"Digital Infohub","url":"https://digitalinfohub.net/","logo":{"@type":"ImageObject","url":"https://digitalinfohub.net/assets/icon-512.png","width":512,"height":512},"description":"Independent technology publication for professionals: AI, markets, software and practical guides.","sameAs":[]},{"@type":"WebSite","@id":"https://digitalinfohub.net/#website","url":"https://digitalinfohub.net/","name":"Digital Infohub","publisher":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://digitalinfohub.net/blog?q={search_term_string}"},"query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://digitalinfohub.net/software/webp-to-png#webpage","url":"https://digitalinfohub.net/software/webp-to-png","name":"WebP to PNG Converter — Batch and Private | Digital Infohub","description":"Convert WebP images to PNG in your browser. Batch conversion, previews and downloads without uploading a file.","isPartOf":{"@id":"https://digitalinfohub.net/#website"},"about":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","primaryImageOfPage":{"@type":"ImageObject","url":"https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&h=630&fit=crop&auto=format&q=80&fm=jpg","width":1200,"height":630}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://digitalinfohub.net/"},{"@type":"ListItem","position":2,"name":"Software","item":"https://digitalinfohub.net/software"},{"@type":"ListItem","position":3,"name":"WebP to PNG Converter — Batch and Private","item":"https://digitalinfohub.net/software/webp-to-png"}]}]}</script>
+<!-- /DIH:HEAD -->
+</head>
+<body>
+<!-- DIH:AMBIENT -->
+<div class="dih-ambient" aria-hidden="true" style="--dih-ambient:url('https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1600&amp;h=900&amp;fit=crop&amp;auto=format&amp;q=45')"></div>
+<!-- /DIH:AMBIENT -->
+<!-- DIH:HEADER -->
+<header class="dih-header">
+  <div class="dih-header-inner">
+    <a class="dih-brand" href="/" aria-label="Digital Infohub home">
+      <img src="/assets/logo.png" alt="Digital Infohub logo" width="36" height="36">
+      <span class="dih-brand-text">Digital <b>Infohub</b></span>
+    </a>
+    <nav class="dih-nav" data-dih-nav aria-label="Primary navigation">
+      <a class="dih-link" href="/">Home</a>
+      <a class="dih-link" href="/digi">Digi</a>
+      <a class="dih-link" href="/blog">Blog</a>
+      <a class="dih-link" href="/techtopics">Tech Topics</a>
+      <a class="dih-link" href="/software">Software</a>
+      <a class="dih-link" href="/techproducts">Tech Products</a>
+      <a class="dih-link" href="/games">Games</a>
+      <a class="dih-link" href="/coincompass">Markets</a>
+    </nav>
+    <div class="dih-actions">
+      <a class="dih-tools" href="/software#tools" title="Free browser tools" aria-label="Free browser tools">⚡<span>Tools</span></a>
+      <button class="dih-icon" type="button" data-dih-theme aria-label="Switch theme" title="Switch theme">☀</button>
+      <a class="dih-cta" href="/subscribe">Subscribe</a>
+      <button class="dih-burger" id="dihBurger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="dihDrawer"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+<div class="dih-drawer" id="dihDrawer" aria-label="Site menu">
+  <div class="dih-drawer-panel">
+    <div class="dih-drawer-grid">
+      <a class="dih-drawer-link" href="/">Home</a>
+      <a class="dih-drawer-link" href="/digi">Digi</a>
+      <a class="dih-drawer-link" href="/blog">Blog</a>
+      <a class="dih-drawer-link" href="/techtopics">Tech Topics</a>
+      <a class="dih-drawer-link" href="/software">Software</a>
+      <a class="dih-drawer-link" href="/techproducts">Tech Products</a>
+      <a class="dih-drawer-link" href="/games">Games</a>
+      <a class="dih-drawer-link" href="/coincompass">Markets</a>
+    </div>
+    <div class="dih-drawer-sub">
+      <a class="dih-drawer-link" href="/news">📰 Tech News</a>
+      <a class="dih-drawer-link" href="/quiz">🎯 Tech Quiz</a>
+      <a class="dih-drawer-link" href="/software#tools">⚡ Tools</a>
+      <a class="dih-drawer-link" href="/services">🧰 Services</a>
+      <a class="dih-drawer-link" href="/contact">✉️ Contact</a>
+    </div>
+    <a class="dih-drawer-cta" href="/subscribe">✉️ Subscribe — weekly tech intel</a>
+    <p class="dih-drawer-note">Digital Infohub · Tech for everyone, with a guide for every question.</p>
+  </div>
+</div>
+<!-- /DIH:HEADER -->
+<main class="tp">
+  <header class="tp-head">
+    <span class="tp-eyebrow"><span class="dih-dot"></span> Free tool · runs locally</span>
+    <h1>WebP to <span>PNG.</span></h1>
+    <p>Convert WebP images into standard PNG files without uploading them anywhere. Everything is decoded and re-encoded in this tab.</p>
+  </header>
+  <section class="tp-panel">
+    <label class="drop" id="drop" for="files">
+      <b>Drop WebP images here</b>
+      <span>or click to choose files · multiple files supported<br>WebP, AVIF, JPG or PNG in — PNG out · nothing leaves your device</span>
+      <input id="files" type="file" accept="image/webp,image/avif,image/png,image/jpeg" multiple hidden>
+    </label>
+    <div class="tp-actions">
+      <button class="btn primary" id="downloadAll" type="button" disabled>Download all PNGs</button>
+      <button class="btn" id="clear" type="button" disabled>Clear list</button>
+      <span class="tp-status" id="status" aria-live="polite">No files yet.</span>
+    </div>
+    <div class="files" id="fileList"></div>
+    <p class="tp-note">PNG is lossless, so the converted file is often larger than the original WebP. That is expected — PNG is the safer format for editing, apps and older software that cannot open WebP.</p>
+  </section>
+  <div class="tp-tips">
+    <div class="tip"><strong>Why convert?</strong><span>Some apps, print workflows and older browsers still refuse WebP. PNG opens everywhere.</span></div>
+    <div class="tip"><strong>Lossless output</strong><span>Converting to PNG does not degrade the image again. Transparency is preserved.</span></div>
+    <div class="tip"><strong>Batch friendly</strong><span>Select a whole folder of images and download each result, or use download all.</span></div>
+  </div>
+</main>
+<script>
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var filesInput = $('files'), drop = $('drop'), list = $('fileList'), status = $('status');
+  var downloadAllBtn = $('downloadAll'), clearBtn = $('clear');
+  var results = [];
+
+  function human(bytes) {
+    if (!bytes && bytes !== 0) return '—';
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+    return (bytes / 1024 / 1024).toFixed(2) + ' MB';
+  }
+
+  function safeName(name) {
+    return name.replace(/\.[^.]+$/, '').replace(/[^a-z0-9-_]+/gi, '-').replace(/^-+|-+$/g, '').toLowerCase() || 'image';
+  }
+
+  function convertFile(file, index) {
+    return new Promise(function (resolve) {
+      if (!/^image\//.test(file.type)) { resolve(null); return; }
+      var url = URL.createObjectURL(file);
+      var img = new Image();
+      img.onload = function () {
+        var canvas = document.createElement('canvas');
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
+        var ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+        canvas.toBlob(function (blob) {
+          URL.revokeObjectURL(url);
+          if (!blob) { resolve(null); return; }
+          resolve({ file: file, blob: blob, url: URL.createObjectURL(blob), name: safeName(file.name) + '.png', index: index });
+        }, 'image/png');
+      };
+      img.onerror = function () {
+        URL.revokeObjectURL(url);
+        resolve(null);
+      };
+      img.src = url;
+    });
+  }
+
+  function render() {
+    list.innerHTML = '';
+    results.forEach(function (item, i) {
+      var row = document.createElement('div');
+      row.className = 'file';
+      row.innerHTML = '<img alt="">' +
+        '<div class="file-main"><strong></strong><span class="sizes"></span><a download>Download PNG ↓</a></div>';
+      row.querySelector('img').src = item.url;
+      row.querySelector('img').alt = item.file.name;
+      row.querySelector('strong').textContent = item.file.name;
+      row.querySelector('.sizes').innerHTML = human(item.file.size) + ' → <span class="ok">' + human(item.blob.size) + '</span>';
+      var link = row.querySelector('a');
+      link.href = item.url;
+      link.download = item.name;
+      list.appendChild(row);
+    });
+    var ready = results.length > 0;
+    downloadAllBtn.disabled = !ready;
+    clearBtn.disabled = !ready;
+    status.textContent = ready ? results.length + ' PNG file' + (results.length === 1 ? '' : 's') + ' ready' : 'No files yet.';
+  }
+
+  function handleFiles(fileList) {
+    var picked = Array.prototype.slice.call(fileList || []);
+    if (!picked.length) return;
+    status.textContent = 'Converting ' + picked.length + ' file' + (picked.length === 1 ? '' : 's') + '…';
+    Promise.all(picked.map(convertFile)).then(function (rows) {
+      var good = rows.filter(Boolean);
+      var failed = picked.length - good.length;
+      results = results.concat(good);
+      render();
+      if (failed) status.textContent = results.length + ' converted · ' + failed + ' could not be read';
+    });
+  }
+
+  drop.addEventListener('click', function (e) { if (e.target.tagName !== 'INPUT') filesInput.click(); });
+  filesInput.addEventListener('change', function () { handleFiles(filesInput.files); filesInput.value = ''; });
+  ['dragenter', 'dragover'].forEach(function (ev) {
+    drop.addEventListener(ev, function (e) { e.preventDefault(); drop.classList.add('over'); });
+  });
+  ['dragleave', 'drop'].forEach(function (ev) {
+    drop.addEventListener(ev, function (e) { e.preventDefault(); drop.classList.remove('over'); });
+  });
+  drop.addEventListener('drop', function (e) {
+    if (e.dataTransfer.files && e.dataTransfer.files.length) handleFiles(e.dataTransfer.files);
+  });
+
+  downloadAllBtn.addEventListener('click', function () {
+    results.forEach(function (item, i) {
+      setTimeout(function () {
+        var a = document.createElement('a');
+        a.href = item.url;
+        a.download = item.name;
+        document.body.appendChild(a); a.click(); a.remove();
+      }, i * 220);
+    });
+  });
+  clearBtn.addEventListener('click', function () {
+    results.forEach(function (item) { URL.revokeObjectURL(item.url); });
+    results = [];
+    render();
+  });
+})();
+</script>
+<!-- DIH:GALLERY -->
+<section class="dih-gallery" aria-labelledby="dihGalleryTitle">
+  <div class="dih-gallery-head">
+    <div>
+      <span class="dih-gallery-eyebrow">Visual briefing</span>
+      <h2 id="dihGalleryTitle">Technology, in focus</h2>
+      <p>Fast context on the ideas shaping the industry, with a guide for every one.</p>
+    </div>
+    <a class="dih-gallery-all" href="/techtopics">All 30 tech guides <span aria-hidden="true">&rarr;</span></a>
+  </div>
+  <div class="dih-gallery-grid">
+      <a class="dih-gallery-card" href="/3dprinting">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1649406458887-2b6561c36a4d?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=72" alt="Wireframe lightbulb glowing against a dark background" width="800" height="500" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">3D printing</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>From idea to prototype</strong>
+          <span>Additive manufacturing turns a CAD file into a physical part in hours. It is best for complex geometry, small batches and parts that would be costly to machine.</span>
+          <em>Read the 3D printing guide &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/software">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1483058712412-4245e9b90334?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=72" alt="Mac computer on a desk with the words Do More on screen" width="800" height="500" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Software</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Tools for deep work</strong>
+          <span>The best productivity tools disappear into a routine. Pick a small set, learn their shortcuts and stop rebuilding your system every month.</span>
+          <em>Browse free tools &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/virtualreality">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=72" alt="Person wearing a virtual reality headset in blue light" width="800" height="500" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">VR &amp; AR</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>The next interface</strong>
+          <span>VR and AR are finding real work in training, design review and simulation. The hardware is improving faster than the comfort and content problems.</span>
+          <em>Read the VR guide &rarr;</em>
+        </span>
+      </a>
+  </div>
+  <p class="dih-gallery-credit">Photography by Unsplash contributors. Cards link to related Digital Infohub guides.</p>
+</section>
+<!-- /DIH:GALLERY -->
+<!-- DIH:EXPLORE -->
+<section class="dih-explore" aria-labelledby="dihExploreTitle">
+  <div class="dih-explore-head">
+    <h2 id="dihExploreTitle">More from the software suite</h2>
+    <p>Every tool in the suite is free and runs in your browser.</p>
+  </div>
+  <div class="dih-explore-grid">
+      <a class="dih-explore-card" href="/software">
+        <span class="dih-explore-icon" aria-hidden="true">🛠️</span>
+        <strong>Software &amp; tools</strong>
+        <span>Free AI assistants and browser utilities that run locally.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/blog">
+        <span class="dih-explore-icon" aria-hidden="true">📝</span>
+        <strong>Blog &amp; analysis</strong>
+        <span>Deep dives on AI, hardware, markets and digital culture.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/techtopics">
+        <span class="dih-explore-icon" aria-hidden="true">🔬</span>
+        <strong>Tech Topics</strong>
+        <span>Plain-language guides to the technology shaping business.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/games">
+        <span class="dih-explore-icon" aria-hidden="true">🎮</span>
+        <strong>Pixel Palace</strong>
+        <span>Free arcade games, playable on desktop and mobile.</span>
+        <em>Explore →</em>
+      </a>
+  </div>
+</section>
+<!-- /DIH:EXPLORE -->
+<!-- DIH:FOOTER -->
+<footer class="dih-footer">
+  <div class="dih-footer-inner">
+    <div class="dih-footer-brand">
+      <a class="dih-brand" href="/" aria-label="Digital Infohub home">
+        <img src="/assets/logo.png" alt="Digital Infohub logo" width="40" height="40">
+        <span class="dih-brand-text">Digital <b>Infohub</b></span>
+      </a>
+      <p>The independent tech hub for everyone: AI research, market moves, practical guides, free tools and Digi, your AI guide.</p>
+      <span class="dih-pill"><span class="dih-dot"></span> Updated daily</span>
+    </div>
+    <div class="dih-footer-col">
+      <h3>Explore</h3>
+      <a href="/blog">Blog &amp; analysis</a>
+      <a href="/techtopics">Tech Topics</a>
+      <a href="/software">Software &amp; tools</a>
+      <a href="/techproducts">Tech Products</a>
+      <a href="/games">Pixel Palace</a>
+      <a href="/digi">Digi AI guide</a>
+      <a href="/news">Live tech news</a>
+      <a href="/quiz">Tech quiz</a>
+    </div>
+    <div class="dih-footer-col">
+      <h3>Company</h3>
+      <a href="/about">About</a>
+      <a href="/services">Services</a>
+      <a href="/advertise">Advertise</a>
+      <a href="/coincompass">CoinCompass</a>
+      <a href="/privacy-policy">Privacy</a>
+    </div>
+    <div class="dih-footer-col dih-footer-cta">
+      <h3>Stay ahead</h3>
+      <p>One email a week: the AI, market and software stories that actually matter.</p>
+      <a class="dih-btn dih-btn-primary" href="/subscribe">Subscribe free</a>
+    </div>
+  </div>
+  <div class="dih-footer-bottom">
+    <span>© 2026 Digital Infohub · Independent technology publication</span>
+    <nav aria-label="Footer links">
+      <a href="/blog">Blog</a>
+      <a href="/techtopics">Guides</a>
+      <a href="/software">Tools</a>
+      <a href="/contact">Contact</a>
+      <a href="/sitemap.xml">Sitemap</a>
+    </nav>
+  </div>
+</footer>
+<!-- /DIH:FOOTER -->
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

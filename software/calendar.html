@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-dih="">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Calendar App — Private Month Planner | Digital Infohub</title>
+<meta name="description" content="A clean calendar that runs in your browser. Add events to any day, browse months and keep everything saved locally.">
+<style>
+.tp{width:100%;max-width:1040px;margin:0 auto;padding:40px 22px 90px}
+.tp-head{max-width:720px;margin-bottom:22px}
+.tp-eyebrow{font-family:var(--dih-mono);font-size:10px;font-weight:750;letter-spacing:.12em;text-transform:uppercase;color:var(--dih-accent);display:inline-flex;gap:7px;align-items:center}
+.tp-head h1{margin:10px 0 10px;font-size:clamp(30px,5vw,46px);font-weight:860;letter-spacing:-.045em;line-height:1.06}
+.tp-head h1 span{background:linear-gradient(100deg,var(--dih-accent),var(--dih-accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.tp-head p{margin:0;color:var(--dih-text-sub);font-size:14px;line-height:1.7}
+.cal-layout{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:16px;align-items:start}
+.tp-panel{border:1px solid var(--dih-border);border-radius:18px;background:var(--dih-surface);padding:18px}
+.cal-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.cal-title{font-size:18px;font-weight:800;letter-spacing:-.03em;margin:0}
+.cal-nav{display:flex;gap:5px;align-items:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:8px 12px;border-radius:9px;border:1px solid var(--dih-border);background:var(--dih-surface-2);color:var(--dih-text);font:inherit;font-size:11.5px;font-weight:700;cursor:pointer;transition:.2s}
+.btn:hover{border-color:var(--dih-accent);color:var(--dih-accent)}
+.btn.primary{border-color:transparent;background:linear-gradient(125deg,var(--dih-accent),var(--dih-accent-2));color:#fff}
+.btn.primary:hover{filter:brightness(1.08);color:#fff}
+.cal-nav .btn{width:34px;padding:8px 0}
+.cal-weekdays{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:4px}
+.cal-weekdays span{text-align:center;font-family:var(--dih-mono);font-size:9px;letter-spacing:.05em;text-transform:uppercase;color:var(--dih-text-muted);padding:4px 0}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.cal-day{position:relative;min-height:62px;padding:6px 7px;border-radius:9px;border:1px solid transparent;background:var(--dih-surface-2);cursor:pointer;text-align:left;font:inherit;color:var(--dih-text);transition:.16s;display:flex;flex-direction:column;gap:3px;align-items:flex-start}
+.cal-day:hover{border-color:rgba(76,141,255,.4)}
+.cal-day.other{opacity:.35}
+.cal-day.today{border-color:rgba(76,141,255,.5)}
+.cal-day.selected{border-color:var(--dih-accent);background:var(--dih-accent-soft);box-shadow:0 0 0 1px var(--dih-accent) inset}
+.cal-num{font-family:var(--dih-mono);font-size:11px;font-weight:700}
+.cal-day.today .cal-num{color:var(--dih-accent)}
+.cal-dots{display:flex;gap:3px;flex-wrap:wrap;margin-top:auto}
+.cal-dots i{width:5px;height:5px;border-radius:50%;background:var(--dih-accent)}
+.cal-count{font-size:9px;color:var(--dih-text-muted)}
+.cal-side .tp-panel{padding:16px}
+.cal-side h2{margin:0 0 3px;font-size:14px;font-weight:750}
+.cal-side .sub{font-size:11px;color:var(--dih-text-muted);margin:0 0 13px}
+.ev-form{display:flex;flex-direction:column;gap:7px;margin-bottom:14px}
+.ev-form input{padding:9px 11px;border-radius:9px;border:1px solid var(--dih-border);background:var(--dih-surface-2);color:var(--dih-text);font:inherit;font-size:12.5px;outline:none;min-width:0}
+.ev-form input:focus{border-color:var(--dih-accent);box-shadow:0 0 0 3px var(--dih-accent-soft)}
+.ev-form .row{display:flex;gap:7px}
+.ev-form .row input[type=time]{flex:0 0 105px}
+.ev-form .row input[type=text]{flex:1}
+.ev-list{display:flex;flex-direction:column;gap:6px;max-height:300px;overflow:auto}
+.ev{display:flex;gap:9px;align-items:flex-start;padding:9px 10px;border-radius:9px;border:1px solid var(--dih-border);background:var(--dih-surface-2);font-size:12px;line-height:1.45}
+.ev time{font-family:var(--dih-mono);font-size:10px;color:var(--dih-accent);flex-shrink:0;padding-top:1px}
+.ev span{flex:1;min-width:0;word-break:break-word}
+.ev button{width:22px;height:22px;border:0;border-radius:6px;background:transparent;color:var(--dih-text-muted);cursor:pointer;flex-shrink:0;font-size:11px}
+.ev button:hover{background:rgba(251,113,133,.12);color:var(--dih-red)}
+.ev-empty{padding:14px 6px;text-align:center;color:var(--dih-text-muted);font-size:11.5px;line-height:1.6}
+.cal-note{margin:12px 0 0;font-size:10.5px;color:var(--dih-text-muted);line-height:1.6}
+@media(max-width:860px){.cal-layout{grid-template-columns:1fr}.cal-side{order:2}}
+@media(max-width:640px){
+  .tp{padding:26px 14px 70px}.tp-panel{padding:12px}
+  .cal-day{min-height:48px;padding:4px 5px}.cal-num{font-size:10px}.cal-dots i{width:4px;height:4px}
+  .cal-title{font-size:16px}.cal-count{display:none}
+}
+</style>
+<!-- DIH:HEAD -->
+<script>try{var t=localStorage.getItem('dih_theme')||'dark';document.documentElement.setAttribute('data-theme',t);document.documentElement.setAttribute('data-dih','');}catch(e){document.documentElement.setAttribute('data-dih','');}</script>
+<meta name="theme-color" content="#07070c">
+<meta name="color-scheme" content="dark light">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="author" content="Digital Infohub">
+<meta name="keywords" content="calendar app, online calendar, month planner, event planner, private calendar">
+<link rel="canonical" href="https://digitalinfohub.net/software/calendar">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Digital Infohub">
+<meta property="og:title" content="Calendar App — Private Month Planner | Digital Infohub">
+<meta property="og:description" content="A clean calendar that runs in your browser. Add events to any day, browse months and keep everything saved locally.">
+<meta property="og:url" content="https://digitalinfohub.net/software/calendar">
+<meta property="og:image" content="https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta property="og:image:secure_url" content="https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Glowing blue network lines and nodes forming a digital mesh">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Calendar App — Private Month Planner | Digital Infohub">
+<meta name="twitter:description" content="A clean calendar that runs in your browser. Add events to any day, browse months and keep everything saved locally.">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta name="twitter:image:alt" content="Glowing blue network lines and nodes forming a digital mesh">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="icon" href="/assets/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://digitalinfohub.net/#organization","name":"Digital Infohub","url":"https://digitalinfohub.net/","logo":{"@type":"ImageObject","url":"https://digitalinfohub.net/assets/icon-512.png","width":512,"height":512},"description":"Independent technology publication for professionals: AI, markets, software and practical guides.","sameAs":[]},{"@type":"WebSite","@id":"https://digitalinfohub.net/#website","url":"https://digitalinfohub.net/","name":"Digital Infohub","publisher":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://digitalinfohub.net/blog?q={search_term_string}"},"query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://digitalinfohub.net/software/calendar#webpage","url":"https://digitalinfohub.net/software/calendar","name":"Calendar App — Private Month Planner | Digital Infohub","description":"A clean calendar that runs in your browser. Add events to any day, browse months and keep everything saved locally.","isPartOf":{"@id":"https://digitalinfohub.net/#website"},"about":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","primaryImageOfPage":{"@type":"ImageObject","url":"https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&h=630&fit=crop&auto=format&q=80&fm=jpg","width":1200,"height":630}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://digitalinfohub.net/"},{"@type":"ListItem","position":2,"name":"Software","item":"https://digitalinfohub.net/software"},{"@type":"ListItem","position":3,"name":"Calendar App — Private Month Planner","item":"https://digitalinfohub.net/software/calendar"}]}]}</script>
+<!-- /DIH:HEAD -->
+</head>
+<body>
+<!-- DIH:AMBIENT -->
+<div class="dih-ambient" aria-hidden="true" style="--dih-ambient:url('https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1600&amp;h=900&amp;fit=crop&amp;auto=format&amp;q=45')"></div>
+<!-- /DIH:AMBIENT -->
+<!-- DIH:HEADER -->
+<header class="dih-header">
+  <div class="dih-header-inner">
+    <a class="dih-brand" href="/" aria-label="Digital Infohub home">
+      <img src="/assets/logo.png" alt="Digital Infohub logo" width="36" height="36">
+      <span class="dih-brand-text">Digital <b>Infohub</b></span>
+    </a>
+    <nav class="dih-nav" data-dih-nav aria-label="Primary navigation">
+      <a class="dih-link" href="/">Home</a>
+      <a class="dih-link" href="/digi">Digi</a>
+      <a class="dih-link" href="/blog">Blog</a>
+      <a class="dih-link" href="/techtopics">Tech Topics</a>
+      <a class="dih-link" href="/software">Software</a>
+      <a class="dih-link" href="/techproducts">Tech Products</a>
+      <a class="dih-link" href="/games">Games</a>
+      <a class="dih-link" href="/coincompass">Markets</a>
+    </nav>
+    <div class="dih-actions">
+      <a class="dih-tools" href="/software#tools" title="Free browser tools" aria-label="Free browser tools">⚡<span>Tools</span></a>
+      <button class="dih-icon" type="button" data-dih-theme aria-label="Switch theme" title="Switch theme">☀</button>
+      <a class="dih-cta" href="/subscribe">Subscribe</a>
+      <button class="dih-burger" id="dihBurger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="dihDrawer"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+<div class="dih-drawer" id="dihDrawer" aria-label="Site menu">
+  <div class="dih-drawer-panel">
+    <div class="dih-drawer-grid">
+      <a class="dih-drawer-link" href="/">Home</a>
+      <a class="dih-drawer-link" href="/digi">Digi</a>
+      <a class="dih-drawer-link" href="/blog">Blog</a>
+      <a class="dih-drawer-link" href="/techtopics">Tech Topics</a>
+      <a class="dih-drawer-link" href="/software">Software</a>
+      <a class="dih-drawer-link" href="/techproducts">Tech Products</a>
+      <a class="dih-drawer-link" href="/games">Games</a>
+      <a class="dih-drawer-link" href="/coincompass">Markets</a>
+    </div>
+    <div class="dih-drawer-sub">
+      <a class="dih-drawer-link" href="/news">📰 Tech News</a>
+      <a class="dih-drawer-link" href="/quiz">🎯 Tech Quiz</a>
+      <a class="dih-drawer-link" href="/software#tools">⚡ Tools</a>
+      <a class="dih-drawer-link" href="/services">🧰 Services</a>
+      <a class="dih-drawer-link" href="/contact">✉️ Contact</a>
+    </div>
+    <a class="dih-drawer-cta" href="/subscribe">✉️ Subscribe — weekly tech intel</a>
+    <p class="dih-drawer-note">Digital Infohub · Tech for everyone, with a guide for every question.</p>
+  </div>
+</div>
+<!-- /DIH:HEADER -->
+<main class="tp">
+  <header class="tp-head">
+    <span class="tp-eyebrow"><span class="dih-dot"></span> Free tool · saves on this device</span>
+    <h1>Calendar <span>that stays yours.</span></h1>
+    <p>Plan the month and add events to any day. No sign-in, no calendar sync request, no data leaving your browser.</p>
+  </header>
+  <div class="cal-layout">
+    <section class="tp-panel" aria-labelledby="calTitle">
+      <div class="cal-head">
+        <h2 class="cal-title" id="calTitle">Month</h2>
+        <div class="cal-nav">
+          <button class="btn" type="button" id="prev" aria-label="Previous month">‹</button>
+          <button class="btn" type="button" id="todayBtn">Today</button>
+          <button class="btn" type="button" id="next" aria-label="Next month">›</button>
+        </div>
+      </div>
+      <div class="cal-weekdays" aria-hidden="true"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
+      <div class="cal-grid" id="grid" role="grid" aria-label="Calendar days"></div>
+    </section>
+
+    <aside class="cal-side">
+      <div class="tp-panel">
+        <h2 id="dayTitle">Today</h2>
+        <p class="sub" id="daySub">Select a day to add an event.</p>
+        <form class="ev-form" id="eventForm">
+          <div class="row">
+            <input id="evTime" type="time" value="09:00" aria-label="Event time">
+            <input id="evTitle" type="text" placeholder="Event title" maxlength="80" required aria-label="Event title">
+          </div>
+          <button class="btn primary" type="submit">Add event</button>
+        </form>
+        <div class="ev-list" id="eventList"></div>
+        <p class="cal-note">Events are saved locally in this browser. Use the same browser and device to see them again.</p>
+      </div>
+    </aside>
+  </div>
+</main>
+<script>
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var KEY = 'dih_calendar_v1';
+  var MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var today = new Date();
+  var view = new Date(today.getFullYear(), today.getMonth(), 1);
+  var selected = iso(today);
+  var events = {};
+  try { events = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { events = {}; }
+
+  function iso(d) {
+    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+  }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(events)); } catch (e) {} }
+  function dayLabel(key) {
+    var p = key.split('-');
+    var d = new Date(Number(p[0]), Number(p[1]) - 1, Number(p[2]));
+    return d.toLocaleDateString(undefined, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+  }
+
+  function render() {
+    $('calTitle').textContent = MONTHS[view.getMonth()] + ' ' + view.getFullYear();
+    var grid = $('grid');
+    grid.innerHTML = '';
+    var first = new Date(view.getFullYear(), view.getMonth(), 1);
+    var offset = (first.getDay() + 6) % 7; // Monday-first
+    var start = new Date(first);
+    start.setDate(first.getDate() - offset);
+    var todayKey = iso(today);
+
+    for (var i = 0; i < 42; i++) {
+      var d = new Date(start);
+      d.setDate(start.getDate() + i);
+      var key = iso(d);
+      var inMonth = d.getMonth() === view.getMonth();
+      var count = (events[key] || []).length;
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'cal-day' + (inMonth ? '' : ' other') + (key === todayKey ? ' today' : '') + (key === selected ? ' selected' : '');
+      btn.setAttribute('role', 'gridcell');
+      btn.setAttribute('aria-label', dayLabel(key) + (count ? ', ' + count + ' events' : ''));
+      var dots = '';
+      for (var j = 0; j < Math.min(count, 4); j++) dots += '<i></i>';
+      btn.innerHTML = '<span class="cal-num">' + d.getDate() + '</span>' +
+        (count ? '<span class="cal-dots">' + dots + '</span><span class="cal-count">' + count + '</span>' : '');
+      btn.addEventListener('click', (function (k, dateObj) {
+        return function () {
+          selected = k;
+          if (dateObj.getMonth() !== view.getMonth()) {
+            view = new Date(dateObj.getFullYear(), dateObj.getMonth(), 1);
+          }
+          render();
+        };
+      })(key, new Date(d)));
+      grid.appendChild(btn);
+    }
+    renderDay();
+  }
+
+  function renderDay() {
+    $('dayTitle').textContent = selected === iso(today) ? 'Today' : dayLabel(selected).split(',')[0];
+    $('daySub').textContent = dayLabel(selected);
+    var list = $('eventList');
+    list.innerHTML = '';
+    var items = (events[selected] || []).slice().sort(function (a, b) { return (a.time || '').localeCompare(b.time || ''); });
+    if (!items.length) {
+      list.innerHTML = '<div class="ev-empty">No events yet. Add one above.</div>';
+      return;
+    }
+    items.forEach(function (item) {
+      var row = document.createElement('div');
+      row.className = 'ev';
+      row.innerHTML = '<time></time><span></span><button type="button" aria-label="Delete event">✕</button>';
+      row.querySelector('time').textContent = item.time || '—';
+      row.querySelector('span').textContent = item.title;
+      row.querySelector('button').addEventListener('click', function () {
+        events[selected] = (events[selected] || []).filter(function (ev) { return ev.id !== item.id; });
+        if (!events[selected].length) delete events[selected];
+        save(); render();
+      });
+      list.appendChild(row);
+    });
+  }
+
+  $('eventForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var title = $('evTitle').value.trim();
+    if (!title) return;
+    if (!events[selected]) events[selected] = [];
+    events[selected].push({ id: 'e' + Date.now(), time: $('evTime').value, title: title });
+    $('evTitle').value = '';
+    save(); render();
+  });
+  $('prev').addEventListener('click', function () { view = new Date(view.getFullYear(), view.getMonth() - 1, 1); render(); });
+  $('next').addEventListener('click', function () { view = new Date(view.getFullYear(), view.getMonth() + 1, 1); render(); });
+  $('todayBtn').addEventListener('click', function () {
+    view = new Date(today.getFullYear(), today.getMonth(), 1);
+    selected = iso(today);
+    render();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.target.matches('input, textarea')) return;
+    if (e.key === 'ArrowLeft') { view = new Date(view.getFullYear(), view.getMonth() - 1, 1); render(); }
+    if (e.key === 'ArrowRight') { view = new Date(view.getFullYear(), view.getMonth() + 1, 1); render(); }
+  });
+
+  render();
+})();
+</script>
+<!-- DIH:GALLERY -->
+<section class="dih-gallery" aria-labelledby="dihGalleryTitle">
+  <div class="dih-gallery-head">
+    <div>
+      <span class="dih-gallery-eyebrow">Visual briefing</span>
+      <h2 id="dihGalleryTitle">Technology, in focus</h2>
+      <p>Fast context on the ideas shaping the industry, with a guide for every one.</p>
+    </div>
+    <a class="dih-gallery-all" href="/techtopics">All 30 tech guides <span aria-hidden="true">&rarr;</span></a>
+  </div>
+  <div class="dih-gallery-grid">
+      <a class="dih-gallery-card" href="/artificialintelligence">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=72" alt="Glowing digital brain made of blue and violet neural connections" width="800" height="500" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Artificial intelligence</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Inside the AI brain</strong>
+          <span>Large models learn statistical patterns from enormous text corpora. They can draft, summarise and reason usefully, but they still need verification where mistakes are expensive.</span>
+          <em>Read the AI guide &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/edgecomputing">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1663895064411-fff0ab8a9797?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=72" alt="Blue and violet abstract technology shapes with depth" width="800" height="500" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Edge computing</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Designed for the edge</strong>
+          <span>Processing data near the device cuts round trips and bandwidth bills. It also creates a fleet of small systems that must be updated and secured remotely.</span>
+          <em>Read the edge guide &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/techproducts">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1614624532983-4ce03382d63d?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=72" alt="Clean desktop workspace with monitor, keyboard and warm lighting" width="800" height="500" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Productivity</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>The productive desk</strong>
+          <span>A good desk setup removes friction: one cable, one screen, one place for everything. The same principle applies to the software you use every day.</span>
+          <em>Build a better setup &rarr;</em>
+        </span>
+      </a>
+  </div>
+  <p class="dih-gallery-credit">Photography by Unsplash contributors. Cards link to related Digital Infohub guides.</p>
+</section>
+<!-- /DIH:GALLERY -->
+<!-- DIH:EXPLORE -->
+<section class="dih-explore" aria-labelledby="dihExploreTitle">
+  <div class="dih-explore-head">
+    <h2 id="dihExploreTitle">More from the software suite</h2>
+    <p>Every tool in the suite is free and runs in your browser.</p>
+  </div>
+  <div class="dih-explore-grid">
+      <a class="dih-explore-card" href="/software">
+        <span class="dih-explore-icon" aria-hidden="true">🛠️</span>
+        <strong>Software &amp; tools</strong>
+        <span>Free AI assistants and browser utilities that run locally.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/blog">
+        <span class="dih-explore-icon" aria-hidden="true">📝</span>
+        <strong>Blog &amp; analysis</strong>
+        <span>Deep dives on AI, hardware, markets and digital culture.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/techtopics">
+        <span class="dih-explore-icon" aria-hidden="true">🔬</span>
+        <strong>Tech Topics</strong>
+        <span>Plain-language guides to the technology shaping business.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/games">
+        <span class="dih-explore-icon" aria-hidden="true">🎮</span>
+        <strong>Pixel Palace</strong>
+        <span>Free arcade games, playable on desktop and mobile.</span>
+        <em>Explore →</em>
+      </a>
+  </div>
+</section>
+<!-- /DIH:EXPLORE -->
+<!-- DIH:FOOTER -->
+<footer class="dih-footer">
+  <div class="dih-footer-inner">
+    <div class="dih-footer-brand">
+      <a class="dih-brand" href="/" aria-label="Digital Infohub home">
+        <img src="/assets/logo.png" alt="Digital Infohub logo" width="40" height="40">
+        <span class="dih-brand-text">Digital <b>Infohub</b></span>
+      </a>
+      <p>The independent tech hub for everyone: AI research, market moves, practical guides, free tools and Digi, your AI guide.</p>
+      <span class="dih-pill"><span class="dih-dot"></span> Updated daily</span>
+    </div>
+    <div class="dih-footer-col">
+      <h3>Explore</h3>
+      <a href="/blog">Blog &amp; analysis</a>
+      <a href="/techtopics">Tech Topics</a>
+      <a href="/software">Software &amp; tools</a>
+      <a href="/techproducts">Tech Products</a>
+      <a href="/games">Pixel Palace</a>
+      <a href="/digi">Digi AI guide</a>
+      <a href="/news">Live tech news</a>
+      <a href="/quiz">Tech quiz</a>
+    </div>
+    <div class="dih-footer-col">
+      <h3>Company</h3>
+      <a href="/about">About</a>
+      <a href="/services">Services</a>
+      <a href="/advertise">Advertise</a>
+      <a href="/coincompass">CoinCompass</a>
+      <a href="/privacy-policy">Privacy</a>
+    </div>
+    <div class="dih-footer-col dih-footer-cta">
+      <h3>Stay ahead</h3>
+      <p>One email a week: the AI, market and software stories that actually matter.</p>
+      <a class="dih-btn dih-btn-primary" href="/subscribe">Subscribe free</a>
+    </div>
+  </div>
+  <div class="dih-footer-bottom">
+    <span>© 2026 Digital Infohub · Independent technology publication</span>
+    <nav aria-label="Footer links">
+      <a href="/blog">Blog</a>
+      <a href="/techtopics">Guides</a>
+      <a href="/software">Tools</a>
+      <a href="/contact">Contact</a>
+      <a href="/sitemap.xml">Sitemap</a>
+    </nav>
+  </div>
+</footer>
+<!-- /DIH:FOOTER -->
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

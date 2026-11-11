@@ -367,7 +367,8 @@
       background: var(--surface-2);
     }
     .month-folder.open .folder-content {
-      max-height: 2000px;
+      max-height: none;
+      overflow: visible;
     }
 
     .folder-grid {
@@ -762,6 +763,12 @@
     }
     .chat-send:hover { transform: scale(1.1); }
 
+    /* Shared header already provides navigation: hide the legacy duplicate chrome. */
+    .shell > .nav-shell,
+    .shell > .topbar,
+    .shell > .blog-footer { display: none; }
+    .ambient-glow { display: none; }
+
     /* ═══ RESPONSIVE ═══ */
     @media (max-width: 850px) {
       .shell { padding: 20px 16px 60px; }
@@ -770,11 +777,22 @@
       .nav-links { display: none; }
       .search-wrapper { display: none; }
       .hamburger { display: flex; }
+      .shell { padding: 25px 14px 60px; max-width: 100%; }
       .folder-grid { 
-        grid-template-columns: 1fr; 
-        gap: 16px; 
-        padding: 16px;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 18px;
+        padding: 14px 12px;
       }
+      .folder-grid.single-item .blog-card { max-width: 100%; }
+      .card-image { aspect-ratio: 16 / 10; }
+      .card-content { padding: 16px; }
+      .card-title { font-size: 16.5px; }
+      .card-excerpt { font-size: 13px; margin-bottom: 14px; }
+      .folder-header { padding: 16px 14px; }
+      .folder-name { font-size: 16px; }
+      .blog-header { padding: 26px 4px; }
+      .blog-header h1 { font-size: 30px; }
+      .blog-header p { font-size: 13.5px; }
       .blog-header {
         padding: 30px 16px;
       }
@@ -874,6 +892,7 @@
       <a class="dih-drawer-link" href="/quiz">🎯 Tech Quiz</a>
       <a class="dih-drawer-link" href="/software#tools">⚡ Tools</a>
       <a class="dih-drawer-link" href="/services">🧰 Services</a>
+      <a class="dih-drawer-link" href="/contact">✉️ Contact</a>
     </div>
     <a class="dih-drawer-cta" href="/subscribe">✉️ Subscribe — weekly tech intel</a>
     <p class="dih-drawer-note">Digital Infohub · Tech for everyone, with a guide for every question.</p>
@@ -1027,6 +1046,9 @@
 
   const BLOG_POSTS = [
     // NEW POSTS - NOVEMBER 2026
+    { title: 'Investment Ideas for 2026: A Practical Starting Guide', link: '/post/investment-ideas-2026', excerpt: 'A plain-language tour of the investment options people actually use in 2026 — index funds, bonds, property, crypto and cash — with the risks, costs and questions to ask before you commit.', tag: 'Investing', date: 'November 2026', image: '/assets/blog/investment-ideas-2026.jpg' },
+    { title: 'What Will Tech Look Like in the Future?', link: '/post/what-will-tech-look-like-in-the-future', excerpt: 'From on-device AI and ambient computing to robotics and quantum systems: a grounded look at where technology is heading, what has to be solved first, and which timelines are realistic.', tag: 'Future Tech', date: 'November 2026', image: '/assets/blog/what-will-tech-look-like-in-the-future.jpg' },
+    { title: 'What Does Tech Look Like Today?', link: '/post/what-does-tech-look-like-today', excerpt: 'A snapshot of technology in 2026: AI everywhere, cloud as default, devices that infer locally, and the security and energy bills that come with all of it.', tag: 'Tech Trends', date: 'November 2026', image: '/assets/blog/what-does-tech-look-like-today.jpg' },
     { title: 'Why Is My Face ID Not Working? Troubleshooting Guide', link: '/post/why-is-my-face-id-not-working', excerpt: 'Face ID failing to unlock your iPhone? Learn how to troubleshoot common biometric authentication issues, clean sensors, reset settings, and when to seek hardware repair.', tag: 'Mobile Tips', date: 'November 2026', image: '/assets/blog/why-is-my-face-id-not-working.jpg' },
     { title: 'Why Is My Phone Not Charging? Complete Fix Guide', link: '/post/why-is-my-phone-not-charging', excerpt: 'Phone won\'t charge? Diagnose USB-C port issues, faulty cables, battery health problems, and software glitches preventing your device from powering up.', tag: 'Mobile Tips', date: 'November 2026', image: '/assets/blog/why-is-my-phone-not-charging.jpg' },
     { title: 'Newest iPhone 2026: What\'s New and Worth Upgrading?', link: '/post/newest-iphone-2026', excerpt: 'Explore Apple\'s latest iPhone lineup for 2026 — including the rumored foldable model, A20 Pro chip performance, camera upgrades, and whether it\'s worth upgrading from older models.', tag: 'New Releases', date: 'November 2026', image: '/assets/blog/newest-iphone-2026.jpg' },
@@ -1149,10 +1171,12 @@
     const card = document.createElement('article');
     card.className = 'blog-card';
     card.style.animationDelay = `${index * 0.05}s`;
+    const external = /^https?:/i.test(post.link);
+    const linkAttrs = external ? ' target="_blank" rel="noopener noreferrer"' : '';
     card.innerHTML = `
-      <a href="${post.link}" target="_blank" rel="noopener noreferrer">
+      <a href="${post.link}"${linkAttrs}>
         <div class="card-image">
-          <img src="${post.image}" alt="${post.title}" loading="lazy">
+          <img src="${post.image}" alt="${post.title}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='/assets/blog/fallback.jpg'">
         </div>
         <div class="card-content">
           <div class="card-meta">
@@ -1485,8 +1509,8 @@
       <a href="/blog">Blog</a>
       <a href="/techtopics">Guides</a>
       <a href="/software">Tools</a>
+      <a href="/contact">Contact</a>
       <a href="/sitemap.xml">Sitemap</a>
-      <a href="mailto:services@digitalinfohub.net">Contact</a>
     </nav>
   </div>
 </footer>

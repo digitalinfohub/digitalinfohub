@@ -6,13 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>CoinCompass — Live Crypto &amp; Stock Prices | Digital Infohub</title>
-<meta name="description" content="Live crypto and stock prices with clean trend graphs, a simple monthly money check and somewhere useful to go next. No signup.">
-<meta name="theme-color" content="#07070c">
-<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
-<link rel="icon" href="/assets/favicon.ico" sizes="any">
-<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
-<link rel="manifest" href="/site.webmanifest">
+<meta name="description" content="A calm, private dashboard for crypto and market context: live prices, portfolio tracking and risk signals in one place.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -49,6 +43,46 @@ html[data-dih] body{overflow-x:hidden}
 .cc-tab.on{background:var(--dih-surface);color:var(--dih-accent);box-shadow:0 1px 5px rgba(0,0,0,.18)}
 
 .cc-market-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:16px 20px 20px}
+.cc-market-grid[hidden]{display:none!important}
+.cc-tile{cursor:pointer}
+.cc-tile:focus-visible{outline:2px solid var(--dih-accent);outline-offset:2px}
+.cc-open{display:block;margin-top:9px;font-family:var(--dih-mono);font-size:8.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--dih-text-muted);transition:color .2s}
+.cc-tile:hover .cc-open{color:var(--dih-accent)}
+
+/* Detailed chart modal */
+.cc-modal{position:fixed;inset:0;z-index:2100;display:flex;align-items:center;justify-content:center;padding:18px}
+.cc-modal[hidden]{display:none!important}
+.cc-modal-backdrop{position:absolute;inset:0;background:rgba(3,4,9,.76);-webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px)}
+.cc-modal-panel{position:relative;width:min(760px,100%);max-height:calc(100vh - 36px);overflow:auto;padding:22px 22px 20px;border-radius:20px;border:1px solid var(--dih-border-strong);background:var(--dih-surface);box-shadow:0 34px 100px rgba(0,0,0,.6);animation:ccModalIn .25s var(--dih-ease)}
+@keyframes ccModalIn{from{opacity:0;transform:translateY(14px) scale(.985)}to{opacity:1;transform:none}}
+.cc-modal-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:14px}
+.cc-modal-tag{display:inline-block;font-family:var(--dih-mono);font-size:8.5px;font-weight:750;letter-spacing:.1em;text-transform:uppercase;color:var(--dih-accent);margin-bottom:4px}
+.cc-modal-head h2{margin:0;font-size:clamp(22px,4vw,30px);font-weight:850;letter-spacing:-.04em;line-height:1.1}
+.cc-modal-head p{margin:5px 0 0;font-family:var(--dih-mono);font-size:13px;color:var(--dih-text-sub)}
+.cc-modal-head p b{color:var(--dih-text);font-weight:750}
+.cc-modal-x{width:34px;height:34px;flex-shrink:0;border-radius:50%;border:1px solid var(--dih-border);background:var(--dih-surface-2);color:var(--dih-text-muted);cursor:pointer;font:inherit;font-size:13px}
+.cc-modal-x:hover{color:var(--dih-text);border-color:var(--dih-border-strong)}
+.cc-chart{width:100%;border:1px solid var(--dih-border);border-radius:14px;background:linear-gradient(180deg,rgba(76,141,255,.05),transparent);padding:10px 8px 4px;overflow:hidden}
+.cc-chart svg{display:block;width:100%;height:auto}
+.cc-chart .grid{stroke:var(--dih-border);stroke-width:1}
+.cc-chart .axis{fill:var(--dih-text-muted);font-family:var(--dih-mono);font-size:9px}
+.cc-chart .line{fill:none;stroke:var(--dih-accent);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.cc-chart .line.down{stroke:var(--dih-red)}
+.cc-chart .area{fill:url(#ccFillUp)}
+.cc-chart .area.down{fill:url(#ccFillDown)}
+.cc-chart .last{fill:var(--dih-accent)}
+.cc-chart .last.down{fill:var(--dih-red)}
+.cc-modal-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin-top:12px}
+.cc-modal-stat{padding:10px 11px;border-radius:10px;border:1px solid var(--dih-border);background:var(--dih-surface-2)}
+.cc-modal-stat span{display:block;font-size:8.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--dih-text-muted);margin-bottom:3px}
+.cc-modal-stat b{font-family:var(--dih-mono);font-size:12.5px;font-weight:750;letter-spacing:-.02em}
+.cc-modal-read{margin:12px 0 0;padding:11px 13px;border-radius:11px;border:1px solid rgba(76,141,255,.24);background:var(--dih-accent-soft);font-size:11.5px;line-height:1.6;color:var(--dih-text-sub)}
+.cc-modal-read strong{color:var(--dih-text)}
+.cc-modal-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:13px}
+.cc-modal-note{margin:11px 0 0;font-size:9.5px;color:var(--dih-text-muted);line-height:1.5}
+.cc-range{display:flex;gap:4px;margin-top:9px}
+.cc-range button{padding:5px 10px;border-radius:999px;border:1px solid var(--dih-border);background:transparent;color:var(--dih-text-muted);font:inherit;font-size:10px;font-weight:700;cursor:pointer}
+.cc-range button.on{background:var(--dih-surface-2);color:var(--dih-accent);border-color:rgba(76,141,255,.4)}
 .cc-tile{position:relative;padding:14px 15px;border:1px solid var(--dih-border);border-radius:14px;background:linear-gradient(165deg,var(--dih-surface-2),var(--dih-surface));transition:.2s var(--dih-ease);overflow:hidden}
 .cc-tile:hover{border-color:rgba(76,141,255,.4);transform:translateY(-2px)}
 .cc-tile-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
@@ -113,6 +147,13 @@ html[data-theme="light"] .cc-exit{background:linear-gradient(160deg,#fff,#f7f8fc
 
 @keyframes ccPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.55;transform:scale(.85)}}
 
+@media(max-width:640px){
+  .cc-modal{padding:10px;align-items:flex-end}
+  .cc-modal-panel{padding:18px 14px 16px;max-height:calc(100vh - 20px);border-radius:18px}
+  .cc-modal-stats{grid-template-columns:1fr 1fr}
+  .cc-modal-actions .cc-btn{flex:1;justify-content:center}
+}
+
 @media(max-width:820px){
   .cc-next-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
@@ -144,8 +185,47 @@ html[data-theme="light"] .cc-exit{background:linear-gradient(160deg,#fff,#f7f8fc
   .cc-exit,.cc-tile,.cc-next-card{transition:none!important}
 }
 </style>
+<!-- DIH:HEAD -->
+<script>try{var t=localStorage.getItem('dih_theme')||'dark';document.documentElement.setAttribute('data-theme',t);document.documentElement.setAttribute('data-dih','');}catch(e){document.documentElement.setAttribute('data-dih','');}</script>
+<meta name="theme-color" content="#07070c">
+<meta name="color-scheme" content="dark light">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="author" content="Digital Infohub">
+<meta name="keywords" content="crypto tracker, market tracker, bitcoin, portfolio, coincompass, crypto charts, stock charts">
+<link rel="canonical" href="https://digitalinfohub.net/coincompass">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Digital Infohub">
+<meta property="og:title" content="Crypto and stock graphs, without the noise">
+<meta property="og:description" content="A calm, private dashboard for crypto and market context: live prices, portfolio tracking and risk signals in one place.">
+<meta property="og:url" content="https://digitalinfohub.net/coincompass">
+<meta property="og:image" content="https://images.unsplash.com/photo-1590859808308-3d2d9c515b1a?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta property="og:image:secure_url" content="https://images.unsplash.com/photo-1590859808308-3d2d9c515b1a?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Abstract blue data waves resembling a market chart">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Crypto and stock graphs, without the noise">
+<meta name="twitter:description" content="A calm, private dashboard for crypto and market context: live prices, portfolio tracking and risk signals in one place.">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1590859808308-3d2d9c515b1a?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta name="twitter:image:alt" content="Abstract blue data waves resembling a market chart">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="icon" href="/assets/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://digitalinfohub.net/#organization","name":"Digital Infohub","url":"https://digitalinfohub.net/","logo":{"@type":"ImageObject","url":"https://digitalinfohub.net/assets/icon-512.png","width":512,"height":512},"description":"Independent technology publication for professionals: AI, markets, software and practical guides.","sameAs":[]},{"@type":"WebSite","@id":"https://digitalinfohub.net/#website","url":"https://digitalinfohub.net/","name":"Digital Infohub","publisher":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://digitalinfohub.net/blog?q={search_term_string}"},"query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://digitalinfohub.net/coincompass#webpage","url":"https://digitalinfohub.net/coincompass","name":"CoinCompass — Live Crypto & Stock Prices | Digital Infohub","description":"A calm, private dashboard for crypto and market context: live prices, portfolio tracking and risk signals in one place.","isPartOf":{"@id":"https://digitalinfohub.net/#website"},"about":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","primaryImageOfPage":{"@type":"ImageObject","url":"https://images.unsplash.com/photo-1590859808308-3d2d9c515b1a?w=1200&h=630&fit=crop&auto=format&q=80&fm=jpg","width":1200,"height":630}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://digitalinfohub.net/"},{"@type":"ListItem","position":2,"name":"CoinCompass","item":"https://digitalinfohub.net/coincompass"},{"@type":"ListItem","position":3,"name":"CoinCompass — Live Crypto & Stock Prices","item":"https://digitalinfohub.net/coincompass"}]}]}</script>
+<!-- /DIH:HEAD -->
 </head>
 <body data-page="coincompass">
+<!-- DIH:AMBIENT -->
+<div class="dih-ambient" aria-hidden="true" style="--dih-ambient:url('https://images.unsplash.com/photo-1590859808308-3d2d9c515b1a?w=1600&amp;h=900&amp;fit=crop&amp;auto=format&amp;q=45')"></div>
+<!-- /DIH:AMBIENT -->
 <!-- DIH:HEADER -->
 <header class="dih-header">
   <div class="dih-header-inner">
@@ -188,6 +268,7 @@ html[data-theme="light"] .cc-exit{background:linear-gradient(160deg,#fff,#f7f8fc
       <a class="dih-drawer-link" href="/quiz">🎯 Tech Quiz</a>
       <a class="dih-drawer-link" href="/software#tools">⚡ Tools</a>
       <a class="dih-drawer-link" href="/services">🧰 Services</a>
+      <a class="dih-drawer-link" href="/contact">✉️ Contact</a>
     </div>
     <a class="dih-drawer-cta" href="/subscribe">✉️ Subscribe — weekly tech intel</a>
     <p class="dih-drawer-note">Digital Infohub · Tech for everyone, with a guide for every question.</p>
@@ -264,6 +345,33 @@ html[data-theme="light"] .cc-exit{background:linear-gradient(160deg,#fff,#f7f8fc
   </section>
 </main>
 
+<div class="cc-modal" id="ccModal" role="dialog" aria-modal="true" aria-labelledby="ccModalTitle" hidden>
+  <div class="cc-modal-backdrop" data-cc-close></div>
+  <div class="cc-modal-panel">
+    <header class="cc-modal-head">
+      <div>
+        <span class="cc-modal-tag" id="ccModalTag">Crypto · 7 day view</span>
+        <h2 id="ccModalTitle">Bitcoin</h2>
+        <p id="ccModalPrice">—</p>
+      </div>
+      <button class="cc-modal-x" type="button" data-cc-close aria-label="Close detailed chart">✕</button>
+    </header>
+    <div class="cc-chart" id="ccModalChart" aria-label="Price chart"></div>
+    <div class="cc-range" role="group" aria-label="Chart range">
+      <button type="button" class="on" data-range="7">7 days</button>
+      <button type="button" data-range="30">Last 30 points</button>
+      <button type="button" data-range="15">Last 15 points</button>
+    </div>
+    <div class="cc-modal-stats" id="ccModalStats"></div>
+    <p class="cc-modal-read" id="ccModalRead"></p>
+    <div class="cc-modal-actions">
+      <a class="cc-btn" href="/blog">Read the market analysis</a>
+      <a class="cc-btn" href="/digi?q=Explain%20what%20is%20driving%20this%20market">Ask Digi about it</a>
+    </div>
+    <p class="cc-modal-note">Delayed quotes for context only — not investment advice. Figures are calculated from the last available price series.</p>
+  </div>
+</div>
+
 <div class="cc-exit" id="ccExit" role="dialog" aria-label="Before you go">
   <button class="cc-exit-close" type="button" id="ccExitClose" aria-label="Close">✕</button>
   <span class="cc-exit-kicker">Before you go</span>
@@ -272,55 +380,6 @@ html[data-theme="light"] .cc-exit{background:linear-gradient(160deg,#fff,#f7f8fc
   <div class="cc-exit-links" id="ccExitLinks"></div>
 </div>
 
-<!-- DIH:FOOTER -->
-<footer class="dih-footer">
-  <div class="dih-footer-inner">
-    <div class="dih-footer-brand">
-      <a class="dih-brand" href="/" aria-label="Digital Infohub home">
-        <img src="/assets/logo.png" alt="Digital Infohub logo" width="40" height="40">
-        <span class="dih-brand-text">Digital <b>Infohub</b></span>
-      </a>
-      <p>The independent tech hub for everyone: AI research, market moves, practical guides, free tools and Digi, your AI guide.</p>
-      <span class="dih-pill"><span class="dih-dot"></span> Updated daily</span>
-    </div>
-    <div class="dih-footer-col">
-      <h3>Explore</h3>
-      <a href="/blog">Blog &amp; analysis</a>
-      <a href="/techtopics">Tech Topics</a>
-      <a href="/software">Software &amp; tools</a>
-      <a href="/techproducts">Tech Products</a>
-      <a href="/games">Pixel Palace</a>
-      <a href="/digi">Digi AI guide</a>
-      <a href="/news">Live tech news</a>
-      <a href="/quiz">Tech quiz</a>
-    </div>
-    <div class="dih-footer-col">
-      <h3>Company</h3>
-      <a href="/about">About</a>
-      <a href="/services">Services</a>
-      <a href="/advertise">Advertise</a>
-      <a href="/coincompass">CoinCompass</a>
-      <a href="/privacy-policy">Privacy</a>
-    </div>
-    <div class="dih-footer-col dih-footer-cta">
-      <h3>Stay ahead</h3>
-      <p>One email a week: the AI, market and software stories that actually matter.</p>
-      <a class="dih-btn dih-btn-primary" href="/subscribe">Subscribe free</a>
-    </div>
-  </div>
-  <div class="dih-footer-bottom">
-    <span>© 2026 Digital Infohub · Independent technology publication</span>
-    <nav aria-label="Footer links">
-      <a href="/blog">Blog</a>
-      <a href="/techtopics">Guides</a>
-      <a href="/software">Tools</a>
-      <a href="/sitemap.xml">Sitemap</a>
-      <a href="mailto:services@digitalinfohub.net">Contact</a>
-    </nav>
-  </div>
-</footer>
-<!-- /DIH:FOOTER -->
-<script src="/assets/site.js" defer></script>
 <script>
 (function () {
   'use strict';
@@ -338,6 +397,8 @@ html[data-theme="light"] .cc-exit{background:linear-gradient(160deg,#fff,#f7f8fc
     { sym: 'MSFT', name: 'Microsoft' },
     { sym: 'GOOGL', name: 'Alphabet' }
   ];
+  var SERIES = {};
+  var MODAL = { key: null, range: '7' };
   var NEXT = [
     { tag: 'AI', title: 'Inside the AI brain', text: 'What models actually learn, and where to check them.', href: '/artificialintelligence' },
     { tag: 'Security', title: 'Security is an identity problem', text: 'The cheap fixes that remove most of the risk.', href: '/cybersecurity' },
@@ -400,10 +461,140 @@ html[data-theme="light"] .cc-exit{background:linear-gradient(160deg,#fff,#f7f8fc
 
   function tile(item, price, pct, series) {
     var up = (Number(pct) || 0) >= 0;
-    return '<div class="cc-tile">' +
+    SERIES[item.sym] = { item: item, price: Number(price), pct: Number(pct) || 0, series: series || [] };
+    return '<div class="cc-tile" role="button" tabindex="0" data-key="' + esc(item.sym) + '" aria-label="Open the detailed chart for ' + esc(item.name) + '">' +
       '<div class="cc-tile-top"><div><div class="cc-sym">' + esc(item.sym) + '</div><div class="cc-name">' + esc(item.name) + '</div></div>' +
       '<div><div class="cc-price">' + money(price) + '</div><div class="cc-chg ' + (up ? 'up' : 'down') + '">' + (up ? '▲' : '▼') + ' ' + Math.abs(Number(pct) || 0).toFixed(2) + '%</div></div></div>' +
-      (spark(series, up) || '') + '</div>';
+      (spark(series, up) || '') +
+      '<span class="cc-open">Detailed chart →</span>' +
+      '</div>';
+  }
+
+  /* --------------------------------------------------- detailed chart view */
+  function rangeValues(series) {
+    var vals = (series || []).filter(function (v) { return isFinite(v); });
+    if (MODAL.range === '7') return vals;
+    if (MODAL.range === '30') return vals.slice(-30);
+    return vals.slice(-15);
+  }
+
+  function chartSvg(values, up) {
+    var vals = values.filter(function (v) { return isFinite(v); });
+    if (vals.length < 2) return '<p class="cc-note" style="padding:18px 8px">Not enough price history for this view.</p>';
+    var w = 660, h = 240, pl = 8, pr = 8, pt = 14, pb = 24;
+    var min = Math.min.apply(null, vals), max = Math.max.apply(null, vals);
+    var span = (max - min) || Math.max(max * 0.01, 1);
+    min -= span * 0.08; max += span * 0.08; span = max - min;
+    var pts = vals.map(function (v, i) {
+      return [pl + (i / (vals.length - 1)) * (w - pl - pr), pt + (1 - (v - min) / span) * (h - pt - pb)];
+    });
+    var line = pts.map(function (p, i) { return (i ? 'L' : 'M') + p[0].toFixed(1) + ' ' + p[1].toFixed(1); }).join(' ');
+    var area = line + ' L ' + (w - pr) + ' ' + (h - pb) + ' L ' + pl + ' ' + (h - pb) + ' Z';
+    var grid = '';
+    for (var g = 0; g <= 4; g++) {
+      var y = pt + (g / 4) * (h - pt - pb);
+      var val = max - (g / 4) * span;
+      grid += '<line class="grid" x1="' + pl + '" y1="' + y.toFixed(1) + '" x2="' + (w - pr) + '" y2="' + y.toFixed(1) + '"/>' +
+        '<text class="axis" x="' + (w - pr) + '" y="' + (y - 4).toFixed(1) + '" text-anchor="end">' + money(val) + '</text>';
+    }
+    var last = pts[pts.length - 1];
+    return '<svg viewBox="0 0 ' + w + ' ' + h + '" role="img" aria-label="Price trend chart">' +
+      '<defs>' +
+      '<linearGradient id="ccFillUp" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4c8dff" stop-opacity=".34"/><stop offset="1" stop-color="#4c8dff" stop-opacity="0"/></linearGradient>' +
+      '<linearGradient id="ccFillDown" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fb7185" stop-opacity=".3"/><stop offset="1" stop-color="#fb7185" stop-opacity="0"/></linearGradient>' +
+      '</defs>' + grid +
+      '<path class="area' + (up ? '' : ' down') + '" d="' + area + '"/>' +
+      '<path class="line' + (up ? '' : ' down') + '" d="' + line + '"/>' +
+      '<circle class="last' + (up ? '' : ' down') + '" cx="' + last[0].toFixed(1) + '" cy="' + last[1].toFixed(1) + '" r="4"/>' +
+      '<text class="axis" x="' + pl + '" y="' + (h - 6) + '">start</text>' +
+      '<text class="axis" x="' + (w - pr) + '" y="' + (h - 6) + '" text-anchor="end">latest</text>' +
+      '</svg>';
+  }
+
+  function statCards(entry, vals) {
+    var first = vals[0], last = vals[vals.length - 1];
+    var hi = Math.max.apply(null, vals), lo = Math.min.apply(null, vals);
+    var change = first ? ((last - first) / first) * 100 : 0;
+    var moves = [];
+    for (var i = 1; i < vals.length; i++) {
+      if (vals[i - 1]) moves.push((vals[i] - vals[i - 1]) / vals[i - 1] * 100);
+    }
+    var mean = moves.reduce(function (s, v) { return s + v; }, 0) / (moves.length || 1);
+    var vol = Math.sqrt(moves.reduce(function (s, v) { return s + (v - mean) * (v - mean); }, 0) / (moves.length || 1));
+    var pos = hi === lo ? 50 : ((last - lo) / (hi - lo)) * 100;
+    var cells = [
+      ['View change', (change >= 0 ? '+' : '') + change.toFixed(2) + '%'],
+      ['High', money(hi)],
+      ['Low', money(lo)],
+      ['Avg move', vol.toFixed(2) + '%'],
+      ['Position', pos.toFixed(0) + '% of range'],
+      ['Latest', money(last)],
+      ['24h', (entry.pct >= 0 ? '+' : '') + entry.pct.toFixed(2) + '%'],
+      ['Points', String(vals.length)]
+    ];
+    return cells.map(function (c) { return '<div class="cc-modal-stat"><span>' + c[0] + '</span><b>' + esc(c[1]) + '</b></div>'; }).join('');
+  }
+
+  function openDetail(key) {
+    var entry = SERIES[key];
+    if (!entry) return;
+    MODAL.key = key;
+    MODAL.range = '7';
+    var modal = $('#ccModal');
+    if (!modal) return;
+    $('#ccModalTitle').textContent = entry.item.name + ' (' + entry.item.sym + ')';
+    $('#ccModalTag').textContent = (entry.item.id ? 'Crypto' : 'Stock') + ' · detailed view';
+    $('#ccModalPrice').innerHTML = '<b>' + money(entry.price) + '</b> <span class="' + (entry.pct >= 0 ? 'up' : 'down') + '" style="color:' + (entry.pct >= 0 ? 'var(--dih-green)' : 'var(--dih-red)') + '">' + (entry.pct >= 0 ? '▲' : '▼') + ' ' + Math.abs(entry.pct).toFixed(2) + '%</span>';
+    modal.hidden = false;
+    document.body.style.overflow = 'hidden';
+    renderDetail();
+    var closeBtn = modal.querySelector('.cc-modal-x');
+    if (closeBtn) closeBtn.focus();
+  }
+
+  function renderDetail() {
+    var entry = SERIES[MODAL.key];
+    if (!entry) return;
+    var vals = rangeValues(entry.series);
+    var up = vals.length > 1 ? vals[vals.length - 1] >= vals[0] : entry.pct >= 0;
+    $('#ccModalChart').innerHTML = chartSvg(vals, up);
+    $('#ccModalStats').innerHTML = statCards(entry, vals);
+    var change = vals.length > 1 ? ((vals[vals.length - 1] - vals[0]) / vals[0]) * 100 : 0;
+    var hi = Math.max.apply(null, vals), lo = Math.min.apply(null, vals);
+    var pos = hi === lo ? 50 : ((vals[vals.length - 1] - lo) / (hi - lo)) * 100;
+    var read;
+    if (change > 3) read = '<strong>Uptrend in this window.</strong> Price is up ' + change.toFixed(1) + '% from the start of the chart and sitting in the upper ' + Math.round(100 - pos) + '% of the range. Momentum can reverse quickly — check the wider market before acting.';
+    else if (change < -3) read = '<strong>Downtrend in this window.</strong> Price is down ' + Math.abs(change).toFixed(1) + '% from the start of the chart. Watch whether the low holds; a bounce off support is not a trend change on its own.';
+    else read = '<strong>Range-bound.</strong> Price moved ' + change.toFixed(1) + '% across this window and sits at ' + Math.round(pos) + '% of the high-low range. Flat charts often mean the market is waiting for news.';
+    read += ' The 24-hour move is ' + (entry.pct >= 0 ? 'up' : 'down') + ' ' + Math.abs(entry.pct).toFixed(2) + '%.';
+    $('#ccModalRead').innerHTML = read;
+    document.querySelectorAll('[data-range]').forEach(function (b) {
+      b.classList.toggle('on', b.dataset.range === MODAL.range);
+    });
+  }
+
+  function closeDetail() {
+    var modal = $('#ccModal');
+    if (!modal || modal.hidden) return;
+    modal.hidden = true;
+    document.body.style.overflow = '';
+  }
+
+  function initDetail() {
+    document.addEventListener('click', function (e) {
+      var tileEl = e.target.closest('.cc-tile');
+      if (tileEl && tileEl.dataset.key) openDetail(tileEl.dataset.key);
+      if (e.target.closest('[data-cc-close]')) closeDetail();
+      var rangeBtn = e.target.closest('[data-range]');
+      if (rangeBtn) { MODAL.range = rangeBtn.dataset.range; renderDetail(); }
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeDetail();
+      if ((e.key === 'Enter' || e.key === ' ') && document.activeElement && document.activeElement.classList.contains('cc-tile')) {
+        e.preventDefault();
+        openDetail(document.activeElement.dataset.key);
+      }
+    });
   }
 
   function loadCrypto() {
@@ -585,6 +776,7 @@ html[data-theme="light"] .cc-exit{background:linear-gradient(160deg,#fff,#f7f8fc
     }
     initTabs();
     initMoney();
+    initDetail();
     renderNext();
     render();
     $('#ccShuffle').addEventListener('click', renderNext);
@@ -595,5 +787,54 @@ html[data-theme="light"] .cc-exit{background:linear-gradient(160deg,#fff,#f7f8fc
   else init();
 })();
 </script>
+<!-- DIH:FOOTER -->
+<footer class="dih-footer">
+  <div class="dih-footer-inner">
+    <div class="dih-footer-brand">
+      <a class="dih-brand" href="/" aria-label="Digital Infohub home">
+        <img src="/assets/logo.png" alt="Digital Infohub logo" width="40" height="40">
+        <span class="dih-brand-text">Digital <b>Infohub</b></span>
+      </a>
+      <p>The independent tech hub for everyone: AI research, market moves, practical guides, free tools and Digi, your AI guide.</p>
+      <span class="dih-pill"><span class="dih-dot"></span> Updated daily</span>
+    </div>
+    <div class="dih-footer-col">
+      <h3>Explore</h3>
+      <a href="/blog">Blog &amp; analysis</a>
+      <a href="/techtopics">Tech Topics</a>
+      <a href="/software">Software &amp; tools</a>
+      <a href="/techproducts">Tech Products</a>
+      <a href="/games">Pixel Palace</a>
+      <a href="/digi">Digi AI guide</a>
+      <a href="/news">Live tech news</a>
+      <a href="/quiz">Tech quiz</a>
+    </div>
+    <div class="dih-footer-col">
+      <h3>Company</h3>
+      <a href="/about">About</a>
+      <a href="/services">Services</a>
+      <a href="/advertise">Advertise</a>
+      <a href="/coincompass">CoinCompass</a>
+      <a href="/privacy-policy">Privacy</a>
+    </div>
+    <div class="dih-footer-col dih-footer-cta">
+      <h3>Stay ahead</h3>
+      <p>One email a week: the AI, market and software stories that actually matter.</p>
+      <a class="dih-btn dih-btn-primary" href="/subscribe">Subscribe free</a>
+    </div>
+  </div>
+  <div class="dih-footer-bottom">
+    <span>© 2026 Digital Infohub · Independent technology publication</span>
+    <nav aria-label="Footer links">
+      <a href="/blog">Blog</a>
+      <a href="/techtopics">Guides</a>
+      <a href="/software">Tools</a>
+      <a href="/contact">Contact</a>
+      <a href="/sitemap.xml">Sitemap</a>
+    </nav>
+  </div>
+</footer>
+<!-- /DIH:FOOTER -->
+<script src="/assets/site.js" defer></script>
 </body>
 </html>

@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-dih="">
+<head>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471"
+     crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What Will Tech Look Like in the Future? | Digital Infohub</title>
+<meta name="description" content="A grounded look at the future of technology: on-device AI, ambient computing, robotics, quantum and security, with realistic timelines and constraints.">
+
+<style>
+:root, [data-theme="light"] {
+  --bg: #fafaf9;
+  --surface: #ffffff;
+  --ink: #1c1917;
+  --ink-muted: #78716c;
+  --accent: #292524;
+  --border: #e7e5e4;
+  --toggle-icon: #1c1917;
+}
+
+[data-theme="dark"] {
+  --bg: #0c0a09;
+  --surface: #1c1917;
+  --ink: #e7e5e4;
+  --ink-muted: #a8a29e;
+  --accent: #d6d3d1;
+  --border: #292524;
+  --toggle-icon: #e7e5e4;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ---------- Controls ---------- */
+.controls {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.25rem;
+  z-index: 100;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.lang-switch {
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  overflow: hidden;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.lang-switch button {
+  border: none;
+  background: transparent;
+  color: var(--ink-muted);
+  font-family: inherit;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  padding: 0.55em 0.95em;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.lang-switch button:hover { color: var(--ink); }
+
+.lang-switch button.active {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.theme-toggle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle:hover { border-color: var(--ink-muted); }
+
+.theme-toggle svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: var(--toggle-icon);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke 0.3s ease;
+}
+
+.theme-toggle .icon-moon { display: block; }
+.theme-toggle .icon-sun { display: none; }
+
+[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+
+/* ---------- Language content ---------- */
+.lang-content { display: none; }
+.lang-content.active { display: block; }
+
+/* ---------- Header ---------- */
+header {
+  padding: 4rem 0 2rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2.5rem;
+  transition: border-color 0.3s ease;
+}
+
+.meta {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 1rem;
+  transition: color 0.3s ease;
+}
+
+h1 {
+  font-family: "Georgia", "Times New Roman", serif;
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin-bottom: 1rem;
+  transition: color 0.3s ease;
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  color: var(--ink-muted);
+  line-height: 1.6;
+  transition: color 0.3s ease;
+}
+
+/* CJK typography */
+html[lang="ja"] body { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", "Inter", sans-serif; }
+html[lang="ja"] h1 { font-family: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", Georgia, serif; line-height: 1.4; }
+html[lang="ja"] article p, html[lang="ja"] .subtitle { line-height: 1.95; }
+
+html[lang="zh-Hans"] body { font-family: "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", "Inter", sans-serif; }
+html[lang="zh-Hans"] h1 { font-family: "Songti SC", "Noto Serif SC", "SimSun", Georgia, serif; line-height: 1.4; }
+html[lang="zh-Hans"] article p, html[lang="zh-Hans"] .subtitle { line-height: 1.95; }
+
+/* ---------- Content ---------- */
+article p {
+  margin-bottom: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+article strong { font-weight: 600; }
+
+figure { margin: 2.5rem 0; }
+
+figure img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 2px;
+}
+
+figcaption {
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+  margin-top: 0.75rem;
+  letter-spacing: 0.02em;
+  transition: color 0.3s ease;
+}
+
+/* ---------- Links ---------- */
+a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--border);
+  transition: text-decoration-color 0.2s, color 0.3s ease;
+}
+
+a:hover { text-decoration-color: var(--ink); }
+
+.link-block {
+  display: block;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  text-decoration: none;
+  margin: 1.5rem 0;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.link-block:hover {
+  border-color: var(--ink-muted);
+  background: var(--surface);
+}
+
+.link-block .label {
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 0.25rem;
+  transition: color 0.3s ease;
+}
+
+.link-block .url {
+  font-size: 0.875rem;
+  word-break: break-all;
+  transition: color 0.3s ease;
+}
+
+/* ---------- Section headings ---------- */
+h2, h3 {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin: 3rem 0 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+/* ---------- Tags ---------- */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+  transition: border-color 0.3s ease;
+}
+
+.tag {
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+  text-decoration: none;
+  padding: 0.375rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  transition: all 0.2s;
+}
+
+.tag:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+@media (max-width: 600px) {
+  header { padding: 2.5rem 0 1.5rem; }
+  .controls { top: 1rem; right: 1rem; }
+  .theme-toggle { width: 36px; height: 36px; }
+  .theme-toggle svg { width: 16px; height: 16px; }
+  .lang-switch button { padding: 0.5em 0.7em; font-size: 0.68rem; }
+}
+</style>
+<!-- DIH:HEAD -->
+<script>try{var t=localStorage.getItem('dih_theme')||'dark';document.documentElement.setAttribute('data-theme',t);document.documentElement.setAttribute('data-dih','');}catch(e){document.documentElement.setAttribute('data-dih','');}</script>
+<meta name="theme-color" content="#07070c">
+<meta name="color-scheme" content="dark light">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="author" content="Digital Infohub">
+<meta name="keywords" content="technology, AI, digital infohub">
+<link rel="canonical" href="https://digitalinfohub.net/post/what-will-tech-look-like-in-the-future">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Digital Infohub">
+<meta property="og:title" content="What Will Tech Look Like in the Future?">
+<meta property="og:description" content="A grounded look at the future of technology: on-device AI, ambient computing, robotics, quantum and security, with realistic timelines and constraints.">
+<meta property="og:url" content="https://digitalinfohub.net/post/what-will-tech-look-like-in-the-future">
+<meta property="og:image" content="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta property="og:image:secure_url" content="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Illuminated planet Earth seen from space with blue technology overlays">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="What Will Tech Look Like in the Future?">
+<meta name="twitter:description" content="A grounded look at the future of technology: on-device AI, ambient computing, robotics, quantum and security, with realistic timelines and constraints.">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta name="twitter:image:alt" content="Illuminated planet Earth seen from space with blue technology overlays">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="icon" href="/assets/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://digitalinfohub.net/#organization","name":"Digital Infohub","url":"https://digitalinfohub.net/","logo":{"@type":"ImageObject","url":"https://digitalinfohub.net/assets/icon-512.png","width":512,"height":512},"description":"Independent technology publication for professionals: AI, markets, software and practical guides.","sameAs":[]},{"@type":"WebSite","@id":"https://digitalinfohub.net/#website","url":"https://digitalinfohub.net/","name":"Digital Infohub","publisher":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://digitalinfohub.net/blog?q={search_term_string}"},"query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://digitalinfohub.net/post/what-will-tech-look-like-in-the-future#webpage","url":"https://digitalinfohub.net/post/what-will-tech-look-like-in-the-future","name":"What Will Tech Look Like in the Future? | Digital Infohub","description":"A grounded look at the future of technology: on-device AI, ambient computing, robotics, quantum and security, with realistic timelines and constraints.","isPartOf":{"@id":"https://digitalinfohub.net/#website"},"about":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","primaryImageOfPage":{"@type":"ImageObject","url":"https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&h=630&fit=crop&auto=format&q=80&fm=jpg","width":1200,"height":630}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://digitalinfohub.net/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://digitalinfohub.net/blog"},{"@type":"ListItem","position":3,"name":"What Will Tech Look Like in the Future?","item":"https://digitalinfohub.net/post/what-will-tech-look-like-in-the-future"}]}]}</script>
+<!-- /DIH:HEAD -->
+</head>
+<body>
+<!-- DIH:AMBIENT -->
+<div class="dih-ambient" aria-hidden="true" style="--dih-ambient:url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1600&amp;h=900&amp;fit=crop&amp;auto=format&amp;q=45')"></div>
+<!-- /DIH:AMBIENT -->
+<!-- DIH:HEADER -->
+<header class="dih-header">
+  <div class="dih-header-inner">
+    <a class="dih-brand" href="/" aria-label="Digital Infohub home">
+      <img src="/assets/logo.png" alt="Digital Infohub logo" width="36" height="36">
+      <span class="dih-brand-text">Digital <b>Infohub</b></span>
+    </a>
+    <nav class="dih-nav" data-dih-nav aria-label="Primary navigation">
+      <a class="dih-link" href="/">Home</a>
+      <a class="dih-link" href="/digi">Digi</a>
+      <a class="dih-link" href="/blog">Blog</a>
+      <a class="dih-link" href="/techtopics">Tech Topics</a>
+      <a class="dih-link" href="/software">Software</a>
+      <a class="dih-link" href="/techproducts">Tech Products</a>
+      <a class="dih-link" href="/games">Games</a>
+      <a class="dih-link" href="/coincompass">Markets</a>
+    </nav>
+    <div class="dih-actions">
+      <a class="dih-tools" href="/software#tools" title="Free browser tools" aria-label="Free browser tools">⚡<span>Tools</span></a>
+      <button class="dih-icon" type="button" data-dih-theme aria-label="Switch theme" title="Switch theme">☀</button>
+      <a class="dih-cta" href="/subscribe">Subscribe</a>
+      <button class="dih-burger" id="dihBurger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="dihDrawer"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+<div class="dih-drawer" id="dihDrawer" aria-label="Site menu">
+  <div class="dih-drawer-panel">
+    <div class="dih-drawer-grid">
+      <a class="dih-drawer-link" href="/">Home</a>
+      <a class="dih-drawer-link" href="/digi">Digi</a>
+      <a class="dih-drawer-link" href="/blog">Blog</a>
+      <a class="dih-drawer-link" href="/techtopics">Tech Topics</a>
+      <a class="dih-drawer-link" href="/software">Software</a>
+      <a class="dih-drawer-link" href="/techproducts">Tech Products</a>
+      <a class="dih-drawer-link" href="/games">Games</a>
+      <a class="dih-drawer-link" href="/coincompass">Markets</a>
+    </div>
+    <div class="dih-drawer-sub">
+      <a class="dih-drawer-link" href="/news">📰 Tech News</a>
+      <a class="dih-drawer-link" href="/quiz">🎯 Tech Quiz</a>
+      <a class="dih-drawer-link" href="/software#tools">⚡ Tools</a>
+      <a class="dih-drawer-link" href="/services">🧰 Services</a>
+      <a class="dih-drawer-link" href="/contact">✉️ Contact</a>
+    </div>
+    <a class="dih-drawer-cta" href="/subscribe">✉️ Subscribe — weekly tech intel</a>
+    <p class="dih-drawer-note">Digital Infohub · Tech for everyone, with a guide for every question.</p>
+  </div>
+</div>
+<!-- /DIH:HEADER -->
+
+<div class="controls">
+  <div class="lang-switch" role="group" aria-label="Language selection">
+    <button type="button" data-lang-btn="en" class="active">EN</button>
+    <button type="button" data-lang-btn="ja">日本語</button>
+    <button type="button" data-lang-btn="zh">中文</button>
+  </div>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+    <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+  </button>
+</div>
+
+<div class="container">
+
+  <!-- ================= ENGLISH ================= -->
+  <div class="lang-content active" data-lang="en" lang="en">
+    <header>
+      <p class="meta">Future Tech • Nov 2026 • 9 min read</p>
+      <h1>What Will Tech Look Like in the Future?</h1>
+      <p class="subtitle">On-device AI, ambient computing, useful robots and post-quantum security — what is plausible by 2030, what is hype, and what has to be solved first.</p>
+    </header>
+
+    <article>
+      <p>Predictions about the future of technology usually fail in one of two ways: they assume today’s constraints disappear, or they assume nothing changes at all. The useful approach is to look at what is already working, what is expensive, and which bottleneck has to break before the next step becomes normal.</p>
+
+      <figure>
+        <img src='https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200&auto=format&fit=crop' alt='Earth from space with blue technology overlays'>
+        <figcaption>The future is mostly built from today’s infrastructure, one constraint at a time.</figcaption>
+      </figure>
+
+      <h2>AI moves onto the device</h2>
+      <p>The clearest shift is from “send everything to a data centre” to “run what you can locally”. Phones, laptops and wearables already ship with neural processors capable of transcription, translation, photo editing and small assistants without a round trip to the cloud. The direction of travel is obvious: smaller models, better compression, and hardware tuned for inference.</p>
+      <p>What this changes: latency, privacy and cost. What it does not change: the largest models will still live in data centres, because frontier training and long-context reasoning need memory and power that a pocket device cannot supply. Expect a split — local models for fast, private, everyday tasks; cloud models for heavy reasoning.</p>
+
+      <h2>Computing becomes ambient</h2>
+      <p>Today you open an app. In five years more interactions will start with a sentence, a glance or a sensor event. Glasses, earbuds, watches and home devices are converging on the same idea: the computer is present, but not the centre of attention. The blocker is not the model. It is battery life, social acceptability, and the fact that voice interfaces are still poor at correction and privacy in public spaces.</p>
+
+      <h2>Agents that do rather than answer</h2>
+      <p>The current wave of AI assistants answers questions. The next wave acts: booking, filing, comparing, monitoring and escalating. That requires something harder than a better model — reliable permissions, audit trails, rollback, and a clear answer to “who is responsible when it gets it wrong”. Expect agents to arrive first in narrow, well-instrumented workflows such as support triage, software testing and back-office processing, not as a general-purpose digital employee.</p>
+
+      <h2>Robots leave the demo floor</h2>
+      <p>Robotics has quietly improved in warehouses, farms and factories. The humanoid robot demonstrations are impressive but still expensive and fragile outside controlled environments. The realistic path is boring: more autonomy in structured spaces, better manipulation for specific tasks, and remote supervision for the rest. Homes will get useful single-purpose robots before general-purpose ones.</p>
+
+      <h2>Quantum, and the security deadline it creates</h2>
+      <p>Quantum computers will not replace laptops. They are specialised tools for problems such as molecular simulation and some optimisation. The practical story for most organisations is not “buy a quantum computer” but “migrate to post-quantum cryptography before stored data becomes readable”. Standards are already published, and migration is slow. That work belongs on a 2026 roadmap, not a 2035 one.</p>
+
+      <h2>The constraints that decide the timeline</h2>
+      <ul>
+        <li><strong>Energy.</strong> Data centres are now constrained by power and grid connections, not just chips. Efficiency gains matter more than benchmark scores.</li>
+        <li><strong>Memory bandwidth.</strong> Many AI workloads are limited by moving data, not by arithmetic.</li>
+        <li><strong>Semiconductor capacity.</strong> Leading-edge fabrication is concentrated in a few places and takes years to expand.</li>
+        <li><strong>Trust.</strong> Adoption stalls when people cannot tell what a system did or why.</li>
+        <li><strong>Regulation.</strong> Rules such as the EU AI Act shape what ships in which market, and when.</li>
+      </ul>
+
+      <h2>What probably will not happen by 2030</h2>
+      <ul>
+        <li>A general-purpose robot doing all household chores reliably.</li>
+        <li>Fully autonomous vehicles everywhere, in every weather and city.</li>
+        <li>Quantum computers breaking everyday encryption on demand.</li>
+        <li>AI that needs no human review for high-stakes decisions.</li>
+      </ul>
+      <p>Each of those may arrive eventually. The mistake is treating a lab result as a shipping product, and a shipping product as a solved social problem.</p>
+
+      <h2>How to prepare, practically</h2>
+      <ol>
+        <li><strong>Keep your data portable.</strong> The tools will change; your documents, code and customer records should not be trapped.</li>
+        <li><strong>Learn to verify AI output.</strong> The skill that matters is checking, not prompting.</li>
+        <li><strong>Treat security as identity.</strong> Passkeys, multi-factor authentication and short-lived access age well.</li>
+        <li><strong>Watch the unit economics.</strong> A demo that costs £50 per task is not a product yet.</li>
+        <li><strong>Prefer boring integration.</strong> The future usually arrives as a feature inside software you already use.</li>
+      </ol>
+      <p>The most likely future is not a single dramatic breakthrough. It is a decade of quiet defaults: AI in the background, computers that fade into objects, and security work that decides whether any of it can be trusted.</p>
+      <div class="tags">
+        <a class="tag" href="#">#FutureTech</a>
+        <a class="tag" href="#">#AI</a>
+        <a class="tag" href="#">#Robotics</a>
+        <a class="tag" href="#">#Quantum</a>
+        <a class="tag" href="#">#Trends</a>
+      </div>
+    </article>
+  </div>
+
+  <!-- ================= 日本語 ================= -->
+  <div class="lang-content" data-lang="ja" lang="ja">
+    <header>
+      <p class="meta">未来技術 • 2026年11月 • 約9分</p>
+      <h1>未来のテクノロジーはどうなるのか</h1>
+      <p class="subtitle">端末上のAI、アンビエントコンピューティング、実用的なロボット、耐量子暗号。2030年までに現実味があるもの、誇張されているもの、先に解くべき課題を整理します。</p>
+    </header>
+
+    <article>
+      <p>テクノロジーの未来予測は、たいてい二つの形で外れます。今日の制約が消えると仮定するか、何も変わらないと仮定するかです。役に立つのは、すでに動いているもの、コストが高いもの、そして次の段階に進む前に壊す必要のあるボトルネックを見ることです。</p>
+
+      <figure>
+        <img src='https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200&auto=format&fit=crop' alt='青いテクノロジーの表現が重なる宇宙からの地球'>
+        <figcaption>未来は、今日のインフラと制約の延長線上に少しずつ作られます。</figcaption>
+      </figure>
+
+      <h2>AIは端末へ移る</h2>
+      <p>最も明確な変化は、「すべてをデータセンターへ送る」から「端末でできることは端末で行う」への移行です。スマートフォンやノートPC、ウェアラブルには、文字起こしや翻訳、写真編集、小さなアシスタントをクラウドへ往復せずに実行できるNPUが搭載されています。小型モデル、圧縮技術、推論向けハードの進化がこの流れを支えます。</p>
+      <p>変わるのは遅延、プライバシー、コストです。変わらないのは、最先端モデルはデータセンターに残るという点です。大規模な学習と長い文脈の推論には、ポケットサイズの端末では供給できないメモリと電力が必要です。日常の高速で私的な処理は端末、重い推論はクラウド、という分担になります。</p>
+
+      <h2>コンピューティングは環境に溶け込む</h2>
+      <p>今はアプリを開きますが、数年後は文、視線、センサーの出来事から始まる操作が増えます。メガネ、イヤホン、時計、家庭端末は「コンピュータは存在するが主役ではない」方向へ収束しています。障壁はモデルではなく、バッテリー、社会的な受け入れやすさ、そして公共空間での音声インターフェースの訂正とプライバシーの弱さです。</p>
+
+      <h2>答えるAIから、実行するAIへ</h2>
+      <p>現在のAIアシスタントは質問に答えます。次の波は、予約・整理・比較・監視・エスカレーションを実行します。必要なのは優れたモデルだけでなく、権限管理、監査ログ、巻き戻し、そして「間違えたときに誰が責任を負うか」の明確な答えです。導入はカスタマーサポートの振り分けやソフトウェアテストなど、計測しやすい狭い業務から進むでしょう。</p>
+
+      <h2>ロボットはデモを出て現場へ</h2>
+      <p>倉庫、農場、工場ではロボットが静かに進化しています。人型ロボットのデモは印象的ですが、管理された環境の外では高価で壊れやすいままです。現実的な道は地味です。構造化された空間での自律性向上、特定作業の器用さ、そして残りは遠隔監視。家庭には汎用ロボットより先に、単機能の役立つロボットが来ます。</p>
+
+      <h2>量子と、それが生むセキュリティ期限</h2>
+      <p>量子コンピュータはノートPCを置き換えません。分子シミュレーションや一部の最適化など、特定の問題に強い専用ツールです。多くの組織にとって重要なたった一つの話は「量子を買う」ことではなく、「保存データが読まれる前に耐量子暗号へ移行する」ことです。標準はすでに公開されており、移行は遅い。2026年の計画に入れるべき仕事です。</p>
+
+      <h2>スケジュールを決める制約</h2>
+      <ul>
+        <li><strong>エネルギー。</strong>データセンターはチップよりも電力と系統接続で制約を受けています。</li>
+        <li><strong>メモリ帯域。</strong>多くのAI処理は計算ではなくデータ移動で律速されます。</li>
+        <li><strong>半導体の生産能力。</strong>先端製造は一部地域に集中し、拡張には数年かかります。</li>
+        <li><strong>信頼。</strong>システムが何をしたか分からなければ導入は止まります。</li>
+        <li><strong>規制。</strong>EU AI Actなどのルールが、どの市場で何をいつ出せるかを決めます。</li>
+      </ul>
+
+      <h2>2030年までに起きない可能性が高いこと</h2>
+      <ul>
+        <li>汎用ロボットが家事をすべて確実にこなすこと。</li>
+        <li>あらゆる天候と都市での完全自動運転。</li>
+        <li>量子コンピュータが日常の暗号を即座に破ること。</li>
+        <li>重要判断を人間の確認なしに行うAI。</li>
+      </ul>
+      <p>いずれもいつかは来るかもしれません。間違いは、実験結果を出荷済み製品と見なし、製品を解決済みの社会問題と見なすことです。</p>
+
+      <h2>実践的な備え</h2>
+      <ol>
+        <li><strong>データを持ち運べる形に。</strong>ツールは変わります。文書やコード、顧客記録を囲い込まないこと。</li>
+        <li><strong>AIの出力を検証する力。</strong>重要なのはプロンプトより確認です。</li>
+        <li><strong>セキュリティはIDから。</strong>パスキー、多要素認証、短命なアクセス権は長持ちします。</li>
+        <li><strong>単位経済を見る。</strong>1タスク50ポンドかかるデモはまだ製品ではありません。</li>
+        <li><strong>地味な統合を選ぶ。</strong>未来はたいてい、すでに使っているソフトの機能としてやってきます。</li>
+      </ol>
+      <p>最もありそうな未来は、劇的な一度の突破ではなく、静かなデフォルトの積み重ねです。背景に入り込むAI、物体に溶け込むコンピュータ、そしてそれが信頼できるかを決めるセキュリティの仕事です。</p>
+      <div class="tags">
+        <a class="tag" href="#">#FutureTech</a>
+        <a class="tag" href="#">#AI</a>
+        <a class="tag" href="#">#Robotics</a>
+        <a class="tag" href="#">#Quantum</a>
+        <a class="tag" href="#">#Trends</a>
+      </div>
+    </article>
+  </div>
+
+  <!-- ================= 中文 ================= -->
+  <div class="lang-content" data-lang="zh" lang="zh-Hans">
+    <header>
+      <p class="meta">未来科技 • 2026年11月 • 约9分钟阅读</p>
+      <h1>未来的科技会是什么样？</h1>
+      <p class="subtitle">端侧 AI、环境计算、实用机器人、后量子安全——到 2030 年哪些可能成真，哪些只是炒作，以及必须先解决什么。</p>
+    </header>
+
+    <article>
+      <p>关于科技未来的预测通常以两种方式失败：要么假设今天的限制会消失，要么假设一切都不会变。更有用的方法是看什么已经在运作、什么仍然昂贵，以及下一步普及前必须先突破哪个瓶颈。</p>
+
+      <figure>
+        <img src='https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200&auto=format&fit=crop' alt='带有蓝色科技叠加层的太空地球'>
+        <figcaption>未来大多是在今天的基础设施和限制之上，一点一点建成的。</figcaption>
+      </figure>
+
+      <h2>AI 走向端侧</h2>
+      <p>最清晰的变化，是从“把所有东西送到数据中心”转向“能在本地跑的就本地跑”。手机、笔记本和可穿戴设备已经内置神经处理单元，可以在不往返云端的情况下完成转录、翻译、修图和小型助手任务。更小的模型、更好的压缩和专为推理设计的硬件正在推动这一趋势。</p>
+      <p>改变的是延迟、隐私和成本；不变的是，最大的模型仍会留在数据中心，因为前沿训练和长上下文推理需要口袋设备无法提供的显存和电力。未来会分工：本地模型处理快速、私密的日常任务，云端模型处理重度推理。</p>
+
+      <h2>计算变得无处不在</h2>
+      <p>今天你打开一个应用；几年后，更多交互会从一句话、一个眼神或一次传感器事件开始。眼镜、耳机、手表和家庭设备正收敛到同一个想法：计算机在场，但不是注意力的中心。阻碍不在模型，而在续航、社会接受度，以及语音界面在公共场合的纠错与隐私表现仍然不佳。</p>
+
+      <h2>从“回答”到“执行”的智能体</h2>
+      <p>当前一波 AI 助手负责回答问题，下一波负责行动：预订、归档、比较、监控和升级处理。这需要的不仅是更好的模型，还需要可靠的权限、审计记录、回滚机制，以及“出错时谁负责”的明确答案。智能体会先出现在客服分流、软件测试、后台流程等可观测的狭窄工作流中，而不是作为通用数字员工。</p>
+
+      <h2>机器人走出演示厅</h2>
+      <p>仓库、农场和工厂里的机器人一直在安静进步。人形机器人演示很抓眼，但在受控环境之外仍然昂贵而脆弱。现实路径很朴素：结构化空间里更强的自主性、特定任务的更好操作能力，其余部分靠远程监督。家庭会先迎来有用的单一用途机器人，而不是通用机器人。</p>
+
+      <h2>量子计算与它带来的安全期限</h2>
+      <p>量子计算机不会取代笔记本电脑，而是分子模拟和部分优化问题的专用工具。对多数组织而言，真正重要的事不是“买一台量子计算机”，而是在被保存的数据变得可读之前迁移到后量子密码。标准已经发布，迁移却很慢。这项工作应写进 2026 年的路线图，而不是 2035 年。</p>
+
+      <h2>决定时间表的限制</h2>
+      <ul>
+        <li><strong>能源。</strong>数据中心的瓶颈是电力与并网，而不只是芯片。</li>
+        <li><strong>内存带宽。</strong>许多 AI 负载受限于数据搬运，而非算力。</li>
+        <li><strong>半导体产能。</strong>先进制程集中在少数地区，扩产需要数年。</li>
+        <li><strong>信任。</strong>人们不知道系统做了什么，采用就会停滞。</li>
+        <li><strong>监管。</strong>欧盟 AI 法案等规则决定什么产品何时进入哪个市场。</li>
+      </ul>
+
+      <h2>到 2030 年大概不会发生的事</h2>
+      <ul>
+        <li>通用机器人可靠地完成全部家务。</li>
+        <li>所有城市、所有天气下的完全自动驾驶。</li>
+        <li>量子计算机随时破解日常加密。</li>
+        <li>高风险决策完全不需要人工复核的 AI。</li>
+      </ul>
+      <p>这些终有一天可能实现。错误在于把实验结果当成已交付产品，再把产品当成已解决的社会问题。</p>
+
+      <h2>务实的准备方式</h2>
+      <ol>
+        <li><strong>让数据可迁移。</strong>工具会变，文档、代码和客户记录不应被锁死。</li>
+        <li><strong>学会验证 AI 输出。</strong>真正重要的技能是核对，而不是提示词。</li>
+        <li><strong>把安全建立在身份上。</strong>通行密钥、多因素认证和短期访问权限更耐久。</li>
+        <li><strong>关注单位经济。</strong>单次任务成本 50 英镑的演示还不是产品。</li>
+        <li><strong>优先选择朴素的集成。</strong>未来通常以你已在使用的软件功能的形式到来。</li>
+      </ol>
+      <p>最可能的未来不是一次戏剧性的突破，而是十年安静的默认值：AI 退到后台，计算机融入物体，而安全工程决定这一切是否值得信任。</p>
+      <div class="tags">
+        <a class="tag" href="#">#FutureTech</a>
+        <a class="tag" href="#">#AI</a>
+        <a class="tag" href="#">#Robotics</a>
+        <a class="tag" href="#">#Quantum</a>
+        <a class="tag" href="#">#Trends</a>
+      </div>
+    </article>
+  </div>
+
+</div>
+
+<script>
+(function() {
+  var html = document.documentElement;
+
+  /* ---------- Theme ---------- */
+  var toggle = document.getElementById('themeToggle');
+  var storedTheme = localStorage.getItem('theme');
+
+  if (storedTheme) {
+    html.setAttribute('data-theme', storedTheme);
+  } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    html.setAttribute('data-theme', 'dark');
+  }
+
+  toggle.addEventListener('click', function() {
+    var current = html.getAttribute('data-theme');
+    var next = current === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+
+  /* ---------- Language ---------- */
+  var titles = {
+    en: "What Will Tech Look Like in the Future?",
+    ja: "未来のテクノロジーはどうなるのか",
+    zh: "未来的科技会是什么样？"
+  };
+
+  var htmlLang = { en: 'en', ja: 'ja', zh: 'zh-Hans' };
+
+  function detectLang() {
+    var nav = (navigator.language || 'en').toLowerCase();
+    if (nav.indexOf('ja') === 0) return 'ja';
+    if (nav.indexOf('zh') === 0) return 'zh';
+    return 'en';
+  }
+
+  function setLang(lang) {
+    document.querySelectorAll('.lang-content').forEach(function(block) {
+      block.classList.toggle('active', block.getAttribute('data-lang') === lang);
+    });
+    document.querySelectorAll('[data-lang-btn]').forEach(function(btn) {
+      var isActive = btn.getAttribute('data-lang-btn') === lang;
+      btn.classList.toggle('active', isActive);
+      btn.setAttribute('aria-pressed', isActive);
+    });
+    html.setAttribute('lang', htmlLang[lang]);
+    document.title = titles[lang];
+    localStorage.setItem('lang', lang);
+  }
+
+  document.querySelectorAll('[data-lang-btn]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      setLang(btn.getAttribute('data-lang-btn'));
+    });
+  });
+
+  setLang(localStorage.getItem('lang') || detectLang());
+})();
+</script>
+
+<!-- DIH:GALLERY -->
+<section class="dih-gallery" aria-labelledby="dihGalleryTitle">
+  <div class="dih-gallery-head">
+    <div>
+      <span class="dih-gallery-eyebrow">Visual briefing</span>
+      <h2 id="dihGalleryTitle">Technology, in focus</h2>
+      <p>Fast context on the ideas shaping the industry, with a guide for every one.</p>
+    </div>
+    <a class="dih-gallery-all" href="/techtopics">All 30 tech guides <span aria-hidden="true">&rarr;</span></a>
+  </div>
+  <div class="dih-gallery-grid">
+      <a class="dih-gallery-card" href="/coincompass">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1590859808308-3d2d9c515b1a?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=72" alt="Abstract blue data waves resembling a market chart" width="800" height="500" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Markets</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Riding the market cycle</strong>
+          <span>Tech stocks and crypto move on the same liquidity tide more often than investors admit. Watching rates, earnings and risk appetite together beats chasing headlines.</span>
+          <em>Open CoinCompass &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/3dprinting">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1649406458887-2b6561c36a4d?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=72" alt="Wireframe lightbulb glowing against a dark background" width="800" height="500" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">3D printing</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>From idea to prototype</strong>
+          <span>Additive manufacturing turns a CAD file into a physical part in hours. It is best for complex geometry, small batches and parts that would be costly to machine.</span>
+          <em>Read the 3D printing guide &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/software">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1483058712412-4245e9b90334?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=72" alt="Mac computer on a desk with the words Do More on screen" width="800" height="500" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Software</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Tools for deep work</strong>
+          <span>The best productivity tools disappear into a routine. Pick a small set, learn their shortcuts and stop rebuilding your system every month.</span>
+          <em>Browse free tools &rarr;</em>
+        </span>
+      </a>
+  </div>
+  <p class="dih-gallery-credit">Photography by Unsplash contributors. Cards link to related Digital Infohub guides.</p>
+</section>
+<!-- /DIH:GALLERY -->
+<!-- DIH:EXPLORE -->
+<section class="dih-explore" aria-labelledby="dihExploreTitle">
+  <div class="dih-explore-head">
+    <h2 id="dihExploreTitle">Keep the momentum</h2>
+    <p>Related guides, tools and analysis from the hub.</p>
+  </div>
+  <div class="dih-explore-grid">
+      <a class="dih-explore-card" href="/blog">
+        <span class="dih-explore-icon" aria-hidden="true">📝</span>
+        <strong>Blog &amp; analysis</strong>
+        <span>Deep dives on AI, hardware, markets and digital culture.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/techtopics">
+        <span class="dih-explore-icon" aria-hidden="true">🔬</span>
+        <strong>Tech Topics</strong>
+        <span>Plain-language guides to the technology shaping business.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/software">
+        <span class="dih-explore-icon" aria-hidden="true">🛠️</span>
+        <strong>Software &amp; tools</strong>
+        <span>Free AI assistants and browser utilities that run locally.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/subscribe">
+        <span class="dih-explore-icon" aria-hidden="true">✉️</span>
+        <strong>Subscribe</strong>
+        <span>Weekly tech intelligence in your inbox, free.</span>
+        <em>Explore →</em>
+      </a>
+  </div>
+</section>
+<!-- /DIH:EXPLORE -->
+<!-- DIH:FOOTER -->
+<footer class="dih-footer">
+  <div class="dih-footer-inner">
+    <div class="dih-footer-brand">
+      <a class="dih-brand" href="/" aria-label="Digital Infohub home">
+        <img src="/assets/logo.png" alt="Digital Infohub logo" width="40" height="40">
+        <span class="dih-brand-text">Digital <b>Infohub</b></span>
+      </a>
+      <p>The independent tech hub for everyone: AI research, market moves, practical guides, free tools and Digi, your AI guide.</p>
+      <span class="dih-pill"><span class="dih-dot"></span> Updated daily</span>
+    </div>
+    <div class="dih-footer-col">
+      <h3>Explore</h3>
+      <a href="/blog">Blog &amp; analysis</a>
+      <a href="/techtopics">Tech Topics</a>
+      <a href="/software">Software &amp; tools</a>
+      <a href="/techproducts">Tech Products</a>
+      <a href="/games">Pixel Palace</a>
+      <a href="/digi">Digi AI guide</a>
+      <a href="/news">Live tech news</a>
+      <a href="/quiz">Tech quiz</a>
+    </div>
+    <div class="dih-footer-col">
+      <h3>Company</h3>
+      <a href="/about">About</a>
+      <a href="/services">Services</a>
+      <a href="/advertise">Advertise</a>
+      <a href="/coincompass">CoinCompass</a>
+      <a href="/privacy-policy">Privacy</a>
+    </div>
+    <div class="dih-footer-col dih-footer-cta">
+      <h3>Stay ahead</h3>
+      <p>One email a week: the AI, market and software stories that actually matter.</p>
+      <a class="dih-btn dih-btn-primary" href="/subscribe">Subscribe free</a>
+    </div>
+  </div>
+  <div class="dih-footer-bottom">
+    <span>© 2026 Digital Infohub · Independent technology publication</span>
+    <nav aria-label="Footer links">
+      <a href="/blog">Blog</a>
+      <a href="/techtopics">Guides</a>
+      <a href="/software">Tools</a>
+      <a href="/contact">Contact</a>
+      <a href="/sitemap.xml">Sitemap</a>
+    </nav>
+  </div>
+</footer>
+<!-- /DIH:FOOTER -->
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

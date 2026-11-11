@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-dih="">
+<head>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471"
+     crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What Does Tech Look Like Today? | Digital Infohub</title>
+<meta name="description" content="What technology looks like in 2026: AI in everyday products, cloud and edge computing, new devices, connectivity, security and energy costs.">
+
+<style>
+:root, [data-theme="light"] {
+  --bg: #fafaf9;
+  --surface: #ffffff;
+  --ink: #1c1917;
+  --ink-muted: #78716c;
+  --accent: #292524;
+  --border: #e7e5e4;
+  --toggle-icon: #1c1917;
+}
+
+[data-theme="dark"] {
+  --bg: #0c0a09;
+  --surface: #1c1917;
+  --ink: #e7e5e4;
+  --ink-muted: #a8a29e;
+  --accent: #d6d3d1;
+  --border: #292524;
+  --toggle-icon: #e7e5e4;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ---------- Controls ---------- */
+.controls {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.25rem;
+  z-index: 100;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.lang-switch {
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  overflow: hidden;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.lang-switch button {
+  border: none;
+  background: transparent;
+  color: var(--ink-muted);
+  font-family: inherit;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  padding: 0.55em 0.95em;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.lang-switch button:hover { color: var(--ink); }
+
+.lang-switch button.active {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.theme-toggle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle:hover { border-color: var(--ink-muted); }
+
+.theme-toggle svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: var(--toggle-icon);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke 0.3s ease;
+}
+
+.theme-toggle .icon-moon { display: block; }
+.theme-toggle .icon-sun { display: none; }
+
+[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+
+/* ---------- Language content ---------- */
+.lang-content { display: none; }
+.lang-content.active { display: block; }
+
+/* ---------- Header ---------- */
+header {
+  padding: 4rem 0 2rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2.5rem;
+  transition: border-color 0.3s ease;
+}
+
+.meta {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 1rem;
+  transition: color 0.3s ease;
+}
+
+h1 {
+  font-family: "Georgia", "Times New Roman", serif;
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin-bottom: 1rem;
+  transition: color 0.3s ease;
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  color: var(--ink-muted);
+  line-height: 1.6;
+  transition: color 0.3s ease;
+}
+
+/* CJK typography */
+html[lang="ja"] body { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", "Inter", sans-serif; }
+html[lang="ja"] h1 { font-family: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", Georgia, serif; line-height: 1.4; }
+html[lang="ja"] article p, html[lang="ja"] .subtitle { line-height: 1.95; }
+
+html[lang="zh-Hans"] body { font-family: "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", "Inter", sans-serif; }
+html[lang="zh-Hans"] h1 { font-family: "Songti SC", "Noto Serif SC", "SimSun", Georgia, serif; line-height: 1.4; }
+html[lang="zh-Hans"] article p, html[lang="zh-Hans"] .subtitle { line-height: 1.95; }
+
+/* ---------- Content ---------- */
+article p {
+  margin-bottom: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+article strong { font-weight: 600; }
+
+figure { margin: 2.5rem 0; }
+
+figure img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 2px;
+}
+
+figcaption {
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+  margin-top: 0.75rem;
+  letter-spacing: 0.02em;
+  transition: color 0.3s ease;
+}
+
+/* ---------- Links ---------- */
+a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--border);
+  transition: text-decoration-color 0.2s, color 0.3s ease;
+}
+
+a:hover { text-decoration-color: var(--ink); }
+
+.link-block {
+  display: block;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  text-decoration: none;
+  margin: 1.5rem 0;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.link-block:hover {
+  border-color: var(--ink-muted);
+  background: var(--surface);
+}
+
+.link-block .label {
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 0.25rem;
+  transition: color 0.3s ease;
+}
+
+.link-block .url {
+  font-size: 0.875rem;
+  word-break: break-all;
+  transition: color 0.3s ease;
+}
+
+/* ---------- Section headings ---------- */
+h2, h3 {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin: 3rem 0 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+/* ---------- Tags ---------- */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+  transition: border-color 0.3s ease;
+}
+
+.tag {
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+  text-decoration: none;
+  padding: 0.375rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  transition: all 0.2s;
+}
+
+.tag:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+@media (max-width: 600px) {
+  header { padding: 2.5rem 0 1.5rem; }
+  .controls { top: 1rem; right: 1rem; }
+  .theme-toggle { width: 36px; height: 36px; }
+  .theme-toggle svg { width: 16px; height: 16px; }
+  .lang-switch button { padding: 0.5em 0.7em; font-size: 0.68rem; }
+}
+</style>
+<!-- DIH:HEAD -->
+<script>try{var t=localStorage.getItem('dih_theme')||'dark';document.documentElement.setAttribute('data-theme',t);document.documentElement.setAttribute('data-dih','');}catch(e){document.documentElement.setAttribute('data-dih','');}</script>
+<meta name="theme-color" content="#07070c">
+<meta name="color-scheme" content="dark light">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="author" content="Digital Infohub">
+<meta name="keywords" content="technology, AI, digital infohub">
+<link rel="canonical" href="https://digitalinfohub.net/post/what-does-tech-look-like-today">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Digital Infohub">
+<meta property="og:title" content="What Does Tech Look Like Today?">
+<meta property="og:description" content="What technology looks like in 2026: AI in everyday products, cloud and edge computing, new devices, connectivity, security and energy costs.">
+<meta property="og:url" content="https://digitalinfohub.net/post/what-does-tech-look-like-today">
+<meta property="og:image" content="https://images.unsplash.com/photo-1782155789465-9bae14cbfba5?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta property="og:image:secure_url" content="https://images.unsplash.com/photo-1782155789465-9bae14cbfba5?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Macro photograph of a dense electronic circuit board">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="What Does Tech Look Like Today?">
+<meta name="twitter:description" content="What technology looks like in 2026: AI in everyday products, cloud and edge computing, new devices, connectivity, security and energy costs.">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1782155789465-9bae14cbfba5?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta name="twitter:image:alt" content="Macro photograph of a dense electronic circuit board">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="icon" href="/assets/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://digitalinfohub.net/#organization","name":"Digital Infohub","url":"https://digitalinfohub.net/","logo":{"@type":"ImageObject","url":"https://digitalinfohub.net/assets/icon-512.png","width":512,"height":512},"description":"Independent technology publication for professionals: AI, markets, software and practical guides.","sameAs":[]},{"@type":"WebSite","@id":"https://digitalinfohub.net/#website","url":"https://digitalinfohub.net/","name":"Digital Infohub","publisher":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://digitalinfohub.net/blog?q={search_term_string}"},"query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://digitalinfohub.net/post/what-does-tech-look-like-today#webpage","url":"https://digitalinfohub.net/post/what-does-tech-look-like-today","name":"What Does Tech Look Like Today? | Digital Infohub","description":"What technology looks like in 2026: AI in everyday products, cloud and edge computing, new devices, connectivity, security and energy costs.","isPartOf":{"@id":"https://digitalinfohub.net/#website"},"about":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","primaryImageOfPage":{"@type":"ImageObject","url":"https://images.unsplash.com/photo-1782155789465-9bae14cbfba5?w=1200&h=630&fit=crop&auto=format&q=80&fm=jpg","width":1200,"height":630}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://digitalinfohub.net/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://digitalinfohub.net/blog"},{"@type":"ListItem","position":3,"name":"What Does Tech Look Like Today?","item":"https://digitalinfohub.net/post/what-does-tech-look-like-today"}]}]}</script>
+<!-- /DIH:HEAD -->
+</head>
+<body>
+<!-- DIH:AMBIENT -->
+<div class="dih-ambient" aria-hidden="true" style="--dih-ambient:url('https://images.unsplash.com/photo-1782155789465-9bae14cbfba5?w=1600&amp;h=900&amp;fit=crop&amp;auto=format&amp;q=45')"></div>
+<!-- /DIH:AMBIENT -->
+<!-- DIH:HEADER -->
+<header class="dih-header">
+  <div class="dih-header-inner">
+    <a class="dih-brand" href="/" aria-label="Digital Infohub home">
+      <img src="/assets/logo.png" alt="Digital Infohub logo" width="36" height="36">
+      <span class="dih-brand-text">Digital <b>Infohub</b></span>
+    </a>
+    <nav class="dih-nav" data-dih-nav aria-label="Primary navigation">
+      <a class="dih-link" href="/">Home</a>
+      <a class="dih-link" href="/digi">Digi</a>
+      <a class="dih-link" href="/blog">Blog</a>
+      <a class="dih-link" href="/techtopics">Tech Topics</a>
+      <a class="dih-link" href="/software">Software</a>
+      <a class="dih-link" href="/techproducts">Tech Products</a>
+      <a class="dih-link" href="/games">Games</a>
+      <a class="dih-link" href="/coincompass">Markets</a>
+    </nav>
+    <div class="dih-actions">
+      <a class="dih-tools" href="/software#tools" title="Free browser tools" aria-label="Free browser tools">⚡<span>Tools</span></a>
+      <button class="dih-icon" type="button" data-dih-theme aria-label="Switch theme" title="Switch theme">☀</button>
+      <a class="dih-cta" href="/subscribe">Subscribe</a>
+      <button class="dih-burger" id="dihBurger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="dihDrawer"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+<div class="dih-drawer" id="dihDrawer" aria-label="Site menu">
+  <div class="dih-drawer-panel">
+    <div class="dih-drawer-grid">
+      <a class="dih-drawer-link" href="/">Home</a>
+      <a class="dih-drawer-link" href="/digi">Digi</a>
+      <a class="dih-drawer-link" href="/blog">Blog</a>
+      <a class="dih-drawer-link" href="/techtopics">Tech Topics</a>
+      <a class="dih-drawer-link" href="/software">Software</a>
+      <a class="dih-drawer-link" href="/techproducts">Tech Products</a>
+      <a class="dih-drawer-link" href="/games">Games</a>
+      <a class="dih-drawer-link" href="/coincompass">Markets</a>
+    </div>
+    <div class="dih-drawer-sub">
+      <a class="dih-drawer-link" href="/news">📰 Tech News</a>
+      <a class="dih-drawer-link" href="/quiz">🎯 Tech Quiz</a>
+      <a class="dih-drawer-link" href="/software#tools">⚡ Tools</a>
+      <a class="dih-drawer-link" href="/services">🧰 Services</a>
+      <a class="dih-drawer-link" href="/contact">✉️ Contact</a>
+    </div>
+    <a class="dih-drawer-cta" href="/subscribe">✉️ Subscribe — weekly tech intel</a>
+    <p class="dih-drawer-note">Digital Infohub · Tech for everyone, with a guide for every question.</p>
+  </div>
+</div>
+<!-- /DIH:HEADER -->
+
+<div class="controls">
+  <div class="lang-switch" role="group" aria-label="Language selection">
+    <button type="button" data-lang-btn="en" class="active">EN</button>
+    <button type="button" data-lang-btn="ja">日本語</button>
+    <button type="button" data-lang-btn="zh">中文</button>
+  </div>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+    <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+  </button>
+</div>
+
+<div class="container">
+
+  <!-- ================= ENGLISH ================= -->
+  <div class="lang-content active" data-lang="en" lang="en">
+    <header>
+      <p class="meta">Tech Trends • Nov 2026 • 7 min read</p>
+      <h1>What Does Tech Look Like Today?</h1>
+      <p class="subtitle">A 2026 snapshot: AI in everything, cloud as the default, devices that infer locally, and the security and energy bills that come with it.</p>
+    </header>
+
+    <article>
+      <p>It is easy to describe technology in extremes: everything is transformed, or nothing works. The reality in 2026 is more specific. AI has become a default feature, cloud is the assumed substrate, devices are getting better at local inference, and the bills for all of it — energy, security, attention — are now part of the product conversation.</p>
+
+      <figure>
+        <img src='https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop' alt='Close-up of a modern circuit board'>
+        <figcaption>Most of today’s technology is incremental: better silicon, better software, tighter integration.</figcaption>
+      </figure>
+
+      <h2>AI is no longer a product category</h2>
+      <p>In 2023, “AI-powered” was a selling point. In 2026 it is closer to a checkbox. Search summarises, email drafts, photo apps erase objects, code editors suggest whole functions and support tools triage tickets before a human sees them. The interesting question has moved from “does it use AI?” to “does it work reliably, and can I tell when it is wrong?”</p>
+      <p>Two patterns are visible. First, the best implementations are narrow and embedded in existing workflows rather than separate chat windows. Second, the cost of inference now shows up in pricing. Some tools limit usage; others charge per action. That is a sign the technology is becoming infrastructure rather than magic.</p>
+
+      <h2>Cloud is the default, edge is the correction</h2>
+      <p>Most new software starts in the cloud because it removes the need to buy servers. The correction is edge computing: pushing processing closer to the user for latency, bandwidth and privacy reasons. A modern app might run a small model on your phone, a larger one in a regional data centre, and store the result in object storage. The architectural question is no longer “cloud or on-premise” but “which part belongs where”.</p>
+
+      <h2>Devices: folding, wearing and lasting longer</h2>
+      <p>Phones have plateaued in obvious ways — cameras are good enough for most people, screens are sharp, batteries last a day. The action is in form factors and longevity. Foldables are no longer exotic, wearables are becoming health sensors first and notifications second, and laptops based on efficient ARM chips have made all-day battery normal. People are also keeping devices longer, which makes repairability and software support real buying criteria.</p>
+
+      <h2>Connectivity is fast enough to stop being the story</h2>
+      <p>5G is widespread, Wi-Fi 7 is shipping in routers and laptops, and fibre rollout continues. For most users the constraint is no longer bandwidth but coverage and cost. The next marketing cycle will talk about 6G, but the practical wins in the near term come from better in-building coverage, lower latency and cheaper data — not from a new number on the icon.</p>
+
+      <h2>Security is an identity problem now</h2>
+      <p>The most common serious incident is still a stolen credential or session, not a Hollywood-style break-in. That is why passkeys, multi-factor authentication and short-lived access tokens matter more than another perimeter appliance. At the same time, AI has made phishing more convincing and scaled the volume of attacks. The defensive answer is unglamorous: strong identity, patched systems, tested backups, and staff who know what a suspicious request looks like.</p>
+
+      <h2>The energy bill is the new benchmark</h2>
+      <p>Data centres are constrained by power availability and grid connections. That has pushed efficiency up the agenda: better utilisation, liquid cooling, specialised accelerators and workload scheduling. On the device side, battery life is again a headline feature because local AI needs power. “Performance per watt” is no longer a niche metric; it decides what can be shipped.</p>
+
+      <h2>Open source and regulation shape the middle layer</h2>
+      <p>Open models and open infrastructure keep pressure on prices and give organisations an alternative to a single vendor. Regulation, meanwhile, has moved from debate to implementation. The EU AI Act imposes obligations based on risk, and privacy rules continue to shape how data can be collected and moved. For product teams this means documentation, evaluation and data lineage are now engineering work, not legal afterthoughts.</p>
+
+      <h2>What this means in practice</h2>
+      <ul>
+        <li><strong>For individuals:</strong> learn to verify AI output, turn on passkeys, and keep local backups.</li>
+        <li><strong>For small businesses:</strong> buy boring, supported tools; check where data is stored and what leaving costs.</li>
+        <li><strong>For builders:</strong> design for intermittent connectivity and local processing, and budget for inference.</li>
+        <li><strong>For buyers:</strong> ask about software support length and repair options, not just the spec sheet.</li>
+      </ul>
+      <p>Today’s technology is less about a single breakthrough and more about integration: AI inside ordinary products, cloud and edge split by economics, devices that last longer, and security that depends on identity. That is a more mature picture than the headlines suggest — and a more demanding one to build well.</p>
+      <div class="tags">
+        <a class="tag" href="#">#TechTrends</a>
+        <a class="tag" href="#">#AI</a>
+        <a class="tag" href="#">#Cloud</a>
+        <a class="tag" href="#">#Devices</a>
+        <a class="tag" href="#">#Security</a>
+      </div>
+    </article>
+  </div>
+
+  <!-- ================= 日本語 ================= -->
+  <div class="lang-content" data-lang="ja" lang="ja">
+    <header>
+      <p class="meta">技術動向 • 2026年11月 • 約7分</p>
+      <h1>現在のテクノロジーはどうなっているのか</h1>
+      <p class="subtitle">2026年のスナップショット。あらゆる製品に入るAI、当たり前になったクラウド、端末で推論するデバイス、そして伴うセキュリティと電力のコスト。</p>
+    </header>
+
+    <article>
+      <p>テクノロジーを極端に語るのは簡単です。すべてが変わった、あるいは何も動かない。2026年の現実はもっと具体的です。AIは標準機能になり、クラウドは前提となり、端末はローカル推論を得意にし、そのすべてのコスト（電力、セキュリティ、注意力）が製品の議論に組み込まれています。</p>
+
+      <figure>
+        <img src='https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop' alt='現代的な回路基板のクローズアップ'>
+        <figcaption>今日の技術の多くは漸進的です。より良いシリコン、より良いソフト、より緊密な統合。</figcaption>
+      </figure>
+
+      <h2>AIはもはや製品カテゴリではない</h2>
+      <p>2023年には「AI搭載」が売り文句でした。2026年にはチェックリストの項目に近づいています。検索は要約し、メールは下書きし、写真アプリは物体を消し、コードエディタは関数全体を提案し、サポートツールは人間が見る前にチケットを振り分けます。問いは「AIを使っているか」から「確実に動くか、間違いに気づけるか」へ移りました。</p>
+      <p>二つの傾向が見えます。第一に、優れた実装は独立したチャット欄ではなく既存業務に埋め込まれた狭いものです。第二に、推論コストが価格に現れています。利用回数を制限するツールもあれば、操作ごとに課金するものもあります。魔法からインフラへ移行している証拠です。</p>
+
+      <h2>クラウドが既定、エッジが修正</h2>
+      <p>新しいソフトの多くはサーバーを買わずに済むクラウドから始まります。その修正がエッジコンピューティングです。遅延、帯域、プライバシーのために処理を利用者に近づけます。現代のアプリは、スマートフォンで小さなモデル、地域データセンターで大きなモデル、結果はオブジェクトストレージ、という構成を取り得ます。問いは「クラウドかオンプレか」ではなく「どの部分をどこに置くか」です。</p>
+
+      <h2>デバイス：折りたたみ、身につける、長く使う</h2>
+      <p>スマートフォンは分かりやすい進化が鈍りました。カメラは多くの人に十分で、画面は精細、電池は1日持ちます。動きは形態と寿命にあります。折りたたみは珍しくなくなり、ウェアラブルは通知より健康センサーになり、効率的なARMチップのノートPCで終日バッテリーが普通になりました。買い替えサイクルが伸び、修理しやすさとソフト支援期間が実際の購入基準になっています。</p>
+
+      <h2>通信は「話題にならない」速さになった</h2>
+      <p>5Gは広がり、Wi-Fi 7はルーターとノートPCに搭載され、光回線の整備も続いています。多くの利用者にとって制約は帯域よりカバレッジとコストです。次のマーケティングは6Gでしょうが、当面の実利は屋内電波、低遅延、安いデータにあります。</p>
+
+      <h2>セキュリティはIDの問題</h2>
+      <p>最も多い重大インシデントは、映画のような侵入ではなく、認証情報やセッションの窃取です。だからこそパスキー、多要素認証、短命なアクセストークンが、境界防御機器の追加より重要です。同時にAIはフィッシングを説得力のあるものにし、攻撃量を増やしました。防御は地味です。強いID、更新されたシステム、テスト済みバックアップ、不審な依頼を見抜く人。</p>
+
+      <h2>電力コストが新しいベンチマーク</h2>
+      <p>データセンターは電力と系統接続で制約されています。そのため効率が重要になり、利用率改善、液冷、専用アクセラレータ、ワークロードのスケジューリングが進みました。端末ではローカルAIが電力を必要とするため、バッテリーが再び主役です。「ワットあたり性能」はニッチ指標ではなく、出荷できるかを決める要素です。</p>
+
+      <h2>オープンソースと規制が中間層を形作る</h2>
+      <p>オープンモデルとオープンなインフラは価格競争を促し、単一ベンダー以外の選択肢を与えます。規制は議論から実装へ移りました。EU AI Actはリスクに応じた義務を課し、プライバシー規則はデータの収集と移転を制約します。製品チームにとって、文書化、評価、データ系譜は法務の後回しではなくエンジニアリングの仕事です。</p>
+
+      <h2>実務への意味</h2>
+      <ul>
+        <li><strong>個人：</strong>AI出力の検証、パスキーの有効化、ローカルバックアップ。</li>
+        <li><strong>中小企業：</strong>地味でサポートのあるツールを選び、データの保存場所と移行コストを確認。</li>
+        <li><strong>開発者：</strong>不安定な接続とローカル処理を前提に設計し、推論コストを見積もる。</li>
+        <li><strong>購入者：</strong>スペックだけでなく、ソフト支援期間と修理可否を確認。</li>
+      </ul>
+      <p>今日の技術は一度の突破よりも統合の話です。普通の製品に入るAI、経済性で分かれるクラウドとエッジ、長く使える端末、IDに依存するセキュリティ。見出しより成熟した姿であり、うまく作るのはより難しい状況です。</p>
+      <div class="tags">
+        <a class="tag" href="#">#TechTrends</a>
+        <a class="tag" href="#">#AI</a>
+        <a class="tag" href="#">#Cloud</a>
+        <a class="tag" href="#">#Devices</a>
+        <a class="tag" href="#">#Security</a>
+      </div>
+    </article>
+  </div>
+
+  <!-- ================= 中文 ================= -->
+  <div class="lang-content" data-lang="zh" lang="zh-Hans">
+    <header>
+      <p class="meta">科技趋势 • 2026年11月 • 约7分钟阅读</p>
+      <h1>今天的科技是什么样？</h1>
+      <p class="subtitle">2026 年快照：AI 无处不在、云成为默认、设备本地推理，以及随之而来的安全与能源账单。</p>
+    </header>
+
+    <article>
+      <p>用极端方式描述科技很容易：要么一切都被改变，要么什么都不行。2026 年的现实更具体：AI 已成为默认功能，云是默认底座，设备越来越擅长本地推理，而这一切的账单——能源、安全、注意力——已经进入产品讨论。</p>
+
+      <figure>
+        <img src='https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop' alt='现代电路板特写'>
+        <figcaption>今天的大部分技术是渐进的：更好的芯片、更好的软件、更紧的集成。</figcaption>
+      </figure>
+
+      <h2>AI 不再是一个产品类别</h2>
+      <p>2023 年，“AI 驱动”是卖点；2026 年它更接近一个勾选项。搜索会总结，邮件会起草，修图应用会消除物体，代码编辑器会建议整段函数，客服工具在人工介入前先分流工单。问题已经从“它用不用 AI”变成“它是否可靠，我能否发现它错了”。</p>
+      <p>两个模式很明显。第一，最好的实现是狭窄的、嵌入现有工作流的，而不是独立的聊天窗口。第二，推理成本开始体现在定价里：有的限制次数，有的按操作收费。这说明技术正在从魔法变成基础设施。</p>
+
+      <h2>云是默认，边缘是修正</h2>
+      <p>多数新软件从云开始，因为不必购买服务器。修正是边缘计算：为了延迟、带宽和隐私，把处理推向用户附近。现代应用可能在手机上跑小模型、在区域数据中心跑大模型、把结果存进对象存储。架构问题不再是“云还是本地”，而是“哪一部分放在哪里”。</p>
+
+      <h2>设备：折叠、穿戴、用得更久</h2>
+      <p>手机在显眼之处已经进入平台期：相机对多数人足够好，屏幕清晰，电池能用一天。变化在形态和寿命。折叠屏不再稀奇，可穿戴设备首先成为健康传感器、其次才是通知工具，基于高能效 ARM 芯片的笔记本让全天续航成为常态。人们也在延长换机周期，可维修性和软件支持年限成了真实的购买标准。</p>
+
+      <h2>连接快到不再是故事</h2>
+      <p>5G 已普及，Wi-Fi 7 进入路由器和笔记本，光纤继续铺设。对多数用户而言，限制不再是带宽，而是覆盖和成本。下一轮营销会讲 6G，但近期实用收益来自室内覆盖、更低延迟和更便宜的数据。</p>
+
+      <h2>安全现在是一个身份问题</h2>
+      <p>最常见的严重事件仍是凭证或会话被盗，而不是电影式的入侵。这就是为什么通行密钥、多因素认证和短期访问令牌比再加一台边界设备更重要。与此同时，AI 让钓鱼更有说服力，也放大了攻击数量。防御并不光鲜：强身份、及时打补丁、经过测试的备份，以及能识别可疑请求的人。</p>
+
+      <h2>能源账单成为新基准</h2>
+      <p>数据中心受限于电力供应和并网。这推动了效率议题：更高利用率、液冷、专用加速器和工作负载调度。在设备侧，本地 AI 需要电力，续航再次成为核心卖点。“每瓦性能”不再是细分指标，而是决定能否出货的因素。</p>
+
+      <h2>开源与监管塑造中间层</h2>
+      <p>开放模型和开放基础设施持续压低价格，也给组织提供单一供应商之外的选择。监管则从讨论进入实施。欧盟 AI 法案按风险设定义务，隐私规则继续限制数据的收集与流动。对产品团队来说，文档、评估和数据血缘已经是工程工作，而不是法务的补充事项。</p>
+
+      <h2>这对实际意味着什么</h2>
+      <ul>
+        <li><strong>个人：</strong>学会验证 AI 输出，开启通行密钥，保留本地备份。</li>
+        <li><strong>小企业：</strong>选择朴素且有支持的工具，确认数据存放位置与迁出成本。</li>
+        <li><strong>开发者：</strong>为不稳定连接和本地处理做设计，并为推理成本做预算。</li>
+        <li><strong>购买者：</strong>询问软件支持年限和维修选项，而不只看参数表。</li>
+      </ul>
+      <p>今天的科技更多是集成，而不是单点突破：AI 进入普通产品，云与边缘按经济性分工，设备用得更久，安全依赖身份。这比头条更成熟，也更难做好。</p>
+      <div class="tags">
+        <a class="tag" href="#">#TechTrends</a>
+        <a class="tag" href="#">#AI</a>
+        <a class="tag" href="#">#Cloud</a>
+        <a class="tag" href="#">#Devices</a>
+        <a class="tag" href="#">#Security</a>
+      </div>
+    </article>
+  </div>
+
+</div>
+
+<script>
+(function() {
+  var html = document.documentElement;
+
+  /* ---------- Theme ---------- */
+  var toggle = document.getElementById('themeToggle');
+  var storedTheme = localStorage.getItem('theme');
+
+  if (storedTheme) {
+    html.setAttribute('data-theme', storedTheme);
+  } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    html.setAttribute('data-theme', 'dark');
+  }
+
+  toggle.addEventListener('click', function() {
+    var current = html.getAttribute('data-theme');
+    var next = current === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+
+  /* ---------- Language ---------- */
+  var titles = {
+    en: "What Does Tech Look Like Today?",
+    ja: "現在のテクノロジーはどうなっているのか",
+    zh: "今天的科技是什么样？"
+  };
+
+  var htmlLang = { en: 'en', ja: 'ja', zh: 'zh-Hans' };
+
+  function detectLang() {
+    var nav = (navigator.language || 'en').toLowerCase();
+    if (nav.indexOf('ja') === 0) return 'ja';
+    if (nav.indexOf('zh') === 0) return 'zh';
+    return 'en';
+  }
+
+  function setLang(lang) {
+    document.querySelectorAll('.lang-content').forEach(function(block) {
+      block.classList.toggle('active', block.getAttribute('data-lang') === lang);
+    });
+    document.querySelectorAll('[data-lang-btn]').forEach(function(btn) {
+      var isActive = btn.getAttribute('data-lang-btn') === lang;
+      btn.classList.toggle('active', isActive);
+      btn.setAttribute('aria-pressed', isActive);
+    });
+    html.setAttribute('lang', htmlLang[lang]);
+    document.title = titles[lang];
+    localStorage.setItem('lang', lang);
+  }
+
+  document.querySelectorAll('[data-lang-btn]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      setLang(btn.getAttribute('data-lang-btn'));
+    });
+  });
+
+  setLang(localStorage.getItem('lang') || detectLang());
+})();
+</script>
+
+<!-- DIH:GALLERY -->
+<section class="dih-gallery" aria-labelledby="dihGalleryTitle">
+  <div class="dih-gallery-head">
+    <div>
+      <span class="dih-gallery-eyebrow">Visual briefing</span>
+      <h2 id="dihGalleryTitle">Technology, in focus</h2>
+      <p>Fast context on the ideas shaping the industry, with a guide for every one.</p>
+    </div>
+    <a class="dih-gallery-all" href="/techtopics">All 30 tech guides <span aria-hidden="true">&rarr;</span></a>
+  </div>
+  <div class="dih-gallery-grid">
+      <a class="dih-gallery-card" href="/blockchain">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1639762681057-408e52192e55?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=72" alt="Floating translucent cubes in a dark blue space" width="800" height="500" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Markets</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Tokenised everything</strong>
+          <span>Tokenisation promises faster settlement and fractional ownership. The technology works; the regulatory and custody questions are what slow adoption.</span>
+          <em>Read the blockchain guide &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/coincompass">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1590859808308-3d2d9c515b1a?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=72" alt="Abstract blue data waves resembling a market chart" width="800" height="500" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Markets</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Riding the market cycle</strong>
+          <span>Tech stocks and crypto move on the same liquidity tide more often than investors admit. Watching rates, earnings and risk appetite together beats chasing headlines.</span>
+          <em>Open CoinCompass &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/3dprinting">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1649406458887-2b6561c36a4d?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=72" alt="Wireframe lightbulb glowing against a dark background" width="800" height="500" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">3D printing</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>From idea to prototype</strong>
+          <span>Additive manufacturing turns a CAD file into a physical part in hours. It is best for complex geometry, small batches and parts that would be costly to machine.</span>
+          <em>Read the 3D printing guide &rarr;</em>
+        </span>
+      </a>
+  </div>
+  <p class="dih-gallery-credit">Photography by Unsplash contributors. Cards link to related Digital Infohub guides.</p>
+</section>
+<!-- /DIH:GALLERY -->
+<!-- DIH:EXPLORE -->
+<section class="dih-explore" aria-labelledby="dihExploreTitle">
+  <div class="dih-explore-head">
+    <h2 id="dihExploreTitle">Keep the momentum</h2>
+    <p>Related guides, tools and analysis from the hub.</p>
+  </div>
+  <div class="dih-explore-grid">
+      <a class="dih-explore-card" href="/blog">
+        <span class="dih-explore-icon" aria-hidden="true">📝</span>
+        <strong>Blog &amp; analysis</strong>
+        <span>Deep dives on AI, hardware, markets and digital culture.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/techtopics">
+        <span class="dih-explore-icon" aria-hidden="true">🔬</span>
+        <strong>Tech Topics</strong>
+        <span>Plain-language guides to the technology shaping business.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/software">
+        <span class="dih-explore-icon" aria-hidden="true">🛠️</span>
+        <strong>Software &amp; tools</strong>
+        <span>Free AI assistants and browser utilities that run locally.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/subscribe">
+        <span class="dih-explore-icon" aria-hidden="true">✉️</span>
+        <strong>Subscribe</strong>
+        <span>Weekly tech intelligence in your inbox, free.</span>
+        <em>Explore →</em>
+      </a>
+  </div>
+</section>
+<!-- /DIH:EXPLORE -->
+<!-- DIH:FOOTER -->
+<footer class="dih-footer">
+  <div class="dih-footer-inner">
+    <div class="dih-footer-brand">
+      <a class="dih-brand" href="/" aria-label="Digital Infohub home">
+        <img src="/assets/logo.png" alt="Digital Infohub logo" width="40" height="40">
+        <span class="dih-brand-text">Digital <b>Infohub</b></span>
+      </a>
+      <p>The independent tech hub for everyone: AI research, market moves, practical guides, free tools and Digi, your AI guide.</p>
+      <span class="dih-pill"><span class="dih-dot"></span> Updated daily</span>
+    </div>
+    <div class="dih-footer-col">
+      <h3>Explore</h3>
+      <a href="/blog">Blog &amp; analysis</a>
+      <a href="/techtopics">Tech Topics</a>
+      <a href="/software">Software &amp; tools</a>
+      <a href="/techproducts">Tech Products</a>
+      <a href="/games">Pixel Palace</a>
+      <a href="/digi">Digi AI guide</a>
+      <a href="/news">Live tech news</a>
+      <a href="/quiz">Tech quiz</a>
+    </div>
+    <div class="dih-footer-col">
+      <h3>Company</h3>
+      <a href="/about">About</a>
+      <a href="/services">Services</a>
+      <a href="/advertise">Advertise</a>
+      <a href="/coincompass">CoinCompass</a>
+      <a href="/privacy-policy">Privacy</a>
+    </div>
+    <div class="dih-footer-col dih-footer-cta">
+      <h3>Stay ahead</h3>
+      <p>One email a week: the AI, market and software stories that actually matter.</p>
+      <a class="dih-btn dih-btn-primary" href="/subscribe">Subscribe free</a>
+    </div>
+  </div>
+  <div class="dih-footer-bottom">
+    <span>© 2026 Digital Infohub · Independent technology publication</span>
+    <nav aria-label="Footer links">
+      <a href="/blog">Blog</a>
+      <a href="/techtopics">Guides</a>
+      <a href="/software">Tools</a>
+      <a href="/contact">Contact</a>
+      <a href="/sitemap.xml">Sitemap</a>
+    </nav>
+  </div>
+</footer>
+<!-- /DIH:FOOTER -->
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Offline — Digital Infohub</title>
+<meta name="robots" content="noindex, follow">
+<style>
+:root{--bg:#07070c;--surface:#101019;--surface2:#15151f;--text:#eef1f8;--muted:#8b93a7;--accent:#4c8dff;--border:rgba(255,255,255,.09)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:radial-gradient(700px 400px at 50% 0%,rgba(76,141,255,.16),transparent 70%),var(--bg);color:var(--text);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.65}
+.card{width:100%;max-width:460px;padding:32px 26px;border:1px solid var(--border);border-radius:20px;background:var(--surface);text-align:center;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+img{width:56px;height:56px;border-radius:16px;margin-bottom:16px}
+span{display:inline-block;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10px;font-weight:750;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+h1{font-size:26px;font-weight:850;letter-spacing:-.04em;margin-bottom:8px}
+p{color:var(--muted);font-size:13.5px;margin-bottom:20px}
+button{width:100%;padding:12px 18px;border:0;border-radius:11px;background:linear-gradient(125deg,var(--accent),#8b5cf6);color:#fff;font:inherit;font-size:13px;font-weight:750;cursor:pointer}
+.links{display:flex;justify-content:center;gap:14px;margin-top:18px;flex-wrap:wrap}
+a{color:var(--accent);font-size:12px;font-weight:650;text-decoration:none}
+a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+<div class="card">
+  <img src="/assets/icon-192.png" alt="Digital Infohub app icon">
+  <span>No connection</span>
+  <h1>You're offline.</h1>
+  <p>Digital Infohub is installed and the pages you already visited are cached. Reconnect to load fresh news, markets and articles.</p>
+  <button type="button" onclick="location.reload()">Try again</button>
+  <div class="links">
+    <a href="/">Home</a>
+    <a href="/blog">Blog</a>
+    <a href="/software">Free tools</a>
+    <a href="/coincompass">Markets</a>
+  </div>
+</div>
+</body>
+</html>
