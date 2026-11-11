@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Image to ASCII Art Converter — Free Browser Tool | Digital Infohub</title>
-<meta name="description" content="Convert any photo into ASCII art in your browser. Adjust width, character set and contrast, then copy or download the text. Nothing is uploaded.">
+<title>Image to ASCII Art Converter — Colour & PNG | Digital Infohub</title>
+<meta name="description" content="Convert any photo into colour or monochrome ASCII art in your browser, then download a transparent PNG. Adjust width, characters and contrast. Nothing is uploaded.">
 <style>
 .tp{width:100%;max-width:1040px;margin:0 auto;padding:40px 22px 90px}
 .tp-head{max-width:720px;margin-bottom:22px}
@@ -32,6 +32,10 @@
 .btn:disabled{opacity:.45;cursor:not-allowed}
 .out-wrap{position:relative;border:1px solid var(--dih-border);border-radius:14px;background:#07070c;min-height:360px;overflow:auto;max-height:560px}
 .out-wrap pre{margin:0;padding:14px;font-family:var(--dih-mono);font-size:6px;line-height:1;color:#dbe3ff;white-space:pre;letter-spacing:0}
+.out-wrap pre[hidden]{display:none}
+.out-wrap canvas{display:block;width:100%;height:auto}
+.out-wrap.checker{background:repeating-conic-gradient(#101018 0 25%,#181826 0 50%) 50%/18px 18px}
+.field input[type=color]{width:100%;height:38px;padding:4px;border-radius:10px;border:1px solid var(--dih-border);background:var(--dih-surface-2);cursor:pointer}
 .out-empty{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:20px;text-align:center;color:#8b93a7;font-size:12px;line-height:1.6}
 .tp-note{margin:16px 0 0;font-size:11px;color:var(--dih-text-muted);line-height:1.65}
 .tp-tips{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:22px}
@@ -135,7 +139,7 @@
   <header class="tp-head">
     <span class="tp-eyebrow"><span class="dih-dot"></span> Free tool · runs locally</span>
     <h1>Image to <span>ASCII art.</span></h1>
-    <p>Turn a photo into text art in your browser. Your image is read locally on your device — nothing is uploaded, stored or sent anywhere.</p>
+    <p>Turn a photo into text art in your browser — in full colour or clean monochrome — then download it as a transparent PNG. Your image is read locally on your device; nothing is uploaded or stored.</p>
   </header>
   <section class="tp-panel">
     <div class="tp-grid">
@@ -161,6 +165,18 @@
           </select>
         </div>
         <div class="field">
+          <label for="styleMode">Colour mode</label>
+          <select id="styleMode">
+            <option value="mono">Monochrome text</option>
+            <option value="colour">Full colour text</option>
+            <option value="blocks">Full colour blocks</option>
+          </select>
+        </div>
+        <div class="field" id="colorField">
+          <label for="textColor">Text colour</label>
+          <input id="textColor" type="color" value="#9fc4ff">
+        </div>
+        <div class="field">
           <label for="contrast">Contrast <output id="contrastOut">1.0×</output></label>
           <input id="contrast" type="range" min="0.4" max="2.2" step="0.1" value="1">
         </div>
@@ -169,10 +185,12 @@
           <button class="btn primary" id="render" type="button" disabled>Convert</button>
           <button class="btn" id="copy" type="button" disabled>Copy text</button>
           <button class="btn" id="download" type="button" disabled>Download .txt</button>
+          <button class="btn" id="downloadPng" type="button" disabled>Download PNG</button>
         </div>
         <p class="tp-note">Tip: smaller widths give cleaner text; larger widths keep more detail but get heavy on small screens.</p>
       </div>
-      <div class="out-wrap">
+      <div class="out-wrap" id="outWrap">
+        <canvas id="artCanvas" aria-label="Colour ASCII preview" hidden></canvas>
         <pre id="output" aria-live="polite"></pre>
         <div class="out-empty" id="empty">Your ASCII art will appear here.<br>Start by choosing an image.</div>
       </div>
@@ -191,12 +209,16 @@
   var fileInput = $('fileInput'), drop = $('drop'), width = $('width'), widthOut = $('widthOut');
   var charset = $('charset'), contrast = $('contrast'), contrastOut = $('contrastOut');
   var invert = $('invert'), output = $('output'), empty = $('empty');
-  var renderBtn = $('render'), copyBtn = $('copy'), downloadBtn = $('download');
-  var image = null, text = '';
+  var styleMode = $('styleMode'), textColor = $('textColor'), colorField = $('colorField');
+  var artCanvas = $('artCanvas'), outWrap = $('outWrap');
+  var renderBtn = $('render'), copyBtn = $('copy'), downloadBtn = $('download'), downloadPngBtn = $('downloadPng');
+  var image = null, text = '', lastGrid = null;
 
   function setEnabled(on) {
-    [renderBtn, copyBtn, downloadBtn].forEach(function (b) { b.disabled = !on; });
+    [renderBtn, copyBtn, downloadBtn, downloadPngBtn].forEach(function (b) { b.disabled = !on; });
   }
+
+  function tone(v) { return Math.round(45 + v * 0.8); }
 
   function loadFile(file) {
     if (!file || !/^image\//.test(file.type)) {
@@ -234,23 +256,59 @@
     var n = chars.length;
     var c = parseFloat(contrast.value) || 1;
     var inv = invert.checked;
-    var lines = [];
+    var mode = styleMode.value;
+    var lines = [], cells = [];
     for (var y = 0; y < rows; y++) {
-      var line = '';
+      var line = '', rowCells = [];
       for (var x = 0; x < cols; x++) {
         var i = (y * cols + x) * 4;
-        var lum = (0.2126 * data[i] + 0.7152 * data[i + 1] + 0.0722 * data[i + 2]) / 255;
+        var r = data[i], g = data[i + 1], b = data[i + 2];
+        var lum = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
         lum = Math.min(1, Math.max(0, (lum - 0.5) * c + 0.5));
-        if (inv) lum = 1 - lum;
-        var idx = Math.min(n - 1, Math.max(0, Math.floor((1 - lum) * (n - 1))));
-        line += chars[idx];
+        var dl = inv ? 1 - lum : lum;
+        var ch = mode === 'blocks' ? '█' : chars[Math.min(n - 1, Math.max(0, Math.floor((1 - dl) * (n - 1))))];
+        line += ch;
+        rowCells.push({ ch: ch, r: r, g: g, b: b });
       }
       lines.push(line.replace(/\s+$/, ''));
+      cells.push(rowCells);
     }
     text = lines.join('\n');
+    lastGrid = { cols: cols, rows: rows, cells: cells };
     output.textContent = text;
     output.style.fontSize = cols > 160 ? '4px' : cols > 110 ? '5px' : cols > 70 ? '6px' : '8px';
+    output.hidden = mode !== 'mono';
+    artCanvas.hidden = mode === 'mono';
+    colorField.hidden = mode !== 'mono';
+    outWrap.classList.toggle('checker', mode !== 'mono');
     empty.style.display = 'none';
+    drawCanvas();
+  }
+
+  function drawCanvas() {
+    if (!lastGrid) return;
+    var g = lastGrid, cw = 10, ch = 16;
+    artCanvas.width = g.cols * cw;
+    artCanvas.height = g.rows * ch;
+    var x = artCanvas.getContext('2d');
+    x.clearRect(0, 0, artCanvas.width, artCanvas.height);
+    var mono = styleMode.value === 'mono';
+    var blocks = styleMode.value === 'blocks';
+    x.textBaseline = 'middle';
+    x.font = '700 16px "JetBrains Mono", ui-monospace, monospace';
+    for (var ry = 0; ry < g.rows; ry++) {
+      for (var rx = 0; rx < g.cols; rx++) {
+        var cell = g.cells[ry][rx];
+        if (!cell.ch || cell.ch === ' ') continue;
+        if (blocks) {
+          x.fillStyle = 'rgb(' + tone(cell.r) + ',' + tone(cell.g) + ',' + tone(cell.b) + ')';
+          x.fillRect(rx * cw, ry * ch, cw - 1, ch - 1);
+        } else {
+          x.fillStyle = mono ? textColor.value : 'rgb(' + tone(cell.r) + ',' + tone(cell.g) + ',' + tone(cell.b) + ')';
+          x.fillText(cell.ch, rx * cw + 1, ry * ch + ch / 2 + 1);
+        }
+      }
+    }
   }
 
   fileInput.addEventListener('change', function () { loadFile(fileInput.files[0]); fileInput.value = ''; });
@@ -271,6 +329,8 @@
   contrast.addEventListener('change', convert);
   charset.addEventListener('change', convert);
   invert.addEventListener('change', convert);
+  styleMode.addEventListener('change', convert);
+  textColor.addEventListener('input', function () { if (!artCanvas.hidden) drawCanvas(); });
   renderBtn.addEventListener('click', convert);
 
   copyBtn.addEventListener('click', function () {
@@ -293,6 +353,18 @@
     a.download = 'ascii-art.txt';
     a.click();
     setTimeout(function () { URL.revokeObjectURL(a.href); }, 3000);
+  });
+
+  downloadPngBtn.addEventListener('click', function () {
+    if (!lastGrid) return;
+    drawCanvas();
+    artCanvas.toBlob(function (blob) {
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'ascii-art.png';
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(function () { URL.revokeObjectURL(a.href); }, 4000);
+    }, 'image/png');
   });
 
   setEnabled(false);
@@ -429,5 +501,6 @@
 </footer>
 <!-- /DIH:FOOTER -->
 <script src="/assets/site.js" defer></script>
+<script src="/assets/software-helper.js" defer></script>
 </body>
 </html>

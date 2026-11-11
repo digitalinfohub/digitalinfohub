@@ -268,6 +268,9 @@ html[data-theme="light"] .hero-ask{background:rgba(255,255,255,.96)}
 
 /* Tools */
 .tool-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.tool-rotate-note{margin:-4px 0 14px;font-size:11.5px;color:var(--text-muted,#8b93a7)}
+.tool-rotate-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:14px}
+#toolShuffle{cursor:pointer}
 .tool-card{
   display:flex;flex-direction:column;gap:9px;padding:18px;border-radius:var(--dih-radius);
   border:1px solid var(--dih-border);background:var(--dih-surface);color:var(--dih-text);
@@ -816,26 +819,15 @@ html[data-theme="light"] .ask-form{background:rgba(255,255,255,.96)}
         <div>
           <span class="dih-eyebrow">The toolbox</span>
           <h2 id="toolsTitle">Free tools, no signup</h2>
-          <p>Twenty utilities that run entirely in your browser. Bookmark the one you use daily.</p>
+          <p>Twenty-eight utilities that run entirely in your browser — six are picked at random on every visit. Shuffle until you find your next daily tool.</p>
         </div>
         <a class="dih-view-all" href="/software">All free tools <span>→</span></a>
       </div>
-      <div class="tool-grid">
-        <a class="tool-card" href="/software/infohubgpt"><span class="tool-icon">✨</span><strong>InfohubGPT</strong><span class="tool-desc">A fast AI assistant for research, drafting and analysis.</span><em>Open tool →</em></a>
-        <a class="tool-card" href="/software/marketlens"><span class="tool-icon">📈</span><strong>MarketLens</strong><span class="tool-desc">Markets and crypto briefings without the noise.</span><em>Open tool →</em></a>
-        <a class="tool-card" href="/software/json"><span class="tool-icon">🧩</span><strong>JSON Formatter</strong><span class="tool-desc">Format, validate and beautify JSON instantly.</span><em>Open tool →</em></a>
-        <a class="tool-card" href="/software/password"><span class="tool-icon">🔑</span><strong>Password Generator</strong><span class="tool-desc">Strong, unique passwords generated locally.</span><em>Open tool →</em></a>
-        <a class="tool-card" href="/software/markdown"><span class="tool-icon">📝</span><strong>Markdown Editor</strong><span class="tool-desc">Write with live preview and clean HTML export.</span><em>Open tool →</em></a>
-        <a class="tool-card" href="/software/converter"><span class="tool-icon">⚖️</span><strong>Unit Converter</strong><span class="tool-desc">Length, weight, temperature — one clean screen.</span><em>Open tool →</em></a>
-      </div>
-      <h3 class="tool-subhead">New in the toolbox</h3>
-      <div class="tool-grid">
-        <a class="tool-card" href="/software/qr-code-generator"><span class="tool-icon">📱</span><strong>QR Code Generator</strong><span class="tool-desc">Turn any link or note into a sharp, scannable PNG.</span><em>Open tool →</em></a>
-        <a class="tool-card" href="/software/ascii-art"><span class="tool-icon">🎨</span><strong>Image to ASCII</strong><span class="tool-desc">Convert a photo into text art, entirely on your device.</span><em>Open tool →</em></a>
-        <a class="tool-card" href="/software/webp-to-png"><span class="tool-icon">🔄</span><strong>WebP to PNG</strong><span class="tool-desc">Batch-convert images without uploading a single file.</span><em>Open tool →</em></a>
-        <a class="tool-card" href="/software/calendar"><span class="tool-icon">📅</span><strong>Calendar</strong><span class="tool-desc">A private month planner with events saved locally.</span><em>Open tool →</em></a>
-        <a class="tool-card" href="/software/todo"><span class="tool-icon">✅</span><strong>To-do List</strong><span class="tool-desc">A quiet task list that remembers where you left off.</span><em>Open tool →</em></a>
-        <a class="tool-card" href="/software/task-timer"><span class="tool-icon">⏱️</span><strong>Task Timer</strong><span class="tool-desc">Time-box any task and hear when the block ends.</span><em>Open tool →</em></a>
+      <p class="tool-rotate-note" id="toolRotateNote">Six random picks — reshuffled every visit.</p>
+      <div class="tool-grid" id="homeToolGrid" aria-live="polite"></div>
+      <div class="tool-rotate-actions">
+        <button class="dih-btn" id="toolShuffle" type="button">Shuffle tools ↻</button>
+        <a class="dih-view-all" href="/software">See all 28 tools <span>→</span></a>
       </div>
     </section>
 
@@ -1073,6 +1065,55 @@ html[data-theme="light"] .ask-form{background:rgba(255,255,255,.96)}
 </footer>
 <!-- /DIH:FOOTER -->
 
+<script>
+(function () {
+  var TOOLS = [
+    ['/software/infohubgpt', '✨', 'InfohubGPT', 'A fast AI assistant for research, drafting and analysis.'],
+    ['/software/taskygpt', '📋', 'TaskyGPT', 'Turn a big goal into a plan you can actually start.'],
+    ['/software/buildengine', '⚙️', 'Build Engine', 'Build, fix and optimise code with an AI pair.'],
+    ['/software/marketlens', '📈', 'MarketLens', 'Markets and crypto briefings without the noise.'],
+    ['/software/scrapbook', '📸', 'Digital Scrapbook', 'Import photos and build a paper-style album.'],
+    ['/software/font-maker', '🔤', 'Font Maker', 'Type a word, style it and download a PNG.'],
+    ['/software/graphic-design', '🖌️', 'Graphic Designer', 'Add text and shapes, drag them, export a PNG.'],
+    ['/software/html-coder', '⌨️', 'HTML Coder', 'Write HTML with a live preview and download it.'],
+    ['/software/business-card', '💼', 'Business Card Maker', 'Preview a card, share it and save a PNG.'],
+    ['/software/travel-planner', '🧭', 'Travel Planner', 'Day-by-day itinerary, budget and packing list.'],
+    ['/software/marketing-assistant', '📣', 'Marketing Assistant', 'Headlines, captions and a launch checklist.'],
+    ['/software/save-money-assistant', '🏦', 'Save Money Assistant', 'See the gap and build a realistic savings plan.'],
+    ['/software/ascii-art', '🎨', 'Image to ASCII', 'Colour text art from a photo, with transparent PNG.'],
+    ['/software/qr-code-generator', '📱', 'QR Code Generator', 'Turn any link or note into a sharp, scannable PNG.'],
+    ['/software/webp-to-png', '🔄', 'WebP to PNG', 'Batch-convert images without uploading a file.'],
+    ['/software/calendar', '📅', 'Calendar', 'A private month planner with locally saved events.'],
+    ['/software/todo', '✅', 'To-Do List', 'A quiet task list that remembers where you left off.'],
+    ['/software/task-timer', '⏱️', 'Task Timer', 'Time-box any task and hear when the block ends.'],
+    ['/software/json', '🧩', 'JSON Formatter', 'Format, validate and beautify JSON instantly.'],
+    ['/software/password', '🔑', 'Password Generator', 'Strong, unique passwords generated locally.'],
+    ['/software/markdown', '📝', 'Markdown Editor', 'Write with live preview and clean HTML export.'],
+    ['/software/converter', '⚖️', 'Unit Converter', 'Length, weight, temperature — one clean screen.'],
+    ['/software/calculator', '🧮', 'Calculator', 'Quick maths without leaving the tab.'],
+    ['/software/color-picker', '🎨', 'Hex Colour Picker', 'Colours, harmonies and WCAG contrast checks.']
+  ];
+  var grid = document.getElementById('homeToolGrid');
+  var note = document.getElementById('toolRotateNote');
+  if (!grid) return;
+  function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+  function draw() {
+    var pool = TOOLS.slice();
+    for (var i = pool.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = pool[i]; pool[i] = pool[j]; pool[j] = t; }
+    grid.innerHTML = '';
+    pool.slice(0, 6).forEach(function (tool) {
+      var a = document.createElement('a');
+      a.className = 'tool-card';
+      a.href = tool[0];
+      a.innerHTML = '<span class="tool-icon">' + tool[1] + '</span><strong>' + esc(tool[2]) + '</strong><span class="tool-desc">' + esc(tool[3]) + '</span><em>Open tool →</em>';
+      grid.appendChild(a);
+    });
+    if (note) note.textContent = 'Six random picks from 28 tools — reshuffled every visit.';
+  }
+  document.getElementById('toolShuffle').addEventListener('click', draw);
+  draw();
+})();
+</script>
 <script src="/assets/site.js" defer></script>
 <script src="/assets/news.js" defer></script>
 <script src="/assets/home-app.js" defer></script>

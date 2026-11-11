@@ -230,6 +230,8 @@
     .app-icon.games { background: linear-gradient(135deg, #ec4899, #f43f5e); }
     .app-icon.media { background: linear-gradient(135deg, #f97316, #ef4444); }
     .app-icon.finance { background: linear-gradient(135deg, #8b5cf6, #6366f1); }
+    .app-icon.design { background: linear-gradient(135deg, #f43f5e, #8b5cf6); }
+    .app-icon.marketing { background: linear-gradient(135deg, #f59e0b, #ec4899); }
 
     .app-label { display: block; font-size: 13px; font-weight: 600; }
     .app-sub { display: block; margin-top: 4px; color: var(--text-muted); font-size: 11px; }
@@ -243,6 +245,24 @@
       background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2));
     }
     [data-theme="light"] .app-badge.ai { color: #6d28d9; background: rgba(139, 92, 246, 0.12); }
+    .app-badge.new { border-color: rgba(34, 197, 94, 0.45); color: #86efac; background: rgba(34, 197, 94, 0.14); }
+    [data-theme="light"] .app-badge.new { color: #15803d; background: rgba(34, 197, 94, 0.12); }
+
+    /* FEATURED — four random tools per visit */
+    .featured-block { margin-bottom: 34px; }
+    .featured-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+    .featured-head h2 { font-size: 17px; }
+    .featured-shuffle { padding: 8px 13px; border: 1px solid var(--border); border-radius: var(--radius-pill); background: var(--surface); color: var(--text-sub); font-size: 11px; font-weight: 600; cursor: pointer; transition: 0.2s var(--ease); flex-shrink: 0; }
+    .featured-shuffle:hover { color: var(--accent); border-color: var(--accent); }
+    .featured-apps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+    .featured-card { position: relative; display: flex; align-items: center; gap: 12px; padding: 15px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); color: var(--text); text-decoration: none; transition: 0.25s var(--ease); overflow: hidden; }
+    .featured-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: var(--border-strong); }
+    .featured-card .app-icon { width: 42px; height: 42px; font-size: 19px; flex-shrink: 0; }
+    .featured-text { min-width: 0; }
+    .featured-text strong { display: block; font-size: 12.5px; font-weight: 650; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .featured-text span { display: block; margin-top: 3px; color: var(--text-muted); font-size: 10.5px; line-height: 1.4; }
+    @media (max-width: 860px) { .featured-apps { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 480px) { .featured-apps { grid-template-columns: 1fr; } }
 
     /* AI ASSISTANTS — featured row */
     .ai-showcase { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
@@ -529,8 +549,19 @@
           <div>
             <div class="eyebrow">Software Suite</div>
             <h1 id="pageTitle">Online Tools & AI</h1>
-            <p class="section-description">AI assistants, productivity utilities and practical browser tools.</p>
+            <p class="section-description">28 free tools in one place: seven AI assistants, eight new creative and planning apps, and a set of everyday utilities. Every tool opens on its own page, runs in your browser and needs no signup.</p>
           </div>
+        </div>
+
+        <div class="featured-block" aria-labelledby="featuredTitle">
+          <div class="featured-head">
+            <div>
+              <div class="eyebrow">Featured this visit</div>
+              <h2 id="featuredTitle">Four tools, shuffled every time</h2>
+            </div>
+            <button class="featured-shuffle" id="featuredShuffle" type="button">Shuffle ↻</button>
+          </div>
+          <div class="featured-apps" id="featuredApps" role="list"></div>
         </div>
 
         <div class="section-head" style="margin-bottom:14px">
@@ -561,6 +592,8 @@
             <option value="dev">Development</option>
             <option value="health">Health</option>
             <option value="media">Media</option>
+            <option value="design">Design</option>
+            <option value="marketing">Marketing</option>
             <option value="finance">Finance</option>
             <option value="games">Games</option>
           </select>
@@ -589,6 +622,8 @@
       const appSearch = $("#appSearch");
       const categoryFilter = $("#categoryFilter");
       const noResults = $("#noResults");
+      const featuredGrid = $("#featuredApps");
+      const featuredShuffle = $("#featuredShuffle");
 
       /* MOBILE NAVIGATION */
       function closeMobileMenu() {
@@ -641,6 +676,14 @@
         { name: "WebP to PNG", desc: "Convert images locally", icon: "🖼️", category: "media", page: "software/webp-to-png.html" },
         { name: "QR Code Generator", desc: "Make and download QR codes", icon: "🔳", category: "tools", page: "software/qr-code-generator.html" },
         { name: "Calendar", desc: "Month planner with events", icon: "📅", category: "tasks", page: "software/calendar.html" },
+        { name: "Digital Scrapbook", desc: "Photos on real paper", icon: "📸", category: "design", new: true, page: "software/scrapbook.html" },
+        { name: "Font Maker", desc: "Type it, download PNG", icon: "🔤", category: "design", new: true, page: "software/font-maker.html" },
+        { name: "Graphic Designer", desc: "Text, shapes & PNG export", icon: "🖌️", category: "design", new: true, page: "software/graphic-design.html" },
+        { name: "HTML Coder", desc: "Live preview & .html download", icon: "&lt;/&gt;", category: "dev", new: true, page: "software/html-coder.html" },
+        { name: "Business Card Maker", desc: "Preview, share, save PNG", icon: "💼", category: "design", new: true, page: "software/business-card.html" },
+        { name: "Travel Planner", desc: "Itinerary, budget & packing", icon: "🧭", category: "tasks", new: true, page: "software/travel-planner.html" },
+        { name: "Marketing Assistant", desc: "Copy and campaign ideas", icon: "📣", category: "marketing", new: true, page: "software/marketing-assistant.html" },
+        { name: "Save Money Assistant", desc: "Budget & savings plan", icon: "🏦", category: "finance", new: true, page: "software/save-money-assistant.html" },
         { name: "InfohubGPT", desc: "Tech strategy assistant", icon: "🤖", category: "ai", ai: true, page: "software/infohubgpt.html" },
         { name: "TaskyGPT", desc: "Break down your goals", icon: "📋", category: "ai", ai: true, page: "software/taskygpt.html" },
         { name: "Build Engine", desc: "Build, fix & optimise code", icon: "⚙️", category: "dev", ai: true, page: "software/buildengine.html" },
@@ -679,6 +722,30 @@
         });
       }
 
+      /* FEATURED — four random apps, reshuffled each visit or on demand */
+      function renderFeatured() {
+        const pool = APPS.filter(app => app.page);
+        for (let i = pool.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [pool[i], pool[j]] = [pool[j], pool[i]];
+        }
+        featuredGrid.innerHTML = "";
+        pool.slice(0, 4).forEach(app => {
+          const card = document.createElement("a");
+          card.className = "featured-card";
+          card.setAttribute("role", "listitem");
+          card.href = `/${app.page}`;
+          card.addEventListener("click", () => haptic());
+          const badge = app.new ? "NEW" : app.ai ? "AI" : "OPEN";
+          card.innerHTML = `
+            <span class="app-badge${app.new ? " new" : app.ai ? " ai" : ""}">${badge}</span>
+            <span class="app-icon ${escapeHtml(app.category)}">${app.icon}</span>
+            <span class="featured-text"><strong>${escapeHtml(app.name)}</strong><span>${escapeHtml(app.desc)}</span></span>
+          `;
+          featuredGrid.appendChild(card);
+        });
+      }
+
       /* APP GRID — every app opens on its own dedicated page */
       function renderApps() {
         appsGrid.innerHTML = "";
@@ -695,7 +762,7 @@
           element.addEventListener("click", () => haptic());
 
           element.innerHTML = `
-            <span class="app-badge${app.ai ? " ai" : ""}">${app.ai ? "AI" : "OPEN"}</span>
+            <span class="app-badge${app.new ? " new" : app.ai ? " ai" : ""}">${app.new ? "NEW" : app.ai ? "AI" : "OPEN"}</span>
             <span class="app-icon ${escapeHtml(app.category)}">${app.icon}</span>
             <span>
               <span class="app-label">${escapeHtml(app.name)}</span>
@@ -724,6 +791,7 @@
 
       appSearch.addEventListener("input", updateFilters);
       categoryFilter.addEventListener("change", () => { haptic(); updateFilters(); });
+      featuredShuffle.addEventListener("click", () => { haptic(); renderFeatured(); });
 
       /* MOUSE TRACKING SPOTLIGHT */
       if (window.matchMedia('(hover: hover)').matches) {
@@ -741,6 +809,7 @@
       }
 
       renderAiShowcase();
+      renderFeatured();
       renderApps();
     })();
   </script>
