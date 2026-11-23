@@ -47,7 +47,7 @@ PAGE_META = {
     "techtopics.html": {
         "kind": "techtopics", "type": "website",
         "title": "Tech Topics: Plain-Language Guides to AI, Cloud and More",
-        "desc": "30 plain-language guides to AI, cloud, security, quantum, robotics and the technology shaping business — no jargon, no hype.",
+        "desc": "35 plain-language guides to AI, cloud, security, quantum, robotics and the technology shaping business — no jargon, no hype.",
         "keywords": "tech topics, technology guides, what is AI, cloud computing, cybersecurity, quantum computing, robotics",
     },
     "blog.html": {
@@ -266,7 +266,7 @@ def existing_keywords(html: str) -> str:
 # social headline is written to earn the click without turning into clickbait.
 SHARE_COPY = {
     "techtopics.html": {
-        "share_title": "30 plain-language guides to the tech that matters",
+        "share_title": "35 plain-language guides to the tech that matters",
         "desc": "Understand AI, cloud, security, quantum, robotics and more without the jargon. Every guide gives you the mental model, the limits and the next step.",
     },
     "blog.html": {
@@ -275,7 +275,7 @@ SHARE_COPY = {
         "keywords": "tech blog, AI analysis, technology news, cybersecurity, hardware reviews, market analysis, 2026",
     },
     "software.html": {
-        "share_title": "12 free browser tools that replace paid software",
+        "share_title": "Free browser tools that replace paid software",
         "desc": "AI assistants, formatters, converters and productivity tools that run locally in your browser. No signup, no install, no tracking.",
         "keywords": "free online tools, AI assistant, calculator, unit converter, JSON formatter, password generator, browser tools",
     },
@@ -505,7 +505,7 @@ def seo_block(rel: Path, meta: dict, html_snapshot=None) -> str:
                 "@type": "Organization", "@id": f"{SITE}/#organization",
                 "name": "Digital Infohub", "url": f"{SITE}/",
                 "logo": {"@type": "ImageObject", "url": f"{SITE}/assets/icon-512.png", "width": 512, "height": 512},
-                "description": "Independent technology publication for professionals: AI, markets, software and practical guides.",
+                "description": "Independent technology publication for everyone: plain-language guides, free browser tools and live market context.",
                 "sameAs": [],
             },
             {
@@ -564,6 +564,7 @@ def seo_block(rel: Path, meta: dict, html_snapshot=None) -> str:
 <link rel="manifest" href="/site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/site.css">
 <script type="application/ld+json">{ld}</script>
@@ -645,14 +646,21 @@ def process_index(path: Path) -> bool:
     rel = path.relative_to(ROOT)
     html = path.read_text(encoding="utf-8")
     cleaned = strip_visuals(html)
+    if 'data-page="home"' not in cleaned:
+        cleaned = re.sub(r"<body([^>]*)>", r'<body\1 data-page="home">', cleaned, count=1, flags=re.I)
     body_open = re.search(r"<body[^>]*>", cleaned, re.I)
     if not body_open:
         return False
     cleaned = cleaned[: body_open.end()] + "\n" + ambient_html(str(rel)) + cleaned[body_open.end():]
-    marker = "<!-- DIH:FOOTER -->"
+    marker = "<!-- Daily insight -->"
     if marker in cleaned:
+        # Keep the homepage gallery inside the page flow, not after the content.
         cleaned = cleaned.replace(marker, gallery_html(str(rel), "home") + "\n" + marker, 1)
     else:
+        marker = "<!-- DIH:FOOTER -->"
+    if "dih-gallery" not in cleaned and marker in cleaned:
+        cleaned = cleaned.replace(marker, gallery_html(str(rel), "home") + "\n" + marker, 1)
+    elif "dih-gallery" not in cleaned:
         idx = cleaned.rfind('<footer class="dih-footer"')
         if idx == -1:
             return False
@@ -679,7 +687,8 @@ def process(path: Path) -> bool:
 
 def targets():
     if len(sys.argv) > 1:
-        return [ROOT / a for a in sys.argv[1:]]
+        # The homepage has its own pipeline; never run the generic page pass on it.
+        return [ROOT / a for a in sys.argv[1:] if Path(a).name != "index.html"]
     pages = []
     for p in sorted(ROOT.glob("*.html")):
         if p.name in GENERATED or p.name in ("index.html", "digi.html"):

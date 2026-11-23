@@ -49,7 +49,7 @@
     "url": "https://digitalinfohub.net/",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png"
+      "url": "/assets/icon-512.png"
     }
   }
 }
@@ -484,6 +484,7 @@ body {
 <link rel="manifest" href="/site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/site.css">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://digitalinfohub.net/#organization","name":"Digital Infohub","url":"https://digitalinfohub.net/","logo":{"@type":"ImageObject","url":"https://digitalinfohub.net/assets/icon-512.png","width":512,"height":512},"description":"Independent technology publication for professionals: AI, markets, software and practical guides.","sameAs":[]},{"@type":"WebSite","@id":"https://digitalinfohub.net/#website","url":"https://digitalinfohub.net/","name":"Digital Infohub","publisher":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://digitalinfohub.net/blog?q={search_term_string}"},"query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://digitalinfohub.net/semiconductors#webpage","url":"https://digitalinfohub.net/semiconductors","name":"Semiconductors Explained: How Chips Are Made | Digital Infohub","description":"How semiconductors work, why fabrication is so hard, what chip process nodes really mean, and why the supply chain is now a geopolitical issue.","isPartOf":{"@id":"https://digitalinfohub.net/#website"},"about":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","primaryImageOfPage":{"@type":"ImageObject","url":"https://images.unsplash.com/photo-1782155789465-9bae14cbfba5?w=1200&h=630&fit=crop&auto=format&q=80&fm=jpg","width":1200,"height":630}}]}</script>
@@ -491,7 +492,7 @@ body {
 </head>
 <body>
 <!-- DIH:AMBIENT -->
-<div class="dih-ambient" aria-hidden="true" style="--dih-ambient:url('https://images.unsplash.com/photo-1782155789465-9bae14cbfba5?w=1600&amp;h=900&amp;fit=crop&amp;auto=format&amp;q=45')"></div>
+<div class="dih-ambient" aria-hidden="true" style="--dih-ambient:url('https://images.unsplash.com/photo-1782155789465-9bae14cbfba5?w=1200&amp;h=675&amp;fit=crop&amp;auto=format&amp;q=40')"></div>
 <!-- /DIH:AMBIENT -->
 <!-- DIH:HEADER -->
 <header class="dih-header">
@@ -512,6 +513,9 @@ body {
     </nav>
     <div class="dih-actions">
       <a class="dih-tools" href="/software#tools" title="Free browser tools" aria-label="Free browser tools">⚡<span>Tools</span></a>
+      <button class="dih-icon dih-share" type="button" data-dih-share aria-label="Share this page" title="Share this page">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M12 3v13"/><path d="m7 8 5-5 5 5"/></svg>
+      </button>
       <button class="dih-icon" type="button" data-dih-theme aria-label="Switch theme" title="Switch theme">☀</button>
       <a class="dih-cta" href="/subscribe">Subscribe</a>
       <button class="dih-burger" id="dihBurger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="dihDrawer"><span></span><span></span><span></span></button>
@@ -569,7 +573,7 @@ body {
   <div class="topbar">
     <a href="/" class="brand" aria-label="Digital Infohub home">
       <span class="brand-logo">
-        <img src="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png" alt="" loading="lazy" width="28" height="28">
+        <img src="/assets/icon-512.png" alt="" loading="lazy" width="28" height="28">
       </span>
       <span>Digital Infohub</span>
     </a>
@@ -602,19 +606,6 @@ body {
       </div>
     </header>
 
-    <div class="ad-box-inline" role="complementary" aria-label="Advertisement">
-  <div style="width:100%;">
-    <div class="ad-label">Sponsored</div>
-    <ins class="adsbygoogle ad-box-ins"
-         style="display:block"
-         data-ad-client="ca-pub-5443646750699471"
-         data-ad-slot="8451723433"
-         data-ad-format="auto"
-         data-full-width-responsive="true"></ins>
-    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-  </div>
-</div>
-
     <div class="toc">
       <h2>In this guide</h2>
       <ol>
@@ -627,6 +618,19 @@ body {
 
     <p>A transistor is a switch with no moving parts. Shrinking billions of them onto a sliver of silicon is what made computing cheap, and the manufacturing process required to do it is among the most complex engineering feats humans have achieved.</p>
     <p>Semiconductors sit at the intersection of physics, chemistry and logistics. That is why chip policy became industrial policy almost everywhere at once.</p>
+
+    <div class="ad-box-inline" role="complementary" aria-label="Advertisement">
+  <div style="width:100%;">
+    <div class="ad-label">Sponsored</div>
+    <ins class="adsbygoogle ad-box-ins"
+         style="display:block"
+         data-ad-client="ca-pub-5443646750699471"
+         data-ad-slot="8451723433"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
 
     <h2 id="physics">What makes a semiconductor useful</h2>
     <p>Pure silicon is a poor conductor. Adding tiny amounts of other elements, called doping, gives it controlled regions of excess or deficit of electrons. Junctions between those regions form diodes and transistors that can amplify or switch signals.</p>
@@ -806,70 +810,70 @@ body {
     <a class="dih-gallery-all" href="/techtopics">All 35 tech guides <span aria-hidden="true">&rarr;</span></a>
   </div>
   <div class="dih-gallery-grid">
-      <a class="dih-gallery-card" href="/cybersecurity">
+      <a class="dih-gallery-card" href="/post/how-to-clear-cache-on-iphone">
         <span class="dih-gallery-media">
-          <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=72" alt="Cybersecurity concept with a glowing padlock over code" width="800" height="500" loading="lazy" decoding="async">
-          <span class="dih-gallery-tag">Cybersecurity</span>
+          <img src="https://images.unsplash.com/photo-1760074016722-04b95a22a310?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=70" alt="Hand holding a smartphone with colourful app icons" width="800" height="500" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Phone tips</span>
         </span>
         <span class="dih-gallery-body">
-          <strong>Security is an identity problem</strong>
-          <span>Most breaches start with a stolen session or a weak credential, not a broken firewall. Strong identity checks and short-lived access do more than another perimeter tool.</span>
-          <em>Read the security guide &rarr;</em>
+          <strong>Fix the phone before you replace it</strong>
+          <span>Most slow-phone problems are storage, background apps or a tired battery. Check those first.</span>
+          <em>Read the cache guide &rarr;</em>
         </span>
       </a>
-      <a class="dih-gallery-card" href="/bigdata">
+      <a class="dih-gallery-card" href="/post/how-to-screen-record-on-iphone">
         <span class="dih-gallery-media">
-          <img src="https://images.unsplash.com/photo-1644325349124-d1756b79dd42?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=72" alt="Blue abstract background with fine lines and dots" width="800" height="500" loading="lazy" decoding="async">
-          <span class="dih-gallery-tag">Data</span>
+          <img src="https://images.unsplash.com/photo-1560785219-cc81ab373cd3?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=70" alt="Person recording someone playing guitar on a camera" width="800" height="500" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Screen recording</span>
         </span>
         <span class="dih-gallery-body">
-          <strong>Finding signal in the noise</strong>
-          <span>Data teams spend more time cleaning and labelling than modelling. The quality of that groundwork decides whether a dashboard is trusted or ignored.</span>
-          <em>Read the big data guide &rarr;</em>
+          <strong>Show, don&#x27;t tell</strong>
+          <span>A short screen recording explains a bug or a workflow faster than a paragraph. Record, trim, share.</span>
+          <em>Read the screen recording guide &rarr;</em>
         </span>
       </a>
-      <a class="dih-gallery-card" href="/post/ai-hardware-race-sept-2026">
+      <a class="dih-gallery-card" href="/post/why-is-my-face-id-not-working">
         <span class="dih-gallery-media">
-          <img src="https://images.unsplash.com/photo-1548092372-0d1bd40894a3?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=72" alt="Hands opening a blue and white laptop computer" width="800" height="500" loading="lazy" decoding="async">
-          <span class="dih-gallery-tag">AI hardware</span>
+          <img src="https://images.unsplash.com/photo-1638951003100-2cc4550a9737?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=70" alt="Person holding an iPhone in their hand" width="800" height="500" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Face ID</span>
         </span>
         <span class="dih-gallery-body">
-          <strong>Where AI actually lands</strong>
-          <span>AI is moving from cloud data centres onto phones, laptops and wearables. On-device inference cuts latency and keeps sensitive data local, at the cost of model size.</span>
-          <em>Read the AI hardware analysis &rarr;</em>
+          <strong>When the sensor says no</strong>
+          <span>Face ID failures are usually dirt, a bad angle or a reset. Work through the simple causes before assuming hardware.</span>
+          <em>Read the Face ID guide &rarr;</em>
         </span>
       </a>
-      <a class="dih-gallery-card" href="/machinelearning">
+      <a class="dih-gallery-card" href="/post/could-babav-be-your-next-ai-social-media-assistant">
         <span class="dih-gallery-media">
-          <img src="https://images.unsplash.com/photo-1727434032773-af3cd98375ba?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=72" alt="Deep blue abstract digital waves and particles" width="800" height="500" loading="lazy" decoding="async">
-          <span class="dih-gallery-tag">Machine learning</span>
+          <img src="https://images.unsplash.com/photo-1724862936518-ae7fcfc052c1?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=70" alt="Person holding a smartphone showing social media" width="800" height="500" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Social media</span>
         </span>
         <span class="dih-gallery-body">
-          <strong>The shape of a model</strong>
-          <span>A model is a structure plus millions of tuned numbers. Change the structure, the data or the evaluation and you get a different product — not just a different score.</span>
-          <em>Read the machine learning guide &rarr;</em>
+          <strong>Post less, mean more</strong>
+          <span>An AI assistant can draft and schedule, but taste and trust still come from a person.</span>
+          <em>Read the Babav review &rarr;</em>
         </span>
       </a>
-      <a class="dih-gallery-card" href="/blockchain">
+      <a class="dih-gallery-card" href="/post/beating-syllabus-overload-with-smarter-medical-learning">
         <span class="dih-gallery-media">
-          <img src="https://images.unsplash.com/photo-1639322537228-f710d846310a?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=72" alt="Glowing translucent cubes arranged in a chain" width="800" height="500" loading="lazy" decoding="async">
-          <span class="dih-gallery-tag">Blockchain</span>
+          <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=70" alt="Person writing at a wooden table beside a mug" width="800" height="500" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Learning</span>
         </span>
         <span class="dih-gallery-body">
-          <strong>Blocks, ledgers and trust</strong>
-          <span>A blockchain is a shared record that no single party can quietly rewrite. That property is useful for settlement and provenance, and overkill for most databases.</span>
-          <em>Read the blockchain guide &rarr;</em>
+          <strong>Study smarter, not longer</strong>
+          <span>Spaced repetition and practice questions beat re-reading. The hard part is starting small enough to keep going.</span>
+          <em>Read the study guide &rarr;</em>
         </span>
       </a>
-      <a class="dih-gallery-card" href="/blog">
+      <a class="dih-gallery-card" href="/post/small-biz-philly-a-great-resource-for-local-entrepreneurs">
         <span class="dih-gallery-media">
-          <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=72" alt="Colourful abstract 3D shapes representing digital creativity" width="800" height="500" loading="lazy" decoding="async">
-          <span class="dih-gallery-tag">Digital culture</span>
+          <img src="https://images.unsplash.com/photo-1575663620136-5ebbfcc2c597?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=70" alt="Open sign outside a small shop" width="800" height="500" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Small business</span>
         </span>
         <span class="dih-gallery-body">
-          <strong>Where code meets culture</strong>
-          <span>Product decisions are cultural decisions. The interfaces people trust tend to be the ones that explain themselves and fail gracefully.</span>
-          <em>Read the latest analysis &rarr;</em>
+          <strong>Local knowledge is a real advantage</strong>
+          <span>A small business wins on trust, speed and knowing the customer. Local networks make that easier.</span>
+          <em>Read the Small Biz Philly story &rarr;</em>
         </span>
       </a>
   </div>

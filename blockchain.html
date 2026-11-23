@@ -49,7 +49,7 @@
     "url": "https://digitalinfohub.net/",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png"
+      "url": "/assets/icon-512.png"
     }
   }
 }
@@ -484,6 +484,7 @@ body {
 <link rel="manifest" href="/site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/site.css">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://digitalinfohub.net/#organization","name":"Digital Infohub","url":"https://digitalinfohub.net/","logo":{"@type":"ImageObject","url":"https://digitalinfohub.net/assets/icon-512.png","width":512,"height":512},"description":"Independent technology publication for professionals: AI, markets, software and practical guides.","sameAs":[]},{"@type":"WebSite","@id":"https://digitalinfohub.net/#website","url":"https://digitalinfohub.net/","name":"Digital Infohub","publisher":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://digitalinfohub.net/blog?q={search_term_string}"},"query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://digitalinfohub.net/blockchain#webpage","url":"https://digitalinfohub.net/blockchain","name":"Blockchain Explained: How Distributed Ledgers Work | Digital Infohub","description":"How blockchain works without a central authority: blocks, hashes, consensus, smart contracts, genuine use cases, and the limits behind the hype.","isPartOf":{"@id":"https://digitalinfohub.net/#website"},"about":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","primaryImageOfPage":{"@type":"ImageObject","url":"https://images.unsplash.com/photo-1639322537228-f710d846310a?w=1200&h=630&fit=crop&auto=format&q=80&fm=jpg","width":1200,"height":630}}]}</script>
@@ -491,7 +492,7 @@ body {
 </head>
 <body>
 <!-- DIH:AMBIENT -->
-<div class="dih-ambient" aria-hidden="true" style="--dih-ambient:url('https://images.unsplash.com/photo-1639322537228-f710d846310a?w=1600&amp;h=900&amp;fit=crop&amp;auto=format&amp;q=45')"></div>
+<div class="dih-ambient" aria-hidden="true" style="--dih-ambient:url('https://images.unsplash.com/photo-1639322537228-f710d846310a?w=1200&amp;h=675&amp;fit=crop&amp;auto=format&amp;q=40')"></div>
 <!-- /DIH:AMBIENT -->
 <!-- DIH:HEADER -->
 <header class="dih-header">
@@ -512,6 +513,9 @@ body {
     </nav>
     <div class="dih-actions">
       <a class="dih-tools" href="/software#tools" title="Free browser tools" aria-label="Free browser tools">⚡<span>Tools</span></a>
+      <button class="dih-icon dih-share" type="button" data-dih-share aria-label="Share this page" title="Share this page">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M12 3v13"/><path d="m7 8 5-5 5 5"/></svg>
+      </button>
       <button class="dih-icon" type="button" data-dih-theme aria-label="Switch theme" title="Switch theme">☀</button>
       <a class="dih-cta" href="/subscribe">Subscribe</a>
       <button class="dih-burger" id="dihBurger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="dihDrawer"><span></span><span></span><span></span></button>
@@ -569,7 +573,7 @@ body {
   <div class="topbar">
     <a href="/" class="brand" aria-label="Digital Infohub home">
       <span class="brand-logo">
-        <img src="https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png" alt="" loading="lazy" width="28" height="28">
+        <img src="/assets/icon-512.png" alt="" loading="lazy" width="28" height="28">
       </span>
       <span>Digital Infohub</span>
     </a>
@@ -602,19 +606,6 @@ body {
       </div>
     </header>
 
-    <div class="ad-box-inline" role="complementary" aria-label="Advertisement">
-  <div style="width:100%;">
-    <div class="ad-label">Sponsored</div>
-    <ins class="adsbygoogle ad-box-ins"
-         style="display:block"
-         data-ad-client="ca-pub-5443646750699471"
-         data-ad-slot="8451723433"
-         data-ad-format="auto"
-         data-full-width-responsive="true"></ins>
-    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-  </div>
-</div>
-
     <div class="toc">
       <h2>In this guide</h2>
       <ol>
@@ -627,6 +618,19 @@ body {
 
     <p>A blockchain stores records in blocks that are cryptographically linked to the block before them. Changing an old entry changes its hash, which breaks every link that follows, so tampering is immediately visible to everyone holding a copy.</p>
     <p>The interesting part is not the chain. It is the agreement. A network of participants that do not fully trust each other can settle on one shared history using a consensus rule, without appointing an administrator.</p>
+
+    <div class="ad-box-inline" role="complementary" aria-label="Advertisement">
+  <div style="width:100%;">
+    <div class="ad-label">Sponsored</div>
+    <ins class="adsbygoogle ad-box-ins"
+         style="display:block"
+         data-ad-client="ca-pub-5443646750699471"
+         data-ad-slot="8451723433"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
 
     <h2 id="how-it-works">Blocks, hashes and consensus</h2>
     <p>Each block contains transactions, a timestamp and the hash of the previous block. Nodes validate new blocks against the protocol rules before accepting them. If two valid histories appear, the network's consensus rule decides which one wins.</p>
@@ -805,70 +809,70 @@ body {
     <a class="dih-gallery-all" href="/techtopics">All 35 tech guides <span aria-hidden="true">&rarr;</span></a>
   </div>
   <div class="dih-gallery-grid">
-      <a class="dih-gallery-card" href="/5gnetworks">
+      <a class="dih-gallery-card" href="/internetofthings">
         <span class="dih-gallery-media">
-          <img src="https://images.unsplash.com/photo-1644088379091-d574269d422f?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=72" alt="Glowing blue network lines and nodes forming a digital mesh" width="800" height="500" loading="lazy" decoding="async">
-          <span class="dih-gallery-tag">5G &amp; edge</span>
+          <img src="https://images.unsplash.com/photo-1558002038-1055907df827?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=70" alt="Phone used as a smart-home key at a front door" width="800" height="500" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">IoT</span>
         </span>
         <span class="dih-gallery-body">
-          <strong>Networks that think</strong>
-          <span>Modern networks do not just move packets; they schedule workloads, slice bandwidth and push compute closer to users. That is what makes low-latency apps feel instant.</span>
-          <em>Explore 5G networks &rarr;</em>
-        </span>
-      </a>
-      <a class="dih-gallery-card" href="/cloudcomputing">
-        <span class="dih-gallery-media">
-          <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=72" alt="Illuminated planet Earth seen from space with blue technology overlays" width="800" height="500" loading="lazy" decoding="async">
-          <span class="dih-gallery-tag">Cloud</span>
-        </span>
-        <span class="dih-gallery-body">
-          <strong>A planetary-scale cloud</strong>
-          <span>Cloud regions are physical campuses full of power, cooling and fibre. That geography explains latency, cost and most data-sovereignty rules.</span>
-          <em>Read the cloud guide &rarr;</em>
-        </span>
-      </a>
-      <a class="dih-gallery-card" href="/techproducts">
-        <span class="dih-gallery-media">
-          <img src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=72" alt="Slim laptop on a desk lit with cool blue light" width="800" height="500" loading="lazy" decoding="async">
-          <span class="dih-gallery-tag">Hardware</span>
-        </span>
-        <span class="dih-gallery-body">
-          <strong>The laptop still runs the world</strong>
-          <span>Desktops and laptops remain where deep work happens. The buying decision now centres on battery efficiency, memory bandwidth and how well the machine handles AI-assisted software.</span>
-          <em>Tech buying guides &rarr;</em>
-        </span>
-      </a>
-      <a class="dih-gallery-card" href="/semiconductors">
-        <span class="dih-gallery-media">
-          <img src="https://images.unsplash.com/photo-1782155789465-9bae14cbfba5?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=72" alt="Macro photograph of a dense electronic circuit board" width="800" height="500" loading="lazy" decoding="async">
-          <span class="dih-gallery-tag">Semiconductors</span>
-        </span>
-        <span class="dih-gallery-body">
-          <strong>Inside the silicon bottleneck</strong>
-          <span>A leading-edge chip can take months to fabricate and thousands of steps to test. That complexity is why semiconductor capacity became a strategic asset.</span>
-          <em>Read the semiconductor guide &rarr;</em>
-        </span>
-      </a>
-      <a class="dih-gallery-card" href="/cybersecurity">
-        <span class="dih-gallery-media">
-          <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=72" alt="Cybersecurity concept with a glowing padlock over code" width="800" height="500" loading="lazy" decoding="async">
-          <span class="dih-gallery-tag">Cybersecurity</span>
-        </span>
-        <span class="dih-gallery-body">
-          <strong>Security is an identity problem</strong>
-          <span>Most breaches start with a stolen session or a weak credential, not a broken firewall. Strong identity checks and short-lived access do more than another perimeter tool.</span>
-          <em>Read the security guide &rarr;</em>
+          <strong>Connected by default</strong>
+          <span>A modern home runs more connected sensors than laptops. The value is in the data, but every new endpoint is also a new door to defend.</span>
+          <em>Read the IoT guide &rarr;</em>
         </span>
       </a>
       <a class="dih-gallery-card" href="/bigdata">
         <span class="dih-gallery-media">
-          <img src="https://images.unsplash.com/photo-1644325349124-d1756b79dd42?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=72" alt="Blue abstract background with fine lines and dots" width="800" height="500" loading="lazy" decoding="async">
-          <span class="dih-gallery-tag">Data</span>
+          <img src="https://images.unsplash.com/photo-1666875753105-c63a6f3bdc86?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=70" alt="Analytics dashboard with charts on a screen" width="800" height="500" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Big data</span>
         </span>
         <span class="dih-gallery-body">
           <strong>Finding signal in the noise</strong>
           <span>Data teams spend more time cleaning and labelling than modelling. The quality of that groundwork decides whether a dashboard is trusted or ignored.</span>
           <em>Read the big data guide &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/coincompass">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=70" alt="Stock market candlestick chart on a dark screen" width="800" height="500" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Markets</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Prices are a story, not a score</strong>
+          <span>A chart shows what happened, not why. Rates, earnings and risk appetite explain more than any single candle on a screen.</span>
+          <em>Open CoinCompass &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/web3">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1623227413711-25ee4388dae3?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=70" alt="Physical bitcoin token resting on gold nuggets" width="800" height="500" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Web3</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Ownership, without a middleman</strong>
+          <span>Public blockchains let strangers agree on a record without a referee. That is powerful for settlement and provenance, and unnecessary for most databases.</span>
+          <em>Read the Web3 guide &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/blockchain">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1639322537228-f710d846310a?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=70" alt="Glowing translucent cubes arranged in a chain" width="800" height="500" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Blockchain</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Blocks, ledgers and trust</strong>
+          <span>A blockchain is a shared record no single party can quietly rewrite. Useful for settlement and provenance; overkill for a shopping list.</span>
+          <em>Read the blockchain guide &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/semiconductors">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1782155789465-8acb598726e1?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=70" alt="Illuminated microchip on a dark circuit board" width="800" height="500" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Hardware</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Inside the silicon bottleneck</strong>
+          <span>A leading-edge chip takes months to fabricate and thousands of steps to test. That complexity is why capacity became a strategic asset.</span>
+          <em>Read the semiconductor guide &rarr;</em>
         </span>
       </a>
   </div>

@@ -3,49 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Digital Infohub — Tech, explained for everyone</title>
-<meta name="description" content="AI, markets, apps and the ideas shaping your world — in plain language, with free tools and Digi, the AI guide that answers anything and shows you where to go next.">
-<meta name="keywords" content="tech news, AI research, technology analysis, tech tools, market analysis, digital infohub">
-<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-<meta name="author" content="Digital Infohub">
-<meta name="theme-color" content="#07070c">
+<title>Digital Infohub — Tech made simple for everyone</title>
+<meta name="description" content="Clear guides, 30+ free browser tools, live prices and Digi, the AI guide that answers anything. Tech for everyday life — no signup, no paywall.">
 <meta name="color-scheme" content="dark light">
-<link rel="canonical" href="https://digitalinfohub.net/">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Digital Infohub">
-<meta property="og:title" content="Tech, explained for everyone">
-<meta property="og:description" content="AI, markets, development, design and the ideas shaping your world — with free tools and Digi, your AI guide. Built for the curious, the builders and the pros.">
-<meta property="og:url" content="https://digitalinfohub.net/">
-<meta property="og:image" content="https://images.unsplash.com/photo-1758073519996-6d3c63b4922c?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
-<meta property="og:image:secure_url" content="https://images.unsplash.com/photo-1758073519996-6d3c63b4922c?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
-<meta property="og:image:type" content="image/jpeg">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Abstract blue field of glowing technology dots representing a connected network">
-<meta property="og:locale" content="en_US">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Tech, explained for everyone">
-<meta name="twitter:description" content="AI, markets, development, design and the ideas shaping your world — with free tools and Digi, your AI guide. Built for the curious, the builders and the pros.">
-<meta name="twitter:image" content="https://images.unsplash.com/photo-1758073519996-6d3c63b4922c?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
-<meta name="twitter:image:alt" content="Abstract blue field of glowing technology dots representing a connected network">
 
-<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
-<link rel="icon" href="/assets/favicon.ico" sizes="any">
-<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
-<link rel="manifest" href="/site.webmanifest">
 <link rel="preload" as="image" href="/assets/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
 <link rel="preconnect" href="https://finnhub.io">
 <link rel="preconnect" href="https://api.coingecko.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer></script>
 
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
- {"@type":"Organization","@id":"https://digitalinfohub.net/#organization","name":"Digital Infohub","url":"https://digitalinfohub.net/","logo":{"@type":"ImageObject","url":"https://digitalinfohub.net/assets/icon-512.png","width":512,"height":512},"description":"Independent technology publication for professionals: AI, markets, software and practical guides."},
+ {"@type":"Organization","@id":"https://digitalinfohub.net/#organization","name":"Digital Infohub","url":"https://digitalinfohub.net/","logo":{"@type":"ImageObject","url":"https://digitalinfohub.net/assets/icon-512.png","width":512,"height":512},"description":"Independent technology publication for everyone: plain-language guides, free browser tools and live market context."},
  {"@type":"WebSite","@id":"https://digitalinfohub.net/#website","url":"https://digitalinfohub.net/","name":"Digital Infohub","publisher":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://digitalinfohub.net/blog?q={search_term_string}"},"query-input":"required name=search_term_string"}},
  {"@type":"CollectionPage","@id":"https://digitalinfohub.net/#webpage","url":"https://digitalinfohub.net/","name":"Digital Infohub — Tech Intelligence for Professionals","description":"AI research, market context, free software tools and plain-language tech guides for professionals, founders and business leaders.","isPartOf":{"@id":"https://digitalinfohub.net/#website"},"inLanguage":"en"},
  {"@type":"ItemList","name":"Featured technology analysis","itemListElement":[
@@ -64,7 +37,7 @@ body{overflow-x:hidden}
 body::before{display:none}
 
 /* Header is shared; ticker sits directly beneath it. */
-.dih-ticker{position:sticky;top:var(--dih-head-h);z-index:890}
+body[data-page="home"] .dih-ticker{position:sticky;top:var(--dih-head-h);z-index:890}
 
 main.os-desktop{
   min-height:60vh;
@@ -108,7 +81,7 @@ body.chatting main.os-desktop{padding-bottom:120px}
 /* Hero */
 .hero{
   position:relative;width:100%;max-width:900px;margin:0 auto;text-align:center;
-  padding:66px 0 6px;
+  padding:30px 0 6px;
 }
 .hero-glow{
   position:absolute;top:-120px;left:50%;transform:translateX(-50%);
@@ -174,9 +147,9 @@ html[data-theme="light"] .hero-ask{background:rgba(255,255,255,.96)}
   .hero-ask-input{font-size:16px;padding:9px 2px}
   .hero-ask-btn{padding:10px 14px;font-size:12px}
   .hero-ask-btn span{display:none}
-  .hero-ask-hints{justify-content:flex-start;overflow-x:auto;flex-wrap:nowrap;padding-bottom:3px;scrollbar-width:none}
+  .hero-ask-hints{justify-content:flex-start;overflow:visible;flex-wrap:wrap;padding-bottom:0}
   .hero-ask-hints::-webkit-scrollbar{display:none}
-  .hero-ask-hints button{white-space:nowrap;flex-shrink:0;font-size:10px}
+  .hero-ask-hints button{white-space:nowrap;flex-shrink:0;font-size:10px;padding:5px 9px}
   .hero-actions{margin-top:16px}
 }
 
@@ -483,7 +456,7 @@ html[data-theme="light"] .ask-form{background:rgba(255,255,255,.96)}
 }
 @media(max-width:640px){
   .home-content{padding:0 14px;gap:46px}
-  .hero{padding-top:36px}
+  .hero{padding-top:18px}
   .hero h1{font-size:clamp(25px,7vw,32px)}
   .hero-sub{font-size:14px}
   .hero .dih-pill{font-size:9.5px;padding:6px 11px;margin-bottom:16px}
@@ -541,10 +514,47 @@ html[data-theme="light"] .ask-form{background:rgba(255,255,255,.96)}
       color: var(--dih-text-muted);
     }
 </style>
+<!-- DIH:HEAD -->
+<script>try{var t=localStorage.getItem('dih_theme')||'dark';document.documentElement.setAttribute('data-theme',t);document.documentElement.setAttribute('data-dih','');}catch(e){document.documentElement.setAttribute('data-dih','');}</script>
+<meta name="theme-color" content="#07070c">
+<meta name="color-scheme" content="dark light">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="author" content="Digital Infohub">
+<meta name="keywords" content="technology, digital infohub">
+<link rel="canonical" href="https://digitalinfohub.net/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Digital Infohub">
+<meta property="og:title" content="Digital Infohub — Tech made simple for everyone">
+<meta property="og:description" content="Clear guides, 30+ free browser tools, live prices and Digi, the AI guide that answers anything. Tech for everyday life — no signup, no paywall.">
+<meta property="og:url" content="https://digitalinfohub.net/">
+<meta property="og:image" content="https://images.unsplash.com/photo-1543269866-487350d6fa5e?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta property="og:image:secure_url" content="https://images.unsplash.com/photo-1543269866-487350d6fa5e?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Woman working on a laptop at home in a warm, plant-filled living room">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Digital Infohub — Tech made simple for everyone">
+<meta name="twitter:description" content="Clear guides, 30+ free browser tools, live prices and Digi, the AI guide that answers anything. Tech for everyday life — no signup, no paywall.">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1543269866-487350d6fa5e?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta name="twitter:image:alt" content="Woman working on a laptop at home in a warm, plant-filled living room">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="icon" href="/assets/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://digitalinfohub.net/#organization","name":"Digital Infohub","url":"https://digitalinfohub.net/","logo":{"@type":"ImageObject","url":"https://digitalinfohub.net/assets/icon-512.png","width":512,"height":512},"description":"Independent technology publication for everyone: plain-language guides, free browser tools and live market context.","sameAs":[]},{"@type":"WebSite","@id":"https://digitalinfohub.net/#website","url":"https://digitalinfohub.net/","name":"Digital Infohub","publisher":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://digitalinfohub.net/blog?q={search_term_string}"},"query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://digitalinfohub.net/#webpage","url":"https://digitalinfohub.net/","name":"Digital Infohub — Tech made simple for everyone","description":"Clear guides, 30+ free browser tools, live prices and Digi, the AI guide that answers anything. Tech for everyday life — no signup, no paywall.","isPartOf":{"@id":"https://digitalinfohub.net/#website"},"about":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","primaryImageOfPage":{"@type":"ImageObject","url":"https://images.unsplash.com/photo-1543269866-487350d6fa5e?w=1200&h=630&fit=crop&auto=format&q=80&fm=jpg","width":1200,"height":630}}]}</script>
+<!-- /DIH:HEAD -->
 </head>
 <body data-page="home">
 <!-- DIH:AMBIENT -->
-<div class="dih-ambient" aria-hidden="true" style="--dih-ambient:url('https://images.unsplash.com/photo-1758073519996-6d3c63b4922c?w=1600&amp;h=900&amp;fit=crop&amp;auto=format&amp;q=45')"></div>
+<div class="dih-ambient" aria-hidden="true" style="--dih-ambient:url('https://images.unsplash.com/photo-1758073519996-6d3c63b4922c?w=1200&amp;h=675&amp;fit=crop&amp;auto=format&amp;q=40')"></div>
 <!-- /DIH:AMBIENT -->
 <!-- DIH:HEADER -->
 <header class="dih-header">
@@ -565,6 +575,9 @@ html[data-theme="light"] .ask-form{background:rgba(255,255,255,.96)}
     </nav>
     <div class="dih-actions">
       <a class="dih-tools" href="/software#tools" title="Free browser tools" aria-label="Free browser tools">⚡<span>Tools</span></a>
+      <button class="dih-icon dih-share" type="button" data-dih-share aria-label="Share this page" title="Share this page">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M12 3v13"/><path d="m7 8 5-5 5 5"/></svg>
+      </button>
       <button class="dih-icon" type="button" data-dih-theme aria-label="Switch theme" title="Switch theme">☀</button>
       <a class="dih-cta" href="/subscribe">Subscribe</a>
       <button class="dih-burger" id="dihBurger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="dihDrawer"><span></span><span></span><span></span></button>
@@ -612,33 +625,31 @@ html[data-theme="light"] .ask-form{background:rgba(255,255,255,.96)}
     <!-- Fresh visit strip -->
     <div class="dih-fresh" role="status" aria-live="polite">
       <span class="dih-fresh-dot" aria-hidden="true"></span>
-      <div class="dih-fresh-copy"><strong>Digital Infohub Updated</strong><span data-fresh-time>just now</span></div>
-      <a class="dih-fresh-link" href="#homeNews">Check out what's new →</a>
+      <div class="dih-fresh-copy"><strong>Updated today</strong><span data-fresh-time>just now</span></div>
+      <a class="dih-fresh-link" href="#homeNews">See what's new →</a>
     </div>
 
     <!-- Hero -->
     <section class="hero" id="homeHero">
       <div class="hero-glow" aria-hidden="true"></div>
-      <span class="dih-pill"><span class="dih-dot"></span> <span id="dynamicBadge">Tech intelligence · for everyone</span></span>
-      <h1>Technology makes sense<br><span class="grad">when someone explains it.</span></h1>
-      <p class="hero-sub" id="heroSubText">AI, markets, apps and the ideas shaping your world — in plain language, with free tools and <b>Digi</b>, your AI guide. Built for the curious, the builders and the pros.</p>
+      <span class="dih-pill"><span class="dih-dot"></span> <span id="dynamicBadge">Tech made simple · for everyone</span></span>
+      <h1 id="heroTitle"><span id="heroLine1">Tech is easier</span><br><span class="grad" id="heroLine2">when it&#39;s simple.</span></h1>
+      <p class="hero-sub" id="heroSubText">Clear guides, free tools and live prices — plus <b>Digi</b>, the AI guide that answers anything. No signup, no paywall.</p>
 
       <form class="hero-ask" action="/digi" method="get" data-ask-digi role="search">
         <span class="hero-ask-spark" aria-hidden="true">✨</span>
-        <input class="hero-ask-input" type="search" name="q" placeholder="Ask Digi anything — tech, markets, design, everyday life…" aria-label="Ask Digi a question" autocomplete="off" maxlength="500">
-        <button class="hero-ask-btn" type="submit">Ask Digi <span aria-hidden="true">→</span></button>
+        <input class="hero-ask-input" type="search" name="q" placeholder="Ask anything…" aria-label="Ask Digi a question" autocomplete="off" maxlength="500">
+        <button class="hero-ask-btn" type="submit">Ask <span aria-hidden="true">→</span></button>
       </form>
       <div class="hero-ask-hints" aria-label="Example questions">
         <button type="button" data-ask-q="What's happening in tech today?">What's happening in tech?</button>
         <button type="button" data-ask-q="How are the markets doing right now?">Market snapshot</button>
-        <button type="button" data-ask-q="Explain quantum computing simply">Explain quantum simply</button>
-        <button type="button" data-ask-q="Help me choose a laptop for work and study">Help me pick a laptop</button>
+        <button type="button" data-ask-q="Explain artificial intelligence simply">AI, explained simply</button>
       </div>
 
       <div class="hero-actions">
-        <a class="dih-btn dih-btn-ghost" href="/techtopics">Explore 30 guides</a>
+        <a class="dih-btn dih-btn-primary" href="/techtopics">Start with a guide</a>
         <a class="dih-btn dih-btn-ghost" href="/software">Try the free tools</a>
-        <a class="dih-btn dih-btn-ghost" href="/quiz">Take the tech quiz</a>
       </div>
 
       <div class="resume" id="resumeCard">
@@ -651,50 +662,12 @@ html[data-theme="light"] .ask-form{background:rgba(255,255,255,.96)}
       </div>
 
       <div class="hero-stats">
-        <div class="hero-stat"><b>30</b><span>Tech guides</span></div>
-        <div class="hero-stat"><b>20</b><span>Free tools</span></div>
+        <div class="hero-stat"><b>35</b><span>Tech guides</span></div>
+        <div class="hero-stat"><b>30+</b><span>Free tools</span></div>
         <div class="hero-stat"><b>Daily</b><span>Market data</span></div>
         <div class="hero-stat"><b>0</b><span>Paywalls</span></div>
       </div>
-
-      <div class="hero-audience">
-        <span>For the curious</span>
-        <span>For students &amp; makers</span>
-        <span>For builders &amp; pros</span>
-      </div>
     </section>
-
-    <!-- Save to home screen / PWA -->
-    <section class="pwa-band" id="homeApp" aria-labelledby="pwaTitle">
-      <div class="pwa-copy">
-        <span class="dih-eyebrow"><span class="dih-dot"></span> Digital Infohub app</span>
-        <h2 id="pwaTitle">Save it to your home screen.</h2>
-        <p>Guides, free tools and live markets — one tap from your phone. No app store, no download. Installed, it opens full-screen like a native app and keeps working when the signal drops.</p>
-        <div class="pwa-badges">
-          <span class="pwa-badge">⚡ Opens instantly</span>
-          <span class="pwa-badge">📶 Works offline</span>
-          <span class="pwa-badge">🔒 No account needed</span>
-        </div>
-        <div class="pwa-actions">
-          <button class="dih-btn dih-btn-primary" id="pwaInstall" type="button">Install the app</button>
-          <a class="dih-btn dih-btn-ghost" href="#pwaHow">How it works</a>
-        </div>
-        <p class="pwa-hint" id="pwaHint">On iPhone: tap Share, then “Add to Home Screen”.</p>
-        <p class="pwa-state" id="pwaState">Works like a native app</p>
-        <ol class="pwa-steps" id="pwaHow">
-          <li><b>1</b> Open the site on your phone</li>
-          <li><b>2</b> Tap Share or the browser menu</li>
-          <li><b>3</b> Choose “Add to Home Screen”</li>
-        </ol>
-      </div>
-      <div class="pwa-qr">
-        <img src="/assets/pwa-qr.png" alt="QR code linking to Digital Infohub so you can install the app on your phone" width="214" height="214" loading="lazy" decoding="async">
-        <span>Scan with your phone camera</span>
-        <small>Opens digitalinfohub.net ready to add to your home screen.</small>
-      </div>
-    </section>
-
-   <center><script async src="https://www.perchads.com/embed.js" data-space="n7dfcf6trj"></script></center>
 
     <!-- Market pulse -->
     <section class="pulse" id="marketPulse" aria-labelledby="pulseTitle">
@@ -712,7 +685,7 @@ html[data-theme="light"] .ask-form{background:rgba(255,255,255,.96)}
         <a class="pulse-card pulse-skeleton" href="/coincompass"><div class="pulse-left"><div class="pulse-sym">MSFT</div><div class="pulse-name">Microsoft</div></div><div class="pulse-right"><div class="pulse-price">—</div><div class="pulse-chg">loading</div></div></a>
         <a class="pulse-card pulse-skeleton" href="/coincompass"><div class="pulse-left"><div class="pulse-sym">BTC</div><div class="pulse-name">Bitcoin</div></div><div class="pulse-right"><div class="pulse-price">—</div><div class="pulse-chg">loading</div></div></a>
         <a class="pulse-card pulse-skeleton" href="/coincompass"><div class="pulse-left"><div class="pulse-sym">ETH</div><div class="pulse-name">Ethereum</div></div><div class="pulse-right"><div class="pulse-price">—</div><div class="pulse-chg">loading</div></div></a>
-        <a class="pulse-card pulse-card--wide" href="/techtopics"><div class="pulse-left"><div class="pulse-sym">DEEP DIVES</div><div class="pulse-name">30 plain-language guides</div></div><div class="pulse-right"><div class="pulse-price">AI →</div><div class="pulse-chg up">Explore</div></div></a>
+        <a class="pulse-card pulse-card--wide" href="/techtopics"><div class="pulse-left"><div class="pulse-sym">DEEP DIVES</div><div class="pulse-name">35 plain-language guides</div></div><div class="pulse-right"><div class="pulse-price">AI →</div><div class="pulse-chg up">Explore</div></div></a>
       </div>
       <p class="pulse-note">Delayed quotes · not investment advice</p>
     </section>
@@ -785,33 +758,62 @@ html[data-theme="light"] .ask-form{background:rgba(255,255,255,.96)}
       <p class="dih-news-status" data-news-status>Loading live headlines…</p>
     </section>
 
-    <!-- Trending topics -->
-    <section id="homeTopicsNow" aria-labelledby="topicsNowTitle">
+   <div class="dih-perch-ad" role="complementary" aria-label="Advertisement">
+     <script async src="https://www.perchads.com/embed.js" data-space="n7dfcf6trj"></script>
+   </div>
+
+
+    <!-- Browse by need -->
+    <section id="homeBrowse" aria-labelledby="browseTitle">
       <div class="dih-section-head">
         <div>
-          <span class="dih-eyebrow">Trending now</span>
-          <h2 id="topicsNowTitle">Pick your rabbit hole</h2>
-          <p>30 plain-language guides that get you fluent fast.</p>
+          <span class="dih-eyebrow">Start here</span>
+          <h2 id="browseTitle">What brings you in?</h2>
+          <p>Three ways in — pick whichever sounds like you.</p>
         </div>
-        <a class="dih-view-all" href="/techtopics">All tech topics <span>→</span></a>
+        <a class="dih-view-all" href="/techtopics">All 35 guides <span>→</span></a>
       </div>
-      <div class="chip-cloud">
-        <a class="chip strong" href="/artificialintelligence">🧠 Artificial Intelligence</a>
-        <a class="chip strong" href="/cybersecurity">🛡️ Cybersecurity</a>
-        <a class="chip" href="/machinelearning">🤖 Machine Learning</a>
-        <a class="chip" href="/cloudcomputing">☁️ Cloud Computing</a>
-        <a class="chip" href="/quantumcomputing">⚛️ Quantum Computing</a>
-        <a class="chip" href="/semiconductors">🔌 Semiconductors</a>
-        <a class="chip" href="/robotics">🦾 Robotics</a>
-        <a class="chip" href="/blockchain">⛓️ Blockchain</a>
-        <a class="chip" href="/zerotrustsecurity">🔐 Zero Trust</a>
-        <a class="chip" href="/devops">🚀 DevOps</a>
-        <a class="chip" href="/internetofthings">📡 IoT</a>
-        <a class="chip" href="/5gnetworks">📶 5G Networks</a>
-        <a class="chip" href="/edgecomputing">🌐 Edge Computing</a>
-        <a class="chip" href="/opensource">🧩 Open Source</a>
+      <div class="need-grid">
+        <article class="need-card">
+          <span class="need-ico" aria-hidden="true">🧭</span>
+          <h3>I want to understand</h3>
+          <p>The big ideas behind the headlines, in plain language.</p>
+          <ul>
+            <li><a href="/artificialintelligence">Artificial intelligence</a></li>
+            <li><a href="/quantumcomputing">Quantum computing</a></li>
+            <li><a href="/semiconductors">Semiconductors</a></li>
+            <li><a href="/robotics">Robotics</a></li>
+            <li><a href="/cloudcomputing">Cloud computing</a></li>
+          </ul>
+        </article>
+        <article class="need-card">
+          <span class="need-ico" aria-hidden="true">🛡️</span>
+          <h3>I want to fix something</h3>
+          <p>Straight answers for the tech problems in front of you.</p>
+          <ul>
+            <li><a href="/post/how-to-stay-safe-online-2026">Stay safe online</a></li>
+            <li><a href="/post/how-to-clear-cache-on-iphone">Clear your iPhone cache</a></li>
+            <li><a href="/post/why-is-my-face-id-not-working">Face ID not working?</a></li>
+            <li><a href="/tool-password-generator">Make a strong password</a></li>
+            <li><a href="/cybersecurity">Cybersecurity basics</a></li>
+          </ul>
+        </article>
+        <article class="need-card">
+          <span class="need-ico" aria-hidden="true">💡</span>
+          <h3>I want to get things done</h3>
+          <p>Free tools and market context for work and money.</p>
+          <ul>
+            <li><a href="/software">All free browser tools</a></li>
+            <li><a href="/coincompass">Live markets dashboard</a></li>
+            <li><a href="/software/graphic-design">Design a graphic</a></li>
+            <li><a href="/software/task-timer">Time-box a task</a></li>
+            <li><a href="/quiz">Test your tech knowledge</a></li>
+          </ul>
+        </article>
       </div>
     </section>
+
+
 
     <!-- Tools -->
     <section id="homeTools" aria-labelledby="toolsTitle">
@@ -819,72 +821,173 @@ html[data-theme="light"] .ask-form{background:rgba(255,255,255,.96)}
         <div>
           <span class="dih-eyebrow">The toolbox</span>
           <h2 id="toolsTitle">Free tools, no signup</h2>
-          <p>Twenty-eight utilities that run entirely in your browser — six are picked at random on every visit. Shuffle until you find your next daily tool.</p>
+          <p>30+ browser tools with no signup — six picked at random every visit.</p>
         </div>
         <a class="dih-view-all" href="/software">All free tools <span>→</span></a>
       </div>
-      <p class="tool-rotate-note" id="toolRotateNote">Six random picks — reshuffled every visit.</p>
+      <p class="tool-rotate-note" id="toolRotateNote">Six random picks from 30+ tools — reshuffled every visit.</p>
       <div class="tool-grid" id="homeToolGrid" aria-live="polite"></div>
       <div class="tool-rotate-actions">
         <button class="dih-btn" id="toolShuffle" type="button">Shuffle tools ↻</button>
-        <a class="dih-view-all" href="/software">See all 28 tools <span>→</span></a>
+        <a class="dih-view-all" href="/software">See all tools <span>→</span></a>
       </div>
     </section>
 
-    <!-- Deep dive guides -->
-    <section id="homeGuides" aria-labelledby="guidesTitle">
-      <div class="dih-section-head">
-        <div>
-          <span class="dih-eyebrow">Deep dives</span>
-          <h2 id="guidesTitle">Get fluent in one sitting</h2>
-          <p>No jargon, no fluff. Each guide gives you the mental model, the limits and the practical next step.</p>
-        </div>
-        <a class="dih-view-all" href="/techtopics">Browse guides <span>→</span></a>
-      </div>
-      <div class="guide-cards">
-        <a class="guide-card" href="/artificialintelligence">
-          <span class="guide-ico">🧠</span>
-          <h3>Artificial Intelligence</h3>
-          <p>What AI really means, how modern systems learn and where they break.</p>
-          <ul><li>Training vs inference</li><li>Where AI already runs your day</li><li>The limits worth knowing</li></ul>
-          <em>Read the guide →</em>
-        </a>
-        <a class="guide-card" href="/cybersecurity">
-          <span class="guide-ico">🛡️</span>
-          <h3>Cybersecurity</h3>
-          <p>The threats that matter and the controls that actually reduce risk.</p>
-          <ul><li>Identity is the new perimeter</li><li>Phishing and social engineering</li><li>A pragmatic security stack</li></ul>
-          <em>Read the guide →</em>
-        </a>
-        <a class="guide-card" href="/quantumcomputing">
-          <span class="guide-ico">⚛️</span>
-          <h3>Quantum Computing</h3>
-          <p>Qubits, error correction and the encryption migration to plan for.</p>
-          <ul><li>What quantum actually speeds up</li><li>Why error correction is hard</li><li>Post-quantum preparation</li></ul>
-          <em>Read the guide →</em>
-        </a>
-      </div>
-    </section>
+
+    <!-- DIH:GALLERY -->
+<section class="dih-gallery" aria-labelledby="dihGalleryTitle">
+  <div class="dih-gallery-head">
+    <div>
+      <span class="dih-gallery-eyebrow">Visual briefing</span>
+      <h2 id="dihGalleryTitle">Technology, in focus</h2>
+      <p>Fast context on the ideas shaping the industry, with a guide for every one.</p>
+    </div>
+    <a class="dih-gallery-all" href="/techtopics">All 35 tech guides <span aria-hidden="true">&rarr;</span></a>
+  </div>
+  <div class="dih-gallery-grid">
+      <a class="dih-gallery-card" href="/coincompass">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=640&amp;h=400&amp;fit=crop&amp;auto=format&amp;q=70" alt="Stock market candlestick chart on a dark screen" width="640" height="400" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Markets</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Prices are a story, not a score</strong>
+          <span>A chart shows what happened, not why. Rates, earnings and risk appetite explain more than any single candle on a screen.</span>
+          <em>Open CoinCompass &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/web3">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1623227413711-25ee4388dae3?w=640&amp;h=400&amp;fit=crop&amp;auto=format&amp;q=70" alt="Physical bitcoin token resting on gold nuggets" width="640" height="400" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Web3</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Ownership, without a middleman</strong>
+          <span>Public blockchains let strangers agree on a record without a referee. That is powerful for settlement and provenance, and unnecessary for most databases.</span>
+          <em>Read the Web3 guide &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/blockchain">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1639322537228-f710d846310a?w=640&amp;h=400&amp;fit=crop&amp;auto=format&amp;q=70" alt="Glowing translucent cubes arranged in a chain" width="640" height="400" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Blockchain</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Blocks, ledgers and trust</strong>
+          <span>A blockchain is a shared record no single party can quietly rewrite. Useful for settlement and provenance; overkill for a shopping list.</span>
+          <em>Read the blockchain guide &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/semiconductors">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1782155789465-8acb598726e1?w=640&amp;h=400&amp;fit=crop&amp;auto=format&amp;q=70" alt="Illuminated microchip on a dark circuit board" width="640" height="400" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Hardware</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Inside the silicon bottleneck</strong>
+          <span>A leading-edge chip takes months to fabricate and thousands of steps to test. That complexity is why capacity became a strategic asset.</span>
+          <em>Read the semiconductor guide &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/robotics">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1655393001768-d946c97d6fd1?w=640&amp;h=400&amp;fit=crop&amp;auto=format&amp;q=70" alt="White robotic arm in a display showroom" width="640" height="400" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Robotics</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Robots do the dull, dirty and dangerous</strong>
+          <span>Industrial arms repeat a precise motion millions of times. The value is reliability and uptime, not human-like intelligence.</span>
+          <em>Read the robotics guide &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/humanoidrobots">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1593376853899-fbb47a057fa0?w=640&amp;h=400&amp;fit=crop&amp;auto=format&amp;q=70" alt="Humanoid robot waving in a bright modern building" width="640" height="400" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Humanoid robots</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Why build a robot that looks like us?</strong>
+          <span>A humanoid shape lets a machine use stairs, tools and doorways built for people. It also makes every balance problem much harder.</span>
+          <em>Read the humanoid robots guide &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/drones">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=640&amp;h=400&amp;fit=crop&amp;auto=format&amp;q=70" alt="Drone flying against a clear sky" width="640" height="400" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Drones</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>A sensor where a person cannot stand</strong>
+          <span>Drones put a camera above a roof, inside a tunnel or over a field. The business is the repeatable inspection data, not the flying.</span>
+          <em>Read the drone guide &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/autonomousvehicles">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1491921125492-f0b9c835b699?w=640&amp;h=400&amp;fit=crop&amp;auto=format&amp;q=70" alt="Interior view of a Tesla car dashboard" width="640" height="400" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Autonomous vehicles</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>The hard part is the edge case</strong>
+          <span>Self-driving progress is measured in rare events, not average miles. Sensors, maps and fallback drivers all exist because the last percent is hard.</span>
+          <em>Read the autonomous vehicles guide &rarr;</em>
+        </span>
+      </a>
+  </div>
+  <p class="dih-gallery-credit">Photography by Unsplash contributors. Cards link to related Digital Infohub guides.</p>
+</section>
+<!-- /DIH:GALLERY -->
+<!-- Daily insight -->
+    <section id="homeDailyInsight" aria-live="polite"></section>
 
     <!-- Arcade -->
     <section class="arcade-band" aria-labelledby="arcadeTitle">
       <div>
         <span class="dih-eyebrow">Pixel Palace</span>
         <h2 id="arcadeTitle">Take a five-minute break</h2>
-        <p>Eight free browser games — Snake, 2048, Pong, Memory, Typing Rush and more. No downloads, works on your phone.</p>
+        <p>Eight quick games — Snake, 2048, Pong and more. A proper five-minute reset, no downloads.</p>
         <div class="arcade-emojis" aria-hidden="true"><span>🎮</span><span>👾</span><span>🐍</span><span>🧠</span><span>⌨️</span><span>🕹️</span></div>
       </div>
       <a class="dih-btn dih-btn-primary" href="/games">Enter the arcade →</a>
     </section>
 
-    <!-- Daily insight -->
-    <section id="homeDailyInsight" aria-live="polite"></section>
+
+    <!-- Save to home screen / PWA -->
+    <section class="pwa-band" id="homeApp" aria-labelledby="pwaTitle">
+      <div class="pwa-copy">
+        <span class="dih-eyebrow"><span class="dih-dot"></span> Digital Infohub app</span>
+        <h2 id="pwaTitle">Save it to your home screen.</h2>
+        <p>Guides, tools and markets, one tap from your phone. No app store. Installed, it opens full-screen and keeps working offline.</p>
+        <div class="pwa-badges">
+          <span class="pwa-badge">⚡ Opens instantly</span>
+          <span class="pwa-badge">📶 Works offline</span>
+          <span class="pwa-badge">🔒 No account needed</span>
+        </div>
+        <div class="pwa-actions">
+          <button class="dih-btn dih-btn-primary" id="pwaInstall" type="button">Install the app</button>
+          <a class="dih-btn dih-btn-ghost" href="#pwaHow">How it works</a>
+        </div>
+        <p class="pwa-hint" id="pwaHint">On iPhone: tap Share, then “Add to Home Screen”.</p>
+        <p class="pwa-state" id="pwaState">Works like a native app</p>
+        <ol class="pwa-steps" id="pwaHow">
+          <li><b>1</b> Open the site on your phone</li>
+          <li><b>2</b> Tap Share or the browser menu</li>
+          <li><b>3</b> Choose “Add to Home Screen”</li>
+        </ol>
+      </div>
+      <div class="pwa-qr">
+        <img src="/assets/pwa-qr.png" alt="QR code linking to Digital Infohub so you can install the app on your phone" width="214" height="214" loading="lazy" decoding="async">
+        <span>Scan with your phone camera</span>
+        <small>Opens digitalinfohub.net ready to add to your home screen.</small>
+      </div>
+    </section>
+
 
     <!-- Newsletter -->
     <section class="newsletter-band" aria-labelledby="newsletterTitle">
       <div>
-        <h2 id="newsletterTitle">✉️ One email a week. All the signal.</h2>
-        <p>The AI, market and software stories that matter — plus new tools before anyone else. Free, no spam, unsubscribe anytime.</p>
+        <h2 id="newsletterTitle">One email a week. All the signal.</h2>
+        <p>The tech stories that matter, once a week. Free, no spam, unsubscribe anytime.</p>
       </div>
       <div class="newsletter-form">
         <a class="dih-btn dih-btn-primary" href="/subscribe">Subscribe free →</a>
@@ -899,7 +1002,7 @@ html[data-theme="light"] .ask-form{background:rgba(255,255,255,.96)}
       </div>
       <div class="dih-explore-grid">
         <a class="dih-explore-card" href="/techproducts"><span class="dih-explore-icon">💻</span><strong>Tech Products</strong><span>Buying guides for hardware that earns its place.</span><em>Explore →</em></a>
-        <a class="dih-explore-card" href="/techtopics"><span class="dih-explore-icon">🔬</span><strong>Tech Topics</strong><span>30 guides from AI to zero trust.</span><em>Explore →</em></a>
+        <a class="dih-explore-card" href="/techtopics"><span class="dih-explore-icon">🔬</span><strong>Tech Topics</strong><span>35 guides from AI to zero trust.</span><em>Explore →</em></a>
         <a class="dih-explore-card" href="/coincompass"><span class="dih-explore-icon">🧭</span><strong>CoinCompass</strong><span>Track crypto and market context calmly.</span><em>Explore →</em></a>
         <a class="dih-explore-card" href="/services"><span class="dih-explore-icon">🧰</span><strong>Services</strong><span>Automation and AI integration for your team.</span><em>Explore →</em></a>
         <a class="dih-explore-card" href="/quiz"><span class="dih-explore-icon">🎯</span><strong>Tech Quiz</strong><span>Six topics, five questions each, a grade for every one.</span><em>Test yourself →</em></a>
@@ -912,111 +1015,68 @@ html[data-theme="light"] .ask-form{background:rgba(255,255,255,.96)}
 
   <div id="toast-container"></div>
 
-<!-- DIH:GALLERY -->
-<section class="dih-gallery" aria-labelledby="dihGalleryTitle">
-  <div class="dih-gallery-head">
-    <div>
-      <span class="dih-gallery-eyebrow">Visual briefing</span>
-      <h2 id="dihGalleryTitle">Technology, in focus</h2>
-      <p>Fast context on the ideas shaping the industry, with a guide for every one.</p>
-    </div>
-    <a class="dih-gallery-all" href="/techtopics">All 35 tech guides <span aria-hidden="true">&rarr;</span></a>
-  </div>
-  <div class="dih-gallery-grid">
-      <a class="dih-gallery-card" href="/virtualreality">
-        <span class="dih-gallery-media">
-          <img src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=72" alt="Person wearing a virtual reality headset in blue light" width="800" height="500" loading="lazy" decoding="async">
-          <span class="dih-gallery-tag">VR &amp; AR</span>
-        </span>
-        <span class="dih-gallery-body">
-          <strong>The next interface</strong>
-          <span>VR and AR are finding real work in training, design review and simulation. The hardware is improving faster than the comfort and content problems.</span>
-          <em>Read the VR guide &rarr;</em>
-        </span>
-      </a>
-      <a class="dih-gallery-card" href="/internetofthings">
-        <span class="dih-gallery-media">
-          <img src="https://images.unsplash.com/photo-1758073519996-6d3c63b4922c?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=72" alt="Abstract blue field of glowing technology dots representing a connected network" width="800" height="500" loading="lazy" decoding="async">
-          <span class="dih-gallery-tag">IoT</span>
-        </span>
-        <span class="dih-gallery-body">
-          <strong>Connected by default</strong>
-          <span>A modern factory floor now runs more connected sensors than laptops. The value is in the data, but every new endpoint is also a new door to defend.</span>
-          <em>Read the IoT guide &rarr;</em>
-        </span>
-      </a>
-      <a class="dih-gallery-card" href="/5gnetworks">
-        <span class="dih-gallery-media">
-          <img src="https://images.unsplash.com/photo-1644088379091-d574269d422f?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=72" alt="Glowing blue network lines and nodes forming a digital mesh" width="800" height="500" loading="lazy" decoding="async">
-          <span class="dih-gallery-tag">5G &amp; edge</span>
-        </span>
-        <span class="dih-gallery-body">
-          <strong>Networks that think</strong>
-          <span>Modern networks do not just move packets; they schedule workloads, slice bandwidth and push compute closer to users. That is what makes low-latency apps feel instant.</span>
-          <em>Explore 5G networks &rarr;</em>
-        </span>
-      </a>
-      <a class="dih-gallery-card" href="/cloudcomputing">
-        <span class="dih-gallery-media">
-          <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=72" alt="Illuminated planet Earth seen from space with blue technology overlays" width="800" height="500" loading="lazy" decoding="async">
-          <span class="dih-gallery-tag">Cloud</span>
-        </span>
-        <span class="dih-gallery-body">
-          <strong>A planetary-scale cloud</strong>
-          <span>Cloud regions are physical campuses full of power, cooling and fibre. That geography explains latency, cost and most data-sovereignty rules.</span>
-          <em>Read the cloud guide &rarr;</em>
-        </span>
-      </a>
-      <a class="dih-gallery-card" href="/techproducts">
-        <span class="dih-gallery-media">
-          <img src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=72" alt="Slim laptop on a desk lit with cool blue light" width="800" height="500" loading="lazy" decoding="async">
-          <span class="dih-gallery-tag">Hardware</span>
-        </span>
-        <span class="dih-gallery-body">
-          <strong>The laptop still runs the world</strong>
-          <span>Desktops and laptops remain where deep work happens. The buying decision now centres on battery efficiency, memory bandwidth and how well the machine handles AI-assisted software.</span>
-          <em>Tech buying guides &rarr;</em>
-        </span>
-      </a>
-      <a class="dih-gallery-card" href="/semiconductors">
-        <span class="dih-gallery-media">
-          <img src="https://images.unsplash.com/photo-1782155789465-9bae14cbfba5?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=72" alt="Macro photograph of a dense electronic circuit board" width="800" height="500" loading="lazy" decoding="async">
-          <span class="dih-gallery-tag">Semiconductors</span>
-        </span>
-        <span class="dih-gallery-body">
-          <strong>Inside the silicon bottleneck</strong>
-          <span>A leading-edge chip can take months to fabricate and thousands of steps to test. That complexity is why semiconductor capacity became a strategic asset.</span>
-          <em>Read the semiconductor guide &rarr;</em>
-        </span>
-      </a>
-      <a class="dih-gallery-card" href="/cybersecurity">
-        <span class="dih-gallery-media">
-          <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=72" alt="Cybersecurity concept with a glowing padlock over code" width="800" height="500" loading="lazy" decoding="async">
-          <span class="dih-gallery-tag">Cybersecurity</span>
-        </span>
-        <span class="dih-gallery-body">
-          <strong>Security is an identity problem</strong>
-          <span>Most breaches start with a stolen session or a weak credential, not a broken firewall. Strong identity checks and short-lived access do more than another perimeter tool.</span>
-          <em>Read the security guide &rarr;</em>
-        </span>
-      </a>
-      <a class="dih-gallery-card" href="/bigdata">
-        <span class="dih-gallery-media">
-          <img src="https://images.unsplash.com/photo-1644325349124-d1756b79dd42?w=800&amp;h=500&amp;fit=crop&amp;auto=format&amp;q=72" alt="Blue abstract background with fine lines and dots" width="800" height="500" loading="lazy" decoding="async">
-          <span class="dih-gallery-tag">Data</span>
-        </span>
-        <span class="dih-gallery-body">
-          <strong>Finding signal in the noise</strong>
-          <span>Data teams spend more time cleaning and labelling than modelling. The quality of that groundwork decides whether a dashboard is trusted or ignored.</span>
-          <em>Read the big data guide &rarr;</em>
-        </span>
-      </a>
-  </div>
-  <p class="dih-gallery-credit">Photography by Unsplash contributors. Cards link to related Digital Infohub guides.</p>
-</section>
-<!-- /DIH:GALLERY -->
-<!-- DIH:FOOTER -->
 
+<script>
+(function () {
+  var TOOLS = [
+    ['/software/infohubgpt', '✨', 'InfohubGPT', 'A fast AI assistant for research, drafting and analysis.'],
+    ['/software/taskygpt', '📋', 'TaskyGPT', 'Turn a big goal into a plan you can actually start.'],
+    ['/software/buildengine', '⚙️', 'Build Engine', 'Build, fix and optimise code with an AI pair.'],
+    ['/software/marketlens', '📈', 'MarketLens', 'Markets and crypto briefings without the noise.'],
+    ['/software/scrapbook', '📸', 'Digital Scrapbook', 'Import photos and build a paper-style album.'],
+    ['/software/font-maker', '🔤', 'Font Maker', 'Type a word, style it and download a PNG.'],
+    ['/software/graphic-design', '🖌️', 'Graphic Designer', 'Add text and shapes, drag them, export a PNG.'],
+    ['/software/html-coder', '⌨️', 'HTML Coder', 'Write HTML with a live preview and download it.'],
+    ['/software/business-card', '💼', 'Business Card Maker', 'Preview a card, share it and save a PNG.'],
+    ['/software/travel-planner', '🧭', 'Travel Planner', 'Day-by-day itinerary, budget and packing list.'],
+    ['/software/marketing-assistant', '📣', 'Marketing Assistant', 'Headlines, captions and a launch checklist.'],
+    ['/software/save-money-assistant', '🏦', 'Save Money Assistant', 'See the gap and build a realistic savings plan.'],
+    ['/software/ascii-art', '🎨', 'Image to ASCII', 'Colour text art from a photo, with transparent PNG.'],
+    ['/software/qr-code-generator', '📱', 'QR Code Generator', 'Turn any link or note into a sharp, scannable PNG.'],
+    ['/software/webp-to-png', '🔄', 'WebP to PNG', 'Batch-convert images without uploading a file.'],
+    ['/software/calendar', '📅', 'Calendar', 'A private month planner with locally saved events.'],
+    ['/software/todo', '✅', 'To-Do List', 'A quiet task list that remembers where you left off.'],
+    ['/software/task-timer', '⏱️', 'Task Timer', 'Time-box any task and hear when the block ends.'],
+    ['/software/json', '🧩', 'JSON Formatter', 'Format, validate and beautify JSON instantly.'],
+    ['/software/password', '🔑', 'Password Generator', 'Strong, unique passwords generated locally.'],
+    ['/software/markdown', '📝', 'Markdown Editor', 'Write with live preview and clean HTML export.'],
+    ['/software/converter', '⚖️', 'Unit Converter', 'Length, weight, temperature — one clean screen.'],
+    ['/software/calculator', '🧮', 'Calculator', 'Quick maths without leaving the tab.'],
+    ['/software/color-picker', '🎨', 'Hex Colour Picker', 'Colours, harmonies and WCAG contrast checks.'],
+    ['/tool-expense-tracker', '💸', 'Expense Tracker', 'See where your money goes, privately.'],
+    ['/tool-quick-notes', '🗒️', 'Quick Notes', 'Jot a thought before it disappears.'],
+    ['/tool-pomodoro', '🍅', 'Pomodoro Timer', 'Focus in 25-minute blocks, then rest.']
+  ];
+  var grid = document.getElementById('homeToolGrid');
+  var note = document.getElementById('toolRotateNote');
+  if (!grid) return;
+  function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+  function draw() {
+    var pool = TOOLS.slice();
+    for (var i = pool.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = pool[i]; pool[i] = pool[j]; pool[j] = t; }
+    grid.innerHTML = '';
+    pool.slice(0, 6).forEach(function (tool) {
+      var a = document.createElement('a');
+      a.className = 'tool-card';
+      a.href = tool[0];
+      a.innerHTML = '<span class="tool-icon">' + tool[1] + '</span><strong>' + esc(tool[2]) + '</strong><span class="tool-desc">' + esc(tool[3]) + '</span><em>Open tool →</em>';
+      grid.appendChild(a);
+    });
+    if (note) note.textContent = 'Six random picks from 30+ tools — reshuffled every visit.';
+  }
+  document.getElementById('toolShuffle').addEventListener('click', draw);
+  draw();
+})();
+</script>
+<script src="/assets/news.js" defer></script>
+<script src="/assets/home-app.js" defer></script>
+<script src="/assets/pwa.js" defer></script>
+
+
+<!-- DIH:EXPLORE -->
+
+<!-- /DIH:EXPLORE -->
+<!-- DIH:FOOTER -->
 <footer class="dih-footer">
   <div class="dih-footer-inner">
     <div class="dih-footer-brand">
@@ -1064,59 +1124,6 @@ html[data-theme="light"] .ask-form{background:rgba(255,255,255,.96)}
   </div>
 </footer>
 <!-- /DIH:FOOTER -->
-
-<script>
-(function () {
-  var TOOLS = [
-    ['/software/infohubgpt', '✨', 'InfohubGPT', 'A fast AI assistant for research, drafting and analysis.'],
-    ['/software/taskygpt', '📋', 'TaskyGPT', 'Turn a big goal into a plan you can actually start.'],
-    ['/software/buildengine', '⚙️', 'Build Engine', 'Build, fix and optimise code with an AI pair.'],
-    ['/software/marketlens', '📈', 'MarketLens', 'Markets and crypto briefings without the noise.'],
-    ['/software/scrapbook', '📸', 'Digital Scrapbook', 'Import photos and build a paper-style album.'],
-    ['/software/font-maker', '🔤', 'Font Maker', 'Type a word, style it and download a PNG.'],
-    ['/software/graphic-design', '🖌️', 'Graphic Designer', 'Add text and shapes, drag them, export a PNG.'],
-    ['/software/html-coder', '⌨️', 'HTML Coder', 'Write HTML with a live preview and download it.'],
-    ['/software/business-card', '💼', 'Business Card Maker', 'Preview a card, share it and save a PNG.'],
-    ['/software/travel-planner', '🧭', 'Travel Planner', 'Day-by-day itinerary, budget and packing list.'],
-    ['/software/marketing-assistant', '📣', 'Marketing Assistant', 'Headlines, captions and a launch checklist.'],
-    ['/software/save-money-assistant', '🏦', 'Save Money Assistant', 'See the gap and build a realistic savings plan.'],
-    ['/software/ascii-art', '🎨', 'Image to ASCII', 'Colour text art from a photo, with transparent PNG.'],
-    ['/software/qr-code-generator', '📱', 'QR Code Generator', 'Turn any link or note into a sharp, scannable PNG.'],
-    ['/software/webp-to-png', '🔄', 'WebP to PNG', 'Batch-convert images without uploading a file.'],
-    ['/software/calendar', '📅', 'Calendar', 'A private month planner with locally saved events.'],
-    ['/software/todo', '✅', 'To-Do List', 'A quiet task list that remembers where you left off.'],
-    ['/software/task-timer', '⏱️', 'Task Timer', 'Time-box any task and hear when the block ends.'],
-    ['/software/json', '🧩', 'JSON Formatter', 'Format, validate and beautify JSON instantly.'],
-    ['/software/password', '🔑', 'Password Generator', 'Strong, unique passwords generated locally.'],
-    ['/software/markdown', '📝', 'Markdown Editor', 'Write with live preview and clean HTML export.'],
-    ['/software/converter', '⚖️', 'Unit Converter', 'Length, weight, temperature — one clean screen.'],
-    ['/software/calculator', '🧮', 'Calculator', 'Quick maths without leaving the tab.'],
-    ['/software/color-picker', '🎨', 'Hex Colour Picker', 'Colours, harmonies and WCAG contrast checks.']
-  ];
-  var grid = document.getElementById('homeToolGrid');
-  var note = document.getElementById('toolRotateNote');
-  if (!grid) return;
-  function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
-  function draw() {
-    var pool = TOOLS.slice();
-    for (var i = pool.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = pool[i]; pool[i] = pool[j]; pool[j] = t; }
-    grid.innerHTML = '';
-    pool.slice(0, 6).forEach(function (tool) {
-      var a = document.createElement('a');
-      a.className = 'tool-card';
-      a.href = tool[0];
-      a.innerHTML = '<span class="tool-icon">' + tool[1] + '</span><strong>' + esc(tool[2]) + '</strong><span class="tool-desc">' + esc(tool[3]) + '</span><em>Open tool →</em>';
-      grid.appendChild(a);
-    });
-    if (note) note.textContent = 'Six random picks from 28 tools — reshuffled every visit.';
-  }
-  document.getElementById('toolShuffle').addEventListener('click', draw);
-  draw();
-})();
-</script>
 <script src="/assets/site.js" defer></script>
-<script src="/assets/news.js" defer></script>
-<script src="/assets/home-app.js" defer></script>
-<script src="/assets/pwa.js" defer></script>
 </body>
 </html>

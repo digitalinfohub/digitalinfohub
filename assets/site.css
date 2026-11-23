@@ -495,8 +495,8 @@ html[data-theme="light"] .dih-ticker { background: #fff; }
   overflow: hidden;
   display: flex;
   align-items: center;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 3%, #000 97%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 3%, #000 97%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 2%, #000 97%, transparent);
+  mask-image: linear-gradient(90deg, transparent 0, #000 2%, #000 97%, transparent);
 }
 
 .dih-ticker-track {
@@ -2766,4 +2766,259 @@ html[data-dih] .dih-ask-note {
   html[data-dih] .dih-ask-launch,
   html[data-dih] .dih-ask-overlay,
   html[data-dih] .dih-ask-modal { transition: none !important; }
+}
+
+/* ==========================================================================
+   Refresh: readable muted text, responsive image cards, ad space reservation
+   ========================================================================== */
+
+/* Muted copy was borderline for small text on both themes. */
+html[data-dih] { --dih-text-muted: #8b93a7; }
+html[data-dih][data-theme="light"] { --dih-text-muted: #5d6678; }
+
+/* Header share control matches the other icons. */
+.dih-share { cursor: pointer; }
+.dih-share svg { width: 16px; height: 16px; }
+
+/* Image cards: 4 -> 2 -> 1 column so they stay readable on phones. */
+@media (max-width: 920px) {
+  .dih-gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+}
+
+@media (max-width: 560px) {
+  .dih-gallery { margin-top: 46px; padding: 0 14px; }
+  .dih-gallery-head { margin-bottom: 14px; gap: 12px; }
+  .dih-gallery-head h2 { font-size: 24px; }
+  .dih-gallery-head p { font-size: 12.5px; }
+  .dih-gallery-all { padding: 8px 13px; font-size: 12px; }
+  .dih-gallery-grid { grid-template-columns: 1fr; gap: 12px; }
+  .dih-gallery-card { flex-direction: row; align-items: stretch; }
+  .dih-gallery-media { width: 40%; min-width: 116px; aspect-ratio: 4 / 3; flex-shrink: 0; }
+  .dih-gallery-body { padding: 12px 13px; gap: 5px; }
+  .dih-gallery-body strong { font-size: 13.5px; }
+  .dih-gallery-body > span { -webkit-line-clamp: 2; font-size: 11.5px; }
+  .dih-gallery-credit { font-size: 9.5px; }
+  .dih-icon.dih-share { display: flex; }
+}
+
+/* Advertisement slots: reserve sensible height so a late fill cannot shift
+   the article under the reader's thumb (CLS). AdSense/Sovrn scripts untouched. */
+html[data-dih] .ad-container,
+html[data-dih] .ad-box,
+html[data-dih] .ad-box-inline {
+  min-height: 280px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+html[data-dih] .ad-container > div,
+html[data-dih] .ad-box-inline > div { width: 100%; }
+html[data-dih] .ad-container .adsbygoogle,
+html[data-dih] .ad-box .adsbygoogle,
+html[data-dih] .ad-box-inline .adsbygoogle { width: 100%; min-height: 250px; }
+
+@media (max-width: 640px) {
+  html[data-dih] .ad-container,
+  html[data-dih] .ad-box,
+  html[data-dih] .ad-box-inline { min-height: 260px; padding: 12px; margin: 22px auto; }
+  html[data-dih] .ad-container .adsbygoogle,
+  html[data-dih] .ad-box .adsbygoogle,
+  html[data-dih] .ad-box-inline .adsbygoogle { min-height: 230px; }
+}
+
+/* Keep the share control available on phones (the theme toggle stays off). */
+@media (max-width: 640px) {
+  html[data-dih] .dih-icon.dih-share { display: flex; }
+}
+
+/* Perchads placement: labelled and height-reserved so it cannot shift content. */
+html[data-dih] .dih-perch-ad {
+  max-width: 728px;
+  margin: 26px auto;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Legacy tool pages style every <button>; keep header icons square and legible. */
+html[data-dih] .dih-header .dih-icon {
+  width: 36px;
+  min-width: 36px;
+  height: 36px;
+  padding: 0;
+  flex: 0 0 36px;
+  line-height: 1;
+}
+html[data-dih] .dih-header .dih-icon svg {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+}
+
+/* Hero buttons need breathing room under the prompt suggestions. */
+html[data-dih] .hero-actions { margin-top: 16px; }
+
+/* Tool pages: keep the calendar and badges usable on a phone. */
+@media (max-width: 640px) {
+  html[data-dih] body[data-page="tool"] .container > header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
+  }
+  html[data-dih] body[data-page="tool"] .container > header h1 { font-size: 1.55rem; }
+  html[data-dih] body[data-page="tool"] .tool-card { padding: 1rem; }
+  html[data-dih] .calendar-grid { gap: 0.25rem; }
+  html[data-dih] .calendar-grid .day-name { padding: 0.25rem 0; font-size: 9.5px; }
+  html[data-dih] .calendar-grid .day-cell { min-height: 52px; padding: 0.25rem; font-size: 11px; }
+  html[data-dih] .calendar-header { gap: 6px; }
+  html[data-dih] .calendar-header h2 { font-size: 1.05rem; margin: 0; }
+  html[data-dih] .calendar-header button { padding: 0.45rem 0.55rem; font-size: 0.78rem; }
+}
+
+/* ==========================================================================
+   Homepage refresh — clearer hero, need-based browse, calmer motion
+   ========================================================================== */
+html[data-dih] .hero h1 { min-height: 2.08em; }
+html[data-dih] .hero-sub { min-height: calc(1.7em * 2); }
+
+.need-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.need-card {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border-radius: var(--dih-radius);
+  border: 1px solid var(--dih-border);
+  background:
+    radial-gradient(320px 180px at 0% 0%, rgba(76, 141, 255, .09), transparent 70%),
+    var(--dih-surface);
+  transition: transform .3s var(--dih-ease), border-color .3s, box-shadow .3s;
+}
+
+.need-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(76, 141, 255, .4);
+  box-shadow: 0 18px 40px -24px rgba(0, 0, 0, .7);
+}
+
+.need-ico {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(76, 141, 255, .22);
+  background: var(--dih-accent-soft);
+  font-size: 19px;
+  line-height: 1;
+}
+
+.need-card h3 {
+  margin: 0 0 4px;
+  font-size: 16px;
+  font-weight: 760;
+  letter-spacing: -.02em;
+}
+
+.need-card > p {
+  margin: 0;
+  color: var(--dih-text-muted);
+  font-size: 12.5px;
+  line-height: 1.55;
+}
+
+.need-card ul {
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 0;
+  display: grid;
+}
+
+.need-card li a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 0;
+  border-top: 1px solid var(--dih-border);
+  color: var(--dih-text-sub);
+  font-size: 12.5px;
+  text-decoration: none;
+  transition: color .2s;
+}
+
+.need-card li:first-child a { border-top: 0; }
+
+.need-card li a::after {
+  content: '→';
+  color: var(--dih-text-muted);
+  transition: transform .2s var(--dih-ease), color .2s;
+}
+
+.need-card li a:hover { color: var(--dih-accent); }
+.need-card li a:hover::after { color: var(--dih-accent); transform: translateX(3px); }
+
+/* Gallery now lives inside the page flow, not as a full-width afterthought. */
+html[data-dih] .dih-gallery--home {
+  margin: 0;
+  padding: 0;
+  max-width: none;
+}
+
+@media (max-width: 900px) {
+  .need-grid { grid-template-columns: 1fr; }
+  .need-card { padding: 18px; }
+}
+
+@media (max-width: 640px) {
+  html[data-dih] .hero h1 { min-height: 2.1em; }
+  html[data-dih] .hero-sub { min-height: calc(1.7em * 4); }
+  .need-card li a { padding: 9px 0; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero .dih-pill,
+  .hero h1,
+  .hero-sub,
+  .hero-ask,
+  .hero-ask-hints,
+  .hero-actions,
+  .hero .resume,
+  .hero-stats {
+    animation: dihHeroIn .6s cubic-bezier(.22, .7, .2, 1) both;
+  }
+  .hero h1 { animation-delay: .04s; }
+  .hero-sub { animation-delay: .08s; }
+  .hero-ask { animation-delay: .12s; }
+  .hero-ask-hints { animation-delay: .16s; }
+  .hero-actions { animation-delay: .2s; }
+  .hero-stats { animation-delay: .24s; }
+}
+
+@keyframes dihHeroIn {
+  from { opacity: 0; translate: 0 12px; }
+  to { opacity: 1; translate: 0 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero .dih-pill, .hero h1, .hero-sub, .hero-ask, .hero-ask-hints,
+  .hero-actions, .hero .resume, .hero-stats { animation: none; }
+  .hero-glow, .hero h1 .grad, .newsletter-band::before { animation: none !important; }
+}
+
+/* On phones the floating Digi avatar covers the hero stats; the hero's own
+   "Ask anything" field and the Digi nav link already cover that job. */
+@media (max-width: 640px) {
+  body[data-page="home"] .digi-avatar { display: none; }
 }

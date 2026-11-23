@@ -26,7 +26,7 @@ from topics_part6 import TOPICS as PART6  # noqa: E402
 ROOT = Path(__file__).resolve().parent.parent
 SITE = "https://digitalinfohub.net"
 SITE_NAME = "Digital Infohub"
-LOGO = "https://static.wixstatic.com/media/94ccfe_dec2763dd58148e78d3d8aaef72cf2fe~mv2.png"
+LOGO = "/assets/icon-512.png"
 ADSENSE = "ca-pub-5443646750699471"
 AD_SLOT = "8451723433"
 UPDATED = "2026-11-04"
@@ -752,8 +752,6 @@ def render_topic(t):
       </div>
     </header>
 
-    {ad_block()}
-
     <div class="toc">
       <h2>In this guide</h2>
       <ol>
@@ -762,6 +760,8 @@ def render_topic(t):
     </div>
 
 {chr(10).join(f"    <p>{esc(p)}</p>" for p in t["intro"])}
+
+    {ad_block()}
 
 {body_html}
 

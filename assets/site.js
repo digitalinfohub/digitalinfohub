@@ -464,6 +464,31 @@
     }
   }, true);
 
+  /* --------------------------------------------------------------- share */
+  function initShare() {
+    var btn = document.querySelector('[data-dih-share]');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      var data = {
+        title: document.title,
+        text: 'Useful, plain-language tech from Digital Infohub',
+        url: location.href
+      };
+      if (navigator.share) {
+        navigator.share(data).catch(function () {});
+        return;
+      }
+      var url = location.href;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(function () {
+          toast('Link copied — send it to a friend.');
+        }, function () { toast(url); });
+      } else {
+        toast(url);
+      }
+    });
+  }
+
   /* ------------------------------------------------------------- bootstrap */
   initTheme();
   initDrawer();
@@ -475,6 +500,7 @@
   initStreak();
   initAskDigi();
   initPulse();
+  initShare();
 
   /* Keep the page in sync with a theme change made by legacy page scripts. */
   document.querySelectorAll('[data-dih-theme]').forEach(function () {});
