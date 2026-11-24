@@ -793,6 +793,24 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://digitalinfohub.net/games/block-defender</loc>
+    <lastmod>2026-11-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://digitalinfohub.net/games/neon-horizon</loc>
+    <lastmod>2026-11-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://digitalinfohub.net/games/perfect-pour</loc>
+    <lastmod>2026-11-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://digitalinfohub.net/games/snake</loc>
     <lastmod>2026-11-24</lastmod>
     <changefreq>monthly</changefreq>

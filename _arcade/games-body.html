@@ -1,0 +1,325 @@
+<style>
+:root{--bg:#07060f;--panel:#120f24;--line:#2a2450;--text:#f4f2ff;--dim:#9b96b8;--cyan:#45f0df;--pink:#ff4d8d;--lime:#a6ff4d;--orange:#ff9e3d;--yellow:#ffe14d;--purple:#b06bff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:'Space Grotesk',system-ui,sans-serif;overflow-x:hidden}
+.glow{position:fixed;border-radius:50%;filter:blur(90px);opacity:.4;pointer-events:none;z-index:0}
+.g1{width:420px;height:420px;background:#3b1d78;top:-160px;left:-120px}
+.g2{width:380px;height:380px;background:#0e5a6b;bottom:-140px;right:-100px}
+.g3{width:300px;height:300px;background:#6b123f;top:40%;right:20%;opacity:.25}
+#sky{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55}
+#sky span{position:absolute;background:#fff;border-radius:50%;animation:twinkle 3s infinite ease-in-out}
+@keyframes twinkle{0%,100%{opacity:.15}50%{opacity:.8}}
+.wrap{position:relative;z-index:2;max-width:1180px;margin:0 auto;padding:26px 18px 60px}
+header.pp-head{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;flex-wrap:wrap;margin-bottom:10px}
+h1.pp-logo{font-family:'Press Start 2P',monospace;font-size:clamp(18px,4vw,30px);line-height:1.3;margin:0}
+h1.pp-logo .p1{color:var(--pink);text-shadow:0 0 22px rgba(255,77,141,.5)}
+h1.pp-logo .p2{color:var(--cyan);text-shadow:0 0 22px rgba(69,240,223,.5)}
+.pp-sub{font-family:'Press Start 2P',monospace;font-size:9px;color:var(--dim);margin-top:10px;letter-spacing:.1em}
+.blink{animation:blink 1.1s steps(2,end) infinite;color:var(--lime)}
+@keyframes blink{50%{opacity:0}}
+.navbtns{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}
+.navbtn{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.06em;text-decoration:none;color:var(--dim);border:1px solid var(--line);padding:6px 9px;border-radius:6px;background:rgba(255,255,255,.02)}
+.navbtn:hover{color:var(--cyan);border-color:var(--cyan)}
+.ticker{margin:18px 0 14px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;background:rgba(255,255,255,.015)}
+.tickertrack{display:flex;white-space:nowrap;animation:tick 38s linear infinite;padding:7px 0}
+.tickertrack span{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.08em;color:var(--dim);padding-right:26px}
+.tickertrack b{color:var(--lime)}
+@keyframes tick{to{transform:translateX(-50%)}}
+.prompt{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--cyan);letter-spacing:.06em;margin:18px 0 8px}
+.prompt .cursor{animation:blink 1s steps(2,end) infinite}
+.floor-label{font-family:'Press Start 2P',monospace;font-size:11px;color:var(--yellow);margin:26px 0 4px;letter-spacing:.04em}
+.floor-label small{display:block;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim);letter-spacing:.02em;margin-top:8px;line-height:1.6;font-weight:400}
+.cabs{display:grid;grid-template-columns:repeat(auto-fill,minmax(238px,1fr));gap:14px;margin-top:16px}
+.cab{display:flex;flex-direction:column;gap:8px;text-decoration:none;color:inherit;background:linear-gradient(180deg,rgba(23,19,43,.96),rgba(11,9,22,.98));border:1px solid var(--line);border-radius:12px;padding:10px;position:relative;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;overflow:hidden}
+.cab:hover,.cab:focus-visible{transform:translateY(-3px);border-color:color-mix(in srgb,var(--acc) 60%,transparent);box-shadow:0 14px 34px rgba(0,0,0,.5),0 0 0 1px color-mix(in srgb,var(--acc) 30%,transparent);outline:none}
+.cab:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.cab .screen{position:relative;height:124px;border-radius:8px;background:#080713;border:1px solid rgba(255,255,255,.08);overflow:hidden;display:flex;align-items:center;justify-content:center}
+.cab .screen::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.18) 0 1px,transparent 1px 3px);pointer-events:none}
+.cab:hover .screen{border-color:color-mix(in srgb,var(--acc) 45%,transparent)}
+.cabhead{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.cabtag{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.1em;padding:2px 6px;border-radius:99px;background:color-mix(in srgb,var(--acc) 18%,transparent);color:var(--acc);border:1px solid color-mix(in srgb,var(--acc) 35%,transparent)}
+.cabhead h3{margin:0;font-size:13px;letter-spacing:.02em;font-family:'Space Grotesk',sans-serif}
+.cabdesc{margin:0;font-size:11px;line-height:1.55;color:var(--dim);flex:1}
+.cabfoot{display:flex;justify-content:space-between;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--dim)}
+.cabbest{letter-spacing:.05em}
+.playchip{color:#08060f;background:var(--acc);border-radius:5px;padding:4px 8px;font-weight:700;letter-spacing:.05em;white-space:nowrap}
+.newtag{position:absolute;top:16px;right:16px;z-index:3;font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:700;letter-spacing:.08em;background:var(--pink);color:#16020a;padding:3px 6px;border-radius:3px;box-shadow:0 0 12px rgba(255,77,141,.6)}
+.exttag{font-size:8px;color:var(--dim);border:1px solid var(--line);border-radius:3px;padding:2px 5px}
+.adcab{grid-column:1/-1;border:1px dashed var(--line);border-radius:10px;padding:10px;background:rgba(255,255,255,.02);min-height:90px}
+.adlabel{font-family:'JetBrains Mono',monospace;font-size:8px;color:#5f5a7d;letter-spacing:.12em;margin-bottom:6px}
+.mini{position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center;gap:3px}
+.mini-snake{display:grid;grid-template-columns:repeat(6,9px);gap:2px;padding:6px}
+.mini-snake i{width:9px;height:9px;background:var(--lime);border-radius:2px;opacity:.85}
+.mini-snake i:first-child{background:var(--cyan);box-shadow:0 0 10px var(--cyan)}
+.mini-snake i:nth-child(5){background:var(--pink);border-radius:50%}
+.mini-type{font-family:'Press Start 2P',monospace;font-size:9px;color:var(--yellow);text-align:center;line-height:1.8;text-shadow:0 0 12px rgba(255,225,77,.5)}
+.mini-cards{display:flex;gap:8px}
+.mini-cards i{width:34px;height:44px;background:#1d1838;border:1px solid var(--cyan);border-radius:5px;display:grid;place-items:center;font-style:normal;font-size:16px}
+.mini-cards i:last-child{border-color:var(--pink);transform:rotate(6deg)}
+.mini-ttt{display:grid;grid-template-columns:repeat(3,22px);gap:2px;background:var(--line);padding:2px;border-radius:4px}
+.mini-ttt i{width:22px;height:22px;background:#0d0b18;display:grid;place-items:center;font-style:normal;font-size:11px;color:var(--pink)}
+.mini-ttt i:nth-child(3),.mini-ttt i:nth-child(7){color:var(--cyan)}
+.mini-mole{width:100%;height:100%;background:radial-gradient(ellipse at 50% 70%,#2a2145,#0d0b18);display:grid;place-items:center;font-size:34px}
+.mini-lights{display:flex;gap:8px}
+.mini-lights i{width:30px;height:30px;border-radius:50%;background:#241f3e;border:2px solid var(--line)}
+.mini-lights i:first-child{background:var(--lime);border-color:var(--lime);box-shadow:0 0 20px rgba(166,255,77,.6)}
+.mini-pong{width:80%;height:70%;position:relative;border:1px solid var(--line);border-radius:4px;background:#0a0814}
+.mini-pong i{position:absolute;width:4px;height:22px;background:var(--cyan);top:26%;left:6px;box-shadow:0 0 8px var(--cyan)}
+.mini-pong i:last-child{left:auto;right:6px;background:var(--pink);top:52%}
+.mini-pong::after{content:"";position:absolute;width:8px;height:8px;border-radius:50%;background:#fff;top:44%;left:46%;box-shadow:0 0 8px #fff}
+.mini-2048{display:grid;grid-template-columns:repeat(2,32px);gap:3px;padding:4px;background:#1b1630;border-radius:5px}
+.mini-2048 i{width:32px;height:32px;display:grid;place-items:center;font-style:normal;font-size:11px;border-radius:4px;background:#2a2350;color:#cbb8ff}
+.mini-2048 i:nth-child(2){background:#3c2a6b;color:#e8d6ff}
+.mini-2048 i:nth-child(3){background:#5a2a6b;color:#ffd6f6}
+.mini-2048 i:nth-child(4){background:#7b2350;color:#fff}
+.mini-simon{display:grid;grid-template-columns:repeat(2,30px);gap:3px}
+.mini-simon i{width:30px;height:30px;border-radius:6px;background:#2a2350;border:1px solid var(--line)}
+.mini-simon i:first-child{background:var(--lime);box-shadow:0 0 14px rgba(166,255,77,.5)}
+.mini-simon i:nth-child(4){background:var(--pink);opacity:.7}
+.mini-bd{display:grid;grid-template-columns:repeat(6,13px);gap:2px;padding:6px}
+.mini-bd i{width:13px;height:13px;border-radius:2px;background:#211a3d}
+.mini-bd i.c1{background:var(--cyan);box-shadow:0 0 8px rgba(69,240,223,.6)}
+.mini-bd i.c2{background:var(--pink)}
+.mini-bd i.c3{background:var(--yellow)}
+.mini-bd i.c4{background:var(--purple)}
+.mini-bd i.bug{background:#3a1230;display:grid;place-items:center;font-size:8px}
+.mini-nh{position:relative;width:100%;height:100%;background:linear-gradient(180deg,#120a26 0%,#2a0f3d 52%,#0b0716 52%,#0b0716 100%);overflow:hidden}
+.mini-nh::before{content:"";position:absolute;left:50%;top:52%;width:60%;height:48%;transform:translateX(-50%);background:linear-gradient(180deg,rgba(69,240,223,.12),rgba(69,240,223,0));clip-path:polygon(38% 0,62% 0,100% 100%,0 100%);border-top:1px solid rgba(255,77,141,.6)}
+.mini-nh::after{content:"";position:absolute;left:50%;top:50%;width:34px;height:16px;transform:translate(-50%,0);border-radius:4px;background:var(--cyan);box-shadow:0 0 16px rgba(69,240,223,.7)}
+.mini-nh i{position:absolute;top:63%;width:8px;height:18px;border-radius:2px;background:var(--pink);left:32%;box-shadow:0 0 10px rgba(255,77,141,.6)}
+.mini-nh i:last-child{left:63%;top:70%;background:var(--yellow);width:10px;height:22px}
+.mini-pp{position:relative;width:100%;height:100%;display:grid;place-items:center;background:radial-gradient(circle at 50% 40%,#fdf8f1,#e8d7c1)}
+.mini-pp .cup{position:relative;width:46px;height:56px;background:rgba(255,255,255,.6);border:2px solid #a1734f;border-radius:4px 4px 12px 12px;overflow:hidden}
+.mini-pp .cup::before{content:"";position:absolute;left:0;right:0;bottom:0;height:58%;background:linear-gradient(180deg,#b47445,#4a2412)}
+.mini-pp .cup::after{content:"";position:absolute;left:0;right:0;top:26%;height:10px;background:rgba(46,139,87,.35);border-top:1px solid #2e8b57;border-bottom:1px solid #2e8b57}
+.rrdg-note{background:linear-gradient(160deg,rgba(255,77,141,.08),rgba(69,240,223,.05));border:1px solid var(--line);border-left:3px solid var(--pink);border-radius:10px;padding:14px 16px;margin:18px 0 0}
+.rrdg-note h2{margin:0 0 6px;font-size:15px;letter-spacing:.02em;color:#fff}
+.rrdg-note p{margin:0 0 8px;font-size:12px;line-height:1.65;color:var(--dim);max-width:78ch}
+.rrdg-note p:last-child{margin-bottom:0}
+.rrdg-note b{color:var(--text)}
+.rrdg-links{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.rrdg-links a{font-family:'JetBrains Mono',monospace;font-size:10px;text-decoration:none;color:var(--cyan);border:1px solid rgba(69,240,223,.35);padding:6px 10px;border-radius:6px;background:rgba(69,240,223,.06)}
+.rrdg-links a:hover{background:rgba(69,240,223,.16)}
+footer.pp-foot{margin-top:40px;padding-top:18px;border-top:1px solid var(--line);font-family:'JetBrains Mono',monospace;font-size:10px;line-height:1.9;color:#6f6990;text-align:center}
+.footer-links a{color:var(--dim);text-decoration:none;margin:0 4px}
+.footer-links a:hover{color:var(--cyan)}
+@media(max-width:520px){.wrap{padding:20px 14px 44px}.cabs{grid-template-columns:1fr 1fr;gap:10px}.cab .screen{height:92px}.cabdesc{font-size:10px}.cabhead h3{font-size:11.5px}.newtag{top:10px;right:10px}}
+@media(max-width:380px){.cabs{grid-template-columns:1fr}}
+</style>
+
+<div class="glow g1"></div><div class="glow g2"></div><div class="glow g3"></div><div id="sky"></div>
+
+<div class="wrap">
+  <header class="pp-head">
+    <div>
+      <h1 class="pp-logo"><span class="p1">PIXEL</span> <span class="p2">PALACE</span></h1>
+      <div class="pp-sub">▸ ARCADE <span class="blink">▮</span> FREE BROWSER GAMES</div>
+      <div class="navbtns">
+        <a href="/" class="navbtn">HOME</a>
+        <a href="/blog" class="navbtn">BLOG</a>
+        <a href="/techtopics" class="navbtn">TECH TOPICS</a>
+        <a href="/software" class="navbtn">SOFTWARE</a>
+        <a href="/subscribe" class="navbtn">SUBSCRIBE</a>
+      </div>
+    </div>
+    <div style="text-align:right;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim);line-height:1.8">
+      <div style="color:var(--lime)">● 12 CABINETS ONLINE</div>
+      <div>NO QUARTERS REQUIRED</div>
+    </div>
+  </header>
+
+  <div class="ticker"><div class="tickertrack" id="tickertrack"></div></div>
+
+  <p class="prompt">SELECT A CABINET — EVERY GAME OPENS ON ITS OWN PAGE <span class="cursor">▮</span></p>
+
+  <div class="floor-label">DIGITAL INFOHUB GAMES
+    <small>Our own arcade — twelve games built and maintained here. Each cabinet opens in a new tab on its own page, so you can keep the arcade open and share a direct link.</small>
+  </div>
+
+  <div class="cabs">
+    <a class="cab" href="/games/block-defender" target="_blank" rel="noopener" style="--acc:var(--cyan)">
+      <span class="newtag">NEW</span>
+      <div class="screen"><div class="mini mini-bd" aria-hidden="true"><i></i><i></i><i class="c2"></i><i></i><i class="c1"></i><i></i><i class="c3"></i><i class="c1"></i><i class="c1"></i><i></i><i class="c4"></i><i></i><i></i><i class="bug">👾</i><i class="c2"></i><i></i><i class="c1"></i><i class="c1"></i><i class="c1"></i><i></i><i></i><i class="c4"></i><i></i><i></i></div></div>
+      <div class="cabhead"><span class="cabtag">PUZZLE</span><h3>BLOCK DEFENDER</h3></div>
+      <p class="cabdesc">Neon falling blocks with glitch bugs to crush, power cells to grab and five sectors to hold.</p>
+      <div class="cabfoot"><span class="cabbest">5 SECTORS</span><span class="playchip">OPEN ↗</span></div>
+    </a>
+
+    <a class="cab" href="/games/neon-horizon" target="_blank" rel="noopener" style="--acc:var(--pink)">
+      <span class="newtag">NEW</span>
+      <div class="screen"><div class="mini mini-nh" aria-hidden="true"><i></i><i></i></div></div>
+      <div class="cabhead"><span class="cabtag">RACING</span><h3>NEON HORIZON</h3></div>
+      <p class="cabdesc">Four lanes, endless night and one fuel gauge. Weave the traffic and chase the horizon.</p>
+      <div class="cabfoot"><span class="cabbest">ENDLESS</span><span class="playchip">OPEN ↗</span></div>
+    </a>
+
+    <a class="cab" href="/games/perfect-pour" target="_blank" rel="noopener" style="--acc:var(--yellow)">
+      <span class="newtag">NEW</span>
+      <div class="screen"><div class="mini mini-pp" aria-hidden="true"><div class="cup"></div></div></div>
+      <div class="cabhead"><span class="cabtag">SKILL</span><h3>PERFECT POUR</h3></div>
+      <p class="cabdesc">Hold, pour, stop inside the green band. Five cups, three stars, one steady hand.</p>
+      <div class="cabfoot"><span class="cabbest">5 CUPS</span><span class="playchip">OPEN ↗</span></div>
+    </a>
+
+    <a class="cab" href="/games/snake" target="_blank" rel="noopener" style="--acc:var(--lime)">
+      <div class="screen"><div class="mini mini-snake" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+      <div class="cabhead"><span class="cabtag">ARCADE</span><h3>SNAKE</h3></div>
+      <p class="cabdesc">Eat, grow, don't bite yourself. Arrow keys, WASD or swipe on mobile.</p>
+      <div class="cabfoot"><span class="cabbest">CLASSIC</span><span class="playchip">OPEN ↗</span></div>
+    </a>
+
+    <a class="cab" href="/games/2048" target="_blank" rel="noopener" style="--acc:var(--orange)">
+      <div class="screen"><div class="mini mini-2048" aria-hidden="true"><i>2</i><i>4</i><i>8</i><i>16</i></div></div>
+      <div class="cabhead"><span class="cabtag">PUZZLE</span><h3>2048</h3></div>
+      <p class="cabdesc">Swipe to merge tiles. Reach 2048 to win, keep going for a bigger number.</p>
+      <div class="cabfoot"><span class="cabbest">NUMBER PUZZLE</span><span class="playchip">OPEN ↗</span></div>
+    </a>
+
+    <a class="cab" href="/games/pong" target="_blank" rel="noopener" style="--acc:var(--cyan)">
+      <div class="screen"><div class="mini mini-pong" aria-hidden="true"><i></i><i></i></div></div>
+      <div class="cabhead"><span class="cabtag">CLASSIC</span><h3>PONG</h3></div>
+      <p class="cabdesc">The original. Swipe up and down or drag to move your paddle.</p>
+      <div class="cabfoot"><span class="cabbest">1972 FOREVER</span><span class="playchip">OPEN ↗</span></div>
+    </a>
+
+    <div class="adcab">
+      <div class="adlabel">▸ SPONSORED</div>
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5443646750699471" data-ad-slot="8451723433" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <a class="cab" href="/games/memory" target="_blank" rel="noopener" style="--acc:var(--purple)">
+      <div class="screen"><div class="mini mini-cards" aria-hidden="true"><i>👾</i><i>🍒</i></div></div>
+      <div class="cabhead"><span class="cabtag">MEMORY</span><h3>MEMORY</h3></div>
+      <p class="cabdesc">Flip fast, remember faster. Eight pairs, one brain, endless replay.</p>
+      <div class="cabfoot"><span class="cabbest">8 PAIRS</span><span class="playchip">OPEN ↗</span></div>
+    </a>
+
+    <a class="cab" href="/games/mole" target="_blank" rel="noopener" style="--acc:var(--orange)">
+      <div class="screen"><div class="mini mini-mole" aria-hidden="true"><span>🐹</span></div></div>
+      <div class="cabhead"><span class="cabtag">REFLEX</span><h3>WHACK-A-MOLE</h3></div>
+      <p class="cabdesc">Bonk the moles, spare the bombs. Thirty chaotic seconds.</p>
+      <div class="cabfoot"><span class="cabbest">30 SECONDS</span><span class="playchip">OPEN ↗</span></div>
+    </a>
+
+    <a class="cab" href="/games/reaction" target="_blank" rel="noopener" style="--acc:var(--lime)">
+      <div class="screen"><div class="mini mini-lights" aria-hidden="true"><i></i><i></i><i></i></div></div>
+      <div class="cabhead"><span class="cabtag">REFLEX</span><h3>REACTION LAB</h3></div>
+      <p class="cabdesc">Wait for green, then tap like your life depends on it. Measure your best ms.</p>
+      <div class="cabfoot"><span class="cabbest">MILLISECONDS</span><span class="playchip">OPEN ↗</span></div>
+    </a>
+
+    <a class="cab" href="/games/simon" target="_blank" rel="noopener" style="--acc:var(--pink)">
+      <div class="screen"><div class="mini mini-simon" aria-hidden="true"><i></i><i></i><i></i><i></i></div></div>
+      <div class="cabhead"><span class="cabtag">MEMORY</span><h3>SIMON</h3></div>
+      <p class="cabdesc">Watch the pattern, repeat it. One mistake ends the run.</p>
+      <div class="cabfoot"><span class="cabbest">PATTERN</span><span class="playchip">OPEN ↗</span></div>
+    </a>
+
+    <div class="adcab">
+      <div class="adlabel">▸ SPONSORED</div>
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5443646750699471" data-ad-slot="8451723433" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <a class="cab" href="/games/tictactoe" target="_blank" rel="noopener" style="--acc:var(--cyan)">
+      <div class="screen"><div class="mini mini-ttt" aria-hidden="true"><i>X</i><i></i><i>O</i><i></i><i>X</i><i></i><i>O</i><i></i><i>X</i></div></div>
+      <div class="cabhead"><span class="cabtag">VERSUS</span><h3>TIC·TAC·CPU</h3></div>
+      <p class="cabdesc">Outsmart a sassy machine. Tap a square, take a shot.</p>
+      <div class="cabfoot"><span class="cabbest">YOU VS CPU</span><span class="playchip">OPEN ↗</span></div>
+    </a>
+
+    <a class="cab" href="/games/typing" target="_blank" rel="noopener" style="--acc:var(--yellow)">
+      <div class="screen"><div class="mini mini-type" aria-hidden="true">TYPE<br>OR DIE</div></div>
+      <div class="cabhead"><span class="cabtag">SKILL</span><h3>TYPING RUSH</h3></div>
+      <p class="cabdesc">Thirty seconds of pure WPM. The keyboard opens itself on phones.</p>
+      <div class="cabfoot"><span class="cabbest">WPM</span><span class="playchip">OPEN ↗</span></div>
+    </a>
+  </div>
+
+  <div class="floor-label" style="margin-top:44px">RANDOM RYAN DIGITAL GAMES
+    <small>Another way to play — see below.</small>
+  </div>
+
+  <div class="rrdg-note">
+    <h2>Random Ryan Digital is another way to play</h2>
+    <p>Digital Infohub created <b>Random Ryan Digital</b> a long time ago as a home for art, animations and games. Those games are still out there and still worth a go — the cabinets below launch them on gd.games in a new tab.</p>
+    <p>These days everything is presented through <b>Digital Infohub</b>, because it is the best destination for what is going on in the world and for my own projects, digitally. It is essentially <b>anything and everything digital. The digital world.</b> Random Ryan Digital is the older, more playful corner of that same world.</p>
+    <div class="rrdg-links">
+      <a href="https://gd.games/randomryandigital" target="_blank" rel="noopener">All RRDG games ↗</a>
+      <a href="https://www.youtube.com/@randomryandigital/featured" target="_blank" rel="noopener">RRDG on YouTube ↗</a>
+    </div>
+  </div>
+
+  <div class="cabs">
+    <a href="https://gd.games/randomryandigital/foxfirefrenzy" class="cab" target="_blank" rel="noopener" style="--acc:var(--orange)">
+      <div class="screen"><img src="https://public-game-resources.gdevelop.io/22dd121e-30dd-47a7-a7e4-7145fa5342c1/thumbnails/thumbnail_9986f702-d1ea-490f-9ec2-b631f2ebfd9a.png" alt="Foxfire Frenzy preview" loading="lazy" style="width:100%;height:100%;object-fit:cover"></div>
+      <div class="cabhead"><span class="cabtag">RRDG</span><h3>FOXFIRE FRENZY</h3></div>
+      <p class="cabdesc">Fast-paced fox action. Dodge, collect, survive.</p>
+      <div class="cabfoot"><span class="exttag">GD.GAMES</span><span class="playchip">LAUNCH ↗</span></div>
+    </a>
+
+    <a href="https://gd.games/randomryandigital/retrohship" class="cab" target="_blank" rel="noopener" style="--acc:var(--cyan)">
+      <div class="screen"><img src="https://public-game-resources.gdevelop.io/7e25117a-10e7-43d1-8c00-e8233420c519/thumbnails/thumbnail_394f51c4-8272-4c4e-951b-aa8dca71ff9a.png" alt="RetrOH Ship! preview" loading="lazy" style="width:100%;height:100%;object-fit:cover"></div>
+      <div class="cabhead"><span class="cabtag">RRDG</span><h3>RETR OH SHIP!</h3></div>
+      <p class="cabdesc">Retro space shooter vibes. Blast through asteroids.</p>
+      <div class="cabfoot"><span class="exttag">GD.GAMES</span><span class="playchip">LAUNCH ↗</span></div>
+    </a>
+
+    <a href="https://gd.games/randomryandigital/systemreboot" class="cab" target="_blank" rel="noopener" style="--acc:var(--lime)">
+      <div class="screen"><img src="https://public-game-resources.gdevelop.io/afc2ada1-f789-4c93-bd1c-a14b2d60aaeb/thumbnails/thumbnail_409d7dd8-a01f-4597-a772-912f70e9ccc2.png" alt="System Reboot preview" loading="lazy" style="width:100%;height:100%;object-fit:cover"></div>
+      <div class="cabhead"><span class="cabtag">RRDG</span><h3>SYSTEM REBOOT</h3></div>
+      <p class="cabdesc">Fix the glitches before the system crashes completely.</p>
+      <div class="cabfoot"><span class="exttag">GD.GAMES</span><span class="playchip">LAUNCH ↗</span></div>
+    </a>
+
+    <a href="https://gd.games/randomryandigital/astrogeddon-3d" class="cab" target="_blank" rel="noopener" style="--acc:var(--pink)">
+      <div class="screen"><img src="https://public-game-resources.gdevelop.io/d237d587-dda9-496e-acec-035e4124e03b/thumbnails/thumbnail_3d353957-f781-41ac-af6e-787a45ff5427.png" alt="Astrogeddon 3D preview" loading="lazy" style="width:100%;height:100%;object-fit:cover"></div>
+      <div class="cabhead"><span class="cabtag">RRDG</span><h3>ASTROGEDDON 3D</h3></div>
+      <p class="cabdesc">Immersive 3D space combat. Navigate the void.</p>
+      <div class="cabfoot"><span class="exttag">GD.GAMES</span><span class="playchip">LAUNCH ↗</span></div>
+    </a>
+
+    <a href="https://gd.games/randomryandigital/pigeonmaster" class="cab" target="_blank" rel="noopener" style="--acc:var(--yellow)">
+      <div class="screen"><img src="https://public-game-resources.gdevelop.io/c2ff8902-7359-47b1-8e37-b7aa9e0e8868/thumbnails/thumbnail_a0b81359-5524-4f0f-8a5c-252e7cc5b9e5.png" alt="Pigeon Master preview" loading="lazy" style="width:100%;height:100%;object-fit:cover"></div>
+      <div class="cabhead"><span class="cabtag">RRDG</span><h3>PIGEON MASTER</h3></div>
+      <p class="cabdesc">Fly high, dodge obstacles, become the pigeon legend.</p>
+      <div class="cabfoot"><span class="exttag">GD.GAMES</span><span class="playchip">LAUNCH ↗</span></div>
+    </a>
+
+    <a href="https://gd.games/randomryandigital/applepopaction" class="cab" target="_blank" rel="noopener" style="--acc:var(--lime)">
+      <div class="screen"><img src="https://public-game-resources.gdevelop.io/fea8cd34-a020-4526-a70e-14a0e372d232/thumbnails/thumbnail_5f6c4d74-0263-4a82-9bb4-5feb6f37110d.png" alt="Apple Pop Action preview" loading="lazy" style="width:100%;height:100%;object-fit:cover"></div>
+      <div class="cabhead"><span class="cabtag">RRDG</span><h3>APPLE POP ACTION</h3></div>
+      <p class="cabdesc">Quick reflexes needed. Pop apples, avoid bad fruit.</p>
+      <div class="cabfoot"><span class="exttag">GD.GAMES</span><span class="playchip">LAUNCH ↗</span></div>
+    </a>
+  </div>
+
+  <footer class="pp-foot">
+    PIXEL PALACE © DIGITAL INFOHUB — NO QUARTERS REQUIRED<br>
+    DIGITAL INFOHUB GAMES PLAY ON THEIR OWN PAGES · ALL SCORES SAVED TO THIS DEVICE
+    <div class="footer-links">
+      <a href="/">digitalinfohub.net</a> ·
+      <a href="/software">Free tools</a> ·
+      <a href="/blog">Blog</a> ·
+      <a href="https://www.youtube.com/@randomryandigital/featured" target="_blank" rel="noopener">Random Ryan Digital YouTube</a>
+    </div>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var sky = document.getElementById('sky');
+  for (var i = 0; i < 26; i++) {
+    var s = document.createElement('span');
+    s.style.left = Math.random() * 100 + '%';
+    s.style.top = Math.random() * 100 + '%';
+    s.style.animationDelay = (Math.random() * 3) + 's';
+    s.style.width = s.style.height = (Math.random() < .3 ? 4 : 2) + 'px';
+    sky.appendChild(s);
+  }
+  var items = ['12 DIGITAL INFOHUB GAMES', 'BLOCK DEFENDER · NEW', 'NEON HORIZON · NEW', 'PERFECT POUR · NEW', 'EVERY GAME OPENS IN A NEW TAB', 'RANDOM RYAN DIGITAL · ANOTHER WAY TO PLAY', 'NO QUARTERS NEEDED', 'BEAT YOUR BEST', 'SWIPE · TAP · TYPE'];
+  var half = items.map(function (t) { return '<span>★ ' + t + '</span>'; }).join('');
+  document.getElementById('tickertrack').innerHTML = half + half;
+})();
+</script>
