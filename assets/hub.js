@@ -607,14 +607,21 @@
   /* Mounts a Hub Guide panel into any container. */
   function mountGuide(el) {
     if (!el) return;
+    if (el.getAttribute('data-hub-ready') === '1') return;
     loadCatalog(function () {
+      el.setAttribute('data-hub-ready', '1');
       el.classList.add('hub-ai');
       el.innerHTML =
         '<form class="hub-ai-form" role="search">' +
           '<span class="hub-ai-spark" aria-hidden="true">◆</span>' +
-          '<input class="hub-ai-input" type="search" placeholder="Ask the Hub Guide — “手取り”, “invoice”, “games”, “terminal”…" aria-label="Ask the Hub Guide" autocomplete="off" maxlength="200">' +
+          '<input class="hub-ai-input" type="search" placeholder="Ask the Hub Guide — “手取り”, “invoice”, “games”…" aria-label="Ask the Hub Guide" autocomplete="off" maxlength="200">' +
           '<button class="hub-ai-btn" type="submit">Ask</button>' +
         '</form>' +
+        '<p class="hub-ai-purpose">A shortcut finder: type what you need and it points at the right page. Instant and rule-based. For a conversation, ask Digi; for commands, use terminal mode.</p>' +
+        '<div class="hub-ai-modes">' +
+          '<button type="button" class="hub-ai-mode" data-hub-digi>✦ Ask Digi (AI)</button>' +
+          '<button type="button" class="hub-ai-mode" data-hub-term>⌨ Terminal mode</button>' +
+        '</div>' +
         '<div class="hub-ai-out" aria-live="polite"></div>' +
         '<div class="hub-ai-chips">' +
           ['手取り', 'ふるさと納税', 'Invoice', 'Games', 'Terminal', 'What is quantum computing?'].map(function (q) {
@@ -624,6 +631,63 @@
       var form = el.querySelector('form');
       var input = el.querySelector('input');
       var out = el.querySelector('.hub-ai-out');
+
+      function openDigi(q) {
+        q = String(q || input.value || '').trim();
+        if (window.Digi && typeof window.Digi.open === 'function') {
+          window.Digi.open();
+          if (q) {
+            setTimeout(function () {
+              var field = document.getElementById('digiModalInput');
+              var digiForm = document.getElementById('digiModalForm');
+              if (field && digiForm) {
+                field.value = q.slice(0, 80);
+                digiForm.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+              }
+            }, 260);
+          }
+          return;
+        }
+        location.href = '/digi' + (q ? '?q=' + encodeURIComponent(q.slice(0, 300)) : '');
+      }
+
+      function openTerm(q) {
+        q = String(q || input.value || '').trim();
+        location.href = '/terminal' + (q ? '?q=' + encodeURIComponent(q.slice(0, 300)) : '');
+      }
+
+      /* One small, non-blocking card after the first question of a session:
+         makes the difference between the guide, Digi and the shell explicit. */
+      function showRoute(q) {
+        if (el.querySelector('.hub-ai-pop')) return;
+        try {
+          if (sessionStorage.getItem('dih_route_seen') === '1') return;
+          sessionStorage.setItem('dih_route_seen', '1');
+        } catch (e) {}
+        var pop = document.createElement('div');
+        pop.className = 'hub-ai-pop';
+        pop.setAttribute('role', 'dialog');
+        pop.setAttribute('aria-label', 'Choose how to get an answer');
+        pop.innerHTML =
+          '<button type="button" class="hub-ai-pop-x" aria-label="Close">✕</button>' +
+          '<p class="hub-ai-pop-kicker">WANT MORE THAN A LINK?</p>' +
+          '<p class="hub-ai-pop-title">Digi can talk it through.</p>' +
+          '<p class="hub-ai-pop-sub">The Hub Guide only matches pages. Digi is the AI guide for open questions, and terminal mode runs the same question as a shell command.</p>' +
+          '<div class="hub-ai-pop-actions">' +
+            '<button type="button" class="is-primary" data-pop-digi>✦ Ask Digi (AI)</button>' +
+            '<button type="button" data-pop-term>⌨ Use terminal mode</button>' +
+          '</div>';
+        el.appendChild(pop);
+        requestAnimationFrame(function () { pop.classList.add('is-in'); });
+        sfx.play('open');
+        function close() { pop.remove(); document.removeEventListener('keydown', onKey); }
+        function onKey(e) { if (e.key === 'Escape') close(); }
+        document.addEventListener('keydown', onKey);
+        pop.querySelector('.hub-ai-pop-x').addEventListener('click', close);
+        pop.querySelector('[data-pop-digi]').addEventListener('click', function () { close(); openDigi(q); });
+        pop.querySelector('[data-pop-term]').addEventListener('click', function () { close(); openTerm(q); });
+      }
+
       function run(q) {
         var a = answer(q);
         out.innerHTML = '<div class="hub-ai-answer"><strong>' + esc(a.title) + '</strong><p>' + esc(a.body) + '</p>' +
@@ -631,10 +695,18 @@
             return '<a href="' + esc(l[0]) + '"' + (i === 0 ? ' class="is-primary"' : '') + '>' + esc(l[1]) + ' →</a>';
           }).join('') + '</div>' : '') + '</div>';
         sfx.play('open');
+        showRoute(q);
       }
+
       form.addEventListener('submit', function (e) { e.preventDefault(); run(input.value); });
       el.querySelectorAll('[data-hub-q]').forEach(function (b) {
         b.addEventListener('click', function () { input.value = b.getAttribute('data-hub-q'); run(input.value); });
+      });
+      el.querySelectorAll('[data-hub-digi]').forEach(function (b) {
+        b.addEventListener('click', function () { openDigi(); });
+      });
+      el.querySelectorAll('[data-hub-term]').forEach(function (b) {
+        b.addEventListener('click', function () { openTerm(); });
       });
     });
   }

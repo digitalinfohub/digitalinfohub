@@ -166,7 +166,7 @@
     <div>
       <span class="dih-eyebrow">⌨️ Terminal mode</span>
       <h1>infohub@shell</h1>
-      <p>The whole site as a file system. Type <code>help</code> to start, or use <code>ls</code>, <code>cd</code>, <code>open</code> and <code>ask</code>. Everything works with the keyboard alone.</p>
+      <p>The whole site as a file system. Type <code>help</code> to start, use <code>ls</code>, <code>cd</code> and <code>open</code> to move around, or <code>ask</code> a question — Digi answers with free AI and falls back to the rulebook. Everything works with the keyboard alone.</p>
     </div>
     <div class="term-pills">
       <a class="term-pill" href="/">← back to the site</a>
@@ -183,7 +183,7 @@
     <div class="term-body" id="termBody" role="log" aria-live="polite" aria-label="Terminal output"></div>
     <form class="term-in" id="termForm" autocomplete="off">
       <span class="term-prompt">guest@infohub:<b id="promptPath">~</b>$</span>
-      <input class="term-input" id="termInput" type="text" aria-label="Terminal command" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder="type a command…">
+      <input class="term-input" id="termInput" type="text" aria-label="Terminal command" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder="type a command — or “ask …”">
       <button class="term-send" type="submit">run</button>
     </form>
   </div>
@@ -195,6 +195,7 @@
     <a class="term-card" href="/coincompass"><b>cd /markets</b><span>Live prices and context</span></a>
     <a class="term-card" href="/news"><b>cd /news</b><span>Headlines through the day</span></a>
     <a class="term-card" href="/software/tedori"><b>open tedori</b><span>手取り計算 (Japanese)</span></a>
+    <a class="term-card" href="/digi"><b>digi</b><span>Ask Digi — the AI guide</span></a>
   </div>
   <section class="term-board" id="interest" aria-labelledby="interestTitle">
     <div class="term-board-head">
@@ -247,12 +248,63 @@
   function esc(s) {
     return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   }
-  function out(html, cls) {
+  /* Every line is typed out like a real shell. Long bursts print immediately
+     so `ls software` never feels slow, and reduced-motion users skip it. */
+  var reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var typeQueue = [];
+  var typing = false;
+  function typeLine(line, done) {
+    var nodes = [];
+    var walker = document.createTreeWalker(line, NodeFilter.SHOW_TEXT, null);
+    while (walker.nextNode()) {
+      var node = walker.currentNode;
+      nodes.push({ node: node, text: node.nodeValue || '' });
+      node.nodeValue = '';
+    }
+    var total = nodes.reduce(function (n, x) { return n + x.text.length; }, 0);
+    if (!total) { done(); return; }
+    if (reducedMotion || total > 1400) {
+      nodes.forEach(function (x) { x.node.nodeValue = x.text; });
+      body.scrollTop = body.scrollHeight;
+      done();
+      return;
+    }
+    var started = performance.now();
+    var duration = Math.min(1200, 140 + total * 5);
+    function frame(now) {
+      var p = Math.min(1, (now - started) / duration);
+      var budget = Math.floor(total * p);
+      for (var i = 0; i < nodes.length && budget > 0; i++) {
+        var take = Math.min(nodes[i].text.length, budget);
+        if (nodes[i].node.nodeValue.length !== take) nodes[i].node.nodeValue = nodes[i].text.slice(0, take);
+        budget -= take;
+      }
+      body.scrollTop = body.scrollHeight;
+      if (p < 1) requestAnimationFrame(frame);
+      else {
+        nodes.forEach(function (x) { x.node.nodeValue = x.text; });
+        body.scrollTop = body.scrollHeight;
+        done();
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+  function pump() {
+    if (typing) return;
+    var item = typeQueue.shift();
+    if (!item) return;
     var line = document.createElement('div');
-    line.className = 'term-line' + (cls ? ' ' + cls : '');
-    line.innerHTML = html;
+    line.className = 'term-line' + (item.cls ? ' ' + item.cls : '');
+    line.innerHTML = item.html;
     body.appendChild(line);
     body.scrollTop = body.scrollHeight;
+    typing = true;
+    if (item.instant) { typing = false; pump(); return; }
+    typeLine(line, function () { typing = false; pump(); });
+  }
+  function out(html, cls) {
+    typeQueue.push({ html: html, cls: cls, instant: typeQueue.length > 5 });
+    pump();
   }
   function group(path) {
     if (!path) return 'page';
@@ -285,9 +337,9 @@
     script.src = '/assets/catalog.js';
     script.onload = function () {
       pages = (window.DIH_CATALOG || []).slice();
-      body.lastChild.innerHTML = 'Loaded <span class="ok">' + pages.length + ' pages</span> from the sitemap.';
+      out('Loaded <span class="ok">' + pages.length + ' pages</span> from the sitemap.');
       out('');
-      out('<span class="dim">Type </span><span class="hl">help</span><span class="dim"> for commands, </span><span class="hl">ls</span><span class="dim"> to look around, or </span><span class="hl">ask 手取り</span><span class="dim">.</span>');
+      out('<span class="dim">Type </span><span class="hl">help</span><span class="dim"> for commands, </span><span class="hl">ls</span><span class="dim"> to look around, or </span><span class="hl">ask 手取り</span><span class="dim"> — ask uses Digi\'s free AI and falls back to the rulebook when it is offline.</span>');
       out('');
       var q = new URLSearchParams(location.search).get('q');
       if (q) {
@@ -296,7 +348,7 @@
       }
     };
     script.onerror = function () {
-      body.lastChild.innerHTML = '<span class="warn">Page index unavailable — ls will be empty.</span>';
+      out('<span class="warn">Page index unavailable — ls will be empty.</span>');
     };
     document.head.appendChild(script);
   }
@@ -314,7 +366,9 @@
         ['grep <word>', 'same as find, for the muscle memory'],
         ['top', 'interest board: what has been opened most'],
         ['stats', 'your local activity summary'],
-        ['ask <question>', 'rule-based Hub Guide answer'],
+        ['ask <question>', 'ask Digi (free AI), rulebook fallback'],
+        ['digi <question>', 'force the AI reply'],
+        ['ask --rules <q>', 'rulebook answer only'],
         ['recent', 'pages you opened last'],
         ['theme', 'switch light / dark'],
         ['sound', 'toggle interface sound'],
@@ -428,6 +482,7 @@
       COMMANDS.top();
     },
     ask: function (arg) { ask(arg); },
+    digi: function (arg) { ask(arg, true); },
     recent: function () {
       var rows = (window.DIH && DIH.interest) ? DIH.interest.list().sort(function (a, b) { return b.last - a.last; }).slice(0, 8) : [];
       if (!rows.length) return out('<span class="dim">No history yet.</span>');
@@ -458,7 +513,10 @@
       out('<span class="hl">    ▀████████▀    </span>  Games: ' + pages.filter(function (p) { return p.cat === 'game'; }).length);
       out('<span class="hl">      ▀▀▀▀▀▀▀▀      </span>  Host: your browser');
     },
-    clear: function () { body.innerHTML = ''; },
+    clear: function () {
+      typeQueue.length = 0;
+      body.innerHTML = '';
+    },
     history: function () {
       if (!history.length) return out('<span class="dim">No commands yet.</span>');
       history.forEach(function (c, i) { out('  ' + String(i + 1).padStart(3, ' ') + '  ' + esc(c)); });
@@ -511,12 +569,74 @@
     });
     if (!hits.length) out('<span class="dim">Try a shorter word, or </span><span class="hl">ask ' + esc(q) + '</span>');
   }
-  function ask(q) {
-    if (!window.DIH || !DIH.answer) return out('<span class="warn">Hub Guide not ready yet — try again.</span>');
-    var a = DIH.answer(q);
+  /* Free AI reply via Pollinations (no key, same endpoint as the AI tools).
+     Any failure — offline, timeout, empty reply — falls back to the rulebook. */
+  function aiAsk(q) {
+    if (!navigator.onLine) return Promise.reject(new Error('offline'));
+    var controller = new AbortController();
+    var timer = setTimeout(function () { controller.abort(); }, 12000);
+    return fetch('https://text.pollinations.ai/openai', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      signal: controller.signal,
+      body: JSON.stringify({
+        model: 'openai',
+        messages: [
+          { role: 'system', content: 'You are Digi, the guide for Digital Infohub (digitalinfohub.net): an independent technology publication with free browser tools, 35 explainer guides, live markets, tech news and small games. Answer in 2-4 short sentences of plain text, no markdown. If a page on the site helps, name its path once, e.g. /software/tedori.' },
+          { role: 'user', content: q }
+        ],
+        temperature: 0.5,
+        max_tokens: 220,
+        referrer: 'digital-infohub'
+      })
+    }).then(function (r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.text();
+    }).then(function (txt) {
+      try {
+        var d = JSON.parse(txt);
+        txt = (d.choices && d.choices[0] && d.choices[0].message && d.choices[0].message.content) || '';
+      } catch (e) {}
+      clearTimeout(timer);
+      return String(txt || '').trim();
+    }).catch(function (err) {
+      clearTimeout(timer);
+      throw err;
+    });
+  }
+
+  function rulesAnswer(a) {
+    if (!a) return out('<span class="warn">Hub Guide not ready yet — try again.</span>');
     out('<span class="hl">' + esc(a.title) + '</span>');
     out('<span class="dim">' + esc(a.body) + '</span>');
     a.links.forEach(function (l) { out('  → ' + link(l[0], l[1])); });
+    out('');
+  }
+
+  function ask(q, forceAI) {
+    q = String(q || '').trim();
+    if (!q) {
+      out('<span class="dim">usage: </span><span class="hl">ask</span><span class="dim"> your question · </span><span class="hl">ask --rules</span><span class="dim"> for the rulebook only</span>');
+      return;
+    }
+    var rulesOnly = /^--rules\b/i.test(q);
+    if (rulesOnly) q = q.replace(/^--rules\s*/i, '');
+    var local = (window.DIH && DIH.answer) ? DIH.answer(q) : null;
+    if (rulesOnly || !forceAI && !navigator.onLine) { rulesAnswer(local); return; }
+    out('<span class="dim">Digi is thinking… </span><span class="path">(free AI · falls back to the rulebook)</span>');
+    aiAsk(q).then(function (text) {
+      if (!text) throw new Error('empty');
+      out('<span class="hl">Digi</span> <span class="dim">· AI reply</span>');
+      out(esc(text));
+      if (local && local.links && local.links.length) {
+        out('<span class="dim">Useful page: </span>' + link(local.links[0][0], local.links[0][1]));
+      }
+      out('<span class="dim">Ask again, or </span><span class="hl">ask --rules ' + esc(q.slice(0, 40)) + '</span><span class="dim"> for the rulebook answer.</span>');
+      out('');
+    }).catch(function () {
+      out('<span class="warn">AI is unavailable right now — answering from the rule-based guide.</span>');
+      rulesAnswer(local);
+    });
   }
 
   function run(raw) {
@@ -562,6 +682,7 @@
     }
     if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'l') {
       e.preventDefault();
+      typeQueue.length = 0;
       body.innerHTML = '';
     }
   });

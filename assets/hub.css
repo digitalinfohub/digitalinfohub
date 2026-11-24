@@ -541,3 +541,38 @@ html[data-theme="light"] .hub-ai-form { background: #fff; }
 
 /* the NEW/AI badge is absolutely placed, so text needs room to end before it */
 .featured-card .featured-text { padding-right: 42px; }
+
+/* Hub Guide: purpose line, mode buttons and the one-time routing card */
+.hub-ai-purpose { margin: 8px 2px 0; font-size: 11.5px; line-height: 1.55; color: var(--dih-text-muted, #8b97b5); }
+.hub-ai-modes { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.hub-ai-mode {
+  padding: 6px 12px; border-radius: 999px; font-family: inherit; font-size: 11.5px; font-weight: 600; cursor: pointer;
+  border: 1px solid rgba(120,160,255,.28); background: rgba(76,141,255,.08); color: #cfe0ff;
+}
+.hub-ai-mode:hover { border-color: rgba(120,160,255,.6); background: rgba(76,141,255,.16); color: #fff; }
+.hub-ai-pop {
+  position: relative; margin-top: 12px; padding: 14px 40px 14px 14px; border-radius: 14px; text-align: left;
+  border: 1px solid rgba(120,160,255,.32);
+  background: linear-gradient(180deg, rgba(18,26,46,.98), rgba(10,14,26,.98));
+  box-shadow: 0 24px 60px rgba(0,0,0,.45);
+  opacity: 0; transform: translateY(-6px); transition: opacity .25s ease, transform .25s ease;
+}
+.hub-ai-pop.is-in { opacity: 1; transform: none; }
+.hub-ai-pop-kicker { margin: 0; font-size: 9px; letter-spacing: .16em; text-transform: uppercase; color: #7fd3ff; }
+.hub-ai-pop-title { margin: 3px 0 4px; font-size: 14.5px; font-weight: 700; color: #fff; }
+.hub-ai-pop-sub { margin: 0; max-width: 56ch; font-size: 11.5px; line-height: 1.55; color: #9fb0cc; }
+.hub-ai-pop-actions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.hub-ai-pop-actions button {
+  padding: 7px 12px; border-radius: 9px; font-family: inherit; font-size: 11.5px; font-weight: 600; cursor: pointer;
+  border: 1px solid rgba(120,160,255,.3); background: rgba(255,255,255,.03); color: #dbe6ff;
+}
+.hub-ai-pop-actions button.is-primary { background: var(--dih-accent, #4c8dff); border-color: transparent; color: #fff; }
+.hub-ai-pop-x {
+  position: absolute; top: 8px; right: 8px; width: 26px; height: 26px; border: 0; border-radius: 8px;
+  background: transparent; color: #8b97b5; font-size: 13px; cursor: pointer;
+}
+.hub-ai-pop-x:hover { background: rgba(255,255,255,.06); color: #fff; }
+@media (max-width: 640px) {
+  .hub-ai-pop { padding: 12px 36px 12px 12px; }
+  .hub-ai-pop-actions button { flex: 1 1 auto; }
+}

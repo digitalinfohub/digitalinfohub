@@ -679,23 +679,8 @@ html[data-theme="light"] .ask-form{background:rgba(255,255,255,.96)}
       </h1>
       <p class="hero-sub" id="heroSubText">Digital Infohub is the calm way in: <b>clear guides</b>, working <b>free tools</b>, live markets, news and nine small games. No signup, no paywall.</p>
 
-      <!-- Rule-based Hub Guide: instant answers from the site itself -->
-      <div class="hub-ai" id="homeGuide" aria-label="Hub Guide — instant answers">
-        <form class="hub-ai-form" role="search" action="/terminal" method="get">
-          <span class="hub-ai-spark" aria-hidden="true">◆</span>
-          <input class="hub-ai-input" type="search" name="q" placeholder="Ask the Hub Guide — “手取り”, “invoice”, “games”, “terminal”…" aria-label="Ask the Hub Guide" autocomplete="off" maxlength="200">
-          <button class="hub-ai-btn" type="submit">Ask</button>
-        </form>
-        <div class="hub-ai-out" aria-live="polite"></div>
-        <div class="hub-ai-chips">
-          <button type="button" data-hub-q="手取り">手取り</button>
-          <button type="button" data-hub-q="ふるさと納税">ふるさと納税</button>
-          <button type="button" data-hub-q="Invoice">Invoice</button>
-          <button type="button" data-hub-q="Games">Games</button>
-          <button type="button" data-hub-q="Terminal">Terminal</button>
-          <button type="button" data-hub-q="What is quantum computing?">Quantum, simply</button>
-        </div>
-      </div>
+      <!-- Hub Guide: instant rule-based answers, built by assets/hub.js -->
+      <div class="hub-ai" id="homeGuide" aria-label="Hub Guide — instant answers"></div>
 
       <div class="hero-actions">
         <a class="dih-btn dih-btn-primary" href="#homeExplore">Explore the hub</a>
