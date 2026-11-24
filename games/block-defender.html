@@ -284,6 +284,10 @@
     }
     return { k: k, m: m, color: COLORS[k], x: Math.floor(C / 2) - Math.ceil(m[0].length / 2), y: 0, power: power };
   }
+  function rotatePower(power, n) {
+    if (!power) return null;
+    return { r: power.c, c: n - 1 - power.r, type: power.type };
+  }
   function rotate(m) {
     var n = m.length, out = [];
     for (var r = 0; r < n; r++) { out.push(new Array(n).fill(0)); }
@@ -334,10 +338,6 @@
     progEl.style.width = Math.min(100, (S.lines / lv.target) * 100) + '%';
     bugsEl.textContent = S.bugs.length;
   }
-  function setScore(n, add) {
-    S.score += add ? n : (n - S.score);
-    scoreEl.textContent = Math.max(0, S.score);
-  }
   function addScore(n) { S.score += n; scoreEl.textContent = S.score; }
   function toast(text, color) {
     S.flash = { text: text, color: color || '#00f3ff', life: 1400 };
@@ -345,7 +345,8 @@
 
   function start() {
     S.grid = empty(); S.bugs = []; S.drones = []; S.score = 0; S.level = 0; S.lines = 0;
-    S.totalLines = 0; S.over = false; S.paused = false; S.power = null;
+    S.totalLines = 0; S.over = false; S.paused = false; S.power = null; S.flash = null;
+    pauseBtn.textContent = '⏸'; pauseBtn.setAttribute('aria-label', 'Pause game');
     S.piece = makePiece(); S.next = makePiece();
     scoreEl.textContent = '0';
     upgBtn.disabled = true; upgBtn.classList.remove('ready'); upgName.textContent = 'NO MODULE'; upgIco.textContent = '🔋';
@@ -386,7 +387,12 @@
     if (crushed) { beep(480, 0.12, 'sawtooth', 0.07); S.shake = 6; }
     else beep(150, 0.05, 'triangle', 0.04);
     clearLines();
-    if (!S.over) { S.piece = S.next; S.next = makePiece(); drawNext(); }
+    if (!S.over) {
+      S.piece = S.next;
+      S.next = makePiece();
+      drawNext();
+      if (hits(S.piece, 0, 0)) return end();
+    }
     setSector();
   }
 
@@ -414,6 +420,9 @@
     rows.forEach(function (r) {
       for (var b = S.bugs.length - 1; b >= 0; b--) { if (S.bugs[b].y === r) { S.bugs.splice(b, 1); addScore(200); } }
       S.grid.splice(r, 1); S.grid.unshift(new Array(C).fill(null));
+    });
+    S.bugs.forEach(function (bug) {
+      bug.y = Math.max(2, bug.y - rows.filter(function (r) { return r > bug.y; }).length);
     });
     var pts = [0, 150, 350, 650, 1200][rows.length] || 1500;
     addScore(pts * (S.level + 1));
@@ -448,6 +457,7 @@
         if (w > weight) { weight = w; bestRow = r; }
       }
       S.grid.splice(bestRow, 1); S.grid.unshift(new Array(C).fill(null));
+      for (var bi = S.bugs.length - 1; bi >= 0; bi--) { if (S.bugs[bi].y === bestRow) { S.bugs.splice(bi, 1); addScore(200); } }
       S.lines++; addScore(400); toast('ROW VAPORIZED', '#00f3ff');
       if (S.lines >= LEVELS[S.level].target) { if (S.level < LEVELS.length - 1) { S.level++; S.lines = 0; } else { win(); } }
     } else {
@@ -633,7 +643,14 @@
     if (kind === 'right' && !hits(S.piece, 1, 0)) S.piece.x++;
     if (kind === 'rot') {
       var m = rotate(S.piece.m);
-      for (var i = 0; i < 3; i++) { if (!hits(S.piece, i, 0, m)) { S.piece.m = m; S.piece.x += i; break; } }
+      for (var i = 0; i < 3; i++) {
+        if (!hits(S.piece, i, 0, m)) {
+          S.piece.m = m;
+          S.piece.x += i;
+          S.piece.power = rotatePower(S.piece.power, m.length);
+          break;
+        }
+      }
     }
     if (kind === 'down') { if (!hits(S.piece, 0, 1)) S.piece.y++; else lock(); }
     if (kind === 'drop') {

@@ -263,7 +263,7 @@
   }
 
   function start() {
-    S.running = true; S.over = false; S.lane = 1; S.x = 1; S.t = 0; S.speed = 30;
+    S.running = true; S.over = false; S.lane = 1; S.x = 1; S.targetLane = 1; S.t = 0; S.speed = 30;
     S.distance = 0; S.score = 0; S.fuel = 100; S.traffic = []; S.cans = []; S.particles = [];
     S.spawn = 0; S.canSpawn = 0; S.last = 0; S.flash = 0; S.shake = 0;
     scoreEl.textContent = '0'; milesEl.textContent = '0.0'; fuelEl.style.width = '100%';
@@ -317,11 +317,13 @@
       car.z -= secs * (0.16 + S.speed / 260);
       if (!car.passed && car.z < 0.12) {
         car.passed = true;
-        if (Math.abs(car.lane - S.x) < 0.52) { S.shake = 14; return crash(); }
-        S.score += 40;
+        if (Math.abs(car.lane - S.x) < 0.52) { S.shake = 14; crash(); }
+        else S.score += 40;
       }
     });
+    if (!S.running) return;
     S.cans.forEach(function (can) {
+      if (!S.running) return;
       can.z -= secs * 0.2;
       can.bob += secs * 4;
       if (can.z < 0.14 && can.z > -0.1 && !can.got) {

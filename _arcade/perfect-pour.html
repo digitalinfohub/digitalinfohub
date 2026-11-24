@@ -190,6 +190,7 @@
     S.pouring = false;
     pourBtn.classList.remove('on');
     cv.classList.remove('pouring');
+    if (S.fill < 1.5) { S.fill = 0; return; }
     if (!S.spill) settle();
   }
 
@@ -209,7 +210,6 @@
     scoreEl.textContent = S.score;
     tone(stars === 3 ? 880 : stars === 2 ? 660 : 440, 0.16, 'triangle', 0.05);
 
-    var starHtml = (stars ? '★★★'.slice(0, stars) : '☆☆☆') + (stars < 3 ? '☆☆☆'.slice(0, 3 - stars) : '');
     overlay.classList.remove('hide');
     overlay.innerHTML = '<h2>' + (S.spill ? 'Overflowed' : stars === 3 ? 'Spot on' : stars === 2 ? 'Very close' : stars === 1 ? 'Just about' : 'Not quite') + '</h2>' +
       '<div class="pp-stars">' + (stars ? '★'.repeat(stars) : '') + (stars < 3 ? '<span style="color:#e6d8c6">' + '★'.repeat(3 - stars) + '</span>' : '') + '</div>' +
@@ -412,6 +412,8 @@
   cv.addEventListener('pointerdown', down);
   window.addEventListener('pointerup', up);
   window.addEventListener('pointercancel', up);
+  window.addEventListener('blur', up);
+  document.addEventListener('visibilitychange', function () { if (document.hidden) up(); });
   pourBtn.addEventListener('pointerdown', down);
   window.addEventListener('keydown', function (e) {
     if (e.code === 'Space' || e.key === ' ') { e.preventDefault(); beginPour(); }
