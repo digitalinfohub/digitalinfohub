@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-dih="">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Digital Infohub Chrome Extension — News, Markets &amp; Tools in Your Toolbar</title>
+<meta name="description" content="The free Digital Infohub Chrome extension: live web and news search, markets, weather and trending tech in a compact popup. No account, under 5 KiB, no data sold.">
+<link rel="stylesheet" href="/assets/hub.css">
+<!-- DIH:HEAD -->
+<script>try{var t=localStorage.getItem('dih_theme')||'dark';document.documentElement.setAttribute('data-theme',t);document.documentElement.setAttribute('data-dih','');}catch(e){document.documentElement.setAttribute('data-dih','');}</script>
+<meta name="theme-color" content="#07070c">
+<meta name="color-scheme" content="dark light">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="author" content="Digital Infohub">
+<meta name="keywords" content="digital infohub extension, chrome extension, tech news extension, market ticker extension, weather popup">
+<link rel="canonical" href="https://digitalinfohub.net/extension">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Digital Infohub">
+<meta property="og:title" content="Digital Infohub Chrome Extension — News, Markets &amp; Tools in Your Toolbar">
+<meta property="og:description" content="The free Digital Infohub Chrome extension: live web and news search, markets, weather and trending tech in a compact popup. No account, under 5 KiB, no data sold.">
+<meta property="og:url" content="https://digitalinfohub.net/extension">
+<meta property="og:image" content="https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta property="og:image:secure_url" content="https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Glowing blue network lines and nodes forming a mesh">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Digital Infohub Chrome Extension — News, Markets &amp; Tools in Your Toolbar">
+<meta name="twitter:description" content="The free Digital Infohub Chrome extension: live web and news search, markets, weather and trending tech in a compact popup. No account, under 5 KiB, no data sold.">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta name="twitter:image:alt" content="Glowing blue network lines and nodes forming a mesh">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="icon" href="/assets/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://digitalinfohub.net/#organization","name":"Digital Infohub","url":"https://digitalinfohub.net/","logo":{"@type":"ImageObject","url":"https://digitalinfohub.net/assets/icon-512.png","width":512,"height":512},"description":"Independent technology publication for everyone: clear guides, free browser tools and live market context.","sameAs":[]},{"@type":"WebSite","@id":"https://digitalinfohub.net/#website","url":"https://digitalinfohub.net/","name":"Digital Infohub","publisher":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://digitalinfohub.net/blog?q={search_term_string}"},"query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://digitalinfohub.net/extension#webpage","url":"https://digitalinfohub.net/extension","name":"Digital Infohub Chrome Extension — News, Markets & Tools in Your Toolbar","description":"The free Digital Infohub Chrome extension: live web and news search, markets, weather and trending tech in a compact popup. No account, under 5 KiB, no data sold.","isPartOf":{"@id":"https://digitalinfohub.net/#website"},"about":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","primaryImageOfPage":{"@type":"ImageObject","url":"https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&h=630&fit=crop&auto=format&q=80&fm=jpg","width":1200,"height":630}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://digitalinfohub.net/"},{"@type":"ListItem","position":2,"name":"Digital Infohub Chrome Extension — News, Markets & Tools in Your Toolbar","item":"https://digitalinfohub.net/extension"}]}]}</script>
+<!-- /DIH:HEAD -->
+</head>
+<body>
+<!-- DIH:AMBIENT -->
+<div class="dih-ambient" aria-hidden="true" style="--dih-ambient:url('https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&amp;h=675&amp;fit=crop&amp;auto=format&amp;q=40')"></div>
+<!-- /DIH:AMBIENT -->
+<!-- DIH:HEADER -->
+<header class="dih-header">
+  <div class="dih-header-inner">
+    <a class="dih-brand" href="/" aria-label="Digital Infohub home">
+      <img src="/assets/logo.png" alt="Digital Infohub logo" width="36" height="36">
+      <span class="dih-brand-text">Digital <b>Infohub</b></span>
+    </a>
+    <nav class="dih-nav" data-dih-nav aria-label="Primary navigation">
+      <a class="dih-link" href="/">Home</a>
+      <a class="dih-link" href="/blog">Blog</a>
+      <a class="dih-link" href="/techtopics">Tech Topics</a>
+      <a class="dih-link" href="/software">Software</a>
+      <a class="dih-link" href="/games">Games</a>
+      <a class="dih-link" href="/coincompass">Markets</a>
+      <a class="dih-link" href="/app">More</a>
+    </nav>
+    <div class="dih-actions">
+      <a class="dih-tools" href="/software#tools" title="Free browser tools" aria-label="Free browser tools">⚡<span>Tools</span></a>
+      <a class="dih-icon dih-term" href="/terminal" title="Terminal mode — browse like a shell" aria-label="Open terminal mode">⌨<span class="dih-term-txt">Terminal</span></a>
+      <button class="dih-icon dih-sound" type="button" data-dih-sound aria-label="Sound on — tap to mute" aria-pressed="true" title="Sound on — tap to mute (Shift+S)">🔊</button>
+      <button class="dih-icon dih-share" type="button" data-dih-share aria-label="Share this page" title="Share this page">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M12 3v13"/><path d="m7 8 5-5 5 5"/></svg>
+      </button>
+      <button class="dih-icon" type="button" data-dih-theme aria-label="Switch theme" title="Switch theme">☀</button>
+      <a class="dih-cta" href="/subscribe">Subscribe</a>
+      <button class="dih-burger" id="dihBurger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="dihDrawer"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+<div class="dih-drawer" id="dihDrawer" aria-label="Site menu">
+  <div class="dih-drawer-panel">
+    <div class="dih-drawer-grid">
+      <a class="dih-drawer-link" href="/">Home</a>
+      <a class="dih-drawer-link" href="/blog">Blog</a>
+      <a class="dih-drawer-link" href="/techtopics">Tech Topics</a>
+      <a class="dih-drawer-link" href="/software">Software</a>
+      <a class="dih-drawer-link" href="/games">Games</a>
+      <a class="dih-drawer-link" href="/coincompass">Markets</a>
+      <a class="dih-drawer-link" href="/app">More</a>
+    </div>
+    <div class="dih-drawer-sub">
+      <a class="dih-drawer-link" href="/news">📰 Tech News</a>
+      <a class="dih-drawer-link" href="/quiz">🎯 Tech Quiz</a>
+      <a class="dih-drawer-link" href="/software#tools">⚡ Tools</a>
+      <a class="dih-drawer-link" href="/services">🧰 Services</a>
+      <a class="dih-drawer-link" href="/terminal">⌨️ Terminal mode</a>
+      <a class="dih-drawer-link" href="/terminal#top">📊 Most opened pages</a>
+      <a class="dih-drawer-link" href="/contact">✉️ Contact</a>
+    </div>
+    <a class="dih-drawer-cta" href="/subscribe">✉️ Subscribe — weekly tech intel</a>
+    <p class="dih-drawer-note">Digital Infohub · Tech for everyone, with a guide for every question.</p>
+  </div>
+</div>
+<!-- /DIH:HEADER -->
+
+<main>
+  <section class="promo-hero">
+    <div class="promo-wrap">
+      <span class="dih-eyebrow">Chrome extension · free</span>
+      <h1>The hub in your toolbar.</h1>
+      <p>One click from any tab: search the live web and today's tech news, check markets, see the weather and catch what is trending — in a popup small enough to stay out of the way.</p>
+      <div class="promo-actions">
+        <a class="dih-btn dih-btn-primary" href="https://chromewebstore.google.com/detail/digital-infohub/epfalnobaadpaainlepefgikngafhbhl" target="_blank" rel="noopener">Add to Chrome →</a>
+        <a class="dih-btn dih-btn-ghost" href="#install">Install steps</a>
+        <a class="dih-btn dih-btn-ghost" href="/app">Get the phone app</a>
+      </div>
+      <p class="promo-note">Version 1.0.0 · 4.98 KiB · News &amp; Weather · English (UK) · offered by Digital Infohub</p>
+      <div class="promo-grid">
+        <div class="promo-card"><span class="ico">🔎</span><b>Live web &amp; news search</b><span>Start a search without opening a new tab, and see today's tech headlines first.</span></div>
+        <div class="promo-card"><span class="ico">📈</span><b>Markets at a glance</b><span>Bitcoin, Ethereum and the majors, with the context behind the move.</span></div>
+        <div class="promo-card"><span class="ico">🌤️</span><b>Weather &amp; trending tech</b><span>The forecast for wherever you are working, plus what the industry is reading.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="promo-section">
+    <h2>What the popup looks like</h2>
+    <p>A compact panel, not a new tab. Everything is one click from the icon you pin to your toolbar.</p>
+    <div class="promo-split">
+      <div class="promo-shot" aria-label="Preview of the extension popup">
+        <div class="promo-shot-bar"><i></i><i></i><i></i><span>Digital Infohub · popup</span></div>
+        <div class="promo-shot-row"><b>Search</b> the live web and today's tech news</div>
+        <div class="promo-shot-row"><b>Markets</b> BTC, ETH and the majors at a glance</div>
+        <div class="promo-shot-row"><b>Weather</b> for wherever you are working</div>
+        <div class="promo-shot-row"><b>Trending</b> tech stories, without the noise</div>
+        <div class="promo-shot-row"><b>Open the hub</b> for guides, tools and games</div>
+      </div>
+      <div>
+        <h3 style="margin:0 0 8px;font-size:15px">Why it is small on purpose</h3>
+        <p style="margin:0 0 12px;font-size:13px;line-height:1.7;color:var(--dih-text-sub)">The whole extension is under 5 KiB. It has no analytics, no background tracking and no account system. It opens a compact popup that talks to the same public site you already use.</p>
+        <p style="margin:0;font-size:13px;line-height:1.7;color:var(--dih-text-sub)">The developer declares that data is not sold to third parties and is not used for creditworthiness or lending decisions.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="promo-section" id="install">
+    <h2>Install in three steps</h2>
+    <ol class="promo-steps">
+      <li>Open the <a href="https://chromewebstore.google.com/detail/digital-infohub/epfalnobaadpaainlepefgikngafhbhl" target="_blank" rel="noopener">Digital Infohub page</a> in the Chrome Web Store.</li>
+      <li>Choose <b>Add to Chrome</b> and confirm the prompt.</li>
+      <li>Click the puzzle icon in Chrome's toolbar, then pin Digital Infohub so it is always one click away.</li>
+    </ol>
+    <div class="promo-actions">
+      <a class="dih-btn dih-btn-primary" href="https://chromewebstore.google.com/detail/digital-infohub/epfalnobaadpaainlepefgikngafhbhl" target="_blank" rel="noopener">Get the extension →</a>
+      <a class="dih-btn dih-btn-ghost" href="/software">Browse the tools</a>
+    </div>
+  </section>
+
+  <section class="promo-faq">
+    <h2>Extension questions</h2>
+    <details>
+      <summary>Does it work in Edge, Brave or other Chromium browsers?</summary>
+      <p>Yes. Any browser that can install from the Chrome Web Store — Edge, Brave, Vivaldi, Opera and Arc — can add it the same way. Firefox and Safari use a different extension format.</p>
+    </details>
+    <details>
+      <summary>Do I need an account?</summary>
+      <p>No. There is no sign-in and no profile. The popup reads public content from digitalinfohub.net.</p>
+    </details>
+    <details>
+      <summary>What permissions does it use?</summary>
+      <p>The listing is deliberately minimal: it opens a popup and loads public pages. There is no background browsing history collection.</p>
+    </details>
+    <details>
+      <summary>Is there a mobile version?</summary>
+      <p>Extensions are desktop-only, but the site installs as a home-screen app on iOS and Android. See <a href="/app">the install page</a>.</p>
+    </details>
+    <details>
+      <summary>How do I remove it?</summary>
+      <p>Right-click the icon and choose <b>Remove from Chrome</b>, or open <code>chrome://extensions</code> and remove it there.</p>
+    </details>
+  </section>
+</main>
+
+<!-- DIH:GALLERY -->
+<section class="dih-gallery" aria-labelledby="dihGalleryTitle">
+  <div class="dih-gallery-head">
+    <div>
+      <span class="dih-gallery-eyebrow">Visual briefing</span>
+      <h2 id="dihGalleryTitle">Technology, in focus</h2>
+      <p>Fast context on the ideas shaping the industry, with a guide for every one.</p>
+    </div>
+    <a class="dih-gallery-all" href="/techtopics">All 35 tech guides <span aria-hidden="true">&rarr;</span></a>
+  </div>
+  <div class="dih-gallery-grid">
+      <a class="dih-gallery-card" href="/contact">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1773158742082-6f26389f7492?w=640&amp;h=400&amp;fit=crop&amp;auto=format&amp;q=70" alt="Person holding a phone near a laptop and coffee" width="640" height="400" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Contact</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Talk to a human</strong>
+          <span>Questions about a service, advertising or a free tool? Send a message and it goes straight to the inbox.</span>
+          <em>Contact Digital Infohub &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/about">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=640&amp;h=400&amp;fit=crop&amp;auto=format&amp;q=70" alt="People working together around a table" width="640" height="400" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">About</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Independent, and happy to stay that way</strong>
+          <span>Digital Infohub is a small independent publication. No venture funding, no paywall, no hidden agenda.</span>
+          <em>About Digital Infohub &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/services">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?w=640&amp;h=400&amp;fit=crop&amp;auto=format&amp;q=70" alt="Desktop computer and keyboard on a clean desk" width="640" height="400" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Services</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Design and build, without the agency fog</strong>
+          <span>Websites, design and promotion with clear pricing and a real person on the other end.</span>
+          <em>See services and pricing &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/advertise">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=640&amp;h=400&amp;fit=crop&amp;auto=format&amp;q=70" alt="Laptop showing an analytics dashboard" width="640" height="400" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Advertising</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Reach people who make decisions</strong>
+          <span>Put a product in front of developers, founders and technology leaders with clear, respectful advertising.</span>
+          <em>Advertise on Digital Infohub &rarr;</em>
+        </span>
+      </a>
+  </div>
+  <p class="dih-gallery-credit">Photography by Unsplash contributors. Cards link to related Digital Infohub guides.</p>
+</section>
+<!-- /DIH:GALLERY -->
+<!-- DIH:EXPLORE -->
+<section class="dih-explore" aria-labelledby="dihExploreTitle">
+  <div class="dih-explore-head">
+    <h2 id="dihExploreTitle">Install it once, keep the hub close</h2>
+    <p>Home screen, offline pages, no app store.</p>
+  </div>
+  <div class="dih-explore-grid">
+      <a class="dih-explore-card" href="/extension">
+        <span class="dih-explore-icon" aria-hidden="true">🧩</span>
+        <strong>Chrome extension</strong>
+        <span>News, markets and weather from your toolbar.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/software">
+        <span class="dih-explore-icon" aria-hidden="true">🛠️</span>
+        <strong>Software &amp; tools</strong>
+        <span>Free AI assistants and browser utilities that run locally.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/techtopics">
+        <span class="dih-explore-icon" aria-hidden="true">🔬</span>
+        <strong>Tech Topics</strong>
+        <span>Clear guides to the technology shaping business.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/subscribe">
+        <span class="dih-explore-icon" aria-hidden="true">✉️</span>
+        <strong>Subscribe</strong>
+        <span>Weekly tech intelligence in your inbox, free.</span>
+        <em>Explore →</em>
+      </a>
+  </div>
+</section>
+<!-- /DIH:EXPLORE -->
+<!-- DIH:FOOTER -->
+<footer class="dih-footer">
+  <div class="dih-footer-inner">
+    <div class="dih-footer-brand">
+      <a class="dih-brand" href="/" aria-label="Digital Infohub home">
+        <img src="/assets/logo.png" alt="Digital Infohub logo" width="40" height="40">
+        <span class="dih-brand-text">Digital <b>Infohub</b></span>
+      </a>
+      <p>The independent tech hub for everyone: AI research, market moves, practical guides, free tools and Digi, your AI guide.</p>
+      <span class="dih-pill"><span class="dih-dot"></span> Updated daily</span>
+    </div>
+    <div class="dih-footer-col">
+      <h3>Explore</h3>
+      <a href="/blog">Blog &amp; analysis</a>
+      <a href="/techtopics">Tech Topics</a>
+      <a href="/software">Software &amp; tools</a>
+      <a href="/terminal">Terminal mode</a>
+      <a href="/techproducts">Tech Products</a>
+      <a href="/games">Pixel Palace</a>
+      <a href="/digi">Digi AI guide</a>
+      <a href="/news">Live tech news</a>
+      <a href="/quiz">Tech quiz</a>
+    </div>
+    <div class="dih-footer-col">
+      <h3>Company</h3>
+      <a href="/about">About</a>
+      <a href="/services">Services</a>
+      <a href="/advertise">Advertise</a>
+      <a href="/coincompass">CoinCompass</a>
+      <a href="/privacy-policy">Privacy</a>
+    </div>
+    <div class="dih-footer-col dih-footer-cta">
+      <h3>Stay ahead</h3>
+      <p>One email a week: the AI, market and software stories that actually matter.</p>
+      <a class="dih-btn dih-btn-primary" href="/subscribe">Subscribe free</a>
+    </div>
+  </div>
+  <div class="dih-footer-bottom">
+    <span>© 2026 Digital Infohub · Independent technology publication</span>
+    <nav aria-label="Footer links">
+      <a href="/blog">Blog</a>
+      <a href="/techtopics">Guides</a>
+      <a href="/software">Tools</a>
+      <a href="/contact">Contact</a>
+      <a href="/terminal">Terminal</a>
+      <a href="/sitemap.xml">Sitemap</a>
+    </nav>
+  </div>
+</footer>
+<!-- /DIH:FOOTER -->
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

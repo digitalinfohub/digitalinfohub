@@ -524,7 +524,17 @@
 (function () {
   if (window.__dihHubLoaded) return;
   var script = document.createElement('script');
-  script.src = '/assets/hub.js';
+  script.src = '/assets/hub.js?v=20261124';
+  script.defer = true;
+  document.head.appendChild(script);
+})();
+
+/* Install prompt + dialog, available on every page (the /app page needs it). */
+(function () {
+  if (window.__dihPwaScript) return;
+  window.__dihPwaScript = true;
+  var script = document.createElement('script');
+  script.src = '/assets/pwa.js?v=20261124';
   script.defer = true;
   document.head.appendChild(script);
 })();
@@ -533,7 +543,7 @@
 (function () {
   if (window.__dihDigiLoaded) return;
   var script = document.createElement('script');
-  script.src = '/assets/digi.js';
+  script.src = '/assets/digi.js?v=20261124';
   script.defer = true;
   document.head.appendChild(script);
 })();

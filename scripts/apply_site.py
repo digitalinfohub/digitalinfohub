@@ -74,6 +74,18 @@ PAGE_META = {
         "desc": "Play free arcade games in your browser: Snake, 2048, Pong, Memory, Typing Rush and more. No downloads, works on mobile.",
         "keywords": "free browser games, online arcade, snake game, 2048, pong, typing game",
     },
+    "app.html": {
+        "kind": "app", "type": "website",
+        "title": "Install Digital Infohub — Home-Screen App, QR Code & Chrome Extension",
+        "desc": "Install Digital Infohub free: full-screen home-screen app, offline pages, QR code and three-step instructions for iPhone, Android and desktop, plus the Chrome extension.",
+        "keywords": "install digital infohub, web app, add to home screen, pwa, qr code, chrome extension",
+    },
+    "extension.html": {
+        "kind": "app", "type": "website",
+        "title": "Digital Infohub Chrome Extension — News, Markets & Tools in Your Toolbar",
+        "desc": "The free Digital Infohub Chrome extension: live web and news search, markets, weather and trending tech in a compact popup. No account, under 5 KiB, no data sold.",
+        "keywords": "digital infohub extension, chrome extension, tech news extension, market ticker extension, weather popup",
+    },
     "subscribe.html": {
         "kind": "subscribe", "type": "website",
         "title": "Subscribe — Weekly Tech Intelligence | Digital Infohub",

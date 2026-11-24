@@ -38,7 +38,7 @@
     if (catalog) { cb(catalog); return; }
     if (window.DIH_CATALOG) { catalog = window.DIH_CATALOG; cb(catalog); return; }
     var s = document.createElement('script');
-    s.src = '/assets/catalog.js';
+    s.src = '/assets/catalog.js?v=20261124';
     s.async = true;
     s.onload = function () { catalog = window.DIH_CATALOG || []; cb(catalog); };
     s.onerror = function () { catalog = []; cb(catalog); };
@@ -313,6 +313,20 @@
       ]
     },
     {
+      match: '/app',
+      label: 'More',
+      allLabel: 'Install the app',
+      items: [
+        ['/digi', '✦', 'Digi AI guide', 'Ask anything, in your own words'],
+        ['/terminal', '⌨️', 'Terminal mode', 'Drive the hub like Linux'],
+        ['/app', '📲', 'Install the app', 'Home-screen app with offline pages'],
+        ['/extension', '🧩', 'Chrome extension', 'The hub in your toolbar'],
+        ['/techproducts', '💻', 'Tech Products', 'Buying guides worth reading'],
+        ['/subscribe', '✉️', 'Newsletter', 'One email a week, no noise'],
+        ['/about', 'ℹ️', 'About the hub', 'Who builds it and why']
+      ]
+    },
+    {
       match: '/games',
       label: 'Games',
       items: [
@@ -388,7 +402,7 @@
         panel.innerHTML = menu.items.map(function (it) {
           return '<a class="dih-menu-item" href="' + it[0] + '"><span class="dih-menu-ico" aria-hidden="true">' + it[1] +
             '</span><span><b>' + esc(it[2]) + '</b><small>' + esc(it[3]) + '</small></span></a>';
-        }).join('') + '<a class="dih-menu-all" href="' + menu.match + '">Open ' + menu.label + ' →</a>';
+        }).join('') + '<a class="dih-menu-all" href="' + menu.match + '">' + (menu.allLabel || ('Open ' + menu.label)) + ' →</a>';
         wrap.appendChild(panel);
         var timer;
         function open() {
@@ -404,6 +418,19 @@
         }
         wrap.addEventListener('mouseenter', open);
         wrap.addEventListener('mouseleave', close);
+        /* Click/tap: first press opens the menu, a second press follows the link. */
+        trigger.addEventListener('click', function (e) {
+          if (!wrap.classList.contains('is-open')) {
+            e.preventDefault();
+            open();
+          }
+        });
+        document.addEventListener('click', function (e) {
+          if (!wrap.contains(e.target) && wrap.classList.contains('is-open')) {
+            wrap.classList.remove('is-open');
+            trigger.setAttribute('aria-expanded', 'false');
+          }
+        });
         trigger.addEventListener('focus', open);
         trigger.addEventListener('keydown', function (e) {
           if (e.key === 'Escape') { wrap.classList.remove('is-open'); trigger.setAttribute('aria-expanded', 'false'); }
@@ -443,6 +470,19 @@
       });
       drawerSub.appendChild(soundLink);
     }
+    var drawerGrid = document.querySelector('.dih-drawer-grid');
+    if (drawerGrid && !drawerGrid.querySelector('a[href="/app"]')) {
+      var appLink = document.createElement('a');
+      appLink.className = 'dih-drawer-link';
+      appLink.href = '/app';
+      appLink.textContent = '📲 Install the app';
+      drawerGrid.appendChild(appLink);
+      var extLink = document.createElement('a');
+      extLink.className = 'dih-drawer-link';
+      extLink.href = '/extension';
+      extLink.textContent = '🧩 Chrome extension';
+      drawerGrid.appendChild(extLink);
+    }
 
     /* Footer link so the shell is reachable from every page. */
     var footNav = document.querySelector('.dih-footer-bottom nav');
@@ -451,6 +491,16 @@
       fa.href = '/terminal';
       fa.textContent = 'Terminal';
       footNav.appendChild(fa);
+    }
+    if (footNav && !footNav.querySelector('a[href="/app"]')) {
+      var fa2 = document.createElement('a');
+      fa2.href = '/app';
+      fa2.textContent = 'App';
+      footNav.appendChild(fa2);
+      var fa3 = document.createElement('a');
+      fa3.href = '/extension';
+      fa3.textContent = 'Extension';
+      footNav.appendChild(fa3);
     }
     var footCol = document.querySelector('.dih-footer-col');
     if (footCol && !footCol.querySelector('a[href="/games/snake"]')) {
@@ -688,15 +738,28 @@
         pop.querySelector('[data-pop-term]').addEventListener('click', function () { close(); openTerm(q); });
       }
 
-      function run(q) {
+      function run(q, preview) {
         var a = answer(q);
         out.innerHTML = '<div class="hub-ai-answer"><strong>' + esc(a.title) + '</strong><p>' + esc(a.body) + '</p>' +
           (a.links.length ? '<div class="hub-ai-links">' + a.links.map(function (l, i) {
             return '<a href="' + esc(l[0]) + '"' + (i === 0 ? ' class="is-primary"' : '') + '>' + esc(l[1]) + ' →</a>';
           }).join('') + '</div>' : '') + '</div>';
+        if (preview) return;
         sfx.play('open');
         showRoute(q);
       }
+
+      /* Live results: the answer card follows the query as it is typed. */
+      var typeTimer = null;
+      input.addEventListener('input', function () {
+        clearTimeout(typeTimer);
+        var q = input.value.trim();
+        if (!q) { out.innerHTML = ''; return; }
+        typeTimer = setTimeout(function () { run(q, true); }, 130);
+      });
+      input.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') { input.value = ''; out.innerHTML = ''; }
+      });
 
       form.addEventListener('submit', function (e) { e.preventDefault(); run(input.value); });
       el.querySelectorAll('[data-hub-q]').forEach(function (b) {
@@ -711,6 +774,44 @@
     });
   }
   window.DIH.mountGuide = mountGuide;
+
+
+  /* ------------------------------------------------------- AI answer typing */
+  var typeReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function typeInto(el, html) {
+    if (!el) return;
+    el.innerHTML = html;
+    if (typeReduced) return;
+    var nodes = [];
+    var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
+    while (walker.nextNode()) {
+      var node = walker.currentNode;
+      nodes.push({ node: node, text: node.nodeValue || '' });
+      node.nodeValue = '';
+    }
+    var total = nodes.reduce(function (n, x) { return n + x.text.length; }, 0);
+    if (!total) return;
+    var started = performance.now();
+    var duration = Math.min(1400, 220 + total * 6);
+    function frame(now) {
+      var p = Math.min(1, (now - started) / duration);
+      var budget = Math.floor(total * p);
+      for (var i = 0; i < nodes.length && budget > 0; i++) {
+        var take = Math.min(nodes[i].text.length, budget);
+        nodes[i].node.nodeValue = nodes[i].text.slice(0, take);
+        budget -= take;
+      }
+      if (p < 1) requestAnimationFrame(frame);
+      else nodes.forEach(function (x) { x.node.nodeValue = x.text; });
+    }
+    requestAnimationFrame(frame);
+  }
+  function thinking(el, label) {
+    if (!el) return;
+    el.innerHTML = '<span class="ai-thinking"><i></i><i></i><i></i><span>' + esc(label || 'Thinking') + '</span></span>';
+  }
+  window.DIH.typeInto = typeInto;
+  window.DIH.thinking = thinking;
 
   /* Keyboard: Shift+S toggles sound, Shift+T opens the terminal. */
   document.addEventListener('keydown', function (e) {

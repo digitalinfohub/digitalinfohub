@@ -1,11 +1,15 @@
-/* Digital Infohub PWA helpers: install prompt, home-screen guidance, offline cache. */
+/* Digital Infohub PWA helpers: install prompt, install dialog, offline cache. */
 (function () {
   'use strict';
+  if (window.__dihPwaLoaded) return;
+  window.__dihPwaLoaded = true;
 
   var deferredPrompt = null;
   var installBtn = document.getElementById('pwaInstall');
   var hint = document.getElementById('pwaHint');
   var state = document.getElementById('pwaState');
+  var modal = null;
+  var lastFocus = null;
 
   function isStandalone() {
     return (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) ||
@@ -48,6 +52,91 @@
       : 'Open your browser menu and choose “Install app” or “Add to Home screen”.');
   }
 
+  /* ---------------------------------------------------------- install modal */
+  function buildModal() {
+    if (modal) return modal;
+    modal = document.createElement('div');
+    modal.className = 'pwa-modal';
+    modal.id = 'pwaModal';
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-labelledby', 'pwaModalTitle');
+    modal.innerHTML =
+      '<div class="pwa-card">' +
+        '<div class="pwa-card-head">' +
+          '<div>' +
+            '<p class="pwa-card-kicker">Install · free</p>' +
+            '<h2 id="pwaModalTitle">Digital Infohub, one tap away</h2>' +
+            '<p>Add the hub to your home screen or dock. It opens full screen, keeps working offline and updates itself — no app store, no account.</p>' +
+          '</div>' +
+          '<button type="button" class="pwa-card-x" aria-label="Close install instructions">✕</button>' +
+        '</div>' +
+        '<div class="pwa-card-body">' +
+          '<div class="pwa-card-qr">' +
+            '<img src="/assets/pwa-qr.png" alt="QR code for digitalinfohub.net" width="240" height="240" loading="lazy">' +
+            '<small>Scan to open on your phone</small>' +
+          '</div>' +
+          '<ol>' +
+            '<li><b>iPhone or iPad:</b> open in Safari, tap Share, then “Add to Home Screen”.</li>' +
+            '<li><b>Android:</b> open in Chrome, tap ⋮, then “Install app” or “Add to Home screen”.</li>' +
+            '<li><b>Desktop Chrome or Edge:</b> click the install icon in the address bar, or menu → “Install Digital Infohub”.</li>' +
+          '</ol>' +
+        '</div>' +
+        '<div class="pwa-card-actions">' +
+          '<button type="button" class="dih-btn dih-btn-primary" data-pwa-native hidden>Install now</button>' +
+          '<a class="dih-btn dih-btn-ghost" href="/app">Open the install page →</a>' +
+          '<a class="dih-btn dih-btn-ghost" href="https://chromewebstore.google.com/detail/digital-infohub/epfalnobaadpaainlepefgikngafhbhl" target="_blank" rel="noopener">Chrome extension</a>' +
+        '</div>' +
+        '<p class="pwa-card-note">Already installed? Open it from your home screen or app list. The site keeps working in any browser too.</p>' +
+      '</div>';
+    document.body.appendChild(modal);
+
+    modal.querySelector('.pwa-card-x').addEventListener('click', closeModal);
+    modal.querySelector('[data-pwa-native]').addEventListener('click', function () {
+      closeModal();
+      promptInstall();
+    });
+    modal.addEventListener('click', function (e) {
+      if (e.target === modal) closeModal();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
+    });
+    return modal;
+  }
+
+  function openModal() {
+    buildModal();
+    lastFocus = document.activeElement;
+    var native = modal.querySelector('[data-pwa-native]');
+    if (native) native.hidden = !deferredPrompt;
+    document.body.classList.add('pwa-modal-open');
+    requestAnimationFrame(function () { modal.classList.add('is-open'); });
+    var close = modal.querySelector('.pwa-card-x');
+    if (close) setTimeout(function () { close.focus(); }, 60);
+  }
+
+  function closeModal() {
+    if (!modal) return;
+    modal.classList.remove('is-open');
+    document.body.classList.remove('pwa-modal-open');
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+
+  function promptInstall() {
+    if (isStandalone()) return false;
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then(function (choice) {
+        if (choice.outcome === 'accepted') setState('Installing…', true);
+        deferredPrompt = null;
+        refresh();
+      });
+      return true;
+    }
+    return false;
+  }
+
   window.addEventListener('beforeinstallprompt', function (event) {
     event.preventDefault();
     deferredPrompt = event;
@@ -58,27 +147,33 @@
     deferredPrompt = null;
     refresh();
     setState('Installed — thanks!', true);
+    closeModal();
   });
 
   if (installBtn) {
     installBtn.addEventListener('click', function () {
       if (isStandalone()) return;
-      if (deferredPrompt) {
-        deferredPrompt.prompt();
-        deferredPrompt.userChoice.then(function (choice) {
-          if (choice.outcome === 'accepted') setState('Installing…', true);
-          deferredPrompt = null;
-          refresh();
-        });
-        return;
-      }
-      var section = document.getElementById('pwaHow');
-      if (section) section.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      setHint(isIOS()
-        ? 'Tap the Share button at the bottom of Safari, then scroll to “Add to Home Screen”.'
-        : 'Open the browser menu (⋮ or •••) and choose “Install app” or “Add to Home screen”.');
+      /* Always show the QR + instructions first; the dialog offers the
+         native one-click prompt when the browser has one ready. */
+      openModal();
     });
   }
+
+  /* Explicit install buttons show the QR + instructions first; the dialog
+     offers the native prompt when the browser has one ready. */
+  document.querySelectorAll('[data-pwa-open]').forEach(function (btn) {
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      openModal();
+    });
+  });
+
+  window.DIHInstall = {
+    open: openModal,
+    close: closeModal,
+    prompt: promptInstall,
+    installed: isStandalone
+  };
 
   window.addEventListener('load', function () {
     if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
@@ -87,7 +182,6 @@
     refresh();
   });
 
-  // On small screens the QR is less useful than the install button; keep it visible but explain it.
   var qr = document.querySelector('.pwa-qr');
   if (qr && window.matchMedia('(max-width: 640px)').matches) {
     qr.classList.add('pwa-qr--mobile');

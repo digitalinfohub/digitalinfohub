@@ -10,13 +10,12 @@ SITE = "https://digitalinfohub.net"
 
 NAV = [
     ("/", "Home"),
-    ("/digi", "Digi"),
     ("/blog", "Blog"),
     ("/techtopics", "Tech Topics"),
     ("/software", "Software"),
-    ("/techproducts", "Tech Products"),
     ("/games", "Games"),
     ("/coincompass", "Markets"),
+    ("/app", "More"),
 ]
 
 TARGETS = {
@@ -43,6 +42,8 @@ TARGETS = {
     "/coincompass": ("🧭", "CoinCompass", "Track crypto and market context in one place."),
     "/news": ("📰", "Tech News", "Live headlines from the industry, updated through the day."),
     "/quiz": ("🎯", "Tech Quiz", "Six quick quizzes with a grade for every topic."),
+    "/app": ("📲", "Install the app", "Home-screen app, offline pages and the QR code."),
+    "/extension": ("🧩", "Chrome extension", "News, markets and weather from your toolbar."),
     "/subscribe": ("✉️", "Subscribe", "Weekly tech intelligence in your inbox, free."),
     "/about": ("ℹ️", "About", "Who builds Digital Infohub and why."),
     "/services": ("🧰", "Services", "Automation, AI integration and custom builds."),
@@ -65,6 +66,8 @@ EXPLORE = {
     "coincompass": ["/blog", "/techtopics", "/software", "/subscribe"],
     "news": ["/quiz", "/blog", "/techtopics", "/subscribe"],
     "quiz": ["/techtopics", "/news", "/blog", "/software"],
+    "app": ["/extension", "/software", "/techtopics", "/subscribe"],
+    "extension": ["/app", "/news", "/coincompass", "/software"],
     "privacy": ["/about", "/subscribe", "/blog", "/services"],
     "tool": ["/software", "/blog", "/techtopics", "/coincompass"],
     "post": ["/blog", "/techtopics", "/software", "/subscribe"],
@@ -87,6 +90,8 @@ _HEADINGS = {
     "post": "Keep the momentum",
     "news": "Turn headlines into understanding",
     "quiz": "Find your next rabbit hole",
+    "app": "Install it once, keep the hub close",
+    "extension": "The hub, one click from any tab",
 }
 
 _SUBS = {
@@ -106,6 +111,8 @@ _SUBS = {
     "post": "Related guides, tools and analysis from the hub.",
     "news": "The story behind the headline is usually a guide away.",
     "quiz": "A score is useful. Knowing what to read next is better.",
+    "app": "Home screen, offline pages, no app store.",
+    "extension": "News, markets and weather without leaving your work.",
 }
 
 

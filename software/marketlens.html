@@ -400,13 +400,12 @@
     </a>
     <nav class="dih-nav" data-dih-nav aria-label="Primary navigation">
       <a class="dih-link" href="/">Home</a>
-      <a class="dih-link" href="/digi">Digi</a>
       <a class="dih-link" href="/blog">Blog</a>
       <a class="dih-link" href="/techtopics">Tech Topics</a>
       <a class="dih-link" href="/software">Software</a>
-      <a class="dih-link" href="/techproducts">Tech Products</a>
       <a class="dih-link" href="/games">Games</a>
       <a class="dih-link" href="/coincompass">Markets</a>
+      <a class="dih-link" href="/app">More</a>
     </nav>
     <div class="dih-actions">
       <a class="dih-tools" href="/software#tools" title="Free browser tools" aria-label="Free browser tools">⚡<span>Tools</span></a>
@@ -567,13 +566,15 @@
     button.disabled = true;
     button.classList.add("typing-dot");
     outputEl.classList.remove("empty");
-    outputEl.textContent = "Thinking";
+    if (window.DIH && DIH.thinking) DIH.thinking(outputEl, "Thinking"); else outputEl.textContent = "Thinking";
     try {
       const reply = await pollinate([
         { role: "system", content: systemPrompt },
         { role: "user", content: userPrompt }
       ]);
-      outputEl.classList.add('md'); outputEl.innerHTML = window.dihMarkdown ? window.dihMarkdown(reply) : escapeHtml(reply);
+      var replyHtml = window.dihMarkdown ? window.dihMarkdown(reply) : escapeHtml(reply);
+      outputEl.classList.add('md');
+      if (window.DIH && DIH.typeInto) DIH.typeInto(outputEl, replyHtml); else outputEl.innerHTML = replyHtml;
     } catch (err) {
       outputEl.classList.add("empty");
       outputEl.textContent = "The AI service is busy right now — please try again in a moment.";
@@ -695,7 +696,8 @@
               try {
                 const reply = await helpers.pollinate([{ role: 'system', content: cfg.system }, ...history.slice(-12)]);
                 thinking.classList.remove('thinking');
-                thinking.innerHTML = window.dihMarkdown ? window.dihMarkdown(reply) : escapeHtml(reply);
+                var chatHtml = window.dihMarkdown ? window.dihMarkdown(reply) : escapeHtml(reply);
+                if (window.DIH && DIH.typeInto) DIH.typeInto(thinking, chatHtml); else thinking.innerHTML = chatHtml;
                 history.push({ role: 'assistant', content: reply });
               } catch (err) {
                 thinking.classList.remove('thinking');
