@@ -106,7 +106,7 @@ html[data-dih][data-dih-static] { scroll-behavior: auto; }
 html[data-dih] body {
   margin: 0;
   padding: 0;
-  background: var(--dih-bg) !important;
+  background: var(--dih-bg);
   color: var(--dih-text);
   font-family: var(--dih-font);
   -webkit-font-smoothing: antialiased;

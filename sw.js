@@ -1,5 +1,5 @@
 /* Digital Infohub service worker — installable PWA + offline shell. */
-const VERSION = 'dih-v3';
+const VERSION = 'dih-v11';
 const CORE = [
   '/',
   '/blog',

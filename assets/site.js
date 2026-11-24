@@ -20,7 +20,7 @@
     root.setAttribute('data-theme', theme);
     root.setAttribute('data-dih', '');
     document.querySelectorAll('[data-dih-theme]').forEach(function (btn) {
-      btn.textContent = theme === 'dark' ? '☀' : '☾';
+      /* The sun/moon SVGs swap with CSS from the data-theme attribute. */
       btn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
       btn.title = btn.getAttribute('aria-label');
     });
@@ -524,7 +524,7 @@
 (function () {
   if (window.__dihHubLoaded) return;
   var script = document.createElement('script');
-  script.src = '/assets/hub.js?v=20261124';
+  script.src = '/assets/hub.js?v=20261202';
   script.defer = true;
   document.head.appendChild(script);
 })();
@@ -534,7 +534,7 @@
   if (window.__dihPwaScript) return;
   window.__dihPwaScript = true;
   var script = document.createElement('script');
-  script.src = '/assets/pwa.js?v=20261124';
+  script.src = '/assets/pwa.js?v=20261202';
   script.defer = true;
   document.head.appendChild(script);
 })();
@@ -543,7 +543,7 @@
 (function () {
   if (window.__dihDigiLoaded) return;
   var script = document.createElement('script');
-  script.src = '/assets/digi.js?v=20261124';
+  script.src = '/assets/digi.js?v=20261202';
   script.defer = true;
   document.head.appendChild(script);
 })();

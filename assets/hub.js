@@ -38,7 +38,7 @@
     if (catalog) { cb(catalog); return; }
     if (window.DIH_CATALOG) { catalog = window.DIH_CATALOG; cb(catalog); return; }
     var s = document.createElement('script');
-    s.src = '/assets/catalog.js?v=20261124';
+    s.src = '/assets/catalog.js?v=20261202';
     s.async = true;
     s.onload = function () { catalog = window.DIH_CATALOG || []; cb(catalog); };
     s.onerror = function () { catalog = []; cb(catalog); };
@@ -193,7 +193,7 @@
 
   function syncSoundButton() {
     document.querySelectorAll('[data-dih-sound]').forEach(function (b) {
-      b.textContent = soundOn ? '🔊' : '🔇';
+      /* .on / .off SVGs inside the button follow aria-pressed. */
       var label = soundOn ? 'Sound on — tap to mute' : 'Sound off — tap to enable';
       b.setAttribute('aria-label', label);
       b.setAttribute('aria-pressed', soundOn ? 'true' : 'false');
@@ -346,10 +346,10 @@
 
   function initChrome() {
     /* hub.css is injected once; pages that link it already skip this. */
-    if (!document.querySelector('link[href="/assets/hub.css"]')) {
+    if (!document.querySelector('link[href^="/assets/hub.css"]')) {
       var link = document.createElement('link');
       link.rel = 'stylesheet';
-      link.href = '/assets/hub.css';
+      link.href = '/assets/hub.css?v=20261202';
       document.head.appendChild(link);
     }
 
@@ -361,7 +361,7 @@
       term.href = '/terminal';
       term.title = 'Terminal mode — browse like a shell';
       term.setAttribute('aria-label', 'Open terminal mode');
-      term.innerHTML = '⌨<span class="dih-term-txt">Terminal</span>';
+      term.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="m7 9 3 3-3 3"/><path d="M13 15h4"/></svg>';
       if (shareBtn) actions.insertBefore(term, shareBtn); else actions.insertBefore(term, actions.firstChild);
     }
     if (actions && !actions.querySelector('[data-dih-sound]')) {
@@ -369,7 +369,7 @@
       snd.type = 'button';
       snd.className = 'dih-icon dih-sound';
       snd.setAttribute('data-dih-sound', '');
-      snd.innerHTML = '🔊';
+      snd.innerHTML = '<svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4Z"/><path d="M16.5 8.5a5 5 0 0 1 0 7"/><path d="M19 6a8.5 8.5 0 0 1 0 12"/></svg><svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4Z"/><path d="m16 9 5 6"/><path d="m21 9-5 6"/></svg>';
       var themeBtn = actions.querySelector('[data-dih-theme]');
       if (themeBtn) actions.insertBefore(snd, themeBtn.nextSibling); else actions.appendChild(snd);
       snd.addEventListener('click', function () { sfx.toggle(); });
@@ -871,9 +871,34 @@
   }
 
   /* ------------------------------------------------------------- bootstrap */
+  /* ------------------------------------------- ocean light + interactions */
+  function initLife() {
+    if (typeReduced) return;
+
+    /* A soft light that follows the pointer across hero sections. */
+    if (window.matchMedia && window.matchMedia('(pointer: fine)').matches) {
+      document.querySelectorAll('.hero, .promo-hero').forEach(function (sec) {
+        if (sec.querySelector('.dih-pointer-glow')) return;
+        var glow = document.createElement('div');
+        glow.className = 'dih-pointer-glow';
+        glow.setAttribute('aria-hidden', 'true');
+        sec.insertBefore(glow, sec.firstChild);
+        sec.addEventListener('pointermove', function (e) {
+          var r = sec.getBoundingClientRect();
+          glow.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100).toFixed(1) + '%');
+          glow.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100).toFixed(1) + '%');
+          glow.classList.add('is-on');
+        });
+        sec.addEventListener('pointerleave', function () { glow.classList.remove('is-on'); });
+      });
+    }
+
+  }
+
   function boot() {
     initChrome();
     initInterest();
+    initLife();
     loadCatalog(function () {
       document.querySelectorAll('[data-hub-guide]').forEach(function (el) {
         if (!el.querySelector('.hub-ai-form')) mountGuide(el);

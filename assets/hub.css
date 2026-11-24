@@ -11,11 +11,9 @@ html[lang="ja"], [lang="ja"] { font-family: var(--hub-ja); }
 html[lang="ja"] body { font-family: var(--hub-ja); }
 
 /* ---------------------------------------------------------------- header */
-.dih-term { width: auto !important; padding: 0 10px !important; gap: 6px; font-size: 13px; display: inline-flex; align-items: center; }
-.dih-term-txt { font-size: 11.5px; font-weight: 700; letter-spacing: .01em; }
-.dih-sound[aria-pressed="false"] { opacity: .55; }
-@media (max-width: 1180px) { .dih-term-txt { display: none; } }
-@media (max-width: 1024px) { .dih-term { display: none !important; } }
+/* Header icons are square SVGs now; nothing here should stretch them. */
+.dih-sound[aria-pressed="false"] { opacity: .8; }
+@media (max-width: 1024px) { .dih-term { display: none; } }
 
 .dih-menu-wrap { position: relative; display: inline-flex; align-items: center; }
 .dih-menu-trigger::after {
@@ -711,4 +709,98 @@ html[data-theme="light"] .pwa-card { background: #fff; }
 }
 @media (max-width: 720px) {
   html[data-dih] body .digi-corner { display: none !important; }
+}
+
+/* --------------------------------------------------- header action icons
+   One uniform square set: no text labels, so nothing can clip. */
+.dih-actions { gap: 6px; }
+.dih-actions .dih-icon,
+.dih-actions .dih-tools {
+  width: 36px; min-width: 36px; height: 36px; padding: 0;
+  border-radius: 11px; flex: 0 0 36px;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.dih-actions .dih-icon svg,
+.dih-actions .dih-tools svg { width: 17px; height: 17px; display: block; }
+.dih-actions .dih-icon:hover,
+.dih-actions .dih-tools:hover {
+  color: var(--dih-text, #eef1f8);
+  border-color: rgba(120,160,255,.45);
+  background: rgba(76,141,255,.1);
+}
+.dih-sound .off { display: none; }
+.dih-sound[aria-pressed="false"] .on { display: none; }
+.dih-sound[aria-pressed="false"] .off { display: block; }
+.dih-sound[aria-pressed="false"] { color: var(--dih-text-muted, #8b93a7); }
+.dih-theme .moon { display: none; }
+html[data-theme="dark"] .dih-theme .sun { display: block; }
+html[data-theme="dark"] .dih-theme .moon { display: none; }
+html[data-theme="light"] .dih-theme .moon { display: block; }
+html[data-theme="light"] .dih-theme .sun { display: none; }
+@media (max-width: 1360px) {
+  .dih-actions .dih-icon, .dih-actions .dih-tools { width: 34px; min-width: 34px; height: 34px; flex-basis: 34px; border-radius: 10px; }
+  .dih-actions .dih-icon svg, .dih-actions .dih-tools svg { width: 16px; height: 16px; }
+}
+
+/* ----------------------------------------------------- digital ocean bg
+   A slow, low-contrast drift behind the page. Text sits on its own
+   surfaces, so readability is unaffected. !important keeps older page
+   body-background shorthands from wiping the layers out. */
+html[data-dih][data-theme] body {
+  background-color: var(--dih-bg, #07070c);
+  background-image:
+    radial-gradient(46% 42% at 10% 6%, rgba(56, 189, 248, .10), transparent 62%),
+    radial-gradient(42% 40% at 90% 2%, rgba(96, 132, 255, .12), transparent 66%),
+    radial-gradient(52% 46% at 50% 108%, rgba(139, 92, 246, .10), transparent 68%) !important;
+  background-repeat: no-repeat !important;
+  background-size: 180% 180%, 170% 170%, 200% 200% !important;
+  background-attachment: fixed !important;
+  animation: dihOceanDrift 52s ease-in-out infinite alternate;
+}
+html[data-dih][data-theme="light"] body {
+  background-color: var(--dih-bg, #f6f7fb);
+  background-image:
+    radial-gradient(46% 42% at 10% 6%, rgba(56, 189, 248, .16), transparent 62%),
+    radial-gradient(42% 40% at 90% 2%, rgba(96, 132, 255, .14), transparent 66%),
+    radial-gradient(52% 46% at 50% 108%, rgba(139, 92, 246, .12), transparent 68%) !important;
+}
+@keyframes dihOceanDrift {
+  0%   { background-position: 0% 0%, 100% 0%, 50% 100%; }
+  50%  { background-position: 38% 28%, 62% 22%, 34% 58%; }
+  100% { background-position: 62% 10%, 24% 52%, 68% 34%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-dih][data-theme] body { animation: none; }
+}
+@media (max-width: 720px) {
+  html[data-dih][data-theme] body { background-attachment: scroll !important; }
+}
+
+/* pointer light inside hero sections */
+.dih-pointer-glow {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0;
+  transition: opacity .4s ease;
+  background: radial-gradient(320px 240px at var(--mx, 50%) var(--my, 18%), rgba(93, 164, 255, .17), transparent 70%);
+}
+.dih-pointer-glow.is-on { opacity: 1; }
+/* Lift the content above the light, but never change decorative layers:
+   forcing position on .hero-glow took it out of absolute positioning and
+   added ~450px of empty space to the hero. */
+.hero > *:not(.dih-pointer-glow):not(.hero-glow),
+.promo-hero > *:not(.dih-pointer-glow) { position: relative; z-index: 1; }
+
+/* Small screens: keep the header to tools + menu so nothing runs off-screen. */
+@media (max-width: 560px) {
+  .dih-actions { gap: 5px; }
+  html[data-dih] .dih-actions .dih-icon.dih-sound,
+  html[data-dih] .dih-actions .dih-icon.dih-share,
+  html[data-dih] .dih-actions .dih-term { display: none !important; }
+  .dih-brand-text { font-size: 15px; }
+  .dih-brand img { width: 32px; height: 32px; }
+}
+@media (max-width: 360px) {
+  html[data-dih] .dih-actions .dih-tools { display: none !important; }
+}
+@media (max-width: 360px) {
+  .dih-brand-text { font-size: 14px; }
 }
