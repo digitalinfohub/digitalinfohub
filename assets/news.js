@@ -55,7 +55,7 @@
     {
       title: 'Quantum computing: the breakthroughs that matter',
       link: '/quantumcomputing',
-      summary: 'A plain-language guide to qubits, error correction and the encryption migration to plan for.',
+      summary: 'A clear guide to qubits, error correction and the encryption migration to plan for.',
       date: new Date().toISOString(),
       category: 'hardware',
       source: 'Digital Infohub'

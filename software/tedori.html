@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="dark" data-dih="">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>手取り計算｜年収から社会保険料・税金を引いた手取りを計算</title>
+<meta name="description" content="年収・年齢・扶養人数から社会保険料、所得税、住民税を計算し、月々の手取り額と手取り率をその場で概算。控除の内訳も表示。無料・登録不要。">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/assets/hub.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"手取り計算 — Digital Infohub","applicationCategory":"FinanceApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},"inLanguage":"ja","description":"年収から社会保険料・所得税・住民税を差し引いた手取り額を概算する無料ツール。","url":"https://digitalinfohub.net/software/tedori"}
+</script>
+<!-- DIH:HEAD -->
+<script>try{var t=localStorage.getItem('dih_theme')||'dark';document.documentElement.setAttribute('data-theme',t);document.documentElement.setAttribute('data-dih','');}catch(e){document.documentElement.setAttribute('data-dih','');}</script>
+<meta name="theme-color" content="#07070c">
+<meta name="color-scheme" content="dark light">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="author" content="Digital Infohub">
+<meta name="keywords" content="手取り計算, 手取り 年収, 社会保険料 計算, 所得税 計算, 住民税, 給与 手取り, 年収500万 手取り">
+<link rel="canonical" href="https://digitalinfohub.net/software/tedori">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Digital Infohub">
+<meta property="og:title" content="手取り計算｜年収から社会保険料・税金を引いた手取りを計算">
+<meta property="og:description" content="年収・年齢・扶養人数から社会保険料、所得税、住民税を計算し、月々の手取り額と手取り率をその場で概算。控除の内訳も表示。無料・登録不要。">
+<meta property="og:url" content="https://digitalinfohub.net/software/tedori">
+<meta property="og:image" content="https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta property="og:image:secure_url" content="https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Glowing blue network lines and nodes forming a mesh">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="手取り計算｜年収から社会保険料・税金を引いた手取りを計算">
+<meta name="twitter:description" content="年収・年齢・扶養人数から社会保険料、所得税、住民税を計算し、月々の手取り額と手取り率をその場で概算。控除の内訳も表示。無料・登録不要。">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta name="twitter:image:alt" content="Glowing blue network lines and nodes forming a mesh">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="icon" href="/assets/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://digitalinfohub.net/#organization","name":"Digital Infohub","url":"https://digitalinfohub.net/","logo":{"@type":"ImageObject","url":"https://digitalinfohub.net/assets/icon-512.png","width":512,"height":512},"description":"Independent technology publication for everyone: clear guides, free browser tools and live market context.","sameAs":[]},{"@type":"WebSite","@id":"https://digitalinfohub.net/#website","url":"https://digitalinfohub.net/","name":"Digital Infohub","publisher":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"ja","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://digitalinfohub.net/blog?q={search_term_string}"},"query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://digitalinfohub.net/software/tedori#webpage","url":"https://digitalinfohub.net/software/tedori","name":"手取り計算｜年収から社会保険料・税金を引いた手取りを計算","description":"年収・年齢・扶養人数から社会保険料、所得税、住民税を計算し、月々の手取り額と手取り率をその場で概算。控除の内訳も表示。無料・登録不要。","isPartOf":{"@id":"https://digitalinfohub.net/#website"},"about":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"ja","primaryImageOfPage":{"@type":"ImageObject","url":"https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&h=630&fit=crop&auto=format&q=80&fm=jpg","width":1200,"height":630}}]}</script>
+<!-- /DIH:HEAD -->
+</head>
+<body>
+<!-- DIH:AMBIENT -->
+<div class="dih-ambient" aria-hidden="true" style="--dih-ambient:url('https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&amp;h=675&amp;fit=crop&amp;auto=format&amp;q=40')"></div>
+<!-- /DIH:AMBIENT -->
+<!-- DIH:HEADER -->
+<header class="dih-header">
+  <div class="dih-header-inner">
+    <a class="dih-brand" href="/" aria-label="Digital Infohub home">
+      <img src="/assets/logo.png" alt="Digital Infohub logo" width="36" height="36">
+      <span class="dih-brand-text">Digital <b>Infohub</b></span>
+    </a>
+    <nav class="dih-nav" data-dih-nav aria-label="Primary navigation">
+      <a class="dih-link" href="/">Home</a>
+      <a class="dih-link" href="/digi">Digi</a>
+      <a class="dih-link" href="/blog">Blog</a>
+      <a class="dih-link" href="/techtopics">Tech Topics</a>
+      <a class="dih-link" href="/software">Software</a>
+      <a class="dih-link" href="/techproducts">Tech Products</a>
+      <a class="dih-link" href="/games">Games</a>
+      <a class="dih-link" href="/coincompass">Markets</a>
+    </nav>
+    <div class="dih-actions">
+      <a class="dih-tools" href="/software#tools" title="Free browser tools" aria-label="Free browser tools">⚡<span>Tools</span></a>
+      <a class="dih-icon dih-term" href="/terminal" title="Terminal mode — browse like a shell" aria-label="Open terminal mode">⌨<span class="dih-term-txt">Terminal</span></a>
+      <button class="dih-icon dih-sound" type="button" data-dih-sound aria-label="Sound on — tap to mute" aria-pressed="true" title="Sound on — tap to mute (Shift+S)">🔊</button>
+      <button class="dih-icon dih-share" type="button" data-dih-share aria-label="Share this page" title="Share this page">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M12 3v13"/><path d="m7 8 5-5 5 5"/></svg>
+      </button>
+      <button class="dih-icon" type="button" data-dih-theme aria-label="Switch theme" title="Switch theme">☀</button>
+      <a class="dih-cta" href="/subscribe">Subscribe</a>
+      <button class="dih-burger" id="dihBurger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="dihDrawer"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+<div class="dih-drawer" id="dihDrawer" aria-label="Site menu">
+  <div class="dih-drawer-panel">
+    <div class="dih-drawer-grid">
+      <a class="dih-drawer-link" href="/">Home</a>
+      <a class="dih-drawer-link" href="/digi">Digi</a>
+      <a class="dih-drawer-link" href="/blog">Blog</a>
+      <a class="dih-drawer-link" href="/techtopics">Tech Topics</a>
+      <a class="dih-drawer-link" href="/software">Software</a>
+      <a class="dih-drawer-link" href="/techproducts">Tech Products</a>
+      <a class="dih-drawer-link" href="/games">Games</a>
+      <a class="dih-drawer-link" href="/coincompass">Markets</a>
+    </div>
+    <div class="dih-drawer-sub">
+      <a class="dih-drawer-link" href="/news">📰 Tech News</a>
+      <a class="dih-drawer-link" href="/quiz">🎯 Tech Quiz</a>
+      <a class="dih-drawer-link" href="/software#tools">⚡ Tools</a>
+      <a class="dih-drawer-link" href="/services">🧰 Services</a>
+      <a class="dih-drawer-link" href="/terminal">⌨️ Terminal mode</a>
+      <a class="dih-drawer-link" href="/terminal#top">📊 Most opened pages</a>
+      <a class="dih-drawer-link" href="/contact">✉️ Contact</a>
+    </div>
+    <a class="dih-drawer-cta" href="/subscribe">✉️ Subscribe — weekly tech intel</a>
+    <p class="dih-drawer-note">Digital Infohub · Tech for everyone, with a guide for every question.</p>
+  </div>
+</div>
+<!-- /DIH:HEADER -->
+
+<main class="hub-app">
+  <header class="hub-app-head">
+    <span class="dih-eyebrow">日本向け · 給与</span>
+    <h1>手取り計算</h1>
+    <p>額面の年収から、社会保険料・所得税・住民税を差し引いた<strong>手取り</strong>をその場で概算します。引っ越し、転職、昇給の判断に。データはブラウザの外に出ません。</p>
+  </header>
+
+  <div class="hub-grid">
+    <section class="hub-card" aria-labelledby="inTitle">
+      <h2 id="inTitle">条件を入れる</h2>
+      <label class="hub-field">
+        <span>年収（額面・万円）</span>
+        <input id="income" type="number" inputmode="decimal" min="0" max="10000" step="10" value="500">
+        <small>賞与を含めた年収。500万円なら「500」。</small>
+      </label>
+      <div class="hub-row">
+        <label class="hub-field">
+          <span>年齢</span>
+          <select id="age">
+            <option value="under40">40歳未満</option>
+            <option value="over40" selected>40〜64歳</option>
+            <option value="over65">65歳以上</option>
+          </select>
+          <small>40歳以上は介護保険料が加わります。</small>
+        </label>
+        <label class="hub-field">
+          <span>扶養している家族</span>
+          <select id="dependents">
+            <option value="0">0人</option>
+            <option value="1" selected>1人</option>
+            <option value="2">2人</option>
+            <option value="3">3人</option>
+            <option value="4">4人</option>
+          </select>
+          <small>配偶者・子どもなど。収入103万円以下。</small>
+        </label>
+      </div>
+      <label class="hub-field">
+        <span>住民税の自治体差</span>
+        <select id="region">
+          <option value="standard" selected>標準（所得割10%・均等割5,000円）</option>
+          <option value="tokyo">東京23区（均等割5,000円）</option>
+          <option value="high">独自課税の自治体（+1,000円）</option>
+        </select>
+      </label>
+      <div class="hub-actions">
+        <button class="hub-btn" id="reset" type="button">初期値に戻す</button>
+        <a class="hub-btn is-ghost" href="/software/kakutei">確定申告チェック</a>
+      </div>
+      <p class="hub-note" style="margin-top:12px">概算です。健康保険料率は協会けんぽ（令和7年度・一般）を基準にした目安で、組合健保・共済・地域によって変わります。正確な額は勤務先の給与明細や年金事務所で確認してください。</p>
+    </section>
+
+    <aside class="hub-card" aria-labelledby="outTitle">
+      <h2 id="outTitle">手取りの目安</h2>
+      <div class="hub-result" id="netMonthly">¥—</div>
+      <div class="hub-result-sub" id="netYear">年間の手取りを計算しています…</div>
+      <div style="margin-top:14px">
+        <div class="hub-kv"><span>額面の月収（賞与込み平均）</span><b id="grossMonthly">—</b></div>
+        <div class="hub-kv"><span>社会保険料（年）</span><b id="social">—</b></div>
+        <div class="hub-kv"><span>所得税（年）</span><b id="incomeTax">—</b></div>
+        <div class="hub-kv"><span>住民税（年）</span><b id="residentTax">—</b></div>
+        <div class="hub-kv"><span>控除の合計（年）</span><b id="deductions">—</b></div>
+        <div class="hub-kv"><span>手取り率</span><b id="rate">—</b></div>
+      </div>
+      <div class="hub-kv"><span>手取りの月平均</span><b id="netMonthly2">—</b></div>
+      <p class="hub-note" id="tip" style="margin-top:12px"></p>
+    </aside>
+  </div>
+
+  <section class="hub-card" style="margin-top:14px" aria-labelledby="breakTitle">
+    <h2 id="breakTitle">控除の内訳</h2>
+    <table class="hub-table">
+      <thead><tr><th>項目</th><th>年間</th><th>月あたり</th><th>考え方</th></tr></thead>
+      <tbody id="breakdown"></tbody>
+    </table>
+    <p class="hub-note" style="margin-top:10px">社会保険料は健康保険・介護保険・厚生年金・雇用保険の本人負担分の合計です。厚生年金は標準報酬月額の上限（650,000円）を反映しています。</p>
+  </section>
+
+  <section class="hub-card" style="margin-top:14px" aria-labelledby="faqTitle">
+    <h2 id="faqTitle">よくある質問</h2>
+    <div class="hub-faq">
+      <details><summary>なぜ額面と手取りでこんなに差が出るのですか？</summary><p>社会保険料と税金でおおむね15〜25%が引かれます。年収が上がるほど所得税率と住民税が増えるため、手取り率は少しずつ下がります。</p></details>
+      <details><summary>賞与がある場合は？</summary><p>この計算は賞与を含めた年収を12で割った平均値です。賞与月だけは社会保険料と所得税（賞与の税率）が別計算になるため、月ごとの金額は多少ずれます。</p></details>
+      <details><summary>扶養を増やすと手取りは増えますか？</summary><p>所得税・住民税の控除が増えるため、手取りは増えます。ただし社会保険の扶養判定（年収106万円・130万円の壁）は別のルールです。</p></details>
+      <details><summary>住民税はいつから引かれますか？</summary><p>前年の所得に対して翌年6月から翌々年5月まで引かれます。新社会人の1年目は住民税が引かれないため、手取りが多く見えます。</p></details>
+    </div>
+  </section>
+
+  <div class="hub-ad" aria-label="広告">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5443646750699471" data-ad-slot="8451723433" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <p class="hub-note">関連: <a href="/software/furusato">ふるさと納税の限度額</a> · <a href="/software/kakutei">確定申告チェックリスト</a> · <a href="/software/seikyusho">請求書メーカー</a></p>
+</main>
+
+<script>
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var yen = function (n) {
+    if (!isFinite(n)) n = 0;
+    return '¥' + Math.round(n).toLocaleString('ja-JP');
+  };
+
+  /* 給与所得控除（令和2年以降） */
+  function salaryDeduction(income) {
+    if (income <= 1625000) return 550000;
+    if (income <= 1800000) return Math.max(550000, income * 0.4 - 100000);
+    if (income <= 3600000) return income * 0.3 + 80000;
+    if (income <= 6600000) return income * 0.2 + 440000;
+    if (income <= 8500000) return income * 0.1 + 1100000;
+    return 1950000;
+  }
+
+  /* 所得税の速算表 */
+  var BRACKETS = [
+    [1950000, 0.05, 0], [3300000, 0.10, 97500], [6950000, 0.20, 427500],
+    [9000000, 0.23, 636000], [18000000, 0.33, 1536000],
+    [40000000, 0.40, 2796000], [Infinity, 0.45, 4796000]
+  ];
+  function incomeTax(taxable) {
+    if (taxable <= 0) return 0;
+    for (var i = 0; i < BRACKETS.length; i++) {
+      if (taxable <= BRACKETS[i][0]) {
+        return (taxable * BRACKETS[i][1] - BRACKETS[i][2]) * 1.021;
+      }
+    }
+    return 0;
+  }
+  function marginalRate(taxable) {
+    for (var i = 0; i < BRACKETS.length; i++) if (taxable <= BRACKETS[i][0]) return BRACKETS[i][1];
+    return 0.45;
+  }
+
+  function calculate() {
+    var income = Math.max(0, Number($('income').value || 0) * 10000);
+    var age = $('age').value;
+    var deps = Number($('dependents').value || 0);
+    var region = $('region').value;
+
+    var healthBase = Math.min(income, 1390000 * 12);
+    var pensionBase = Math.min(income, 650000 * 12);
+    var health = healthBase * 0.04955;
+    var care = age === 'over40' ? healthBase * 0.00795 : 0;
+    var pension = pensionBase * 0.0915;
+    var employment = income * 0.0055;
+    var social = health + care + pension + employment;
+
+    var salaryDed = salaryDeduction(income);
+    var basic = 480000;
+    var dependentDed = deps * 380000;
+    var taxable = Math.max(0, income - salaryDed - social - basic - dependentDed);
+    var tax = incomeTax(taxable);
+    var residentRate = region === 'high' ? 0.11 : 0.10;
+    var perCapita = region === 'high' ? 6000 : 5000;
+    var resident = taxable > 0 ? Math.max(0, taxable * residentRate - 2500 + perCapita) : 0;
+    var totalDeductions = social + tax + resident;
+    var net = Math.max(0, income - totalDeductions);
+    var rate = income > 0 ? (net / income) * 100 : 0;
+
+    $('netMonthly').textContent = yen(net / 12);
+    $('netYear').textContent = '年間 ' + yen(net) + ' · 額面 ' + yen(income);
+    $('grossMonthly').textContent = yen(income / 12);
+    $('social').textContent = yen(social);
+    $('incomeTax').textContent = yen(tax);
+    $('residentTax').textContent = yen(resident);
+    $('deductions').textContent = yen(totalDeductions);
+    $('rate').textContent = rate.toFixed(1) + '%';
+    $('netMonthly2').textContent = yen(net / 12);
+
+    var rows = [
+      ['健康保険料', health, '本人負担 4.955%（協会けんぽ・一般の目安）'],
+      ['介護保険料', care, age === 'over40' ? '40〜64歳・本人負担 0.795%' : '40歳未満は0円'],
+      ['厚生年金', pension, '本人負担 9.15%（上限 月650,000円）'],
+      ['雇用保険', employment, '本人負担 0.55%'],
+      ['所得税', tax, '課税所得 ' + yen(taxable) + ' × ' + (marginalRate(taxable) * 100).toFixed(0) + '% − 速算控除（復興税込み）'],
+      ['住民税', resident, '所得割 ' + (residentRate * 100).toFixed(0) + '% ＋ 均等割 ' + yen(perCapita) + ' − 調整控除'],
+      ['手取り', net, '額面 − 社会保険料 − 税金']
+    ];
+    $('breakdown').innerHTML = rows.map(function (r) {
+      return '<tr><td>' + r[0] + '</td><td><b>' + yen(r[1]) + '</b></td><td>' + yen(r[1] / 12) + '</td><td style="color:var(--dih-text-muted)">' + r[2] + '</td></tr>';
+    }).join('');
+
+    var tip = '';
+    if (income <= 0) tip = '年収を入れると手取りが出ます。';
+    else if (rate < 75) tip = '控除が多い年収帯です。iDeCoやふるさと納税で税金を調整すると手取りが増えます。';
+    else if (deps > 0) tip = '扶養' + deps + '人を控除しています。社会保険の扶養判定は年収106万円・130万円も確認してください。';
+    else tip = '社会保険料が最大の控除です。年収が上がると所得税率が段階的に上がります。';
+    $('tip').textContent = tip;
+
+    try { localStorage.setItem('dih_tedori', JSON.stringify({ income: income, age: age, deps: deps, region: region })); } catch (e) {}
+  }
+
+  try {
+    var saved = JSON.parse(localStorage.getItem('dih_tedori') || 'null');
+    if (saved && saved.income) {
+      $('income').value = saved.income / 10000;
+      $('age').value = saved.age || 'over40';
+      $('dependents').value = String(saved.deps || 0);
+      $('region').value = saved.region || 'standard';
+    }
+  } catch (e) {}
+
+  ['income', 'age', 'dependents', 'region'].forEach(function (id) {
+    $(id).addEventListener('input', calculate);
+    $(id).addEventListener('change', calculate);
+  });
+  $('reset').addEventListener('click', function () {
+    $('income').value = 500;
+    $('age').value = 'over40';
+    $('dependents').value = '1';
+    $('region').value = 'standard';
+    calculate();
+  });
+  calculate();
+})();
+</script>
+<!-- DIH:GALLERY -->
+<section class="dih-gallery" aria-labelledby="dihGalleryTitle">
+  <div class="dih-gallery-head">
+    <div>
+      <span class="dih-gallery-eyebrow">Visual briefing</span>
+      <h2 id="dihGalleryTitle">Technology, in focus</h2>
+      <p>Fast context on the ideas shaping the industry, with a guide for every one.</p>
+    </div>
+    <a class="dih-gallery-all" href="/techtopics">All 35 tech guides <span aria-hidden="true">&rarr;</span></a>
+  </div>
+  <div class="dih-gallery-grid">
+      <a class="dih-gallery-card" href="/opensource">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1643409329501-f17776d3823a?w=640&amp;h=400&amp;fit=crop&amp;auto=format&amp;q=70" alt="Laptop computer sitting on a wooden desk" width="640" height="400" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Open source</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Standing on shared foundations</strong>
+          <span>Open source is a licence and a community, not a business model. Maintenance, security and funding are the parts that decide whether it lasts.</span>
+          <em>Read the open source guide &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/techproducts">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=640&amp;h=400&amp;fit=crop&amp;auto=format&amp;q=70" alt="Slim laptop on a desk lit with cool blue light" width="640" height="400" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Hardware</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>The laptop still runs the world</strong>
+          <span>Desktops and laptops remain where deep work happens. Battery efficiency, memory and how well the machine handles AI-assisted software decide the purchase.</span>
+          <em>Tech buying guides &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/software">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1483058712412-4245e9b90334?w=640&amp;h=400&amp;fit=crop&amp;auto=format&amp;q=70" alt="Mac computer on a desk with the words Do More on screen" width="640" height="400" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Software</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Tools for deep work</strong>
+          <span>The best productivity tools disappear into a routine. Pick a small set, learn their shortcuts and stop rebuilding your system every month.</span>
+          <em>Browse free tools &rarr;</em>
+        </span>
+      </a>
+  </div>
+  <p class="dih-gallery-credit">Photography by Unsplash contributors. Cards link to related Digital Infohub guides.</p>
+</section>
+<!-- /DIH:GALLERY -->
+<!-- DIH:EXPLORE -->
+<section class="dih-explore" aria-labelledby="dihExploreTitle">
+  <div class="dih-explore-head">
+    <h2 id="dihExploreTitle">More from the software suite</h2>
+    <p>Every tool in the suite is free and runs in your browser.</p>
+  </div>
+  <div class="dih-explore-grid">
+      <a class="dih-explore-card" href="/software">
+        <span class="dih-explore-icon" aria-hidden="true">🛠️</span>
+        <strong>Software &amp; tools</strong>
+        <span>Free AI assistants and browser utilities that run locally.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/blog">
+        <span class="dih-explore-icon" aria-hidden="true">📝</span>
+        <strong>Blog &amp; analysis</strong>
+        <span>Deep dives on AI, hardware, markets and digital culture.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/techtopics">
+        <span class="dih-explore-icon" aria-hidden="true">🔬</span>
+        <strong>Tech Topics</strong>
+        <span>Clear guides to the technology shaping business.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/games">
+        <span class="dih-explore-icon" aria-hidden="true">🎮</span>
+        <strong>Pixel Palace</strong>
+        <span>Free arcade games, playable on desktop and mobile.</span>
+        <em>Explore →</em>
+      </a>
+  </div>
+</section>
+<!-- /DIH:EXPLORE -->
+<!-- DIH:FOOTER -->
+<footer class="dih-footer">
+  <div class="dih-footer-inner">
+    <div class="dih-footer-brand">
+      <a class="dih-brand" href="/" aria-label="Digital Infohub home">
+        <img src="/assets/logo.png" alt="Digital Infohub logo" width="40" height="40">
+        <span class="dih-brand-text">Digital <b>Infohub</b></span>
+      </a>
+      <p>The independent tech hub for everyone: AI research, market moves, practical guides, free tools and Digi, your AI guide.</p>
+      <span class="dih-pill"><span class="dih-dot"></span> Updated daily</span>
+    </div>
+    <div class="dih-footer-col">
+      <h3>Explore</h3>
+      <a href="/blog">Blog &amp; analysis</a>
+      <a href="/techtopics">Tech Topics</a>
+      <a href="/software">Software &amp; tools</a>
+      <a href="/terminal">Terminal mode</a>
+      <a href="/techproducts">Tech Products</a>
+      <a href="/games">Pixel Palace</a>
+      <a href="/digi">Digi AI guide</a>
+      <a href="/news">Live tech news</a>
+      <a href="/quiz">Tech quiz</a>
+    </div>
+    <div class="dih-footer-col">
+      <h3>Company</h3>
+      <a href="/about">About</a>
+      <a href="/services">Services</a>
+      <a href="/advertise">Advertise</a>
+      <a href="/coincompass">CoinCompass</a>
+      <a href="/privacy-policy">Privacy</a>
+    </div>
+    <div class="dih-footer-col dih-footer-cta">
+      <h3>Stay ahead</h3>
+      <p>One email a week: the AI, market and software stories that actually matter.</p>
+      <a class="dih-btn dih-btn-primary" href="/subscribe">Subscribe free</a>
+    </div>
+  </div>
+  <div class="dih-footer-bottom">
+    <span>© 2026 Digital Infohub · Independent technology publication</span>
+    <nav aria-label="Footer links">
+      <a href="/blog">Blog</a>
+      <a href="/techtopics">Guides</a>
+      <a href="/software">Tools</a>
+      <a href="/contact">Contact</a>
+      <a href="/terminal">Terminal</a>
+      <a href="/sitemap.xml">Sitemap</a>
+    </nav>
+  </div>
+</footer>
+<!-- /DIH:FOOTER -->
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

@@ -123,7 +123,7 @@
         '<div class="pulse-right"><div class="pulse-price">' + esc(fmtPrice(it)) + '</div>' +
         '<div class="pulse-chg ' + (up ? 'up' : 'down') + '">' + (up ? '▲' : '▼') + ' ' + Math.abs(it.pct).toFixed(2) + '%</div></div></a>';
     });
-    cards.push('<a class="pulse-card pulse-card--wide" href="/techtopics"><div class="pulse-left"><div class="pulse-sym">DEEP DIVES</div><div class="pulse-name">35 plain-language guides</div></div><div class="pulse-right"><div class="pulse-price">AI →</div><div class="pulse-chg up">Explore</div></div></a>');
+    cards.push('<a class="pulse-card pulse-card--wide" href="/techtopics"><div class="pulse-left"><div class="pulse-sym">DEEP DIVES</div><div class="pulse-name">35 clear guides</div></div><div class="pulse-right"><div class="pulse-price">AI →</div><div class="pulse-chg up">Explore</div></div></a>');
     grid.innerHTML = cards.join('');
   }
 
@@ -144,7 +144,7 @@
           grid.innerHTML =
             '<a class="pulse-card" href="/coincompass"><div class="pulse-left"><div class="pulse-sym">MARKETS</div><div class="pulse-name">Live quotes in CoinCompass</div></div><div class="pulse-right"><div class="pulse-price">→</div></div></a>' +
             '<a class="pulse-card" href="/post/tech-market-sell-off-october-2026"><div class="pulse-left"><div class="pulse-sym">ANALYSIS</div><div class="pulse-name">What the sell-off means</div></div><div class="pulse-right"><div class="pulse-price">→</div></div></a>' +
-            '<a class="pulse-card pulse-card--wide" href="/techtopics"><div class="pulse-left"><div class="pulse-sym">DEEP DIVES</div><div class="pulse-name">35 plain-language guides</div></div><div class="pulse-right"><div class="pulse-price">AI →</div></div></a>';
+            '<a class="pulse-card pulse-card--wide" href="/techtopics"><div class="pulse-left"><div class="pulse-sym">DEEP DIVES</div><div class="pulse-name">35 clear guides</div></div><div class="pulse-right"><div class="pulse-price">AI →</div></div></a>';
         }
         return;
       }
@@ -194,6 +194,8 @@
 
   /* ---------------------------------------------------- hero, per visit */
   function rotateHero() {
+    /* The homepage types its own headline now; never overwrite it. */
+    if (document.querySelector('[data-typed-headline]')) return;
     var l1 = document.getElementById('heroLine1');
     var l2 = document.getElementById('heroLine2');
     var sub = document.getElementById('heroSubText');
@@ -202,12 +204,12 @@
     var variants = [
       { a: 'Tech is easier', b: "when it's simple.", k: 'Tech made simple · for everyone',
         s: 'Clear guides, free tools and live prices — plus <b>Digi</b>, the AI guide that answers anything.' },
-      { a: 'Big tech ideas.', b: 'Plain English.', k: 'Guides · tools · live prices',
+      { a: 'Big tech ideas.', b: 'Clear English.', k: 'Guides · tools · live prices',
         s: 'AI, chips, money and everyday gadgets, explained without the jargon.' },
       { a: 'Everything tech.', b: 'Nothing confusing.', k: 'Free · no signup',
         s: 'Read a guide, use a free tool or ask <b>Digi</b>. Free, fast and built for everyone.' },
       { a: 'Curious about tech?', b: 'Start here.', k: '35 guides · 30+ tools',
-        s: 'Thirty-five plain-language guides, thirty-plus free tools and live prices. Pick a path and go.' },
+        s: 'Thirty-five clear guides, thirty-plus free tools and live prices. Pick a path and go.' },
       { a: 'Tech, without', b: 'the jargon.', k: 'For curious humans',
         s: 'Short guides and browser tools for real life, plus <b>Digi</b> when you want a straight answer.' },
       { a: 'Learn tech.', b: 'Use it better.', k: 'Practical · independent',

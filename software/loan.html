@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-dih="">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Loan &amp; Mortgage Calculator — Monthly Payment &amp; Schedule</title>
+<meta name="description" content="Work out the monthly payment on a loan or mortgage, see total interest, and compare the effect of extra payments with a full amortisation schedule and CSV export.">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/assets/hub.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Loan & Mortgage Calculator — Digital Infohub","applicationCategory":"FinanceApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"inLanguage":"en","description":"Monthly payment, total interest and amortisation schedule with extra payment comparison.","url":"https://digitalinfohub.net/software/loan"}
+</script>
+<!-- DIH:HEAD -->
+<script>try{var t=localStorage.getItem('dih_theme')||'dark';document.documentElement.setAttribute('data-theme',t);document.documentElement.setAttribute('data-dih','');}catch(e){document.documentElement.setAttribute('data-dih','');}</script>
+<meta name="theme-color" content="#07070c">
+<meta name="color-scheme" content="dark light">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="author" content="Digital Infohub">
+<meta name="keywords" content="loan calculator, mortgage calculator, monthly payment, amortization schedule, extra payment, interest calculator">
+<link rel="canonical" href="https://digitalinfohub.net/software/loan">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Digital Infohub">
+<meta property="og:title" content="Loan &amp; Mortgage Calculator — Monthly Payment &amp; Schedule">
+<meta property="og:description" content="Work out the monthly payment on a loan or mortgage, see total interest, and compare the effect of extra payments with a full amortisation schedule and CSV export.">
+<meta property="og:url" content="https://digitalinfohub.net/software/loan">
+<meta property="og:image" content="https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta property="og:image:secure_url" content="https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Glowing blue network lines and nodes forming a mesh">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Loan &amp; Mortgage Calculator — Monthly Payment &amp; Schedule">
+<meta name="twitter:description" content="Work out the monthly payment on a loan or mortgage, see total interest, and compare the effect of extra payments with a full amortisation schedule and CSV export.">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta name="twitter:image:alt" content="Glowing blue network lines and nodes forming a mesh">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="icon" href="/assets/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://digitalinfohub.net/#organization","name":"Digital Infohub","url":"https://digitalinfohub.net/","logo":{"@type":"ImageObject","url":"https://digitalinfohub.net/assets/icon-512.png","width":512,"height":512},"description":"Independent technology publication for everyone: clear guides, free browser tools and live market context.","sameAs":[]},{"@type":"WebSite","@id":"https://digitalinfohub.net/#website","url":"https://digitalinfohub.net/","name":"Digital Infohub","publisher":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://digitalinfohub.net/blog?q={search_term_string}"},"query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://digitalinfohub.net/software/loan#webpage","url":"https://digitalinfohub.net/software/loan","name":"Loan & Mortgage Calculator — Monthly Payment & Schedule","description":"Work out the monthly payment on a loan or mortgage, see total interest, and compare the effect of extra payments with a full amortisation schedule and CSV export.","isPartOf":{"@id":"https://digitalinfohub.net/#website"},"about":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","primaryImageOfPage":{"@type":"ImageObject","url":"https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&h=630&fit=crop&auto=format&q=80&fm=jpg","width":1200,"height":630}}]}</script>
+<!-- /DIH:HEAD -->
+</head>
+<body>
+<!-- DIH:AMBIENT -->
+<div class="dih-ambient" aria-hidden="true" style="--dih-ambient:url('https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&amp;h=675&amp;fit=crop&amp;auto=format&amp;q=40')"></div>
+<!-- /DIH:AMBIENT -->
+<!-- DIH:HEADER -->
+<header class="dih-header">
+  <div class="dih-header-inner">
+    <a class="dih-brand" href="/" aria-label="Digital Infohub home">
+      <img src="/assets/logo.png" alt="Digital Infohub logo" width="36" height="36">
+      <span class="dih-brand-text">Digital <b>Infohub</b></span>
+    </a>
+    <nav class="dih-nav" data-dih-nav aria-label="Primary navigation">
+      <a class="dih-link" href="/">Home</a>
+      <a class="dih-link" href="/digi">Digi</a>
+      <a class="dih-link" href="/blog">Blog</a>
+      <a class="dih-link" href="/techtopics">Tech Topics</a>
+      <a class="dih-link" href="/software">Software</a>
+      <a class="dih-link" href="/techproducts">Tech Products</a>
+      <a class="dih-link" href="/games">Games</a>
+      <a class="dih-link" href="/coincompass">Markets</a>
+    </nav>
+    <div class="dih-actions">
+      <a class="dih-tools" href="/software#tools" title="Free browser tools" aria-label="Free browser tools">⚡<span>Tools</span></a>
+      <a class="dih-icon dih-term" href="/terminal" title="Terminal mode — browse like a shell" aria-label="Open terminal mode">⌨<span class="dih-term-txt">Terminal</span></a>
+      <button class="dih-icon dih-sound" type="button" data-dih-sound aria-label="Sound on — tap to mute" aria-pressed="true" title="Sound on — tap to mute (Shift+S)">🔊</button>
+      <button class="dih-icon dih-share" type="button" data-dih-share aria-label="Share this page" title="Share this page">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M12 3v13"/><path d="m7 8 5-5 5 5"/></svg>
+      </button>
+      <button class="dih-icon" type="button" data-dih-theme aria-label="Switch theme" title="Switch theme">☀</button>
+      <a class="dih-cta" href="/subscribe">Subscribe</a>
+      <button class="dih-burger" id="dihBurger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="dihDrawer"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+<div class="dih-drawer" id="dihDrawer" aria-label="Site menu">
+  <div class="dih-drawer-panel">
+    <div class="dih-drawer-grid">
+      <a class="dih-drawer-link" href="/">Home</a>
+      <a class="dih-drawer-link" href="/digi">Digi</a>
+      <a class="dih-drawer-link" href="/blog">Blog</a>
+      <a class="dih-drawer-link" href="/techtopics">Tech Topics</a>
+      <a class="dih-drawer-link" href="/software">Software</a>
+      <a class="dih-drawer-link" href="/techproducts">Tech Products</a>
+      <a class="dih-drawer-link" href="/games">Games</a>
+      <a class="dih-drawer-link" href="/coincompass">Markets</a>
+    </div>
+    <div class="dih-drawer-sub">
+      <a class="dih-drawer-link" href="/news">📰 Tech News</a>
+      <a class="dih-drawer-link" href="/quiz">🎯 Tech Quiz</a>
+      <a class="dih-drawer-link" href="/software#tools">⚡ Tools</a>
+      <a class="dih-drawer-link" href="/services">🧰 Services</a>
+      <a class="dih-drawer-link" href="/terminal">⌨️ Terminal mode</a>
+      <a class="dih-drawer-link" href="/terminal#top">📊 Most opened pages</a>
+      <a class="dih-drawer-link" href="/contact">✉️ Contact</a>
+    </div>
+    <a class="dih-drawer-cta" href="/subscribe">✉️ Subscribe — weekly tech intel</a>
+    <p class="dih-drawer-note">Digital Infohub · Tech for everyone, with a guide for every question.</p>
+  </div>
+</div>
+<!-- /DIH:HEADER -->
+
+<main class="hub-app">
+  <header class="hub-app-head">
+    <span class="dih-eyebrow">Money · Planning</span>
+    <h1>Loan calculator</h1>
+    <p>What a loan actually costs: the monthly payment, the interest you hand over, and how much an extra payment each month saves. Full schedule, CSV export, no signup.</p>
+  </header>
+
+  <div class="hub-grid">
+    <section class="hub-card" aria-labelledby="inTitle">
+      <h2 id="inTitle">The loan</h2>
+      <div class="hub-row">
+        <label class="hub-field"><span>Amount borrowed</span><input id="amount" type="number" min="0" step="1000" value="250000"></label>
+        <label class="hub-field"><span>Currency</span>
+          <select id="currency"><option value="USD">USD $</option><option value="EUR">EUR €</option><option value="GBP">GBP £</option><option value="JPY">JPY ¥</option><option value="AUD">AUD $</option><option value="CAD">CAD $</option></select>
+        </label>
+      </div>
+      <div class="hub-row">
+        <label class="hub-field"><span>Annual interest rate (%)</span><input id="rate" type="number" min="0" max="40" step="0.05" value="5.5"></label>
+        <label class="hub-field"><span>Term (years)</span><input id="years" type="number" min="1" max="40" step="1" value="25"></label>
+      </div>
+      <div class="hub-row">
+        <label class="hub-field"><span>Extra payment each month</span><input id="extra" type="number" min="0" step="10" value="0"><small>Everything extra goes straight to the principal.</small></label>
+        <label class="hub-field"><span>First payment</span><input id="start" type="month"></label>
+      </div>
+      <div class="hub-actions">
+        <button class="hub-btn" id="csv" type="button">Download schedule (CSV)</button>
+        <a class="hub-btn is-ghost" href="/software/save-money-assistant">Savings planner</a>
+      </div>
+      <p class="hub-note" style="margin-top:10px">Assumes a fixed rate and monthly payments. Variable rates, fees and early-repayment penalties are not included.</p>
+    </section>
+
+    <aside class="hub-card" aria-labelledby="outTitle">
+      <h2 id="outTitle">The numbers</h2>
+      <div class="hub-result" id="monthly">—</div>
+      <div class="hub-result-sub" id="monthlySub">monthly payment</div>
+      <div style="margin-top:14px">
+        <div class="hub-kv"><span>Total interest</span><b id="interest">—</b></div>
+        <div class="hub-kv"><span>Total repaid</span><b id="repaid">—</b></div>
+        <div class="hub-kv"><span>Interest as % of loan</span><b id="interestPct">—</b></div>
+        <div class="hub-kv"><span>Payoff date</span><b id="payoff">—</b></div>
+        <div class="hub-kv"><span>Interest saved by extra</span><b id="saved">—</b></div>
+        <div class="hub-kv"><span>Months saved</span><b id="monthsSaved">—</b></div>
+      </div>
+      <p class="hub-note" id="tip" style="margin-top:10px"></p>
+    </aside>
+  </div>
+
+  <section class="hub-card" style="margin-top:14px" aria-labelledby="schedTitle">
+    <h2 id="schedTitle">Amortisation schedule</h2>
+    <div style="overflow-x:auto">
+      <table class="hub-table">
+        <thead><tr><th>#</th><th>Payment date</th><th>Payment</th><th>Principal</th><th>Interest</th><th>Balance</th></tr></thead>
+        <tbody id="schedule"></tbody>
+      </table>
+    </div>
+    <p class="hub-note" id="schedNote" style="margin-top:8px"></p>
+  </section>
+
+  <section class="hub-card" style="margin-top:14px" aria-labelledby="faqTitle">
+    <h2 id="faqTitle">Questions people ask</h2>
+    <div class="hub-faq">
+      <details><summary>Does an extra payment really help that much?</summary><p>Yes, because interest is charged on the remaining balance. On a long loan, paying a little extra every month can cut years off the term and thousands in interest. Watch the “interest saved” figure change as you move the slider.</p></details>
+      <details><summary>Why is early repayment mostly interest?</summary><p>Interest is calculated on the balance, which is largest at the start. As the balance falls, more of each payment goes to principal — that is why the interest line shrinks over time.</p></details>
+      <details><summary>What about a variable rate?</summary><p>Run the calculation at two or three rates to see the range. A 1% change on a large, long loan is usually a meaningful monthly difference, so budget for the higher figure.</p></details>
+      <details><summary>Is this financial advice?</summary><p>No. It is an arithmetic tool. Lenders add fees, insurance and their own rounding; use their key facts document for the binding numbers.</p></details>
+    </div>
+  </section>
+
+  <div class="hub-ad" aria-label="Advertisement">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5443646750699471" data-ad-slot="8451723433" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <p class="hub-note">Related: <a href="/software/invoice">Invoice generator</a> · <a href="/software/timezone">Meeting planner</a> · <a href="/coincompass">Markets</a></p>
+</main>
+
+<script>
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var KEY = 'dih_loan';
+  var SYM = { USD: '$', EUR: '€', GBP: '£', JPY: '¥', AUD: 'A$', CAD: 'C$' };
+  var lastRows = [];
+
+  function money(n) {
+    var cur = $('currency').value;
+    var d = cur === 'JPY' ? 0 : 2;
+    return (SYM[cur] || '$') + Number(n || 0).toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
+  }
+
+  function monthLabel(offset) {
+    var start = $('start').value ? new Date($('start').value + '-01T00:00:00') : new Date();
+    var d = new Date(start.getFullYear(), start.getMonth() + offset, 1);
+    return d.toLocaleDateString('en-GB', { month: 'short', year: 'numeric' });
+  }
+
+  function simulate(principal, monthlyRate, months, extra) {
+    var rows = [], balance = principal, totalInterest = 0, i = 0;
+    var payment = monthlyRate > 0
+      ? principal * monthlyRate / (1 - Math.pow(1 + monthlyRate, -months))
+      : principal / months;
+    while (balance > 0.005 && i < 1200) {
+      var interest = balance * monthlyRate;
+      var pay = payment + extra;
+      var principalPart = pay - interest;
+      if (principalPart <= 0) { rows.push(null); break; }
+      if (principalPart > balance) { principalPart = balance; pay = principalPart + interest; }
+      balance -= principalPart;
+      totalInterest += interest;
+      rows.push({ n: i + 1, date: monthLabel(i), payment: pay, principal: principalPart, interest: interest, balance: Math.max(0, balance) });
+      i++;
+    }
+    return { rows: rows, payment: payment, totalInterest: totalInterest, months: rows.length };
+  }
+
+  function render() {
+    var amount = Math.max(0, Number($('amount').value || 0));
+    var annual = Math.max(0, Number($('rate').value || 0)) / 100;
+    var years = Math.max(1, Number($('years').value || 1));
+    var extra = Math.max(0, Number($('extra').value || 0));
+    var months = Math.round(years * 12);
+    var monthlyRate = annual / 12;
+
+    var base = simulate(amount, monthlyRate, months, 0);
+    var withExtra = simulate(amount, monthlyRate, months, extra);
+
+    $('monthly').textContent = money(withExtra.payment + extra);
+    $('monthlySub').textContent = extra > 0
+      ? 'per month including ' + money(extra) + ' extra'
+      : 'per month for ' + months + ' months';
+    $('interest').textContent = money(withExtra.totalInterest);
+    $('repaid').textContent = money(amount + withExtra.totalInterest);
+    $('interestPct').textContent = amount > 0 ? ((withExtra.totalInterest / amount) * 100).toFixed(1) + '%' : '—';
+    $('payoff').textContent = withExtra.rows.length ? withExtra.rows[withExtra.rows.length - 1].date : '—';
+    $('saved').textContent = money(Math.max(0, base.totalInterest - withExtra.totalInterest));
+    $('monthsSaved').textContent = Math.max(0, base.months - withExtra.months) + ' months';
+
+    var tip = '';
+    if (annual === 0) tip = 'A 0% loan: the payment is just the amount divided by the months.';
+    else if (years >= 25) tip = 'Long terms lower the payment but raise total interest. Compare a 20-year run at the same rate.';
+    else if (extra > 0) tip = 'Extra payments hit the principal, so they save interest from the next payment onward.';
+    else tip = 'Try adding a small extra payment — the saved interest is often surprising.';
+    $('tip').textContent = tip;
+
+    lastRows = withExtra.rows;
+    var show = lastRows.slice(0, 24);
+    $('schedule').innerHTML = show.map(function (r) {
+      return '<tr><td>' + r.n + '</td><td>' + r.date + '</td><td>' + money(r.payment) + '</td><td>' + money(r.principal) + '</td><td>' + money(r.interest) + '</td><td>' + money(r.balance) + '</td></tr>';
+    }).join('');
+    $('schedNote').textContent = lastRows.length > 24
+      ? 'Showing the first 24 of ' + lastRows.length + ' payments. Download the CSV for the full schedule.'
+      : 'All ' + lastRows.length + ' payments shown.';
+
+    try {
+      localStorage.setItem(KEY, JSON.stringify({
+        amount: $('amount').value, rate: $('rate').value, years: $('years').value,
+        extra: $('extra').value, currency: $('currency').value, start: $('start').value
+      }));
+    } catch (e) {}
+  }
+
+  $('csv').addEventListener('click', function () {
+    var cur = $('currency').value;
+    var lines = ['#,Payment date,Payment,Principal,Interest,Balance (' + cur + ')'];
+    lastRows.forEach(function (r) {
+      lines.push([r.n, r.date, r.payment.toFixed(2), r.principal.toFixed(2), r.interest.toFixed(2), r.balance.toFixed(2)].join(','));
+    });
+    var blob = new Blob([lines.join('\n')], { type: 'text/csv' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'loan-schedule.csv';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 1200);
+    if (window.dihToast) window.dihToast('Schedule downloaded as CSV.');
+  });
+
+  ['amount', 'rate', 'years', 'extra', 'currency', 'start'].forEach(function (id) {
+    $(id).addEventListener('input', render);
+    $(id).addEventListener('change', render);
+  });
+
+  var now = new Date();
+  $('start').value = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0');
+  try {
+    var saved = JSON.parse(localStorage.getItem(KEY) || 'null');
+    if (saved) {
+      ['amount', 'rate', 'years', 'extra', 'currency', 'start'].forEach(function (id) {
+        if (saved[id] !== undefined && saved[id] !== '') $(id).value = saved[id];
+      });
+    }
+  } catch (e) {}
+  render();
+})();
+</script>
+<!-- DIH:GALLERY -->
+<section class="dih-gallery" aria-labelledby="dihGalleryTitle">
+  <div class="dih-gallery-head">
+    <div>
+      <span class="dih-gallery-eyebrow">Visual briefing</span>
+      <h2 id="dihGalleryTitle">Technology, in focus</h2>
+      <p>Fast context on the ideas shaping the industry, with a guide for every one.</p>
+    </div>
+    <a class="dih-gallery-all" href="/techtopics">All 35 tech guides <span aria-hidden="true">&rarr;</span></a>
+  </div>
+  <div class="dih-gallery-grid">
+      <a class="dih-gallery-card" href="/software/travel-planner">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?w=640&amp;h=400&amp;fit=crop&amp;auto=format&amp;q=70" alt="World map in blue, green and yellow" width="640" height="400" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Travel</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Plan the route, not just the destination</strong>
+          <span>A travel plan is a list of decisions: when, where, how long and what you will skip.</span>
+          <em>Open the travel planner &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/software/webp-to-png">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1744948961024-66baaafbb5dc?w=640&amp;h=400&amp;fit=crop&amp;auto=format&amp;q=70" alt="Photo editing software open on a laptop screen" width="640" height="400" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Images</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Convert without uploading</strong>
+          <span>Image conversion should not require an account or a server. Keep the file on your device.</span>
+          <em>Open the image converter &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/post/newest-iphone-2026">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=640&amp;h=400&amp;fit=crop&amp;auto=format&amp;q=70" alt="Smartphone showing a colourful app interface beside a laptop" width="640" height="400" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Phones</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>The phone is the default computer</strong>
+          <span>Most people meet the internet on a phone first. Speed, clarity and thumb-sized controls are not optional.</span>
+          <em>Read the iPhone guide &rarr;</em>
+        </span>
+      </a>
+  </div>
+  <p class="dih-gallery-credit">Photography by Unsplash contributors. Cards link to related Digital Infohub guides.</p>
+</section>
+<!-- /DIH:GALLERY -->
+<!-- DIH:EXPLORE -->
+<section class="dih-explore" aria-labelledby="dihExploreTitle">
+  <div class="dih-explore-head">
+    <h2 id="dihExploreTitle">More from the software suite</h2>
+    <p>Every tool in the suite is free and runs in your browser.</p>
+  </div>
+  <div class="dih-explore-grid">
+      <a class="dih-explore-card" href="/software">
+        <span class="dih-explore-icon" aria-hidden="true">🛠️</span>
+        <strong>Software &amp; tools</strong>
+        <span>Free AI assistants and browser utilities that run locally.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/blog">
+        <span class="dih-explore-icon" aria-hidden="true">📝</span>
+        <strong>Blog &amp; analysis</strong>
+        <span>Deep dives on AI, hardware, markets and digital culture.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/techtopics">
+        <span class="dih-explore-icon" aria-hidden="true">🔬</span>
+        <strong>Tech Topics</strong>
+        <span>Clear guides to the technology shaping business.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/games">
+        <span class="dih-explore-icon" aria-hidden="true">🎮</span>
+        <strong>Pixel Palace</strong>
+        <span>Free arcade games, playable on desktop and mobile.</span>
+        <em>Explore →</em>
+      </a>
+  </div>
+</section>
+<!-- /DIH:EXPLORE -->
+<!-- DIH:FOOTER -->
+<footer class="dih-footer">
+  <div class="dih-footer-inner">
+    <div class="dih-footer-brand">
+      <a class="dih-brand" href="/" aria-label="Digital Infohub home">
+        <img src="/assets/logo.png" alt="Digital Infohub logo" width="40" height="40">
+        <span class="dih-brand-text">Digital <b>Infohub</b></span>
+      </a>
+      <p>The independent tech hub for everyone: AI research, market moves, practical guides, free tools and Digi, your AI guide.</p>
+      <span class="dih-pill"><span class="dih-dot"></span> Updated daily</span>
+    </div>
+    <div class="dih-footer-col">
+      <h3>Explore</h3>
+      <a href="/blog">Blog &amp; analysis</a>
+      <a href="/techtopics">Tech Topics</a>
+      <a href="/software">Software &amp; tools</a>
+      <a href="/terminal">Terminal mode</a>
+      <a href="/techproducts">Tech Products</a>
+      <a href="/games">Pixel Palace</a>
+      <a href="/digi">Digi AI guide</a>
+      <a href="/news">Live tech news</a>
+      <a href="/quiz">Tech quiz</a>
+    </div>
+    <div class="dih-footer-col">
+      <h3>Company</h3>
+      <a href="/about">About</a>
+      <a href="/services">Services</a>
+      <a href="/advertise">Advertise</a>
+      <a href="/coincompass">CoinCompass</a>
+      <a href="/privacy-policy">Privacy</a>
+    </div>
+    <div class="dih-footer-col dih-footer-cta">
+      <h3>Stay ahead</h3>
+      <p>One email a week: the AI, market and software stories that actually matter.</p>
+      <a class="dih-btn dih-btn-primary" href="/subscribe">Subscribe free</a>
+    </div>
+  </div>
+  <div class="dih-footer-bottom">
+    <span>© 2026 Digital Infohub · Independent technology publication</span>
+    <nav aria-label="Footer links">
+      <a href="/blog">Blog</a>
+      <a href="/techtopics">Guides</a>
+      <a href="/software">Tools</a>
+      <a href="/contact">Contact</a>
+      <a href="/terminal">Terminal</a>
+      <a href="/sitemap.xml">Sitemap</a>
+    </nav>
+  </div>
+</footer>
+<!-- /DIH:FOOTER -->
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

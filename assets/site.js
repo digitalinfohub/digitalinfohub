@@ -311,10 +311,14 @@
     }
     el.querySelector('.dih-pulse-close').addEventListener('click', close);
     el.querySelector('.dih-pulse-link').addEventListener('click', function () { store(KEY, Date.now()); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && el.classList.contains('show')) close();
+    });
 
-    var timer = setTimeout(show, 32000);
+    /* Calm by default: one small card, late in the visit, easy to dismiss. */
+    var timer = setTimeout(show, 45000);
     window.addEventListener('scroll', function () {
-      if (window.scrollY > 1400) { clearTimeout(timer); show(); }
+      if (window.scrollY > 2200) { clearTimeout(timer); show(); }
     }, { passive: true });
   }
 
@@ -469,24 +473,33 @@
     var btn = document.querySelector('[data-dih-share]');
     if (!btn) return;
     btn.addEventListener('click', function () {
-      var data = {
+      var payload = {
         title: document.title,
-        text: 'Useful, plain-language tech from Digital Infohub',
+        text: 'Clear, practical tech from Digital Infohub',
         url: location.href
       };
-      if (navigator.share) {
-        navigator.share(data).catch(function () {});
+      /* The share sheet works everywhere, including desktop browsers where
+         navigator.share exists but silently rejects without a target. */
+      if (window.DIH && typeof window.DIH.share === 'function') {
+        window.DIH.share(payload.title, payload.url, payload.text);
         return;
       }
-      var url = location.href;
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(url).then(function () {
-          toast('Link copied — send it to a friend.');
-        }, function () { toast(url); });
-      } else {
-        toast(url);
+      if (navigator.share) {
+        navigator.share(payload).catch(function () { copyLink(payload.url); });
+        return;
       }
+      copyLink(payload.url);
     });
+  }
+
+  function copyLink(url) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(function () {
+        toast('Link copied — send it to a friend.');
+      }, function () { toast(url); });
+    } else {
+      toast(url);
+    }
   }
 
   /* ------------------------------------------------------------- bootstrap */
@@ -504,6 +517,16 @@
 
   /* Keep the page in sync with a theme change made by legacy page scripts. */
   document.querySelectorAll('[data-dih-theme]').forEach(function () {});
+})();
+
+/* The hub layer adds interest logging, sound, the share sheet and the
+   Hub Guide. It is loaded on every page, after the shared chrome. */
+(function () {
+  if (window.__dihHubLoaded) return;
+  var script = document.createElement('script');
+  script.src = '/assets/hub.js';
+  script.defer = true;
+  document.head.appendChild(script);
 })();
 
 /* Digi is deliberately separate from the legacy chrome script. */

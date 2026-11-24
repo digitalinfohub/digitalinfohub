@@ -188,7 +188,7 @@ TOPICS = [
         "sections": [
             {
                 "id": "licences",
-                "h": "Licences, in plain language",
+                "h": "Licences, in clear language",
                 "p": [
                     "Permissive licences such as MIT, Apache 2.0 and BSD let you use the code in commercial and closed products with few conditions, usually attribution and preservation of notices. Apache 2.0 adds an explicit patent grant.",
                     "Copyleft licences such as GPL require that derivative works distributed to others remain under the same licence, which can matter a great deal for a company shipping a proprietary product. Network copyleft licences extend the requirement to software offered as a service.",

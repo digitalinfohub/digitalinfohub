@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-dih="">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Meeting Planner Across Time Zones — Find an Hour That Works</title>
+<meta name="description" content="Compare working hours across cities in one grid, spot the overlap instantly and copy a meeting time that everyone can attend. Daylight saving handled automatically.">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/assets/hub.css">
+<style>
+  .tz-grid{display:grid;gap:4px;overflow-x:auto;padding-bottom:4px}
+  .tz-row{display:grid;grid-template-columns:150px repeat(24,minmax(22px,1fr));gap:3px;align-items:center;min-width:640px}
+  .tz-city{font-size:11px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .tz-cell{height:26px;border-radius:4px;font-family:var(--dih-mono,monospace);font-size:9px;display:flex;align-items:center;justify-content:center;color:var(--dih-text-muted);background:var(--dih-surface-2)}
+  .tz-cell.work{background:rgba(76,141,255,.30);color:#dbe8ff}
+  .tz-cell.edge{background:rgba(76,141,255,.16);color:#cfdcff}
+  .tz-cell.night{background:rgba(255,255,255,.03);color:rgba(255,255,255,.28)}
+  .tz-cell.best{outline:1.5px solid #4c8dff;outline-offset:-1px}
+  .tz-head{font-size:8.5px;color:var(--dih-text-muted);text-align:center;font-family:var(--dih-mono,monospace)}
+  .tz-legend{display:flex;gap:12px;flex-wrap:wrap;font-size:10px;color:var(--dih-text-muted);margin-top:10px}
+  .tz-legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:4px;vertical-align:-1px}
+  .tz-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+  .tz-chip{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;font-size:11px;border:1px solid var(--dih-border-strong);background:var(--dih-surface-2)}
+  .tz-chip button{border:0;background:none;color:var(--dih-text-muted);cursor:pointer;font-size:11px;padding:0}
+  .tz-best{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+  .tz-best button{padding:8px 12px;border-radius:9px;border:1px solid rgba(76,141,255,.4);background:rgba(76,141,255,.1);color:var(--dih-text);font-family:inherit;font-size:11.5px;font-weight:700;cursor:pointer}
+  .tz-best button:hover{background:rgba(76,141,255,.22)}
+  @media(max-width:700px){.tz-row{grid-template-columns:96px repeat(24,minmax(18px,1fr));min-width:560px}.tz-city{font-size:10px}}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Meeting Planner Across Time Zones — Digital Infohub","applicationCategory":"BusinessApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"inLanguage":"en","description":"Find a meeting hour that works across multiple time zones, with daylight saving handled automatically.","url":"https://digitalinfohub.net/software/timezone"}
+</script>
+<!-- DIH:HEAD -->
+<script>try{var t=localStorage.getItem('dih_theme')||'dark';document.documentElement.setAttribute('data-theme',t);document.documentElement.setAttribute('data-dih','');}catch(e){document.documentElement.setAttribute('data-dih','');}</script>
+<meta name="theme-color" content="#07070c">
+<meta name="color-scheme" content="dark light">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="author" content="Digital Infohub">
+<meta name="keywords" content="time zone meeting planner, world clock, meeting scheduler, time zone converter, remote team meeting">
+<link rel="canonical" href="https://digitalinfohub.net/software/timezone">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Digital Infohub">
+<meta property="og:title" content="Meeting Planner Across Time Zones — Find an Hour That Works">
+<meta property="og:description" content="Compare working hours across cities in one grid, spot the overlap instantly and copy a meeting time that everyone can attend. Daylight saving handled automatically.">
+<meta property="og:url" content="https://digitalinfohub.net/software/timezone">
+<meta property="og:image" content="https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta property="og:image:secure_url" content="https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Glowing blue network lines and nodes forming a mesh">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Meeting Planner Across Time Zones — Find an Hour That Works">
+<meta name="twitter:description" content="Compare working hours across cities in one grid, spot the overlap instantly and copy a meeting time that everyone can attend. Daylight saving handled automatically.">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta name="twitter:image:alt" content="Glowing blue network lines and nodes forming a mesh">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="icon" href="/assets/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://digitalinfohub.net/#organization","name":"Digital Infohub","url":"https://digitalinfohub.net/","logo":{"@type":"ImageObject","url":"https://digitalinfohub.net/assets/icon-512.png","width":512,"height":512},"description":"Independent technology publication for everyone: clear guides, free browser tools and live market context.","sameAs":[]},{"@type":"WebSite","@id":"https://digitalinfohub.net/#website","url":"https://digitalinfohub.net/","name":"Digital Infohub","publisher":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://digitalinfohub.net/blog?q={search_term_string}"},"query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://digitalinfohub.net/software/timezone#webpage","url":"https://digitalinfohub.net/software/timezone","name":"Meeting Planner Across Time Zones — Find an Hour That Works","description":"Compare working hours across cities in one grid, spot the overlap instantly and copy a meeting time that everyone can attend. Daylight saving handled automatically.","isPartOf":{"@id":"https://digitalinfohub.net/#website"},"about":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","primaryImageOfPage":{"@type":"ImageObject","url":"https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&h=630&fit=crop&auto=format&q=80&fm=jpg","width":1200,"height":630}}]}</script>
+<!-- /DIH:HEAD -->
+</head>
+<body>
+<!-- DIH:AMBIENT -->
+<div class="dih-ambient" aria-hidden="true" style="--dih-ambient:url('https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&amp;h=675&amp;fit=crop&amp;auto=format&amp;q=40')"></div>
+<!-- /DIH:AMBIENT -->
+<!-- DIH:HEADER -->
+<header class="dih-header">
+  <div class="dih-header-inner">
+    <a class="dih-brand" href="/" aria-label="Digital Infohub home">
+      <img src="/assets/logo.png" alt="Digital Infohub logo" width="36" height="36">
+      <span class="dih-brand-text">Digital <b>Infohub</b></span>
+    </a>
+    <nav class="dih-nav" data-dih-nav aria-label="Primary navigation">
+      <a class="dih-link" href="/">Home</a>
+      <a class="dih-link" href="/digi">Digi</a>
+      <a class="dih-link" href="/blog">Blog</a>
+      <a class="dih-link" href="/techtopics">Tech Topics</a>
+      <a class="dih-link" href="/software">Software</a>
+      <a class="dih-link" href="/techproducts">Tech Products</a>
+      <a class="dih-link" href="/games">Games</a>
+      <a class="dih-link" href="/coincompass">Markets</a>
+    </nav>
+    <div class="dih-actions">
+      <a class="dih-tools" href="/software#tools" title="Free browser tools" aria-label="Free browser tools">⚡<span>Tools</span></a>
+      <a class="dih-icon dih-term" href="/terminal" title="Terminal mode — browse like a shell" aria-label="Open terminal mode">⌨<span class="dih-term-txt">Terminal</span></a>
+      <button class="dih-icon dih-sound" type="button" data-dih-sound aria-label="Sound on — tap to mute" aria-pressed="true" title="Sound on — tap to mute (Shift+S)">🔊</button>
+      <button class="dih-icon dih-share" type="button" data-dih-share aria-label="Share this page" title="Share this page">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M12 3v13"/><path d="m7 8 5-5 5 5"/></svg>
+      </button>
+      <button class="dih-icon" type="button" data-dih-theme aria-label="Switch theme" title="Switch theme">☀</button>
+      <a class="dih-cta" href="/subscribe">Subscribe</a>
+      <button class="dih-burger" id="dihBurger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="dihDrawer"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+<div class="dih-drawer" id="dihDrawer" aria-label="Site menu">
+  <div class="dih-drawer-panel">
+    <div class="dih-drawer-grid">
+      <a class="dih-drawer-link" href="/">Home</a>
+      <a class="dih-drawer-link" href="/digi">Digi</a>
+      <a class="dih-drawer-link" href="/blog">Blog</a>
+      <a class="dih-drawer-link" href="/techtopics">Tech Topics</a>
+      <a class="dih-drawer-link" href="/software">Software</a>
+      <a class="dih-drawer-link" href="/techproducts">Tech Products</a>
+      <a class="dih-drawer-link" href="/games">Games</a>
+      <a class="dih-drawer-link" href="/coincompass">Markets</a>
+    </div>
+    <div class="dih-drawer-sub">
+      <a class="dih-drawer-link" href="/news">📰 Tech News</a>
+      <a class="dih-drawer-link" href="/quiz">🎯 Tech Quiz</a>
+      <a class="dih-drawer-link" href="/software#tools">⚡ Tools</a>
+      <a class="dih-drawer-link" href="/services">🧰 Services</a>
+      <a class="dih-drawer-link" href="/terminal">⌨️ Terminal mode</a>
+      <a class="dih-drawer-link" href="/terminal#top">📊 Most opened pages</a>
+      <a class="dih-drawer-link" href="/contact">✉️ Contact</a>
+    </div>
+    <a class="dih-drawer-cta" href="/subscribe">✉️ Subscribe — weekly tech intel</a>
+    <p class="dih-drawer-note">Digital Infohub · Tech for everyone, with a guide for every question.</p>
+  </div>
+</div>
+<!-- /DIH:HEADER -->
+
+<main class="hub-app">
+  <header class="hub-app-head">
+    <span class="dih-eyebrow">Work · Scheduling</span>
+    <h1>Meeting planner</h1>
+    <p>Add the cities in the call, pick a date, and see every hour of the day side by side. Working hours are highlighted; the best overlap is suggested. Daylight saving is handled by your browser.</p>
+  </header>
+
+  <div class="hub-grid">
+    <section class="hub-card" aria-labelledby="inTitle">
+      <h2 id="inTitle">Who is in the call?</h2>
+      <label class="hub-field"><span>Your city (reference)</span>
+        <select id="baseCity"></select>
+      </label>
+      <label class="hub-field"><span>Date</span><input id="date" type="date"></label>
+      <div class="hub-row">
+        <label class="hub-field"><span>Add a city</span><select id="addCity"></select></label>
+        <label class="hub-field"><span>&nbsp;</span><button class="hub-btn" id="addBtn" type="button" style="width:100%">Add city</button></label>
+      </div>
+      <div class="tz-chips" id="chips"></div>
+      <div class="hub-row" style="margin-top:12px">
+        <label class="hub-field"><span>Working hours start</span><input id="startHour" type="number" min="0" max="23" value="9"></label>
+        <label class="hub-field"><span>Working hours end</span><input id="endHour" type="number" min="0" max="23" value="18"></label>
+      </div>
+      <div class="hub-actions">
+        <button class="hub-btn" id="reset" type="button">Reset cities</button>
+        <button class="hub-btn is-ghost" id="copy" type="button">Copy the best times</button>
+      </div>
+      <p class="hub-note" style="margin-top:10px">Times update with daylight saving. Some regions change clocks on different dates, so double-check the week of the meeting.</p>
+    </section>
+
+    <aside class="hub-card" aria-labelledby="bestTitle">
+      <h2 id="bestTitle">Best overlap</h2>
+      <div id="bestList" class="tz-best"></div>
+      <p class="hub-note" id="bestNote" style="margin-top:10px">Add at least two cities.</p>
+      <div class="hub-kv"><span>Reference city</span><b id="refCity">—</b></div>
+      <div class="hub-kv"><span>Overlap found</span><b id="overlap">—</b></div>
+      <p class="hub-note" style="margin-top:10px">A good slot keeps everyone inside working hours. If none exists, the grid shows the least painful compromise.</p>
+    </aside>
+  </div>
+
+  <section class="hub-card" style="margin-top:14px" aria-labelledby="gridTitle">
+    <h2 id="gridTitle">Every hour, every city</h2>
+    <div class="tz-grid" id="grid"></div>
+    <div class="tz-legend">
+      <span><i style="background:rgba(76,141,255,.30)"></i>Working hours</span>
+      <span><i style="background:rgba(76,141,255,.16)"></i>Early / late</span>
+      <span><i style="background:rgba(255,255,255,.06)"></i>Outside hours</span>
+      <span><i style="outline:1.5px solid #4c8dff"></i>Suggested overlap</span>
+    </div>
+  </section>
+
+  <div class="hub-ad" aria-label="Advertisement">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5443646750699471" data-ad-slot="8451723433" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <p class="hub-note">Related: <a href="/software/calendar">Calendar</a> · <a href="/software/todo">To-do list</a> · <a href="/software/task-timer">Task timer</a></p>
+</main>
+
+<script>
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var KEY = 'dih_timezone';
+
+  var CITIES = [
+    ['Tokyo', 'Asia/Tokyo'], ['Osaka', 'Asia/Tokyo'], ['Singapore', 'Asia/Singapore'],
+    ['Hong Kong', 'Asia/Hong_Kong'], ['Seoul', 'Asia/Seoul'], ['Shanghai', 'Asia/Shanghai'],
+    ['Mumbai', 'Asia/Kolkata'], ['Dubai', 'Asia/Dubai'], ['Sydney', 'Australia/Sydney'],
+    ['Auckland', 'Pacific/Auckland'], ['London', 'Europe/London'], ['Dublin', 'Europe/Dublin'],
+    ['Paris', 'Europe/Paris'], ['Berlin', 'Europe/Berlin'], ['Madrid', 'Europe/Madrid'],
+    ['Stockholm', 'Europe/Stockholm'], ['New York', 'America/New_York'], ['Toronto', 'America/Toronto'],
+    ['Chicago', 'America/Chicago'], ['Denver', 'America/Denver'], ['Los Angeles', 'America/Los_Angeles'],
+    ['Vancouver', 'America/Vancouver'], ['Mexico City', 'America/Mexico_City'], ['São Paulo', 'America/Sao_Paulo'],
+    ['Honolulu', 'Pacific/Honolulu'], ['Cape Town', 'Africa/Johannesburg'], ['Nairobi', 'Africa/Nairobi'],
+    ['Tel Aviv', 'Asia/Jerusalem'], ['Istanbul', 'Europe/Istanbul'], ['Bangkok', 'Asia/Bangkok']
+  ];
+  var selected = ['Tokyo', 'London', 'New York'];
+
+  function tzOf(name) {
+    for (var i = 0; i < CITIES.length; i++) if (CITIES[i][0] === name) return CITIES[i][1];
+    return 'UTC';
+  }
+
+  function parts(date, zone) {
+    var fmt = new Intl.DateTimeFormat('en-GB', {
+      timeZone: zone, hour: '2-digit', minute: '2-digit', weekday: 'short', hour12: false
+    });
+    var out = {};
+    fmt.formatToParts(date).forEach(function (p) { out[p.type] = p.value; });
+    return { hour: Number(out.hour) % 24, minute: out.minute, weekday: out.weekday };
+  }
+
+  function localNoon(dateStr) {
+    var d = dateStr ? new Date(dateStr + 'T12:00:00') : new Date();
+    return d;
+  }
+
+  function cityHour(noon, zone, hourOffset) {
+    var d = new Date(noon.getTime() + hourOffset * 3600000);
+    return parts(d, zone);
+  }
+
+  function offsetLabel(noon, zone) {
+    var here = new Date(noon.toLocaleString('en-US', { timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone }));
+    var there = new Date(noon.toLocaleString('en-US', { timeZone: zone }));
+    var diff = Math.round((there - here) / 60000 / 30) / 2 + (Math.round((there - here) / 3600000) - Math.round((there - here) / 60000 / 30) / 2);
+    diff = Math.round((there - here) / 3600000 * 2) / 2;
+    return (diff >= 0 ? '+' : '') + diff + 'h';
+  }
+
+  function renderOptions() {
+    var html = CITIES.map(function (c) {
+      return '<option value="' + c[0] + '">' + c[0] + ' (' + tzOf(c[0]).split('/').pop().replace(/_/g, ' ') + ')</option>';
+    }).join('');
+    $('baseCity').innerHTML = html;
+    $('addCity').innerHTML = html;
+  }
+
+  function renderChips() {
+    $('chips').innerHTML = selected.map(function (name) {
+      return '<span class="tz-chip">' + name + ' <button type="button" data-remove="' + name + '" aria-label="Remove ' + name + '">✕</button></span>';
+    }).join('');
+    $('chips').querySelectorAll('[data-remove]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        if (selected.length <= 1) return;
+        selected = selected.filter(function (n) { return n !== b.getAttribute('data-remove'); });
+        render();
+      });
+    });
+  }
+
+  function render() {
+    renderChips();
+    var base = $('baseCity').value || 'Tokyo';
+    var noon = localNoon($('date').value);
+    var start = Math.max(0, Math.min(23, Number($('startHour').value || 9)));
+    var end = Math.max(start + 1, Math.min(24, Number($('endHour').value || 18)));
+    var cities = selected.slice();
+    if (cities.indexOf(base) === -1) cities.unshift(base);
+
+    var scores = [];
+    var grid = '<div class="tz-row"><span class="tz-city"></span>';
+    for (var h = 0; h < 24; h++) grid += '<span class="tz-head">' + (h % 6 === 0 ? String(h).padStart(2, '0') : '·') + '</span>';
+    grid += '</div>';
+
+    cities.forEach(function (city) {
+      var zone = tzOf(city);
+      var baseZone = tzOf(base);
+      /* Align each row to the reference city's clock. */
+      var baseHour = parts(new Date(noon.getTime()), baseZone).hour;
+      var shift = 12 - baseHour;
+      var row = '<div class="tz-row"><span class="tz-city">' + city + ' <small style="color:var(--dih-text-muted)">' + offsetLabel(noon, zone) + '</small></span>';
+      for (var h2 = 0; h2 < 24; h2++) {
+        var cell = cityHour(noon, zone, h2 - shift);
+        var hr = cell.hour;
+        var work = hr >= start && hr < end;
+        var edge = hr === start - 1 || hr === end;
+        row += '<span class="tz-cell ' + (work ? 'work' : edge ? 'edge' : 'night') + '" data-h="' + h2 + '" title="' + city + ' ' + String(hr).padStart(2, '0') + ':' + cell.minute + '">' + (hr % 3 === 0 ? hr : '') + '</span>';
+      }
+      row += '</div>';
+      grid += row;
+    });
+    $('grid').innerHTML = grid;
+
+    /* Score every reference hour by how many cities are inside working hours. */
+    cities.forEach(function (city) {
+      var zone = tzOf(city);
+      var baseZone = tzOf(base);
+      var baseHour = parts(new Date(noon.getTime()), baseZone).hour;
+      var shift = 12 - baseHour;
+      for (var h = 0; h < 24; h++) {
+        var hr = cityHour(noon, zone, h - shift).hour;
+        if (hr >= start && hr < end) scores[h] = (scores[h] || 0) + 1;
+      }
+    });
+    var best = [];
+    for (var i = 0; i < 24; i++) if ((scores[i] || 0) === cities.length) best.push(i);
+    var partial = [];
+    if (!best.length) {
+      var max = 0;
+      for (var j = 0; j < 24; j++) max = Math.max(max, scores[j] || 0);
+      for (var k = 0; k < 24; k++) if ((scores[k] || 0) === max) partial.push(k);
+    }
+    best.concat(partial.filter(function (h) { return best.indexOf(h) === -1; })).slice(0, 6).forEach(function (h) {
+      var cells = $('grid').querySelectorAll('[data-h="' + h + '"]');
+      cells.forEach(function (c) { c.classList.add('best'); });
+    });
+
+    var refCity = base;
+    $('refCity').textContent = refCity + ' · ' + (new Date(noon.getTime())).toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' });
+    $('overlap').textContent = best.length ? best.length + ' full-overlap hour' + (best.length > 1 ? 's' : '') : 'No full overlap';
+    $('bestList').innerHTML = (best.length ? best : partial).slice(0, 6).map(function (h) {
+      var label = String(h).padStart(2, '0') + ':00 ' + refCity;
+      return '<button type="button" data-time="' + label + '">' + label + '</button>';
+    }).join('') || '<span class="hub-note">No shared working hour on this date.</span>';
+    $('bestNote').textContent = best.length
+      ? 'Everyone is inside working hours at these times.'
+      : partial.length
+        ? 'No hour suits everyone — these are the least painful options.'
+        : 'Add cities to compare.';
+
+    $('bestList').querySelectorAll('[data-time]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        if (navigator.clipboard) navigator.clipboard.writeText(b.getAttribute('data-time') + ' · ' + cities.join(' / '));
+        if (window.dihToast) window.dihToast('Copied ' + b.getAttribute('data-time'));
+      });
+    });
+
+    try {
+      localStorage.setItem(KEY, JSON.stringify({ cities: selected, base: base, start: start, end: end, date: $('date').value }));
+    } catch (e) {}
+  }
+
+  renderOptions();
+  var today = new Date();
+  $('date').value = today.toISOString().slice(0, 10);
+  try {
+    var saved = JSON.parse(localStorage.getItem(KEY) || 'null');
+    if (saved) {
+      if (saved.cities) selected = saved.cities;
+      if (saved.start) $('startHour').value = saved.start;
+      if (saved.end) $('endHour').value = saved.end;
+      if (saved.date) $('date').value = saved.date;
+      if (saved.base) { $('baseCity').value = saved.base; }
+    }
+  } catch (e) {}
+
+  $('addBtn').addEventListener('click', function () {
+    var name = $('addCity').value;
+    if (name && selected.indexOf(name) === -1) selected.push(name);
+    render();
+  });
+  $('reset').addEventListener('click', function () {
+    selected = ['Tokyo', 'London', 'New York'];
+    $('baseCity').value = 'Tokyo';
+    render();
+  });
+  $('copy').addEventListener('click', function () {
+    var lines = ['Meeting window — ' + $('refCity').textContent, ''];
+    $('bestList').querySelectorAll('[data-time]').forEach(function (b, i) {
+      lines.push((i === 0 ? 'Best: ' : 'Also: ') + b.getAttribute('data-time'));
+    });
+    lines.push('', 'Cities: ' + selected.join(', '));
+    if (navigator.clipboard) navigator.clipboard.writeText(lines.join('\n')).then(function () {
+      if (window.dihToast) window.dihToast('Times copied — paste them into the invite.');
+    });
+  });
+  ['baseCity', 'date', 'startHour', 'endHour'].forEach(function (id) {
+    $(id).addEventListener('change', render);
+    $(id).addEventListener('input', render);
+  });
+  render();
+})();
+</script>
+<!-- DIH:GALLERY -->
+<section class="dih-gallery" aria-labelledby="dihGalleryTitle">
+  <div class="dih-gallery-head">
+    <div>
+      <span class="dih-gallery-eyebrow">Visual briefing</span>
+      <h2 id="dihGalleryTitle">Technology, in focus</h2>
+      <p>Fast context on the ideas shaping the industry, with a guide for every one.</p>
+    </div>
+    <a class="dih-gallery-all" href="/techtopics">All 35 tech guides <span aria-hidden="true">&rarr;</span></a>
+  </div>
+  <div class="dih-gallery-grid">
+      <a class="dih-gallery-card" href="/web3">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1623227413711-25ee4388dae3?w=640&amp;h=400&amp;fit=crop&amp;auto=format&amp;q=70" alt="Physical bitcoin token resting on gold nuggets" width="640" height="400" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Web3</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Ownership, without a middleman</strong>
+          <span>Public blockchains let strangers agree on a record without a referee. That is powerful for settlement and provenance, and unnecessary for most databases.</span>
+          <em>Read the Web3 guide &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/blockchain">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1639322537228-f710d846310a?w=640&amp;h=400&amp;fit=crop&amp;auto=format&amp;q=70" alt="Glowing translucent cubes arranged in a chain" width="640" height="400" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Blockchain</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Blocks, ledgers and trust</strong>
+          <span>A blockchain is a shared record no single party can quietly rewrite. Useful for settlement and provenance; overkill for a shopping list.</span>
+          <em>Read the blockchain guide &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/semiconductors">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1782155789465-8acb598726e1?w=640&amp;h=400&amp;fit=crop&amp;auto=format&amp;q=70" alt="Illuminated microchip on a dark circuit board" width="640" height="400" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Hardware</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Inside the silicon bottleneck</strong>
+          <span>A leading-edge chip takes months to fabricate and thousands of steps to test. That complexity is why capacity became a strategic asset.</span>
+          <em>Read the semiconductor guide &rarr;</em>
+        </span>
+      </a>
+  </div>
+  <p class="dih-gallery-credit">Photography by Unsplash contributors. Cards link to related Digital Infohub guides.</p>
+</section>
+<!-- /DIH:GALLERY -->
+<!-- DIH:EXPLORE -->
+<section class="dih-explore" aria-labelledby="dihExploreTitle">
+  <div class="dih-explore-head">
+    <h2 id="dihExploreTitle">More from the software suite</h2>
+    <p>Every tool in the suite is free and runs in your browser.</p>
+  </div>
+  <div class="dih-explore-grid">
+      <a class="dih-explore-card" href="/software">
+        <span class="dih-explore-icon" aria-hidden="true">🛠️</span>
+        <strong>Software &amp; tools</strong>
+        <span>Free AI assistants and browser utilities that run locally.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/blog">
+        <span class="dih-explore-icon" aria-hidden="true">📝</span>
+        <strong>Blog &amp; analysis</strong>
+        <span>Deep dives on AI, hardware, markets and digital culture.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/techtopics">
+        <span class="dih-explore-icon" aria-hidden="true">🔬</span>
+        <strong>Tech Topics</strong>
+        <span>Clear guides to the technology shaping business.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/games">
+        <span class="dih-explore-icon" aria-hidden="true">🎮</span>
+        <strong>Pixel Palace</strong>
+        <span>Free arcade games, playable on desktop and mobile.</span>
+        <em>Explore →</em>
+      </a>
+  </div>
+</section>
+<!-- /DIH:EXPLORE -->
+<!-- DIH:FOOTER -->
+<footer class="dih-footer">
+  <div class="dih-footer-inner">
+    <div class="dih-footer-brand">
+      <a class="dih-brand" href="/" aria-label="Digital Infohub home">
+        <img src="/assets/logo.png" alt="Digital Infohub logo" width="40" height="40">
+        <span class="dih-brand-text">Digital <b>Infohub</b></span>
+      </a>
+      <p>The independent tech hub for everyone: AI research, market moves, practical guides, free tools and Digi, your AI guide.</p>
+      <span class="dih-pill"><span class="dih-dot"></span> Updated daily</span>
+    </div>
+    <div class="dih-footer-col">
+      <h3>Explore</h3>
+      <a href="/blog">Blog &amp; analysis</a>
+      <a href="/techtopics">Tech Topics</a>
+      <a href="/software">Software &amp; tools</a>
+      <a href="/terminal">Terminal mode</a>
+      <a href="/techproducts">Tech Products</a>
+      <a href="/games">Pixel Palace</a>
+      <a href="/digi">Digi AI guide</a>
+      <a href="/news">Live tech news</a>
+      <a href="/quiz">Tech quiz</a>
+    </div>
+    <div class="dih-footer-col">
+      <h3>Company</h3>
+      <a href="/about">About</a>
+      <a href="/services">Services</a>
+      <a href="/advertise">Advertise</a>
+      <a href="/coincompass">CoinCompass</a>
+      <a href="/privacy-policy">Privacy</a>
+    </div>
+    <div class="dih-footer-col dih-footer-cta">
+      <h3>Stay ahead</h3>
+      <p>One email a week: the AI, market and software stories that actually matter.</p>
+      <a class="dih-btn dih-btn-primary" href="/subscribe">Subscribe free</a>
+    </div>
+  </div>
+  <div class="dih-footer-bottom">
+    <span>© 2026 Digital Infohub · Independent technology publication</span>
+    <nav aria-label="Footer links">
+      <a href="/blog">Blog</a>
+      <a href="/techtopics">Guides</a>
+      <a href="/software">Tools</a>
+      <a href="/contact">Contact</a>
+      <a href="/terminal">Terminal</a>
+      <a href="/sitemap.xml">Sitemap</a>
+    </nav>
+  </div>
+</footer>
+<!-- /DIH:FOOTER -->
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

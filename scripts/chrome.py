@@ -23,7 +23,20 @@ TARGETS = {
     "/": ("🏠", "Homepage", "Today's tech briefing, tools and market pulse."),
     "/digi": ("✨", "Digi AI guide", "Ask anything — tech, markets, design or everyday life."),
     "/blog": ("📝", "Blog & analysis", "Deep dives on AI, hardware, markets and digital culture."),
-    "/techtopics": ("🔬", "Tech Topics", "Plain-language guides to the technology shaping business."),
+    "/techtopics": ("🔬", "Tech Topics", "Clear guides to the technology shaping business."),
+    "/terminal": ("⌨️", "Terminal mode", "Browse the whole hub as a Linux-like shell."),
+    "/software/tedori": ("🇯🇵", "手取り計算", "給与の手取りをブラウザで概算。"),
+    "/software/furusato": ("🎁", "ふるさと納税", "寄付の限度額をシミュレーション。"),
+    "/software/rirekisho": ("📄", "履歴書メーカー", "JIS様式の履歴書を作成・印刷。"),
+    "/software/seikyusho": ("🧾", "請求書メーカー", "インボイス対応の請求書を作成。"),
+    "/software/kakutei": ("🗂️", "確定申告チェック", "必要書類と期限を診断。"),
+    "/software/invoice": ("💵", "Invoice generator", "Freelance invoices with tax and PDF export."),
+    "/software/loan": ("🏦", "Loan calculator", "Repayments, interest and an amortisation table."),
+    "/software/timezone": ("🌍", "Meeting planner", "Find an hour that works across time zones."),
+    "/software/resume": ("📑", "Résumé builder", "An ATS-friendly CV you can print or export."),
+    "/software/seo-preview": ("🔎", "SEO preview", "Check titles, descriptions and social cards."),
+    "/games/snake": ("🐍", "Snake", "The classic, on its own page."),
+    "/games/2048": ("🔢", "2048", "Merge the tiles on a dedicated page."),
     "/software": ("🛠️", "Software & tools", "Free AI assistants and browser utilities that run locally."),
     "/techproducts": ("💻", "Tech Products", "Hands-on buying guidance for work, creativity and play."),
     "/games": ("🎮", "Pixel Palace", "Free arcade games, playable on desktop and mobile."),
@@ -118,6 +131,8 @@ def header_html(prefix: str = "") -> str:
     </nav>
     <div class="dih-actions">
       <a class="dih-tools" href="/software#tools" title="Free browser tools" aria-label="Free browser tools">⚡<span>Tools</span></a>
+      <a class="dih-icon dih-term" href="/terminal" title="Terminal mode — browse like a shell" aria-label="Open terminal mode">⌨<span class="dih-term-txt">Terminal</span></a>
+      <button class="dih-icon dih-sound" type="button" data-dih-sound aria-label="Sound on — tap to mute" aria-pressed="true" title="Sound on — tap to mute (Shift+S)">🔊</button>
       <button class="dih-icon dih-share" type="button" data-dih-share aria-label="Share this page" title="Share this page">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M12 3v13"/><path d="m7 8 5-5 5 5"/></svg>
       </button>
@@ -137,6 +152,8 @@ def header_html(prefix: str = "") -> str:
       <a class="dih-drawer-link" href="/quiz">🎯 Tech Quiz</a>
       <a class="dih-drawer-link" href="/software#tools">⚡ Tools</a>
       <a class="dih-drawer-link" href="/services">🧰 Services</a>
+      <a class="dih-drawer-link" href="/terminal">⌨️ Terminal mode</a>
+      <a class="dih-drawer-link" href="/terminal#top">📊 Most opened pages</a>
       <a class="dih-drawer-link" href="/contact">✉️ Contact</a>
     </div>
     <a class="dih-drawer-cta" href="/subscribe">✉️ Subscribe — weekly tech intel</a>
@@ -191,6 +208,7 @@ def footer_html() -> str:
       <a href="/blog">Blog &amp; analysis</a>
       <a href="/techtopics">Tech Topics</a>
       <a href="/software">Software &amp; tools</a>
+      <a href="/terminal">Terminal mode</a>
       <a href="/techproducts">Tech Products</a>
       <a href="/games">Pixel Palace</a>
       <a href="/digi">Digi AI guide</a>
@@ -218,6 +236,7 @@ def footer_html() -> str:
       <a href="/techtopics">Guides</a>
       <a href="/software">Tools</a>
       <a href="/contact">Contact</a>
+      <a href="/terminal">Terminal</a>
       <a href="/sitemap.xml">Sitemap</a>
     </nav>
   </div>

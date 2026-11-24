@@ -84,7 +84,7 @@ TOPICS = [
             },
             {
                 "q": "Do I need to code to use AI?",
-                "a": "No. Most useful applications today are plain-language tools and built-in features. Coding helps when you want automation, custom data pipelines or control over a model of your own.",
+                "a": "No. Most useful applications today are clear tools and built-in features. Coding helps when you want automation, custom data pipelines or control over a model of your own.",
             },
             {
                 "q": "Will AI replace whole jobs?",
@@ -173,7 +173,7 @@ TOPICS = [
                 "a": "It depends on the problem's complexity and the signal in the data. Simple tabular problems can work with thousands of rows, while image and language models often need millions of examples or a pretrained model to start from.",
             },
             {
-                "q": "What is overfitting in plain language?",
+                "q": "What is overfitting in clear language?",
                 "a": "It is when a model learns the specific training examples too closely, including their noise, so it performs well on data it has seen and poorly on anything new.",
             },
         ],
@@ -432,7 +432,7 @@ TOPICS = [
         "icon": "☁️",
         "category": "Infrastructure",
         "title": "Cloud Computing Explained: IaaS, PaaS and SaaS",
-        "meta": "Cloud computing in plain language: service and deployment models, how pay-as-you-go pricing really works, and what to check before moving workloads to the cloud.",
+        "meta": "Cloud computing in clear language: service and deployment models, how pay-as-you-go pricing really works, and what to check before moving workloads to the cloud.",
         "lede": "Cloud computing means renting computing power, storage and services over the internet instead of owning the hardware that provides them.",
         "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&h=630&fit=crop&auto=format",
         "wiki": "https://en.wikipedia.org/wiki/Cloud_computing",

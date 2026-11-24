@@ -72,7 +72,7 @@
     }
     if (path === '/techtopics') {
       return {
-        intro: 'This is the guide index: 30 plain-language explainers, from AI and cybersecurity to space technology and smart cities.',
+        intro: 'This is the guide index: 30 clear explainers, from AI and cybersecurity to space technology and smart cities.',
         fact: 'Did you know? Every guide gives you the mental model, the limits and a practical next step.',
         actions: [A('Take the quiz', '/quiz'), A('Live tech news', '/news'), A('Open the blog', '/blog')]
       };
@@ -136,7 +136,7 @@
   var RULES = [
     {
       keys: ['ai', 'artificial intelligence', 'machine learning', 'ml', 'llm', 'model', 'neural', 'deep learning'],
-      text: 'AI is one of the 30 guides. Start with the plain-language explainer, then test yourself with the AI quiz.',
+      text: 'AI is one of the 30 guides. Start with the clear explainer, then test yourself with the AI quiz.',
       actions: [A('Read the AI guide', '/artificialintelligence'), A('Machine learning guide', '/machinelearning'), A('Try the AI quiz', '/quiz')]
     },
     {
@@ -151,7 +151,7 @@
     },
     {
       keys: ['quantum', 'qubit', 'post-quantum'],
-      text: 'Quantum is explained in plain language: what it speeds up, why error correction is hard and what to plan for.',
+      text: 'Quantum is explained in clear language: what it speeds up, why error correction is hard and what to plan for.',
       actions: [A('Read the quantum guide', '/quantumcomputing'), A('Browse guides', '/techtopics'), A('Try a quiz', '/quiz')]
     },
     {
@@ -201,7 +201,7 @@
     },
     {
       keys: ['guide', 'guides', 'topic', 'topics', 'learn', 'beginner', 'explain', 'explained'],
-      text: 'The guide index has 30 plain-language explainers, from AI to smart cities. Each one ends with a practical next step.',
+      text: 'The guide index has 30 clear explainers, from AI to smart cities. Each one ends with a practical next step.',
       actions: [A('Browse all 30 guides', '/techtopics'), A('Try a quiz', '/quiz'), A('Live tech news', '/news')]
     },
     {
@@ -682,27 +682,18 @@
     /* Keep the automatic nudge out of the way on phones and on the pages
        that already lead with Digi or a dense dashboard. The corner avatar
        still opens the guide on demand. */
-    var quietPage = path === '/' || path === '/coincompass';
+    var quietPage = path === '/' || path === '/coincompass' || path === '/terminal' || path.indexOf('/games') === 0;
     if (window.innerWidth > 720 && !quietPage) {
       setTimeout(function () {
         if (overlayOpen || isSnoozed() || bubbleDismissed || document.hidden) return;
         var current = pageContext();
         speak(Math.random() < 0.55 ? current.fact : current.intro, current.actions);
         playChime();
-      }, 6500);
+      }, 22000);
     }
 
-    var seen = false;
-    try { seen = window.sessionStorage.getItem(CENTER_KEY) === '1'; } catch (e) {}
-    /* The homepage has a prominent Ask Digi bar; do not cover it with an
-       automatic full-screen card. The corner helper still introduces Digi. */
-    if (!seen && !quietPage && window.innerWidth > 720) {
-      setTimeout(function () {
-        if (overlayOpen || isSnoozed() || document.hidden || userInteracted) return;
-        try { window.sessionStorage.setItem(CENTER_KEY, '1'); } catch (e) {}
-        openCenter();
-      }, 18000);
-    }
+    /* No automatic full-screen card: the corner avatar and the Ask Digi pill
+       open the guide on demand. A site should not interrupt a person reading. */
     if (/[?&]digi=center/.test(location.search)) setTimeout(openCenter, 700);
 
     window.Digi = {

@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-dih="">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Free Invoice Generator — Tax, Discounts &amp; Print | Digital Infohub</title>
+<meta name="description" content="Create a clean freelance invoice in your browser: line items, VAT/GST or sales tax, discounts, notes and payment terms. Print or save as PDF, no signup.">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/assets/hub.css">
+<style>
+  .iv-sheet{background:#fff;color:#12141a;border-radius:6px;padding:24px;font-family:Inter,-apple-system,"Segoe UI",sans-serif;font-size:12px;line-height:1.6;box-shadow:0 18px 50px rgba(0,0,0,.35)}
+  .iv-sheet .iv-top{display:flex;justify-content:space-between;gap:16px;border-bottom:2px solid #12141a;padding-bottom:12px;margin-bottom:14px}
+  .iv-sheet h2{margin:0;font-size:24px;letter-spacing:.16em;text-transform:uppercase}
+  .iv-sheet .iv-label{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#666;margin-bottom:2px}
+  .iv-sheet table{width:100%;border-collapse:collapse;font-size:11.5px;margin:8px 0}
+  .iv-sheet th{border-bottom:1px solid #222;padding:6px 4px;text-align:left;font-size:9.5px;letter-spacing:.06em;text-transform:uppercase}
+  .iv-sheet td{border-bottom:1px solid #e2e2e2;padding:7px 4px}
+  .iv-sheet .num{text-align:right;white-space:nowrap}
+  .iv-sheet .iv-totals{margin-left:auto;width:250px;margin-top:10px}
+  .iv-sheet .iv-totals div{display:flex;justify-content:space-between;padding:3px 0}
+  .iv-sheet .iv-totals .grand{border-top:2px solid #12141a;margin-top:5px;padding-top:6px;font-weight:700;font-size:14px}
+  .iv-sheet .iv-foot{margin-top:16px;padding-top:10px;border-top:1px dashed #bbb;font-size:10.5px;color:#444;white-space:pre-wrap}
+  @media print{.iv-sheet{box-shadow:none;border-radius:0;padding:0}}
+  .iv-cur{display:flex;gap:6px}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Invoice Generator — Digital Infohub","applicationCategory":"BusinessApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"inLanguage":"en","description":"Free browser-based invoice generator with tax, discounts, print and PDF export.","url":"https://digitalinfohub.net/software/invoice"}
+</script>
+<!-- DIH:HEAD -->
+<script>try{var t=localStorage.getItem('dih_theme')||'dark';document.documentElement.setAttribute('data-theme',t);document.documentElement.setAttribute('data-dih','');}catch(e){document.documentElement.setAttribute('data-dih','');}</script>
+<meta name="theme-color" content="#07070c">
+<meta name="color-scheme" content="dark light">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="author" content="Digital Infohub">
+<meta name="keywords" content="invoice generator, free invoice template, freelance invoice, VAT invoice, printable invoice, invoice PDF">
+<link rel="canonical" href="https://digitalinfohub.net/software/invoice">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Digital Infohub">
+<meta property="og:title" content="Free Invoice Generator — Tax, Discounts &amp; Print | Digital Infohub">
+<meta property="og:description" content="Create a clean freelance invoice in your browser: line items, VAT/GST or sales tax, discounts, notes and payment terms. Print or save as PDF, no signup.">
+<meta property="og:url" content="https://digitalinfohub.net/software/invoice">
+<meta property="og:image" content="https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta property="og:image:secure_url" content="https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Glowing blue network lines and nodes forming a mesh">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Free Invoice Generator — Tax, Discounts &amp; Print | Digital Infohub">
+<meta name="twitter:description" content="Create a clean freelance invoice in your browser: line items, VAT/GST or sales tax, discounts, notes and payment terms. Print or save as PDF, no signup.">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta name="twitter:image:alt" content="Glowing blue network lines and nodes forming a mesh">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="icon" href="/assets/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://digitalinfohub.net/#organization","name":"Digital Infohub","url":"https://digitalinfohub.net/","logo":{"@type":"ImageObject","url":"https://digitalinfohub.net/assets/icon-512.png","width":512,"height":512},"description":"Independent technology publication for everyone: clear guides, free browser tools and live market context.","sameAs":[]},{"@type":"WebSite","@id":"https://digitalinfohub.net/#website","url":"https://digitalinfohub.net/","name":"Digital Infohub","publisher":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://digitalinfohub.net/blog?q={search_term_string}"},"query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://digitalinfohub.net/software/invoice#webpage","url":"https://digitalinfohub.net/software/invoice","name":"Free Invoice Generator — Tax, Discounts & Print | Digital Infohub","description":"Create a clean freelance invoice in your browser: line items, VAT/GST or sales tax, discounts, notes and payment terms. Print or save as PDF, no signup.","isPartOf":{"@id":"https://digitalinfohub.net/#website"},"about":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","primaryImageOfPage":{"@type":"ImageObject","url":"https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&h=630&fit=crop&auto=format&q=80&fm=jpg","width":1200,"height":630}}]}</script>
+<!-- /DIH:HEAD -->
+</head>
+<body>
+<!-- DIH:AMBIENT -->
+<div class="dih-ambient" aria-hidden="true" style="--dih-ambient:url('https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&amp;h=675&amp;fit=crop&amp;auto=format&amp;q=40')"></div>
+<!-- /DIH:AMBIENT -->
+<!-- DIH:HEADER -->
+<header class="dih-header">
+  <div class="dih-header-inner">
+    <a class="dih-brand" href="/" aria-label="Digital Infohub home">
+      <img src="/assets/logo.png" alt="Digital Infohub logo" width="36" height="36">
+      <span class="dih-brand-text">Digital <b>Infohub</b></span>
+    </a>
+    <nav class="dih-nav" data-dih-nav aria-label="Primary navigation">
+      <a class="dih-link" href="/">Home</a>
+      <a class="dih-link" href="/digi">Digi</a>
+      <a class="dih-link" href="/blog">Blog</a>
+      <a class="dih-link" href="/techtopics">Tech Topics</a>
+      <a class="dih-link" href="/software">Software</a>
+      <a class="dih-link" href="/techproducts">Tech Products</a>
+      <a class="dih-link" href="/games">Games</a>
+      <a class="dih-link" href="/coincompass">Markets</a>
+    </nav>
+    <div class="dih-actions">
+      <a class="dih-tools" href="/software#tools" title="Free browser tools" aria-label="Free browser tools">⚡<span>Tools</span></a>
+      <a class="dih-icon dih-term" href="/terminal" title="Terminal mode — browse like a shell" aria-label="Open terminal mode">⌨<span class="dih-term-txt">Terminal</span></a>
+      <button class="dih-icon dih-sound" type="button" data-dih-sound aria-label="Sound on — tap to mute" aria-pressed="true" title="Sound on — tap to mute (Shift+S)">🔊</button>
+      <button class="dih-icon dih-share" type="button" data-dih-share aria-label="Share this page" title="Share this page">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M12 3v13"/><path d="m7 8 5-5 5 5"/></svg>
+      </button>
+      <button class="dih-icon" type="button" data-dih-theme aria-label="Switch theme" title="Switch theme">☀</button>
+      <a class="dih-cta" href="/subscribe">Subscribe</a>
+      <button class="dih-burger" id="dihBurger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="dihDrawer"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+<div class="dih-drawer" id="dihDrawer" aria-label="Site menu">
+  <div class="dih-drawer-panel">
+    <div class="dih-drawer-grid">
+      <a class="dih-drawer-link" href="/">Home</a>
+      <a class="dih-drawer-link" href="/digi">Digi</a>
+      <a class="dih-drawer-link" href="/blog">Blog</a>
+      <a class="dih-drawer-link" href="/techtopics">Tech Topics</a>
+      <a class="dih-drawer-link" href="/software">Software</a>
+      <a class="dih-drawer-link" href="/techproducts">Tech Products</a>
+      <a class="dih-drawer-link" href="/games">Games</a>
+      <a class="dih-drawer-link" href="/coincompass">Markets</a>
+    </div>
+    <div class="dih-drawer-sub">
+      <a class="dih-drawer-link" href="/news">📰 Tech News</a>
+      <a class="dih-drawer-link" href="/quiz">🎯 Tech Quiz</a>
+      <a class="dih-drawer-link" href="/software#tools">⚡ Tools</a>
+      <a class="dih-drawer-link" href="/services">🧰 Services</a>
+      <a class="dih-drawer-link" href="/terminal">⌨️ Terminal mode</a>
+      <a class="dih-drawer-link" href="/terminal#top">📊 Most opened pages</a>
+      <a class="dih-drawer-link" href="/contact">✉️ Contact</a>
+    </div>
+    <a class="dih-drawer-cta" href="/subscribe">✉️ Subscribe — weekly tech intel</a>
+    <p class="dih-drawer-note">Digital Infohub · Tech for everyone, with a guide for every question.</p>
+  </div>
+</div>
+<!-- /DIH:HEADER -->
+
+<main class="hub-app">
+  <header class="hub-app-head">
+    <span class="dih-eyebrow">Freelance · Money</span>
+    <h1>Invoice generator</h1>
+    <p>A tidy invoice in two minutes: line items, VAT/GST or sales tax, an optional discount and your payment terms. Everything stays in your browser — print it or save it as a PDF.</p>
+  </header>
+
+  <div class="hub-grid">
+    <section class="hub-card" aria-labelledby="formTitle">
+      <h2 id="formTitle">Invoice details</h2>
+      <div class="hub-row">
+        <label class="hub-field"><span>Invoice number</span><input id="no" value="INV-001"></label>
+        <label class="hub-field"><span>Issue date</span><input id="date" type="date"></label>
+      </div>
+      <div class="hub-row">
+        <label class="hub-field"><span>Currency</span>
+          <select id="currency">
+            <option value="USD" selected>USD $</option><option value="EUR">EUR €</option><option value="GBP">GBP £</option>
+            <option value="JPY">JPY ¥</option><option value="AUD">AUD $</option><option value="CAD">CAD $</option>
+          </select>
+        </label>
+        <label class="hub-field"><span>Due date</span><input id="due" type="date"></label>
+      </div>
+      <div class="hub-row">
+        <label class="hub-field"><span>Bill to</span><input id="client" placeholder="Client name"></label>
+        <label class="hub-field"><span>Client email / address</span><input id="clientInfo" placeholder="ap@client.com"></label>
+      </div>
+      <div class="hub-row">
+        <label class="hub-field"><span>From</span><input id="me" placeholder="Your name or studio"></label>
+        <label class="hub-field"><span>Your email</span><input id="myInfo" type="email" placeholder="you@studio.com"></label>
+      </div>
+
+      <h3>Line items</h3>
+      <div id="items"></div>
+      <button class="hub-btn is-ghost" id="addItem" type="button">＋ Add line</button>
+
+      <div class="hub-row" style="margin-top:12px">
+        <label class="hub-field"><span>Tax label</span>
+          <select id="taxLabel"><option>VAT</option><option>GST</option><option>Sales tax</option><option>Consumption tax</option></select>
+        </label>
+        <label class="hub-field"><span>Tax rate (%)</span><input id="taxRate" type="number" min="0" max="40" step="0.5" value="20"></label>
+      </div>
+      <div class="hub-row">
+        <label class="hub-field"><span>Discount (%)</span><input id="discount" type="number" min="0" max="100" step="1" value="0"></label>
+        <label class="hub-field"><span>Payment terms</span><input id="terms" value="Payment due within 14 days."></label>
+      </div>
+      <label class="hub-field"><span>Payment details</span><textarea id="bank" rows="2" placeholder="IBAN / account number / payment link"></textarea></label>
+      <label class="hub-field"><span>Notes</span><textarea id="note" rows="2" placeholder="Thank you — happy to walk through anything on a call."></textarea></label>
+
+      <div class="hub-actions">
+        <button class="hub-btn" id="print" type="button">Print / Save PDF</button>
+        <button class="hub-btn is-ghost" id="copy" type="button">Copy as text</button>
+        <button class="hub-btn is-ghost" id="reset" type="button">Start over</button>
+      </div>
+    </section>
+
+    <aside aria-labelledby="previewTitle" style="position:sticky;top:80px">
+      <h2 id="previewTitle" style="font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--dih-text-muted);margin:0 0 8px">Preview</h2>
+      <div class="iv-sheet" id="sheet">
+        <div class="iv-top">
+          <div>
+            <h2>Invoice</h2>
+            <div id="pMe" style="font-weight:600;margin-top:4px">Your studio</div>
+            <div id="pMyInfo" style="color:#666;font-size:10.5px"></div>
+          </div>
+          <div style="text-align:right">
+            <div class="iv-label">Invoice no.</div>
+            <div id="pNo">—</div>
+            <div class="iv-label" style="margin-top:6px">Issued</div>
+            <div id="pDate">—</div>
+            <div class="iv-label" style="margin-top:6px">Due</div>
+            <div id="pDue">—</div>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:space-between;gap:16px">
+          <div>
+            <div class="iv-label">Bill to</div>
+            <div id="pClient" style="font-weight:600">—</div>
+            <div id="pClientInfo" style="color:#666;font-size:10.5px"></div>
+          </div>
+          <div style="text-align:right">
+            <div class="iv-label">Amount due</div>
+            <b id="pTotal" style="font-size:22px">$0.00</b>
+          </div>
+        </div>
+        <table>
+          <thead><tr><th>Description</th><th class="num">Qty</th><th class="num">Rate</th><th class="num">Amount</th></tr></thead>
+          <tbody id="pItems"></tbody>
+        </table>
+        <div class="iv-totals">
+          <div><span>Subtotal</span><span id="pSub">$0.00</span></div>
+          <div id="pDiscRow" style="display:none"><span id="pDiscLabel">Discount</span><span id="pDisc">-$0.00</span></div>
+          <div><span id="pTaxLabel">VAT</span><span id="pTax">$0.00</span></div>
+          <div class="grand"><span>Total</span><span id="pGrand">$0.00</span></div>
+        </div>
+        <div class="iv-foot" id="pBank"></div>
+        <div class="iv-foot" id="pNote" style="border:0;margin-top:4px"></div>
+      </div>
+    </aside>
+  </div>
+
+  <div class="hub-ad" aria-label="Advertisement">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5443646750699471" data-ad-slot="8451723433" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <p class="hub-note">Related: <a href="/software/loan">Loan calculator</a> · <a href="/software/timezone">Meeting planner</a> · <a href="/software/seikyusho">請求書メーカー（日本語）</a></p>
+</main>
+
+<script>
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var KEY = 'dih_invoice';
+  var SYMBOL = { USD: '$', EUR: '€', GBP: '£', JPY: '¥', AUD: 'A$', CAD: 'C$' };
+
+  function money(n) {
+    var cur = $('currency').value;
+    var sym = SYMBOL[cur] || '$';
+    var digits = cur === 'JPY' ? 0 : 2;
+    return sym + Number(n || 0).toLocaleString('en-US', { minimumFractionDigits: digits, maximumFractionDigits: digits });
+  }
+
+  function addItem(item) {
+    item = item || { text: '', qty: 1, rate: 0 };
+    var row = document.createElement('div');
+    row.className = 'hub-row-3';
+    row.style.marginBottom = '6px';
+    row.innerHTML =
+      '<input data-k="text" placeholder="Design work — November" value="' + String(item.text || '').replace(/"/g, '&quot;') + '" style="grid-column:1/-1">' +
+      '<input data-k="qty" type="number" min="0" step="0.5" value="' + item.qty + '" aria-label="Quantity">' +
+      '<input data-k="rate" type="number" min="0" step="10" value="' + item.rate + '" aria-label="Rate" style="grid-column:span 2">';
+    row.querySelectorAll('input').forEach(function (el) { el.addEventListener('input', render); });
+    $('items').appendChild(row);
+  }
+
+  function readItems() {
+    return Array.prototype.slice.call($('items').children).map(function (row) {
+      return {
+        text: row.querySelector('[data-k="text"]').value,
+        qty: Number(row.querySelector('[data-k="qty"]').value || 0),
+        rate: Number(row.querySelector('[data-k="rate"]').value || 0)
+      };
+    });
+  }
+
+  function fmtDate(value) {
+    if (!value) return '—';
+    var d = new Date(value + 'T00:00:00');
+    return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+  }
+
+  function render() {
+    var items = readItems();
+    var sub = items.reduce(function (s, it) { return s + it.qty * it.rate; }, 0);
+    var discPct = Math.min(100, Math.max(0, Number($('discount').value || 0)));
+    var disc = sub * discPct / 100;
+    var base = sub - disc;
+    var rate = Math.max(0, Number($('taxRate').value || 0));
+    var tax = base * rate / 100;
+    var total = base + tax;
+
+    $('pNo').textContent = $('no').value || '—';
+    $('pDate').textContent = fmtDate($('date').value);
+    $('pDue').textContent = fmtDate($('due').value);
+    $('pClient').textContent = $('client').value || '—';
+    $('pClientInfo').textContent = $('clientInfo').value || '';
+    $('pMe').textContent = $('me').value || 'Your studio';
+    $('pMyInfo').textContent = $('myInfo').value || '';
+    $('pSub').textContent = money(sub);
+    $('pDiscRow').style.display = discPct > 0 ? 'flex' : 'none';
+    $('pDiscLabel').textContent = 'Discount (' + discPct + '%)';
+    $('pDisc').textContent = '-' + money(disc);
+    $('pTaxLabel').textContent = $('taxLabel').value + ' (' + rate + '%)';
+    $('pTax').textContent = money(tax);
+    $('pTotal').textContent = money(total);
+    $('pGrand').textContent = money(total);
+    $('pBank').textContent = [$('terms').value, $('bank').value].filter(Boolean).join('\n');
+    $('pNote').textContent = $('note').value || '';
+    $('pItems').innerHTML = items.map(function (it) {
+      return '<tr><td>' + (it.text || '—').replace(/</g, '&lt;') + '</td><td class="num">' + it.qty + '</td><td class="num">' + money(it.rate) + '</td><td class="num">' + money(it.qty * it.rate) + '</td></tr>';
+    }).join('') || '<tr><td colspan="4" style="color:#888">Add a line item</td></tr>';
+
+    try {
+      localStorage.setItem(KEY, JSON.stringify({
+        no: $('no').value, date: $('date').value, due: $('due').value, currency: $('currency').value,
+        client: $('client').value, clientInfo: $('clientInfo').value, me: $('me').value, myInfo: $('myInfo').value,
+        taxLabel: $('taxLabel').value, taxRate: $('taxRate').value, discount: $('discount').value,
+        terms: $('terms').value, bank: $('bank').value, note: $('note').value, items: items
+      }));
+    } catch (e) {}
+  }
+
+  ['no', 'date', 'due', 'currency', 'client', 'clientInfo', 'me', 'myInfo', 'taxLabel', 'taxRate', 'discount', 'terms', 'bank', 'note'].forEach(function (id) {
+    $(id).addEventListener('input', render);
+    $(id).addEventListener('change', render);
+  });
+  $('addItem').addEventListener('click', function () { addItem(); render(); });
+  $('print').addEventListener('click', function () { window.print(); });
+  $('copy').addEventListener('click', function () {
+    var lines = ['Invoice ' + $('pNo').textContent, 'Bill to: ' + $('pClient').textContent, 'Amount due: ' + $('pTotal').textContent, ''];
+    readItems().forEach(function (it) { lines.push('• ' + (it.text || 'Item') + ' — ' + it.qty + ' × ' + money(it.rate) + ' = ' + money(it.qty * it.rate)); });
+    lines.push('', 'Subtotal ' + $('pSub').textContent, $('pTaxLabel').textContent + ' ' + $('pTax').textContent, 'Total ' + $('pGrand').textContent, '', $('pBank').textContent);
+    if (navigator.clipboard) navigator.clipboard.writeText(lines.join('\n')).then(function () {
+      if (window.dihToast) window.dihToast('Invoice copied as text.');
+    });
+  });
+  $('reset').addEventListener('click', function () { if (confirm('Clear this invoice and start again?')) { localStorage.removeItem(KEY); location.reload(); } });
+
+  var now = new Date();
+  $('date').value = now.toISOString().slice(0, 10);
+  var due = new Date(now.getTime() + 14 * 86400000);
+  $('due').value = due.toISOString().slice(0, 10);
+
+  try {
+    var saved = JSON.parse(localStorage.getItem(KEY) || 'null');
+    if (saved) {
+      ['no', 'date', 'due', 'currency', 'client', 'clientInfo', 'me', 'myInfo', 'taxLabel', 'taxRate', 'discount', 'terms', 'bank', 'note'].forEach(function (id) {
+        if (saved[id] !== undefined && saved[id] !== '') $(id).value = saved[id];
+      });
+      (saved.items && saved.items.length ? saved.items : [{}]).forEach(addItem);
+    } else {
+      addItem({ text: 'Website design — November', qty: 1, rate: 2400 });
+      addItem({ text: 'Hosting & maintenance (monthly)', qty: 1, rate: 60 });
+    }
+  } catch (e) { addItem({ text: 'Website design — November', qty: 1, rate: 2400 }); }
+  render();
+})();
+</script>
+<!-- DIH:GALLERY -->
+<section class="dih-gallery" aria-labelledby="dihGalleryTitle">
+  <div class="dih-gallery-head">
+    <div>
+      <span class="dih-gallery-eyebrow">Visual briefing</span>
+      <h2 id="dihGalleryTitle">Technology, in focus</h2>
+      <p>Fast context on the ideas shaping the industry, with a guide for every one.</p>
+    </div>
+    <a class="dih-gallery-all" href="/techtopics">All 35 tech guides <span aria-hidden="true">&rarr;</span></a>
+  </div>
+  <div class="dih-gallery-grid">
+      <a class="dih-gallery-card" href="/tool-expense-tracker">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1545941962-1b6654eb8072?w=640&amp;h=400&amp;fit=crop&amp;auto=format&amp;q=70" alt="Printed receipt on a white surface" width="640" height="400" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Budgeting</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Know where the money went</strong>
+          <span>Tracking spending works when entry takes seconds. Categories and charts come second.</span>
+          <em>Open the expense tracker &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/software/savesmart">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1607863680198-23d4b2565df0?w=640&amp;h=400&amp;fit=crop&amp;auto=format&amp;q=70" alt="Pink piggy bank on a wooden table" width="640" height="400" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Saving</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Pay yourself first</strong>
+          <span>Saving is a system, not a resolution. Automate a small amount and increase it when income rises.</span>
+          <em>Open SaveSmart &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/tool-unit-converter">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1703756291638-b1774ae3c186?w=640&amp;h=400&amp;fit=crop&amp;auto=format&amp;q=70" alt="Close-up of a tape measure" width="640" height="400" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Converters</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Stop doing unit maths in your head</strong>
+          <span>A converter removes a whole class of avoidable mistakes, especially when measurements cross borders.</span>
+          <em>Open the unit converter &rarr;</em>
+        </span>
+      </a>
+  </div>
+  <p class="dih-gallery-credit">Photography by Unsplash contributors. Cards link to related Digital Infohub guides.</p>
+</section>
+<!-- /DIH:GALLERY -->
+<!-- DIH:EXPLORE -->
+<section class="dih-explore" aria-labelledby="dihExploreTitle">
+  <div class="dih-explore-head">
+    <h2 id="dihExploreTitle">More from the software suite</h2>
+    <p>Every tool in the suite is free and runs in your browser.</p>
+  </div>
+  <div class="dih-explore-grid">
+      <a class="dih-explore-card" href="/software">
+        <span class="dih-explore-icon" aria-hidden="true">🛠️</span>
+        <strong>Software &amp; tools</strong>
+        <span>Free AI assistants and browser utilities that run locally.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/blog">
+        <span class="dih-explore-icon" aria-hidden="true">📝</span>
+        <strong>Blog &amp; analysis</strong>
+        <span>Deep dives on AI, hardware, markets and digital culture.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/techtopics">
+        <span class="dih-explore-icon" aria-hidden="true">🔬</span>
+        <strong>Tech Topics</strong>
+        <span>Clear guides to the technology shaping business.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/games">
+        <span class="dih-explore-icon" aria-hidden="true">🎮</span>
+        <strong>Pixel Palace</strong>
+        <span>Free arcade games, playable on desktop and mobile.</span>
+        <em>Explore →</em>
+      </a>
+  </div>
+</section>
+<!-- /DIH:EXPLORE -->
+<!-- DIH:FOOTER -->
+<footer class="dih-footer">
+  <div class="dih-footer-inner">
+    <div class="dih-footer-brand">
+      <a class="dih-brand" href="/" aria-label="Digital Infohub home">
+        <img src="/assets/logo.png" alt="Digital Infohub logo" width="40" height="40">
+        <span class="dih-brand-text">Digital <b>Infohub</b></span>
+      </a>
+      <p>The independent tech hub for everyone: AI research, market moves, practical guides, free tools and Digi, your AI guide.</p>
+      <span class="dih-pill"><span class="dih-dot"></span> Updated daily</span>
+    </div>
+    <div class="dih-footer-col">
+      <h3>Explore</h3>
+      <a href="/blog">Blog &amp; analysis</a>
+      <a href="/techtopics">Tech Topics</a>
+      <a href="/software">Software &amp; tools</a>
+      <a href="/terminal">Terminal mode</a>
+      <a href="/techproducts">Tech Products</a>
+      <a href="/games">Pixel Palace</a>
+      <a href="/digi">Digi AI guide</a>
+      <a href="/news">Live tech news</a>
+      <a href="/quiz">Tech quiz</a>
+    </div>
+    <div class="dih-footer-col">
+      <h3>Company</h3>
+      <a href="/about">About</a>
+      <a href="/services">Services</a>
+      <a href="/advertise">Advertise</a>
+      <a href="/coincompass">CoinCompass</a>
+      <a href="/privacy-policy">Privacy</a>
+    </div>
+    <div class="dih-footer-col dih-footer-cta">
+      <h3>Stay ahead</h3>
+      <p>One email a week: the AI, market and software stories that actually matter.</p>
+      <a class="dih-btn dih-btn-primary" href="/subscribe">Subscribe free</a>
+    </div>
+  </div>
+  <div class="dih-footer-bottom">
+    <span>© 2026 Digital Infohub · Independent technology publication</span>
+    <nav aria-label="Footer links">
+      <a href="/blog">Blog</a>
+      <a href="/techtopics">Guides</a>
+      <a href="/software">Tools</a>
+      <a href="/contact">Contact</a>
+      <a href="/terminal">Terminal</a>
+      <a href="/sitemap.xml">Sitemap</a>
+    </nav>
+  </div>
+</footer>
+<!-- /DIH:FOOTER -->
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

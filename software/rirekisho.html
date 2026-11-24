@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="dark" data-dih="">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>履歴書メーカー｜JIS様式を入力してそのまま印刷・PDF保存</title>
+<meta name="description" content="氏名・学歴・職歴・志望動機を入力するだけでJIS様式の履歴書を作成。印刷・PDF保存・テキスト保存に対応し、志望動機のたたき台も作れます。無料。">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/assets/hub.css">
+<style>
+  .rk-sheet{background:#fff;color:#111;border-radius:6px;padding:22px;font-family:"Hiragino Mincho ProN","Yu Mincho",serif;line-height:1.7;box-shadow:0 18px 50px rgba(0,0,0,.35)}
+  .rk-sheet h2{margin:0 0 4px;font-size:20px;letter-spacing:.28em;text-align:center;color:#111}
+  .rk-sheet .rk-date{text-align:right;font-size:11px;margin-bottom:10px;color:#333}
+  .rk-sheet table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:12px}
+  .rk-sheet th,.rk-sheet td{border:1px solid #999;padding:5px 7px;vertical-align:top;text-align:left}
+  .rk-sheet th{background:#f2f2f2;font-weight:600;width:92px;white-space:nowrap}
+  .rk-sheet .rk-block{border:1px solid #999;padding:8px 10px;font-size:12px;margin-bottom:10px;min-height:54px;white-space:pre-wrap}
+  .rk-sheet .rk-label{font-size:10px;color:#555;letter-spacing:.1em;margin-bottom:2px}
+  .rk-sheet .rk-photo{width:90px;height:120px;border:1px solid #999;display:flex;align-items:center;justify-content:center;font-size:10px;color:#777;float:right;margin-left:10px}
+  .rk-preview{position:sticky;top:80px}
+  @media(max-width:900px){.rk-preview{position:static}}
+  @media print{
+    .rk-sheet{box-shadow:none;padding:0;border-radius:0}
+    .hub-grid{display:block}
+  }
+  .rk-row{display:flex;gap:6px;margin-bottom:6px;align-items:center}
+  .rk-row input{flex:1}
+  .rk-row button{width:32px;height:32px;border-radius:8px;border:1px solid var(--dih-border-strong);background:transparent;color:var(--dih-text-muted);cursor:pointer}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"履歴書メーカー — Digital Infohub","applicationCategory":"BusinessApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},"inLanguage":"ja","description":"JIS様式の履歴書を作成し、印刷・PDF保存できる無料ツール。","url":"https://digitalinfohub.net/software/rirekisho"}
+</script>
+<!-- DIH:HEAD -->
+<script>try{var t=localStorage.getItem('dih_theme')||'dark';document.documentElement.setAttribute('data-theme',t);document.documentElement.setAttribute('data-dih','');}catch(e){document.documentElement.setAttribute('data-dih','');}</script>
+<meta name="theme-color" content="#07070c">
+<meta name="color-scheme" content="dark light">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="author" content="Digital Infohub">
+<meta name="keywords" content="履歴書 作成, 履歴書 テンプレート, 志望動機, 職務経歴書, 履歴書 PDF, 転職 書類">
+<link rel="canonical" href="https://digitalinfohub.net/software/rirekisho">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Digital Infohub">
+<meta property="og:title" content="履歴書メーカー｜JIS様式を入力してそのまま印刷・PDF保存">
+<meta property="og:description" content="氏名・学歴・職歴・志望動機を入力するだけでJIS様式の履歴書を作成。印刷・PDF保存・テキスト保存に対応し、志望動機のたたき台も作れます。無料。">
+<meta property="og:url" content="https://digitalinfohub.net/software/rirekisho">
+<meta property="og:image" content="https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta property="og:image:secure_url" content="https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Glowing blue network lines and nodes forming a mesh">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="履歴書メーカー｜JIS様式を入力してそのまま印刷・PDF保存">
+<meta name="twitter:description" content="氏名・学歴・職歴・志望動機を入力するだけでJIS様式の履歴書を作成。印刷・PDF保存・テキスト保存に対応し、志望動機のたたき台も作れます。無料。">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta name="twitter:image:alt" content="Glowing blue network lines and nodes forming a mesh">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="icon" href="/assets/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://digitalinfohub.net/#organization","name":"Digital Infohub","url":"https://digitalinfohub.net/","logo":{"@type":"ImageObject","url":"https://digitalinfohub.net/assets/icon-512.png","width":512,"height":512},"description":"Independent technology publication for everyone: clear guides, free browser tools and live market context.","sameAs":[]},{"@type":"WebSite","@id":"https://digitalinfohub.net/#website","url":"https://digitalinfohub.net/","name":"Digital Infohub","publisher":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"ja","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://digitalinfohub.net/blog?q={search_term_string}"},"query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://digitalinfohub.net/software/rirekisho#webpage","url":"https://digitalinfohub.net/software/rirekisho","name":"履歴書メーカー｜JIS様式を入力してそのまま印刷・PDF保存","description":"氏名・学歴・職歴・志望動機を入力するだけでJIS様式の履歴書を作成。印刷・PDF保存・テキスト保存に対応し、志望動機のたたき台も作れます。無料。","isPartOf":{"@id":"https://digitalinfohub.net/#website"},"about":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"ja","primaryImageOfPage":{"@type":"ImageObject","url":"https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&h=630&fit=crop&auto=format&q=80&fm=jpg","width":1200,"height":630}}]}</script>
+<!-- /DIH:HEAD -->
+</head>
+<body>
+<!-- DIH:AMBIENT -->
+<div class="dih-ambient" aria-hidden="true" style="--dih-ambient:url('https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&amp;h=675&amp;fit=crop&amp;auto=format&amp;q=40')"></div>
+<!-- /DIH:AMBIENT -->
+<!-- DIH:HEADER -->
+<header class="dih-header">
+  <div class="dih-header-inner">
+    <a class="dih-brand" href="/" aria-label="Digital Infohub home">
+      <img src="/assets/logo.png" alt="Digital Infohub logo" width="36" height="36">
+      <span class="dih-brand-text">Digital <b>Infohub</b></span>
+    </a>
+    <nav class="dih-nav" data-dih-nav aria-label="Primary navigation">
+      <a class="dih-link" href="/">Home</a>
+      <a class="dih-link" href="/digi">Digi</a>
+      <a class="dih-link" href="/blog">Blog</a>
+      <a class="dih-link" href="/techtopics">Tech Topics</a>
+      <a class="dih-link" href="/software">Software</a>
+      <a class="dih-link" href="/techproducts">Tech Products</a>
+      <a class="dih-link" href="/games">Games</a>
+      <a class="dih-link" href="/coincompass">Markets</a>
+    </nav>
+    <div class="dih-actions">
+      <a class="dih-tools" href="/software#tools" title="Free browser tools" aria-label="Free browser tools">⚡<span>Tools</span></a>
+      <a class="dih-icon dih-term" href="/terminal" title="Terminal mode — browse like a shell" aria-label="Open terminal mode">⌨<span class="dih-term-txt">Terminal</span></a>
+      <button class="dih-icon dih-sound" type="button" data-dih-sound aria-label="Sound on — tap to mute" aria-pressed="true" title="Sound on — tap to mute (Shift+S)">🔊</button>
+      <button class="dih-icon dih-share" type="button" data-dih-share aria-label="Share this page" title="Share this page">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M12 3v13"/><path d="m7 8 5-5 5 5"/></svg>
+      </button>
+      <button class="dih-icon" type="button" data-dih-theme aria-label="Switch theme" title="Switch theme">☀</button>
+      <a class="dih-cta" href="/subscribe">Subscribe</a>
+      <button class="dih-burger" id="dihBurger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="dihDrawer"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+<div class="dih-drawer" id="dihDrawer" aria-label="Site menu">
+  <div class="dih-drawer-panel">
+    <div class="dih-drawer-grid">
+      <a class="dih-drawer-link" href="/">Home</a>
+      <a class="dih-drawer-link" href="/digi">Digi</a>
+      <a class="dih-drawer-link" href="/blog">Blog</a>
+      <a class="dih-drawer-link" href="/techtopics">Tech Topics</a>
+      <a class="dih-drawer-link" href="/software">Software</a>
+      <a class="dih-drawer-link" href="/techproducts">Tech Products</a>
+      <a class="dih-drawer-link" href="/games">Games</a>
+      <a class="dih-drawer-link" href="/coincompass">Markets</a>
+    </div>
+    <div class="dih-drawer-sub">
+      <a class="dih-drawer-link" href="/news">📰 Tech News</a>
+      <a class="dih-drawer-link" href="/quiz">🎯 Tech Quiz</a>
+      <a class="dih-drawer-link" href="/software#tools">⚡ Tools</a>
+      <a class="dih-drawer-link" href="/services">🧰 Services</a>
+      <a class="dih-drawer-link" href="/terminal">⌨️ Terminal mode</a>
+      <a class="dih-drawer-link" href="/terminal#top">📊 Most opened pages</a>
+      <a class="dih-drawer-link" href="/contact">✉️ Contact</a>
+    </div>
+    <a class="dih-drawer-cta" href="/subscribe">✉️ Subscribe — weekly tech intel</a>
+    <p class="dih-drawer-note">Digital Infohub · Tech for everyone, with a guide for every question.</p>
+  </div>
+</div>
+<!-- /DIH:HEADER -->
+
+<main class="hub-app">
+  <header class="hub-app-head">
+    <span class="dih-eyebrow">日本向け · 就職・転職</span>
+    <h1>履歴書メーカー</h1>
+    <p>JIS様式の履歴書を、入力しながらその場で完成させます。学歴・職歴は1行ずつ追加でき、<strong>志望動機のたたき台</strong>も作れます。完成したら印刷ボタンからPDF保存を。</p>
+  </header>
+
+  <div class="hub-grid">
+    <section class="hub-card" aria-labelledby="formTitle">
+      <h2 id="formTitle">入力</h2>
+      <div class="hub-row">
+        <label class="hub-field"><span>氏名</span><input id="name" placeholder="山田 太郎" autocomplete="name"></label>
+        <label class="hub-field"><span>ふりがな</span><input id="kana" placeholder="やまだ たろう"></label>
+      </div>
+      <div class="hub-row">
+        <label class="hub-field"><span>生年月日</span><input id="birth" type="date" value="1998-04-01"></label>
+        <label class="hub-field"><span>性別（任意）</span><input id="gender" placeholder="記載しない"></label>
+      </div>
+      <label class="hub-field"><span>現住所（郵便番号から）</span><input id="address" placeholder="〒150-0001 東京都渋谷区…"></label>
+      <div class="hub-row">
+        <label class="hub-field"><span>電話</span><input id="tel" type="tel" placeholder="090-0000-0000" autocomplete="tel"></label>
+        <label class="hub-field"><span>メール</span><input id="email" type="email" placeholder="you@example.com" autocomplete="email"></label>
+      </div>
+
+      <h3>学歴（新しい順でなくてOK）</h3>
+      <div id="eduList"></div>
+      <button class="hub-btn is-ghost" id="addEdu" type="button">＋ 学歴を追加</button>
+
+      <h3>職歴</h3>
+      <div id="jobList"></div>
+      <button class="hub-btn is-ghost" id="addJob" type="button">＋ 職歴を追加</button>
+
+      <h3>資格・スキル</h3>
+      <label class="hub-field"><span>1行に1つ</span><textarea id="skills" rows="3" placeholder="普通自動車第一種運転免許（2017年3月）&#10;TOEIC 780点（2024年）&#10;基本情報技術者試験（2023年）"></textarea></label>
+
+      <h3>志望動機のたたき台</h3>
+      <div class="hub-row">
+        <label class="hub-field"><span>職種</span>
+          <select id="role">
+            <option>事務・管理</option><option>営業</option><option>エンジニア</option>
+            <option>接客・販売</option><option>介護・福祉</option><option>クリエイティブ</option>
+          </select>
+        </label>
+        <label class="hub-field"><span>経験年数</span><input id="years" type="number" min="0" max="40" value="3"></label>
+      </div>
+      <button class="hub-btn" id="draft" type="button">志望動機を作る</button>
+      <label class="hub-field" style="margin-top:10px"><span>志望動機（編集できます）</span><textarea id="motivation" rows="4"></textarea></label>
+
+      <h3>本人希望記入欄</h3>
+      <label class="hub-field"><input id="wish" value="貴社の規定に従います。"></label>
+
+      <div class="hub-actions">
+        <button class="hub-btn" id="print" type="button">印刷 / PDF保存</button>
+        <button class="hub-btn is-ghost" id="copy" type="button">テキストでコピー</button>
+        <button class="hub-btn is-ghost" id="sample" type="button">サンプルを入れる</button>
+      </div>
+      <p class="hub-note" style="margin-top:10px">入力内容はこの端末にだけ保存されます。印刷画面で「PDFに保存」を選ぶとPDFになります。</p>
+    </section>
+
+    <aside class="rk-preview" aria-labelledby="previewTitle">
+      <h2 id="previewTitle" style="font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--dih-text-muted);margin:0 0 8px">プレビュー</h2>
+      <div class="rk-sheet" id="sheet">
+        <div class="rk-photo">写真</div>
+        <h2>履 歴 書</h2>
+        <div class="rk-date" id="pDate">2026年11月24日 現在</div>
+        <table>
+          <tr><th>ふりがな</th><td id="pKana">—</td></tr>
+          <tr><th>氏名</th><td id="pName" style="font-size:16px">—</td></tr>
+          <tr><th>生年月日</th><td id="pBirth">—</td></tr>
+          <tr><th>住所</th><td id="pAddress">—</td></tr>
+          <tr><th>連絡先</th><td id="pContact">—</td></tr>
+        </table>
+        <div class="rk-label">学歴・職歴</div>
+        <div class="rk-block" id="pHistory"></div>
+        <div class="rk-label">資格・スキル</div>
+        <div class="rk-block" id="pSkills"></div>
+        <div class="rk-label">志望動機</div>
+        <div class="rk-block" id="pMotivation"></div>
+        <div class="rk-label">本人希望記入欄</div>
+        <div class="rk-block" id="pWish"></div>
+      </div>
+    </aside>
+  </div>
+
+  <div class="hub-ad" aria-label="広告">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5443646750699471" data-ad-slot="8451723433" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <p class="hub-note">関連: <a href="/software/seikyusho">請求書メーカー</a> · <a href="/software/tedori">手取り計算</a> · <a href="/software/kakutei">確定申告チェック</a></p>
+</main>
+
+<script>
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var KEY = 'dih_rirekisho';
+
+  function addRow(list, value, placeholder) {
+    var row = document.createElement('div');
+    row.className = 'rk-row';
+    row.innerHTML = '<input type="text" value="' + (value || '').replace(/"/g, '&quot;') + '" placeholder="' + placeholder + '"><button type="button" aria-label="削除">✕</button>';
+    row.querySelector('button').addEventListener('click', function () { row.remove(); render(); });
+    row.querySelector('input').addEventListener('input', render);
+    list.appendChild(row);
+    return row.querySelector('input');
+  }
+
+  function rows(list) {
+    return Array.prototype.slice.call(list.querySelectorAll('input')).map(function (i) { return i.value.trim(); }).filter(Boolean);
+  }
+
+  function era(year, month, day) {
+    var d = new Date(year, month - 1, day || 1);
+    var y = d.getFullYear(), m = d.getMonth() + 1;
+    var names = [[2019, '令和'], [1989, '平成'], [1926, '昭和']];
+    for (var i = 0; i < names.length; i++) {
+      if (y >= names[i][0]) return names[i][1] + (y - names[i][0] + 1) + '年' + m + '月';
+    }
+    return y + '年' + m + '月';
+  }
+
+  function birthText() {
+    if (!$('birth').value) return '—';
+    var p = $('birth').value.split('-');
+    return era(Number(p[0]), Number(p[1]), Number(p[2])) + p[2] + '日生（満' + age() + '歳）';
+  }
+  function age() {
+    if (!$('birth').value) return '—';
+    var b = new Date($('birth').value);
+    var now = new Date();
+    var a = now.getFullYear() - b.getFullYear();
+    var before = now.getMonth() < b.getMonth() || (now.getMonth() === b.getMonth() && now.getDate() < b.getDate());
+    return before ? a - 1 : a;
+  }
+
+  function render() {
+    $('pKana').textContent = $('kana').value || '—';
+    $('pName').textContent = $('name').value || '—';
+    $('pBirth').textContent = birthText();
+    $('pAddress').textContent = $('address').value || '—';
+    $('pContact').textContent = [$('tel').value, $('email').value].filter(Boolean).join(' / ') || '—';
+
+    var edu = rows($('eduList')).map(function (v) { return v; });
+    var job = rows($('jobList')).map(function (v) { return v; });
+    var lines = [];
+    if (edu.length) lines.push('【学歴】');
+    lines = lines.concat(edu);
+    if (job.length) { lines.push('【職歴】'); lines = lines.concat(job); }
+    if (!lines.length) lines.push('学歴・職歴を入力してください。');
+    lines.push('以上');
+    $('pHistory').textContent = lines.join('\n');
+    $('pSkills').textContent = $('skills').value || '—';
+    $('pMotivation').textContent = $('motivation').value || '—';
+    $('pWish').textContent = $('wish').value || '—';
+
+    var now = new Date();
+    $('pDate').textContent = now.getFullYear() + '年' + (now.getMonth() + 1) + '月' + now.getDate() + '日 現在';
+
+    try {
+      localStorage.setItem(KEY, JSON.stringify({
+        name: $('name').value, kana: $('kana').value, birth: $('birth').value,
+        gender: $('gender').value, address: $('address').value, tel: $('tel').value,
+        email: $('email').value, skills: $('skills').value, motivation: $('motivation').value,
+        wish: $('wish').value, edu: rows($('eduList')), job: rows($('jobList'))
+      }));
+    } catch (e) {}
+  }
+
+  var TEMPLATES = {
+    '事務・管理': '前職では{role}として{years}年間、書類管理・データ入力・電話対応を担当しました。正確さと期限遵守を大切にし、月末の締め作業も一人で対応できるようになりました。御社ではその丁寧さを活かし、社内の手続きが滞らない環境づくりに貢献したいと考えています。',
+    '営業': '前職では{years}年間、既存顧客のフォローと新規開拓を担当し、担当顧客数を約1.4倍に増やしました。お客様の課題を聞き出す質問力と、約束を守る対応が強みです。御社の商材でも、まず信頼を積み上げる営業を続けたいと思います。',
+    'エンジニア': '前職では{years}年間、Webアプリケーションの開発・運用を担当しました。要件を整理し、小さく作って検証する進め方を得意としています。御社では設計と運用の両方に携わり、長く使われる仕組みづくりに貢献したいです。',
+    '接客・販売': '前職では{years}年間、店舗での接客と売場づくりを担当しました。お客様の目的を伺って提案することを心がけ、リピートのお客様も増えました。御社でも、気持ちよく買い物できる時間をつくることに注力したいです。',
+    '介護・福祉': '前職では{years}年間、利用者様の生活支援を担当しました。記録を丁寧に残し、チームで情報を共有することを徹底しています。御社では、利用者様とご家族が安心できる関わりを続けたいと考えています。',
+    'クリエイティブ': '前職では{years}年間、バナーや資料のデザインを担当しました。目的と読み手を最初に確認し、伝わる形に落とし込むことを大切にしています。御社では制作の手を動かすだけでなく、改善提案まで担いたいです。'
+  };
+
+  function draft() {
+    var role = $('role').value;
+    var years = Math.max(0, Number($('years').value || 0));
+    var text = (TEMPLATES[role] || TEMPLATES['事務・管理']).replace('{role}', role).replace('{years}', years || '数');
+    $('motivation').value = text;
+    render();
+  }
+
+  function saveInputs() {
+    ['name', 'kana', 'birth', 'gender', 'address', 'tel', 'email', 'skills', 'motivation', 'wish'].forEach(function (id) {
+      $(id).addEventListener('input', render);
+    });
+  }
+
+  function load() {
+    try {
+      var saved = JSON.parse(localStorage.getItem(KEY) || 'null');
+      if (!saved) return false;
+      ['name', 'kana', 'birth', 'gender', 'address', 'tel', 'email', 'skills', 'motivation', 'wish'].forEach(function (id) {
+        if (saved[id]) $(id).value = saved[id];
+      });
+      (saved.edu || []).forEach(function (v) { addRow($('eduList'), v, '例：2017年3月 ○○高等学校 卒業'); });
+      (saved.job || []).forEach(function (v) { addRow($('jobList'), v, '例：2021年4月 株式会社○○ 入社'); });
+      return true;
+    } catch (e) { return false; }
+  }
+
+  saveInputs();
+  $('addEdu').addEventListener('click', function () { addRow($('eduList'), '', '例：2017年3月 ○○高等学校 卒業').focus(); });
+  $('addJob').addEventListener('click', function () { addRow($('jobList'), '', '例：2021年4月 株式会社○○ 入社').focus(); });
+  $('draft').addEventListener('click', draft);
+  $('print').addEventListener('click', function () { window.print(); });
+  $('copy').addEventListener('click', function () {
+    var text = ['履歴書', $('pKana').textContent + ' / ' + $('pName').textContent, birthText(), $('pAddress').textContent,
+      $('pContact').textContent, '', $('pHistory').textContent, '', '資格: ' + $('pSkills').textContent,
+      '', '志望動機: ' + $('pMotivation').textContent].join('\n');
+    if (navigator.clipboard) navigator.clipboard.writeText(text).then(function () {
+      if (window.dihToast) window.dihToast('履歴書のテキストをコピーしました。');
+    });
+  });
+  $('sample').addEventListener('click', function () {
+    $('name').value = '山田 太郎'; $('kana').value = 'やまだ たろう';
+    $('address').value = '〒150-0001 東京都渋谷区神宮前1-2-3';
+    $('tel').value = '090-1234-5678'; $('email').value = 'taro.yamada@example.com';
+    $('skills').value = '普通自動車第一種運転免許（2017年3月）\n基本情報技術者試験（2023年）\nTOEIC 780点（2024年）';
+    $('eduList').innerHTML = ''; $('jobList').innerHTML = '';
+    addRow($('eduList'), '2014年4月 ○○県立○○高等学校 入学', '');
+    addRow($('eduList'), '2017年3月 ○○県立○○高等学校 卒業', '');
+    addRow($('eduList'), '2017年4月 ○○大学 経済学部 入学', '');
+    addRow($('eduList'), '2021年3月 ○○大学 経済学部 卒業', '');
+    addRow($('jobList'), '2021年4月 株式会社○○ 入社 営業部 配属', '');
+    addRow($('jobList'), '2024年10月 株式会社○○ 一身上の都合により退職', '');
+    draft();
+  });
+
+  if (!load()) {
+    addRow($('eduList'), '', '例：2017年3月 ○○高等学校 卒業');
+    addRow($('jobList'), '', '例：2021年4月 株式会社○○ 入社');
+  }
+  render();
+})();
+</script>
+<!-- DIH:GALLERY -->
+<section class="dih-gallery" aria-labelledby="dihGalleryTitle">
+  <div class="dih-gallery-head">
+    <div>
+      <span class="dih-gallery-eyebrow">Visual briefing</span>
+      <h2 id="dihGalleryTitle">Technology, in focus</h2>
+      <p>Fast context on the ideas shaping the industry, with a guide for every one.</p>
+    </div>
+    <a class="dih-gallery-all" href="/techtopics">All 35 tech guides <span aria-hidden="true">&rarr;</span></a>
+  </div>
+  <div class="dih-gallery-grid">
+      <a class="dih-gallery-card" href="/smartcities">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=640&amp;h=400&amp;fit=crop&amp;auto=format&amp;q=70" alt="Dense city skyline seen from above" width="640" height="400" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Smart cities</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Cities are systems, not gadgets</strong>
+          <span>A smart city joins transport, power, water and planning data. The wins come from operations, not from another app for residents.</span>
+          <em>Read the smart cities guide &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/digitaltwins">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1622737133809-d95047b9e673?w=640&amp;h=400&amp;fit=crop&amp;auto=format&amp;q=70" alt="Floating three-dimensional cubes and glowing spheres" width="640" height="400" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Digital twins</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>A copy that earns its keep</strong>
+          <span>A digital twin is only useful if it stays in sync with the real asset. Sensors, maintenance history and clear questions matter more than the render.</span>
+          <em>Read the digital twin guide &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/digitalidentity">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1581553673739-c4906b5d0de8?w=640&amp;h=400&amp;fit=crop&amp;auto=format&amp;q=70" alt="Open passport with colourful ink stamps" width="640" height="400" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Digital identity</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Prove who you are, not what you know</strong>
+          <span>Passwords prove knowledge; identity systems prove a person. The design question is how to do that without creating a single point of failure.</span>
+          <em>Read the digital identity guide &rarr;</em>
+        </span>
+      </a>
+  </div>
+  <p class="dih-gallery-credit">Photography by Unsplash contributors. Cards link to related Digital Infohub guides.</p>
+</section>
+<!-- /DIH:GALLERY -->
+<!-- DIH:EXPLORE -->
+<section class="dih-explore" aria-labelledby="dihExploreTitle">
+  <div class="dih-explore-head">
+    <h2 id="dihExploreTitle">More from the software suite</h2>
+    <p>Every tool in the suite is free and runs in your browser.</p>
+  </div>
+  <div class="dih-explore-grid">
+      <a class="dih-explore-card" href="/software">
+        <span class="dih-explore-icon" aria-hidden="true">🛠️</span>
+        <strong>Software &amp; tools</strong>
+        <span>Free AI assistants and browser utilities that run locally.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/blog">
+        <span class="dih-explore-icon" aria-hidden="true">📝</span>
+        <strong>Blog &amp; analysis</strong>
+        <span>Deep dives on AI, hardware, markets and digital culture.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/techtopics">
+        <span class="dih-explore-icon" aria-hidden="true">🔬</span>
+        <strong>Tech Topics</strong>
+        <span>Clear guides to the technology shaping business.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/games">
+        <span class="dih-explore-icon" aria-hidden="true">🎮</span>
+        <strong>Pixel Palace</strong>
+        <span>Free arcade games, playable on desktop and mobile.</span>
+        <em>Explore →</em>
+      </a>
+  </div>
+</section>
+<!-- /DIH:EXPLORE -->
+<!-- DIH:FOOTER -->
+<footer class="dih-footer">
+  <div class="dih-footer-inner">
+    <div class="dih-footer-brand">
+      <a class="dih-brand" href="/" aria-label="Digital Infohub home">
+        <img src="/assets/logo.png" alt="Digital Infohub logo" width="40" height="40">
+        <span class="dih-brand-text">Digital <b>Infohub</b></span>
+      </a>
+      <p>The independent tech hub for everyone: AI research, market moves, practical guides, free tools and Digi, your AI guide.</p>
+      <span class="dih-pill"><span class="dih-dot"></span> Updated daily</span>
+    </div>
+    <div class="dih-footer-col">
+      <h3>Explore</h3>
+      <a href="/blog">Blog &amp; analysis</a>
+      <a href="/techtopics">Tech Topics</a>
+      <a href="/software">Software &amp; tools</a>
+      <a href="/terminal">Terminal mode</a>
+      <a href="/techproducts">Tech Products</a>
+      <a href="/games">Pixel Palace</a>
+      <a href="/digi">Digi AI guide</a>
+      <a href="/news">Live tech news</a>
+      <a href="/quiz">Tech quiz</a>
+    </div>
+    <div class="dih-footer-col">
+      <h3>Company</h3>
+      <a href="/about">About</a>
+      <a href="/services">Services</a>
+      <a href="/advertise">Advertise</a>
+      <a href="/coincompass">CoinCompass</a>
+      <a href="/privacy-policy">Privacy</a>
+    </div>
+    <div class="dih-footer-col dih-footer-cta">
+      <h3>Stay ahead</h3>
+      <p>One email a week: the AI, market and software stories that actually matter.</p>
+      <a class="dih-btn dih-btn-primary" href="/subscribe">Subscribe free</a>
+    </div>
+  </div>
+  <div class="dih-footer-bottom">
+    <span>© 2026 Digital Infohub · Independent technology publication</span>
+    <nav aria-label="Footer links">
+      <a href="/blog">Blog</a>
+      <a href="/techtopics">Guides</a>
+      <a href="/software">Tools</a>
+      <a href="/contact">Contact</a>
+      <a href="/terminal">Terminal</a>
+      <a href="/sitemap.xml">Sitemap</a>
+    </nav>
+  </div>
+</footer>
+<!-- /DIH:FOOTER -->
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

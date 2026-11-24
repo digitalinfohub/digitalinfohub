@@ -46,8 +46,8 @@ GENERATED = {
 PAGE_META = {
     "techtopics.html": {
         "kind": "techtopics", "type": "website",
-        "title": "Tech Topics: Plain-Language Guides to AI, Cloud and More",
-        "desc": "35 plain-language guides to AI, cloud, security, quantum, robotics and the technology shaping business — no jargon, no hype.",
+        "title": "Tech Topics: Clear Guides to AI, Cloud and More",
+        "desc": "35 clear guides to AI, cloud, security, quantum, robotics and the technology shaping business — no jargon, no hype.",
         "keywords": "tech topics, technology guides, what is AI, cloud computing, cybersecurity, quantum computing, robotics",
     },
     "blog.html": {
@@ -93,10 +93,70 @@ PAGE_META = {
         "keywords": "website hosting price, graphic design pricing, social media marketing, advertise on tech site, digital infohub services",
     },
     "tabikumi.html": {
-        "kind": "software-detail", "type": "website",
+        "kind": "software-detail", "type": "website", "lang": "ja",
         "title": "たび組｜海外旅行プランナー（円建て予算・為替・航空券・持ち物）",
         "desc": "日本人のための無料・海外旅行プランナー。円建て予算、円安チェック、航空券の目安、ホテル相場、現地物価、持ち物チェックリスト、ルールベースAI「ミチ」。英語圏8か国対応。",
         "keywords": "海外旅行 計画, 旅行 予算 計算, 円安 旅行, 為替, 航空券 価格 目安, ホテル 相場, 持ち物 チェックリスト, tabikumi",
+    },
+    "tedori.html": {
+        "kind": "software-detail", "type": "website", "lang": "ja",
+        "title": "手取り計算｜年収から社会保険料・税金を引いた手取りを計算",
+        "desc": "年収・年齢・扶養人数から社会保険料、所得税、住民税を計算し、月々の手取り額と手取り率をその場で概算。控除の内訳も表示。無料・登録不要。",
+        "keywords": "手取り計算, 手取り 年収, 社会保険料 計算, 所得税 計算, 住民税, 給与 手取り, 年収500万 手取り",
+    },
+    "furusato.html": {
+        "kind": "software-detail", "type": "website", "lang": "ja",
+        "title": "ふるさと納税 限度額シミュレーター｜年収から寄付の上限を計算",
+        "desc": "年収と家族構成から、ふるさと納税で自己負担2,000円に収まる寄付の上限額を計算。所得税・住民税の控除内訳とワンストップ特例の条件も確認できます。",
+        "keywords": "ふるさと納税 限度額, ふるさと納税 計算, 寄付 上限, ワンストップ特例, 住民税 控除",
+    },
+    "rirekisho.html": {
+        "kind": "software-detail", "type": "website", "lang": "ja",
+        "title": "履歴書メーカー｜JIS様式を入力してそのまま印刷・PDF保存",
+        "desc": "氏名・学歴・職歴・志望動機を入力するだけでJIS様式の履歴書を作成。印刷・PDF保存・テキスト保存に対応し、志望動機のたたき台も作れます。無料。",
+        "keywords": "履歴書 作成, 履歴書 テンプレート, 志望動機, 職務経歴書, 履歴書 PDF, 転職 書類",
+    },
+    "seikyusho.html": {
+        "kind": "software-detail", "type": "website", "lang": "ja",
+        "title": "請求書メーカー｜インボイス制度・消費税・源泉徴収に対応",
+        "desc": "適格請求書の登録番号、消費税10%・8%、源泉徴収まで対応した請求書をブラウザで作成。印刷・PDF保存・テキストコピー。フリーランス向け、無料。",
+        "keywords": "請求書 作成, 請求書 テンプレート, インボイス 登録番号, 消費税 請求書, 源泉徴収, フリーランス 請求書",
+    },
+    "kakutei.html": {
+        "kind": "software-detail", "type": "website", "lang": "ja",
+        "title": "確定申告チェックリスト｜必要書類・期限を30秒で診断",
+        "desc": "給与・副業・フリーランス・不動産などの収入を選ぶだけで、確定申告が必要か、必要な書類、経費の考え方、期限までの流れを整理します。無料。",
+        "keywords": "確定申告 必要書類, 確定申告 チェックリスト, 副業 確定申告, 20万円 ルール, 経費, 確定申告 期限",
+    },
+    "invoice.html": {
+        "kind": "software-detail", "type": "website",
+        "title": "Free Invoice Generator — Tax, Discounts & Print | Digital Infohub",
+        "desc": "Create a clean freelance invoice in your browser: line items, VAT/GST or sales tax, discounts, notes and payment terms. Print or save as PDF, no signup.",
+        "keywords": "invoice generator, free invoice template, freelance invoice, VAT invoice, printable invoice, invoice PDF",
+    },
+    "loan.html": {
+        "kind": "software-detail", "type": "website",
+        "title": "Loan & Mortgage Calculator — Monthly Payment & Schedule",
+        "desc": "Work out the monthly payment on a loan or mortgage, see total interest, and compare the effect of extra payments with a full amortisation schedule and CSV export.",
+        "keywords": "loan calculator, mortgage calculator, monthly payment, amortization schedule, extra payment, interest calculator",
+    },
+    "timezone.html": {
+        "kind": "software-detail", "type": "website",
+        "title": "Meeting Planner Across Time Zones — Find an Hour That Works",
+        "desc": "Compare working hours across cities in one grid, spot the overlap instantly and copy a meeting time that everyone can attend. Daylight saving handled automatically.",
+        "keywords": "time zone meeting planner, world clock, meeting scheduler, time zone converter, remote team meeting",
+    },
+    "resume.html": {
+        "kind": "software-detail", "type": "website",
+        "title": "Free Résumé Builder — ATS-Friendly CV, Print or PDF",
+        "desc": "Build a clean, ATS-friendly résumé in the browser: summary, experience with measurable results, education and skills. Live preview, print to PDF, plain-text export.",
+        "keywords": "resume builder, free CV maker, ATS resume, printable resume, resume template, CV PDF",
+    },
+    "seo-preview.html": {
+        "kind": "software-detail", "type": "website",
+        "title": "SEO & Social Preview — Check Title, Description and OG Card",
+        "desc": "See how a page will look in Google and on social before publishing. Live SERP preview, pixel and length checks, Open Graph card, copy-ready meta tags and JSON-LD.",
+        "keywords": "seo preview, google serp preview, og card checker, meta description length, open graph generator, json-ld generator",
     },
     "ascii-art.html": {
         "kind": "software-detail", "type": "website",
@@ -272,7 +332,7 @@ def existing_keywords(html: str) -> str:
 # social headline is written to earn the click without turning into clickbait.
 SHARE_COPY = {
     "techtopics.html": {
-        "share_title": "35 plain-language guides to the tech that matters",
+        "share_title": "35 clear guides to the tech that matters",
         "desc": "Understand AI, cloud, security, quantum, robotics and more without the jargon. Every guide gives you the mental model, the limits and the next step.",
     },
     "blog.html": {
@@ -326,7 +386,7 @@ SHARE_COPY = {
         "keywords": "crypto tracker, market tracker, bitcoin, portfolio, coincompass, crypto charts, stock charts",
     },
     "privacy-policy.html": {
-        "desc": "How Digital Infohub handles data, cookies, advertising and analytics — plainly explained.",
+        "desc": "How Digital Infohub handles data, cookies, advertising and analytics — clearly explained.",
     },
 }
 
@@ -458,9 +518,16 @@ def choose_meta(rel: Path, html: str):
         return {
             "kind": "techtopics", "type": "article",
             "title": title,
-            "desc": old_desc or f"{first_text(html, 'h1')} — a plain-language guide from Digital Infohub.",
+            "desc": old_desc or f"{first_text(html, 'h1')} — a clear guide from Digital Infohub.",
             "keywords": existing_keywords(html) or "technology guide, digital infohub",
             "share_title": re.sub(r"\s*\|\s*Digital Infohub.*$", "", title),
+        }
+    if rel.parent.name == "games":
+        return {
+            "kind": "games", "type": "website",
+            "title": old_title or f"{first_text(html, 'h1') or rel.stem.title()} — Free Browser Game | Digital Infohub",
+            "desc": old_desc or f"Play {first_text(html, 'h1') or rel.stem.title()} free in your browser on Digital Infohub. No download, no signup.",
+            "keywords": existing_keywords(html) or "free browser game, online arcade, digital infohub",
         }
     if key in TOOL_TITLES:
         name, desc = TOOL_TITLES[key]
@@ -490,6 +557,8 @@ def seo_block(rel: Path, meta: dict, html_snapshot=None) -> str:
     kind = meta.get("kind", "blog")
     image = meta.get("image") or f"{SITE}/assets/og-cover.png"
     image_alt = meta.get("image_alt") or "Digital Infohub — tech intelligence for professionals"
+    lang = meta.get("lang", "en")
+    locale = meta.get("locale") or ("ja_JP" if lang == "ja" else "en_US")
     share_title = meta.get("share_title") or title
     share_desc = clean(meta.get("share_desc") or desc)
     section = {
@@ -511,13 +580,13 @@ def seo_block(rel: Path, meta: dict, html_snapshot=None) -> str:
                 "@type": "Organization", "@id": f"{SITE}/#organization",
                 "name": "Digital Infohub", "url": f"{SITE}/",
                 "logo": {"@type": "ImageObject", "url": f"{SITE}/assets/icon-512.png", "width": 512, "height": 512},
-                "description": "Independent technology publication for everyone: plain-language guides, free browser tools and live market context.",
+                "description": "Independent technology publication for everyone: clear guides, free browser tools and live market context.",
                 "sameAs": [],
             },
             {
                 "@type": "WebSite", "@id": f"{SITE}/#website", "url": f"{SITE}/",
                 "name": "Digital Infohub", "publisher": {"@id": f"{SITE}/#organization"},
-                "inLanguage": "en",
+                "inLanguage": lang,
                 "potentialAction": {
                     "@type": "SearchAction",
                     "target": {"@type": "EntryPoint", "urlTemplate": f"{SITE}/blog?q={{search_term_string}}"},
@@ -529,7 +598,7 @@ def seo_block(rel: Path, meta: dict, html_snapshot=None) -> str:
                 "name": title, "description": desc,
                 "isPartOf": {"@id": f"{SITE}/#website"},
                 "about": {"@id": f"{SITE}/#organization"},
-                "inLanguage": "en",
+                "inLanguage": lang,
                 "primaryImageOfPage": {"@type": "ImageObject", "url": image, "width": 1200, "height": 630},
             },
     ]
@@ -557,7 +626,7 @@ def seo_block(rel: Path, meta: dict, html_snapshot=None) -> str:
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="{escape_attr(image_alt)}">
-<meta property="og:locale" content="en_US">
+<meta property="og:locale" content="{locale}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{escape_attr(share_title)}">
 <meta name="twitter:description" content="{escape_attr(share_desc)}">
@@ -651,6 +720,10 @@ def process_index(path: Path) -> bool:
     """Homepage: keep its hand-authored head and chrome, add the visual layer."""
     rel = path.relative_to(ROOT)
     html = path.read_text(encoding="utf-8")
+    # Homepage v2 owns its full layout (banner, tabs, interest board); the
+    # builder must not re-insert the gallery or reorder sections.
+    if 'data-home="v2"' in html:
+        return False
     cleaned = strip_visuals(html)
     if 'data-page="home"' not in cleaned:
         cleaned = re.sub(r"<body([^>]*)>", r'<body\1 data-page="home">', cleaned, count=1, flags=re.I)
@@ -701,6 +774,8 @@ def targets():
             continue
         pages.append(p)
     pages += sorted((ROOT / "software").glob("*.html"))
+    if (ROOT / "games").exists():
+        pages += sorted((ROOT / "games").glob("*.html"))
     pages += sorted((ROOT / "post").glob("*.html"))
     return pages
 

@@ -838,7 +838,7 @@
 <link rel="preconnect" href="https://images.unsplash.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/site.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://digitalinfohub.net/#organization","name":"Digital Infohub","url":"https://digitalinfohub.net/","logo":{"@type":"ImageObject","url":"https://digitalinfohub.net/assets/icon-512.png","width":512,"height":512},"description":"Independent technology publication for everyone: plain-language guides, free browser tools and live market context.","sameAs":[]},{"@type":"WebSite","@id":"https://digitalinfohub.net/#website","url":"https://digitalinfohub.net/","name":"Digital Infohub","publisher":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://digitalinfohub.net/blog?q={search_term_string}"},"query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://digitalinfohub.net/blog#webpage","url":"https://digitalinfohub.net/blog","name":"Tech Blog: AI, Hardware & Market Analysis | Digital Infohub","description":"Sharp, practical analysis of AI, cybersecurity, hardware and the forces moving tech markets — for professionals who have to act on it.","isPartOf":{"@id":"https://digitalinfohub.net/#website"},"about":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","primaryImageOfPage":{"@type":"ImageObject","url":"https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=1200&h=630&fit=crop&auto=format&q=80&fm=jpg","width":1200,"height":630}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://digitalinfohub.net/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://digitalinfohub.net/blog"},{"@type":"ListItem","position":3,"name":"Tech Blog: AI, Hardware & Market Analysis","item":"https://digitalinfohub.net/blog"}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://digitalinfohub.net/#organization","name":"Digital Infohub","url":"https://digitalinfohub.net/","logo":{"@type":"ImageObject","url":"https://digitalinfohub.net/assets/icon-512.png","width":512,"height":512},"description":"Independent technology publication for everyone: clear guides, free browser tools and live market context.","sameAs":[]},{"@type":"WebSite","@id":"https://digitalinfohub.net/#website","url":"https://digitalinfohub.net/","name":"Digital Infohub","publisher":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://digitalinfohub.net/blog?q={search_term_string}"},"query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://digitalinfohub.net/blog#webpage","url":"https://digitalinfohub.net/blog","name":"Tech Blog: AI, Hardware & Market Analysis | Digital Infohub","description":"Sharp, practical analysis of AI, cybersecurity, hardware and the forces moving tech markets — for professionals who have to act on it.","isPartOf":{"@id":"https://digitalinfohub.net/#website"},"about":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","primaryImageOfPage":{"@type":"ImageObject","url":"https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=1200&h=630&fit=crop&auto=format&q=80&fm=jpg","width":1200,"height":630}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://digitalinfohub.net/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://digitalinfohub.net/blog"},{"@type":"ListItem","position":3,"name":"Tech Blog: AI, Hardware & Market Analysis","item":"https://digitalinfohub.net/blog"}]}]}</script>
 <!-- /DIH:HEAD -->
 </head>
 <body>
@@ -864,6 +864,8 @@
     </nav>
     <div class="dih-actions">
       <a class="dih-tools" href="/software#tools" title="Free browser tools" aria-label="Free browser tools">⚡<span>Tools</span></a>
+      <a class="dih-icon dih-term" href="/terminal" title="Terminal mode — browse like a shell" aria-label="Open terminal mode">⌨<span class="dih-term-txt">Terminal</span></a>
+      <button class="dih-icon dih-sound" type="button" data-dih-sound aria-label="Sound on — tap to mute" aria-pressed="true" title="Sound on — tap to mute (Shift+S)">🔊</button>
       <button class="dih-icon dih-share" type="button" data-dih-share aria-label="Share this page" title="Share this page">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M12 3v13"/><path d="m7 8 5-5 5 5"/></svg>
       </button>
@@ -1017,7 +1019,7 @@
 
   const BLOG_POSTS = [
     // NEW POSTS - NOVEMBER 2026
-    { title: 'Investment Ideas for 2026: A Practical Starting Guide', link: '/post/investment-ideas-2026', excerpt: 'A plain-language tour of the investment options people actually use in 2026 — index funds, bonds, property, crypto and cash — with the risks, costs and questions to ask before you commit.', tag: 'Investing', date: 'November 2026', image: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&h=500&fit=crop&auto=format&q=70' },
+    { title: 'Investment Ideas for 2026: A Practical Starting Guide', link: '/post/investment-ideas-2026', excerpt: 'A clear tour of the investment options people actually use in 2026 — index funds, bonds, property, crypto and cash — with the risks, costs and questions to ask before you commit.', tag: 'Investing', date: 'November 2026', image: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&h=500&fit=crop&auto=format&q=70' },
     { title: 'What Will Tech Look Like in the Future?', link: '/post/what-will-tech-look-like-in-the-future', excerpt: 'From on-device AI and ambient computing to robotics and quantum systems: a grounded look at where technology is heading, what has to be solved first, and which timelines are realistic.', tag: 'Future Tech', date: 'November 2026', image: 'https://images.unsplash.com/photo-1772550018808-ebbcc271726c?w=800&h=500&fit=crop&auto=format&q=70' },
     { title: 'What Does Tech Look Like Today?', link: '/post/what-does-tech-look-like-today', excerpt: 'A snapshot of technology in 2026: AI everywhere, cloud as default, devices that infer locally, and the security and energy bills that come with all of it.', tag: 'Tech Trends', date: 'November 2026', image: 'https://images.unsplash.com/photo-1782155789465-9bae14cbfba5?w=800&h=500&fit=crop&auto=format&q=70' },
     { title: 'Why Is My Face ID Not Working? Troubleshooting Guide', link: '/post/why-is-my-face-id-not-working', excerpt: 'Face ID failing to unlock your iPhone? Learn how to troubleshoot common biometric authentication issues, clean sensors, reset settings, and when to seek hardware repair.', tag: 'Mobile Tips', date: 'November 2026', image: 'https://images.unsplash.com/photo-1638951003100-2cc4550a9737?w=800&h=500&fit=crop&auto=format&q=70' },
@@ -1343,7 +1345,7 @@
       <a class="dih-explore-card" href="/techtopics">
         <span class="dih-explore-icon" aria-hidden="true">🔬</span>
         <strong>Tech Topics</strong>
-        <span>Plain-language guides to the technology shaping business.</span>
+        <span>Clear guides to the technology shaping business.</span>
         <em>Explore →</em>
       </a>
       <a class="dih-explore-card" href="/software">
@@ -1411,6 +1413,7 @@
       <a href="/software">Tools</a>
       <a href="/contact">Contact</a>
       <a href="/sitemap.xml">Sitemap</a>
+      <a href="/terminal">Terminal</a>
     </nav>
   </div>
 </footer>

@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-dih="">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Terminal Mode — Browse Digital Infohub Like Linux</title>
+<meta name="description" content="A working shell for the whole site: ls, cd, cat, find, top, ask and more. Navigate every guide, tool, game and page from the keyboard in Digital Infohub terminal mode.">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/assets/hub.css">
+<style>
+  .term-wrap{max-width:1040px;margin:0 auto;padding:22px 16px 70px}
+  .term-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+  .term-head h1{margin:0;font-size:clamp(22px,3.4vw,32px);font-weight:850;letter-spacing:-.03em}
+  .term-head p{margin:4px 0 0;font-size:12.5px;color:var(--dih-text-muted);max-width:60ch;line-height:1.55}
+  .term-pills{display:flex;gap:6px;flex-wrap:wrap}
+  .term-pill{padding:6px 11px;border-radius:999px;border:1px solid var(--dih-border-strong);background:transparent;color:var(--dih-text-muted);font-family:var(--dih-mono,monospace);font-size:10.5px;cursor:pointer;text-decoration:none}
+  .term-pill:hover{color:var(--dih-accent);border-color:var(--dih-accent)}
+
+  .terminal{background:#05070d;border:1px solid rgba(120,160,255,.22);border-radius:12px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+  .term-bar{display:flex;align-items:center;gap:8px;padding:9px 12px;background:#0b0f1a;border-bottom:1px solid rgba(120,160,255,.16)}
+  .term-dot{width:9px;height:9px;border-radius:50%;background:#ff5f57}.term-dot.y{background:#febc2e}.term-dot.g{background:#28c840}
+  .term-title{flex:1;text-align:center;font-family:var(--dih-mono,monospace);font-size:10.5px;color:#7f8ba5;letter-spacing:.06em}
+  .term-body{
+    height:min(64vh,560px);min-height:340px;overflow-y:auto;padding:14px 15px 18px;
+    font-family:var(--dih-mono,ui-monospace,monospace);font-size:12.5px;line-height:1.62;color:#c8d3ea;
+    background:radial-gradient(700px 320px at 15% 0%, rgba(76,141,255,.07), transparent 70%), #05070d;
+    scrollbar-width:thin;
+  }
+  .term-line{white-space:pre-wrap;word-break:break-word;margin-bottom:2px}
+  .term-line .ok{color:#6ee7a8}.term-line .warn{color:#ffcf6b}.term-line .err{color:#ff8f8f}
+  .term-line .dim{color:#6b7793}.term-line .hl{color:#7fd3ff;font-weight:700}
+  .term-line .path{color:#a6b7ff}
+  .term-line a{color:#7fd3ff;text-decoration:underline;text-underline-offset:2px}
+  .term-in{display:flex;align-items:baseline;gap:6px;padding:10px 14px 14px;background:#070a12;border-top:1px solid rgba(120,160,255,.14)}
+  .term-prompt{font-family:var(--dih-mono,monospace);font-size:12.5px;color:#6ee7a8;white-space:nowrap}
+  .term-prompt b{color:#7fd3ff;font-weight:600}
+  .term-input{flex:1;min-width:0;background:none;border:0;outline:none;color:#e6edff;font-family:var(--dih-mono,monospace);font-size:12.5px;caret-color:#6ee7a8;padding:4px 0}
+  .term-send{padding:5px 11px;border-radius:6px;border:1px solid rgba(120,160,255,.28);background:rgba(76,141,255,.12);color:#cfe0ff;font-family:var(--dih-mono,monospace);font-size:10.5px;cursor:pointer}
+  .term-help{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:6px;margin-top:12px}
+  .term-card{display:flex;flex-direction:column;gap:2px;padding:9px 11px;border-radius:8px;border:1px solid rgba(120,160,255,.16);background:rgba(255,255,255,.02);text-decoration:none;color:#c8d3ea}
+  .term-card b{font-family:var(--dih-mono,monospace);font-size:11px;color:#7fd3ff}
+  .term-card span{font-size:10.5px;color:#7f8ba5;line-height:1.4}
+  .term-card:hover{border-color:rgba(120,160,255,.45);background:rgba(76,141,255,.08)}
+  .term-note{margin-top:12px;font-size:11px;line-height:1.6;color:var(--dih-text-muted)}
+  .term-note kbd{padding:1px 5px;border-radius:4px;border:1px solid var(--dih-border-strong);font-family:var(--dih-mono,monospace);font-size:10px}
+  @media(max-width:600px){.term-body{font-size:11.5px;height:58vh}.term-input{font-size:16px}}
+  .term-board{margin-top:16px;padding:18px;border:1px solid rgba(120,160,255,.2);border-radius:14px;background:linear-gradient(180deg,rgba(76,141,255,.06),rgba(255,255,255,.015))}
+  .term-board-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:10px;margin-bottom:12px}
+  .term-board-kicker{margin:0;font-family:var(--dih-mono,monospace);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#7fd3ff}
+  .term-board h2{margin:2px 0 0;font-size:20px;letter-spacing:-.02em}
+  .term-board-sub{margin:4px 0 0;font-size:11.5px;line-height:1.55;color:var(--dih-text-muted)}
+  .term-board-sub a{color:#7fd3ff}
+  .term-board-actions{display:flex;gap:6px;flex-wrap:wrap}
+  .term-board-actions button{padding:6px 11px;border-radius:8px;border:1px solid rgba(120,160,255,.24);background:rgba(76,141,255,.1);color:#cfe0ff;font-size:10.5px;font-family:var(--dih-mono,monospace);cursor:pointer}
+  .ib-rows{display:grid;gap:4px}
+  .ib-row{display:grid;grid-template-columns:26px 1fr auto;gap:8px;align-items:center;padding:7px 9px;border-radius:8px;background:rgba(255,255,255,.02);border:1px solid transparent;color:#c8d3ea;text-decoration:none;font-size:12px}
+  .ib-row:hover{border-color:rgba(120,160,255,.4);background:rgba(76,141,255,.07)}
+  .ib-row .n{font-family:var(--dih-mono,monospace);font-size:10px;color:#6b7793}
+  .ib-row .t{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .ib-row .c{font-family:var(--dih-mono,monospace);font-size:10px;color:#7fd3ff}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Terminal Mode — Digital Infohub","applicationCategory":"UtilitiesApplication","operatingSystem":"Web","browserRequirements":"Requires JavaScript","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"inLanguage":"en","description":"A Linux-like shell for browsing every page, tool, guide and game on Digital Infohub.","url":"https://digitalinfohub.net/terminal"}
+</script>
+<!-- DIH:HEAD -->
+<script>try{var t=localStorage.getItem('dih_theme')||'dark';document.documentElement.setAttribute('data-theme',t);document.documentElement.setAttribute('data-dih','');}catch(e){document.documentElement.setAttribute('data-dih','');}</script>
+<meta name="theme-color" content="#07070c">
+<meta name="color-scheme" content="dark light">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="author" content="Digital Infohub">
+<meta name="keywords" content="technology, digital infohub">
+<link rel="canonical" href="https://digitalinfohub.net/terminal">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Digital Infohub">
+<meta property="og:title" content="Terminal Mode — Browse Digital Infohub Like Linux">
+<meta property="og:description" content="A working shell for the whole site: ls, cd, cat, find, top, ask and more. Navigate every guide, tool, game and page from the keyboard in Digital Infohub terminal mode.">
+<meta property="og:url" content="https://digitalinfohub.net/terminal">
+<meta property="og:image" content="https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta property="og:image:secure_url" content="https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Glowing blue network lines and nodes forming a mesh">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Terminal Mode — Browse Digital Infohub Like Linux">
+<meta name="twitter:description" content="A working shell for the whole site: ls, cd, cat, find, top, ask and more. Navigate every guide, tool, game and page from the keyboard in Digital Infohub terminal mode.">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta name="twitter:image:alt" content="Glowing blue network lines and nodes forming a mesh">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="icon" href="/assets/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://digitalinfohub.net/#organization","name":"Digital Infohub","url":"https://digitalinfohub.net/","logo":{"@type":"ImageObject","url":"https://digitalinfohub.net/assets/icon-512.png","width":512,"height":512},"description":"Independent technology publication for everyone: clear guides, free browser tools and live market context.","sameAs":[]},{"@type":"WebSite","@id":"https://digitalinfohub.net/#website","url":"https://digitalinfohub.net/","name":"Digital Infohub","publisher":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://digitalinfohub.net/blog?q={search_term_string}"},"query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://digitalinfohub.net/terminal#webpage","url":"https://digitalinfohub.net/terminal","name":"Terminal Mode — Browse Digital Infohub Like Linux","description":"A working shell for the whole site: ls, cd, cat, find, top, ask and more. Navigate every guide, tool, game and page from the keyboard in Digital Infohub terminal mode.","isPartOf":{"@id":"https://digitalinfohub.net/#website"},"about":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","primaryImageOfPage":{"@type":"ImageObject","url":"https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&h=630&fit=crop&auto=format&q=80&fm=jpg","width":1200,"height":630}}]}</script>
+<!-- /DIH:HEAD -->
+</head>
+<body>
+<!-- DIH:AMBIENT -->
+<div class="dih-ambient" aria-hidden="true" style="--dih-ambient:url('https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&amp;h=675&amp;fit=crop&amp;auto=format&amp;q=40')"></div>
+<!-- /DIH:AMBIENT -->
+<!-- DIH:HEADER -->
+<header class="dih-header">
+  <div class="dih-header-inner">
+    <a class="dih-brand" href="/" aria-label="Digital Infohub home">
+      <img src="/assets/logo.png" alt="Digital Infohub logo" width="36" height="36">
+      <span class="dih-brand-text">Digital <b>Infohub</b></span>
+    </a>
+    <nav class="dih-nav" data-dih-nav aria-label="Primary navigation">
+      <a class="dih-link" href="/">Home</a>
+      <a class="dih-link" href="/digi">Digi</a>
+      <a class="dih-link" href="/blog">Blog</a>
+      <a class="dih-link" href="/techtopics">Tech Topics</a>
+      <a class="dih-link" href="/software">Software</a>
+      <a class="dih-link" href="/techproducts">Tech Products</a>
+      <a class="dih-link" href="/games">Games</a>
+      <a class="dih-link" href="/coincompass">Markets</a>
+    </nav>
+    <div class="dih-actions">
+      <a class="dih-tools" href="/software#tools" title="Free browser tools" aria-label="Free browser tools">⚡<span>Tools</span></a>
+      <a class="dih-icon dih-term" href="/terminal" title="Terminal mode — browse like a shell" aria-label="Open terminal mode">⌨<span class="dih-term-txt">Terminal</span></a>
+      <button class="dih-icon dih-sound" type="button" data-dih-sound aria-label="Sound on — tap to mute" aria-pressed="true" title="Sound on — tap to mute (Shift+S)">🔊</button>
+      <button class="dih-icon dih-share" type="button" data-dih-share aria-label="Share this page" title="Share this page">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M12 3v13"/><path d="m7 8 5-5 5 5"/></svg>
+      </button>
+      <button class="dih-icon" type="button" data-dih-theme aria-label="Switch theme" title="Switch theme">☀</button>
+      <a class="dih-cta" href="/subscribe">Subscribe</a>
+      <button class="dih-burger" id="dihBurger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="dihDrawer"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+<div class="dih-drawer" id="dihDrawer" aria-label="Site menu">
+  <div class="dih-drawer-panel">
+    <div class="dih-drawer-grid">
+      <a class="dih-drawer-link" href="/">Home</a>
+      <a class="dih-drawer-link" href="/digi">Digi</a>
+      <a class="dih-drawer-link" href="/blog">Blog</a>
+      <a class="dih-drawer-link" href="/techtopics">Tech Topics</a>
+      <a class="dih-drawer-link" href="/software">Software</a>
+      <a class="dih-drawer-link" href="/techproducts">Tech Products</a>
+      <a class="dih-drawer-link" href="/games">Games</a>
+      <a class="dih-drawer-link" href="/coincompass">Markets</a>
+    </div>
+    <div class="dih-drawer-sub">
+      <a class="dih-drawer-link" href="/news">📰 Tech News</a>
+      <a class="dih-drawer-link" href="/quiz">🎯 Tech Quiz</a>
+      <a class="dih-drawer-link" href="/software#tools">⚡ Tools</a>
+      <a class="dih-drawer-link" href="/services">🧰 Services</a>
+      <a class="dih-drawer-link" href="/terminal">⌨️ Terminal mode</a>
+      <a class="dih-drawer-link" href="/terminal#top">📊 Most opened pages</a>
+      <a class="dih-drawer-link" href="/contact">✉️ Contact</a>
+    </div>
+    <a class="dih-drawer-cta" href="/subscribe">✉️ Subscribe — weekly tech intel</a>
+    <p class="dih-drawer-note">Digital Infohub · Tech for everyone, with a guide for every question.</p>
+  </div>
+</div>
+<!-- /DIH:HEADER -->
+
+<div class="term-wrap">
+  <header class="term-head">
+    <div>
+      <span class="dih-eyebrow">⌨️ Terminal mode</span>
+      <h1>infohub@shell</h1>
+      <p>The whole site as a file system. Type <code>help</code> to start, or use <code>ls</code>, <code>cd</code>, <code>open</code> and <code>ask</code>. Everything works with the keyboard alone.</p>
+    </div>
+    <div class="term-pills">
+      <a class="term-pill" href="/">← back to the site</a>
+      <a class="term-pill" href="#top" id="topLink">interest board</a>
+      <button class="term-pill" type="button" id="themeCmd">theme</button>
+    </div>
+  </header>
+
+  <div class="terminal" id="terminal">
+    <div class="term-bar">
+      <span class="term-dot"></span><span class="term-dot y"></span><span class="term-dot g"></span>
+      <span class="term-title">guest@digitalinfohub: ~ — terminal mode</span>
+    </div>
+    <div class="term-body" id="termBody" role="log" aria-live="polite" aria-label="Terminal output"></div>
+    <form class="term-in" id="termForm" autocomplete="off">
+      <span class="term-prompt">guest@infohub:<b id="promptPath">~</b>$</span>
+      <input class="term-input" id="termInput" type="text" aria-label="Terminal command" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder="type a command…">
+      <button class="term-send" type="submit">run</button>
+    </form>
+  </div>
+
+  <div class="term-help" id="shortcuts">
+    <a class="term-card" href="/software"><b>cd /software</b><span>All free tools and apps</span></a>
+    <a class="term-card" href="/games"><b>cd /games</b><span>Nine browser games</span></a>
+    <a class="term-card" href="/techtopics"><b>cd /guides</b><span>35 technology guides</span></a>
+    <a class="term-card" href="/coincompass"><b>cd /markets</b><span>Live prices and context</span></a>
+    <a class="term-card" href="/news"><b>cd /news</b><span>Headlines through the day</span></a>
+    <a class="term-card" href="/software/tedori"><b>open tedori</b><span>手取り計算 (Japanese)</span></a>
+  </div>
+  <section class="term-board" id="interest" aria-labelledby="interestTitle">
+    <div class="term-board-head">
+      <div>
+        <p class="term-board-kicker">YOUR HUB</p>
+        <h2 id="interestTitle">Interest board</h2>
+        <p class="term-board-sub" id="ibSummary">Page views and link taps, counted privately in this browser.</p>
+      </div>
+      <div class="term-board-actions">
+        <button type="button" id="ibExport">Export userinterest.json</button>
+        <button type="button" id="ibReset">Reset log</button>
+      </div>
+    </div>
+    <div class="ib-rows" id="ibRows"></div>
+  </section>
+
+  <p class="term-note">Shortcuts: <kbd>↑</kbd> <kbd>↓</kbd> history · <kbd>Tab</kbd> complete · <kbd>Ctrl</kbd>+<kbd>L</kbd> clear · <kbd>Shift</kbd>+<kbd>S</kbd> sound · <kbd>Shift</kbd>+<kbd>T</kbd> opens this page from anywhere. Nothing here is a real shell: commands only read the site's page index.</p>
+</div>
+
+<div class="hub-ad" aria-label="Advertisement" style="max-width:970px;margin:0 auto 40px">
+  <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5443646750699471" data-ad-slot="8451723433" data-ad-format="auto" data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var body = document.getElementById('termBody');
+  var form = document.getElementById('termForm');
+  var input = document.getElementById('termInput');
+  var promptPath = document.getElementById('promptPath');
+  var history = [];
+  var hIndex = -1;
+  var cwd = '~';
+  var pages = [];
+  var soundOn = true;
+
+  var GROUPS = {
+    software: 'Tools and apps',
+    games: 'Arcade',
+    guides: 'Tech topics',
+    blog: 'Blog and analysis',
+    markets: 'Market pages',
+    news: 'News desk',
+    products: 'Buying guides',
+    japanese: '日本語ツール',
+    page: 'Site pages'
+  };
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+  function out(html, cls) {
+    var line = document.createElement('div');
+    line.className = 'term-line' + (cls ? ' ' + cls : '');
+    line.innerHTML = html;
+    body.appendChild(line);
+    body.scrollTop = body.scrollHeight;
+  }
+  function group(path) {
+    if (!path) return 'page';
+    if (path.indexOf('/software') === 0) return 'software';
+    if (path.indexOf('/games') === 0) return 'games';
+    if (path === '/coincompass') return 'markets';
+    if (path === '/news') return 'news';
+    if (path === '/techproducts') return 'products';
+    if (path === '/blog') return 'blog';
+    if (path.indexOf('/post/') === 0) return 'blog';
+    return 'page';
+  }
+  function titleOf(path) {
+    for (var i = 0; i < pages.length; i++) if (pages[i].path === path) return pages[i].title;
+    return path;
+  }
+  function link(path, label) {
+    return '<a href="' + esc(path) + '">' + esc(label || path) + '</a>';
+  }
+  function recent(paths) {
+    return paths.slice(0, 8).map(function (p) { return link(p); }).join('\n  ');
+  }
+
+  function boot() {
+    out('<span class="hl">Digital Infohub</span> <span class="dim">— terminal mode 1.0 (web shell)</span>');
+    out('<span class="dim">' + new Date().toUTCString() + '</span>');
+    out('');
+    out('Loading page index…');
+    var script = document.createElement('script');
+    script.src = '/assets/catalog.js';
+    script.onload = function () {
+      pages = (window.DIH_CATALOG || []).slice();
+      body.lastChild.innerHTML = 'Loaded <span class="ok">' + pages.length + ' pages</span> from the sitemap.';
+      out('');
+      out('<span class="dim">Type </span><span class="hl">help</span><span class="dim"> for commands, </span><span class="hl">ls</span><span class="dim"> to look around, or </span><span class="hl">ask 手取り</span><span class="dim">.</span>');
+      out('');
+      var q = new URLSearchParams(location.search).get('q');
+      if (q) {
+        out('<span class="dim">resolving:</span> ' + esc(q));
+        ask(q);
+      }
+    };
+    script.onerror = function () {
+      body.lastChild.innerHTML = '<span class="warn">Page index unavailable — ls will be empty.</span>';
+    };
+    document.head.appendChild(script);
+  }
+
+  var COMMANDS = {
+    help: function () {
+      out('<span class="hl">Commands</span>');
+      [
+        ['ls [path]', 'list pages in a folder'],
+        ['cd <path>', 'change folder (try /software, /games, /guides)'],
+        ['pwd', 'print the current folder'],
+        ['cat <page>', 'print a page title, description and link'],
+        ['open <page>', 'open a page in this tab'],
+        ['find <word>', 'search all page titles and descriptions'],
+        ['grep <word>', 'same as find, for the muscle memory'],
+        ['top', 'interest board: what has been opened most'],
+        ['stats', 'your local activity summary'],
+        ['ask <question>', 'rule-based Hub Guide answer'],
+        ['recent', 'pages you opened last'],
+        ['theme', 'switch light / dark'],
+        ['sound', 'toggle interface sound'],
+        ['neofetch', 'system info'],
+        ['clear', 'clear the screen'],
+        ['history', 'previous commands'],
+        ['exit', 'leave terminal mode']
+      ].forEach(function (c) {
+        out('  <span class="path">' + c[0].padEnd(16, ' ') + '</span> <span class="dim">' + c[1] + '</span>');
+      });
+      out('');
+      out('<span class="dim">Paths: /software /games /guides /blog /markets /news /products /site</span>');
+    },
+    ls: function (arg) {
+      var target = arg || cwd;
+      var list = pages.filter(function (p) { return group(p.path) === groupOf(target); });
+      if (target === '~' || target === '/' || target === '') {
+        out('<span class="path">/</span>');
+        var seen = {};
+        pages.forEach(function (p) {
+          var root = '/' + (p.path.split('/')[1] || '');
+          if (!root || root === '/') return;
+          if (seen[root]) return;
+          seen[root] = true;
+        });
+        ['software', 'games', 'techtopics', 'blog', 'coincompass', 'news', 'techproducts'].forEach(function (dir) {
+          out('  <span class="path">' + dir + '/</span>');
+        });
+        out('');
+        out('<span class="dim">' + pages.length + ' pages indexed. Try `cd software` then `ls`.</span>');
+        return;
+      }
+      if (!list.length) {
+        out('<span class="err">ls: ' + esc(target) + ': no such folder</span>');
+        return;
+      }
+      out('<span class="dim">' + target + ' — ' + list.length + ' pages</span>');
+      list.slice(0, 40).forEach(function (p) {
+        out('  <span class="path">' + p.path + '</span>\n    <span class="dim">' + esc(p.title) + '</span>');
+      });
+      if (list.length > 40) out('<span class="dim">… and ' + (list.length - 40) + ' more. Use find <word>.</span>');
+    },
+    cd: function (arg) {
+      if (!arg || arg === '~' || arg === '/') { cwd = '~'; promptPath.textContent = '~'; out('<span class="dim">~</span>'); return; }
+      var clean = '/' + arg.replace(/^\/+/, '').replace(/\/+$/, '');
+      var map = { '/software': 'software', '/games': 'games', '/guides': 'guides', '/blog': 'blog', '/markets': 'markets', '/news': 'news', '/products': 'products' };
+      if (map[clean]) {
+        cwd = clean;
+        promptPath.textContent = clean;
+        out('<span class="dim">Moved to </span><span class="path">' + clean + '</span>');
+        COMMANDS.ls(clean);
+        return;
+      }
+      var exact = findPage(clean);
+      if (exact) {
+        out('<span class="dim">' + esc(exact.title) + '</span>');
+        out('<span class="dim">→ </span>' + link(exact.path, 'open ' + exact.path));
+      } else {
+        out('<span class="err">cd: ' + esc(arg) + ': not a folder. Try /software, /games, /guides.</span>');
+      }
+    },
+    pwd: function () { out(cwd === '~' ? '/home/guest' : cwd); },
+    cat: function (arg) {
+      var page = findPage(arg);
+      if (!page) return out('<span class="err">cat: ' + esc(arg || '') + ': no such page</span>');
+      out('<span class="hl">' + esc(page.title) + '</span>');
+      out('<span class="dim">' + esc(page.desc || 'No description.') + '</span>');
+      out('<span class="dim">category:</span> ' + esc(page.cat || 'page') + '   <span class="dim">path:</span> ' + esc(page.path));
+      out(link(page.path, '→ open ' + page.path));
+    },
+    open: function (arg) {
+      var page = findPage(arg);
+      if (!page) return out('<span class="err">open: ' + esc(arg || '') + ': no such page</span>');
+      out('<span class="ok">Opening ' + esc(page.path) + '…</span>');
+      setTimeout(function () { location.href = page.path; }, 280);
+    },
+    find: function (arg) { search(arg); },
+    grep: function (arg) { search(arg); },
+    top: function () {
+      var rows = (window.DIH && DIH.interest) ? DIH.interest.top(30) : [];
+      out('<span class="hl">Interest board</span> <span class="dim">— local page views and taps</span>');
+      if (!rows.length) {
+        out('<span class="dim">Nothing recorded yet. Browse a few pages, then come back.</span>');
+        return;
+      }
+      out('<span class="dim">  #  views  taps  page</span>');
+      rows.forEach(function (r, i) {
+        out('  ' + String(i + 1).padStart(2, '0') + '   ' + String(r.views).padStart(3, ' ') + '    ' + String(r.clicks).padStart(3, ' ') + '   ' + link(r.path, r.title || r.path));
+      });
+      out('');
+      out('<span class="dim">Export the raw log with </span><span class="hl">interest export</span><span class="dim">.</span>');
+    },
+    stats: function () {
+      var rows = (window.DIH && DIH.interest) ? DIH.interest.list() : [];
+      var views = rows.reduce(function (n, r) { return n + r.views; }, 0);
+      var taps = rows.reduce(function (n, r) { return n + r.clicks; }, 0);
+      out('<span class="hl">Your activity</span>');
+      out('  pages opened: ' + views);
+      out('  links tapped: ' + taps);
+      out('  unique pages: ' + rows.length + ' of ' + pages.length + ' indexed');
+      out('  storage: localStorage (this browser only)');
+    },
+    interest: function (arg) {
+      if ((arg || '').trim() === 'export') {
+        if (window.DIH && DIH.interest) {
+          DIH.interest.exportFile();
+          out('<span class="ok">Downloading userinterest.json…</span>');
+        }
+        return;
+      }
+      COMMANDS.top();
+    },
+    ask: function (arg) { ask(arg); },
+    recent: function () {
+      var rows = (window.DIH && DIH.interest) ? DIH.interest.list().sort(function (a, b) { return b.last - a.last; }).slice(0, 8) : [];
+      if (!rows.length) return out('<span class="dim">No history yet.</span>');
+      rows.forEach(function (r) {
+        out('  ' + new Date(r.last).toLocaleTimeString() + '  ' + link(r.path, r.title || r.path));
+      });
+    },
+    theme: function () {
+      var root = document.documentElement;
+      var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      try { localStorage.setItem('dih_theme', next); } catch (e) {}
+      var btn = document.querySelector('[data-dih-theme]');
+      if (btn) btn.textContent = next === 'dark' ? '☀' : '☾';
+      out('<span class="ok">Theme: ' + next + '</span>');
+    },
+    sound: function () {
+      if (window.DIH && DIH.sfx) { DIH.sfx.toggle(); out('<span class="ok">Sound: ' + (DIH.sfx.enabled() ? 'on' : 'off') + '</span>'); }
+      else out('<span class="warn">Sound layer not ready.</span>');
+    },
+    neofetch: function () {
+      out('<span class="hl">      ▄▄▄▄▄▄▄▄      </span>  <span class="hl">guest@digitalinfohub</span>');
+      out('<span class="hl">    ▄████████▄    </span>  -------------------');
+      out('<span class="hl">   ███▀    ▀███   </span>  OS: Digital Infohub (static)');
+      out('<span class="hl">   ██   ▄▄   ██   </span>  Shell: hub-sh 1.0');
+      out('<span class="hl">   ██   ▀▀   ██   </span>  Pages: ' + pages.length);
+      out('<span class="hl">   ███▄    ▄███   </span>  Tools: ' + pages.filter(function (p) { return p.cat === 'app' || p.cat === 'japanese'; }).length);
+      out('<span class="hl">    ▀████████▀    </span>  Games: ' + pages.filter(function (p) { return p.cat === 'game'; }).length);
+      out('<span class="hl">      ▀▀▀▀▀▀▀▀      </span>  Host: your browser');
+    },
+    clear: function () { body.innerHTML = ''; },
+    history: function () {
+      if (!history.length) return out('<span class="dim">No commands yet.</span>');
+      history.forEach(function (c, i) { out('  ' + String(i + 1).padStart(3, ' ') + '  ' + esc(c)); });
+    },
+    exit: function () {
+      out('<span class="dim">Leaving the shell…</span>');
+      setTimeout(function () { location.href = '/'; }, 320);
+    },
+    sudo: function () {
+      out('<span class="warn">guest is not in the sudoers file. This incident has been reported to nobody.</span>');
+    },
+    whoami: function () { out('guest — curious visitor, full read access'); },
+    date: function () { out(new Date().toString()); },
+    uname: function () { out('Infohub 1.0 web shell (no kernel, no mercy for slow pages)'); },
+    man: function (arg) { out('<span class="dim">No manual entries. This is a website pretending to be a shell. Try </span><span class="hl">help</span>.'); },
+    banner: function () { out('<span class="hl">DIGITAL INFOHUB — everything, one place</span>'); }
+  };
+
+  function groupOf(target) {
+    var t = String(target || '').replace(/^~?\/?/, '').replace(/\/$/, '');
+    if (!t || t === '~') return '~';
+    if (t === 'guides' || t === 'techtopics') return 'site';
+    return t;
+  }
+  function findPage(query) {
+    if (!query) return null;
+    var q = String(query).replace(/^\.?\//, '').replace(/\.html$/, '').toLowerCase();
+    var hit = null;
+    pages.forEach(function (p) {
+      if (hit) return;
+      var path = p.path.toLowerCase();
+      if (path === '/' + q || path === q || path.split('/').pop() === q) hit = p;
+    });
+    if (hit) return hit;
+    pages.forEach(function (p) {
+      if (!hit && (p.title.toLowerCase().indexOf(q) !== -1)) hit = p;
+    });
+    return hit;
+  }
+  function search(q) {
+    if (!q) return out('<span class="err">find: give me a word</span>');
+    var words = q.toLowerCase().split(/\s+/);
+    var hits = pages.filter(function (p) {
+      var hay = (p.title + ' ' + (p.desc || '') + ' ' + (p.kw || '') + ' ' + p.path).toLowerCase();
+      return words.every(function (w) { return hay.indexOf(w) !== -1; });
+    }).slice(0, 12);
+    out('<span class="dim">' + hits.length + ' match' + (hits.length === 1 ? '' : 'es') + ' for “' + esc(q) + '”</span>');
+    hits.forEach(function (p) {
+      out('  ' + link(p.path) + '\n    <span class="dim">' + esc(p.title) + '</span>');
+    });
+    if (!hits.length) out('<span class="dim">Try a shorter word, or </span><span class="hl">ask ' + esc(q) + '</span>');
+  }
+  function ask(q) {
+    if (!window.DIH || !DIH.answer) return out('<span class="warn">Hub Guide not ready yet — try again.</span>');
+    var a = DIH.answer(q);
+    out('<span class="hl">' + esc(a.title) + '</span>');
+    out('<span class="dim">' + esc(a.body) + '</span>');
+    a.links.forEach(function (l) { out('  → ' + link(l[0], l[1])); });
+  }
+
+  function run(raw) {
+    var line = raw.trim();
+    out('<span class="dim">guest@infohub:' + promptPath.textContent + '$</span> ' + esc(line));
+    if (!line) return;
+    history.push(line);
+    hIndex = history.length;
+    var parts = line.split(/\s+/);
+    var cmd = parts.shift().toLowerCase();
+    if (COMMANDS[cmd]) {
+      try { COMMANDS[cmd](parts.join(' ')); } catch (e) { out('<span class="err">' + esc(e.message) + '</span>'); }
+    } else {
+      var page = findPage(cmd);
+      if (page) { out('<span class="dim">' + esc(page.title) + '</span>'); out(link(page.path, '→ open ' + page.path)); }
+      else out('<span class="err">hub-sh: ' + esc(cmd) + ': command not found. Try <span class="hl">help</span>.</span>');
+    }
+    out('');
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    run(input.value);
+    input.value = '';
+  });
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      hIndex = Math.max(0, hIndex - 1);
+      input.value = history[hIndex] || '';
+    }
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      hIndex = Math.min(history.length, hIndex + 1);
+      input.value = history[hIndex] || '';
+    }
+    if (e.key === 'Tab') {
+      e.preventDefault();
+      var value = input.value.trim();
+      var match = Object.keys(COMMANDS).filter(function (c) { return c.indexOf(value) === 0; });
+      if (match.length === 1) input.value = match[0] + ' ';
+      else if (match.length > 1) out('<span class="dim">' + match.join('   ') + '</span>');
+    }
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'l') {
+      e.preventDefault();
+      body.innerHTML = '';
+    }
+  });
+  document.getElementById('themeCmd').addEventListener('click', function () { COMMANDS.theme(); });
+  var topLink = document.getElementById('topLink');
+  if (topLink) topLink.addEventListener('click', function (e) { e.preventDefault(); COMMANDS.top(); });
+
+  boot();
+  setTimeout(function () { input.focus(); }, 400);
+})();
+</script>
+<!-- DIH:GALLERY -->
+<section class="dih-gallery" aria-labelledby="dihGalleryTitle">
+  <div class="dih-gallery-head">
+    <div>
+      <span class="dih-gallery-eyebrow">Visual briefing</span>
+      <h2 id="dihGalleryTitle">Technology, in focus</h2>
+      <p>Fast context on the ideas shaping the industry, with a guide for every one.</p>
+    </div>
+    <a class="dih-gallery-all" href="/techtopics">All 35 tech guides <span aria-hidden="true">&rarr;</span></a>
+  </div>
+  <div class="dih-gallery-grid">
+      <a class="dih-gallery-card" href="/artificialintelligence">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1727434032773-af3cd98375ba?w=640&amp;h=400&amp;fit=crop&amp;auto=format&amp;q=70" alt="Deep blue abstract digital waves and particles" width="640" height="400" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Data</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Models are maps, not territory</strong>
+          <span>A model is a simplification. The useful question is always: useful for what, and wrong in which direction?</span>
+          <em>Read the AI guide &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/machinelearning">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=640&amp;h=400&amp;fit=crop&amp;auto=format&amp;q=70" alt="Circuit board shaped like a glowing brain" width="640" height="400" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Machine learning</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>The shape of a model</strong>
+          <span>A model is a structure plus millions of tuned numbers. Change the data or the evaluation and you get a different product, not just a different score.</span>
+          <em>Read the machine learning guide &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/quantumcomputing">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1681908571122-97f349e1ace0?w=640&amp;h=400&amp;fit=crop&amp;auto=format&amp;q=70" alt="Quantum computer with gold plates and silver wiring" width="640" height="400" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Quantum computing</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Computing with qubits</strong>
+          <span>Quantum hardware is a physics experiment you can program. Error correction, not raw qubit count, is the number that decides when it becomes useful.</span>
+          <em>Read the quantum guide &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/datacenters">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1695668548342-c0c1ad479aee?w=640&amp;h=400&amp;fit=crop&amp;auto=format&amp;q=70" alt="Rack of servers in a data centre" width="640" height="400" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Data centres</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>The building behind the cloud</strong>
+          <span>Cloud regions are physical campuses full of power, cooling and fibre. That geography explains latency, cost and most data-sovereignty rules.</span>
+          <em>Read the data centre guide &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/cloudcomputing">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1564457461758-8ff96e439e83?w=640&amp;h=400&amp;fit=crop&amp;auto=format&amp;q=70" alt="Server room with rows of cabinets and blue cabling" width="640" height="400" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Cloud</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Rent the computer, keep the control</strong>
+          <span>Cloud computing turns capital spending into a monthly bill. The trade is flexibility for a dependency you have to manage deliberately.</span>
+          <em>Read the cloud guide &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/serverlesscomputing">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1667984390538-3dea7a3fe33d?w=640&amp;h=400&amp;fit=crop&amp;auto=format&amp;q=70" alt="Three-dimensional cloud computing illustration" width="640" height="400" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Serverless</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Servers you never see</strong>
+          <span>Serverless moves the machine out of your mental model. You pay per request and the platform handles scaling, cold starts and the bill you forgot to cap.</span>
+          <em>Read the serverless guide &rarr;</em>
+        </span>
+      </a>
+  </div>
+  <p class="dih-gallery-credit">Photography by Unsplash contributors. Cards link to related Digital Infohub guides.</p>
+</section>
+<!-- /DIH:GALLERY -->
+<!-- DIH:EXPLORE -->
+<section class="dih-explore" aria-labelledby="dihExploreTitle">
+  <div class="dih-explore-head">
+    <h2 id="dihExploreTitle">Keep reading, keep building</h2>
+    <p>One more article, guide or tool before you go.</p>
+  </div>
+  <div class="dih-explore-grid">
+      <a class="dih-explore-card" href="/techtopics">
+        <span class="dih-explore-icon" aria-hidden="true">🔬</span>
+        <strong>Tech Topics</strong>
+        <span>Clear guides to the technology shaping business.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/software">
+        <span class="dih-explore-icon" aria-hidden="true">🛠️</span>
+        <strong>Software &amp; tools</strong>
+        <span>Free AI assistants and browser utilities that run locally.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/coincompass">
+        <span class="dih-explore-icon" aria-hidden="true">🧭</span>
+        <strong>CoinCompass</strong>
+        <span>Track crypto and market context in one place.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/subscribe">
+        <span class="dih-explore-icon" aria-hidden="true">✉️</span>
+        <strong>Subscribe</strong>
+        <span>Weekly tech intelligence in your inbox, free.</span>
+        <em>Explore →</em>
+      </a>
+  </div>
+</section>
+<!-- /DIH:EXPLORE -->
+<!-- DIH:FOOTER -->
+<footer class="dih-footer">
+  <div class="dih-footer-inner">
+    <div class="dih-footer-brand">
+      <a class="dih-brand" href="/" aria-label="Digital Infohub home">
+        <img src="/assets/logo.png" alt="Digital Infohub logo" width="40" height="40">
+        <span class="dih-brand-text">Digital <b>Infohub</b></span>
+      </a>
+      <p>The independent tech hub for everyone: AI research, market moves, practical guides, free tools and Digi, your AI guide.</p>
+      <span class="dih-pill"><span class="dih-dot"></span> Updated daily</span>
+    </div>
+    <div class="dih-footer-col">
+      <h3>Explore</h3>
+      <a href="/blog">Blog &amp; analysis</a>
+      <a href="/techtopics">Tech Topics</a>
+      <a href="/software">Software &amp; tools</a>
+      <a href="/terminal">Terminal mode</a>
+      <a href="/techproducts">Tech Products</a>
+      <a href="/games">Pixel Palace</a>
+      <a href="/digi">Digi AI guide</a>
+      <a href="/news">Live tech news</a>
+      <a href="/quiz">Tech quiz</a>
+    </div>
+    <div class="dih-footer-col">
+      <h3>Company</h3>
+      <a href="/about">About</a>
+      <a href="/services">Services</a>
+      <a href="/advertise">Advertise</a>
+      <a href="/coincompass">CoinCompass</a>
+      <a href="/privacy-policy">Privacy</a>
+    </div>
+    <div class="dih-footer-col dih-footer-cta">
+      <h3>Stay ahead</h3>
+      <p>One email a week: the AI, market and software stories that actually matter.</p>
+      <a class="dih-btn dih-btn-primary" href="/subscribe">Subscribe free</a>
+    </div>
+  </div>
+  <div class="dih-footer-bottom">
+    <span>© 2026 Digital Infohub · Independent technology publication</span>
+    <nav aria-label="Footer links">
+      <a href="/blog">Blog</a>
+      <a href="/techtopics">Guides</a>
+      <a href="/software">Tools</a>
+      <a href="/contact">Contact</a>
+      <a href="/terminal">Terminal</a>
+      <a href="/sitemap.xml">Sitemap</a>
+    </nav>
+  </div>
+</footer>
+<!-- /DIH:FOOTER -->
+<script src="/assets/site.js" defer></script>
+
+<script>
+(function () {
+  function boot(tries) {
+    tries = tries || 0;
+    if (!window.DIH || !DIH.interest || !(window.DIH_CATALOG || []).length) {
+      if (tries < 25) setTimeout(function () { boot(tries + 1); }, 120);
+      if (!window.DIH || !DIH.interest) return;
+    }
+    var names = {};
+    (window.DIH_CATALOG || []).forEach(function (p) { names[p.path] = p.title; });
+    var rows = DIH.interest.top(40).map(function (r) {
+      return { path: r.path, title: names[r.path] || r.title, views: r.views, clicks: r.clicks };
+    });
+    var total = (window.DIH_CATALOG || []).length;
+    var all = DIH.interest.list();
+    var views = all.reduce(function (n, r) { return n + r.views; }, 0);
+    var taps = all.reduce(function (n, r) { return n + r.clicks; }, 0);
+    var summary = document.getElementById('ibSummary');
+    var box = document.getElementById('ibRows');
+    summary.textContent = views + ' page views and ' + taps + ' taps across ' + all.length +
+      (total ? ' of ' + total + ' indexed pages' : ' pages') + '. Stored only on this device.';
+    if (!rows.length) {
+      box.innerHTML = '<p class="term-board-sub" style="margin:0">Nothing logged yet — open a few pages and come back.</p>';
+      return;
+    }
+    box.innerHTML = rows.slice(0, 40).map(function (r, i) {
+      var t = (r.title || r.path).replace(/\s*[|—–]\s*Digital Infohub.*$/i, '');
+      var row = document.createElement('a');
+      row.className = 'ib-row';
+      row.href = r.path;
+      row.innerHTML = '<span class="n">' + String(i + 1).padStart(2, '0') +
+        '</span><span class="t"></span><span class="c">' + r.views + ' views · ' + r.clicks + ' taps</span>';
+      row.querySelector('.t').textContent = t;
+      return row.outerHTML;
+    }).join('');
+  }
+  document.getElementById('ibExport').addEventListener('click', function () { if (window.DIH && DIH.interest) DIH.interest.exportFile(); });
+  document.getElementById('ibReset').addEventListener('click', function () {
+    if (!confirm('Reset the local interest log? This cannot be undone.')) return;
+    DIH.interest.reset();
+    location.reload();
+  });
+  boot();
+})();
+</script>
+</body>
+</html>

@@ -812,7 +812,7 @@ def render_topic(t):
 def render_index():
     url = f"{SITE}/techtopics"
     title = "Tech Topics: Guides to AI, Cloud, Security and More"
-    description = ("Explore plain-language guides to the technology shaping our world: AI, machine learning, "
+    description = ("Explore clear guides to the technology shaping our world: AI, machine learning, "
                    "cloud, cybersecurity, quantum computing, robotics, blockchain and more.")
     groups = []
     jump = []
@@ -886,7 +886,7 @@ def render_index():
 
   <header class="page-header">
     <h1 class="page-title">Tech Topics</h1>
-    <p class="page-desc">Plain-language guides to the ideas shaping our digital world. Every topic below has an in-depth guide covering how it works, where it is used and what to watch for. Start anywhere, or browse our <a href="/blog">latest articles</a> and <a href="/software">free software</a>.</p>
+    <p class="page-desc">Clear guides to the ideas shaping our digital world. Every topic below has an in-depth guide covering how it works, where it is used and what to watch for. Start anywhere, or browse our <a href="/blog">latest articles</a> and <a href="/software">free software</a>.</p>
     <nav class="topic-jump" aria-label="Jump to a category">
 {chr(10).join(jump)}
     </nav>
