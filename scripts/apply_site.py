@@ -92,6 +92,12 @@ PAGE_META = {
         "desc": "Clear pricing for website hosting, graphic design, social media, blog features and homepage advertising — plus the free tools and news open to everyone.",
         "keywords": "website hosting price, graphic design pricing, social media marketing, advertise on tech site, digital infohub services",
     },
+    "tabikumi.html": {
+        "kind": "software-detail", "type": "website",
+        "title": "たび組｜海外旅行プランナー（円建て予算・為替・航空券・持ち物）",
+        "desc": "日本人のための無料・海外旅行プランナー。円建て予算、円安チェック、航空券の目安、ホテル相場、現地物価、持ち物チェックリスト、ルールベースAI「ミチ」。英語圏8か国対応。",
+        "keywords": "海外旅行 計画, 旅行 予算 計算, 円安 旅行, 為替, 航空券 価格 目安, ホテル 相場, 持ち物 チェックリスト, tabikumi",
+    },
     "ascii-art.html": {
         "kind": "software-detail", "type": "website",
         "title": "Image to ASCII Art Converter — Free Browser Tool | Digital Infohub",
