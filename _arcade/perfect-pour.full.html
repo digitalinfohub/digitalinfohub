@@ -1,0 +1,1741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Perfect Pour — Make Coffee Perfectly</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* Reset & Mobile Viewport Lock */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    :root {
+      --bg-outer: #1c130d;
+      --bg-cream: #f7efe5;
+      --bg-warm: #efe2d1;
+      --espresso-dark: #2c1810;
+      --espresso-mid: #4e2a1b;
+      --caramel: #c87d4b;
+      --crema: #e5b378;
+      --mint-ok: #2e8b57;
+      --mint-glow: rgba(46, 139, 87, 0.25);
+      --danger: #d64545;
+      --gold: #f5a623;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: var(--bg-outer);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--espresso-dark);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Portrait Mobile Game Shell */
+    #game-shell {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      max-width: 460px;
+      max-height: 920px;
+      background: linear-gradient(180deg, #faf3ea 0%, #f1e3d3 78%, #e4cfb8 100%);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+    }
+
+    @media (min-width: 500px) {
+      #game-shell {
+        height: 94vh;
+        border-radius: 32px;
+        border: 6px solid #3a2318;
+      }
+    }
+
+    /* Top HUD Bar */
+    .hud-header {
+      position: relative;
+      z-index: 10;
+      padding: 16px 20px 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      pointer-events: none;
+    }
+
+    .hud-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(44, 24, 16, 0.08);
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--espresso-dark);
+    }
+
+    .hud-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      pointer-events: auto;
+    }
+
+    .icon-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid rgba(44, 24, 16, 0.14);
+      background: #fffaf4;
+      color: var(--espresso-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(44, 24, 16, 0.08);
+      transition: transform 0.12s ease, background 0.15s ease;
+    }
+
+    .icon-btn:active {
+      transform: scale(0.92);
+    }
+
+    /* Level Stepper Pills (1/5 to 5/5) */
+    .level-stepper {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      width: 100%;
+    }
+
+    .step-pill {
+      flex: 1;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(44, 24, 16, 0.12);
+      overflow: hidden;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    .step-pill.completed {
+      background: var(--mint-ok);
+    }
+
+    .step-pill.active {
+      background: var(--caramel);
+      box-shadow: 0 0 0 2px rgba(200, 125, 75, 0.3);
+    }
+
+    /* Cup Title & Info Subheader */
+    .level-info-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 250, 244, 0.85);
+      backdrop-filter: blur(6px);
+      padding: 10px 14px;
+      border-radius: 18px;
+      border: 1.5px solid rgba(44, 24, 16, 0.08);
+      box-shadow: 0 6px 16px rgba(44, 24, 16, 0.05);
+    }
+
+    .level-title-group h2 {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--espresso-dark);
+      line-height: 1.15;
+    }
+
+    .level-title-group p {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #7c5844;
+      margin-top: 2px;
+    }
+
+    .level-badge {
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 6px 12px;
+      border-radius: 12px;
+      background: var(--espresso-dark);
+      color: #fdf6ee;
+      letter-spacing: 0.03em;
+    }
+
+    /* Interactive Canvas Container */
+    #canvas-wrapper {
+      position: relative;
+      flex: 1;
+      width: 100%;
+      touch-action: none;
+      cursor: pointer;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Bottom Hold Prompt Pill */
+    .bottom-prompt-area {
+      position: relative;
+      z-index: 10;
+      padding: 10px 20px 22px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      pointer-events: none;
+    }
+
+    .pour-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 24px;
+      border-radius: 999px;
+      background: var(--espresso-dark);
+      color: #fffaf4;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      box-shadow: 0 10px 24px rgba(44, 24, 16, 0.25);
+      transition: transform 0.15s ease, background 0.2s ease;
+    }
+
+    .pour-pill.pouring {
+      background: var(--caramel);
+      transform: scale(0.96);
+    }
+
+    .pour-pill.settling {
+      background: var(--mint-ok);
+    }
+
+    .pulse-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #f5a623;
+      animation: pulse 1.3s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(0.85); opacity: 0.6; }
+      50% { transform: scale(1.3); opacity: 1; }
+    }
+
+    /* Modals / Overlays */
+    .overlay-backdrop {
+      position: absolute;
+      inset: 0;
+      z-index: 30;
+      background: rgba(28, 19, 13, 0.68);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .overlay-backdrop.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-card {
+      width: 100%;
+      max-width: 360px;
+      background: #fffaf4;
+      border-radius: 28px;
+      padding: 28px 24px;
+      text-align: center;
+      border: 3px solid var(--espresso-dark);
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
+      transform: translateY(16px) scale(0.96);
+      transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .overlay-backdrop.visible .modal-card {
+      transform: translateY(0) scale(1);
+    }
+
+    .modal-emoji {
+      font-size: 3.2rem;
+      line-height: 1;
+      margin-bottom: 10px;
+      display: inline-block;
+    }
+
+    .modal-title {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--espresso-dark);
+      margin-bottom: 6px;
+    }
+
+    .modal-subtitle {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: #6f4e3c;
+      line-height: 1.45;
+      margin-bottom: 18px;
+    }
+
+    .stars-row {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .star-icon {
+      font-size: 2.1rem;
+      color: #dfd2c3;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.3s ease;
+    }
+
+    .star-icon.earned {
+      color: var(--gold);
+      transform: scale(1.12);
+      text-shadow: 0 4px 12px rgba(245, 166, 35, 0.4);
+    }
+
+    .stat-pill-box {
+      background: #f3e7d8;
+      border-radius: 16px;
+      padding: 12px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-around;
+      border: 1.5px solid rgba(44, 24, 16, 0.08);
+    }
+
+    .stat-item span {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #85624e;
+    }
+
+    .stat-item strong {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.25rem;
+      color: var(--espresso-dark);
+    }
+
+    /* Juicy Tactile Game Buttons */
+    .btn-primary {
+      width: 100%;
+      padding: 15px 20px;
+      border: none;
+      border-radius: 18px;
+      background: linear-gradient(180deg, #4b281a 0%, #2c1810 100%);
+      color: #fffaf4;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      box-shadow: 0 6px 0 #190d08, 0 12px 20px rgba(44, 24, 16, 0.25);
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+    }
+
+    .btn-primary:active {
+      transform: translateY(4px);
+      box-shadow: 0 2px 0 #190d08, 0 6px 12px rgba(44, 24, 16, 0.2);
+    }
+
+    .btn-primary.mint {
+      background: linear-gradient(180deg, #37a165 0%, #247246 100%);
+      box-shadow: 0 6px 0 #16492c, 0 12px 20px rgba(36, 114, 70, 0.28);
+    }
+
+    .btn-primary.mint:active {
+      box-shadow: 0 2px 0 #16492c;
+    }
+
+    .btn-primary.danger {
+      background: linear-gradient(180deg, #e05353 0%, #b83232 100%);
+      box-shadow: 0 6px 0 #7a1c1c, 0 12px 20px rgba(184, 50, 50, 0.28);
+    }
+
+    .btn-primary.danger:active {
+      box-shadow: 0 2px 0 #7a1c1c;
+    }
+  </style>
+</head>
+<body>
+
+  <main id="game-shell">
+    <!-- Top HUD -->
+    <header class="hud-header">
+      <div class="hud-top-row">
+        <div class="brand-badge">
+          <span>☕</span>
+          <span>Perfect Pour</span>
+        </div>
+        <div class="hud-controls">
+          <button id="btn-retry-quick" class="icon-btn" title="Restart Cup" aria-label="Restart Cup">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+              <path d="M3 3v5h5"/>
+            </svg>
+          </button>
+          <button id="btn-mute" class="icon-btn" title="Toggle Sound" aria-label="Toggle Sound">
+            <svg id="icon-sound-on" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+              <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+            </svg>
+            <svg id="icon-sound-off" style="display:none;" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+              <line x1="23" y1="9" x2="17" y2="15"/>
+              <line x1="17" y1="9" x2="23" y2="15"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- 5-Level Progress Bar -->
+      <div class="level-stepper" id="level-stepper">
+        <div class="step-pill active" data-step="0"></div>
+        <div class="step-pill" data-step="1"></div>
+        <div class="step-pill" data-step="2"></div>
+        <div class="step-pill" data-step="3"></div>
+        <div class="step-pill" data-step="4"></div>
+      </div>
+
+      <!-- Cup Specification Card -->
+      <div class="level-info-card">
+        <div class="level-title-group">
+          <h2 id="cup-name">Espresso Demitasse</h2>
+          <p id="cup-hint">Small cup • Wide green target zone</p>
+        </div>
+        <div class="level-badge" id="level-counter">1 / 5</div>
+      </div>
+    </header>
+
+    <!-- Main Interactive Game Canvas -->
+    <div id="canvas-wrapper">
+      <canvas id="game-canvas"></canvas>
+    </div>
+
+    <!-- Bottom Touch/Hold Status Bar -->
+    <footer class="bottom-prompt-area">
+      <div class="pour-pill" id="pour-status-pill">
+        <span class="pulse-dot" id="pour-dot"></span>
+        <span id="pour-status-text">Tap &amp; Hold Anywhere to Pour</span>
+      </div>
+    </footer>
+
+    <!-- Start Screen Overlay -->
+    <div class="overlay-backdrop visible" id="start-overlay">
+      <div class="modal-card">
+        <div class="modal-emoji">☕✨</div>
+        <h1 class="modal-title">Perfect Pour</h1>
+        <p class="modal-subtitle">
+          Tap and hold to pour rich espresso into 5 unique cups. Stop right inside the <strong>green target zone</strong>—don’t let a single drop spill over the rim!
+        </p>
+        <div class="stat-pill-box">
+          <div class="stat-item">
+            <span>Cups</span>
+            <strong>5 Levels</strong>
+          </div>
+          <div class="stat-item">
+            <span>Control</span>
+            <strong>Hold &amp; Release</strong>
+          </div>
+        </div>
+        <button class="btn-primary" id="btn-start-game">Start Brewing</button>
+      </div>
+    </div>
+
+    <!-- Level Result Overlay (Success or Spill) -->
+    <div class="overlay-backdrop" id="result-overlay">
+      <div class="modal-card">
+        <div class="modal-emoji" id="result-emoji">🌟</div>
+        <h2 class="modal-title" id="result-title">Barista Perfection!</h2>
+        <p class="modal-subtitle" id="result-subtitle">Right on the mark with velvety crema.</p>
+
+        <div class="stars-row" id="result-stars">
+          <span class="star-icon">★</span>
+          <span class="star-icon">★</span>
+          <span class="star-icon">★</span>
+        </div>
+
+        <div class="stat-pill-box">
+          <div class="stat-item">
+            <span>Fill Level</span>
+            <strong id="result-fill">85%</strong>
+          </div>
+          <div class="stat-item">
+            <span>Target Zone</span>
+            <strong id="result-target">78%–92%</strong>
+          </div>
+        </div>
+
+        <button class="btn-primary mint" id="btn-result-action">Next Cup →</button>
+      </div>
+    </div>
+
+    <!-- Final Victory Overlay (After Level 5) -->
+    <div class="overlay-backdrop" id="victory-overlay">
+      <div class="modal-card">
+        <div class="modal-emoji">🏆☕</div>
+        <h2 class="modal-title">Master Barista!</h2>
+        <p class="modal-subtitle">
+          You poured all 5 cups without spilling a drop! Your precision is worthy of a specialty coffee championship.
+        </p>
+
+        <div class="stars-row" id="victory-stars">
+          <span class="star-icon earned">★</span>
+          <span class="star-icon earned">★</span>
+          <span class="star-icon earned">★</span>
+        </div>
+
+        <div class="stat-pill-box">
+          <div class="stat-item">
+            <span>Total Stars</span>
+            <strong id="total-stars-text">15 / 15</strong>
+          </div>
+          <div class="stat-item">
+            <span>Avg Accuracy</span>
+            <strong id="avg-accuracy-text">98%</strong>
+          </div>
+        </div>
+
+        <button class="btn-primary" id="btn-play-again">Brew Again</button>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    /**
+     * PERFECT POUR — Mobile HTML5 Canvas Coffee Pouring Game
+     * Self-contained audio synthesizer, non-linear cup geometry volume solver,
+     * crema foam dynamics, splash particles, and 5 handcrafted levels.
+     */
+    (function () {
+      'use strict';
+
+      /* =========================================================================
+         1. WEB AUDIO API SOUND SYNTHESIZER (No external audio files required)
+         ========================================================================= */
+      class SoundEngine {
+        constructor() {
+          this.ctx = null;
+          this.muted = false;
+          this.pourGain = null;
+          this.pourFilter = null;
+          this.isPourSoundActive = false;
+        }
+
+        init() {
+          if (!this.ctx) {
+            const AudioCtx = window.AudioContext || window.webkitAudioContext;
+            if (AudioCtx) {
+              this.ctx = new AudioCtx();
+              this._setupPourLoop();
+            }
+          }
+          if (this.ctx && this.ctx.state === 'suspended') {
+            this.ctx.resume();
+          }
+        }
+
+        _setupPourLoop() {
+          if (!this.ctx) return;
+          // Create 2 seconds of pink-ish noise buffer for realistic liquid stream
+          const bufferSize = this.ctx.sampleRate * 2;
+          const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+          const data = buffer.getChannelData(0);
+          let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
+          for (let i = 0; i < bufferSize; i++) {
+            const white = Math.random() * 2 - 1;
+            b0 = 0.99886 * b0 + white * 0.0555179;
+            b1 = 0.99332 * b1 + white * 0.0750759;
+            b2 = 0.96900 * b2 + white * 0.1538520;
+            b3 = 0.86650 * b3 + white * 0.3104856;
+            b4 = 0.55000 * b4 + white * 0.5329522;
+            b5 = -0.7616 * b5 - white * 0.0168980;
+            data[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362) * 0.04;
+            b6 = white * 0.115926;
+          }
+
+          const noise = this.ctx.createBufferSource();
+          noise.buffer = buffer;
+          noise.loop = true;
+
+          this.pourFilter = this.ctx.createBiquadFilter();
+          this.pourFilter.type = 'bandpass';
+          this.pourFilter.frequency.value = 420;
+          this.pourFilter.Q.value = 1.8;
+
+          this.pourGain = this.ctx.createGain();
+          this.pourGain.gain.value = 0;
+
+          noise.connect(this.pourFilter);
+          this.pourFilter.connect(this.pourGain);
+          this.pourGain.connect(this.ctx.destination);
+          noise.start(0);
+        }
+
+        updatePourSound(isPouring, fillRatio) {
+          if (!this.ctx || !this.pourGain || !this.pourFilter) return;
+          const now = this.ctx.currentTime;
+          if (isPouring && !this.muted) {
+            // Pitch rises naturally as the cup fills up (acoustic resonance!)
+            const targetFreq = 340 + fillRatio * 560;
+            this.pourFilter.frequency.setTargetAtTime(targetFreq, now, 0.06);
+            this.pourGain.gain.setTargetAtTime(0.38, now, 0.04);
+          } else {
+            this.pourGain.gain.setTargetAtTime(0.0001, now, 0.04);
+          }
+        }
+
+        playSuccess(stars) {
+          if (this.muted) return;
+          this.init();
+          if (!this.ctx) return;
+
+          const now = this.ctx.currentTime;
+          const notes = stars === 3 ? [523.25, 659.25, 783.99, 1046.50] : [523.25, 659.25, 783.99];
+          notes.forEach((freq, idx) => {
+            const osc = this.ctx.createOscillator();
+            const gain = this.ctx.createGain();
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(freq, now + idx * 0.085);
+
+            gain.gain.setValueAtTime(0.001, now + idx * 0.085);
+            gain.gain.exponentialRampToValueAtTime(0.22, now + idx * 0.085 + 0.02);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.085 + 0.42);
+
+            osc.connect(gain);
+            gain.connect(this.ctx.destination);
+            osc.start(now + idx * 0.085);
+            osc.stop(now + idx * 0.085 + 0.45);
+          });
+        }
+
+        playSpill() {
+          if (this.muted) return;
+          this.init();
+          if (!this.ctx) return;
+
+          const now = this.ctx.currentTime;
+          // Descending comical slide + splash noise burst
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(290, now);
+          osc.frequency.exponentialRampToValueAtTime(85, now + 0.42);
+
+          gain.gain.setValueAtTime(0.18, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
+
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.46);
+        }
+
+        playTap() {
+          if (this.muted) return;
+          this.init();
+          if (!this.ctx) return;
+          const now = this.ctx.currentTime;
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(380, now);
+          osc.frequency.exponentialRampToValueAtTime(520, now + 0.06);
+          gain.gain.setValueAtTime(0.12, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.07);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.08);
+        }
+
+        toggleMute() {
+          this.muted = !this.muted;
+          if (this.muted) {
+            this.updatePourSound(false, 0);
+          }
+          return this.muted;
+        }
+      }
+
+      /* =========================================================================
+         2. LEVEL DEFINITIONS (5 DISTINCT CUPS & DIFFICULTIES)
+         ========================================================================= */
+      const LEVELS = [
+        {
+          id: 1,
+          name: 'Espresso Demitasse',
+          hint: 'Small cup • Wide green target zone',
+          shape: 'espresso',
+          topWidthRatio: 0.34,
+          bottomWidthRatio: 0.22,
+          heightRatio: 0.22,
+          hasHandle: true,
+          handleSide: 'right',
+          hasSaucer: true,
+          isGlass: false,
+          cupColor: '#ffffff',
+          cupInnerShadow: '#e5ddd3',
+          targetMin: 0.74,
+          targetMax: 0.90,
+          pourRate: 0.40, // volume units per second
+          streamWidth: 8
+        },
+        {
+          id: 2,
+          name: 'Classic Cafe Mug',
+          hint: 'Medium ceramic mug • Steady pour',
+          shape: 'mug',
+          topWidthRatio: 0.38,
+          bottomWidthRatio: 0.34,
+          heightRatio: 0.30,
+          hasHandle: true,
+          handleSide: 'right',
+          hasSaucer: false,
+          isGlass: false,
+          cupColor: '#f6ede3',
+          cupInnerShadow: '#dfd2c3',
+          targetMin: 0.78,
+          targetMax: 0.90,
+          pourRate: 0.44,
+          streamWidth: 9
+        },
+        {
+          id: 3,
+          name: 'Tall Latte Glass',
+          hint: 'Tall & narrow • Fast vertical rise!',
+          shape: 'latte',
+          topWidthRatio: 0.31,
+          bottomWidthRatio: 0.21,
+          heightRatio: 0.42,
+          hasHandle: false,
+          hasSaucer: true,
+          isGlass: true,
+          cupColor: 'rgba(255, 255, 255, 0.42)',
+          cupInnerShadow: 'rgba(210, 225, 232, 0.35)',
+          targetMin: 0.81,
+          targetMax: 0.90,
+          pourRate: 0.48,
+          streamWidth: 9
+        },
+        {
+          id: 4,
+          name: 'Wide Cappuccino Bowl',
+          hint: 'Flared bowl • Accelerates near the top!',
+          shape: 'bowl',
+          topWidthRatio: 0.56,
+          bottomWidthRatio: 0.22,
+          heightRatio: 0.25,
+          hasHandle: true,
+          handleSide: 'right',
+          hasSaucer: true,
+          isGlass: false,
+          cupColor: '#e8c39e',
+          cupInnerShadow: '#cfa57c',
+          targetMin: 0.83,
+          targetMax: 0.90,
+          pourRate: 0.52,
+          streamWidth: 10
+        },
+        {
+          id: 5,
+          name: 'Barista Travel Tumbler',
+          hint: 'Giant capacity • Razor-thin target zone',
+          shape: 'tumbler',
+          topWidthRatio: 0.36,
+          bottomWidthRatio: 0.28,
+          heightRatio: 0.46,
+          hasHandle: false,
+          hasSaucer: false,
+          isGlass: false,
+          cupColor: '#3a464b',
+          cupInnerShadow: '#263034',
+          targetMin: 0.86,
+          targetMax: 0.915,
+          pourRate: 0.60,
+          streamWidth: 11
+        }
+      ];
+
+      /* =========================================================================
+         3. GAME STATE & PARTICLE SYSTEMS
+         ========================================================================= */
+      const canvas = document.getElementById('game-canvas');
+      const ctx = canvas.getContext('2d');
+      const wrapper = document.getElementById('canvas-wrapper');
+      const sound = new SoundEngine();
+
+      // UI Elements
+      const startOverlay = document.getElementById('start-overlay');
+      const resultOverlay = document.getElementById('result-overlay');
+      const victoryOverlay = document.getElementById('victory-overlay');
+      const pourStatusPill = document.getElementById('pour-status-pill');
+      const pourStatusText = document.getElementById('pour-status-text');
+      const levelStepper = document.getElementById('level-stepper');
+      const cupNameEl = document.getElementById('cup-name');
+      const cupHintEl = document.getElementById('cup-hint');
+      const levelCounterEl = document.getElementById('level-counter');
+
+      const state = {
+        screen: 'start', // 'start' | 'playing' | 'settling' | 'result' | 'victory'
+        levelIndex: 0,
+        isPouring: false,
+        volume: 0,          // 0.0 to >1.0 (1.0 = exact rim capacity)
+        fillHeightRatio: 0, // 0.0 to 1.0 visual height inside cup
+        streamY: 0,         // Current tip of falling coffee stream
+        streamActive: false,
+        settleTimer: 0,
+        settleDuration: 1.05, // Seconds of stillness required once inside target zone
+        hasStartedPouring: false,
+        ripplePhase: 0,
+        rippleAmp: 0,
+        shakeTime: 0,
+        particles: [],      // Crema bubbles, steam wisps, and overflow spill droplets
+        levelScores: [],    // Stores { stars, accuracy, fill } per level
+        lastTimestamp: 0
+      };
+
+      let dpr = Math.min(window.devicePixelRatio || 1, 2);
+      let canvasW = 0;
+      let canvasH = 0;
+
+      function resizeCanvas() {
+        const rect = wrapper.getBoundingClientRect();
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        canvasW = rect.width;
+        canvasH = rect.height;
+        canvas.width = Math.round(canvasW * dpr);
+        canvas.height = Math.round(canvasH * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+
+      window.addEventListener('resize', resizeCanvas);
+      resizeCanvas();
+
+      /* =========================================================================
+         4. CUP GEOMETRY & NON-LINEAR VOLUME PHYSICS
+         ========================================================================= */
+      function getCupMetrics(level) {
+        const centerX = canvasW * 0.5;
+        const tableY = canvasH * 0.86;
+        const saucerHeight = level.hasSaucer ? 14 : 0;
+        const cupBottomY = tableY - saucerHeight;
+        const cupHeight = Math.min(canvasH * level.heightRatio, canvasH * 0.50);
+        const cupTopY = cupBottomY - cupHeight;
+        const topW = canvasW * level.topWidthRatio;
+        const bottomW = canvasW * level.bottomWidthRatio;
+        const nozzleY = Math.max(26, canvasH * 0.06);
+
+        return {
+          centerX,
+          tableY,
+          saucerHeight,
+          cupBottomY,
+          cupTopY,
+          cupHeight,
+          topW,
+          bottomW,
+          nozzleY
+        };
+      }
+
+      /**
+       * Converts normalized volume (0..1) into normalized height (0..1)
+       * taking into account trapezoidal cross-section area!
+       * For a trapezoid where width(y) = bottomW + (topW - bottomW) * y:
+       * Volume(h) = integral_0^h width(y) dy = bottomW * h + 0.5 * (topW - bottomW) * h^2
+       */
+      function volumeToHeightRatio(vol, level) {
+        if (vol <= 0) return 0;
+        if (vol >= 1) return 1 + (vol - 1) * 0.5;
+
+        const b = level.bottomWidthRatio;
+        const t = level.topWidthRatio;
+        const totalArea = 0.5 * (b + t);
+        const targetArea = vol * totalArea;
+
+        if (Math.abs(t - b) < 0.001) {
+          return vol;
+        }
+        // Solve 0.5*(t - b)*h^2 + b*h - targetArea = 0
+        const a = 0.5 * (t - b);
+        const disc = b * b + 4 * a * targetArea;
+        const h = (-b + Math.sqrt(Math.max(0, disc))) / (2 * a);
+        return Math.max(0, Math.min(1, h));
+      }
+
+      function heightToVolumeRatio(h, level) {
+        const b = level.bottomWidthRatio;
+        const t = level.topWidthRatio;
+        const totalArea = 0.5 * (b + t);
+        const areaAtH = b * h + 0.5 * (t - b) * h * h;
+        return areaAtH / totalArea;
+      }
+
+      function getCupWidthAtHeight(hRatio, metrics) {
+        return metrics.bottomW + (metrics.topW - metrics.bottomW) * hRatio;
+      }
+
+      /* =========================================================================
+         5. LEVEL MANAGEMENT & UI SYNC
+         ========================================================================= */
+      function loadLevel(index) {
+        state.levelIndex = index;
+        const level = LEVELS[index];
+        state.screen = 'playing';
+        state.isPouring = false;
+        state.volume = 0;
+        state.fillHeightRatio = 0;
+        state.streamY = 0;
+        state.streamActive = false;
+        state.settleTimer = 0;
+        state.hasStartedPouring = false;
+        state.ripplePhase = 0;
+        state.rippleAmp = 0;
+        state.shakeTime = 0;
+        state.particles = [];
+
+        sound.updatePourSound(false, 0);
+
+        // Update HUD text & stepper pills
+        cupNameEl.textContent = level.name;
+        cupHintEl.textContent = level.hint;
+        levelCounterEl.textContent = `${level.id} / ${LEVELS.length}`;
+
+        const pills = levelStepper.querySelectorAll('.step-pill');
+        pills.forEach((pill, i) => {
+          pill.classList.remove('active', 'completed');
+          if (i < index) pill.classList.add('completed');
+          if (i === index) pill.classList.add('active');
+        });
+
+        updatePromptPill('Tap & Hold Anywhere to Pour', '');
+      }
+
+      function updatePromptPill(text, modeClass) {
+        pourStatusText.textContent = text;
+        pourStatusPill.className = 'pour-pill' + (modeClass ? ` ${modeClass}` : '');
+      }
+
+      /* =========================================================================
+         6. INPUT HANDLING (TOUCH + MOUSE HOLD TO POUR)
+         ========================================================================= */
+      function startPouring(e) {
+        if (e && e.cancelable) e.preventDefault();
+        if (state.screen !== 'playing' && state.screen !== 'settling') return;
+
+        sound.init();
+        state.isPouring = true;
+        state.screen = 'playing';
+        state.settleTimer = 0;
+
+        const level = LEVELS[state.levelIndex];
+        const metrics = getCupMetrics(level);
+        if (!state.streamActive) {
+          state.streamY = metrics.nozzleY + 18;
+          state.streamActive = true;
+        }
+        state.hasStartedPouring = true;
+        updatePromptPill('Pouring... Release in Green Zone!', 'pouring');
+      }
+
+      function stopPouring(e) {
+        if (e && e.cancelable) e.preventDefault();
+        if (!state.isPouring) return;
+        state.isPouring = false;
+        sound.updatePourSound(false, state.fillHeightRatio);
+
+        if (state.screen !== 'playing') return;
+
+        const level = LEVELS[state.levelIndex];
+        const h = state.fillHeightRatio;
+
+        if (h >= level.targetMin && h <= 1.0) {
+          // Inside target zone or slightly above target (but not spilled!) -> start settle lock-in
+          state.screen = 'settling';
+          state.settleTimer = 0;
+          updatePromptPill('Hold Steady... Checking Pour!', 'settling');
+        } else if (h > 0 && h < level.targetMin) {
+          updatePromptPill('A bit low — Tap & Hold to Top Off!', '');
+        }
+      }
+
+      wrapper.addEventListener('touchstart', startPouring, { passive: false });
+      window.addEventListener('touchend', stopPouring, { passive: false });
+      window.addEventListener('touchcancel', stopPouring, { passive: false });
+
+      wrapper.addEventListener('mousedown', (e) => {
+        if (e.button === 0) startPouring(e);
+      });
+      window.addEventListener('mouseup', stopPouring);
+
+      // Button Event Listeners
+      document.getElementById('btn-start-game').addEventListener('click', () => {
+        sound.init();
+        sound.playTap();
+        startOverlay.classList.remove('visible');
+        state.levelScores = [];
+        loadLevel(0);
+      });
+
+      document.getElementById('btn-retry-quick').addEventListener('click', () => {
+        sound.playTap();
+        resultOverlay.classList.remove('visible');
+        loadLevel(state.levelIndex);
+      });
+
+      document.getElementById('btn-mute').addEventListener('click', () => {
+        sound.init();
+        const isMuted = sound.toggleMute();
+        document.getElementById('icon-sound-on').style.display = isMuted ? 'none' : 'block';
+        document.getElementById('icon-sound-off').style.display = isMuted ? 'block' : 'none';
+      });
+
+      document.getElementById('btn-play-again').addEventListener('click', () => {
+        sound.playTap();
+        victoryOverlay.classList.remove('visible');
+        state.levelScores = [];
+        loadLevel(0);
+      });
+
+      /* =========================================================================
+         7. EVALUATION, SPILL & LEVEL COMPLETION LOGIC
+         ========================================================================= */
+      function triggerOverflowSpill() {
+        state.isPouring = false;
+        state.screen = 'result';
+        state.shakeTime = 0.45;
+        sound.updatePourSound(false, 1.0);
+        sound.playSpill();
+
+        const level = LEVELS[state.levelIndex];
+        const metrics = getCupMetrics(level);
+
+        // Spawn generous splash & spill droplets from both sides of the rim
+        for (let i = 0; i < 42; i++) {
+          const side = i % 2 === 0 ? -1 : 1;
+          const startX = metrics.centerX + side * (metrics.topW * 0.48);
+          state.particles.push({
+            type: 'spill',
+            x: startX,
+            y: metrics.cupTopY + 2,
+            vx: side * (35 + Math.random() * 95),
+            vy: -30 + Math.random() * 60,
+            radius: 3 + Math.random() * 4.5,
+            alpha: 1,
+            color: Math.random() > 0.35 ? '#3b1e12' : '#d89b5a'
+          });
+        }
+
+        updatePromptPill('Oops! Coffee Overflowed!', '');
+
+        setTimeout(() => {
+          showResultModal({
+            success: false,
+            stars: 0,
+            fillPct: Math.round(state.fillHeightRatio * 100),
+            targetMinPct: Math.round(level.targetMin * 100),
+            targetMaxPct: Math.round(level.targetMax * 100)
+          });
+        }, 650);
+      }
+
+      function evaluateCompletedPour() {
+        state.screen = 'result';
+        const level = LEVELS[state.levelIndex];
+        const h = state.fillHeightRatio;
+        const targetMid = (level.targetMin + level.targetMax) * 0.5;
+        const halfBand = (level.targetMax - level.targetMin) * 0.5;
+
+        let stars = 1;
+        let accuracy = 0;
+
+        if (h >= level.targetMin && h <= level.targetMax) {
+          const distFromCenter = Math.abs(h - targetMid);
+          const closeness = 1 - distFromCenter / halfBand; // 0 at edge, 1 at dead center
+          accuracy = Math.round(88 + closeness * 12);
+          stars = closeness >= 0.45 ? 3 : 2;
+        } else if (h > level.targetMax && h <= 1.0) {
+          // Slightly over the green zone, but didn't spill out of the cup!
+          const overRatio = (h - level.targetMax) / (1.0 - level.targetMax);
+          accuracy = Math.max(60, Math.round(85 - overRatio * 25));
+          stars = 1;
+        }
+
+        sound.playSuccess(stars);
+
+        state.levelScores[state.levelIndex] = {
+          stars,
+          accuracy,
+          fill: Math.round(h * 100)
+        };
+
+        showResultModal({
+          success: true,
+          stars,
+          fillPct: Math.round(h * 100),
+          targetMinPct: Math.round(level.targetMin * 100),
+          targetMaxPct: Math.round(level.targetMax * 100)
+        });
+      }
+
+      function showResultModal({ success, stars, fillPct, targetMinPct, targetMaxPct }) {
+        const emojiEl = document.getElementById('result-emoji');
+        const titleEl = document.getElementById('result-title');
+        const subEl = document.getElementById('result-subtitle');
+        const starsEl = document.getElementById('result-stars');
+        const fillEl = document.getElementById('result-fill');
+        const targetEl = document.getElementById('result-target');
+        const actionBtn = document.getElementById('btn-result-action');
+
+        fillEl.textContent = success ? `${fillPct}%` : '100%+ (Spilled)';
+        targetEl.textContent = `${targetMinPct}%–${targetMaxPct}%`;
+
+        const starNodes = starsEl.querySelectorAll('.star-icon');
+        starNodes.forEach((node, idx) => {
+          node.classList.toggle('earned', idx < stars);
+        });
+
+        if (!success) {
+          emojiEl.textContent = '💦☕';
+          titleEl.textContent = 'It Spilled Over!';
+          subEl.textContent = 'Keep every drop inside the cup. Release earlier next time!';
+          actionBtn.textContent = 'Try Cup Again';
+          actionBtn.className = 'btn-primary danger';
+          actionBtn.onclick = () => {
+            sound.playTap();
+            resultOverlay.classList.remove('visible');
+            loadLevel(state.levelIndex);
+          };
+        } else {
+          if (stars === 3) {
+            emojiEl.textContent = '🤩☕';
+            titleEl.textContent = 'Barista Perfection!';
+            subEl.textContent = 'Dead-center pour with rich golden crema!';
+          } else if (stars === 2) {
+            emojiEl.textContent = '✨☕';
+            titleEl.textContent = 'Great Pour!';
+            subEl.textContent = 'Right inside the target zone with zero spills.';
+          } else {
+            emojiEl.textContent = '😅☕';
+            titleEl.textContent = 'Close Call!';
+            subEl.textContent = 'Right near the rim—nothing spilled, so it counts!';
+          }
+
+          const isLastLevel = state.levelIndex >= LEVELS.length - 1;
+          actionBtn.textContent = isLastLevel ? 'See Final Score 🏆' : 'Next Cup →';
+          actionBtn.className = 'btn-primary mint';
+          actionBtn.onclick = () => {
+            sound.playTap();
+            resultOverlay.classList.remove('visible');
+            if (isLastLevel) {
+              showVictoryModal();
+            } else {
+              loadLevel(state.levelIndex + 1);
+            }
+          };
+        }
+
+        resultOverlay.classList.add('visible');
+      }
+
+      function showVictoryModal() {
+        state.screen = 'victory';
+        const pills = levelStepper.querySelectorAll('.step-pill');
+        pills.forEach(p => {
+          p.classList.remove('active');
+          p.classList.add('completed');
+        });
+
+        const totalStars = state.levelScores.reduce((sum, s) => sum + (s ? s.stars : 0), 0);
+        const avgAcc = Math.round(
+          state.levelScores.reduce((sum, s) => sum + (s ? s.accuracy : 0), 0) / LEVELS.length
+        );
+
+        document.getElementById('total-stars-text').textContent = `${totalStars} / 15`;
+        document.getElementById('avg-accuracy-text').textContent = `${avgAcc}%`;
+        victoryOverlay.classList.add('visible');
+      }
+
+      /* =========================================================================
+         8. SIMULATION UPDATE LOOP
+         ========================================================================= */
+      function update(dt) {
+        const level = LEVELS[state.levelIndex];
+        const metrics = getCupMetrics(level);
+        const liquidSurfaceY = metrics.cupBottomY - Math.min(1, state.fillHeightRatio) * metrics.cupHeight;
+
+        // 1. Stream falling kinematics
+        const streamSpeed = canvasH * 2.2;
+        if (state.isPouring) {
+          state.streamY = Math.min(liquidSurfaceY + 6, state.streamY + streamSpeed * dt);
+        } else if (state.streamActive) {
+          // Tail of the stream falls cleanly into the cup after releasing
+          state.streamY += streamSpeed * 1.15 * dt;
+          if (state.streamY >= liquidSurfaceY) {
+            state.streamActive = false;
+          }
+        }
+
+        // 2. Filling the cup once the stream reaches the surface
+        const streamTouchingLiquid = state.isPouring && state.streamY >= liquidSurfaceY - 4;
+        if (streamTouchingLiquid && state.screen === 'playing') {
+          state.volume += level.pourRate * dt;
+          state.fillHeightRatio = volumeToHeightRatio(state.volume, level);
+          state.rippleAmp = Math.min(5.5, state.rippleAmp + 18 * dt);
+          sound.updatePourSound(true, state.fillHeightRatio);
+
+          // Spawn micro crema bubbles at impact point
+          if (Math.random() < 0.55) {
+            const surfW = getCupWidthAtHeight(Math.min(1, state.fillHeightRatio), metrics);
+            state.particles.push({
+              type: 'bubble',
+              x: metrics.centerX + (Math.random() - 0.5) * (surfW * 0.65),
+              y: liquidSurfaceY,
+              vx: (Math.random() - 0.5) * 16,
+              vy: -6 - Math.random() * 12,
+              radius: 1.5 + Math.random() * 2.5,
+              alpha: 0.9,
+              color: '#f3c68f'
+            });
+          }
+
+          // Check overflow condition (> 100% rim capacity)
+          if (state.fillHeightRatio > 1.005) {
+            triggerOverflowSpill();
+          }
+        } else {
+          state.rippleAmp = Math.max(0, state.rippleAmp - 7 * dt);
+        }
+
+        // 3. Wave & Steam ambient animations
+        state.ripplePhase += dt * (streamTouchingLiquid ? 16 : 5);
+
+        if (state.fillHeightRatio > 0.15 && Math.random() < 0.14) {
+          const surfW = getCupWidthAtHeight(Math.min(1, state.fillHeightRatio), metrics);
+          state.particles.push({
+            type: 'steam',
+            x: metrics.centerX + (Math.random() - 0.5) * (surfW * 0.55),
+            y: liquidSurfaceY - 6,
+            vx: (Math.random() - 0.5) * 10,
+            vy: -22 - Math.random() * 18,
+            radius: 5 + Math.random() * 6,
+            alpha: 0.32,
+            phase: Math.random() * Math.PI * 2
+          });
+        }
+
+        // 4. Settle lock-in timer when player releases inside/above target zone
+        if (state.screen === 'settling') {
+          state.settleTimer += dt;
+          if (state.settleTimer >= state.settleDuration) {
+            evaluateCompletedPour();
+          }
+        }
+
+        // 5. Screen shake decay on spill
+        if (state.shakeTime > 0) {
+          state.shakeTime = Math.max(0, state.shakeTime - dt);
+        }
+
+        // 6. Update particles (bubbles, steam, spill droplets)
+        for (let i = state.particles.length - 1; i >= 0; i--) {
+          const p = state.particles[i];
+          if (p.type === 'spill') {
+            p.vy += 520 * dt; // Gravity
+            p.x += p.vx * dt;
+            p.y += p.vy * dt;
+            if (p.y >= metrics.tableY - 2) {
+              p.y = metrics.tableY - 2;
+              p.vy = -p.vy * 0.22;
+              p.vx *= 0.65;
+              p.alpha -= 1.2 * dt;
+            }
+            if (p.alpha <= 0) state.particles.splice(i, 1);
+          } else if (p.type === 'bubble') {
+            p.x += p.vx * dt;
+            p.y += p.vy * dt;
+            p.alpha -= 1.6 * dt;
+            if (p.alpha <= 0) state.particles.splice(i, 1);
+          } else if (p.type === 'steam') {
+            p.phase += dt * 3;
+            p.x += Math.sin(p.phase) * 14 * dt;
+            p.y += p.vy * dt;
+            p.radius += 5 * dt;
+            p.alpha -= 0.22 * dt;
+            if (p.alpha <= 0) state.particles.splice(i, 1);
+          }
+        }
+      }
+
+      /* =========================================================================
+         9. RENDER PIPELINE
+         ========================================================================= */
+      function buildCupPath(ctx, metrics) {
+        const halfTop = metrics.topW * 0.5;
+        const halfBot = metrics.bottomW * 0.5;
+        const cx = metrics.centerX;
+        const topY = metrics.cupTopY;
+        const botY = metrics.cupBottomY;
+        const cornerR = Math.min(18, halfBot * 0.35);
+
+        ctx.beginPath();
+        ctx.moveTo(cx - halfTop, topY);
+        ctx.lineTo(cx + halfTop, topY);
+        ctx.lineTo(cx + halfBot, botY - cornerR);
+        ctx.quadraticCurveTo(cx + halfBot, botY, cx + halfBot - cornerR, botY);
+        ctx.lineTo(cx - halfBot + cornerR, botY);
+        ctx.quadraticCurveTo(cx - halfBot, botY, cx - halfBot, botY - cornerR);
+        ctx.closePath();
+      }
+
+      function render() {
+        ctx.clearRect(0, 0, canvasW, canvasH);
+
+        const level = LEVELS[state.levelIndex];
+        const metrics = getCupMetrics(level);
+
+        ctx.save();
+        if (state.shakeTime > 0) {
+          const mag = state.shakeTime * 16;
+          ctx.translate((Math.random() - 0.5) * mag, (Math.random() - 0.5) * mag);
+        }
+
+        // A. Cafe Countertop Surface
+        const tableGrad = ctx.createLinearGradient(0, metrics.tableY, 0, canvasH);
+        tableGrad.addColorStop(0, '#cfa982');
+        tableGrad.addColorStop(0.15, '#be9368');
+        tableGrad.addColorStop(1, '#9b7048');
+        ctx.fillStyle = tableGrad;
+        ctx.fillRect(0, metrics.tableY, canvasW, canvasH - metrics.tableY);
+
+        // Countertop rim highlight
+        ctx.fillStyle = '#e7c9a9';
+        ctx.fillRect(0, metrics.tableY, canvasW, 4);
+
+        // Contact shadow beneath cup/saucer
+        ctx.fillStyle = 'rgba(44, 24, 16, 0.16)';
+        ctx.beginPath();
+        ctx.ellipse(
+          metrics.centerX,
+          metrics.tableY + 6,
+          metrics.bottomW * (level.hasSaucer ? 0.95 : 0.65),
+          9,
+          0,
+          0,
+          Math.PI * 2
+        );
+        ctx.fill();
+
+        // B. Optional Porcelain Saucer
+        if (level.hasSaucer) {
+          const saucerW = Math.max(metrics.topW * 1.15, metrics.bottomW * 1.75);
+          ctx.fillStyle = '#ffffff';
+          ctx.strokeStyle = '#d8cec2';
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.roundRect(
+            metrics.centerX - saucerW * 0.5,
+            metrics.tableY - metrics.saucerHeight,
+            saucerW,
+            metrics.saucerHeight,
+            [4, 4, 12, 12]
+          );
+          ctx.fill();
+          ctx.stroke();
+        }
+
+        // C. Cup Handle (drawn behind main body for seamless join)
+        if (level.hasHandle) {
+          const handleY = metrics.cupTopY + metrics.cupHeight * 0.22;
+          const handleH = metrics.cupHeight * 0.52;
+          const midY = handleY + handleH * 0.5;
+          const wallX =
+            metrics.centerX +
+            getCupWidthAtHeight(0.52, metrics) * 0.5;
+
+          ctx.save();
+          ctx.strokeStyle = level.cupColor;
+          ctx.lineWidth = 14;
+          ctx.lineCap = 'round';
+          ctx.beginPath();
+          ctx.moveTo(wallX - 4, handleY);
+          ctx.bezierCurveTo(
+            wallX + 36,
+            handleY - 4,
+            wallX + 36,
+            handleY + handleH + 4,
+            wallX - 4,
+            handleY + handleH
+          );
+          ctx.stroke();
+
+          // Subtle handle outline
+          ctx.strokeStyle = 'rgba(44, 24, 16, 0.18)';
+          ctx.lineWidth = 2;
+          ctx.stroke();
+          ctx.restore();
+        }
+
+        // D. Cup Outer Silhouette / Interior Backing
+        buildCupPath(ctx, metrics);
+        ctx.fillStyle = level.isGlass ? 'rgba(255, 255, 255, 0.35)' : level.cupInnerShadow;
+        ctx.fill();
+
+        // E. Falling Coffee Stream (Behind cup front rim, above liquid surface)
+        const clampedH = Math.min(1, state.fillHeightRatio);
+        const surfaceY = metrics.cupBottomY - clampedH * metrics.cupHeight;
+
+        if (state.isPouring || state.streamActive) {
+          const streamTop = state.isPouring ? metrics.nozzleY + 14 : Math.max(metrics.nozzleY + 14, state.streamY - 95);
+          const streamBot = Math.min(surfaceY + 4, state.streamY);
+
+          if (streamBot > streamTop) {
+            const wobble = Math.sin(state.ripplePhase * 1.4) * 1.2;
+            const streamGrad = ctx.createLinearGradient(0, streamTop, 0, streamBot);
+            streamGrad.addColorStop(0, '#5a301d');
+            streamGrad.addColorStop(0.6, '#3b1c0e');
+            streamGrad.addColorStop(1, '#c98848');
+
+            ctx.fillStyle = streamGrad;
+            ctx.beginPath();
+            ctx.moveTo(metrics.centerX - level.streamWidth * 0.55, streamTop);
+            ctx.lineTo(metrics.centerX + level.streamWidth * 0.55, streamTop);
+            ctx.lineTo(metrics.centerX + level.streamWidth * 0.4 + wobble, streamBot);
+            ctx.lineTo(metrics.centerX - level.streamWidth * 0.4 + wobble, streamBot);
+            ctx.closePath();
+            ctx.fill();
+          }
+        }
+
+        // F. Coffee Liquid & Golden Crema Layer Clipped Inside Cup
+        if (state.fillHeightRatio > 0.002) {
+          ctx.save();
+          buildCupPath(ctx, metrics);
+          ctx.clip();
+
+          // Rich dark espresso body
+          const coffeeGrad = ctx.createLinearGradient(0, surfaceY, 0, metrics.cupBottomY);
+          coffeeGrad.addColorStop(0, '#4a2514');
+          coffeeGrad.addColorStop(0.35, '#33170b');
+          coffeeGrad.addColorStop(1, '#1e0c05');
+
+          ctx.fillStyle = coffeeGrad;
+          ctx.beginPath();
+          ctx.moveTo(0, metrics.cupBottomY + 10);
+          ctx.lineTo(0, surfaceY);
+
+          // Animated surface wave
+          const waveSteps = 24;
+          for (let i = 0; i <= waveSteps; i++) {
+            const x = (canvasW / waveSteps) * i;
+            const waveOffset =
+              Math.sin(state.ripplePhase + i * 0.55) * state.rippleAmp;
+            ctx.lineTo(x, surfaceY + waveOffset);
+          }
+
+          ctx.lineTo(canvasW, metrics.cupBottomY + 10);
+          ctx.closePath();
+          ctx.fill();
+
+          // Velvety Golden Crema Top Band
+          const cremaThickness = Math.min(11, 4 + clampedH * 8);
+          const cremaGrad = ctx.createLinearGradient(0, surfaceY - 2, 0, surfaceY + cremaThickness);
+          cremaGrad.addColorStop(0, '#eab97e');
+          cremaGrad.addColorStop(0.55, '#c98546');
+          cremaGrad.addColorStop(1, '#6d391c');
+
+          ctx.fillStyle = cremaGrad;
+          ctx.beginPath();
+          for (let i = 0; i <= waveSteps; i++) {
+            const x = (canvasW / waveSteps) * i;
+            const waveOffset =
+              Math.sin(state.ripplePhase + i * 0.55) * state.rippleAmp;
+            if (i === 0) ctx.moveTo(x, surfaceY + waveOffset);
+            else ctx.lineTo(x, surfaceY + waveOffset);
+          }
+          for (let i = waveSteps; i >= 0; i--) {
+            const x = (canvasW / waveSteps) * i;
+            const waveOffset =
+              Math.sin(state.ripplePhase + i * 0.55) * state.rippleAmp;
+            ctx.lineTo(x, surfaceY + waveOffset + cremaThickness);
+          }
+          ctx.closePath();
+          ctx.fill();
+
+          ctx.restore();
+        }
+
+        // G. Cup Wall Overlay & Glossy Specular Reflection
+        buildCupPath(ctx, metrics);
+        if (!level.isGlass) {
+          // Opaque ceramic/tumbler exterior with cutaway window so player always sees fill level clearly!
+          ctx.save();
+          ctx.clip();
+
+          // Left & Right opaque walls framing a crystal-clear level gauge window
+          const wallGrad = ctx.createLinearGradient(
+            metrics.centerX - metrics.topW * 0.5,
+            0,
+            metrics.centerX + metrics.topW * 0.5,
+            0
+          );
+          wallGrad.addColorStop(0, level.cupColor);
+          wallGrad.addColorStop(0.18, 'rgba(255,255,255,0.12)');
+          wallGrad.addColorStop(0.82, 'rgba(255,255,255,0.08)');
+          wallGrad.addColorStop(1, level.cupColor);
+
+          ctx.fillStyle = wallGrad;
+          ctx.fillRect(
+            metrics.centerX - metrics.topW * 0.6,
+            metrics.cupTopY,
+            metrics.topW * 1.2,
+            metrics.cupHeight
+          );
+          ctx.restore();
+        }
+
+        // Cup Crisp Outline
+        buildCupPath(ctx, metrics);
+        ctx.strokeStyle = level.isGlass ? 'rgba(255, 255, 255, 0.85)' : 'rgba(44, 24, 16, 0.25)';
+        ctx.lineWidth = 3;
+        ctx.stroke();
+
+        // Top Rim Lip
+        ctx.fillStyle = level.isGlass ? 'rgba(255,255,255,0.9)' : level.cupColor;
+        ctx.strokeStyle = 'rgba(44, 24, 16, 0.22)';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.roundRect(
+          metrics.centerX - metrics.topW * 0.5 - 3,
+          metrics.cupTopY - 3,
+          metrics.topW + 6,
+          7,
+          4
+        );
+        ctx.fill();
+        ctx.stroke();
+
+        // H. TARGET ZONE INDICATOR BAND & BRACKETS
+        const targetTopY = metrics.cupBottomY - level.targetMax * metrics.cupHeight;
+        const targetBotY = metrics.cupBottomY - level.targetMin * metrics.cupHeight;
+        const targetBandH = targetBotY - targetTopY;
+        const midTargetH = (level.targetMin + level.targetMax) * 0.5;
+        const bandWidth = getCupWidthAtHeight(midTargetH, metrics);
+
+        const inZone =
+          state.fillHeightRatio >= level.targetMin &&
+          state.fillHeightRatio <= level.targetMax;
+
+        // Translucent green target band across the cup
+        ctx.fillStyle = inZone
+          ? 'rgba(46, 139, 87, 0.34)'
+          : 'rgba(46, 139, 87, 0.20)';
+        ctx.fillRect(
+          metrics.centerX - bandWidth * 0.5,
+          targetTopY,
+          bandWidth,
+          targetBandH
+        );
+
+        // Dashed upper & lower target lines
+        ctx.save();
+        ctx.setLineDash([5, 4]);
+        ctx.strokeStyle = inZone ? '#1f7a48' : '#2e8b57';
+        ctx.lineWidth = 2;
+
+        ctx.beginPath();
+        ctx.moveTo(metrics.centerX - bandWidth * 0.5, targetTopY);
+        ctx.lineTo(metrics.centerX + bandWidth * 0.5, targetTopY);
+        ctx.moveTo(metrics.centerX - bandWidth * 0.5, targetBotY);
+        ctx.lineTo(metrics.centerX + bandWidth * 0.5, targetBotY);
+        ctx.stroke();
+        ctx.restore();
+
+        // Left & Right External Target Bracket Markers + "TARGET" tag
+        const leftEdge = metrics.centerX - bandWidth * 0.5;
+        const rightEdge = metrics.centerX + bandWidth * 0.5;
+
+        ctx.strokeStyle = '#2e8b57';
+        ctx.lineWidth = 3;
+        ctx.lineCap = 'round';
+        ctx.beginPath();
+        // Left bracket
+        ctx.moveTo(leftEdge - 6, targetTopY);
+        ctx.lineTo(leftEdge - 12, targetTopY);
+        ctx.lineTo(leftEdge - 12, targetBotY);
+        ctx.lineTo(leftEdge - 6, targetBotY);
+        // Right bracket
+        ctx.moveTo(rightEdge + 6, targetTopY);
+        ctx.lineTo(rightEdge + 12, targetTopY);
+        ctx.lineTo(rightEdge + 12, targetBotY);
+        ctx.lineTo(rightEdge + 6, targetBotY);
+        ctx.stroke();
+
+        // "PERFECT" badge next to target zone
+        ctx.fillStyle = inZone ? '#2e8b57' : '#2c1810';
+        ctx.font = '700 10px "Plus Jakarta Sans", sans-serif';
+        ctx.textAlign = 'right';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('GOAL', leftEdge - 16, (targetTopY + targetBotY) * 0.5);
+
+        // I. Overhead Espresso Portafilter Spout
+        drawEspressoNozzle(ctx, metrics.centerX, metrics.nozzleY, state.isPouring);
+
+        // J. Settle Lock-In Circular Progress Ring (when released in valid zone)
+        if (state.screen === 'settling') {
+          const progress = Math.min(1, state.settleTimer / state.settleDuration);
+          const ringY = metrics.cupTopY - 38;
+          ctx.save();
+          ctx.beginPath();
+          ctx.arc(metrics.centerX, ringY, 18, 0, Math.PI * 2);
+          ctx.fillStyle = '#fffaf4';
+          ctx.fill();
+          ctx.lineWidth = 4;
+          ctx.strokeStyle = 'rgba(46, 139, 87, 0.2)';
+          ctx.stroke();
+
+          ctx.beginPath();
+          ctx.arc(
+            metrics.centerX,
+            ringY,
+            18,
+            -Math.PI * 0.5,
+            -Math.PI * 0.5 + progress * Math.PI * 2
+          );
+          ctx.strokeStyle = '#2e8b57';
+          ctx.lineWidth = 4;
+          ctx.lineCap = 'round';
+          ctx.stroke();
+
+          ctx.fillStyle = '#2e8b57';
+          ctx.font = '700 13px "Fredoka", sans-serif';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText('✓', metrics.centerX, ringY + 1);
+          ctx.restore();
+        }
+
+        // K. Particles (Bubbles, Steam, Overflow Droplets)
+        for (const p of state.particles) {
+          ctx.save();
+          ctx.globalAlpha = Math.max(0, p.alpha);
+          if (p.type === 'steam') {
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.fill();
+          } else {
+            ctx.fillStyle = p.color;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.fill();
+          }
+          ctx.restore();
+        }
+
+        ctx.restore();
+      }
+
+      function drawEspressoNozzle(ctx, cx, y, isPouring) {
+        ctx.save();
+        // Group head neck
+        ctx.fillStyle = '#4a4e52';
+        ctx.fillRect(cx - 26, 0, 52, y - 8);
+
+        // Chrome portafilter basket
+        const basketGrad = ctx.createLinearGradient(cx - 34, 0, cx + 34, 0);
+        basketGrad.addColorStop(0, '#787e85');
+        basketGrad.addColorStop(0.35, '#d5dce2');
+        basketGrad.addColorStop(0.7, '#9aa1a8');
+        basketGrad.addColorStop(1, '#5c6166');
+
+        ctx.fillStyle = basketGrad;
+        ctx.beginPath();
+        ctx.roundRect(cx - 34, y - 10, 68, 18, [4, 4, 12, 12]);
+        ctx.fill();
+        ctx.strokeStyle = '#2c1810';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        // Spout tip
+        ctx.fillStyle = '#3b3f42';
+        ctx.beginPath();
+        ctx.roundRect(cx - 9, y + 7, 18, 10, [0, 0, 6, 6]);
+        ctx.fill();
+
+        // Subtle drip bead when idle
+        if (!isPouring) {
+          ctx.fillStyle = '#4a2514';
+          ctx.beginPath();
+          ctx.arc(cx, y + 18, 3, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.restore();
+      }
+
+      /* =========================================================================
+         10. MAIN ANIMATION LOOP
+         ========================================================================= */
+      function gameLoop(timestamp) {
+        if (!state.lastTimestamp) state.lastTimestamp = timestamp;
+        const dt = Math.min(0.05, (timestamp - state.lastTimestamp) / 1000);
+        state.lastTimestamp = timestamp;
+
+        update(dt);
+        render();
+
+        requestAnimationFrame(gameLoop);
+      }
+
+      window.addEventListener('load', () => {
+        resizeCanvas();
+        loadLevel(0);
+        requestAnimationFrame(gameLoop);
+      });
+    })();
+  </script>
+</body>
+</html>

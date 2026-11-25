@@ -1,0 +1,2217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>BLOCK DEFENDER — Cyber Block Defense</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #070a12;
+      --bg-panel: #0e1424;
+      --border-glow: rgba(0, 243, 255, 0.28);
+      --neon-cyan: #00f3ff;
+      --neon-pink: #ff2a85;
+      --neon-amber: #ffb800;
+      --neon-green: #00ff88;
+      --neon-purple: #b537f2;
+      --text-main: #eef4ff;
+      --text-dim: #7f8ea8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
+      touch-action: manipulation;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100dvh;
+      overflow: hidden;
+      background: radial-gradient(circle at 50% 15%, #131c36 0%, var(--bg-dark) 75%);
+      color: var(--text-main);
+      font-family: 'Rajdhani', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #app {
+      width: 100%;
+      max-width: 520px;
+      height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      padding: 8px 10px 10px;
+      gap: 6px;
+      position: relative;
+    }
+
+    /* Top HUD */
+    .hud-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(14, 20, 36, 0.88);
+      border: 1px solid var(--border-glow);
+      border-radius: 12px;
+      padding: 6px 10px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), inset 0 0 12px rgba(0, 243, 255, 0.08);
+      flex-shrink: 0;
+    }
+
+    .hud-stat {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.05;
+    }
+
+    .hud-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    .hud-val {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--neon-cyan);
+      text-shadow: 0 0 8px rgba(0, 243, 255, 0.5);
+    }
+
+    .hud-val.score {
+      color: #fff;
+      text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+    }
+
+    .hud-val.hi {
+      color: var(--neon-amber);
+      font-size: 13px;
+    }
+
+    .hud-center {
+      text-align: center;
+      flex: 1;
+      padding: 0 8px;
+    }
+
+    .sector-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--neon-pink);
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .progress-wrap {
+      width: 100%;
+      height: 7px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 99px;
+      margin-top: 4px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--neon-cyan), var(--neon-green));
+      box-shadow: 0 0 10px var(--neon-cyan);
+      transition: width 0.25s ease-out;
+    }
+
+    .hud-actions {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .icon-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      cursor: pointer;
+      transition: transform 0.1s, background 0.15s;
+    }
+
+    .icon-btn:active {
+      transform: scale(0.92);
+      background: rgba(0, 243, 255, 0.2);
+    }
+
+    /* Main Play Area */
+    .arena-wrap {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      position: relative;
+    }
+
+    .board-container {
+      height: 100%;
+      aspect-ratio: 1 / 2;
+      max-width: 68%;
+      position: relative;
+      border-radius: 12px;
+      border: 2px solid rgba(0, 243, 255, 0.45);
+      background: #060911;
+      box-shadow: 0 0 28px rgba(0, 243, 255, 0.15), inset 0 0 20px rgba(0, 0, 0, 0.85);
+      overflow: hidden;
+    }
+
+    canvas#gameCanvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* Side Info Column (Next Piece + Threat + Upgrade Inventory) */
+    .side-panel {
+      height: 100%;
+      width: 96px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .panel-box {
+      background: rgba(14, 20, 36, 0.88);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      padding: 6px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .panel-title {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    canvas#nextCanvas {
+      width: 68px;
+      height: 68px;
+      display: block;
+    }
+
+    /* Active Status / Buffs */
+    .status-box {
+      flex: 1;
+      justify-content: flex-start;
+      gap: 5px;
+      overflow: hidden;
+    }
+
+    .status-pill {
+      width: 100%;
+      padding: 4px 5px;
+      border-radius: 7px;
+      font-size: 10px;
+      font-weight: 700;
+      text-align: center;
+      letter-spacing: 0.4px;
+      border: 1px solid transparent;
+      animation: pulseGlow 1.5s infinite alternate;
+    }
+
+    .status-freeze {
+      background: rgba(0, 243, 255, 0.16);
+      border-color: var(--neon-cyan);
+      color: var(--neon-cyan);
+    }
+
+    .status-shield {
+      background: rgba(0, 255, 136, 0.16);
+      border-color: var(--neon-green);
+      color: var(--neon-green);
+    }
+
+    .status-jammed {
+      background: rgba(255, 42, 133, 0.22);
+      border-color: var(--neon-pink);
+      color: #ff7ab3;
+    }
+
+    .threat-meter {
+      width: 100%;
+      text-align: center;
+      margin-top: auto;
+    }
+
+    .threat-count {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--neon-pink);
+    }
+
+    /* Upgrade Trigger Slot */
+    .upgrade-slot {
+      width: 100%;
+      background: linear-gradient(145deg, rgba(24, 34, 62, 0.95), rgba(11, 16, 30, 0.95));
+      border: 1.5px solid rgba(255, 255, 255, 0.16);
+      border-radius: 12px;
+      padding: 7px 5px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.1s, border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .upgrade-slot.ready {
+      border-color: var(--neon-amber);
+      box-shadow: 0 0 16px rgba(255, 184, 0, 0.45), inset 0 0 10px rgba(255, 184, 0, 0.2);
+      animation: readyBounce 1.2s infinite ease-in-out;
+    }
+
+    .upgrade-slot:active {
+      transform: scale(0.94);
+    }
+
+    .upg-icon {
+      font-size: 22px;
+      line-height: 1;
+    }
+
+    .upg-name {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 9px;
+      font-weight: 700;
+      color: #fff;
+      text-align: center;
+      letter-spacing: 0.4px;
+    }
+
+    .upg-hint {
+      font-size: 9px;
+      color: var(--neon-amber);
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    /* Tactile Arcade Controls */
+    .controls-bar {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+      flex-shrink: 0;
+      height: 58px;
+    }
+
+    .ctrl-btn {
+      background: linear-gradient(180deg, rgba(26, 37, 66, 0.95) 0%, rgba(13, 19, 36, 0.98) 100%);
+      border: 1px solid rgba(0, 243, 255, 0.3);
+      border-bottom: 3px solid rgba(0, 243, 255, 0.65);
+      border-radius: 12px;
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.45);
+      transition: transform 0.06s, background 0.1s;
+    }
+
+    .ctrl-btn:active, .ctrl-btn.pressed {
+      transform: translateY(2px);
+      border-bottom-width: 1px;
+      background: rgba(0, 243, 255, 0.22);
+    }
+
+    .ctrl-btn .btn-sym {
+      font-size: 18px;
+      line-height: 1;
+      font-weight: 700;
+    }
+
+    .ctrl-btn .btn-lbl {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.6px;
+      color: var(--text-dim);
+      margin-top: 2px;
+      text-transform: uppercase;
+    }
+
+    .ctrl-btn.accent-rotate {
+      border-color: rgba(181, 55, 242, 0.45);
+      border-bottom-color: var(--neon-purple);
+    }
+
+    .ctrl-btn.accent-drop {
+      border-color: rgba(255, 42, 133, 0.45);
+      border-bottom-color: var(--neon-pink);
+    }
+
+    /* Overlays (Title, Level Transition, Pause, Victory, Game Over) */
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(5, 8, 16, 0.88);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      text-align: center;
+      z-index: 30;
+      border-radius: 10px;
+      transition: opacity 0.25s ease;
+    }
+
+    .overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .game-logo {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 28px;
+      font-weight: 900;
+      line-height: 1.05;
+      background: linear-gradient(135deg, #ffffff 10%, var(--neon-cyan) 55%, var(--neon-pink) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 14px rgba(0, 243, 255, 0.45));
+      margin-bottom: 6px;
+      letter-spacing: 1.5px;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: var(--neon-amber);
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .briefing-card {
+      background: rgba(16, 23, 42, 0.9);
+      border: 1px solid rgba(0, 243, 255, 0.25);
+      border-radius: 12px;
+      padding: 12px;
+      width: 100%;
+      max-width: 340px;
+      text-align: left;
+      font-size: 12.5px;
+      line-height: 1.4;
+      color: #d6e2ff;
+      margin-bottom: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .brief-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brief-badge {
+      font-size: 15px;
+      width: 24px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .primary-btn {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      color: #050811;
+      background: linear-gradient(90deg, var(--neon-cyan), var(--neon-green));
+      border: none;
+      border-radius: 12px;
+      padding: 13px 28px;
+      cursor: pointer;
+      box-shadow: 0 0 22px rgba(0, 243, 255, 0.5);
+      transition: transform 0.12s, box-shadow 0.12s;
+      text-transform: uppercase;
+    }
+
+    .primary-btn:active {
+      transform: scale(0.95);
+    }
+
+    /* Floating Banner inside board for Sector Transitions */
+    .sector-banner {
+      position: absolute;
+      top: 22%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.9);
+      width: 92%;
+      background: rgba(8, 12, 24, 0.94);
+      border: 1.5px solid var(--neon-cyan);
+      box-shadow: 0 0 25px rgba(0, 243, 255, 0.45);
+      border-radius: 12px;
+      padding: 12px 10px;
+      text-align: center;
+      z-index: 20;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.25s, transform 0.25s;
+    }
+
+    .sector-banner.show {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .sector-banner h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 16px;
+      color: var(--neon-cyan);
+      margin-bottom: 3px;
+    }
+
+    .sector-banner p {
+      font-size: 12px;
+      color: #e2ecff;
+      font-weight: 600;
+    }
+
+    @keyframes pulseGlow {
+      from { opacity: 0.78; }
+      to { opacity: 1; }
+    }
+
+    @keyframes readyBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-2px); }
+    }
+
+    @media (min-width: 600px) {
+      #app {
+        padding: 14px;
+        gap: 10px;
+      }
+      .side-panel {
+        width: 118px;
+      }
+      .controls-bar {
+        height: 62px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <!-- Top HUD -->
+    <header class="hud-top">
+      <div class="hud-stat">
+        <span class="hud-label">Score</span>
+        <span class="hud-val score" id="scoreVal">0</span>
+        <span class="hud-val hi" id="hiScoreVal">HI 0</span>
+      </div>
+
+      <div class="hud-center">
+        <div class="sector-title" id="sectorLabel">LVL 1 • BOOT SEQUENCE</div>
+        <div class="progress-wrap">
+          <div class="progress-bar" id="levelProgress"></div>
+        </div>
+        <div style="font-size: 10px; color: var(--text-dim); margin-top: 2px; font-weight: 700;">
+          LINES: <span id="linesText" style="color: #fff;">0 / 5</span>
+        </div>
+      </div>
+
+      <div class="hud-actions">
+        <button class="icon-btn" id="muteBtn" title="Toggle Sound" aria-label="Toggle Sound">🔊</button>
+        <button class="icon-btn" id="pauseBtn" title="Pause Game" aria-label="Pause Game">⏸</button>
+      </div>
+    </header>
+
+    <!-- Main Play Arena -->
+    <main class="arena-wrap">
+      <div class="board-container" id="boardContainer">
+        <canvas id="gameCanvas"></canvas>
+
+        <!-- Sector Transition Banner -->
+        <div class="sector-banner" id="sectorBanner">
+          <h2 id="bannerTitle">SECTOR 01</h2>
+          <p id="bannerSub">Clear 5 Lines to Breach Firewall</p>
+        </div>
+
+        <!-- Start / Game Over / Victory Overlay -->
+        <div class="overlay" id="mainOverlay">
+          <div class="game-logo">BLOCK<br>DEFENDER</div>
+          <div class="subtitle" id="overlaySubtitle">5-Sector Cyber Defense</div>
+
+          <div class="briefing-card" id="briefingCard">
+            <div class="brief-row">
+              <span class="brief-badge">👾</span>
+              <span><b>Glitch Bugs</b> infect blocks! Crush them with falling pieces or zap them with upgrades.</span>
+            </div>
+            <div class="brief-row">
+              <span class="brief-badge">🛸</span>
+              <span><b>Saboteur Drones</b> nudge pieces &amp; drop junk in higher sectors.</span>
+            </div>
+            <div class="brief-row">
+              <span class="brief-badge">⚡</span>
+              <span>Clear <b>Glowing Power Blocks</b> to charge <b>Laser, EMP, Freeze &amp; Purifier</b>!</span>
+            </div>
+            <div class="brief-row">
+              <span class="brief-badge">📱</span>
+              <span>Swipe/Tap board or use arcade keys below. Survive all <b>5 Sectors</b>!</span>
+            </div>
+          </div>
+
+          <button class="primary-btn" id="startBtn">INITIALIZE SYSTEM</button>
+        </div>
+      </div>
+
+      <!-- Side Tactical Panel -->
+      <aside class="side-panel">
+        <div class="panel-box">
+          <span class="panel-title">NEXT</span>
+          <canvas id="nextCanvas" width="90" height="90"></canvas>
+        </div>
+
+        <div class="panel-box status-box">
+          <span class="panel-title">SYSTEM</span>
+          <div id="activeBuffs" style="width: 100%; display: flex; flex-direction: column; gap: 4px;"></div>
+
+          <div class="threat-meter">
+            <div class="panel-title" style="margin-bottom: 1px;">HOSTILES</div>
+            <div class="threat-count" id="hostileCount">0</div>
+          </div>
+        </div>
+
+        <!-- Strategic Upgrade Inventory Trigger -->
+        <button class="upgrade-slot" id="upgradeBtn" title="Activate Upgrade (Key: E / Shift)">
+          <span class="upg-icon" id="upgIcon">🔋</span>
+          <span class="upg-name" id="upgName">NO MODULE</span>
+          <span class="upg-hint" id="upgHint">CLEAR ⚡ BLOCKS</span>
+        </button>
+      </aside>
+    </main>
+
+    <!-- Mobile-First Tactile Arcade Controls -->
+    <nav class="controls-bar" aria-label="Game Controls">
+      <button class="ctrl-btn" id="btnLeft" aria-label="Move Left">
+        <span class="btn-sym">◀</span>
+        <span class="btn-lbl">LEFT</span>
+      </button>
+      <button class="ctrl-btn" id="btnRight" aria-label="Move Right">
+        <span class="btn-sym">▶</span>
+        <span class="btn-lbl">RIGHT</span>
+      </button>
+      <button class="ctrl-btn accent-rotate" id="btnRotate" aria-label="Rotate">
+        <span class="btn-sym">↻</span>
+        <span class="btn-lbl">ROTATE</span>
+      </button>
+      <button class="ctrl-btn" id="btnSoft" aria-label="Soft Drop">
+        <span class="btn-sym">▼</span>
+        <span class="btn-lbl">SOFT</span>
+      </button>
+      <button class="ctrl-btn accent-drop" id="btnHard" aria-label="Hard Drop">
+        <span class="btn-sym">⤓</span>
+        <span class="btn-lbl">DROP</span>
+      </button>
+    </nav>
+  </div>
+
+  <script>
+    (() => {
+      'use strict';
+
+      /* =========================================================================
+         1. WEB AUDIO SYNTHESIZER (Retro-Modern Arcade SFX, Zero External URLs)
+      ========================================================================= */
+      class SoundFX {
+        constructor() {
+          this.ctx = null;
+          this.muted = false;
+        }
+        init() {
+          if (!this.ctx) {
+            const AudioCtx = window.AudioContext || window.webkitAudioContext;
+            if (AudioCtx) this.ctx = new AudioCtx();
+          }
+          if (this.ctx && this.ctx.state === 'suspended') {
+            this.ctx.resume();
+          }
+        }
+        play(type) {
+          if (this.muted) return;
+          this.init();
+          if (!this.ctx) return;
+
+          const now = this.ctx.currentTime;
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+
+          switch (type) {
+            case 'move':
+              osc.type = 'triangle';
+              osc.frequency.setValueAtTime(260, now);
+              osc.frequency.exponentialRampToValueAtTime(340, now + 0.045);
+              gain.gain.setValueAtTime(0.08, now);
+              gain.gain.exponentialRampToValueAtTime(0.001, now + 0.045);
+              osc.start(now);
+              osc.stop(now + 0.05);
+              break;
+            case 'rotate':
+              osc.type = 'sine';
+              osc.frequency.setValueAtTime(420, now);
+              osc.frequency.exponentialRampToValueAtTime(680, now + 0.07);
+              gain.gain.setValueAtTime(0.11, now);
+              gain.gain.exponentialRampToValueAtTime(0.001, now + 0.07);
+              osc.start(now);
+              osc.stop(now + 0.075);
+              break;
+            case 'drop':
+              osc.type = 'sawtooth';
+              osc.frequency.setValueAtTime(180, now);
+              osc.frequency.exponentialRampToValueAtTime(55, now + 0.12);
+              gain.gain.setValueAtTime(0.16, now);
+              gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+              osc.start(now);
+              osc.stop(now + 0.13);
+              break;
+            case 'clear':
+              osc.type = 'square';
+              osc.frequency.setValueAtTime(440, now);
+              osc.frequency.setValueAtTime(554, now + 0.06);
+              osc.frequency.setValueAtTime(659, now + 0.12);
+              osc.frequency.setValueAtTime(880, now + 0.18);
+              gain.gain.setValueAtTime(0.12, now);
+              gain.gain.exponentialRampToValueAtTime(0.001, now + 0.32);
+              osc.start(now);
+              osc.stop(now + 0.33);
+              break;
+            case 'enemyHit':
+              osc.type = 'sawtooth';
+              osc.frequency.setValueAtTime(520, now);
+              osc.frequency.exponentialRampToValueAtTime(120, now + 0.16);
+              gain.gain.setValueAtTime(0.15, now);
+              gain.gain.exponentialRampToValueAtTime(0.001, now + 0.16);
+              osc.start(now);
+              osc.stop(now + 0.17);
+              break;
+            case 'corrupt':
+              osc.type = 'sawtooth';
+              osc.frequency.setValueAtTime(130, now);
+              osc.frequency.linearRampToValueAtTime(95, now + 0.18);
+              gain.gain.setValueAtTime(0.13, now);
+              gain.gain.exponentialRampToValueAtTime(0.001, now + 0.19);
+              osc.start(now);
+              osc.stop(now + 0.2);
+              break;
+            case 'powerup':
+              osc.type = 'sine';
+              osc.frequency.setValueAtTime(500, now);
+              osc.frequency.exponentialRampToValueAtTime(1200, now + 0.24);
+              gain.gain.setValueAtTime(0.16, now);
+              gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+              osc.start(now);
+              osc.stop(now + 0.26);
+              break;
+            case 'laser':
+              osc.type = 'sawtooth';
+              osc.frequency.setValueAtTime(1400, now);
+              osc.frequency.exponentialRampToValueAtTime(160, now + 0.28);
+              gain.gain.setValueAtTime(0.2, now);
+              gain.gain.exponentialRampToValueAtTime(0.001, now + 0.29);
+              osc.start(now);
+              osc.stop(now + 0.3);
+              break;
+            case 'levelUp':
+              [523.25, 659.25, 783.99, 1046.5].forEach((freq, idx) => {
+                const o = this.ctx.createOscillator();
+                const g = this.ctx.createGain();
+                o.type = 'triangle';
+                o.connect(g);
+                g.connect(this.ctx.destination);
+                o.frequency.setValueAtTime(freq, now + idx * 0.08);
+                g.gain.setValueAtTime(0.14, now + idx * 0.08);
+                g.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.22);
+                o.start(now + idx * 0.08);
+                o.stop(now + idx * 0.08 + 0.23);
+              });
+              break;
+            case 'gameover':
+              osc.type = 'sawtooth';
+              osc.frequency.setValueAtTime(300, now);
+              osc.frequency.linearRampToValueAtTime(65, now + 0.65);
+              gain.gain.setValueAtTime(0.18, now);
+              gain.gain.exponentialRampToValueAtTime(0.001, now + 0.66);
+              osc.start(now);
+              osc.stop(now + 0.68);
+              break;
+          }
+        }
+      }
+
+      const sfx = new SoundFX();
+
+      /* =========================================================================
+         2. GAME CONSTANTS, 5 LEVELS & UPGRADE DEFINITIONS
+      ========================================================================= */
+      const COLS = 10;
+      const ROWS = 20;
+
+      const LEVELS = [
+        {
+          id: 1,
+          name: 'BOOT SEQUENCE',
+          targetLines: 5,
+          dropInterval: 820,
+          bugSpawnInterval: 7500,
+          maxBugs: 2,
+          droneInterval: 0,
+          preCorrupt: 0,
+          boss: false,
+          desc: 'Clear 5 lines. Crush Glitch Bugs with falling pieces!'
+        },
+        {
+          id: 2,
+          name: 'FIREWALL BREACH',
+          targetLines: 8,
+          dropInterval: 680,
+          bugSpawnInterval: 6200,
+          maxBugs: 3,
+          droneInterval: 11000,
+          preCorrupt: 0,
+          boss: false,
+          desc: 'Clear 8 lines. Watch out for Saboteur Drones nudging blocks!'
+        },
+        {
+          id: 3,
+          name: 'DATA SURGE',
+          targetLines: 10,
+          dropInterval: 560,
+          bugSpawnInterval: 5400,
+          maxBugs: 3,
+          droneInterval: 9500,
+          preCorrupt: 3,
+          boss: false,
+          desc: 'Clear 10 lines. Corrupted nodes detected on grid!'
+        },
+        {
+          id: 4,
+          name: 'CORE MELTDOWN',
+          targetLines: 12,
+          dropInterval: 460,
+          bugSpawnInterval: 4600,
+          maxBugs: 4,
+          droneInterval: 8000,
+          preCorrupt: 4,
+          boss: false,
+          desc: 'Clear 12 lines. Drones now drop junk blocks—use upgrades!'
+        },
+        {
+          id: 5,
+          name: 'SYSTEM OVERLORD',
+          targetLines: 15,
+          dropInterval: 390,
+          bugSpawnInterval: 4200,
+          maxBugs: 4,
+          droneInterval: 7000,
+          preCorrupt: 4,
+          boss: true,
+          desc: 'FINAL SECTOR: Clear 15 lines to defeat the Overlord Core!'
+        }
+      ];
+
+      const SHAPES = {
+        I: { matrix: [[0,0,0,0],[1,1,1,1],[0,0,0,0],[0,0,0,0]], color: '#00f3ff' },
+        J: { matrix: [[1,0,0],[1,1,1],[0,0,0]], color: '#3b82f6' },
+        L: { matrix: [[0,0,1],[1,1,1],[0,0,0]], color: '#ff9e00' },
+        O: { matrix: [[1,1],[1,1]], color: '#ffe600' },
+        S: { matrix: [[0,1,1],[1,1,0],[0,0,0]], color: '#00ff88' },
+        T: { matrix: [[0,1,0],[1,1,1],[0,0,0]], color: '#b537f2' },
+        Z: { matrix: [[1,1,0],[0,1,1],[0,0,0]], color: '#ff2a85' }
+      };
+
+      const UPGRADES = {
+        LASER: {
+          id: 'LASER',
+          name: 'ROW LASER',
+          icon: '⚡',
+          color: '#00f3ff',
+          desc: 'Vaporizes the most crowded/infected row!'
+        },
+        EMP: {
+          id: 'EMP',
+          name: 'EMP BLAST',
+          icon: '💣',
+          color: '#ff2a85',
+          desc: 'Detonates a 3x3 shockwave around your piece!'
+        },
+        FREEZE: {
+          id: 'FREEZE',
+          name: 'CRYO LOCK',
+          icon: '❄️',
+          color: '#38bdf8',
+          desc: 'Freezes all enemies & slows gravity for 8s!'
+        },
+        PURIFY: {
+          id: 'PURIFY',
+          name: 'PURIFIER',
+          icon: '🛡️',
+          color: '#00ff88',
+          desc: 'Cleanses all corruption & grants 10s shield!'
+        }
+      };
+
+      const UPGRADE_KEYS = Object.keys(UPGRADES);
+
+      /* =========================================================================
+         3. GAME STATE & DOM REFERENCES
+      ========================================================================= */
+      const canvas = document.getElementById('gameCanvas');
+      const ctx = canvas.getContext('2d');
+      const nextCanvas = document.getElementById('nextCanvas');
+      const nextCtx = nextCanvas.getContext('2d');
+
+      const scoreValEl = document.getElementById('scoreVal');
+      const hiScoreValEl = document.getElementById('hiScoreVal');
+      const sectorLabelEl = document.getElementById('sectorLabel');
+      const levelProgressEl = document.getElementById('levelProgress');
+      const linesTextEl = document.getElementById('linesText');
+      const activeBuffsEl = document.getElementById('activeBuffs');
+      const hostileCountEl = document.getElementById('hostileCount');
+      const upgradeBtn = document.getElementById('upgradeBtn');
+      const upgIconEl = document.getElementById('upgIcon');
+      const upgNameEl = document.getElementById('upgName');
+      const upgHintEl = document.getElementById('upgHint');
+
+      const mainOverlay = document.getElementById('mainOverlay');
+      const overlaySubtitle = document.getElementById('overlaySubtitle');
+      const briefingCard = document.getElementById('briefingCard');
+      const startBtn = document.getElementById('startBtn');
+      const sectorBanner = document.getElementById('sectorBanner');
+      const bannerTitle = document.getElementById('bannerTitle');
+      const bannerSub = document.getElementById('bannerSub');
+
+      let hiScore = parseInt(localStorage.getItem('blockDefenderHiScore') || '0', 10);
+      hiScoreValEl.textContent = `HI ${hiScore}`;
+
+      let state = {
+        running: false,
+        paused: false,
+        gameOver: false,
+        victory: false,
+        score: 0,
+        levelIdx: 0,
+        linesInLevel: 0,
+        totalLines: 0,
+        grid: [],
+        piece: null,
+        nextPiece: null,
+        storedUpgrade: null,
+        enemies: [],      // Glitch Bugs climbing/infecting blocks
+        drones: [],       // Saboteur Drones flying across top
+        boss: null,       // Level 5 Overlord Boss
+        particles: [],
+        floatingTexts: [],
+        beams: [],
+        shakeTime: 0,
+        shakeIntensity: 0,
+        freezeTimer: 0,
+        shieldTimer: 0,
+        jamTimer: 0,
+        dropCounter: 0,
+        bugSpawnTimer: 0,
+        droneSpawnTimer: 0,
+        lastTime: 0,
+        cellSize: 28
+      };
+
+      /* =========================================================================
+         4. CANVAS SIZING & RESPONSIVENESS
+      ========================================================================= */
+      function resizeCanvas() {
+        const container = document.getElementById('boardContainer');
+        const rect = container.getBoundingClientRect();
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = Math.floor(rect.width * dpr);
+        canvas.height = Math.floor(rect.height * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        state.cellSize = rect.width / COLS;
+      }
+
+      window.addEventListener('resize', resizeCanvas);
+
+      /* =========================================================================
+         5. GRID, PIECES & UPGRADE BLOCK GENERATION
+      ========================================================================= */
+      function createEmptyGrid() {
+        return Array.from({ length: ROWS }, () => Array(COLS).fill(null));
+      }
+
+      function generatePiece() {
+        const keys = Object.keys(SHAPES);
+        const key = keys[Math.floor(Math.random() * keys.length)];
+        const template = SHAPES[key];
+        const matrix = template.matrix.map(row => [...row]);
+
+        // 42% chance a piece carries a glowing Power-Up cell
+        let powerCell = null;
+        if (Math.random() < 0.42) {
+          const filled = [];
+          for (let r = 0; r < matrix.length; r++) {
+            for (let c = 0; c < matrix[r].length; c++) {
+              if (matrix[r][c]) filled.push({ r, c });
+            }
+          }
+          if (filled.length > 0) {
+            const chosen = filled[Math.floor(Math.random() * filled.length)];
+            const upgType = UPGRADE_KEYS[Math.floor(Math.random() * UPGRADE_KEYS.length)];
+            powerCell = { r: chosen.r, c: chosen.c, type: upgType };
+          }
+        }
+
+        return {
+          key,
+          matrix,
+          color: template.color,
+          x: Math.floor(COLS / 2) - Math.ceil(matrix[0].length / 2),
+          y: 0,
+          powerCell
+        };
+      }
+
+      function rotateMatrix(matrix) {
+        const N = matrix.length;
+        const rotated = Array.from({ length: N }, () => Array(N).fill(0));
+        for (let r = 0; r < N; r++) {
+          for (let c = 0; c < N; c++) {
+            rotated[c][N - 1 - r] = matrix[r][c];
+          }
+        }
+        return rotated;
+      }
+
+      function collides(piece, offsetX = 0, offsetY = 0, customMatrix = null) {
+        const mat = customMatrix || piece.matrix;
+        for (let r = 0; r < mat.length; r++) {
+          for (let c = 0; c < mat[r].length; c++) {
+            if (!mat[r][c]) continue;
+            const nx = piece.x + c + offsetX;
+            const ny = piece.y + r + offsetY;
+            if (nx < 0 || nx >= COLS || ny >= ROWS) return true;
+            if (ny >= 0 && state.grid[ny][nx] !== null) return true;
+          }
+        }
+        return false;
+      }
+
+      /* =========================================================================
+         6. LEVEL INITIALIZATION & SECTOR PROGRESSION
+      ========================================================================= */
+      function initLevel(idx, isFirstStart = false) {
+        state.levelIdx = idx;
+        state.linesInLevel = 0;
+        const lvl = LEVELS[idx];
+
+        state.enemies = [];
+        state.drones = [];
+        state.boss = null;
+        state.bugSpawnTimer = 1500;
+        state.droneSpawnTimer = 2500;
+
+        if (!isFirstStart) {
+          // Clear top 8 rows to give breathing room for the new sector
+          for (let r = 0; r < 8; r++) {
+            state.grid[r].fill(null);
+          }
+          // Cleanse half of any existing corruption as a sector transition bonus
+          for (let r = 8; r < ROWS; r++) {
+            for (let c = 0; c < COLS; c++) {
+              if (state.grid[r][c] && state.grid[r][c].corrupted && Math.random() < 0.6) {
+                state.grid[r][c].corrupted = false;
+              }
+            }
+          }
+        }
+
+        // Pre-placed corrupted blocks in higher sectors
+        if (lvl.preCorrupt > 0) {
+          for (let i = 0; i < lvl.preCorrupt; i++) {
+            const rr = ROWS - 1 - Math.floor(Math.random() * 4);
+            const cc = Math.floor(Math.random() * COLS);
+            if (!state.grid[rr][cc]) {
+              state.grid[rr][cc] = { color: '#475569', corrupted: true, power: null };
+            }
+          }
+        }
+
+        // Spawn initial Glitch Bug
+        spawnGlitchBug();
+
+        // Spawn Level 5 Boss Overlord
+        if (lvl.boss) {
+          state.boss = {
+            x: COLS / 2,
+            targetX: 2,
+            hp: lvl.targetLines,
+            maxHp: lvl.targetLines,
+            attackTimer: 6500,
+            pulse: 0
+          };
+        }
+
+        updateHUD();
+        showBanner(`SECTOR 0${lvl.id}: ${lvl.name}`, lvl.desc);
+      }
+
+      function showBanner(title, sub) {
+        bannerTitle.textContent = title;
+        bannerSub.textContent = sub;
+        sectorBanner.classList.add('show');
+        clearTimeout(sectorBanner._timer);
+        sectorBanner._timer = setTimeout(() => {
+          sectorBanner.classList.remove('show');
+        }, 2800);
+      }
+
+      /* =========================================================================
+         7. ENEMIES: GLITCH BUGS, SABOTEUR DRONES & OVERLORD BOSS
+      ========================================================================= */
+      function spawnGlitchBug() {
+        const lvl = LEVELS[state.levelIdx];
+        if (state.enemies.length >= lvl.maxBugs) return;
+
+        // Pick a column, start near bottom or on an existing block
+        const col = Math.floor(Math.random() * COLS);
+        let startRow = ROWS - 1;
+        for (let r = 4; r < ROWS; r++) {
+          if (state.grid[r][col]) {
+            startRow = Math.max(3, r - 1);
+            break;
+          }
+        }
+
+        state.enemies.push({
+          x: col,
+          y: startRow,
+          moveTimer: 0,
+          moveInterval: Math.max(1300, 2400 - state.levelIdx * 220),
+          corruptTimer: 0,
+          anim: Math.random() * Math.PI * 2
+        });
+      }
+
+      function spawnSaboteurDrone() {
+        const fromLeft = Math.random() < 0.5;
+        const lvl = LEVELS[state.levelIdx];
+        state.drones.push({
+          x: fromLeft ? -1 : COLS,
+          y: 1 + Math.floor(Math.random() * 2),
+          vx: fromLeft ? 2.6 : -2.6,
+          acted: false,
+          type: lvl.id >= 4 && Math.random() < 0.55 ? 'BOMBER' : 'JAMMER'
+        });
+      }
+
+      function updateEnemies(dt) {
+        if (state.freezeTimer > 0) return;
+
+        const lvl = LEVELS[state.levelIdx];
+
+        // Spawn Glitch Bugs periodically
+        state.bugSpawnTimer += dt;
+        if (state.bugSpawnTimer >= lvl.bugSpawnInterval) {
+          state.bugSpawnTimer = 0;
+          spawnGlitchBug();
+        }
+
+        // Update Glitch Bugs
+        for (let i = state.enemies.length - 1; i >= 0; i--) {
+          const bug = state.enemies[i];
+          bug.anim += dt * 0.008;
+          bug.moveTimer += dt;
+          bug.corruptTimer += dt;
+
+          // Infect block beneath or at bug's position
+          if (bug.corruptTimer >= 2600) {
+            bug.corruptTimer = 0;
+            if (state.shieldTimer <= 0) {
+              const targetR = Math.min(ROWS - 1, bug.y + 1);
+              if (state.grid[bug.y][bug.x] && !state.grid[bug.y][bug.x].corrupted) {
+                state.grid[bug.y][bug.x].corrupted = true;
+                sfx.play('corrupt');
+                spawnParticles(bug.x + 0.5, bug.y + 0.5, '#ff2a85', 8);
+              } else if (state.grid[targetR][bug.x] && !state.grid[targetR][bug.x].corrupted) {
+                state.grid[targetR][bug.x].corrupted = true;
+                sfx.play('corrupt');
+                spawnParticles(bug.x + 0.5, targetR + 0.5, '#ff2a85', 8);
+              }
+            }
+          }
+
+          // Crawl toward nearby blocks
+          if (bug.moveTimer >= bug.moveInterval) {
+            bug.moveTimer = 0;
+            const dirs = [
+              { dx: -1, dy: 0 },
+              { dx: 1, dy: 0 },
+              { dx: 0, dy: -1 },
+              { dx: 0, dy: 1 }
+            ];
+            const d = dirs[Math.floor(Math.random() * dirs.length)];
+            const nx = Math.max(0, Math.min(COLS - 1, bug.x + d.dx));
+            const ny = Math.max(3, Math.min(ROWS - 1, bug.y + d.dy));
+            bug.x = nx;
+            bug.y = ny;
+          }
+        }
+
+        // Spawn Saboteur Drones (Level 2+)
+        if (lvl.droneInterval > 0) {
+          state.droneSpawnTimer += dt;
+          if (state.droneSpawnTimer >= lvl.droneInterval) {
+            state.droneSpawnTimer = 0;
+            spawnSaboteurDrone();
+          }
+        }
+
+        // Update Drones
+        for (let i = state.drones.length - 1; i >= 0; i--) {
+          const d = state.drones[i];
+          d.x += (d.vx * dt) / 1000;
+
+          // Mid-flight sabotage near center
+          if (!d.acted && Math.abs(d.x - COLS / 2) < 1.2) {
+            d.acted = true;
+            if (state.shieldTimer > 0) {
+              addFloatingText(COLS / 2, 2.5, 'SHIELD BLOCKED!', '#00ff88');
+              spawnParticles(d.x, d.y, '#00ff88', 14);
+            } else if (d.type === 'JAMMER') {
+              // Nudge player piece sideways & apply brief control scramble
+              const nudge = Math.random() < 0.5 ? -1 : 1;
+              if (state.piece && !collides(state.piece, nudge, 0)) {
+                state.piece.x += nudge;
+              }
+              state.jamTimer = 3200;
+              sfx.play('corrupt');
+              triggerShake(5, 220);
+              addFloatingText(COLS / 2, 3, 'CONTROLS JAMMED!', '#ff2a85');
+            } else if (d.type === 'BOMBER') {
+              // Drop a corrupted junk block into a random column
+              const dropCol = Math.floor(Math.random() * COLS);
+              for (let r = ROWS - 1; r >= 3; r--) {
+                if (!state.grid[r][dropCol]) {
+                  state.grid[r][dropCol] = { color: '#64748b', corrupted: true, power: null };
+                  sfx.play('corrupt');
+                  spawnParticles(dropCol + 0.5, r + 0.5, '#ff2a85', 12);
+                  addFloatingText(dropCol + 0.5, r, 'JUNK DROP!', '#ffb800');
+                  break;
+                }
+              }
+            }
+          }
+
+          if (d.x < -2 || d.x > COLS + 2) {
+            state.drones.splice(i, 1);
+          }
+        }
+
+        // Level 5 Boss Overlord Logic
+        if (state.boss) {
+          const b = state.boss;
+          b.pulse += dt * 0.005;
+          b.x += (b.targetX - b.x) * 0.03;
+          if (Math.abs(b.x - b.targetX) < 0.2) {
+            b.targetX = 1.5 + Math.random() * (COLS - 3);
+          }
+
+          b.attackTimer -= dt;
+          if (b.attackTimer <= 0) {
+            b.attackTimer = 6800;
+            const col = Math.round(b.x);
+            state.beams.push({ x: col, y: 1, vertical: true, color: '#ff2a85', life: 420 });
+            sfx.play('laser');
+
+            if (state.shieldTimer > 0) {
+              addFloatingText(col, 3, 'SHIELD DEFLECT!', '#00ff88');
+            } else {
+              // Corrupt top-most block in that column
+              for (let r = 2; r < ROWS; r++) {
+                if (state.grid[r][col]) {
+                  state.grid[r][col].corrupted = true;
+                  spawnParticles(col + 0.5, r + 0.5, '#ff2a85', 14);
+                  addFloatingText(col, r, 'CORRUPTED!', '#ff2a85');
+                  break;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      /* =========================================================================
+         8. PIECE LOCKING, ENEMY CRUSHING & LINE CLEARING
+      ========================================================================= */
+      function lockPiece() {
+        const p = state.piece;
+        let crushedCount = 0;
+
+        for (let r = 0; r < p.matrix.length; r++) {
+          for (let c = 0; c < p.matrix[r].length; c++) {
+            if (!p.matrix[r][c]) continue;
+            const gx = p.x + c;
+            const gy = p.y + r;
+
+            if (gy < 0) {
+              triggerGameOver();
+              return;
+            }
+
+            const isPower = p.powerCell && p.powerCell.r === r && p.powerCell.c === c;
+            state.grid[gy][gx] = {
+              color: p.color,
+              corrupted: false,
+              power: isPower ? p.powerCell.type : null
+            };
+
+            // Check if landing block directly crushes a Glitch Bug!
+            for (let e = state.enemies.length - 1; e >= 0; e--) {
+              const bug = state.enemies[e];
+              if (bug.x === gx && (bug.y === gy || bug.y === gy + 1)) {
+                state.enemies.splice(e, 1);
+                crushedCount++;
+                addScore(250);
+                spawnParticles(gx + 0.5, gy + 0.5, '#00ff88', 18);
+                addFloatingText(gx + 0.5, gy, 'BUG CRUSHED +250!', '#00ff88');
+              }
+            }
+          }
+        }
+
+        if (crushedCount > 0) {
+          sfx.play('enemyHit');
+          triggerShake(6, 200);
+        } else {
+          sfx.play('drop');
+        }
+
+        clearLines();
+        if (!state.gameOver && !state.victory) {
+          spawnNextPiece();
+        }
+      }
+
+      function clearLines() {
+        let clearedRows = [];
+        let collectedUpgrades = [];
+
+        for (let r = ROWS - 1; r >= 0; r--) {
+          let isFull = true;
+          let hasCorruption = false;
+          let hasPowerBlock = false;
+
+          for (let c = 0; c < COLS; c++) {
+            const cell = state.grid[r][c];
+            if (!cell) {
+              isFull = false;
+              break;
+            }
+            if (cell.corrupted) hasCorruption = true;
+            if (cell.power) hasPowerBlock = true;
+          }
+
+          if (isFull) {
+            // Corrupted blocks resist clearing unless purified OR the row has a glowing Power Block!
+            if (hasCorruption && !hasPowerBlock) {
+              // Crack the corruption so the NEXT clear wipes it!
+              for (let c = 0; c < COLS; c++) {
+                if (state.grid[r][c].corrupted) {
+                  state.grid[r][c].corrupted = false;
+                  spawnParticles(c + 0.5, r + 0.5, '#ffb800', 8);
+                }
+              }
+              sfx.play('enemyHit');
+              triggerShake(5, 180);
+              addFloatingText(COLS / 2, r, 'CORRUPTION CRACKED!', '#ffb800');
+            } else {
+              clearedRows.push(r);
+              for (let c = 0; c < COLS; c++) {
+                if (state.grid[r][c].power) {
+                  collectedUpgrades.push(state.grid[r][c].power);
+                }
+              }
+            }
+          }
+        }
+
+        if (clearedRows.length > 0) {
+          // Remove cleared rows from bottom to top
+          clearedRows.sort((a, b) => b - a);
+          for (const r of clearedRows) {
+            // Wipe any Glitch Bugs sitting on cleared rows
+            for (let e = state.enemies.length - 1; e >= 0; e--) {
+              if (state.enemies[e].y === r) {
+                state.enemies.splice(e, 1);
+                addScore(200);
+              }
+            }
+            for (let c = 0; c < COLS; c++) {
+              const cellColor = state.grid[r][c]?.color || '#00f3ff';
+              spawnParticles(c + 0.5, r + 0.5, cellColor, 6);
+            }
+            state.grid.splice(r, 1);
+            state.grid.unshift(Array(COLS).fill(null));
+          }
+
+          const linePoints = [0, 150, 350, 650, 1200][clearedRows.length] || 1500;
+          const totalPts = linePoints * (state.levelIdx + 1);
+          addScore(totalPts);
+          sfx.play('clear');
+          triggerShake(clearedRows.length * 4, 240);
+          addFloatingText(COLS / 2, clearedRows[0], `+${totalPts}`, '#00f3ff');
+
+          // Equip collected Upgrade Module
+          if (collectedUpgrades.length > 0) {
+            const chosen = collectedUpgrades[collectedUpgrades.length - 1];
+            state.storedUpgrade = chosen;
+            sfx.play('powerup');
+            addFloatingText(COLS / 2, Math.max(2, clearedRows[0] - 1.2), `${UPGRADES[chosen].name} READY!`, '#ffb800');
+          }
+
+          // Advance Sector Progress
+          state.linesInLevel += clearedRows.length;
+          state.totalLines += clearedRows.length;
+          if (state.boss) {
+            state.boss.hp = Math.max(0, LEVELS[state.levelIdx].targetLines - state.linesInLevel);
+          }
+
+          const target = LEVELS[state.levelIdx].targetLines;
+          if (state.linesInLevel >= target) {
+            if (state.levelIdx < LEVELS.length - 1) {
+              sfx.play('levelUp');
+              addScore(1000 * (state.levelIdx + 1));
+              initLevel(state.levelIdx + 1, false);
+            } else {
+              triggerVictory();
+            }
+          }
+        }
+
+        updateHUD();
+      }
+
+      /* =========================================================================
+         9. STRATEGIC UPGRADE ACTIVATION
+      ========================================================================= */
+      function activateUpgrade() {
+        if (!state.running || state.paused || !state.storedUpgrade) return;
+
+        const type = state.storedUpgrade;
+        state.storedUpgrade = null;
+        sfx.play('laser');
+        triggerShake(8, 300);
+
+        if (type === 'LASER') {
+          // Find row with most blocks/corruption or lowest enemy
+          let bestRow = ROWS - 1;
+          let maxWeight = -1;
+          for (let r = 0; r < ROWS; r++) {
+            let w = 0;
+            for (let c = 0; c < COLS; c++) {
+              if (state.grid[r][c]) w += state.grid[r][c].corrupted ? 3 : 1;
+            }
+            for (const bug of state.enemies) {
+              if (bug.y === r) w += 5;
+            }
+            if (w > maxWeight) {
+              maxWeight = w;
+              bestRow = r;
+            }
+          }
+
+          state.beams.push({ x: 0, y: bestRow, vertical: false, color: '#00f3ff', life: 450 });
+          for (let c = 0; c < COLS; c++) {
+            if (state.grid[bestRow][c]) {
+              spawnParticles(c + 0.5, bestRow + 0.5, '#00f3ff', 10);
+            }
+          }
+          for (let e = state.enemies.length - 1; e >= 0; e--) {
+            if (state.enemies[e].y === bestRow) state.enemies.splice(e, 1);
+          }
+          state.grid.splice(bestRow, 1);
+          state.grid.unshift(Array(COLS).fill(null));
+          state.linesInLevel += 1;
+          addScore(400);
+          addFloatingText(COLS / 2, bestRow, 'ROW LASER VAPORIZED!', '#00f3ff');
+
+          if (state.linesInLevel >= LEVELS[state.levelIdx].targetLines) {
+            if (state.levelIdx < LEVELS.length - 1) {
+              sfx.play('levelUp');
+              initLevel(state.levelIdx + 1, false);
+            } else {
+              triggerVictory();
+            }
+          }
+        } else if (type === 'EMP') {
+          // 3x3 Explosion centered on active falling piece
+          const cx = Math.min(COLS - 2, Math.max(1, state.piece.x + 1));
+          const cy = Math.min(ROWS - 2, Math.max(1, state.piece.y + 1));
+          for (let r = cy - 1; r <= cy + 1; r++) {
+            for (let c = cx - 1; c <= cx + 1; c++) {
+              if (r >= 0 && r < ROWS && c >= 0 && c < COLS && state.grid[r][c]) {
+                state.grid[r][c] = null;
+                spawnParticles(c + 0.5, r + 0.5, '#ff2a85', 10);
+              }
+            }
+          }
+          // Wipe all bugs within blast radius & drones on screen
+          for (let e = state.enemies.length - 1; e >= 0; e--) {
+            const bug = state.enemies[e];
+            if (Math.abs(bug.x - cx) <= 2 && Math.abs(bug.y - cy) <= 2) {
+              state.enemies.splice(e, 1);
+            }
+          }
+          state.drones = [];
+          addScore(450);
+          addFloatingText(cx + 0.5, cy, 'EMP DETONATION!', '#ff2a85');
+        } else if (type === 'FREEZE') {
+          state.freezeTimer = 8000;
+          addScore(250);
+          addFloatingText(COLS / 2, 6, 'CRYO LOCK: 8 SECONDS!', '#38bdf8');
+        } else if (type === 'PURIFY') {
+          let cleansed = 0;
+          for (let r = 0; r < ROWS; r++) {
+            for (let c = 0; c < COLS; c++) {
+              if (state.grid[r][c] && state.grid[r][c].corrupted) {
+                state.grid[r][c].corrupted = false;
+                cleansed++;
+                spawnParticles(c + 0.5, r + 0.5, '#00ff88', 8);
+              }
+            }
+          }
+          state.shieldTimer = 10000;
+          state.jamTimer = 0;
+          addScore(300 + cleansed * 50);
+          addFloatingText(COLS / 2, 6, 'GRID PURIFIED + SHIELD!', '#00ff88');
+        }
+
+        updateHUD();
+      }
+
+      /* =========================================================================
+         10. PLAYER CONTROLS & MOVEMENT
+      ========================================================================= */
+      function spawnNextPiece() {
+        state.piece = state.nextPiece || generatePiece();
+        state.nextPiece = generatePiece();
+        drawNextPreview();
+
+        if (collides(state.piece, 0, 0)) {
+          triggerGameOver();
+        }
+      }
+
+      function movePiece(dir) {
+        if (!state.running || state.paused || !state.piece) return;
+        const actualDir = state.jamTimer > 0 ? -dir : dir;
+        if (!collides(state.piece, actualDir, 0)) {
+          state.piece.x += actualDir;
+          sfx.play('move');
+        }
+      }
+
+      function rotatePiece() {
+        if (!state.running || state.paused || !state.piece) return;
+        const p = state.piece;
+        const rotated = rotateMatrix(p.matrix);
+
+        // Rotate powerCell coordinate too
+        let newPower = null;
+        if (p.powerCell) {
+          const N = p.matrix.length;
+          newPower = {
+            r: p.powerCell.c,
+            c: N - 1 - p.powerCell.r,
+            type: p.powerCell.type
+          };
+        }
+
+        // Wall kick offsets
+        const kicks = [0, -1, 1, -2, 2];
+        for (const k of kicks) {
+          if (!collides(p, k, 0, rotated)) {
+            p.x += k;
+            p.matrix = rotated;
+            p.powerCell = newPower;
+            sfx.play('rotate');
+            return;
+          }
+        }
+      }
+
+      function softDrop() {
+        if (!state.running || state.paused || !state.piece) return;
+        if (!collides(state.piece, 0, 1)) {
+          state.piece.y += 1;
+          state.dropCounter = 0;
+          addScore(2);
+        } else {
+          lockPiece();
+        }
+      }
+
+      function hardDrop() {
+        if (!state.running || state.paused || !state.piece) return;
+        let dropped = 0;
+        while (!collides(state.piece, 0, 1)) {
+          state.piece.y += 1;
+          dropped++;
+        }
+        addScore(dropped * 4);
+        spawnParticles(state.piece.x + 1.5, state.piece.y + 1, state.piece.color, 10);
+        lockPiece();
+      }
+
+      /* =========================================================================
+         11. VISUAL JUICE: PARTICLES, FLOATING TEXT & HUD UPDATES
+      ========================================================================= */
+      function spawnParticles(gx, gy, color, count) {
+        for (let i = 0; i < count; i++) {
+          const angle = Math.random() * Math.PI * 2;
+          const speed = 1.5 + Math.random() * 4.5;
+          state.particles.push({
+            x: gx,
+            y: gy,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed,
+            color,
+            size: 2 + Math.random() * 3,
+            life: 320 + Math.random() * 240,
+            maxLife: 560
+          });
+        }
+      }
+
+      function addFloatingText(gx, gy, text, color) {
+        state.floatingTexts.push({
+          x: gx,
+          y: gy,
+          text,
+          color,
+          life: 950
+        });
+      }
+
+      function triggerShake(intensity, duration) {
+        state.shakeIntensity = intensity;
+        state.shakeTime = duration;
+      }
+
+      function addScore(pts) {
+        state.score += pts;
+        if (state.score > hiScore) {
+          hiScore = state.score;
+          localStorage.setItem('blockDefenderHiScore', String(hiScore));
+        }
+        scoreValEl.textContent = state.score.toLocaleString();
+        hiScoreValEl.textContent = `HI ${hiScore.toLocaleString()}`;
+      }
+
+      function updateHUD() {
+        const lvl = LEVELS[state.levelIdx];
+        sectorLabelEl.textContent = `LVL ${lvl.id}/5 • ${lvl.name}`;
+        const pct = Math.min(100, (state.linesInLevel / lvl.targetLines) * 100);
+        levelProgressEl.style.width = `${pct}%`;
+        linesTextEl.textContent = `${state.linesInLevel} / ${lvl.targetLines}`;
+
+        const hostiles = state.enemies.length + state.drones.length + (state.boss ? 1 : 0);
+        hostileCountEl.textContent = hostiles;
+
+        // Upgrade Slot UI
+        if (state.storedUpgrade) {
+          const u = UPGRADES[state.storedUpgrade];
+          upgradeBtn.classList.add('ready');
+          upgIconEl.textContent = u.icon;
+          upgNameEl.textContent = u.name;
+          upgHintEl.textContent = 'TAP TO FIRE!';
+        } else {
+          upgradeBtn.classList.remove('ready');
+          upgIconEl.textContent = '🔋';
+          upgNameEl.textContent = 'EMPTY';
+          upgHintEl.textContent = 'CLEAR ⚡';
+        }
+      }
+
+      function updateBuffPills() {
+        let html = '';
+        if (state.freezeTimer > 0) {
+          html += `<div class="status-pill status-freeze">❄️ CRYO ${(state.freezeTimer / 1000).toFixed(1)}s</div>`;
+        }
+        if (state.shieldTimer > 0) {
+          html += `<div class="status-pill status-shield">🛡️ SHIELD ${(state.shieldTimer / 1000).toFixed(1)}s</div>`;
+        }
+        if (state.jamTimer > 0) {
+          html += `<div class="status-pill status-jammed">⚠️ JAMMED ${(state.jamTimer / 1000).toFixed(1)}s</div>`;
+        }
+        if (!html) {
+          html = `<div style="font-size:10px; color:#5e6e8c; text-align:center; padding:4px 0;">NOMINAL</div>`;
+        }
+        activeBuffsEl.innerHTML = html;
+      }
+
+      /* =========================================================================
+         12. RENDERING PIPELINE
+      ========================================================================= */
+      function drawBlock(context, gx, gy, size, color, opts = {}) {
+        const pad = 1.2;
+        const x = gx * size + pad;
+        const y = gy * size + pad;
+        const w = size - pad * 2;
+        const h = size - pad * 2;
+        const r = Math.max(3, size * 0.16);
+
+        context.save();
+        context.beginPath();
+        context.roundRect(x, y, w, h, r);
+
+        if (opts.ghost) {
+          context.strokeStyle = color;
+          context.globalAlpha = 0.35;
+          context.lineWidth = 1.5;
+          context.stroke();
+          context.restore();
+          return;
+        }
+
+        context.fillStyle = opts.corrupted ? '#2b1224' : color;
+        context.fill();
+
+        // Inner bevel highlight
+        const grad = context.createLinearGradient(x, y, x, y + h);
+        grad.addColorStop(0, 'rgba(255,255,255,0.34)');
+        grad.addColorStop(0.5, 'rgba(255,255,255,0.04)');
+        grad.addColorStop(1, 'rgba(0,0,0,0.35)');
+        context.fillStyle = grad;
+        context.fill();
+
+        if (opts.corrupted) {
+          // Glitch hazard stripes
+          context.strokeStyle = '#ff2a85';
+          context.lineWidth = 1.8;
+          context.stroke();
+          context.beginPath();
+          context.moveTo(x + 4, y + 4);
+          context.lineTo(x + w - 4, y + h - 4);
+          context.moveTo(x + w - 4, y + 4);
+          context.lineTo(x + 4, y + h - 4);
+          context.stroke();
+        } else if (opts.power) {
+          // Glowing Power-Up Core
+          const u = UPGRADES[opts.power];
+          context.strokeStyle = '#ffffff';
+          context.lineWidth = 2;
+          context.stroke();
+          context.fillStyle = '#ffffff';
+          context.font = `bold ${Math.floor(size * 0.56)}px sans-serif`;
+          context.textAlign = 'center';
+          context.textBaseline = 'middle';
+          context.fillText(u.icon, x + w / 2, y + h / 2 + 1);
+        }
+
+        context.restore();
+      }
+
+      function drawNextPreview() {
+        nextCtx.clearRect(0, 0, nextCanvas.width, nextCanvas.height);
+        if (!state.nextPiece) return;
+        const mat = state.nextPiece.matrix;
+        const size = 18;
+        const offsetX = (nextCanvas.width / size - mat[0].length) / 2;
+        const offsetY = (nextCanvas.height / size - mat.length) / 2;
+
+        for (let r = 0; r < mat.length; r++) {
+          for (let c = 0; c < mat[r].length; c++) {
+            if (!mat[r][c]) continue;
+            const isPwr = state.nextPiece.powerCell && state.nextPiece.powerCell.r === r && state.nextPiece.powerCell.c === c;
+            drawBlock(nextCtx, offsetX + c, offsetY + r, size, state.nextPiece.color, {
+              power: isPwr ? state.nextPiece.powerCell.type : null
+            });
+          }
+        }
+      }
+
+      function render() {
+        const cs = state.cellSize;
+        const width = COLS * cs;
+        const height = ROWS * cs;
+
+        ctx.save();
+        ctx.clearRect(0, 0, width, height);
+
+        // Screen shake offset
+        if (state.shakeTime > 0) {
+          const dx = (Math.random() - 0.5) * state.shakeIntensity;
+          const dy = (Math.random() - 0.5) * state.shakeIntensity;
+          ctx.translate(dx, dy);
+        }
+
+        // Subtle Cyber Grid Background
+        ctx.strokeStyle = state.freezeTimer > 0 ? 'rgba(56, 189, 248, 0.14)' : 'rgba(0, 243, 255, 0.06)';
+        ctx.lineWidth = 1;
+        for (let c = 1; c < COLS; c++) {
+          ctx.beginPath();
+          ctx.moveTo(c * cs, 0);
+          ctx.lineTo(c * cs, height);
+          ctx.stroke();
+        }
+        for (let r = 1; r < ROWS; r++) {
+          ctx.beginPath();
+          ctx.moveTo(0, r * cs);
+          ctx.lineTo(width, r * cs);
+          ctx.stroke();
+        }
+
+        // Danger Line near top
+        ctx.strokeStyle = 'rgba(255, 42, 133, 0.35)';
+        ctx.setLineDash([4, 4]);
+        ctx.beginPath();
+        ctx.moveTo(0, 2 * cs);
+        ctx.lineTo(width, 2 * cs);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Placed Grid Blocks
+        for (let r = 0; r < ROWS; r++) {
+          for (let c = 0; c < COLS; c++) {
+            const cell = state.grid[r][c];
+            if (cell) {
+              drawBlock(ctx, c, r, cs, cell.color, {
+                corrupted: cell.corrupted,
+                power: cell.power
+              });
+            }
+          }
+        }
+
+        // Ghost Landing Preview + Active Falling Piece
+        if (state.piece && state.running) {
+          let ghostY = state.piece.y;
+          while (!collides(state.piece, 0, ghostY - state.piece.y + 1)) {
+            ghostY++;
+          }
+          for (let r = 0; r < state.piece.matrix.length; r++) {
+            for (let c = 0; c < state.piece.matrix[r].length; c++) {
+              if (!state.piece.matrix[r][c]) continue;
+              drawBlock(ctx, state.piece.x + c, ghostY + r, cs, state.piece.color, { ghost: true });
+            }
+          }
+          for (let r = 0; r < state.piece.matrix.length; r++) {
+            for (let c = 0; c < state.piece.matrix[r].length; c++) {
+              if (!state.piece.matrix[r][c]) continue;
+              const isPwr = state.piece.powerCell && state.piece.powerCell.r === r && state.piece.powerCell.c === c;
+              drawBlock(ctx, state.piece.x + c, state.piece.y + r, cs, state.piece.color, {
+                power: isPwr ? state.piece.powerCell.type : null
+              });
+            }
+          }
+        }
+
+        // Render Glitch Bugs
+        for (const bug of state.enemies) {
+          const bx = (bug.x + 0.5) * cs;
+          const by = (bug.y + 0.5) * cs + Math.sin(bug.anim) * 2;
+          ctx.save();
+          ctx.shadowColor = '#ff2a85';
+          ctx.shadowBlur = 10;
+          ctx.fillStyle = state.freezeTimer > 0 ? '#38bdf8' : '#ff2a85';
+          ctx.beginPath();
+          ctx.arc(bx, by, cs * 0.36, 0, Math.PI * 2);
+          ctx.fill();
+          // Glowing eyes
+          ctx.fillStyle = '#fff';
+          ctx.fillRect(bx - cs * 0.16, by - cs * 0.08, cs * 0.1, cs * 0.1);
+          ctx.fillRect(bx + cs * 0.06, by - cs * 0.08, cs * 0.1, cs * 0.1);
+          ctx.restore();
+        }
+
+        // Render Saboteur Drones
+        for (const d of state.drones) {
+          const dx = d.x * cs;
+          const dy = d.y * cs;
+          ctx.save();
+          ctx.shadowColor = '#ffb800';
+          ctx.shadowBlur = 12;
+          ctx.fillStyle = d.type === 'BOMBER' ? '#ff2a85' : '#ffb800';
+          ctx.beginPath();
+          ctx.moveTo(dx, dy - cs * 0.28);
+          ctx.lineTo(dx + cs * 0.55, dy);
+          ctx.lineTo(dx, dy + cs * 0.28);
+          ctx.lineTo(dx - cs * 0.55, dy);
+          ctx.closePath();
+          ctx.fill();
+          ctx.restore();
+        }
+
+        // Render Level 5 Overlord Boss
+        if (state.boss) {
+          const b = state.boss;
+          const bx = b.x * cs;
+          const by = cs * 0.85;
+          ctx.save();
+          ctx.shadowColor = '#ff2a85';
+          ctx.shadowBlur = 16;
+          ctx.fillStyle = '#1e1035';
+          ctx.strokeStyle = '#ff2a85';
+          ctx.lineWidth = 2.5;
+          ctx.beginPath();
+          ctx.roundRect(bx - cs * 1.1, by - cs * 0.45, cs * 2.2, cs * 0.9, 8);
+          ctx.fill();
+          ctx.stroke();
+
+          // Boss Core Eye
+          ctx.fillStyle = '#ff2a85';
+          ctx.beginPath();
+          ctx.arc(bx, by, cs * (0.22 + Math.sin(b.pulse) * 0.04), 0, Math.PI * 2);
+          ctx.fill();
+          ctx.restore();
+        }
+
+        // Laser / Boss Beams
+        for (const beam of state.beams) {
+          ctx.save();
+          ctx.fillStyle = beam.color;
+          ctx.globalAlpha = Math.max(0, beam.life / 450);
+          ctx.shadowColor = beam.color;
+          ctx.shadowBlur = 18;
+          if (beam.vertical) {
+            ctx.fillRect(beam.x * cs + cs * 0.15, 0, cs * 0.7, height);
+          } else {
+            ctx.fillRect(0, beam.y * cs + cs * 0.15, width, cs * 0.7);
+          }
+          ctx.restore();
+        }
+
+        // Particle Bursts
+        for (const pt of state.particles) {
+          ctx.save();
+          ctx.globalAlpha = Math.max(0, pt.life / pt.maxLife);
+          ctx.fillStyle = pt.color;
+          ctx.fillRect(pt.x * cs - pt.size / 2, pt.y * cs - pt.size / 2, pt.size, pt.size);
+          ctx.restore();
+        }
+
+        // Floating Score / Event Popups
+        for (const ft of state.floatingTexts) {
+          ctx.save();
+          ctx.globalAlpha = Math.min(1, ft.life / 350);
+          ctx.font = `700 ${Math.max(12, Math.floor(cs * 0.48))}px 'Orbitron', sans-serif`;
+          ctx.textAlign = 'center';
+          ctx.fillStyle = ft.color;
+          ctx.shadowColor = '#000';
+          ctx.shadowBlur = 6;
+          ctx.fillText(ft.text, ft.x * cs, ft.y * cs);
+          ctx.restore();
+        }
+
+        ctx.restore();
+      }
+
+      /* =========================================================================
+         13. MAIN GAME LOOP & END STATES
+      ========================================================================= */
+      function update(dt) {
+        if (!state.running || state.paused) return;
+
+        // Timers
+        if (state.shakeTime > 0) state.shakeTime = Math.max(0, state.shakeTime - dt);
+        if (state.freezeTimer > 0) state.freezeTimer = Math.max(0, state.freezeTimer - dt);
+        if (state.shieldTimer > 0) state.shieldTimer = Math.max(0, state.shieldTimer - dt);
+        if (state.jamTimer > 0) state.jamTimer = Math.max(0, state.jamTimer - dt);
+
+        updateBuffPills();
+
+        // Gravity Drop
+        const lvl = LEVELS[state.levelIdx];
+        const effectiveDrop = state.freezeTimer > 0 ? lvl.dropInterval * 1.75 : lvl.dropInterval;
+        state.dropCounter += dt;
+        if (state.dropCounter >= effectiveDrop) {
+          state.dropCounter = 0;
+          if (!collides(state.piece, 0, 1)) {
+            state.piece.y += 1;
+          } else {
+            lockPiece();
+          }
+        }
+
+        // Enemies & Drones
+        updateEnemies(dt);
+        hostileCountEl.textContent = state.enemies.length + state.drones.length + (state.boss ? 1 : 0);
+
+        // Update Particles
+        for (let i = state.particles.length - 1; i >= 0; i--) {
+          const p = state.particles[i];
+          p.x += (p.vx * dt) / 1000;
+          p.y += (p.vy * dt) / 1000;
+          p.life -= dt;
+          if (p.life <= 0) state.particles.splice(i, 1);
+        }
+
+        // Update Beams
+        for (let i = state.beams.length - 1; i >= 0; i--) {
+          state.beams[i].life -= dt;
+          if (state.beams[i].life <= 0) state.beams.splice(i, 1);
+        }
+
+        // Update Floating Texts
+        for (let i = state.floatingTexts.length - 1; i >= 0; i--) {
+          const ft = state.floatingTexts[i];
+          ft.y -= (1.1 * dt) / 1000;
+          ft.life -= dt;
+          if (ft.life <= 0) state.floatingTexts.splice(i, 1);
+        }
+      }
+
+      function loop(timestamp) {
+        if (!state.lastTime) state.lastTime = timestamp;
+        const dt = Math.min(100, timestamp - state.lastTime);
+        state.lastTime = timestamp;
+
+        update(dt);
+        render();
+        requestAnimationFrame(loop);
+      }
+
+      function startNewGame() {
+        sfx.init();
+        state.grid = createEmptyGrid();
+        state.score = 0;
+        state.totalLines = 0;
+        state.storedUpgrade = null;
+        state.freezeTimer = 0;
+        state.shieldTimer = 0;
+        state.jamTimer = 0;
+        state.particles = [];
+        state.floatingTexts = [];
+        state.beams = [];
+        state.gameOver = false;
+        state.victory = false;
+        state.paused = false;
+        state.running = true;
+
+        scoreValEl.textContent = '0';
+        mainOverlay.classList.add('hidden');
+        initLevel(0, true);
+        state.nextPiece = generatePiece();
+        spawnNextPiece();
+      }
+
+      function triggerGameOver() {
+        state.running = false;
+        state.gameOver = true;
+        sfx.play('gameover');
+        overlaySubtitle.textContent = 'SYSTEM BREACHED — GAME OVER';
+        briefingCard.innerHTML = `
+          <div style="text-align:center; padding: 6px 0;">
+            <div style="font-size:13px; color:#94a3b8;">FINAL SCORE</div>
+            <div style="font-family:'Orbitron',sans-serif; font-size:26px; color:#00f3ff; font-weight:900;">${state.score.toLocaleString()}</div>
+            <div style="font-size:12px; color:#ffb800; margin-top:4px;">REACHED SECTOR 0${state.levelIdx + 1} • ${state.totalLines} LINES CLEARED</div>
+          </div>
+        `;
+        startBtn.textContent = 'REBOOT SYSTEM';
+        mainOverlay.classList.remove('hidden');
+      }
+
+      function triggerVictory() {
+        state.running = false;
+        state.victory = true;
+        sfx.play('levelUp');
+        addScore(5000);
+        overlaySubtitle.textContent = 'OVERLORD DEFEATED — VICTORY!';
+        briefingCard.innerHTML = `
+          <div style="text-align:center; padding: 6px 0;">
+            <div style="font-size:13px; color:#00ff88; font-weight:700;">ALL 5 SECTORS SECURED!</div>
+            <div style="font-family:'Orbitron',sans-serif; font-size:26px; color:#fff; font-weight:900; margin-top:4px;">${state.score.toLocaleString()}</div>
+            <div style="font-size:12px; color:#ffb800; margin-top:4px;">HIGH SCORE: ${hiScore.toLocaleString()}</div>
+          </div>
+        `;
+        startBtn.textContent = 'PLAY AGAIN';
+        mainOverlay.classList.remove('hidden');
+      }
+
+      /* =========================================================================
+         14. INPUT BINDINGS (TOUCH GESTURES, ARCADE BUTTONS & KEYBOARD)
+      ========================================================================= */
+      startBtn.addEventListener('click', startNewGame);
+      upgradeBtn.addEventListener('click', activateUpgrade);
+
+      document.getElementById('muteBtn').addEventListener('click', (e) => {
+        sfx.muted = !sfx.muted;
+        e.currentTarget.textContent = sfx.muted ? '🔇' : '🔊';
+      });
+
+      document.getElementById('pauseBtn').addEventListener('click', (e) => {
+        if (!state.running) return;
+        state.paused = !state.paused;
+        e.currentTarget.textContent = state.paused ? '▶' : '⏸';
+        if (state.paused) {
+          showBanner('SYSTEM PAUSED', 'Tap ▶ to resume defense');
+        } else {
+          sectorBanner.classList.remove('show');
+        }
+      });
+
+      // On-Screen Arcade Buttons
+      function bindHoldButton(id, action, repeat = false) {
+        const el = document.getElementById(id);
+        let interval = null;
+
+        const start = (e) => {
+          e.preventDefault();
+          el.classList.add('pressed');
+          action();
+          if (repeat) {
+            clearInterval(interval);
+            interval = setInterval(action, 110);
+          }
+        };
+
+        const end = () => {
+          el.classList.remove('pressed');
+          clearInterval(interval);
+        };
+
+        el.addEventListener('pointerdown', start);
+        el.addEventListener('pointerup', end);
+        el.addEventListener('pointerleave', end);
+        el.addEventListener('pointercancel', end);
+      }
+
+      bindHoldButton('btnLeft', () => movePiece(-1), true);
+      bindHoldButton('btnRight', () => movePiece(1), true);
+      bindHoldButton('btnRotate', rotatePiece, false);
+      bindHoldButton('btnSoft', softDrop, true);
+      bindHoldButton('btnHard', hardDrop, false);
+
+      // Direct Canvas Touch Gestures (Swipe Left/Right/Down, Tap to Rotate)
+      let touchStartX = 0;
+      let touchStartY = 0;
+      let touchMoved = false;
+
+      canvas.addEventListener('touchstart', (e) => {
+        if (e.touches.length !== 1) return;
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        touchMoved = false;
+      }, { passive: true });
+
+      canvas.addEventListener('touchmove', (e) => {
+        if (!state.running || state.paused || e.touches.length !== 1) return;
+        const dx = e.touches[0].clientX - touchStartX;
+        const dy = e.touches[0].clientY - touchStartY;
+        const step = state.cellSize * 0.95;
+
+        if (Math.abs(dx) > step) {
+          movePiece(dx > 0 ? 1 : -1);
+          touchStartX = e.touches[0].clientX;
+          touchMoved = true;
+        }
+        if (dy > step * 1.1) {
+          softDrop();
+          touchStartY = e.touches[0].clientY;
+          touchMoved = true;
+        }
+      }, { passive: true });
+
+      canvas.addEventListener('touchend', (e) => {
+        if (!state.running || state.paused) return;
+        if (!touchMoved) {
+          rotatePiece();
+        }
+      });
+
+      // Desktop Keyboard Support
+      window.addEventListener('keydown', (e) => {
+        if (!state.running || state.paused) return;
+        switch (e.key) {
+          case 'ArrowLeft':
+          case 'a':
+          case 'A':
+            e.preventDefault();
+            movePiece(-1);
+            break;
+          case 'ArrowRight':
+          case 'd':
+          case 'D':
+            e.preventDefault();
+            movePiece(1);
+            break;
+          case 'ArrowUp':
+          case 'w':
+          case 'W':
+            e.preventDefault();
+            rotatePiece();
+            break;
+          case 'ArrowDown':
+          case 's':
+          case 'S':
+            e.preventDefault();
+            softDrop();
+            break;
+          case ' ':
+            e.preventDefault();
+            hardDrop();
+            break;
+          case 'e':
+          case 'E':
+          case 'Shift':
+            e.preventDefault();
+            activateUpgrade();
+            break;
+        }
+      });
+
+      // Initialize Layout & Start Loop
+      window.onload = () => {
+        resizeCanvas();
+        state.grid = createEmptyGrid();
+        requestAnimationFrame(loop);
+      };
+    })();
+  </script>
+</body>
+</html>
