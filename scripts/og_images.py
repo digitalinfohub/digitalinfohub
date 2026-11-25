@@ -29,7 +29,7 @@ OUT = ROOT / "assets" / "og"
 SITE = "https://digitalinfohub.net"
 W, H = 1200, 630
 
-SKIP = {"404.html", "digi.html"}
+SKIP = {"404.html"}
 
 SECTIONS = [
     ("software/", "Creative Studio"),

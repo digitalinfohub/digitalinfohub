@@ -6,6 +6,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from apply_site import process as apply_site_process  # noqa: E402
+from ad_revenue import UNIT as AD_UNIT  # noqa: E402
 from images import share_url, POST_IMAGES  # noqa: E402
 TEMPLATE = ROOT / "scripts" / "template.html"
 POSTS_DIR = ROOT / "_posts"
@@ -18,6 +19,19 @@ def body_html(body, lang):
     return re.sub(r"\[\[(\d+)\]\]",
                   lambda m: f'<a href="#src-{m.group(1)}{SUFFIX[lang]}" class="ref">[{m.group(1)}]</a>',
                   body)
+
+def with_inline_ad(body):
+    """One unit between the first two sections of the English article.
+
+    It lives in the generator, not in post/*.html, so rebuilding a post keeps
+    the placement instead of dropping it.
+    """
+    heads = [m.start() for m in re.finditer(r"<h2\b", body)]
+    if len(heads) >= 2:
+        pos = heads[1]
+        return body[:pos] + AD_UNIT + "\n" + body[pos:]
+    return body + "\n" + AD_UNIT
+
 
 def sources_html(sources, lang):
     out = []
@@ -44,6 +58,7 @@ def build(slug):
         reps[f"{{{{TITLE_{l}}}}}"] = data["title"][l]
         reps[f"{{{{SUBTITLE_{l}}}}}"] = data["subtitle"][l]
         reps[f"{{{{BODY_{l}}}}}"] = body_html(data["body"][l], l)
+    reps["{{BODY_en}}"] = with_inline_ad(reps["{{BODY_en}}"])
     for k, v in reps.items():
         html = html.replace(k, v)
     OUT_DIR.mkdir(parents=True, exist_ok=True)

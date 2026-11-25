@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-dih="">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>PDF Toolbox — Merge, Split &amp; Compress PDFs Free | Digital Infohub</title>
+<meta name="description" content="Merge several PDFs into one, split a PDF into pages or ranges, and genuinely shrink large PDFs by re-encoding them — all in your browser, with no upload and no signup.">
+<link rel="stylesheet" href="/assets/studio.css">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471" crossorigin="anonymous"></script>
+<style>
+.tabs{display:flex;gap:6px;padding:5px;border:1px solid var(--dih-border);border-radius:13px;background:var(--dih-surface-2);margin-bottom:16px;flex-wrap:wrap}
+.tab{flex:1 1 120px;padding:10px 12px;border:0;border-radius:9px;background:transparent;color:var(--dih-text-sub);font:600 12.5px/1 var(--dih-sans,system-ui);cursor:pointer;transition:.18s}
+.tab:hover{color:var(--dih-text);background:var(--dih-surface-3)}
+.tab[aria-selected="true"]{background:var(--dih-accent);color:#fff;box-shadow:0 6px 18px rgba(76,141,255,.32)}
+.panel[hidden]{display:none}
+.drop{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;min-height:150px;padding:22px;border:1.5px dashed var(--dih-border-strong);border-radius:14px;background:var(--dih-surface-2);text-align:center;cursor:pointer;transition:.2s}
+.drop:hover,.drop.over{border-color:var(--dih-accent);background:rgba(76,141,255,.08)}
+.drop b{font-size:14px}.drop span{font-size:11.5px;color:var(--dih-text-muted);line-height:1.6}
+.rows{display:grid;gap:8px;margin-top:12px}
+.row{display:flex;gap:10px;align-items:center;padding:10px 12px;border:1px solid var(--dih-border);border-radius:11px;background:var(--dih-surface-2)}
+.row .n{width:22px;height:22px;border-radius:6px;background:var(--dih-surface-3);display:grid;place-items:center;font:700 10.5px/1 var(--dih-mono);color:var(--dih-text-muted);flex:0 0 auto}
+.row .main{flex:1;min-width:0}
+.row strong{display:block;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row .meta{display:block;font:10.5px/1.5 var(--dih-mono);color:var(--dih-text-muted);margin-top:2px}
+.row .mini{display:flex;gap:4px;flex:0 0 auto}
+.row .mini button{width:26px;height:26px;border-radius:7px;border:1px solid var(--dih-border);background:var(--dih-surface-3);color:var(--dih-text-sub);cursor:pointer;font-size:12px;line-height:1}
+.row .mini button:hover{color:var(--dih-text);border-color:var(--dih-border-strong)}
+.row a.dl{font-size:11px;font-weight:700;color:var(--dih-accent);text-decoration:none;border-bottom:1px solid rgba(76,141,255,.35);padding-bottom:1px;flex:0 0 auto}
+.out{margin-top:14px;display:grid;gap:8px}
+.out .ok{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:11px;border:1px solid rgba(74,222,128,.32);background:rgba(74,222,128,.08);font-size:12px}
+.out .ok b{font-family:var(--dih-mono)}
+.err{padding:11px 13px;border-radius:10px;border:1px solid rgba(255,123,123,.4);background:rgba(255,123,123,.1);color:#ffc9c9;font-size:12px;margin-top:10px}
+.saved{color:var(--dih-green,#4ade80);font-weight:700}
+.inline{display:flex;gap:10px;flex-wrap:wrap;align-items:end}
+.inline .st-field{flex:1 1 120px;max-width:170px}
+.hint{font-size:11px;color:var(--dih-text-muted);margin-top:10px;line-height:1.7}
+</style>
+<!-- DIH:HEAD -->
+<script>try{var t=localStorage.getItem('dih_theme')||'dark';document.documentElement.setAttribute('data-theme',t);document.documentElement.setAttribute('data-dih','');}catch(e){document.documentElement.setAttribute('data-dih','');}</script>
+<meta name="theme-color" content="#07070c">
+<meta name="color-scheme" content="dark light">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="author" content="Digital Infohub">
+<meta name="keywords" content="pdf merge, split pdf, compress pdf, combine pdf files, pdf tools online, free pdf editor, reduce pdf size, pdf page extractor">
+<link rel="canonical" href="https://digitalinfohub.net/software/pdf-toolbox">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Digital Infohub">
+<meta property="og:title" content="PDF Toolbox — Merge, Split &amp; Compress PDFs Free | Digital Infohub">
+<meta property="og:description" content="Merge several PDFs into one, split a PDF into pages or ranges, and genuinely shrink large PDFs by re-encoding them — all in your browser, with no upload and no signup.">
+<meta property="og:url" content="https://digitalinfohub.net/software/pdf-toolbox">
+<meta property="og:image" content="https://digitalinfohub.net/assets/og/software-pdf-toolbox.jpg">
+<meta property="og:image:secure_url" content="https://digitalinfohub.net/assets/og/software-pdf-toolbox.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="PDF Toolbox - Merge, Split & Compress PDFs Free — Digital Infohub">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="PDF Toolbox — Merge, Split &amp; Compress PDFs Free | Digital Infohub">
+<meta name="twitter:description" content="Merge several PDFs into one, split a PDF into pages or ranges, and genuinely shrink large PDFs by re-encoding them — all in your browser, with no upload and no signup.">
+<meta name="twitter:image" content="https://digitalinfohub.net/assets/og/software-pdf-toolbox.jpg">
+<meta name="twitter:image:alt" content="PDF Toolbox - Merge, Split & Compress PDFs Free — Digital Infohub">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="icon" href="/assets/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://digitalinfohub.net/#organization","name":"Digital Infohub","url":"https://digitalinfohub.net/","logo":{"@type":"ImageObject","url":"https://digitalinfohub.net/assets/icon-512.png","width":512,"height":512},"description":"Independent technology publication for everyone: clear guides, free browser tools and live market context.","sameAs":[]},{"@type":"WebSite","@id":"https://digitalinfohub.net/#website","url":"https://digitalinfohub.net/","name":"Digital Infohub","publisher":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://digitalinfohub.net/blog?q={search_term_string}"},"query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://digitalinfohub.net/software/pdf-toolbox#webpage","url":"https://digitalinfohub.net/software/pdf-toolbox","name":"PDF Toolbox — Merge, Split & Compress PDFs Free | Digital Infohub","description":"Merge several PDFs into one, split a PDF into pages or ranges, and genuinely shrink large PDFs by re-encoding them — all in your browser, with no upload and no signup.","isPartOf":{"@id":"https://digitalinfohub.net/#website"},"about":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","primaryImageOfPage":{"@type":"ImageObject","url":"https://digitalinfohub.net/assets/og/software-pdf-toolbox.jpg","width":1200,"height":630}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://digitalinfohub.net/"},{"@type":"ListItem","position":2,"name":"Software","item":"https://digitalinfohub.net/software"},{"@type":"ListItem","position":3,"name":"PDF Toolbox — Merge, Split & Compress PDFs Free","item":"https://digitalinfohub.net/software/pdf-toolbox"}]}]}</script>
+<!-- /DIH:HEAD -->
+</head>
+<body>
+<!-- DIH:AMBIENT -->
+<div class="dih-ambient" aria-hidden="true" style="--dih-ambient:url('https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&amp;h=675&amp;fit=crop&amp;auto=format&amp;q=40')"></div>
+<!-- /DIH:AMBIENT -->
+<!-- DIH:HEADER -->
+<header class="dih-header">
+  <div class="dih-header-inner">
+    <a class="dih-brand" href="/" aria-label="Digital Infohub home">
+      <img src="/assets/logo.png" alt="Digital Infohub logo" width="36" height="36">
+      <span class="dih-brand-text">Digital <b>Infohub</b></span>
+    </a>
+    <nav class="dih-nav" data-dih-nav aria-label="Primary navigation">
+      <a class="dih-link" href="/">Home</a>
+      <a class="dih-link" href="/blog">Blog</a>
+      <a class="dih-link" href="/techtopics">Tech Topics</a>
+      <a class="dih-link" href="/software">Software</a>
+      <a class="dih-link" href="/games">Games</a>
+      <a class="dih-link" href="/coincompass">Markets</a>
+      <a class="dih-link" href="/app">More</a>
+    </nav>
+    <div class="dih-actions">
+      <a class="dih-icon dih-tools" href="/software#tools" title="Free browser tools" aria-label="Free browser tools">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 5 14h5l-1 8 8-12h-5l1-8Z"/></svg>
+      </a>
+      <a class="dih-icon dih-term" href="/terminal" title="Terminal mode — browse like a shell" aria-label="Open terminal mode">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="m7 9 3 3-3 3"/><path d="M13 15h4"/></svg>
+      </a>
+      <button class="dih-icon dih-sound" type="button" data-dih-sound aria-label="Sound on — tap to mute" aria-pressed="true" title="Sound on — tap to mute (Shift+S)">
+        <svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4Z"/><path d="M16.5 8.5a5 5 0 0 1 0 7"/><path d="M19 6a8.5 8.5 0 0 1 0 12"/></svg>
+        <svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4Z"/><path d="m16 9 5 6"/><path d="m21 9-5 6"/></svg>
+      </button>
+      <button class="dih-icon dih-share" type="button" data-dih-share aria-label="Share this page" title="Share this page">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M12 3v13"/><path d="m7 8 5-5 5 5"/></svg>
+      </button>
+      <button class="dih-icon dih-theme" type="button" data-dih-theme aria-label="Switch theme" title="Switch theme">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a6.6 6.6 0 0 0 9.8 9.8Z"/></svg>
+      </button>
+      <a class="dih-cta" href="/subscribe">Subscribe</a>
+      <button class="dih-burger" id="dihBurger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="dihDrawer"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+<div class="dih-drawer" id="dihDrawer" aria-label="Site menu">
+  <div class="dih-drawer-panel">
+    <div class="dih-drawer-grid">
+      <a class="dih-drawer-link" href="/">Home</a>
+      <a class="dih-drawer-link" href="/blog">Blog</a>
+      <a class="dih-drawer-link" href="/techtopics">Tech Topics</a>
+      <a class="dih-drawer-link" href="/software">Software</a>
+      <a class="dih-drawer-link" href="/games">Games</a>
+      <a class="dih-drawer-link" href="/coincompass">Markets</a>
+      <a class="dih-drawer-link" href="/app">More</a>
+    </div>
+    <div class="dih-drawer-sub">
+      <a class="dih-drawer-link" href="/news">📰 Tech News</a>
+      <a class="dih-drawer-link" href="/quiz">🎯 Tech Quiz</a>
+      <a class="dih-drawer-link" href="/software#tools">⚡ Tools</a>
+      <a class="dih-drawer-link" href="/services">🧰 Services</a>
+      <a class="dih-drawer-link" href="/terminal">⌨️ Terminal mode</a>
+      <a class="dih-drawer-link" href="/terminal#interest">📊 Most opened pages</a>
+      <a class="dih-drawer-link" href="/contact">✉️ Contact</a>
+    </div>
+    <a class="dih-drawer-cta" href="/subscribe">✉️ Subscribe — weekly tech intel</a>
+    <p class="dih-drawer-note">Digital Infohub · Tech for everyone, with a guide for every question.</p>
+  </div>
+</div>
+<!-- /DIH:HEADER -->
+
+<main class="st">
+  <header class="st-head">
+    <span class="st-eyebrow"><i></i> Creative Studio · Documents</span>
+    <h1>PDF <span>Toolbox</span></h1>
+    <p>Merge contracts, split a scan into single pages, or make a bloated PDF small enough to email. Everything happens in this tab: the files are read by your browser and never uploaded to a server.</p>
+    <div class="st-badges">
+      <span class="st-badge hot">New</span>
+      <span class="st-badge">Merge · Split · Compress</span>
+      <span class="st-badge">No upload</span>
+      <span class="st-badge">No watermark</span>
+    </div>
+  </header>
+
+  <section class="st-panel">
+    <div class="tabs" role="tablist" aria-label="PDF tools">
+      <button class="tab" role="tab" id="tab-merge" aria-controls="panel-merge" aria-selected="true" type="button">Merge</button>
+      <button class="tab" role="tab" id="tab-split" aria-controls="panel-split" aria-selected="false" type="button">Split</button>
+      <button class="tab" role="tab" id="tab-compress" aria-controls="panel-compress" aria-selected="false" type="button">Compress</button>
+    </div>
+
+    <!-- MERGE -->
+    <div class="panel" id="panel-merge" role="tabpanel" aria-labelledby="tab-merge">
+      <label class="drop" id="dropMerge" for="filesMerge">
+        <b>Drop PDFs here</b>
+        <span>or click to choose · two or more files · order can be changed below</span>
+        <input id="filesMerge" type="file" accept="application/pdf,.pdf" multiple hidden>
+      </label>
+      <div class="rows" id="mergeList"></div>
+      <div class="inline" style="margin-top:14px">
+        <button class="st-btn primary" id="doMerge" type="button" disabled>Merge into one PDF</button>
+        <button class="st-btn" id="clearMerge" type="button" disabled>Clear</button>
+        <span class="st-status" id="mergeStatus" style="margin:0;align-self:center">No files yet.</span>
+      </div>
+      <div class="out" id="mergeOut"></div>
+    </div>
+
+    <!-- SPLIT -->
+    <div class="panel" id="panel-split" role="tabpanel" aria-labelledby="tab-split" hidden>
+      <label class="drop" id="dropSplit" for="fileSplit">
+        <b>Choose a PDF to split</b>
+        <span>or drop it here · page count is read before anything is written</span>
+        <input id="fileSplit" type="file" accept="application/pdf,.pdf" hidden>
+      </label>
+      <div class="rows" id="splitList"></div>
+      <div id="splitOpts" hidden>
+        <div class="inline" style="margin-top:14px">
+          <div class="st-field" style="max-width:220px">
+            <label for="splitMode">How to split</label>
+            <select class="st-select" id="splitMode">
+              <option value="range">Extract a page range</option>
+              <option value="each">Every page as its own PDF (ZIP)</option>
+              <option value="chunks">Fixed-size chunks (ZIP)</option>
+            </select>
+          </div>
+          <div class="st-field" id="rangeWrap" style="max-width:200px">
+            <label for="splitRange">Pages (e.g. 2-5, 8)</label>
+            <input class="st-input" id="splitRange" type="text" value="1-1" placeholder="2-5, 8">
+          </div>
+          <div class="st-field" id="chunkWrap" style="max-width:160px" hidden>
+            <label for="splitChunk">Pages per file</label>
+            <input class="st-input" id="splitChunk" type="number" min="1" value="2">
+          </div>
+          <button class="st-btn primary" id="doSplit" type="button">Split PDF</button>
+        </div>
+      </div>
+      <div class="out" id="splitOut"></div>
+    </div>
+
+    <!-- COMPRESS -->
+    <div class="panel" id="panel-compress" role="tabpanel" aria-labelledby="tab-compress" hidden>
+      <label class="drop" id="dropCompress" for="fileCompress">
+        <b>Choose a PDF to compress</b>
+        <span>or drop it here · best for scans and image-heavy pages</span>
+        <input id="fileCompress" type="file" accept="application/pdf,.pdf" hidden>
+      </label>
+      <div class="rows" id="compressList"></div>
+      <div id="compressOpts" hidden>
+        <div class="inline" style="margin-top:14px">
+          <div class="st-field" style="max-width:180px">
+            <label for="cQuality">Image quality <output id="cqOut">65</output></label>
+            <input class="st-input" id="cQuality" type="range" min="30" max="90" value="65">
+          </div>
+          <div class="st-field" style="max-width:180px">
+            <label for="cScale">Resolution</label>
+            <select class="st-select" id="cScale">
+              <option value="1">Original (sharpest)</option>
+              <option value="0.85" selected>Slightly reduced</option>
+              <option value="0.7">Smaller</option>
+              <option value="0.55">Smallest (screen reading)</option>
+            </select>
+          </div>
+          <div class="st-field" style="max-width:160px">
+            <label for="cGray">Colour</label>
+            <select class="st-select" id="cGray">
+              <option value="0">Keep colour</option>
+              <option value="1">Grayscale (smaller)</option>
+            </select>
+          </div>
+          <button class="st-btn primary" id="doCompress" type="button">Compress PDF</button>
+        </div>
+        <p class="hint">This rebuilds each page as a high-quality image, which is what makes scans and exported decks dramatically smaller. Text layers are flattened, so keep the original if you still need selectable text or form fields.</p>
+      </div>
+      <div class="out" id="compressOut"></div>
+    </div>
+  </section>
+
+  <section class="st-panel">
+    <div class="st-panel-head"><div><h2>Which button do I need?</h2><p>Three different problems, three different fixes.</p></div></div>
+    <div class="st-grid three">
+      <div class="st-tip"><strong>Merge</strong><span>Joining a signed contract with its appendix, or turning a month of invoices into one file. Pages keep their original order and quality.</span></div>
+      <div class="st-tip"><strong>Split</strong><span>Extracting pages 3–7 for a colleague, or separating a scanned bundle into one file per page. Nothing is re-encoded, so text and links survive.</span></div>
+      <div class="st-tip"><strong>Compress</strong><span>Fixing the “file too large to email” problem. Re-encoding the page images is what actually shrinks a scan; moving the same bytes around does not.</span></div>
+    </div>
+  </section>
+
+  <section class="st-panel">
+    <div class="st-panel-head"><div><h2>Privacy and limits</h2><p>What happens to the file you just opened.</p></div></div>
+    <div class="st-grid three">
+      <div class="st-tip"><strong>Nothing is uploaded</strong><span>Parsing, merging, splitting and re-encoding all run in this tab using JavaScript. There is no server to send the file to.</span></div>
+      <div class="st-tip"><strong>Encrypted files</strong><span>PDFs with a password cannot be opened in the browser. Remove the password in a desktop reader first, then process it here.</span></div>
+      <div class="st-tip"><strong>Big documents</strong><span>Compression is the heavy operation: a 60-page scan can take a minute. Keep the tab open until the download appears.</span></div>
+    </div>
+  </section>
+
+  <div class="st-cross">
+    <strong>More document tools</strong>
+    <div class="st-chips">
+      <a class="st-chip" href="/software/image-compressor">Image Compressor</a>
+      <a class="st-chip" href="/software/word-counter">Word Counter</a>
+      <a class="st-chip" href="/software/resume">Resume Builder</a>
+      <a class="st-chip" href="/software/invoice">Invoice Generator</a>
+    </div>
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/fflate@0.8.2/umd/index.js" crossorigin="anonymous"></script>
+<script>
+(function () {
+  'use strict';
+  if (window.pdfjsLib) {
+    window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js';
+  }
+  var { PDFDocument } = window.PDFLib || {};
+  var pdfjsLib = window.pdfjsLib;
+
+  var $ = function (id) { return document.getElementById(id); };
+  var fmt = function (bytes) {
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1048576) return (bytes / 1024).toFixed(0) + ' KB';
+    return (bytes / 1048576).toFixed(1) + ' MB';
+  };
+  var download = function (blob, name) {
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url; a.download = name;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 4000);
+  };
+  var fail = function (box, msg) {
+    box.innerHTML = '<div class="err">' + msg + '</div>';
+  };
+
+  /* ------------------------------------------------------------------ tabs */
+  var tabs = [['tab-merge', 'panel-merge'], ['tab-split', 'panel-split'], ['tab-compress', 'panel-compress']];
+  tabs.forEach(function (pair) {
+    $(pair[0]).addEventListener('click', function () {
+      tabs.forEach(function (p) {
+        var on = p[0] === pair[0];
+        $(p[0]).setAttribute('aria-selected', on ? 'true' : 'false');
+        $(p[1]).hidden = !on;
+      });
+    });
+  });
+
+  /* ------------------------------------------------------------ drag & drop */
+  function wireDrop(dropId, inputId, handler) {
+    var drop = $(dropId), input = $(inputId);
+    ['dragenter', 'dragover'].forEach(function (e) {
+      drop.addEventListener(e, function (ev) { ev.preventDefault(); drop.classList.add('over'); });
+    });
+    ['dragleave', 'drop'].forEach(function (e) {
+      drop.addEventListener(e, function (ev) { ev.preventDefault(); drop.classList.remove('over'); });
+    });
+    drop.addEventListener('drop', function (ev) {
+      var files = Array.prototype.slice.call(ev.dataTransfer.files || []).filter(isPdf);
+      if (files.length) handler(files);
+    });
+    input.addEventListener('change', function () {
+      var files = Array.prototype.slice.call(input.files || []).filter(isPdf);
+      if (files.length) handler(files);
+      input.value = '';
+    });
+  }
+  function isPdf(f) { return /\.pdf$/i.test(f.name) || f.type === 'application/pdf'; }
+
+  /* ----------------------------------------------------------------- merge */
+  var mergeFiles = [];
+  function renderMerge() {
+    var list = $('mergeList');
+    list.innerHTML = '';
+    mergeFiles.forEach(function (f, i) {
+      var row = document.createElement('div');
+      row.className = 'row';
+      row.innerHTML = '<span class="n">' + (i + 1) + '</span>' +
+        '<span class="main"><strong>' + f.name.replace(/</g, '&lt;') + '</strong><span class="meta">' + fmt(f.size) + '</span></span>' +
+        '<span class="mini"><button type="button" data-up="' + i + '" aria-label="Move up">↑</button>' +
+        '<button type="button" data-down="' + i + '" aria-label="Move down">↓</button>' +
+        '<button type="button" data-del="' + i + '" aria-label="Remove">✕</button></span>';
+      list.appendChild(row);
+    });
+    $('doMerge').disabled = mergeFiles.length < 2;
+    $('clearMerge').disabled = !mergeFiles.length;
+    $('mergeStatus').textContent = mergeFiles.length ? mergeFiles.length + ' file(s) ready.' : 'No files yet.';
+    list.querySelectorAll('button').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var up = b.dataset.up, down = b.dataset.down, del = b.dataset.del;
+        if (del !== undefined) mergeFiles.splice(+del, 1);
+        if (up !== undefined && +up > 0) { var i = +up; var t = mergeFiles[i - 1]; mergeFiles[i - 1] = mergeFiles[i]; mergeFiles[i] = t; }
+        if (down !== undefined && +down < mergeFiles.length - 1) { var j = +down; var s = mergeFiles[j + 1]; mergeFiles[j + 1] = mergeFiles[j]; mergeFiles[j] = s; }
+        renderMerge();
+      });
+    });
+  }
+  wireDrop('dropMerge', 'filesMerge', function (files) {
+    mergeFiles = mergeFiles.concat(files);
+    renderMerge();
+  });
+  $('clearMerge').addEventListener('click', function () {
+    mergeFiles = []; $('mergeOut').innerHTML = ''; renderMerge();
+  });
+  $('doMerge').addEventListener('click', async function () {
+    var out = $('mergeOut');
+    out.innerHTML = '';
+    $('mergeStatus').textContent = 'Merging…';
+    try {
+      var merged = await PDFDocument.create();
+      for (var i = 0; i < mergeFiles.length; i++) {
+        var buf = await mergeFiles[i].arrayBuffer();
+        var src = await PDFDocument.load(buf, { ignoreEncryption: true });
+        var pages = await merged.copyPages(src, src.getPageIndices());
+        pages.forEach(function (p) { merged.addPage(p); });
+      }
+      merged.setProducer('Digital Infohub PDF Toolbox');
+      var bytes = await merged.save();
+      var blob = new Blob([bytes], { type: 'application/pdf' });
+      out.innerHTML = '<div class="ok">Merged <b>' + merged.getPageCount() + '</b> pages into <b>' + fmt(blob.size) + '</b>' +
+        '<a class="dl" href="#" id="mergeDl">Download</a></div>';
+      $('mergeDl').addEventListener('click', function (e) { e.preventDefault(); download(blob, 'merged.pdf'); });
+      download(blob, 'merged.pdf');
+      $('mergeStatus').textContent = 'Done. Check your downloads.';
+    } catch (err) {
+      fail(out, 'Could not merge: ' + (err && err.message ? err.message : 'one of the files may be password-protected.'));
+      $('mergeStatus').textContent = 'Merge failed.';
+    }
+  });
+
+  /* ----------------------------------------------------------------- split */
+  var splitFile = null, splitDoc = null, splitPages = 0;
+  async function loadSplit(file) {
+    splitFile = file;
+    $('splitOut').innerHTML = '';
+    $('splitList').innerHTML = '<div class="row"><span class="n">…</span><span class="main"><strong>' +
+      file.name.replace(/</g, '&lt;') + '</strong><span class="meta">reading pages…</span></span></div>';
+    try {
+      var buf = await file.arrayBuffer();
+      splitDoc = await PDFDocument.load(buf, { ignoreEncryption: true });
+      splitPages = splitDoc.getPageCount();
+      $('splitList').innerHTML = '<div class="row"><span class="n">1</span><span class="main"><strong>' +
+        file.name.replace(/</g, '&lt;') + '</strong><span class="meta">' + fmt(file.size) + ' · ' + splitPages + ' pages</span></span></div>';
+      $('splitRange').value = '1-' + Math.min(splitPages, 2);
+      $('splitOpts').hidden = false;
+    } catch (err) {
+      $('splitList').innerHTML = '<div class="err">Could not open that PDF. It may be password-protected.</div>';
+    }
+  }
+  wireDrop('dropSplit', 'fileSplit', function (files) { loadSplit(files[0]); });
+  $('splitMode').addEventListener('change', function () {
+    var m = this.value;
+    $('rangeWrap').hidden = m !== 'range';
+    $('chunkWrap').hidden = m !== 'chunks';
+  });
+  function parseRange(text, total) {
+    var out = [];
+    text.split(',').forEach(function (part) {
+      part = part.trim();
+      if (!part) return;
+      var m = part.match(/^(\d+)\s*-\s*(\d+)$/);
+      if (m) {
+        var a = Math.max(1, +m[1]), b = Math.min(total, +m[2]);
+        for (var i = a; i <= b; i++) out.push(i - 1);
+      } else if (/^\d+$/.test(part)) {
+        var n = +part;
+        if (n >= 1 && n <= total) out.push(n - 1);
+      }
+    });
+    return out;
+  }
+  $('doSplit').addEventListener('click', async function () {
+    var out = $('splitOut');
+    out.innerHTML = '';
+    if (!splitDoc) return;
+    var mode = $('splitMode').value;
+    try {
+      if (mode === 'range') {
+        var idx = parseRange($('splitRange').value, splitPages);
+        if (!idx.length) { fail(out, 'That range does not match any page in the file.'); return; }
+        var one = await PDFDocument.create();
+        var copied = await one.copyPages(splitDoc, idx);
+        copied.forEach(function (p) { one.addPage(p); });
+        var b = await one.save();
+        var blob = new Blob([b], { type: 'application/pdf' });
+        out.innerHTML = '<div class="ok">Extracted <b>' + idx.length + '</b> page(s) · <b>' + fmt(blob.size) + '</b>' +
+          '<a class="dl" href="#" id="splitDl">Download</a></div>';
+        $('splitDl').addEventListener('click', function (e) { e.preventDefault(); download(blob, 'extracted.pdf'); });
+        download(blob, 'extracted.pdf');
+      } else {
+        var groups = [];
+        if (mode === 'each') {
+          for (var i = 0; i < splitPages; i++) groups.push([i]);
+        } else {
+          var size = Math.max(1, +$('splitChunk').value || 1);
+          for (var s = 0; s < splitPages; s += size) {
+            var g = [];
+            for (var k = s; k < Math.min(s + size, splitPages); k++) g.push(k);
+            groups.push(g);
+          }
+        }
+        var files = {};
+        for (var n = 0; n < groups.length; n++) {
+          var doc = await PDFDocument.create();
+          var copy = await doc.copyPages(splitDoc, groups[n]);
+          copy.forEach(function (p) { doc.addPage(p); });
+          var bytes = new Uint8Array(await doc.save());
+          files['part-' + String(n + 1).padStart(2, '0') + '.pdf'] = bytes;
+        }
+        if (!window.fflate) { fail(out, 'The ZIP library did not load. Reconnect and try again.'); return; }
+        var zip = window.fflate.zipSync(files, { level: 0 });
+        var zipBlob = new Blob([zip], { type: 'application/zip' });
+        out.innerHTML = '<div class="ok">Split into <b>' + groups.length + '</b> file(s) · <b>' + fmt(zipBlob.size) + '</b>' +
+          '<a class="dl" href="#" id="zipDl">Download ZIP</a></div>';
+        $('zipDl').addEventListener('click', function (e) { e.preventDefault(); download(zipBlob, 'split-pdf.zip'); });
+        download(zipBlob, 'split-pdf.zip');
+      }
+    } catch (err) {
+      fail(out, 'Split failed: ' + (err && err.message ? err.message : 'unknown error'));
+    }
+  });
+
+  /* -------------------------------------------------------------- compress */
+  var compFile = null;
+  async function loadCompress(file) {
+    compFile = file;
+    $('compressOut').innerHTML = '';
+    $('compressList').innerHTML = '<div class="row"><span class="n">1</span><span class="main"><strong>' +
+      file.name.replace(/</g, '&lt;') + '</strong><span class="meta">' + fmt(file.size) + '</span></span></div>';
+    $('compressOpts').hidden = false;
+  }
+  wireDrop('dropCompress', 'fileCompress', function (files) { loadCompress(files[0]); });
+  $('cQuality').addEventListener('input', function () { $('cqOut').textContent = this.value; });
+
+  $('doCompress').addEventListener('click', async function () {
+    var out = $('compressOut');
+    if (!compFile) return;
+    out.innerHTML = '<div class="ok">Working… <span id="cProgress">opening</span></div>';
+    var progress = $('cProgress');
+    try {
+      var data = await compFile.arrayBuffer();
+      var pdf = await pdfjsLib.getDocument({ data: data }).promise;
+      var quality = (+$('cQuality').value) / 100;
+      var scale = +$('cScale').value;
+      var gray = $('cGray').value === '1';
+      var result = await PDFDocument.create();
+      var canvas = document.createElement('canvas');
+      var ctx = canvas.getContext('2d');
+
+      for (var i = 1; i <= pdf.numPages; i++) {
+        if (progress) progress.textContent = 'page ' + i + ' of ' + pdf.numPages;
+        var page = await pdf.getPage(i);
+        var base = page.getViewport({ scale: 1 });
+        var view = page.getViewport({ scale: scale * 1.6 });
+        canvas.width = Math.ceil(view.width);
+        canvas.height = Math.ceil(view.height);
+        await page.render({ canvasContext: ctx, viewport: view, background: '#ffffff' }).promise;
+        if (gray) {
+          var img = ctx.getImageData(0, 0, canvas.width, canvas.height);
+          var d = img.data;
+          for (var p = 0; p < d.length; p += 4) {
+            var l = (d[p] * 0.299 + d[p + 1] * 0.587 + d[p + 2] * 0.114) | 0;
+            d[p] = d[p + 1] = d[p + 2] = l;
+          }
+          ctx.putImageData(img, 0, 0);
+        }
+        var blob = await new Promise(function (res) { canvas.toBlob(res, 'image/jpeg', quality); });
+        var embedded = await result.embedJpg(await blob.arrayBuffer());
+        var outPage = result.addPage([base.width, base.height]);
+        outPage.drawImage(embedded, { x: 0, y: 0, width: base.width, height: base.height });
+      }
+
+      result.setProducer('Digital Infohub PDF Toolbox');
+      var bytes = await result.save();
+      var outBlob = new Blob([bytes], { type: 'application/pdf' });
+      var saved = 1 - outBlob.size / compFile.size;
+      out.innerHTML = '<div class="ok">' +
+        (saved > 0
+          ? '<b class="saved">' + Math.round(saved * 100) + '% smaller</b> · ' + fmt(compFile.size) + ' → <b>' + fmt(outBlob.size) + '</b>'
+          : 'Rebuilt at <b>' + fmt(outBlob.size) + '</b> (this file was already efficient)') +
+        '<a class="dl" href="#" id="compDl">Download</a></div>';
+      $('compDl').addEventListener('click', function (e) { e.preventDefault(); download(outBlob, 'compressed.pdf'); });
+      download(outBlob, 'compressed.pdf');
+    } catch (err) {
+      fail(out, 'Compression failed: ' + (err && err.message ? err.message : 'the PDF may be password-protected.'));
+    }
+  });
+
+  renderMerge();
+})();
+</script>
+<!-- DIH:GALLERY -->
+<aside class="dih-ad-slot" data-dih-ad="1" aria-label="Advertisement" style="max-width:970px;margin:26px auto;padding:10px 10px 6px;border:1px solid rgba(255,255,255,.09);border-radius:14px;background:rgba(255,255,255,.028);text-align:center"><span style="display:block;font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#8b93a7;margin:0 0 6px">Advertisement</span><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5443646750699471" data-ad-slot="8451723433" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></aside>
+<aside class="dih-ad-slot" data-dih-ad="1" aria-label="Advertisement" style="max-width:970px;margin:26px auto;padding:10px 10px 6px;border:1px solid rgba(255,255,255,.09);border-radius:14px;background:rgba(255,255,255,.028);text-align:center"><span style="display:block;font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#8b93a7;margin:0 0 6px">Advertisement</span><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5443646750699471" data-ad-slot="8451723433" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></aside>
+<section class="dih-gallery" aria-labelledby="dihGalleryTitle">
+  <div class="dih-gallery-head">
+    <div>
+      <span class="dih-gallery-eyebrow">Visual briefing</span>
+      <h2 id="dihGalleryTitle">Technology, in focus</h2>
+      <p>Fast context on the ideas shaping the industry, with a guide for every one.</p>
+    </div>
+    <a class="dih-gallery-all" href="/techtopics">All 35 tech guides <span aria-hidden="true">&rarr;</span></a>
+  </div>
+  <div class="dih-gallery-grid">
+      <a class="dih-gallery-card" href="/autonomousvehicles">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1491921125492-f0b9c835b699?w=640&amp;h=400&amp;fit=crop&amp;auto=format&amp;q=70" alt="Interior view of a Tesla car dashboard" width="640" height="400" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Autonomous vehicles</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>The hard part is the edge case</strong>
+          <span>Self-driving progress is measured in rare events, not average miles. Sensors, maps and fallback drivers all exist because the last percent is hard.</span>
+          <em>Read the autonomous vehicles guide &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/5gnetworks">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1602823284936-463177448097?w=640&amp;h=400&amp;fit=crop&amp;auto=format&amp;q=70" alt="Black telecommunications tower against a blue sky" width="640" height="400" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">5G &amp; networks</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Networks that think</strong>
+          <span>Modern networks do not just move packets; they schedule workloads, slice bandwidth and push compute closer to users. That is what makes low-latency apps feel instant.</span>
+          <em>Explore 5G networks &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/edgecomputing">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1604869515882-4d10fa4b0492?w=640&amp;h=400&amp;fit=crop&amp;auto=format&amp;q=70" alt="Blue and white light trails representing a fibre network" width="640" height="400" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Edge computing</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Designed for the edge</strong>
+          <span>Processing data near the device cuts round trips and bandwidth bills. It also creates a fleet of small systems that must be updated and secured remotely.</span>
+          <em>Read the edge guide &rarr;</em>
+        </span>
+      </a>
+  </div>
+  <p class="dih-gallery-credit">Photography by Unsplash contributors. Cards link to related Digital Infohub guides.</p>
+</section>
+<!-- /DIH:GALLERY -->
+<!-- DIH:EXPLORE -->
+<section class="dih-explore" aria-labelledby="dihExploreTitle">
+  <div class="dih-explore-head">
+    <h2 id="dihExploreTitle">More from the software suite</h2>
+    <p>Every tool in the suite is free and runs in your browser.</p>
+  </div>
+  <div class="dih-explore-grid">
+      <a class="dih-explore-card" href="/software">
+        <span class="dih-explore-icon" aria-hidden="true">🛠️</span>
+        <strong>Software &amp; tools</strong>
+        <span>Free AI assistants and browser utilities that run locally.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/blog">
+        <span class="dih-explore-icon" aria-hidden="true">📝</span>
+        <strong>Blog &amp; analysis</strong>
+        <span>Deep dives on AI, hardware, markets and digital culture.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/techtopics">
+        <span class="dih-explore-icon" aria-hidden="true">🔬</span>
+        <strong>Tech Topics</strong>
+        <span>Clear guides to the technology shaping business.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/games">
+        <span class="dih-explore-icon" aria-hidden="true">🎮</span>
+        <strong>Pixel Palace</strong>
+        <span>Free arcade games, playable on desktop and mobile.</span>
+        <em>Explore →</em>
+      </a>
+  </div>
+</section>
+<!-- /DIH:EXPLORE -->
+<!-- DIH:FOOTER -->
+<footer class="dih-footer">
+  <div class="dih-footer-inner">
+    <div class="dih-footer-brand">
+      <a class="dih-brand" href="/" aria-label="Digital Infohub home">
+        <img src="/assets/logo.png" alt="Digital Infohub logo" width="40" height="40">
+        <span class="dih-brand-text">Digital <b>Infohub</b></span>
+      </a>
+      <p>The independent tech hub for everyone: AI research, market moves, practical guides, free tools and Digi, your AI guide.</p>
+      <span class="dih-pill"><span class="dih-dot"></span> Updated daily</span>
+    </div>
+    <div class="dih-footer-col">
+      <h3>Explore</h3>
+      <a href="/blog">Blog &amp; analysis</a>
+      <a href="/techtopics">Tech Topics</a>
+      <a href="/software">Software &amp; tools</a>
+      <a href="/terminal">Terminal mode</a>
+      <a href="/techproducts">Tech Products</a>
+      <a href="/games">Pixel Palace</a>
+      <a href="/digi">Digi AI guide</a>
+      <a href="/news">Live tech news</a>
+      <a href="/quiz">Tech quiz</a>
+    </div>
+    <div class="dih-footer-col">
+      <h3>Company</h3>
+      <a href="/about">About</a>
+      <a href="/services">Services</a>
+      <a href="/advertise">Advertise</a>
+      <a href="/coincompass">CoinCompass</a>
+      <a href="/privacy-policy">Privacy</a>
+    </div>
+    <div class="dih-footer-col dih-footer-cta">
+      <h3>Stay ahead</h3>
+      <p>One email a week: the AI, market and software stories that actually matter.</p>
+      <a class="dih-btn dih-btn-primary" href="/subscribe">Subscribe free</a>
+    </div>
+  </div>
+  <div class="dih-footer-bottom">
+    <span>© 2026 Digital Infohub · Independent technology publication</span>
+    <nav aria-label="Footer links">
+      <a href="/blog">Blog</a>
+      <a href="/techtopics">Guides</a>
+      <a href="/software">Tools</a>
+      <a href="/contact">Contact</a>
+      <a href="/terminal">Terminal</a>
+      <a href="/sitemap.xml">Sitemap</a>
+    </nav>
+  </div>
+</footer>
+<!-- /DIH:FOOTER -->
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

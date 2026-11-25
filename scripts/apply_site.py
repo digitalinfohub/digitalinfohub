@@ -215,19 +215,19 @@ PAGE_META = {
     "spectrogram-studio.html": {
         "kind": "software-detail", "type": "website",
         "title": "Spectrogram Music Maker — Draw Sound, Export WAV | Digital Infohub",
-        "desc": "Paint on a spectrogram and hear it become sound. A free browser music maker: draw tones, snap to a scale, loop the pattern, watch live microphone frequencies and export a WAV.",
-        "keywords": "spectrogram music maker, draw sound, browser synth, music visualiser, audio spectrum editor, free music software, wav export",
+        "desc": "Paint on a spectrogram and hear it become sound — or upload a track and trace its spectrum. A free browser music maker: draw tones, snap to a scale, loop the pattern and export a WAV. The microphone is optional.",
+        "keywords": "spectrogram music maker, draw sound, browser synth, music visualiser, audio spectrum editor, upload audio spectrogram, trace a song, free music software, wav export",
     },
     "midi-sequencer.html": {
         "kind": "software-detail", "type": "website",
         "title": "MIDI Sequencer — Free Online Piano Roll & MIDI Export | Digital Infohub",
-        "desc": "Write a melody on a piano roll in your browser, loop it with a synth, then download a real .mid file you can open in GarageBand, FL Studio, Ableton or Logic. No signup.",
+        "desc": "Write a melody on a piano roll in your browser, import a .mid from any DAW, loop it with a synth, then download a real .mid file you can open in GarageBand, FL Studio, Ableton or Logic. No signup.",
         "keywords": "midi sequencer, online piano roll, midi export, free midi editor, browser daw, make midi file, melody maker",
     },
     "drum-machine.html": {
         "kind": "software-detail", "type": "website",
         "title": "Drum Machine — Free 16-Step Beat Maker & WAV Export | Digital Infohub",
-        "desc": "Program a beat on an 8-track, 16-step drum machine in your browser. Kick, snare, clap, hats and more, all synthesised live. Loop it, swing it and export the beat as a WAV.",
+        "desc": "Program a beat on an 8-track, 16-step drum machine in your browser. Use the built-in synth voices or load your own WAV samples. Loop it, swing it and export the beat as a WAV.",
         "keywords": "drum machine, beat maker, 16 step sequencer, free drum machine online, trap beat maker, wav export, swing",
     },
     "synth-lab.html": {
@@ -239,7 +239,7 @@ PAGE_META = {
     "chord-finder.html": {
         "kind": "software-detail", "type": "website",
         "title": "Chord Finder — Free Piano Chord Tool & Reverse Lookup | Digital Infohub",
-        "desc": "Find any piano chord instantly: pick a root and a chord type to see the notes, intervals and keyboard shape, then hear it. Or click the keys you are playing and let the reverse lookup name the chord.",
+        "desc": "Find any piano chord instantly: pick a root and a chord type to see the notes, intervals and keyboard shape, then hear it. Click the keys to name a chord, or load an audio file and get the progression.",
         "keywords": "chord finder, piano chords, chord lookup, reverse chord finder, music theory tool, chord intervals, free chord tool",
     },
     "layershop.html": {
@@ -277,6 +277,12 @@ PAGE_META = {
         "title": "Image Compressor — Shrink JPG, PNG & WebP Locally | Digital Infohub",
         "desc": "Compress images without uploading them. Choose quality, format and maximum width, then compare file sizes and download the smaller version. Batch friendly and free.",
         "keywords": "image compressor, compress jpg, compress png, webp converter, reduce image size, free image optimiser, batch compressor",
+    },
+    "pdf-toolbox.html": {
+        "kind": "software-detail", "type": "website",
+        "title": "PDF Toolbox — Merge, Split & Compress PDFs Free | Digital Infohub",
+        "desc": "Merge several PDFs into one, split a PDF into pages or ranges, and genuinely shrink large PDFs by re-encoding them — all in your browser, with no upload and no signup.",
+        "keywords": "pdf merge, split pdf, compress pdf, combine pdf files, pdf tools online, free pdf editor, reduce pdf size, pdf page extractor",
     },
     "screen-recorder.html": {
         "kind": "software-detail", "type": "website",
@@ -865,10 +871,14 @@ def process(path: Path) -> bool:
     meta["image"] = f"{SITE}/assets/og/{slug}.jpg"
     meta["image_alt"] = f'{meta.get("title", "Digital Infohub")} — Digital Infohub'
     updated = update_body(update_head(html, rel, meta), rel, meta)
-    if updated != html:
+    changed = updated != html
+    if changed:
         path.write_text(updated, encoding="utf-8")
-        return True
-    return False
+    # Rebuilding a page must not drop its ad units: every page that passes
+    # through this pipeline is topped back up to the two-unit floor.
+    from ad_revenue import process as ensure_ads
+    ensure_ads(path)
+    return changed
 
 
 def targets():

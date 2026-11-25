@@ -34,13 +34,13 @@
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Synth Lab - Free Browser Synthesizer with WAV Export — Digital Infohub">
+<meta property="og:image:alt" content="Synth Lab — Free Browser Synthesizer with WAV Export | Digital Infohub — Digital Infohub">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Synth Lab — Free Browser Synthesizer with WAV Export | Digital Infohub">
 <meta name="twitter:description" content="A playable two-oscillator synthesizer in your browser: filter, ADSR envelope, LFO, presets and a piano keyboard you can play with your computer keys. Record a phrase and export a WAV.">
 <meta name="twitter:image" content="https://digitalinfohub.net/assets/og/software-synth-lab.jpg">
-<meta name="twitter:image:alt" content="Synth Lab - Free Browser Synthesizer with WAV Export — Digital Infohub">
+<meta name="twitter:image:alt" content="Synth Lab — Free Browser Synthesizer with WAV Export | Digital Infohub — Digital Infohub">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
 <link rel="icon" href="/assets/favicon.ico" sizes="any">
@@ -50,7 +50,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://images.unsplash.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=20261203">
+<link rel="stylesheet" href="/assets/site.css">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://digitalinfohub.net/#organization","name":"Digital Infohub","url":"https://digitalinfohub.net/","logo":{"@type":"ImageObject","url":"https://digitalinfohub.net/assets/icon-512.png","width":512,"height":512},"description":"Independent technology publication for everyone: clear guides, free browser tools and live market context.","sameAs":[]},{"@type":"WebSite","@id":"https://digitalinfohub.net/#website","url":"https://digitalinfohub.net/","name":"Digital Infohub","publisher":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://digitalinfohub.net/blog?q={search_term_string}"},"query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://digitalinfohub.net/software/synth-lab#webpage","url":"https://digitalinfohub.net/software/synth-lab","name":"Synth Lab — Free Browser Synthesizer with WAV Export | Digital Infohub","description":"A playable two-oscillator synthesizer in your browser: filter, ADSR envelope, LFO, presets and a piano keyboard you can play with your computer keys. Record a phrase and export a WAV.","isPartOf":{"@id":"https://digitalinfohub.net/#website"},"about":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","primaryImageOfPage":{"@type":"ImageObject","url":"https://digitalinfohub.net/assets/og/software-synth-lab.jpg","width":1200,"height":630}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://digitalinfohub.net/"},{"@type":"ListItem","position":2,"name":"Software","item":"https://digitalinfohub.net/software"},{"@type":"ListItem","position":3,"name":"Synth Lab — Free Browser Synthesizer with WAV Export","item":"https://digitalinfohub.net/software/synth-lab"}]}]}</script>
 <!-- /DIH:HEAD -->
 </head>
@@ -148,6 +148,9 @@
       <button class="st-btn primary" id="rec" type="button">● Record</button>
       <button class="st-btn" id="render" type="button" disabled>⬇ Export WAV</button>
       <button class="st-btn ghost" id="panic" type="button">Stop all notes</button>
+      <label class="st-btn ghost" for="sampleFile">⬆ Load sample</label>
+      <input id="sampleFile" type="file" accept="audio/*,.wav,.mp3,.ogg,.m4a" hidden>
+      <button class="st-btn ghost" id="clearSample" type="button" hidden>Use oscillators</button>
       <span class="st-spacer"></span>
       <div class="st-field" style="max-width:120px"><label for="volume">Volume</label><input class="st-input" id="volume" type="range" min="0" max="100" value="70"></div>
       <div class="st-field" style="max-width:120px"><label for="octave">Octave</label><select class="st-select" id="octave"><option value="2">C2</option><option value="3" selected>C3</option><option value="4">C4</option><option value="5">C5</option></select></div>
@@ -257,7 +260,54 @@
   function freq(midi) { return 440 * Math.pow(2, (midi - 69) / 12); }
 
   /* Build a voice on any AudioContext (live or offline). Returns a stop function. */
+  /* A loaded one-shot replaces the oscillators: it is pitched by playback rate
+     against C4, so the keyboard still plays in tune. */
+  var sampleBuffer = null;
+  document.getElementById('sampleFile').addEventListener('change', async function () {
+    var f = this.files && this.files[0];
+    if (!f) return;
+    try {
+      ensureAudio();
+      var buf = await f.arrayBuffer();
+      sampleBuffer = await audio.decodeAudioData(buf);
+      var st = document.getElementById('status');
+      st.textContent = f.name + ' loaded · ' + sampleBuffer.duration.toFixed(2) + 's · keyboard now pitches it from C4';
+      document.getElementById('clearSample').hidden = false;
+    } catch (err) {
+      document.getElementById('status').textContent = 'Could not read that audio file.';
+    }
+    this.value = '';
+  });
+  document.getElementById('clearSample').addEventListener('click', function () {
+    sampleBuffer = null;
+    this.hidden = true;
+    document.getElementById('status').textContent = 'Back to the two oscillators.';
+  });
+
   function voice(ac, dest, midi, when, p) {
+    if (sampleBuffer) {
+      var src = ac.createBufferSource();
+      src.buffer = sampleBuffer;
+      src.playbackRate.value = freq(midi) / freq(60);
+      var sf = ac.createBiquadFilter();
+      sf.type = p.ftype; sf.frequency.value = p.cutoff; sf.Q.value = p.reso;
+      var sg = ac.createGain();
+      src.connect(sf); sf.connect(sg); sg.connect(dest);
+      var sPeak = 0.5;
+      sg.gain.setValueAtTime(0.0001, when);
+      sg.gain.linearRampToValueAtTime(sPeak, when + p.attack);
+      sg.gain.exponentialRampToValueAtTime(Math.max(0.0002, sPeak * p.sustain), when + p.attack + p.decay);
+      src.start(when);
+      return {
+        stop: function (at) {
+          var t = Math.max(at, when + 0.02);
+          sg.gain.cancelScheduledValues(t);
+          sg.gain.setValueAtTime(Math.max(0.0001, sg.gain.value), t);
+          sg.gain.exponentialRampToValueAtTime(0.0001, t + p.release);
+          try { src.stop(t + p.release + 0.05); } catch (e) { /* already stopped */ }
+        }
+      };
+    }
     var g1 = ac.createGain(), g2 = ac.createGain(), filter = ac.createBiquadFilter(), amp = ac.createGain();
     var o1 = ac.createOscillator(), o2 = ac.createOscillator();
     o1.type = p.osc1; o2.type = p.osc2;
@@ -538,6 +588,7 @@
   drawKeys();
 })();
 </script>
+<script src="/assets/site.js?v=20261203" defer></script>
 <!-- DIH:GALLERY -->
 <aside class="dih-ad-slot" data-dih-ad="1" aria-label="Advertisement" style="max-width:970px;margin:26px auto;padding:10px 10px 6px;border:1px solid rgba(255,255,255,.09);border-radius:14px;background:rgba(255,255,255,.028);text-align:center"><span style="display:block;font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#8b93a7;margin:0 0 6px">Advertisement</span><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5443646750699471" data-ad-slot="8451723433" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></aside>
 <section class="dih-gallery" aria-labelledby="dihGalleryTitle">
@@ -671,6 +722,6 @@
   </div>
 </footer>
 <!-- /DIH:FOOTER -->
-<script src="/assets/site.js?v=20261203" defer></script>
+<script src="/assets/site.js" defer></script>
 </body>
 </html>
