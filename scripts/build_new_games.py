@@ -19,6 +19,9 @@ GAMES = [
         "desc": "Play Block Defender free: a five-sector neon block defense game with glitch bugs, saboteur drones, power cells and laser, EMP, freeze and purify upgrades.",
         "genre": "Puzzle",
         "keywords": "block defender, falling blocks game, browser puzzle game, neon arcade, free online game",
+        "ad_anchor": '<button class="primary-btn" id="startBtn">INITIALIZE SYSTEM</button>',
+        "ad_css": "@media (max-height:900px){#mainOverlay{justify-content:flex-start;overflow-y:auto}}",
+        "ad_light": False,
     },
     {
         "slug": "neon-horizon",
@@ -27,6 +30,9 @@ GAMES = [
         "desc": "Play Neon Horizon free: a 3D neon highway racer built with Three.js. Weave through traffic, grab fuel cans and chase a high score across the synthwave horizon.",
         "genre": "Racing",
         "keywords": "neon horizon, highway racer, 3d driving game, browser racing game, endless racer",
+        "ad_anchor": "Start Engine\n            </button>",
+        "ad_css": "#start-screen>div{max-height:calc(100dvh - 2rem);overflow-y:auto}",
+        "ad_light": False,
     },
     {
         "slug": "perfect-pour",
@@ -35,10 +41,36 @@ GAMES = [
         "desc": "Play Perfect Pour free: hold to pour espresso into five cups, stop inside the green target zone and chase three stars without spilling a drop.",
         "genre": "Skill",
         "keywords": "perfect pour, coffee game, pouring game, browser skill game, free online game",
+        "ad_anchor": '<button class="btn-primary" id="btn-start-game">Start Brewing</button>',
+        "ad_css": "#start-overlay .modal-card{max-height:calc(100dvh - 2rem);overflow-y:auto}",
+        "ad_light": True,
     },
 ]
 
 SITE = "https://digitalinfohub.net"
+
+ADSENSE_LOADER = (
+    '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'
+    '?client=ca-pub-5443646750699471" crossorigin="anonymous"></script>'
+)
+
+AD_CSS = (
+    ".dih-ad{box-sizing:border-box;width:100%;max-width:520px;margin:18px auto 0;"
+    "padding:8px 10px 10px;border-radius:14px;background:rgba(255,255,255,.06);"
+    "border:1px solid rgba(255,255,255,.16);overflow:hidden;text-align:left;color:inherit}"
+    ".dih-ad small{display:block;font:600 9px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;"
+    "letter-spacing:.18em;text-transform:uppercase;opacity:.55;margin-bottom:4px}"
+    ".dih-ad-light{background:rgba(74,44,30,.05);border-color:rgba(74,44,30,.18);color:#4a2c1e}"
+)
+
+AD_HTML = (
+    '<div class="dih-ad%s" role="complementary" aria-label="Advertisement" style="margin-bottom:14px">'
+    '<small>Advertisement</small>'
+    '<ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px"'
+    ' data-ad-client="ca-pub-5443646750699471" data-ad-slot="8451723433"></ins>'
+    '<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>'
+    '</div>'
+)
 OG_IMAGE = "https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&h=630&fit=crop&auto=format&q=80&fm=jpg"
 
 LD = (
@@ -82,6 +114,19 @@ def build(game):
     ]
 
     doc = doc.replace("</title>", "</title>\n" + "\n".join(meta), 1)
+
+    # AdSense: loader in the head, one responsive unit on the start screen.
+    head_extra = "%s\n<style id=\"dih-ad-style\">%s\n%s</style>\n</head>" % (
+        ADSENSE_LOADER, AD_CSS, game["ad_css"])
+    doc, n_head = re.subn(r"</head>", lambda m: head_extra, doc, count=1, flags=re.I)
+    if n_head != 1:
+        raise SystemExit(f"{slug}: no </head> found")
+
+    anchor = game["ad_anchor"]
+    if doc.count(anchor) != 1:
+        raise SystemExit(f"{slug}: ad anchor matched {doc.count(anchor)} times")
+    ad = AD_HTML % (" dih-ad-light" if game["ad_light"] else "")
+    doc = doc.replace(anchor, anchor + "\n" + ad, 1)
 
     out = ROOT / "games" / (slug + ".html")
     out.write_text(doc, encoding="utf-8")
