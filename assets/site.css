@@ -933,13 +933,100 @@ html[data-dih] .product-card {
 }
 
 /* ==========================================================================
+   "Did you know" signal card (assets/signal.js)
+   A quiet, in-flow note that wraps one standard ad unit. Deliberately not a
+   popup: ads must never be placed in overlays or be obscured by them.
+   ========================================================================== */
+.dih-signal {
+  position: relative;
+  max-width: 970px;
+  margin: 34px auto;
+  padding: 24px 26px 8px;
+  border-radius: 18px;
+  border: 1px solid var(--dih-border);
+  background:
+    radial-gradient(120% 140% at 0% 0%, rgba(76, 141, 255, 0.14), transparent 62%),
+    var(--dih-surface);
+  box-shadow: 0 18px 44px rgba(4, 8, 18, 0.24);
+}
+.dih-signal-eyebrow {
+  display: inline-block;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--dih-accent);
+  margin-bottom: 8px;
+}
+.dih-signal h2 {
+  margin: 0 0 8px;
+  font-size: clamp(19px, 2.6vw, 26px);
+  line-height: 1.22;
+  letter-spacing: -0.02em;
+  color: var(--dih-text);
+}
+.dih-signal p {
+  margin: 0 0 14px;
+  max-width: 62ch;
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: var(--dih-text-sub);
+}
+.dih-signal-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13.5px;
+  font-weight: 650;
+  color: var(--dih-accent);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(76, 141, 255, 0.34);
+  padding-bottom: 2px;
+}
+.dih-signal-cta:hover { border-color: var(--dih-accent); }
+.dih-signal-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--dih-border);
+  background: transparent;
+  color: var(--dih-text-muted);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+}
+.dih-signal-close:hover { background: var(--dih-surface-2); color: var(--dih-text); }
+.dih-signal .dih-ad-slot { margin: 10px auto 18px; border: 0; background: none; padding: 0; }
+/* Reserve the unit's height so an unfilled slot never collapses the card. */
+html[data-dih] .dih-ad-slot .adsbygoogle { min-height: 250px; }
+@media (max-width: 640px) {
+  html[data-dih] .dih-ad-slot .adsbygoogle { min-height: 220px; }
+}
+.dih-signal.is-quiet { padding: 0; border: 0; background: none; box-shadow: none; }
+.dih-signal.is-quiet .dih-ad-slot { margin: 26px auto; }
+@media (max-width: 640px) {
+  .dih-signal { margin: 26px 14px; padding: 20px 18px 4px; border-radius: 14px; }
+}
+
+/* ==========================================================================
    Responsive
    ========================================================================== */
-@media (max-width: 1080px) {
+@media (max-width: 1180px) {
   .dih-nav { gap: 0; }
-  .dih-link { padding: 8px 9px; font-size: 12.5px; }
+  .dih-link { padding: 8px 7px; font-size: 12.5px; }
   .dih-tools span { display: none; }
-  .dih-tools { width: 36px; padding: 0; }
+  .dih-tools { width: 36px; padding: 0; justify-content: center; }
+  /* Secondary actions live in the drawer too; dropping them here is what
+     keeps all seven nav links visible down to the burger breakpoint. */
+  .dih-term, .dih-sound { display: none; }
+  .dih-cta { padding: 8px 12px; font-size: 12px; }
+}
+
+@media (max-width: 1000px) {
+  .dih-cta { display: none; }
 }
 
 @media (max-width: 920px) {

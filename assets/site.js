@@ -76,14 +76,19 @@
   function initActiveNav() {
     var path = location.pathname.replace(/\/+$/, '').replace(/\.html$/, '') || '/';
     if (path === '/index') path = '/';
+    /* Pages that live under a section without sharing its URL prefix still
+       need the right item highlighted. */
+    if (/^\/post(\/|$)/.test(path)) path = '/blog';
+    else if (/^\/tool-/.test(path) || path === '/expense-tracker' || path === '/extension') path = '/software';
     document.querySelectorAll('[data-dih-nav], #dihDrawer').forEach(function (scope) {
       scope.querySelectorAll('a[href]').forEach(function (a) {
         var href = (a.getAttribute('href') || '').split('#')[0].replace(/\/+$/, '').replace(/\.html$/, '');
         if (!href || href.charAt(0) !== '/') return;
         if (href === '/') {
-          if (path === '/') a.classList.add('is-active');
+          if (path === '/') { a.classList.add('is-active'); a.setAttribute('aria-current', 'page'); }
         } else if (path === href || path.indexOf(href + '/') === 0) {
           a.classList.add('is-active');
+          a.setAttribute('aria-current', 'page');
         }
       });
     });
@@ -524,7 +529,7 @@
 (function () {
   if (window.__dihHubLoaded) return;
   var script = document.createElement('script');
-  script.src = '/assets/hub.js?v=20261202';
+  script.src = '/assets/hub.js?v=20261203';
   script.defer = true;
   document.head.appendChild(script);
 })();
@@ -535,6 +540,17 @@
   window.__dihPwaScript = true;
   var script = document.createElement('script');
   script.src = '/assets/pwa.js?v=20261202';
+  script.defer = true;
+  document.head.appendChild(script);
+})();
+
+/* "Did you know" card: one rotating note per visit, wrapped around a normal
+   in-page ad unit. In flow, never an overlay — see assets/signal.js. */
+(function () {
+  if (window.__dihSignalLoaded) return;
+  window.__dihSignalLoaded = true;
+  var script = document.createElement('script');
+  script.src = '/assets/signal.js?v=20261203';
   script.defer = true;
   document.head.appendChild(script);
 })();

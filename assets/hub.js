@@ -349,7 +349,7 @@
     if (!document.querySelector('link[href^="/assets/hub.css"]')) {
       var link = document.createElement('link');
       link.rel = 'stylesheet';
-      link.href = '/assets/hub.css?v=20261202';
+      link.href = '/assets/hub.css?v=20261203';
       document.head.appendChild(link);
     }
 

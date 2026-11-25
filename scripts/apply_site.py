@@ -856,9 +856,14 @@ def process(path: Path) -> bool:
     rel = path.relative_to(ROOT)
     html = path.read_text(encoding="utf-8")
     meta = choose_meta(rel, html)
-    image_id = image_key_for(str(rel))
-    meta["image"] = share_url(image_id)
-    meta["image_alt"] = image_alt(image_id)
+    # One unique social card per page (see scripts/og_images.py), so no two
+    # shared links ever show the same thumbnail.
+    slug = str(rel).replace("\\", "/")
+    if slug.endswith(".html"):
+        slug = slug[:-5]
+    slug = "home" if slug in ("", "index") else slug.strip("/").replace("/", "-").lower()
+    meta["image"] = f"{SITE}/assets/og/{slug}.jpg"
+    meta["image_alt"] = f'{meta.get("title", "Digital Infohub")} — Digital Infohub'
     updated = update_body(update_head(html, rel, meta), rel, meta)
     if updated != html:
         path.write_text(updated, encoding="utf-8")

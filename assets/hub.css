@@ -469,13 +469,15 @@ html[data-theme="light"] .hub-ai-form { background: #fff; }
 .cabpage-strip a { color: var(--dih-text-sub, #b5bccb); text-decoration: none; border-bottom: 1px dotted rgba(255,255,255,.2); }
 .cabpage-strip a:hover { color: var(--dih-accent, #4c8dff); }
 
-/* tighter header on mid-size desktops: the menu becomes the burger before
-   the extra terminal/sound controls squeeze the primary nav */
+/* Mid-size desktops: keep the primary nav visible (it is the site's main
+   navigation) and drop the secondary icon buttons instead, which also live in
+   the drawer. The burger appears at the single shared 920px breakpoint in
+   site.css, so every page collapses at the same width. */
 @media (max-width: 1080px) {
-  .dih-nav { display: none !important; }
-  .dih-burger { display: flex !important; }
-  .dih-actions { margin-left: auto; }
+  .dih-term,
+  .dih-sound { display: none !important; }
   .dih-cta { display: none; }
+  .dih-actions { margin-left: 0; }
 }
 
 /* banner and hero on phones: stronger overlay, calmer headline */

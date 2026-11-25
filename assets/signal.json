@@ -1,0 +1,54 @@
+{
+  "ttlMinutes": 60,
+  "items": [
+    {
+      "eyebrow": "Did you know",
+      "title": "Five music tools run in this tab",
+      "body": "Draw a spectrogram and export a WAV, write a piano roll and export real MIDI, or program a beat on the drum machine — no plugins, no account.",
+      "href": "/software#studio",
+      "cta": "Open the Creative Studio"
+    },
+    {
+      "eyebrow": "Did you know",
+      "title": "There is a terminal mode",
+      "body": "Press the terminal icon in the header — or visit /terminal — and browse the whole site like a shell. Type \"help\" to see every command.",
+      "href": "/terminal",
+      "cta": "Try terminal mode"
+    },
+    {
+      "eyebrow": "Did you know",
+      "title": "Every tool works offline",
+      "body": "The calculators, converters, editors and games run entirely in your browser. Nothing is uploaded, and most pages keep working with the network off.",
+      "href": "/software",
+      "cta": "Browse 50+ tools"
+    },
+    {
+      "eyebrow": "Did you know",
+      "title": "Twelve games, zero installs",
+      "body": "Snake, 2048, Pong, Block Defender, Neon Horizon and more — each one saves your best score in this browser only.",
+      "href": "/games",
+      "cta": "Enter the arcade"
+    },
+    {
+      "eyebrow": "Did you know",
+      "title": "Markets in one screen",
+      "body": "Coin Compass tracks crypto and market moves with plain-language context, so a red day is easier to read.",
+      "href": "/coincompass",
+      "cta": "Open Coin Compass"
+    },
+    {
+      "eyebrow": "Did you know",
+      "title": "Measure your typing speed",
+      "body": "The typing test scores words per minute and accuracy on real paragraphs, then shows which keys slow you down.",
+      "href": "/software/typing-test",
+      "cta": "Take the test"
+    },
+    {
+      "eyebrow": "Fresh this week",
+      "title": "New: LayerShop, a Photoshop-style editor",
+      "body": "Layers, blend modes, brushes, shapes, adjustments and PNG export — in a browser tab, with no upload and no account.",
+      "href": "/software/layershop",
+      "cta": "Open LayerShop"
+    }
+  ]
+}
