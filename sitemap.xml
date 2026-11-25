@@ -866,4 +866,19 @@
   </url>
   <url><loc>https://digitalinfohub.net/app</loc><lastmod>2026-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://digitalinfohub.net/extension</loc><lastmod>2026-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://digitalinfohub.net/software/spectrogram-studio</loc><lastmod>2026-11-25</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://digitalinfohub.net/software/midi-sequencer</loc><lastmod>2026-11-25</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://digitalinfohub.net/software/drum-machine</loc><lastmod>2026-11-25</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://digitalinfohub.net/software/synth-lab</loc><lastmod>2026-11-25</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://digitalinfohub.net/software/chord-finder</loc><lastmod>2026-11-25</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://digitalinfohub.net/software/layershop</loc><lastmod>2026-11-25</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://digitalinfohub.net/software/animate-studio</loc><lastmod>2026-11-25</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://digitalinfohub.net/software/pixel-studio</loc><lastmod>2026-11-25</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://digitalinfohub.net/software/gradient-studio</loc><lastmod>2026-11-25</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://digitalinfohub.net/software/icon-forge</loc><lastmod>2026-11-25</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://digitalinfohub.net/software/image-compressor</loc><lastmod>2026-11-25</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://digitalinfohub.net/software/screen-recorder</loc><lastmod>2026-11-25</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://digitalinfohub.net/software/text-to-speech</loc><lastmod>2026-11-25</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://digitalinfohub.net/software/word-counter</loc><lastmod>2026-11-25</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://digitalinfohub.net/software/typing-test</loc><lastmod>2026-11-25</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
 </urlset>

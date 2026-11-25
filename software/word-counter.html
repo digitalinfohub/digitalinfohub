@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-dih="">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Word Counter — Characters, Reading Time &amp; Keyword Density | Digital Infohub</title>
+<meta name="description" content="Paste an article and get live word and character counts, reading and speaking time, keyword density, sentence length and a Flesch readability score. Private, instant, no signup.">
+<link rel="stylesheet" href="/assets/studio.css">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471" crossorigin="anonymous"></script>
+<style>
+.wc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:8px;margin-bottom:14px}
+.stat{padding:11px 12px;border:1px solid var(--dih-border);border-radius:11px;background:var(--dih-surface-2)}
+.stat b{display:block;font-family:var(--dih-mono);font-size:19px;font-weight:650;letter-spacing:-.02em}
+.stat span{display:block;margin-top:2px;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--dih-text-muted)}
+#text{min-height:280px;font-size:14px;line-height:1.75}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.kw{display:grid;gap:5px}
+.kwrow{display:flex;align-items:center;gap:8px;font-size:11.5px}
+.kwrow span:first-child{width:96px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--dih-text-sub)}
+.kwrow .track{flex:1;height:6px;border-radius:99px;background:var(--dih-surface-3);overflow:hidden}
+.kwrow .track i{display:block;height:100%;background:linear-gradient(90deg,var(--dih-accent),var(--dih-accent-2))}
+.kwrow em{font-style:normal;font-family:var(--dih-mono);font-size:10px;color:var(--dih-text-muted);width:44px;text-align:right}
+@media(max-width:720px){.cols{grid-template-columns:1fr}}
+</style>
+<!-- DIH:HEAD -->
+<script>try{var t=localStorage.getItem('dih_theme')||'dark';document.documentElement.setAttribute('data-theme',t);document.documentElement.setAttribute('data-dih','');}catch(e){document.documentElement.setAttribute('data-dih','');}</script>
+<meta name="theme-color" content="#07070c">
+<meta name="color-scheme" content="dark light">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="author" content="Digital Infohub">
+<meta name="keywords" content="word counter, character counter, keyword density, reading time calculator, flesch reading ease, word count tool, readability checker">
+<link rel="canonical" href="https://digitalinfohub.net/software/word-counter">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Digital Infohub">
+<meta property="og:title" content="Word Counter — Characters, Reading Time &amp; Keyword Density | Digital Infohub">
+<meta property="og:description" content="Paste an article and get live word and character counts, reading and speaking time, keyword density, sentence length and a Flesch readability score. Private, instant, no signup.">
+<meta property="og:url" content="https://digitalinfohub.net/software/word-counter">
+<meta property="og:image" content="https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta property="og:image:secure_url" content="https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Glowing blue network lines and nodes forming a mesh">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Word Counter — Characters, Reading Time &amp; Keyword Density | Digital Infohub">
+<meta name="twitter:description" content="Paste an article and get live word and character counts, reading and speaking time, keyword density, sentence length and a Flesch readability score. Private, instant, no signup.">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta name="twitter:image:alt" content="Glowing blue network lines and nodes forming a mesh">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="icon" href="/assets/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://digitalinfohub.net/#organization","name":"Digital Infohub","url":"https://digitalinfohub.net/","logo":{"@type":"ImageObject","url":"https://digitalinfohub.net/assets/icon-512.png","width":512,"height":512},"description":"Independent technology publication for everyone: clear guides, free browser tools and live market context.","sameAs":[]},{"@type":"WebSite","@id":"https://digitalinfohub.net/#website","url":"https://digitalinfohub.net/","name":"Digital Infohub","publisher":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://digitalinfohub.net/blog?q={search_term_string}"},"query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://digitalinfohub.net/software/word-counter#webpage","url":"https://digitalinfohub.net/software/word-counter","name":"Word Counter — Characters, Reading Time & Keyword Density | Digital Infohub","description":"Paste an article and get live word and character counts, reading and speaking time, keyword density, sentence length and a Flesch readability score. Private, instant, no signup.","isPartOf":{"@id":"https://digitalinfohub.net/#website"},"about":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","primaryImageOfPage":{"@type":"ImageObject","url":"https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&h=630&fit=crop&auto=format&q=80&fm=jpg","width":1200,"height":630}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://digitalinfohub.net/"},{"@type":"ListItem","position":2,"name":"Software","item":"https://digitalinfohub.net/software"},{"@type":"ListItem","position":3,"name":"Word Counter — Characters, Reading Time & Keyword Density","item":"https://digitalinfohub.net/software/word-counter"}]}]}</script>
+<!-- /DIH:HEAD -->
+</head>
+<body>
+<!-- DIH:AMBIENT -->
+<div class="dih-ambient" aria-hidden="true" style="--dih-ambient:url('https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&amp;h=675&amp;fit=crop&amp;auto=format&amp;q=40')"></div>
+<!-- /DIH:AMBIENT -->
+<!-- DIH:HEADER -->
+<header class="dih-header">
+  <div class="dih-header-inner">
+    <a class="dih-brand" href="/" aria-label="Digital Infohub home">
+      <img src="/assets/logo.png" alt="Digital Infohub logo" width="36" height="36">
+      <span class="dih-brand-text">Digital <b>Infohub</b></span>
+    </a>
+    <nav class="dih-nav" data-dih-nav aria-label="Primary navigation">
+      <a class="dih-link" href="/">Home</a>
+      <a class="dih-link" href="/blog">Blog</a>
+      <a class="dih-link" href="/techtopics">Tech Topics</a>
+      <a class="dih-link" href="/software">Software</a>
+      <a class="dih-link" href="/games">Games</a>
+      <a class="dih-link" href="/coincompass">Markets</a>
+      <a class="dih-link" href="/app">More</a>
+    </nav>
+    <div class="dih-actions">
+      <a class="dih-icon dih-tools" href="/software#tools" title="Free browser tools" aria-label="Free browser tools">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 5 14h5l-1 8 8-12h-5l1-8Z"/></svg>
+      </a>
+      <a class="dih-icon dih-term" href="/terminal" title="Terminal mode — browse like a shell" aria-label="Open terminal mode">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="m7 9 3 3-3 3"/><path d="M13 15h4"/></svg>
+      </a>
+      <button class="dih-icon dih-sound" type="button" data-dih-sound aria-label="Sound on — tap to mute" aria-pressed="true" title="Sound on — tap to mute (Shift+S)">
+        <svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4Z"/><path d="M16.5 8.5a5 5 0 0 1 0 7"/><path d="M19 6a8.5 8.5 0 0 1 0 12"/></svg>
+        <svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4Z"/><path d="m16 9 5 6"/><path d="m21 9-5 6"/></svg>
+      </button>
+      <button class="dih-icon dih-share" type="button" data-dih-share aria-label="Share this page" title="Share this page">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M12 3v13"/><path d="m7 8 5-5 5 5"/></svg>
+      </button>
+      <button class="dih-icon dih-theme" type="button" data-dih-theme aria-label="Switch theme" title="Switch theme">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a6.6 6.6 0 0 0 9.8 9.8Z"/></svg>
+      </button>
+      <a class="dih-cta" href="/subscribe">Subscribe</a>
+      <button class="dih-burger" id="dihBurger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="dihDrawer"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+<div class="dih-drawer" id="dihDrawer" aria-label="Site menu">
+  <div class="dih-drawer-panel">
+    <div class="dih-drawer-grid">
+      <a class="dih-drawer-link" href="/">Home</a>
+      <a class="dih-drawer-link" href="/blog">Blog</a>
+      <a class="dih-drawer-link" href="/techtopics">Tech Topics</a>
+      <a class="dih-drawer-link" href="/software">Software</a>
+      <a class="dih-drawer-link" href="/games">Games</a>
+      <a class="dih-drawer-link" href="/coincompass">Markets</a>
+      <a class="dih-drawer-link" href="/app">More</a>
+    </div>
+    <div class="dih-drawer-sub">
+      <a class="dih-drawer-link" href="/news">📰 Tech News</a>
+      <a class="dih-drawer-link" href="/quiz">🎯 Tech Quiz</a>
+      <a class="dih-drawer-link" href="/software#tools">⚡ Tools</a>
+      <a class="dih-drawer-link" href="/services">🧰 Services</a>
+      <a class="dih-drawer-link" href="/terminal">⌨️ Terminal mode</a>
+      <a class="dih-drawer-link" href="/terminal#interest">📊 Most opened pages</a>
+      <a class="dih-drawer-link" href="/contact">✉️ Contact</a>
+    </div>
+    <a class="dih-drawer-cta" href="/subscribe">✉️ Subscribe — weekly tech intel</a>
+    <p class="dih-drawer-note">Digital Infohub · Tech for everyone, with a guide for every question.</p>
+  </div>
+</div>
+<!-- /DIH:HEADER -->
+<main class="st">
+  <header class="st-head">
+    <span class="st-eyebrow"><i></i> Writing desk</span>
+    <h1>Word <span>Counter</span></h1>
+    <p>Everything an editor checks before publishing: length, reading time, sentence rhythm, keyword density and a readability score. Type or paste — the numbers update as you go and nothing is sent anywhere.</p>
+    <div class="st-badges">
+      <span class="st-badge hot">New</span>
+      <span class="st-badge">Live</span>
+      <span class="st-badge">Keyword density</span>
+      <span class="st-badge">Flesch score</span>
+    </div>
+  </header>
+
+  <section class="st-panel">
+    <div class="wc-grid" id="stats"></div>
+    <textarea class="st-textarea" id="text" placeholder="Paste your draft here…" aria-label="Text to analyse"></textarea>
+    <div class="st-bar" style="margin-top:10px">
+      <button class="st-btn" id="paste" type="button">Paste from clipboard</button>
+      <button class="st-btn" id="copy" type="button">Copy text</button>
+      <button class="st-btn danger" id="clear" type="button">Clear</button>
+      <span class="st-spacer"></span>
+      <span class="st-status" id="status">0 words</span>
+    </div>
+
+    <div class="cols">
+      <div class="st-panel" style="padding:14px">
+        <div class="st-panel-head" style="margin-bottom:8px"><h3>Top keywords</h3><span class="st-status">excluding stop words</span></div>
+        <div class="kw" id="keywords"><span class="st-status">Add some text to see keywords.</span></div>
+      </div>
+      <div class="st-panel" style="padding:14px">
+        <div class="st-panel-head" style="margin-bottom:8px"><h3>Readability</h3></div>
+        <div class="stat" style="margin-bottom:8px"><b id="flesch">—</b><span>Flesch reading ease</span></div>
+        <p class="st-note" id="fleschNote" style="margin-top:0">60–70 is plain English. Below 30 is academic; above 80 is very easy.</p>
+        <div class="stat" style="margin-top:8px"><b id="avgSentence">—</b><span>Average words per sentence</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="st-panel">
+    <div class="st-panel-head"><div><h2>Length targets that actually work</h2><p>Useful defaults, not rules.</p></div></div>
+    <div class="st-grid three">
+      <div class="st-tip"><strong>Meta description</strong><span>150–160 characters. Longer gets cut in search results; much shorter wastes the space.</span></div>
+      <div class="st-tip"><strong>Blog post</strong><span>900–1,400 words covers most topics without padding. If it fits in 600, publish 600.</span></div>
+      <div class="st-tip"><strong>Sentence length</strong><span>Average 14–20 words. Mix a short sentence in after a long one — that rhythm is what makes writing readable.</span></div>
+    </div>
+  </section>
+
+  <div class="st-cross">
+    <strong>Keep writing</strong>
+    <div class="st-chips">
+      <a class="st-chip" href="/software/seo-preview">SEO &amp; Social Preview</a>
+      <a class="st-chip" href="/software/markdown">Markdown editor</a>
+      <a class="st-chip" href="/software/marketing-assistant">Marketing Assistant</a>
+      <a class="st-chip" href="/software">All software</a>
+    </div>
+  </div>
+
+    <div class="hub-ad" role="complementary" aria-label="Advertisement" style="margin:26px auto;max-width:970px;text-align:center">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5443646750699471" data-ad-slot="8451723433" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+</main>
+
+<script>
+(function () {
+  'use strict';
+  var text = document.getElementById('text');
+  var statsHost = document.getElementById('stats');
+  var STOP = 'the a an and or but if then than that this these those to of in on at for with from by as is are was were be been being it its it\'s i you he she we they them his her their our your my me us do does did have has had not no so very just can could would should will shall may might must about into over after before between out up down more most some any all each other such only own same too also there here what which who whom whose when where why how'.split(' ');
+  var stopSet = new Set(STOP);
+
+  function countParagraphs(t) {
+    return t.split(/\n\s*\n/).filter(function (p) { return p.trim().length > 0; }).length || (t.trim() ? 1 : 0);
+  }
+
+  function syllables(word) {
+    word = word.toLowerCase().replace(/[^a-z]/g, '');
+    if (word.length <= 3) return word ? 1 : 0;
+    word = word.replace(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/, '').replace(/^y/, '');
+    var m = word.match(/[aeiouy]{1,2}/g);
+    return m ? m.length : 1;
+  }
+
+  function analyse() {
+    var raw = text.value;
+    var words = raw.trim() ? raw.trim().split(/\s+/) : [];
+    var sentences = raw.split(/[.!?]+/).filter(function (s) { return s.trim().length > 2; });
+    var chars = raw.length;
+    var charsNoSpace = raw.replace(/\s/g, '').length;
+    var paragraphs = countParagraphs(raw);
+    var readMin = Math.max(0, words.length / 225);
+    var speakMin = Math.max(0, words.length / 145);
+    var readText = readMin < 1 ? Math.max(1, Math.round(readMin * 60)) + 's' : Math.ceil(readMin) + 'm';
+    var speakText = speakMin < 1 ? Math.max(1, Math.round(speakMin * 60)) + 's' : Math.ceil(speakMin) + 'm';
+
+    var stats = [
+      ['Words', words.length.toLocaleString()],
+      ['Characters', chars.toLocaleString()],
+      ['No spaces', charsNoSpace.toLocaleString()],
+      ['Sentences', sentences.length.toLocaleString()],
+      ['Paragraphs', paragraphs.toLocaleString()],
+      ['Reading', readText],
+      ['Speaking', speakText]
+    ];
+    statsHost.innerHTML = stats.map(function (s) {
+      return '<div class="stat"><b>' + s[1] + '</b><span>' + s[0] + '</span></div>';
+    }).join('');
+
+    document.getElementById('status').textContent = words.length + ' words · ' + chars + ' characters';
+
+    /* KEYWORD DENSITY */
+    var freq = {};
+    words.forEach(function (w) {
+      var clean = w.toLowerCase().replace(/[^a-z0-9'-]/g, '');
+      if (!clean || clean.length < 3 || stopSet.has(clean)) return;
+      freq[clean] = (freq[clean] || 0) + 1;
+    });
+    var ranked = Object.keys(freq).map(function (k) { return [k, freq[k]]; })
+      .sort(function (a, b) { return b[1] - a[1]; }).slice(0, 10);
+    var kwHost = document.getElementById('keywords');
+    if (!ranked.length) {
+      kwHost.innerHTML = '<span class="st-status">Add some text to see keywords.</span>';
+    } else {
+      var max = ranked[0][1];
+      kwHost.innerHTML = ranked.map(function (row) {
+        var pct = words.length ? (row[1] / words.length * 100) : 0;
+        return '<div class="kwrow"><span>' + row[0] + '</span><span class="track"><i style="width:' +
+          Math.round(row[1] / max * 100) + '%"></i></span><em>' + pct.toFixed(1) + '%</em></div>';
+      }).join('');
+    }
+
+    /* READABILITY */
+    var syl = words.reduce(function (s, w) { return s + syllables(w); }, 0);
+    var avgSentence = sentences.length ? words.length / sentences.length : 0;
+    var flesch = sentences.length && words.length
+      ? 206.835 - 1.015 * avgSentence - 84.6 * (syl / words.length)
+      : 0;
+    flesch = Math.max(0, Math.min(100, flesch));
+    document.getElementById('flesch').textContent = words.length ? Math.round(flesch) : '—';
+    document.getElementById('avgSentence').textContent = words.length ? avgSentence.toFixed(1) : '—';
+    var note = document.getElementById('fleschNote');
+    if (!words.length) note.textContent = '60–70 is plain English. Below 30 is academic; above 80 is very easy.';
+    else if (flesch >= 80) note.textContent = 'Very easy — good for broad audiences, check it is not too simple for the topic.';
+    else if (flesch >= 60) note.textContent = 'Plain English. This is the sweet spot for most web writing.';
+    else if (flesch >= 40) note.textContent = 'Fairly difficult. Shorten sentences or swap long words for shorter ones.';
+    else note.textContent = 'Difficult or academic. Fine for specialists, hard work for everyone else.';
+  }
+
+  text.addEventListener('input', analyse);
+  document.getElementById('clear').addEventListener('click', function () { text.value = ''; analyse(); });
+  document.getElementById('copy').addEventListener('click', function () {
+    if (!navigator.clipboard) return;
+    navigator.clipboard.writeText(text.value).then(function () {
+      document.getElementById('status').textContent = 'Text copied.';
+    });
+  });
+  document.getElementById('paste').addEventListener('click', function () {
+    if (!navigator.clipboard || !navigator.clipboard.readText) {
+      document.getElementById('status').textContent = 'Clipboard read is blocked here — use Ctrl/⌘+V.';
+      return;
+    }
+    navigator.clipboard.readText().then(function (t) { text.value = t; analyse(); }, function () {
+      document.getElementById('status').textContent = 'Clipboard permission denied — use Ctrl/⌘+V.';
+    });
+  });
+
+  analyse();
+})();
+</script>
+<!-- DIH:GALLERY -->
+<section class="dih-gallery" aria-labelledby="dihGalleryTitle">
+  <div class="dih-gallery-head">
+    <div>
+      <span class="dih-gallery-eyebrow">Visual briefing</span>
+      <h2 id="dihGalleryTitle">Technology, in focus</h2>
+      <p>Fast context on the ideas shaping the industry, with a guide for every one.</p>
+    </div>
+    <a class="dih-gallery-all" href="/techtopics">All 35 tech guides <span aria-hidden="true">&rarr;</span></a>
+  </div>
+  <div class="dih-gallery-grid">
+      <a class="dih-gallery-card" href="/software/ascii-art">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=640&amp;h=400&amp;fit=crop&amp;auto=format&amp;q=70" alt="Vintage games console and joystick" width="640" height="400" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">ASCII art</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Pictures made of characters</strong>
+          <span>ASCII art is a reminder that constraints breed style. Type a photo into text and see for yourself.</span>
+          <em>Open the ASCII converter &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/software/buildengine">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1762146828422-50a8bd416d3c?w=640&amp;h=400&amp;fit=crop&amp;auto=format&amp;q=70" alt="Architectural blueprints spread out on a surface" width="640" height="400" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Blueprints</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Plan before you build</strong>
+          <span>A clear plan saves more time than fast typing. Sketch the structure, then write the code.</span>
+          <em>Open BuildEngine &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/software/business-card">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1718670013921-2f144aba173a?w=640&amp;h=400&amp;fit=crop&amp;auto=format&amp;q=70" alt="Pair of business cards on a marble counter" width="640" height="400" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Business cards</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>A first impression you can hold</strong>
+          <span>A clean card carries a name, what you do and one way to reach you. Everything else is decoration.</span>
+          <em>Open the card maker &rarr;</em>
+        </span>
+      </a>
+  </div>
+  <p class="dih-gallery-credit">Photography by Unsplash contributors. Cards link to related Digital Infohub guides.</p>
+</section>
+<!-- /DIH:GALLERY -->
+<!-- DIH:EXPLORE -->
+<section class="dih-explore" aria-labelledby="dihExploreTitle">
+  <div class="dih-explore-head">
+    <h2 id="dihExploreTitle">More from the software suite</h2>
+    <p>Every tool in the suite is free and runs in your browser.</p>
+  </div>
+  <div class="dih-explore-grid">
+      <a class="dih-explore-card" href="/software">
+        <span class="dih-explore-icon" aria-hidden="true">🛠️</span>
+        <strong>Software &amp; tools</strong>
+        <span>Free AI assistants and browser utilities that run locally.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/blog">
+        <span class="dih-explore-icon" aria-hidden="true">📝</span>
+        <strong>Blog &amp; analysis</strong>
+        <span>Deep dives on AI, hardware, markets and digital culture.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/techtopics">
+        <span class="dih-explore-icon" aria-hidden="true">🔬</span>
+        <strong>Tech Topics</strong>
+        <span>Clear guides to the technology shaping business.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/games">
+        <span class="dih-explore-icon" aria-hidden="true">🎮</span>
+        <strong>Pixel Palace</strong>
+        <span>Free arcade games, playable on desktop and mobile.</span>
+        <em>Explore →</em>
+      </a>
+  </div>
+</section>
+<!-- /DIH:EXPLORE -->
+<!-- DIH:FOOTER -->
+<footer class="dih-footer">
+  <div class="dih-footer-inner">
+    <div class="dih-footer-brand">
+      <a class="dih-brand" href="/" aria-label="Digital Infohub home">
+        <img src="/assets/logo.png" alt="Digital Infohub logo" width="40" height="40">
+        <span class="dih-brand-text">Digital <b>Infohub</b></span>
+      </a>
+      <p>The independent tech hub for everyone: AI research, market moves, practical guides, free tools and Digi, your AI guide.</p>
+      <span class="dih-pill"><span class="dih-dot"></span> Updated daily</span>
+    </div>
+    <div class="dih-footer-col">
+      <h3>Explore</h3>
+      <a href="/blog">Blog &amp; analysis</a>
+      <a href="/techtopics">Tech Topics</a>
+      <a href="/software">Software &amp; tools</a>
+      <a href="/terminal">Terminal mode</a>
+      <a href="/techproducts">Tech Products</a>
+      <a href="/games">Pixel Palace</a>
+      <a href="/digi">Digi AI guide</a>
+      <a href="/news">Live tech news</a>
+      <a href="/quiz">Tech quiz</a>
+    </div>
+    <div class="dih-footer-col">
+      <h3>Company</h3>
+      <a href="/about">About</a>
+      <a href="/services">Services</a>
+      <a href="/advertise">Advertise</a>
+      <a href="/coincompass">CoinCompass</a>
+      <a href="/privacy-policy">Privacy</a>
+    </div>
+    <div class="dih-footer-col dih-footer-cta">
+      <h3>Stay ahead</h3>
+      <p>One email a week: the AI, market and software stories that actually matter.</p>
+      <a class="dih-btn dih-btn-primary" href="/subscribe">Subscribe free</a>
+    </div>
+  </div>
+  <div class="dih-footer-bottom">
+    <span>© 2026 Digital Infohub · Independent technology publication</span>
+    <nav aria-label="Footer links">
+      <a href="/blog">Blog</a>
+      <a href="/techtopics">Guides</a>
+      <a href="/software">Tools</a>
+      <a href="/contact">Contact</a>
+      <a href="/terminal">Terminal</a>
+      <a href="/sitemap.xml">Sitemap</a>
+    </nav>
+  </div>
+</footer>
+<!-- /DIH:FOOTER -->
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

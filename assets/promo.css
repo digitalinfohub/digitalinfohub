@@ -1,0 +1,139 @@
+/* Digital Infohub — cross-promotion bands.
+   Used on the homepage and the arcade to market the Creative Studio and the
+   games from anywhere on the site. Self-contained colours so it looks the same
+   on pages with a different local palette. */
+
+.promo-band {
+  margin: 44px 0;
+  padding: 26px;
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, .1);
+  background:
+    radial-gradient(120% 140% at 0% 0%, rgba(76, 141, 255, .2), transparent 55%),
+    radial-gradient(120% 140% at 100% 0%, rgba(139, 92, 246, .22), transparent 55%),
+    #0a0a12;
+  color: #f4f6fb;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.promo-band::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, .06) 1px, transparent 1px);
+  background-size: 22px 22px;
+  opacity: .5;
+  pointer-events: none;
+  z-index: -1;
+}
+.promo-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: #8fc0ff;
+}
+.promo-eyebrow i {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #34d399;
+  box-shadow: 0 0 10px #34d399;
+}
+.promo-head { max-width: 720px; margin-bottom: 20px; }
+.promo-head h2 {
+  margin: 10px 0 8px;
+  font-size: clamp(22px, 3.2vw, 30px);
+  font-weight: 800;
+  letter-spacing: -.035em;
+  line-height: 1.12;
+  color: #fff;
+}
+.promo-head h2 span {
+  background: linear-gradient(100deg, #5b9dff, #a78bfa);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.promo-head p { margin: 0; font-size: 13.5px; line-height: 1.7; color: #a8aebe; }
+
+.promo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+}
+.promo-card {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 15px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, .1);
+  background: rgba(255, 255, 255, .04);
+  color: #f4f6fb;
+  text-decoration: none;
+  transition: transform .22s cubic-bezier(.16, 1, .3, 1), border-color .22s, background .22s;
+}
+.promo-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(139, 92, 246, .5);
+  background: rgba(255, 255, 255, .07);
+}
+.promo-card .pi { font-size: 19px; line-height: 1; }
+.promo-card b { font-size: 13px; font-weight: 700; letter-spacing: -.01em; }
+.promo-card span:not(.pi) { font-size: 11.5px; line-height: 1.55; color: #9aa1b2; }
+.promo-card em {
+  margin-top: 6px;
+  font-style: normal;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 9px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #8fc0ff;
+}
+.promo-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+.promo-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, .14);
+  background: rgba(255, 255, 255, .05);
+  color: #f4f6fb;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: .2s;
+}
+.promo-cta:hover { border-color: #5b9dff; background: rgba(91, 157, 255, .16); }
+.promo-cta.primary {
+  border-color: transparent;
+  background: linear-gradient(125deg, #5b9dff, #a78bfa);
+  color: #fff;
+  box-shadow: 0 8px 22px rgba(91, 157, 255, .28);
+}
+.promo-cta.primary:hover { filter: brightness(1.08); }
+
+.promo-band.arcade {
+  background:
+    radial-gradient(120% 140% at 0% 0%, rgba(34, 211, 238, .18), transparent 55%),
+    radial-gradient(120% 140% at 100% 0%, rgba(251, 113, 133, .2), transparent 55%),
+    #0a0a12;
+}
+.promo-band.arcade .promo-eyebrow { color: #7ff3e0; }
+.promo-band.arcade .promo-card:hover { border-color: rgba(34, 211, 238, .5); }
+.promo-band.arcade .promo-card em { color: #7ff3e0; }
+
+@media (max-width: 620px) {
+  .promo-band { padding: 18px; border-radius: 18px; margin: 34px 0; }
+  .promo-grid { grid-template-columns: 1fr; }
+}

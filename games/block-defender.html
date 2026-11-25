@@ -550,7 +550,7 @@
     }
   </style>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471" crossorigin="anonymous"></script>
-<style id="dih-ad-style">.dih-ad{box-sizing:border-box;width:100%;max-width:520px;margin:18px auto 0;padding:8px 10px 10px;border-radius:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);overflow:hidden;text-align:left;color:inherit}.dih-ad small{display:block;font:600 9px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.18em;text-transform:uppercase;opacity:.55;margin-bottom:4px}.dih-ad-light{background:rgba(74,44,30,.05);border-color:rgba(74,44,30,.18);color:#4a2c1e}
+<style id="dih-ad-style">.dih-ad{box-sizing:border-box;width:100%;max-width:520px;margin:18px auto 0;padding:8px 10px 10px;border-radius:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);overflow:hidden;text-align:left;color:inherit}.dih-ad small{display:block;font:600 9px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.18em;text-transform:uppercase;opacity:.55;margin-bottom:4px}.dih-ad-light{background:rgba(74,44,30,.05);border-color:rgba(74,44,30,.18);color:#4a2c1e}.dih-end-ad{margin:12px auto 14px;max-width:520px}.dih-end-ad:empty{display:none}
 @media (max-height:900px){#mainOverlay{justify-content:flex-start;overflow-y:auto}}</style>
 </head>
 <body>
@@ -615,7 +615,8 @@
           </div>
 
           <button class="primary-btn" id="startBtn">INITIALIZE SYSTEM</button>
-<div class="dih-ad" role="complementary" aria-label="Advertisement" style="margin-bottom:14px"><small>Advertisement</small><ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-5443646750699471" data-ad-slot="8451723433"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div>
+<div class="dih-ad" id="dihStartAd" role="complementary" aria-label="Advertisement" style="margin-bottom:14px"><small>Advertisement</small><ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-5443646750699471" data-ad-slot="8451723433"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div>
+<div class="dih-end-ad" id="dihEndAd"></div>
         </div>
       </div>
 
@@ -2072,7 +2073,7 @@
           </div>
         `;
         startBtn.textContent = 'REBOOT SYSTEM';
-        mainOverlay.classList.remove('hidden');
+        mainOverlay.classList.remove('hidden'); dihEndScreen('dihEndAd');
       }
 
       function triggerVictory() {
@@ -2089,7 +2090,7 @@
           </div>
         `;
         startBtn.textContent = 'PLAY AGAIN';
-        mainOverlay.classList.remove('hidden');
+        mainOverlay.classList.remove('hidden'); dihEndScreen('dihEndAd');
       }
 
       /* =========================================================================
@@ -2232,5 +2233,21 @@
       };
     })();
   </script>
+<script>
+window.dihEndScreen = function (boxId) {
+  var start = document.getElementById('dihStartAd');
+  if (start) start.style.display = 'none';
+  var box = document.getElementById(boxId || 'dihEndAd');
+  if (!box || box.dataset.mounted) return;
+  box.dataset.mounted = '1';
+  var ad = document.createElement('div');
+  ad.className = 'dih-ad';
+  ad.setAttribute('role', 'complementary');
+  ad.setAttribute('aria-label', 'Advertisement');
+  ad.innerHTML = '<small>Advertisement</small><ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-5443646750699471" data-ad-slot="8451723433"></ins>';
+  box.appendChild(ad);
+  try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
+};
+</script>
 </body>
 </html>

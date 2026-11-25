@@ -413,8 +413,8 @@
     }
   </style>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471" crossorigin="anonymous"></script>
-<style id="dih-ad-style">.dih-ad{box-sizing:border-box;width:100%;max-width:520px;margin:18px auto 0;padding:8px 10px 10px;border-radius:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);overflow:hidden;text-align:left;color:inherit}.dih-ad small{display:block;font:600 9px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.18em;text-transform:uppercase;opacity:.55;margin-bottom:4px}.dih-ad-light{background:rgba(74,44,30,.05);border-color:rgba(74,44,30,.18);color:#4a2c1e}
-#start-overlay .modal-card{max-height:calc(100dvh - 2rem);overflow-y:auto}</style>
+<style id="dih-ad-style">.dih-ad{box-sizing:border-box;width:100%;max-width:520px;margin:18px auto 0;padding:8px 10px 10px;border-radius:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);overflow:hidden;text-align:left;color:inherit}.dih-ad small{display:block;font:600 9px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.18em;text-transform:uppercase;opacity:.55;margin-bottom:4px}.dih-ad-light{background:rgba(74,44,30,.05);border-color:rgba(74,44,30,.18);color:#4a2c1e}.dih-end-ad{margin:12px auto 14px;max-width:520px}.dih-end-ad:empty{display:none}
+#start-overlay .modal-card,#result-overlay .modal-card,#victory-overlay .modal-card{max-height:calc(100dvh - 2rem);overflow-y:auto}</style>
 </head>
 <body>
 
@@ -499,7 +499,7 @@
           </div>
         </div>
         <button class="btn-primary" id="btn-start-game">Start Brewing</button>
-<div class="dih-ad dih-ad-light" role="complementary" aria-label="Advertisement" style="margin-bottom:14px"><small>Advertisement</small><ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-5443646750699471" data-ad-slot="8451723433"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div>
+<div class="dih-ad dih-ad-light" id="dihStartAd" role="complementary" aria-label="Advertisement" style="margin-bottom:14px"><small>Advertisement</small><ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-5443646750699471" data-ad-slot="8451723433"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div>
       </div>
     </div>
 
@@ -527,7 +527,8 @@
           </div>
         </div>
 
-        <button class="btn-primary mint" id="btn-result-action">Next Cup →</button>
+        <div class="dih-end-ad" id="dihEndAd"></div>
+<button class="btn-primary mint" id="btn-result-action">Next Cup →</button>
       </div>
     </div>
 
@@ -557,7 +558,8 @@
           </div>
         </div>
 
-        <button class="btn-primary" id="btn-play-again">Brew Again</button>
+        <div class="dih-end-ad" id="dihEndAdWin"></div>
+<button class="btn-primary" id="btn-play-again">Brew Again</button>
       </div>
     </div>
   </main>
@@ -1197,7 +1199,7 @@
           };
         }
 
-        resultOverlay.classList.add('visible');
+        resultOverlay.classList.add('visible'); dihEndScreen('dihEndAd');
       }
 
       function showVictoryModal() {
@@ -1215,7 +1217,7 @@
 
         document.getElementById('total-stars-text').textContent = `${totalStars} / 15`;
         document.getElementById('avg-accuracy-text').textContent = `${avgAcc}%`;
-        victoryOverlay.classList.add('visible');
+        victoryOverlay.classList.add('visible'); dihEndScreen('dihEndAdWin');
       }
 
       /* =========================================================================
@@ -1756,5 +1758,21 @@
       });
     })();
   </script>
+<script>
+window.dihEndScreen = function (boxId) {
+  var start = document.getElementById('dihStartAd');
+  if (start) start.style.display = 'none';
+  var box = document.getElementById(boxId || 'dihEndAd');
+  if (!box || box.dataset.mounted) return;
+  box.dataset.mounted = '1';
+  var ad = document.createElement('div');
+  ad.className = 'dih-ad dih-ad-light';
+  ad.setAttribute('role', 'complementary');
+  ad.setAttribute('aria-label', 'Advertisement');
+  ad.innerHTML = '<small>Advertisement</small><ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-5443646750699471" data-ad-slot="8451723433"></ins>';
+  box.appendChild(ad);
+  try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
+};
+</script>
 </body>
 </html>

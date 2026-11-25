@@ -555,6 +555,7 @@ html[data-theme="light"] .ask-form{background:rgba(255,255,255,.96)}
 <link rel="preconnect" href="https://images.unsplash.com">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://digitalinfohub.net/#organization","name":"Digital Infohub","url":"https://digitalinfohub.net/","logo":{"@type":"ImageObject","url":"https://digitalinfohub.net/assets/icon-512.png","width":512,"height":512},"description":"Independent technology publication for everyone: clear guides, free browser tools and live market context.","sameAs":[]},{"@type":"WebSite","@id":"https://digitalinfohub.net/#website","url":"https://digitalinfohub.net/","name":"Digital Infohub","publisher":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://digitalinfohub.net/blog?q={search_term_string}"},"query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://digitalinfohub.net/#webpage","url":"https://digitalinfohub.net/","name":"Digital Infohub — Tech made simple for everyone","description":"Clear guides, 30+ free browser tools, live prices and Digi, the AI guide that answers anything. Tech for everyday life — no signup, no paywall.","isPartOf":{"@id":"https://digitalinfohub.net/#website"},"about":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","primaryImageOfPage":{"@type":"ImageObject","url":"https://images.unsplash.com/photo-1543269866-487350d6fa5e?w=1200&h=630&fit=crop&auto=format&q=80&fm=jpg","width":1200,"height":630}}]}</script>
 <!-- /DIH:HEAD -->
+<link rel="stylesheet" href="/assets/promo.css">
 </head>
 <body data-page="home" data-home="v2">
 <!-- DIH:AMBIENT -->
@@ -684,7 +685,7 @@ html[data-theme="light"] .ask-form{background:rgba(255,255,255,.96)}
         <span id="heroLine1">The digital world,</span><br>
         <span class="grad hub-typed-wrap"><span id="heroLine2" data-typed data-phrases="made easier to understand|explained without the jargon|all in one place|built for every day">made easier to understand</span><span class="hub-caret" aria-hidden="true"></span></span>
       </h1>
-      <p class="hero-sub" id="heroSubText">Digital Infohub is the calm way in: <b>clear guides</b>, working <b>free tools</b>, live markets, news and nine small games. No signup, no paywall.</p>
+      <p class="hero-sub" id="heroSubText">Digital Infohub is the calm way in: <b>clear guides</b>, a <b>Creative Studio</b> of music, photo and animation apps, live markets, news and twelve small games. No signup, no paywall.</p>
 
       <!-- Hub Guide: instant rule-based answers, built by assets/hub.js -->
       <div class="hub-ai" id="homeGuide" aria-label="Hub Guide — instant answers"></div>
@@ -696,9 +697,46 @@ html[data-theme="light"] .ask-form{background:rgba(255,255,255,.96)}
 
       <div class="hero-stats">
         <div class="hero-stat"><b>35</b><span>Tech guides</span></div>
-        <div class="hero-stat"><b>40+</b><span>Free tools</span></div>
+        <div class="hero-stat"><b>55+</b><span>Free tools</span></div>
         <div class="hero-stat"><b>12</b><span>Arcade games</span></div>
         <div class="hero-stat"><b>0</b><span>Paywalls</span></div>
+      </div>
+    </section>
+
+    <!-- Creative Studio + arcade cross-promotion -->
+    <section class="promo-band" id="creativeStudio" aria-labelledby="studioBandTitle">
+      <div class="promo-head">
+        <span class="promo-eyebrow"><i></i> Creative Studio · just launched</span>
+        <h2 id="studioBandTitle">Software that used to need a <span>subscription</span></h2>
+        <p>Fifteen new browser apps: draw music on a spectrogram, sequence MIDI and export a real .mid file, edit photos in layers, animate frame by frame, compress a folder of images and forge a whole favicon set. Free, private, nothing to install.</p>
+      </div>
+      <div class="promo-grid">
+        <a class="promo-card" href="/software/spectrogram-studio"><span class="pi">🌈</span><b>Spectrogram Music Maker</b><span>Paint on the spectrum, hear it back, export a WAV.</span><em>Music →</em></a>
+        <a class="promo-card" href="/software/midi-sequencer"><span class="pi">🎹</span><b>MIDI Sequencer</b><span>A piano roll that exports a real .mid for any DAW.</span><em>Music →</em></a>
+        <a class="promo-card" href="/software/layershop"><span class="pi">🖼️</span><b>LayerShop</b><span>Layers, blend modes and filters — a Photoshop-style editor.</span><em>Photo →</em></a>
+        <a class="promo-card" href="/software/animate-studio"><span class="pi">🎬</span><b>Animate Studio</b><span>Frame timeline, onion skin and WebM export.</span><em>Motion →</em></a>
+      </div>
+      <div class="promo-actions">
+        <a class="promo-cta primary" href="/software#studio">Explore all 15 new apps →</a>
+        <a class="promo-cta" href="/software#tools">Browse every category</a>
+        <a class="promo-cta" href="/software/drum-machine">Drum Machine</a>
+      </div>
+    </section>
+
+    <section class="promo-band arcade" aria-labelledby="arcadeBandTitle">
+      <div class="promo-head">
+        <span class="promo-eyebrow"><i></i> Pixel Palace</span>
+        <h2 id="arcadeBandTitle">Twelve games. <span>Zero downloads.</span></h2>
+        <p>Block Defender, Neon Horizon and Perfect Pour lead a twelve-cabinet arcade that runs on a keyboard, a mouse or a thumb. Two-minute breaks, no accounts, no installs.</p>
+      </div>
+      <div class="promo-grid">
+        <a class="promo-card" href="/games/block-defender"><span class="pi">🧱</span><b>Block Defender</b><span>Five sectors of neon blocks, bugs and upgrades.</span><em>Puzzle →</em></a>
+        <a class="promo-card" href="/games/neon-horizon"><span class="pi">🏎️</span><b>Neon Horizon</b><span>A 3D synthwave highway racer built with Three.js.</span><em>Racing →</em></a>
+        <a class="promo-card" href="/games/perfect-pour"><span class="pi">☕</span><b>Perfect Pour</b><span>Five cups, one green zone, three stars to chase.</span><em>Skill →</em></a>
+      </div>
+      <div class="promo-actions">
+        <a class="promo-cta primary" href="/games">Enter the arcade →</a>
+        <a class="promo-cta" href="/software/typing-test">Test your typing speed</a>
       </div>
     </section>
 

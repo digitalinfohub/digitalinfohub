@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-dih="">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Typing Speed Test — Free WPM &amp; Accuracy Check | Digital Infohub</title>
+<meta name="description" content="Test your typing speed in 15, 30 or 60 seconds. Live highlighting, words-per-minute, accuracy and a per-character error count. Free, no signup, works on any keyboard.">
+<link rel="stylesheet" href="/assets/studio.css">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471" crossorigin="anonymous"></script>
+<style>
+.passage{padding:20px;border:1px solid var(--dih-border);border-radius:12px;background:var(--dih-surface-2);font-family:var(--dih-mono);font-size:15.5px;line-height:2;letter-spacing:.01em;max-height:230px;overflow:auto;word-break:break-word}
+.passage span{white-space:pre-wrap}
+.passage .ok{color:var(--dih-green)}
+.passage .bad{color:var(--dih-red);background:rgba(251,113,133,.16);border-radius:2px}
+.passage .cur{background:var(--dih-accent);color:#04050a;border-radius:2px}
+.passage .todo{color:var(--dih-text-muted)}
+.typein{margin-top:12px;min-height:52px;font-family:var(--dih-mono);font-size:15px}
+.big{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin-bottom:14px}
+.big .stat{padding:12px;border:1px solid var(--dih-border);border-radius:11px;background:var(--dih-surface-2)}
+.big b{display:block;font-family:var(--dih-mono);font-size:22px}
+.big span{font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--dih-text-muted)}
+.results{display:none;margin-top:14px;padding:16px;border:1px solid var(--dih-accent);border-radius:12px;background:var(--dih-accent-soft)}
+.results.show{display:block}
+.results h3{margin:0 0 6px;font-size:16px}
+</style>
+<!-- DIH:HEAD -->
+<script>try{var t=localStorage.getItem('dih_theme')||'dark';document.documentElement.setAttribute('data-theme',t);document.documentElement.setAttribute('data-dih','');}catch(e){document.documentElement.setAttribute('data-dih','');}</script>
+<meta name="theme-color" content="#07070c">
+<meta name="color-scheme" content="dark light">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="author" content="Digital Infohub">
+<meta name="keywords" content="typing test, wpm test, typing speed test, free typing practice, words per minute, accuracy test, keyboard speed">
+<link rel="canonical" href="https://digitalinfohub.net/software/typing-test">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Digital Infohub">
+<meta property="og:title" content="Typing Speed Test — Free WPM &amp; Accuracy Check | Digital Infohub">
+<meta property="og:description" content="Test your typing speed in 15, 30 or 60 seconds. Live highlighting, words-per-minute, accuracy and a per-character error count. Free, no signup, works on any keyboard.">
+<meta property="og:url" content="https://digitalinfohub.net/software/typing-test">
+<meta property="og:image" content="https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta property="og:image:secure_url" content="https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Glowing blue network lines and nodes forming a mesh">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Typing Speed Test — Free WPM &amp; Accuracy Check | Digital Infohub">
+<meta name="twitter:description" content="Test your typing speed in 15, 30 or 60 seconds. Live highlighting, words-per-minute, accuracy and a per-character error count. Free, no signup, works on any keyboard.">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&amp;h=630&amp;fit=crop&amp;auto=format&amp;q=80&amp;fm=jpg">
+<meta name="twitter:image:alt" content="Glowing blue network lines and nodes forming a mesh">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="icon" href="/assets/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://digitalinfohub.net/#organization","name":"Digital Infohub","url":"https://digitalinfohub.net/","logo":{"@type":"ImageObject","url":"https://digitalinfohub.net/assets/icon-512.png","width":512,"height":512},"description":"Independent technology publication for everyone: clear guides, free browser tools and live market context.","sameAs":[]},{"@type":"WebSite","@id":"https://digitalinfohub.net/#website","url":"https://digitalinfohub.net/","name":"Digital Infohub","publisher":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://digitalinfohub.net/blog?q={search_term_string}"},"query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://digitalinfohub.net/software/typing-test#webpage","url":"https://digitalinfohub.net/software/typing-test","name":"Typing Speed Test — Free WPM & Accuracy Check | Digital Infohub","description":"Test your typing speed in 15, 30 or 60 seconds. Live highlighting, words-per-minute, accuracy and a per-character error count. Free, no signup, works on any keyboard.","isPartOf":{"@id":"https://digitalinfohub.net/#website"},"about":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","primaryImageOfPage":{"@type":"ImageObject","url":"https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&h=630&fit=crop&auto=format&q=80&fm=jpg","width":1200,"height":630}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://digitalinfohub.net/"},{"@type":"ListItem","position":2,"name":"Software","item":"https://digitalinfohub.net/software"},{"@type":"ListItem","position":3,"name":"Typing Speed Test — Free WPM & Accuracy Check","item":"https://digitalinfohub.net/software/typing-test"}]}]}</script>
+<!-- /DIH:HEAD -->
+</head>
+<body>
+<!-- DIH:AMBIENT -->
+<div class="dih-ambient" aria-hidden="true" style="--dih-ambient:url('https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&amp;h=675&amp;fit=crop&amp;auto=format&amp;q=40')"></div>
+<!-- /DIH:AMBIENT -->
+<!-- DIH:HEADER -->
+<header class="dih-header">
+  <div class="dih-header-inner">
+    <a class="dih-brand" href="/" aria-label="Digital Infohub home">
+      <img src="/assets/logo.png" alt="Digital Infohub logo" width="36" height="36">
+      <span class="dih-brand-text">Digital <b>Infohub</b></span>
+    </a>
+    <nav class="dih-nav" data-dih-nav aria-label="Primary navigation">
+      <a class="dih-link" href="/">Home</a>
+      <a class="dih-link" href="/blog">Blog</a>
+      <a class="dih-link" href="/techtopics">Tech Topics</a>
+      <a class="dih-link" href="/software">Software</a>
+      <a class="dih-link" href="/games">Games</a>
+      <a class="dih-link" href="/coincompass">Markets</a>
+      <a class="dih-link" href="/app">More</a>
+    </nav>
+    <div class="dih-actions">
+      <a class="dih-icon dih-tools" href="/software#tools" title="Free browser tools" aria-label="Free browser tools">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 5 14h5l-1 8 8-12h-5l1-8Z"/></svg>
+      </a>
+      <a class="dih-icon dih-term" href="/terminal" title="Terminal mode — browse like a shell" aria-label="Open terminal mode">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="m7 9 3 3-3 3"/><path d="M13 15h4"/></svg>
+      </a>
+      <button class="dih-icon dih-sound" type="button" data-dih-sound aria-label="Sound on — tap to mute" aria-pressed="true" title="Sound on — tap to mute (Shift+S)">
+        <svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4Z"/><path d="M16.5 8.5a5 5 0 0 1 0 7"/><path d="M19 6a8.5 8.5 0 0 1 0 12"/></svg>
+        <svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4Z"/><path d="m16 9 5 6"/><path d="m21 9-5 6"/></svg>
+      </button>
+      <button class="dih-icon dih-share" type="button" data-dih-share aria-label="Share this page" title="Share this page">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M12 3v13"/><path d="m7 8 5-5 5 5"/></svg>
+      </button>
+      <button class="dih-icon dih-theme" type="button" data-dih-theme aria-label="Switch theme" title="Switch theme">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a6.6 6.6 0 0 0 9.8 9.8Z"/></svg>
+      </button>
+      <a class="dih-cta" href="/subscribe">Subscribe</a>
+      <button class="dih-burger" id="dihBurger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="dihDrawer"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+<div class="dih-drawer" id="dihDrawer" aria-label="Site menu">
+  <div class="dih-drawer-panel">
+    <div class="dih-drawer-grid">
+      <a class="dih-drawer-link" href="/">Home</a>
+      <a class="dih-drawer-link" href="/blog">Blog</a>
+      <a class="dih-drawer-link" href="/techtopics">Tech Topics</a>
+      <a class="dih-drawer-link" href="/software">Software</a>
+      <a class="dih-drawer-link" href="/games">Games</a>
+      <a class="dih-drawer-link" href="/coincompass">Markets</a>
+      <a class="dih-drawer-link" href="/app">More</a>
+    </div>
+    <div class="dih-drawer-sub">
+      <a class="dih-drawer-link" href="/news">📰 Tech News</a>
+      <a class="dih-drawer-link" href="/quiz">🎯 Tech Quiz</a>
+      <a class="dih-drawer-link" href="/software#tools">⚡ Tools</a>
+      <a class="dih-drawer-link" href="/services">🧰 Services</a>
+      <a class="dih-drawer-link" href="/terminal">⌨️ Terminal mode</a>
+      <a class="dih-drawer-link" href="/terminal#interest">📊 Most opened pages</a>
+      <a class="dih-drawer-link" href="/contact">✉️ Contact</a>
+    </div>
+    <a class="dih-drawer-cta" href="/subscribe">✉️ Subscribe — weekly tech intel</a>
+    <p class="dih-drawer-note">Digital Infohub · Tech for everyone, with a guide for every question.</p>
+  </div>
+</div>
+<!-- /DIH:HEADER -->
+<main class="st">
+  <header class="st-head">
+    <span class="st-eyebrow"><i></i> Everyday tools</span>
+    <h1>Typing <span>Speed Test</span></h1>
+    <p>Fifteen to sixty seconds, one honest number. The test tracks every keystroke, so accuracy counts as much as speed — as it should, because fixing a typo costs more time than typing the word.</p>
+    <div class="st-badges">
+      <span class="st-badge hot">New</span>
+      <span class="st-badge">WPM + accuracy</span>
+      <span class="st-badge">15 / 30 / 60s</span>
+      <span class="st-badge">No signup</span>
+    </div>
+  </header>
+
+  <section class="st-panel">
+    <div class="big">
+      <div class="stat"><b id="wpm">0</b><span>WPM</span></div>
+      <div class="stat"><b id="acc">100%</b><span>Accuracy</span></div>
+      <div class="stat"><b id="time">60</b><span>Seconds left</span></div>
+      <div class="stat"><b id="errors">0</b><span>Errors</span></div>
+    </div>
+    <div class="st-bar" style="margin-bottom:12px">
+      <div class="st-field" style="max-width:130px"><label for="mode">Duration</label>
+        <select class="st-select" id="mode"><option value="15">15 seconds</option><option value="30">30 seconds</option><option value="60" selected>60 seconds</option></select>
+      </div>
+      <button class="st-btn primary" id="restart" type="button">Start / restart</button>
+      <span class="st-spacer"></span>
+      <span class="st-status" id="status">Click the box below and start typing — the clock starts on your first key.</span>
+    </div>
+    <div class="passage" id="passage" aria-hidden="true"></div>
+    <input class="st-input typein" id="input" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Start typing here…" aria-label="Typing input">
+    <div class="results" id="results"></div>
+  </section>
+
+  <section class="st-panel">
+    <div class="st-panel-head"><div><h2>What the numbers mean</h2><p>And what to do about them.</p></div></div>
+    <div class="st-grid three">
+      <div class="st-tip"><strong>40 WPM</strong><span>Average for most people. Comfortable for writing, a little slow for live chat and fast-paced work.</span></div>
+      <div class="st-tip"><strong>65 WPM</strong><span>Solid professional typing. Most office work stops being rate-limited around here.</span></div>
+      <div class="st-tip"><strong>90+ WPM</strong><span>Touch-typing territory. At this point accuracy matters more than another ten words per minute.</span></div>
+    </div>
+  </section>
+
+  <div class="st-cross">
+    <strong>More free tools</strong>
+    <div class="st-chips">
+      <a class="st-chip" href="/software/word-counter">Word Counter</a>
+      <a class="st-chip" href="/software/markdown">Markdown editor</a>
+      <a class="st-chip" href="/software/task-timer">Task Timer</a>
+      <a class="st-chip" href="/games">Take a break in the arcade</a>
+    </div>
+  </div>
+
+    <div class="hub-ad" role="complementary" aria-label="Advertisement" style="margin:26px auto;max-width:970px;text-align:center">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5443646750699471" data-ad-slot="8451723433" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+</main>
+
+<script>
+(function () {
+  'use strict';
+  var PASSAGES = [
+    'The best technology writing starts with the problem, not the product. Anyone can list features. Explaining why a slow page loses a quarter of its visitors takes the reader somewhere useful, and that is what makes them stay.',
+    'A good tool disappears while you use it. You stop thinking about the interface and start thinking about the work. That is the whole test: if a feature makes you notice the software, it is probably in the way.',
+    'Clear writing is mostly clear thinking with the mistakes removed. Short sentences help. So does deleting the first paragraph, which is usually the writer warming up rather than saying anything the reader needs.',
+    'Free software is not really free. Someone pays for the servers, the support and the maintenance. Knowing who that is, and what they get, is the difference between using a tool and being used by it.',
+    'Most digital problems are attention problems. A notification is a request for a decision. Ten of them are ten small decisions, and by the end of the day the important one is the one you no longer have energy for.',
+    'If you cannot explain an idea to a curious fifteen-year-old, the gap is usually in your understanding, not their intelligence. Teaching forces precision, and precision is what turns information into knowledge.'
+  ];
+
+  var passageEl = document.getElementById('passage');
+  var input = document.getElementById('input');
+  var resultsEl = document.getElementById('results');
+  var statusEl = document.getElementById('status');
+  var wpmEl = document.getElementById('wpm'), accEl = document.getElementById('acc');
+  var timeEl = document.getElementById('time'), errEl = document.getElementById('errors');
+
+  var target = '', started = false, finished = false, deadline = 0, timer = null;
+  var correctChars = 0, typedChars = 0, errors = 0;
+
+  function pick() {
+    target = PASSAGES[Math.floor(Math.random() * PASSAGES.length)];
+  }
+
+  function render() {
+    var typed = input.value;
+    var html = '';
+    for (var i = 0; i < target.length; i++) {
+      var ch = target[i] === ' ' ? ' ' : target[i];
+      var cls = 'todo';
+      if (i < typed.length) cls = typed[i] === target[i] ? 'ok' : 'bad';
+      else if (i === typed.length) cls = 'cur';
+      html += '<span class="' + cls + '">' + ch.replace(/&/g, '&amp;').replace(/</g, '&lt;') + '</span>';
+    }
+    passageEl.innerHTML = html;
+    var cur = passageEl.querySelector('.cur');
+    if (cur && cur.offsetTop > passageEl.scrollTop + passageEl.clientHeight - 40) {
+      passageEl.scrollTop = cur.offsetTop - 40;
+    }
+  }
+
+  function stats() {
+    var elapsed = started ? Math.min((performance.now() - deadline + (+document.getElementById('mode').value) * 1000) / 1000, +document.getElementById('mode').value) : 0;
+    var minutes = Math.max(elapsed / 60, 1 / 60);
+    var wpm = started ? Math.round((correctChars / 5) / minutes) : 0;
+    var acc = typedChars ? Math.round((typedChars - errors) / typedChars * 100) : 100;
+    wpmEl.textContent = Math.max(0, wpm);
+    accEl.textContent = Math.max(0, Math.min(100, acc)) + '%';
+    errEl.textContent = errors;
+    return { wpm: Math.max(0, wpm), acc: Math.max(0, Math.min(100, acc)) };
+  }
+
+  function tick() {
+    var left = Math.max(0, Math.ceil((deadline - performance.now()) / 1000));
+    timeEl.textContent = left;
+    stats();
+    if (left <= 0) finish();
+  }
+
+  function finish() {
+    if (finished) return;
+    finished = true; started = false;
+    clearInterval(timer); timer = null;
+    var s = stats();
+    timeEl.textContent = '0';
+    var grade = s.wpm >= 90 ? 'Elite' : s.wpm >= 70 ? 'Excellent' : s.wpm >= 50 ? 'Good' : s.wpm >= 30 ? 'Average' : 'Getting started';
+    resultsEl.className = 'results show';
+    resultsEl.innerHTML = '<h3>' + s.wpm + ' WPM · ' + s.acc + '% accuracy — ' + grade + '</h3>' +
+      '<p class="st-note" style="margin:0">' + correctChars + ' correct characters of ' + typedChars + ' typed in ' +
+      document.getElementById('mode').value + ' seconds. ' +
+      (s.acc < 95 ? 'Slow down slightly: accuracy is worth more than raw speed.' : 'Accuracy is strong — push the pace next round.') + '</p>';
+    statusEl.textContent = 'Round finished. Restart for another passage.';
+    input.readOnly = true;
+  }
+
+  function restart() {
+    pick();
+    input.value = '';
+    input.readOnly = false;
+    started = false; finished = false;
+    correctChars = 0; typedChars = 0; errors = 0;
+    resultsEl.className = 'results';
+    timeEl.textContent = document.getElementById('mode').value;
+    wpmEl.textContent = '0'; accEl.textContent = '100%'; errEl.textContent = '0';
+    render();
+    statusEl.textContent = 'Clock starts on your first key.';
+    input.focus();
+  }
+
+  function check() {
+    var typed = input.value;
+    if (!started && !finished && typed.length > 0) {
+      started = true;
+      deadline = performance.now() + (+document.getElementById('mode').value) * 1000;
+      timer = setInterval(tick, 200);
+      statusEl.textContent = 'Typing… the clock is running.';
+    }
+    correctChars = 0; errors = 0; typedChars = typed.length;
+    for (var i = 0; i < typed.length; i++) {
+      if (typed[i] === target[i]) correctChars++; else errors++;
+    }
+    render();
+    stats();
+    if (typed.length >= target.length) finish();
+  }
+
+  input.addEventListener('input', check);
+  input.addEventListener('paste', function (e) { e.preventDefault(); });
+  document.getElementById('restart').addEventListener('click', restart);
+  document.getElementById('mode').addEventListener('change', restart);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Tab' && document.activeElement !== input) { e.preventDefault(); input.focus(); }
+  });
+
+  restart();
+  input.readOnly = false;
+})();
+</script>
+<!-- DIH:GALLERY -->
+<section class="dih-gallery" aria-labelledby="dihGalleryTitle">
+  <div class="dih-gallery-head">
+    <div>
+      <span class="dih-gallery-eyebrow">Visual briefing</span>
+      <h2 id="dihGalleryTitle">Technology, in focus</h2>
+      <p>Fast context on the ideas shaping the industry, with a guide for every one.</p>
+    </div>
+    <a class="dih-gallery-all" href="/techtopics">All 35 tech guides <span aria-hidden="true">&rarr;</span></a>
+  </div>
+  <div class="dih-gallery-grid">
+      <a class="dih-gallery-card" href="/about">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=640&amp;h=400&amp;fit=crop&amp;auto=format&amp;q=70" alt="People working together around a table" width="640" height="400" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">About</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Independent, and happy to stay that way</strong>
+          <span>Digital Infohub is a small independent publication. No venture funding, no paywall, no hidden agenda.</span>
+          <em>About Digital Infohub &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/services">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?w=640&amp;h=400&amp;fit=crop&amp;auto=format&amp;q=70" alt="Desktop computer and keyboard on a clean desk" width="640" height="400" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Services</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Design and build, without the agency fog</strong>
+          <span>Websites, design and promotion with clear pricing and a real person on the other end.</span>
+          <em>See services and pricing &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/advertise">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=640&amp;h=400&amp;fit=crop&amp;auto=format&amp;q=70" alt="Laptop showing an analytics dashboard" width="640" height="400" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Advertising</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Reach people who make decisions</strong>
+          <span>Put a product in front of developers, founders and technology leaders with clear, respectful advertising.</span>
+          <em>Advertise on Digital Infohub &rarr;</em>
+        </span>
+      </a>
+  </div>
+  <p class="dih-gallery-credit">Photography by Unsplash contributors. Cards link to related Digital Infohub guides.</p>
+</section>
+<!-- /DIH:GALLERY -->
+<!-- DIH:EXPLORE -->
+<section class="dih-explore" aria-labelledby="dihExploreTitle">
+  <div class="dih-explore-head">
+    <h2 id="dihExploreTitle">More from the software suite</h2>
+    <p>Every tool in the suite is free and runs in your browser.</p>
+  </div>
+  <div class="dih-explore-grid">
+      <a class="dih-explore-card" href="/software">
+        <span class="dih-explore-icon" aria-hidden="true">🛠️</span>
+        <strong>Software &amp; tools</strong>
+        <span>Free AI assistants and browser utilities that run locally.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/blog">
+        <span class="dih-explore-icon" aria-hidden="true">📝</span>
+        <strong>Blog &amp; analysis</strong>
+        <span>Deep dives on AI, hardware, markets and digital culture.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/techtopics">
+        <span class="dih-explore-icon" aria-hidden="true">🔬</span>
+        <strong>Tech Topics</strong>
+        <span>Clear guides to the technology shaping business.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/games">
+        <span class="dih-explore-icon" aria-hidden="true">🎮</span>
+        <strong>Pixel Palace</strong>
+        <span>Free arcade games, playable on desktop and mobile.</span>
+        <em>Explore →</em>
+      </a>
+  </div>
+</section>
+<!-- /DIH:EXPLORE -->
+<!-- DIH:FOOTER -->
+<footer class="dih-footer">
+  <div class="dih-footer-inner">
+    <div class="dih-footer-brand">
+      <a class="dih-brand" href="/" aria-label="Digital Infohub home">
+        <img src="/assets/logo.png" alt="Digital Infohub logo" width="40" height="40">
+        <span class="dih-brand-text">Digital <b>Infohub</b></span>
+      </a>
+      <p>The independent tech hub for everyone: AI research, market moves, practical guides, free tools and Digi, your AI guide.</p>
+      <span class="dih-pill"><span class="dih-dot"></span> Updated daily</span>
+    </div>
+    <div class="dih-footer-col">
+      <h3>Explore</h3>
+      <a href="/blog">Blog &amp; analysis</a>
+      <a href="/techtopics">Tech Topics</a>
+      <a href="/software">Software &amp; tools</a>
+      <a href="/terminal">Terminal mode</a>
+      <a href="/techproducts">Tech Products</a>
+      <a href="/games">Pixel Palace</a>
+      <a href="/digi">Digi AI guide</a>
+      <a href="/news">Live tech news</a>
+      <a href="/quiz">Tech quiz</a>
+    </div>
+    <div class="dih-footer-col">
+      <h3>Company</h3>
+      <a href="/about">About</a>
+      <a href="/services">Services</a>
+      <a href="/advertise">Advertise</a>
+      <a href="/coincompass">CoinCompass</a>
+      <a href="/privacy-policy">Privacy</a>
+    </div>
+    <div class="dih-footer-col dih-footer-cta">
+      <h3>Stay ahead</h3>
+      <p>One email a week: the AI, market and software stories that actually matter.</p>
+      <a class="dih-btn dih-btn-primary" href="/subscribe">Subscribe free</a>
+    </div>
+  </div>
+  <div class="dih-footer-bottom">
+    <span>© 2026 Digital Infohub · Independent technology publication</span>
+    <nav aria-label="Footer links">
+      <a href="/blog">Blog</a>
+      <a href="/techtopics">Guides</a>
+      <a href="/software">Tools</a>
+      <a href="/contact">Contact</a>
+      <a href="/terminal">Terminal</a>
+      <a href="/sitemap.xml">Sitemap</a>
+    </nav>
+  </div>
+</footer>
+<!-- /DIH:FOOTER -->
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

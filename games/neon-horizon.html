@@ -122,8 +122,8 @@
         }
     </style>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471" crossorigin="anonymous"></script>
-<style id="dih-ad-style">.dih-ad{box-sizing:border-box;width:100%;max-width:520px;margin:18px auto 0;padding:8px 10px 10px;border-radius:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);overflow:hidden;text-align:left;color:inherit}.dih-ad small{display:block;font:600 9px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.18em;text-transform:uppercase;opacity:.55;margin-bottom:4px}.dih-ad-light{background:rgba(74,44,30,.05);border-color:rgba(74,44,30,.18);color:#4a2c1e}
-#start-screen>div{max-height:calc(100dvh - 2rem);overflow-y:auto}</style>
+<style id="dih-ad-style">.dih-ad{box-sizing:border-box;width:100%;max-width:520px;margin:18px auto 0;padding:8px 10px 10px;border-radius:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);overflow:hidden;text-align:left;color:inherit}.dih-ad small{display:block;font:600 9px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.18em;text-transform:uppercase;opacity:.55;margin-bottom:4px}.dih-ad-light{background:rgba(74,44,30,.05);border-color:rgba(74,44,30,.18);color:#4a2c1e}.dih-end-ad{margin:12px auto 14px;max-width:520px}.dih-end-ad:empty{display:none}
+#start-screen>div{max-height:calc(100dvh - 2rem);overflow-y:auto}#gameover-screen>.hud-glass{max-height:calc(100dvh - 2rem);overflow-y:auto}</style>
 </head>
 <body class="text-white antialiased">
 
@@ -249,7 +249,7 @@
             <button id="btn-start" class="btn-arcade w-full py-4 rounded-2xl font-arcade text-lg sm:text-xl font-black tracking-wider text-white uppercase cursor-pointer">
                 Start Engine
             </button>
-<div class="dih-ad" role="complementary" aria-label="Advertisement" style="margin-bottom:14px"><small>Advertisement</small><ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-5443646750699471" data-ad-slot="8451723433"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div>
+<div class="dih-ad" id="dihStartAd" role="complementary" aria-label="Advertisement" style="margin-bottom:14px"><small>Advertisement</small><ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-5443646750699471" data-ad-slot="8451723433"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div>
         </div>
     </section>
 
@@ -284,7 +284,8 @@
                 <span id="final-highscore" class="font-arcade text-lg font-bold text-amber-400">0</span>
             </div>
 
-            <button id="btn-restart" class="btn-arcade w-full py-4 rounded-2xl font-arcade text-lg font-black tracking-wider text-white uppercase cursor-pointer">
+            <div class="dih-end-ad" id="dihEndAd"></div>
+<button id="btn-restart" class="btn-arcade w-full py-4 rounded-2xl font-arcade text-lg font-black tracking-wider text-white uppercase cursor-pointer">
                 Play Again
             </button>
         </div>
@@ -1411,7 +1412,7 @@
 
             setTimeout(() => {
                 dom.gameoverScreen.classList.remove('hidden');
-                dom.gameoverScreen.classList.add('flex');
+                dom.gameoverScreen.classList.add('flex'); dihEndScreen('dihEndAd');
             }, reason === 'CRASH' ? 550 : 250);
         }
 
@@ -1514,5 +1515,21 @@
             requestAnimationFrame(animate);
         };
     </script>
+<script>
+window.dihEndScreen = function (boxId) {
+  var start = document.getElementById('dihStartAd');
+  if (start) start.style.display = 'none';
+  var box = document.getElementById(boxId || 'dihEndAd');
+  if (!box || box.dataset.mounted) return;
+  box.dataset.mounted = '1';
+  var ad = document.createElement('div');
+  ad.className = 'dih-ad';
+  ad.setAttribute('role', 'complementary');
+  ad.setAttribute('aria-label', 'Advertisement');
+  ad.innerHTML = '<small>Advertisement</small><ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-5443646750699471" data-ad-slot="8451723433"></ins>';
+  box.appendChild(ad);
+  try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
+};
+</script>
 </body>
 </html>
