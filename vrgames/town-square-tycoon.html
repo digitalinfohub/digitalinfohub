@@ -563,7 +563,12 @@
       // 3. THREE.JS DAYLIGHT SCENE, RENDERER & WEBXR SETUP
       // --------------------------------------------------------------------------
       const canvas = document.getElementById('game-canvas');
-      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });
+      const renderer = new THREE.WebGLRenderer({
+        canvas,
+        antialias: true,
+        powerPreference: 'high-performance',
+        logarithmicDepthBuffer: true
+      });
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
       renderer.setSize(window.innerWidth, window.innerHeight);
       renderer.shadowMap.enabled = true;
@@ -580,7 +585,7 @@
       const cameraRig = new THREE.Group();
       scene.add(cameraRig);
 
-      const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 220);
+      const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.25, 350);
       cameraRig.add(camera);
 
       // Desktop Orbit Camera State
@@ -684,7 +689,7 @@
       const clouds = [];
 
       function buildTownEnvironment() {
-        // 1. Lush Green Meadow Surrounding Ground
+        // 1. Lush Green Meadow Surrounding Ground (base layer at y = -0.06)
         const grassGeo = new THREE.PlaneGeometry(220, 220);
         const grassMat = new THREE.MeshStandardMaterial({
           map: createGrassTexture(),
@@ -693,67 +698,96 @@
         });
         const grass = new THREE.Mesh(grassGeo, grassMat);
         grass.rotation.x = -Math.PI / 2;
-        grass.position.y = -0.04;
+        grass.position.y = -0.06;
         grass.receiveShadow = true;
         scene.add(grass);
 
-        // 2. Cobblestone Town Square Plaza Floor
-        const plazaGeo = new THREE.CylinderGeometry(23.5, 24.0, 0.16, 48);
+        // 2. Cobblestone Town Square Plaza Floor (top surface at y = 0.00)
+        const plazaGeo = new THREE.CylinderGeometry(23.5, 24.0, 0.12, 48);
         const plazaMat = new THREE.MeshStandardMaterial({
           map: createCobblestoneTexture(),
           roughness: 0.85,
           metalness: 0.05
         });
         const plaza = new THREE.Mesh(plazaGeo, plazaMat);
-        plaza.position.y = 0.04;
+        plaza.position.y = -0.06;
         plaza.receiveShadow = true;
         scene.add(plaza);
 
-        // Stone Curb Rim around the Plaza
+        // Stone Curb Rim around the Plaza (raised cleanly above cobblestone at y = 0.015)
         const curbGeo = new THREE.TorusGeometry(23.7, 0.25, 10, 64);
         const curbMat = new THREE.MeshStandardMaterial({ color: 0x9ca3af, roughness: 0.8 });
         const curb = new THREE.Mesh(curbGeo, curbMat);
         curb.rotation.x = Math.PI / 2;
-        curb.position.y = 0.1;
+        curb.position.y = 0.015;
         curb.receiveShadow = true;
         scene.add(curb);
 
-        // 3. Brick Pedestrian Walkways leading out from the Square
-        const brickMat = new THREE.MeshStandardMaterial({ color: 0x9a4e3a, roughness: 0.85 });
-        const walkNS = new THREE.Mesh(new THREE.BoxGeometry(5.2, 0.14, 62), brickMat);
-        walkNS.position.set(0, 0.05, 0);
-        walkNS.receiveShadow = true;
-        scene.add(walkNS);
+        // 3. Non-Overlapping Brick Pedestrian Walkways (top surface strictly at y = 0.03)
+        // Split into 4 distinct outer arms + a central square medallion so zero brick meshes share the same plane
+        const brickMat = new THREE.MeshStandardMaterial({
+          color: 0x9a4e3a,
+          roughness: 0.85,
+          polygonOffset: true,
+          polygonOffsetFactor: -1,
+          polygonOffsetUnits: -1
+        });
+        const walkwayThickness = 0.06;
+        const walkwayCenterY = 0.03 - walkwayThickness / 2; // Top sits exactly at y = 0.03
 
-        const walkEW = new THREE.Mesh(new THREE.BoxGeometry(62, 0.14, 5.2), brickMat);
-        walkEW.position.set(0, 0.05, 0);
-        walkEW.receiveShadow = true;
-        scene.add(walkEW);
+        // Central intersection brick square (5.2 x 5.2)
+        const centerWalk = new THREE.Mesh(new THREE.BoxGeometry(5.2, walkwayThickness, 5.2), brickMat);
+        centerWalk.position.set(0, walkwayCenterY, 0);
+        centerWalk.receiveShadow = true;
+        scene.add(centerWalk);
 
-        // 4. Perimeter Asphalt High-Street Road (for passing delivery van)
+        // 4 directional walkway arms starting cleanly outside the 5.2 x 5.2 center square
+        const armLength = 28.4;
+        const armOffset = 2.6 + armLength / 2;
+
+        const walkNorth = new THREE.Mesh(new THREE.BoxGeometry(5.2, walkwayThickness, armLength), brickMat);
+        walkNorth.position.set(0, walkwayCenterY, -armOffset);
+        walkNorth.receiveShadow = true;
+
+        const walkSouth = new THREE.Mesh(new THREE.BoxGeometry(5.2, walkwayThickness, armLength), brickMat);
+        walkSouth.position.set(0, walkwayCenterY, armOffset);
+        walkSouth.receiveShadow = true;
+
+        const walkEast = new THREE.Mesh(new THREE.BoxGeometry(armLength, walkwayThickness, 5.2), brickMat);
+        walkEast.position.set(armOffset, walkwayCenterY, 0);
+        walkEast.receiveShadow = true;
+
+        const walkWest = new THREE.Mesh(new THREE.BoxGeometry(armLength, walkwayThickness, 5.2), brickMat);
+        walkWest.position.set(-armOffset, walkwayCenterY, 0);
+        walkWest.receiveShadow = true;
+
+        scene.add(walkNorth, walkSouth, walkEast, walkWest);
+
+        // 4. Perimeter Asphalt High-Street Road (sits cleanly above grass at y = -0.02, below brick at y = 0.03)
         const roadMat = new THREE.MeshStandardMaterial({ color: 0x374151, roughness: 0.9 });
-        const road = new THREE.Mesh(new THREE.BoxGeometry(160, 0.08, 6.5), roadMat);
-        road.position.set(0, 0.01, 28.5);
+        const road = new THREE.Mesh(new THREE.BoxGeometry(160, 0.06, 6.5), roadMat);
+        road.position.set(0, -0.02, 28.5);
         road.receiveShadow = true;
         scene.add(road);
 
-        // Dashed white road centerline
+        // Dashed white road centerline (top surface at y = 0.015, no overlap with road top at y = 0.01)
         const stripeMat = new THREE.MeshBasicMaterial({ color: 0xf8fafc });
         for (let sx = -72; sx <= 72; sx += 6) {
-          const stripe = new THREE.Mesh(new THREE.BoxGeometry(2.8, 0.09, 0.22), stripeMat);
-          stripe.position.set(sx, 0.02, 28.5);
+          const stripe = new THREE.Mesh(new THREE.BoxGeometry(2.8, 0.01, 0.22), stripeMat);
+          stripe.position.set(sx, 0.015, 28.5);
           scene.add(stripe);
         }
 
-        // 5. Central Town Square Stone Fountain
+        // 5. Central Town Square Stone Fountain (step base strictly above y = 0.04)
         const fountainGroup = new THREE.Group();
+        fountainGroup.position.y = 0.04;
         scene.add(fountainGroup);
 
         const basinWall = new THREE.Mesh(
           new THREE.CylinderGeometry(3.4, 3.6, 0.75, 28),
           new THREE.MeshStandardMaterial({ color: 0xd6d3d1, roughness: 0.75 })
         );
-        basinWall.position.y = 0.45;
+        basinWall.position.y = 0.375;
         basinWall.castShadow = true;
         basinWall.receiveShadow = true;
         fountainGroup.add(basinWall);
