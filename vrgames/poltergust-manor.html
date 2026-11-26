@@ -304,7 +304,7 @@
 
   <!-- Start / Pause / Wave Overlay Modal -->
   <div id="overlay-modal" class="fixed inset-0 z-30 flex items-center justify-center p-4 bg-slate-950/75 backdrop-blur-md">
-    <div class="hud-glass max-w-lg w-full rounded-3xl p-6 sm:p-8 border border-emerald-500/25 relative overflow-hidden">
+    <div class="hud-glass max-w-lg w-full rounded-3xl p-6 sm:p-8 border border-emerald-500/25 relative overflow-y-auto max-h-[92vh]">
       <!-- Decorative Ectoplasm Glow -->
       <div class="absolute -top-20 -right-20 w-48 h-48 rounded-full bg-emerald-500/15 blur-3xl pointer-events-none"></div>
       <div class="absolute -bottom-20 -left-20 w-48 h-48 rounded-full bg-indigo-500/15 blur-3xl pointer-events-none"></div>
@@ -354,6 +354,13 @@
           <button id="btn-modal-vr" type="button" disabled class="rounded-2xl py-3.5 px-5 font-display font-semibold text-sm bg-slate-800/90 hover:bg-slate-700/90 text-emerald-300 border border-emerald-500/30 disabled:opacity-40 disabled:cursor-not-allowed transition cursor-pointer">
             Launch WebXR VR
           </button>
+        </div>
+
+        <!-- Advertisement (menu, pause and game-over screens only) -->
+        <div class="mt-5 rounded-2xl border border-slate-700/60 bg-slate-900/50 p-2 text-center" aria-label="Advertisement">
+          <span class="block text-[9px] font-bold uppercase tracking-[0.16em] text-slate-500 mb-1.5">Advertisement</span>
+          <ins class="adsbygoogle" style="display:block;min-height:90px" data-ad-client="ca-pub-5443646750699471" data-ad-slot="8451723433" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         </div>
       </div>
     </div>
