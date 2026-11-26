@@ -34,13 +34,14 @@ SKIP = {"404.html"}
 SECTIONS = [
     ("software/", "Creative Studio"),
     ("games/", "Pixel Palace Arcade"),
+    ("vrgames/", "VR Arcade"),
     ("post/", "Field Notes"),
 ]
 
 
 def pages() -> list[Path]:
     found: list[Path] = []
-    for pattern in ("*.html", "software/*.html", "games/*.html", "post/*.html"):
+    for pattern in ("*.html", "software/*.html", "games/*.html", "vrgames/*.html", "post/*.html"):
         found += sorted(ROOT.glob(pattern))
     return [p for p in found if p.name not in SKIP]
 

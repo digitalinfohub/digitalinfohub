@@ -1,0 +1,1613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>Neon Breach: WebXR Arcade Shooter | Digital Infohub</title>
+  <meta name="description" content="Play Neon Breach free: a WebXR wave shooter set in Sector 09. Dual blasters, combo multipliers, three enemy types and a desktop simulator if you have no headset. No install, no signup." />
+  <meta name="keywords" content="neon breach, webxr shooter, free vr game, browser vr shooter, vr wave shooter, quest browser game, play vr without headset" />
+  <link rel="canonical" href="https://digitalinfohub.net/vrgames/neon-breach" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Digital Infohub" />
+  <meta property="og:title" content="Neon Breach: WebXR Arcade Shooter | Digital Infohub" />
+  <meta property="og:description" content="Dual blasters, combo multipliers and endless waves in Sector 09. Play in a headset or in the desktop simulator — free, in your browser." />
+  <meta property="og:url" content="https://digitalinfohub.net/vrgames/neon-breach" />
+  <meta property="og:image" content="https://digitalinfohub.net/assets/og/vrgames-neon-breach.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Neon Breach: WebXR Arcade Shooter | Digital Infohub" />
+  <meta name="twitter:description" content="Dual blasters, combo multipliers and endless waves in Sector 09. Play in a headset or in the desktop simulator." />
+  <meta name="twitter:image" content="https://digitalinfohub.net/assets/og/vrgames-neon-breach.jpg" />
+  <meta name="theme-color" content="#05020d" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <link rel="icon" href="/assets/favicon.ico" sizes="any" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoGame","name":"Neon Breach — Sector 09","url":"https://digitalinfohub.net/vrgames/neon-breach","description":"A WebXR wave shooter with dual blasters, combo multipliers and a desktop simulator, playable free in the browser.","genre":"Shooter","gamePlatform":"WebXR, Web browser","playMode":"SinglePlayer","applicationCategory":"Game","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"inLanguage":"en","publisher":{"@type":"Organization","name":"Digital Infohub","url":"https://digitalinfohub.net"},"isPartOf":{"@type":"WebSite","name":"Digital Infohub","url":"https://digitalinfohub.net"}}</script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: #05020d;
+      font-family: 'Rajdhani', sans-serif;
+      color: #e0f7ff;
+    }
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+    .font-orbitron {
+      font-family: 'Orbitron', sans-serif;
+    }
+    .neon-cyan {
+      text-shadow: 0 0 10px rgba(0, 243, 255, 0.8), 0 0 24px rgba(0, 243, 255, 0.45);
+    }
+    .neon-magenta {
+      text-shadow: 0 0 10px rgba(255, 0, 212, 0.8), 0 0 24px rgba(255, 0, 212, 0.45);
+    }
+    .cyber-panel {
+      background: linear-gradient(135deg, rgba(12, 7, 29, 0.88) 0%, rgba(26, 9, 48, 0.85) 100%);
+      border: 1px solid rgba(0, 243, 255, 0.4);
+      box-shadow: 0 0 30px rgba(0, 243, 255, 0.15), inset 0 0 20px rgba(255, 0, 212, 0.12);
+      backdrop-filter: blur(12px);
+    }
+    .cyber-btn {
+      position: relative;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow: hidden;
+    }
+    .cyber-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 25px rgba(0, 243, 255, 0.65);
+    }
+    .cyber-btn:active {
+      transform: translateY(1px);
+    }
+    .scanlines {
+      background: linear-gradient(
+        rgba(18, 16, 16, 0) 50%, 
+        rgba(0, 0, 0, 0.25) 50%
+      );
+      background-size: 100% 4px;
+      pointer-events: none;
+    }
+    /* Style Three.js VRButton nicely if injected */
+    #VRButton {
+      position: static !important;
+      width: 100% !important;
+      padding: 14px 24px !important;
+      border-radius: 0.75rem !important;
+      border: 1px solid #ff00d4 !important;
+      background: linear-gradient(90deg, rgba(255, 0, 212, 0.28), rgba(0, 243, 255, 0.28)) !important;
+      color: #ffffff !important;
+      font-family: 'Orbitron', sans-serif !important;
+      font-weight: 700 !important;
+      font-size: 0.95rem !important;
+      letter-spacing: 0.12em !important;
+      text-transform: uppercase !important;
+      cursor: pointer !important;
+      opacity: 1 !important;
+      box-shadow: 0 0 20px rgba(255, 0, 212, 0.4) !important;
+      transition: all 0.2s ease !important;
+    }
+    #VRButton:hover {
+      background: linear-gradient(90deg, rgba(255, 0, 212, 0.48), rgba(0, 243, 255, 0.48)) !important;
+      box-shadow: 0 0 30px rgba(255, 0, 212, 0.75) !important;
+    }
+  </style>
+
+  <!-- Import Map for Three.js r181+ ES Modules -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.181.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.181.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+
+  <!-- 2D Overlay UI (Title / Desktop HUD / Game Over) -->
+  <div id="ui-root" class="fixed inset-0 z-20 flex flex-col justify-between p-4 sm:p-6 pointer-events-none">
+    
+    <!-- Top Desktop HUD Bar (Hidden on Title Screen, visible during Desktop Play) -->
+    <div id="desktop-hud" class="hidden w-full max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-3 cyber-panel rounded-2xl px-5 py-3 pointer-events-auto">
+      <div class="flex items-center gap-6">
+        <div>
+          <div class="text-xs uppercase tracking-widest text-cyan-300/80">WAVE</div>
+          <div id="hud-wave" class="font-orbitron text-2xl font-black text-cyan-400 neon-cyan">01</div>
+        </div>
+        <div class="h-8 w-px bg-cyan-500/30"></div>
+        <div>
+          <div class="text-xs uppercase tracking-widest text-fuchsia-300/80">SCORE</div>
+          <div id="hud-score" class="font-orbitron text-2xl font-black text-white">000000</div>
+        </div>
+        <div class="h-8 w-px bg-cyan-500/30"></div>
+        <div>
+          <div class="text-xs uppercase tracking-widest text-amber-300/80">COMBO</div>
+          <div id="hud-combo" class="font-orbitron text-2xl font-black text-amber-400">1x</div>
+        </div>
+      </div>
+
+      <!-- Core Integrity Bar -->
+      <div class="flex-1 max-w-xs mx-2">
+        <div class="flex justify-between text-xs font-bold tracking-wider mb-1">
+          <span class="text-cyan-300">CORE INTEGRITY</span>
+          <span id="hud-hp-text" class="text-cyan-300">100%</span>
+        </div>
+        <div class="w-full h-3 bg-slate-950/90 rounded-full overflow-hidden border border-cyan-500/40">
+          <div id="hud-hp-bar" class="h-full bg-gradient-to-r from-fuchsia-500 via-cyan-400 to-emerald-400 transition-all duration-200" style="width: 100%"></div>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button id="btn-mute" class="px-3 py-2 rounded-xl border border-cyan-400/40 bg-cyan-950/50 hover:bg-cyan-900/70 text-xs font-orbitron tracking-wider text-cyan-200 cursor-pointer">
+          SFX: ON
+        </button>
+        <button id="btn-pause-menu" class="px-3 py-2 rounded-xl border border-fuchsia-400/40 bg-fuchsia-950/50 hover:bg-fuchsia-900/70 text-xs font-orbitron tracking-wider text-fuchsia-200 cursor-pointer">
+          MENU
+        </button>
+      </div>
+    </div>
+
+    <!-- Desktop Crosshair -->
+    <div id="desktop-crosshair" class="hidden fixed inset-0 flex items-center justify-center pointer-events-none">
+      <div class="relative w-10 h-10 flex items-center justify-center">
+        <div class="absolute inset-0 rounded-full border-2 border-cyan-400/70 animate-ping" style="animation-duration: 2.5s;"></div>
+        <div class="w-7 h-7 rounded-full border border-cyan-300/90 flex items-center justify-center shadow-[0_0_12px_#00f3ff]">
+          <div class="w-1.5 h-1.5 rounded-full bg-fuchsia-400"></div>
+        </div>
+        <div id="hit-marker" class="hidden absolute inset-0 flex items-center justify-center">
+          <svg class="w-8 h-8 text-amber-400 drop-shadow-[0_0_8px_#fbbf24]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M4 4L9 9M20 4L15 9M4 20L9 15M20 20L15 15" />
+          </svg>
+        </div>
+      </div>
+      <div id="pointer-lock-hint" class="absolute mt-20 px-4 py-1.5 rounded-full bg-slate-950/80 border border-cyan-400/40 text-xs tracking-widest text-cyan-200 uppercase">
+        Click anywhere to lock aim • Left-Click / Space to Fire • ESC to release cursor
+      </div>
+    </div>
+
+    <!-- Center Main Menu / Game Over Modal -->
+    <div id="main-menu" class="my-auto mx-auto w-full max-w-xl cyber-panel rounded-3xl p-6 sm:p-8 pointer-events-auto text-center relative overflow-hidden">
+      <div class="scanlines absolute inset-0"></div>
+      
+      <div class="relative z-10">
+        <div class="inline-block px-3 py-1 rounded-full border border-fuchsia-400/50 bg-fuchsia-500/10 text-fuchsia-300 text-xs font-orbitron tracking-[0.25em] mb-3">
+          WEBXR 6DOF + DESKTOP SIMULATOR
+        </div>
+        
+        <h1 class="font-orbitron text-3xl sm:text-5xl font-black tracking-wider text-white leading-tight mb-1">
+          NEON <span class="text-cyan-400 neon-cyan">BREACH</span>
+        </h1>
+        <div class="font-orbitron text-sm sm:text-base font-bold tracking-[0.35em] text-fuchsia-400 neon-magenta mb-6">
+          // SECTOR 09 //
+        </div>
+
+        <!-- Game Over Summary Banner (hidden initially) -->
+        <div id="gameover-banner" class="hidden mb-6 p-4 rounded-2xl bg-rose-950/60 border border-rose-500/50">
+          <div class="font-orbitron text-xl font-black text-rose-400 tracking-widest mb-1">CORE BREACHED</div>
+          <p class="text-sm text-rose-200/90 mb-3">Hostile constructs overwhelmed the Sector 09 reactor.</p>
+          <div class="grid grid-cols-3 gap-2 text-center bg-slate-950/60 rounded-xl p-2.5 border border-rose-500/20">
+            <div>
+              <div class="text-[10px] uppercase tracking-widest text-slate-400">FINAL SCORE</div>
+              <div id="final-score" class="font-orbitron text-lg font-bold text-cyan-300">0</div>
+            </div>
+            <div>
+              <div class="text-[10px] uppercase tracking-widest text-slate-400">WAVE REACHED</div>
+              <div id="final-wave" class="font-orbitron text-lg font-bold text-fuchsia-300">1</div>
+            </div>
+            <div>
+              <div class="text-[10px] uppercase tracking-widest text-slate-400">MAX COMBO</div>
+              <div id="final-combo" class="font-orbitron text-lg font-bold text-amber-300">1x</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Enemy Intel Cards -->
+        <div class="grid grid-cols-3 gap-2.5 mb-6 text-left">
+          <div class="p-3 rounded-xl bg-slate-950/65 border border-cyan-500/30">
+            <div class="flex items-center gap-1.5 mb-1">
+              <span class="w-2.5 h-2.5 rotate-45 bg-cyan-400 inline-block shadow-[0_0_8px_#00f3ff]"></span>
+              <span class="font-orbitron text-[11px] font-bold text-cyan-300">SCOUT</span>
+            </div>
+            <p class="text-xs text-slate-300 leading-snug">Agile weaving drones. 1-shot shatter.</p>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-950/65 border border-fuchsia-500/30">
+            <div class="flex items-center gap-1.5 mb-1">
+              <span class="w-2.5 h-2.5 bg-fuchsia-500 inline-block shadow-[0_0_8px_#ff00d4]"></span>
+              <span class="font-orbitron text-[11px] font-bold text-fuchsia-300">BRUISER</span>
+            </div>
+            <p class="text-xs text-slate-300 leading-snug">Armored heavy cubes. Requires 3 hits.</p>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-950/65 border border-rose-500/30">
+            <div class="flex items-center gap-1.5 mb-1">
+              <span class="w-0 h-0 border-l-[5px] border-l-transparent border-r-[5px] border-r-transparent border-b-[9px] border-b-rose-500 inline-block"></span>
+              <span class="font-orbitron text-[11px] font-bold text-rose-400">SNIPER</span>
+            </div>
+            <p class="text-xs text-slate-300 leading-snug">Fires plasma orbs. Shoot orbs or dodge!</p>
+          </div>
+        </div>
+
+        <!-- Launch Buttons -->
+        <div class="flex flex-col gap-3">
+          <div id="vr-button-container" class="w-full"></div>
+
+          <button id="btn-desktop-play" class="cyber-btn w-full py-4 px-6 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-orbitron font-black text-sm sm:text-base tracking-widest uppercase cursor-pointer shadow-[0_0_20px_rgba(0,243,255,0.45)]">
+            PLAY IN DESKTOP SIMULATOR
+          </button>
+
+          <a href="/vrgames" class="cyber-btn block w-full py-3 px-6 rounded-xl border border-cyan-400/40 bg-cyan-950/40 hover:bg-cyan-900/60 text-cyan-200 font-orbitron text-xs tracking-widest uppercase text-center no-underline">
+            &larr; ALL VR GAMES
+          </a>
+        </div>
+
+        <!-- Controls Footer -->
+        <div class="mt-5 pt-4 border-t border-cyan-500/20 flex flex-wrap justify-center gap-x-6 gap-y-1 text-xs text-cyan-200/80">
+          <span><strong>VR:</strong> Dual Touch Controllers + Triggers</span>
+          <span><strong>Desktop:</strong> Mouse Aim + Left-Click / Space</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Status Toast -->
+    <div id="wave-toast" class="mx-auto mb-2 px-5 py-2 rounded-full cyber-panel font-orbitron text-xs sm:text-sm tracking-[0.25em] text-cyan-300 opacity-0 transition-opacity duration-300 pointer-events-none">
+      WAVE 01 INCOMING
+    </div>
+  </div>
+
+  <!-- Main WebXR + Three.js Game Module -->
+  <script type="module">
+    import * as THREE from 'three';
+    import { VRButton } from 'three/addons/webxr/VRButton.js';
+    import { XRControllerModelFactory } from 'three/addons/webxr/XRControllerModelFactory.js';
+
+    // =========================================================================
+    // 1. PROCEDURAL WEB AUDIO SYNTHESIZER (Zero External Assets, Spatial SFX)
+    // =========================================================================
+    class CyberAudioEngine {
+      constructor() {
+        this.ctx = null;
+        this.muted = false;
+        this.masterGain = null;
+      }
+
+      init() {
+        if (!this.ctx) {
+          const AudioCtx = window.AudioContext || window.webkitAudioContext;
+          this.ctx = new AudioCtx();
+          this.masterGain = this.ctx.createGain();
+          this.masterGain.gain.value = 0.35;
+          this.masterGain.connect(this.ctx.destination);
+        }
+        if (this.ctx.state === 'suspended') {
+          this.ctx.resume();
+        }
+      }
+
+      toggleMute() {
+        this.muted = !this.muted;
+        if (this.masterGain) {
+          this.masterGain.gain.value = this.muted ? 0 : 0.35;
+        }
+        return this.muted;
+      }
+
+      playLaser(handIndex = 0) {
+        if (this.muted) return;
+        this.init();
+        const now = this.ctx.currentTime;
+
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        const panner = this.ctx.createStereoPanner();
+
+        // Slight pitch & stereo offset between left/right blasters
+        osc.type = 'sawtooth';
+        const startFreq = handIndex === 0 ? 880 : 940;
+        osc.frequency.setValueAtTime(startFreq, now);
+        osc.frequency.exponentialRampToValueAtTime(110, now + 0.14);
+
+        gain.gain.setValueAtTime(0.28, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.14);
+
+        panner.pan.value = handIndex === 0 ? -0.35 : 0.35;
+
+        osc.connect(gain);
+        gain.connect(panner);
+        panner.connect(this.masterGain);
+
+        osc.start(now);
+        osc.stop(now + 0.15);
+      }
+
+      playHitMarker(combo = 1) {
+        if (this.muted) return;
+        this.init();
+        const now = this.ctx.currentTime;
+
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'triangle';
+        const pitch = Math.min(1800, 620 + combo * 45);
+        osc.frequency.setValueAtTime(pitch, now);
+        osc.frequency.exponentialRampToValueAtTime(pitch * 1.35, now + 0.06);
+
+        gain.gain.setValueAtTime(0.25, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.065);
+
+        osc.connect(gain);
+        gain.connect(this.masterGain);
+        osc.start(now);
+        osc.stop(now + 0.07);
+      }
+
+      playExplosion(scale = 1.0) {
+        if (this.muted) return;
+        this.init();
+        const now = this.ctx.currentTime;
+        const duration = 0.35 * scale;
+
+        // White noise burst filtered down
+        const bufferSize = Math.floor(this.ctx.sampleRate * duration);
+        const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufferSize * 0.35));
+        }
+
+        const noise = this.ctx.createBufferSource();
+        noise.buffer = buffer;
+
+        const filter = this.ctx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(650, now);
+        filter.frequency.exponentialRampToValueAtTime(55, now + duration);
+
+        const gain = this.ctx.createGain();
+        gain.gain.setValueAtTime(0.55, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
+
+        noise.connect(filter);
+        filter.connect(gain);
+        gain.connect(this.masterGain);
+        noise.start(now);
+
+        // Sub-bass punch
+        const sub = this.ctx.createOscillator();
+        const subGain = this.ctx.createGain();
+        sub.type = 'sine';
+        sub.frequency.setValueAtTime(130, now);
+        sub.frequency.exponentialRampToValueAtTime(32, now + duration);
+        subGain.gain.setValueAtTime(0.5, now);
+        subGain.gain.exponentialRampToValueAtTime(0.001, now + duration);
+
+        sub.connect(subGain);
+        subGain.connect(this.masterGain);
+        sub.start(now);
+        sub.stop(now + duration);
+      }
+
+      playSniperCharge() {
+        if (this.muted) return;
+        this.init();
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(240, now);
+        osc.frequency.exponentialRampToValueAtTime(1150, now + 0.45);
+        gain.gain.setValueAtTime(0.01, now);
+        gain.gain.linearRampToValueAtTime(0.16, now + 0.35);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.46);
+        osc.connect(gain);
+        gain.connect(this.masterGain);
+        osc.start(now);
+        osc.stop(now + 0.48);
+      }
+
+      playCoreDamage() {
+        if (this.muted) return;
+        this.init();
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(140, now);
+        osc.frequency.linearRampToValueAtTime(65, now + 0.32);
+        gain.gain.setValueAtTime(0.45, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.34);
+        osc.connect(gain);
+        gain.connect(this.masterGain);
+        osc.start(now);
+        osc.stop(now + 0.35);
+      }
+
+      playWaveClear() {
+        if (this.muted) return;
+        this.init();
+        const notes = [440, 554.37, 659.25, 880, 1108.73];
+        notes.forEach((freq, idx) => {
+          const now = this.ctx.currentTime + idx * 0.075;
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(freq, now);
+          gain.gain.setValueAtTime(0.22, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.28);
+          osc.connect(gain);
+          gain.connect(this.masterGain);
+          osc.start(now);
+          osc.stop(now + 0.3);
+        });
+      }
+    }
+
+    const audio = new CyberAudioEngine();
+
+    // =========================================================================
+    // 2. GAME STATE & CONFIGURATION
+    // =========================================================================
+    const state = {
+      mode: 'MENU', // 'MENU' | 'DESKTOP' | 'VR' | 'GAMEOVER'
+      score: 0,
+      wave: 1,
+      combo: 1,
+      maxCombo: 1,
+      comboTimer: 0,
+      coreHp: 100,
+      maxCoreHp: 100,
+      enemiesToSpawn: 0,
+      spawnCooldown: 0,
+      wavePauseTimer: 0,
+      screenShake: 0,
+      hitStopTimer: 0,
+      desktopAlternateHand: 0,
+      desktopYaw: 0,
+      desktopPitch: 0,
+      isPointerLocked: false
+    };
+
+    // Entity pools & active lists
+    const lasers = [];
+    const enemyProjectiles = [];
+    const enemies = [];
+    const particles = [];
+    const floatingPopups = [];
+
+    // =========================================================================
+    // 3. THREE.JS SCENE, CAMERA, RENDERER & LIGHTING SETUP
+    // =========================================================================
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x05020d);
+    scene.fog = new THREE.FogExp2(0x080318, 0.016);
+
+    const camera = new THREE.PerspectiveCamera(72, window.innerWidth / window.innerHeight, 0.1, 180);
+    // Player rig allows smooth 6DoF VR tracking + desktop offset
+    const playerRig = new THREE.Group();
+    playerRig.position.set(0, 0, 0);
+    scene.add(playerRig);
+
+    camera.position.set(0, 1.6, 0);
+    playerRig.add(camera);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.xr.enabled = true;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.25;
+    document.body.appendChild(renderer.domElement);
+
+    // Setup WebXR VRButton inside Menu Container
+    const vrBtnContainer = document.getElementById('vr-button-container');
+    const vrButton = VRButton.createButton(renderer);
+    vrBtnContainer.appendChild(vrButton);
+
+    // Lighting
+    const hemiLight = new THREE.HemisphereLight(0x00f3ff, 0xff00d4, 1.1);
+    scene.add(hemiLight);
+
+    const dirLight = new THREE.DirectionalLight(0xffffff, 1.4);
+    dirLight.position.set(8, 22, 12);
+    scene.add(dirLight);
+
+    const coreLight = new THREE.PointLight(0x00f3ff, 3.0, 20);
+    coreLight.position.set(0, 2.2, 2.8);
+    scene.add(coreLight);
+
+    // =========================================================================
+    // 4. RETRO-FUTURISTIC SYNTHWAVE ARENA ENVIRONMENT
+    // =========================================================================
+    const arenaGroup = new THREE.Group();
+    scene.add(arenaGroup);
+
+    // 4a. Glowing Perspective Grid Floor
+    const gridHelper = new THREE.GridHelper(140, 70, 0xff00d4, 0x00f3ff);
+    gridHelper.position.y = 0;
+    gridHelper.material.opacity = 0.42;
+    gridHelper.material.transparent = true;
+    arenaGroup.add(gridHelper);
+
+    // Subtle reflective dark floor plane under grid
+    const floorGeo = new THREE.PlaneGeometry(140, 140);
+    const floorMat = new THREE.MeshStandardMaterial({
+      color: 0x060212,
+      roughness: 0.25,
+      metalness: 0.85
+    });
+    const floorMesh = new THREE.Mesh(floorGeo, floorMat);
+    floorMesh.rotation.x = -Math.PI / 2;
+    floorMesh.position.y = -0.02;
+    arenaGroup.add(floorMesh);
+
+    // 4b. Player Defense Platform Ring
+    const padRingGeo = new THREE.RingGeometry(1.45, 1.65, 48);
+    const padRingMat = new THREE.MeshBasicMaterial({
+      color: 0x00f3ff,
+      side: THREE.DoubleSide
+    });
+    const padRing = new THREE.Mesh(padRingGeo, padRingMat);
+    padRing.rotation.x = -Math.PI / 2;
+    padRing.position.y = 0.01;
+    arenaGroup.add(padRing);
+
+    // 4c. Retro Synthwave Horizon Sun & Wireframe Mountains
+    const sunGeo = new THREE.CircleGeometry(24, 48);
+    const sunCanvas = document.createElement('canvas');
+    sunCanvas.width = 256;
+    sunCanvas.height = 256;
+    const sCtx = sunCanvas.getContext('2d');
+    const grad = sCtx.createLinearGradient(0, 0, 0, 256);
+    grad.addColorStop(0, '#ffea00');
+    grad.addColorStop(0.5, '#ff007f');
+    grad.addColorStop(1, '#5900ff');
+    sCtx.fillStyle = grad;
+    sCtx.fillRect(0, 0, 256, 256);
+    // Horizontal synthwave scanline cutouts on lower sun
+    sCtx.fillStyle = '#05020d';
+    for (let y = 135; y < 256; y += 14) {
+      const h = Math.max(2, (y - 130) * 0.08);
+      sCtx.fillRect(0, y, 256, h);
+    }
+    const sunTex = new THREE.CanvasTexture(sunCanvas);
+    const sunMat = new THREE.MeshBasicMaterial({ map: sunTex, fog: false, transparent: true });
+    const sunMesh = new THREE.Mesh(sunGeo, sunMat);
+    sunMesh.position.set(0, 16, -85);
+    arenaGroup.add(sunMesh);
+
+    // Wireframe Synthwave Peaks & Monoliths around perimeter
+    const mountainGeo = new THREE.ConeGeometry(8, 18, 4);
+    const mountainMat = new THREE.MeshBasicMaterial({
+      color: 0xff00d4,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.35
+    });
+
+    for (let i = 0; i < 26; i++) {
+      const angle = (i / 26) * Math.PI * 2;
+      // Leave center corridor slightly open toward sun
+      const radius = 58 + (i % 3) * 10;
+      const m = new THREE.Mesh(mountainGeo, mountainMat);
+      m.position.set(Math.cos(angle) * radius, 7 + (i % 4) * 2.5, Math.sin(angle) * radius);
+      m.scale.set(1 + (i % 3) * 0.5, 0.8 + (i % 4) * 0.45, 1 + (i % 2) * 0.5);
+      m.rotation.y = angle;
+      arenaGroup.add(m);
+    }
+
+    // 4d. Floating Sector 09 Core Reactor behind player (z = +2.8)
+    const reactorGroup = new THREE.Group();
+    reactorGroup.position.set(0, 2.0, 2.8);
+    scene.add(reactorGroup);
+
+    const reactorCoreMesh = new THREE.Mesh(
+      new THREE.IcosahedronGeometry(0.75, 1),
+      new THREE.MeshStandardMaterial({
+        color: 0x00f3ff,
+        emissive: 0x00b8ff,
+        emissiveIntensity: 1.4,
+        roughness: 0.2,
+        metalness: 0.8
+      })
+    );
+    reactorGroup.add(reactorCoreMesh);
+
+    const reactorCageMesh = new THREE.Mesh(
+      new THREE.OctahedronGeometry(1.15, 0),
+      new THREE.MeshBasicMaterial({
+        color: 0xff00d4,
+        wireframe: true
+      })
+    );
+    reactorGroup.add(reactorCageMesh);
+
+    // =========================================================================
+    // 5. FLOATING 3D DIEGETIC HOLOGRAPHIC HUD (Visible in Both VR & Desktop!)
+    // =========================================================================
+    const holoCanvas = document.createElement('canvas');
+    holoCanvas.width = 1024;
+    holoCanvas.height = 256;
+    const holoCtx = holoCanvas.getContext('2d');
+    const holoTexture = new THREE.CanvasTexture(holoCanvas);
+
+    const holoPanelGeo = new THREE.PlaneGeometry(3.6, 0.9);
+    const holoPanelMat = new THREE.MeshBasicMaterial({
+      map: holoTexture,
+      transparent: true,
+      opacity: 0.92,
+      side: THREE.DoubleSide,
+      depthWrite: false
+    });
+    const holoPanelMesh = new THREE.Mesh(holoPanelGeo, holoPanelMat);
+    holoPanelMesh.position.set(0, 3.65, -6.5);
+    holoPanelMesh.rotation.x = 0.18;
+    scene.add(holoPanelMesh);
+
+    function updateDiegeticHUD() {
+      const ctx = holoCtx;
+      ctx.clearRect(0, 0, 1024, 256);
+
+      // Translucent cyber frame
+      ctx.fillStyle = 'rgba(8, 4, 24, 0.72)';
+      ctx.strokeStyle = '#00f3ff';
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      ctx.roundRect(12, 12, 1000, 232, 24);
+      ctx.fill();
+      ctx.stroke();
+
+      // Divider lines
+      ctx.strokeStyle = 'rgba(255, 0, 212, 0.45)';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(250, 35); ctx.lineTo(250, 220);
+      ctx.moveTo(560, 35); ctx.lineTo(560, 220);
+      ctx.moveTo(760, 35); ctx.lineTo(760, 220);
+      ctx.stroke();
+
+      ctx.textAlign = 'center';
+
+      // Wave
+      ctx.fillStyle = '#7dd3fc';
+      ctx.font = 'bold 24px Rajdhani, sans-serif';
+      ctx.fillText('WAVE', 130, 68);
+      ctx.fillStyle = '#00f3ff';
+      ctx.font = '900 72px Orbitron, sans-serif';
+      ctx.fillText(String(state.wave).padStart(2, '0'), 130, 155);
+
+      // Score
+      ctx.fillStyle = '#f0abfc';
+      ctx.font = 'bold 24px Rajdhani, sans-serif';
+      ctx.fillText('SCORE', 405, 68);
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '900 58px Orbitron, sans-serif';
+      ctx.fillText(String(state.score).padStart(6, '0'), 405, 152);
+
+      // Combo
+      ctx.fillStyle = '#fcd34d';
+      ctx.font = 'bold 24px Rajdhani, sans-serif';
+      ctx.fillText('COMBO', 660, 68);
+      ctx.fillStyle = '#fbbf24';
+      ctx.font = '900 66px Orbitron, sans-serif';
+      ctx.fillText(`${state.combo}x`, 660, 155);
+
+      // Core Integrity
+      ctx.fillStyle = '#67e8f9';
+      ctx.font = 'bold 24px Rajdhani, sans-serif';
+      ctx.fillText('CORE HP', 885, 68);
+      const hpRatio = Math.max(0, state.coreHp / state.maxCoreHp);
+      ctx.fillStyle = hpRatio > 0.4 ? '#34d399' : '#fb7185';
+      ctx.font = '900 58px Orbitron, sans-serif';
+      ctx.fillText(`${Math.ceil(state.coreHp)}%`, 885, 152);
+
+      // HP Bar inside panel
+      ctx.fillStyle = 'rgba(15, 23, 42, 0.9)';
+      ctx.fillRect(790, 178, 190, 20);
+      ctx.fillStyle = hpRatio > 0.4 ? '#00f3ff' : '#ff0055';
+      ctx.fillRect(792, 180, 186 * hpRatio, 16);
+
+      holoTexture.needsUpdate = true;
+    }
+    updateDiegeticHUD();
+
+    // =========================================================================
+    // 6. DUAL CYBER-BLASTERS & WEBXR CONTROLLERS
+    // =========================================================================
+    function createCyberBlasterMesh(accentColor) {
+      const gunGroup = new THREE.Group();
+
+      // Sleek barrel body
+      const bodyGeo = new THREE.BoxGeometry(0.055, 0.075, 0.28);
+      const bodyMat = new THREE.MeshStandardMaterial({
+        color: 0x161229,
+        roughness: 0.3,
+        metalness: 0.85
+      });
+      const body = new THREE.Mesh(bodyGeo, bodyMat);
+      body.position.set(0, 0.01, -0.08);
+      gunGroup.add(body);
+
+      // Glowing neon rails
+      const railGeo = new THREE.BoxGeometry(0.062, 0.018, 0.29);
+      const railMat = new THREE.MeshBasicMaterial({ color: accentColor });
+      const rail = new THREE.Mesh(railGeo, railMat);
+      rail.position.set(0, 0.042, -0.085);
+      gunGroup.add(rail);
+
+      // Angled grip
+      const gripGeo = new THREE.BoxGeometry(0.046, 0.12, 0.055);
+      const grip = new THREE.Mesh(gripGeo, bodyMat);
+      grip.position.set(0, -0.06, 0.02);
+      grip.rotation.x = 0.28;
+      gunGroup.add(grip);
+
+      // Muzzle emitter ring
+      const muzzleGeo = new THREE.RingGeometry(0.015, 0.028, 16);
+      const muzzleMat = new THREE.MeshBasicMaterial({ color: accentColor, side: THREE.DoubleSide });
+      const muzzle = new THREE.Mesh(muzzleGeo, muzzleMat);
+      muzzle.position.set(0, 0.018, -0.225);
+      gunGroup.add(muzzle);
+
+      // Laser sight beam
+      const sightGeo = new THREE.BufferGeometry().setFromPoints([
+        new THREE.Vector3(0, 0.018, -0.23),
+        new THREE.Vector3(0, 0.018, -28)
+      ]);
+      const sightMat = new THREE.LineBasicMaterial({
+        color: accentColor,
+        transparent: true,
+        opacity: 0.45
+      });
+      const sightLine = new THREE.Line(sightGeo, sightMat);
+      gunGroup.add(sightLine);
+
+      // Store muzzle reference for spawning bolts
+      gunGroup.userData.muzzle = muzzle;
+      gunGroup.userData.recoil = 0;
+      return gunGroup;
+    }
+
+    // VR Controllers (0 = Left / Cyan, 1 = Right / Magenta)
+    const vrControllers = [];
+    const vrBlasters = [];
+    const controllerModelFactory = new XRControllerModelFactory();
+
+    for (let i = 0; i < 2; i++) {
+      const controller = renderer.xr.getController(i);
+      const color = i === 0 ? 0x00f3ff : 0xff00d4;
+      const blaster = createCyberBlasterMesh(color);
+      controller.add(blaster);
+      playerRig.add(controller);
+
+      controller.addEventListener('connected', (event) => {
+        controller.userData.inputSource = event.data;
+      });
+      controller.addEventListener('disconnected', () => {
+        delete controller.userData.inputSource;
+      });
+      controller.addEventListener('selectstart', () => {
+        if (state.mode === 'VR') {
+          fireFromBlaster(blaster, i, controller.userData.inputSource);
+        }
+      });
+
+      const grip = renderer.xr.getControllerGrip(i);
+      playerRig.add(grip);
+
+      vrControllers.push(controller);
+      vrBlasters.push(blaster);
+    }
+
+    // Desktop Viewmodel Blasters attached to Camera
+    const desktopBlasters = [
+      createCyberBlasterMesh(0x00f3ff),
+      createCyberBlasterMesh(0xff00d4)
+    ];
+    desktopBlasters[0].position.set(-0.28, -0.24, -0.42);
+    desktopBlasters[1].position.set(0.28, -0.24, -0.42);
+    camera.add(desktopBlasters[0]);
+    camera.add(desktopBlasters[1]);
+
+    // Trigger haptic pulse on WebXR controller if supported
+    function triggerHaptics(inputSource, intensity = 0.65, durationMs = 45) {
+      if (!inputSource || !inputSource.gamepad) return;
+      const actuators = inputSource.gamepad.hapticActuators;
+      if (actuators && actuators.length > 0 && actuators[0].pulse) {
+        actuators[0].pulse(intensity, durationMs).catch(() => {});
+      }
+    }
+
+    // =========================================================================
+    // 7. PROJECTILES, PARTICLES & FLOATING 3D SCORE POPUPS
+    // =========================================================================
+    const boltGeo = new THREE.CylinderGeometry(0.025, 0.025, 0.9, 8);
+    boltGeo.rotateX(Math.PI / 2);
+
+    function fireFromBlaster(blasterObj, handIndex, inputSource = null) {
+      if (state.mode !== 'VR' && state.mode !== 'DESKTOP') return;
+
+      const muzzle = blasterObj.userData.muzzle;
+      const spawnPos = new THREE.Vector3();
+      const quat = new THREE.Quaternion();
+      muzzle.getWorldPosition(spawnPos);
+      muzzle.getWorldQuaternion(quat);
+
+      const dir = new THREE.Vector3(0, 0, -1).applyQuaternion(quat).normalize();
+
+      // In Desktop mode, converge shot slightly toward exact center crosshair ray
+      if (state.mode === 'DESKTOP') {
+        const camDir = new THREE.Vector3();
+        camera.getWorldDirection(camDir);
+        const camPos = new THREE.Vector3();
+        camera.getWorldPosition(camPos);
+        const targetPoint = camPos.clone().addScaledVector(camDir, 22);
+        dir.subVectors(targetPoint, spawnPos).normalize();
+      }
+
+      const boltColor = handIndex === 0 ? 0x00f3ff : 0xff00d4;
+      const boltMat = new THREE.MeshBasicMaterial({ color: boltColor });
+      const bolt = new THREE.Mesh(boltGeo, boltMat);
+      bolt.position.copy(spawnPos);
+      bolt.quaternion.setFromUnitVectors(new THREE.Vector3(0, 0, -1), dir);
+
+      scene.add(bolt);
+      lasers.push({
+        mesh: bolt,
+        vel: dir.multiplyScalar(54),
+        life: 1.4
+      });
+
+      // Kickback recoil animation
+      blasterObj.userData.recoil = 0.055;
+
+      // Audio & Haptics
+      audio.playLaser(handIndex);
+      triggerHaptics(inputSource, 0.6, 40);
+    }
+
+    // Particle Explosion Generator
+    const particleGeo = new THREE.OctahedronGeometry(0.12, 0);
+    function spawnExplosion(pos, colorHex, count = 18, speedScale = 1) {
+      for (let i = 0; i < count; i++) {
+        const mat = new THREE.MeshBasicMaterial({
+          color: i % 3 === 0 ? 0xffffff : colorHex,
+          transparent: true,
+          opacity: 1
+        });
+        const p = new THREE.Mesh(particleGeo, mat);
+        p.position.copy(pos);
+
+        const theta = Math.random() * Math.PI * 2;
+        const phi = Math.acos(2 * Math.random() - 1);
+        const spd = (3 + Math.random() * 8) * speedScale;
+        const vel = new THREE.Vector3(
+          Math.sin(phi) * Math.cos(theta) * spd,
+          Math.abs(Math.cos(phi)) * spd + 1.5,
+          Math.sin(phi) * Math.sin(theta) * spd
+        );
+
+        scene.add(p);
+        particles.push({
+          mesh: p,
+          vel,
+          life: 0.45 + Math.random() * 0.35,
+          maxLife: 0.8
+        });
+      }
+    }
+
+    // Floating 3D Score Popup Sprite
+    function spawnScorePopup(pos, text, color = '#00f3ff') {
+      const c = document.createElement('canvas');
+      c.width = 256;
+      c.height = 96;
+      const ctx = c.getContext('2d');
+      ctx.font = '900 42px Orbitron, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillStyle = color;
+      ctx.shadowColor = color;
+      ctx.shadowBlur = 14;
+      ctx.fillText(text, 128, 60);
+
+      const tex = new THREE.CanvasTexture(c);
+      const mat = new THREE.SpriteMaterial({ map: tex, transparent: true, depthWrite: false });
+      const sprite = new THREE.Sprite(mat);
+      sprite.position.copy(pos).add(new THREE.Vector3(0, 0.6, 0));
+      sprite.scale.set(1.8, 0.68, 1);
+      scene.add(sprite);
+
+      floatingPopups.push({
+        sprite,
+        life: 0.85,
+        maxLife: 0.85
+      });
+    }
+
+    // =========================================================================
+    // 8. ENEMY ARCHETYPES (Scout Drone, Heavy Bruiser, Sniper Strider)
+    // =========================================================================
+    function createEnemyMesh(type) {
+      const group = new THREE.Group();
+
+      if (type === 'SCOUT') {
+        // Fast Cyan Octahedron with spinning outer ring
+        const core = new THREE.Mesh(
+          new THREE.OctahedronGeometry(0.55, 0),
+          new THREE.MeshStandardMaterial({
+            color: 0x00f3ff,
+            emissive: 0x0088cc,
+            emissiveIntensity: 0.9,
+            roughness: 0.25,
+            metalness: 0.7
+          })
+        );
+        const wire = new THREE.Mesh(
+          new THREE.OctahedronGeometry(0.68, 0),
+          new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true, transparent: true, opacity: 0.45 })
+        );
+        group.add(core, wire);
+        group.userData.coreMat = core.material;
+      } else if (type === 'BRUISER') {
+        // Armored Magenta/Amber Rotating Cube (3 HP)
+        const core = new THREE.Mesh(
+          new THREE.BoxGeometry(1.15, 1.15, 1.15),
+          new THREE.MeshStandardMaterial({
+            color: 0xff00d4,
+            emissive: 0x99007a,
+            emissiveIntensity: 0.85,
+            roughness: 0.3,
+            metalness: 0.8
+          })
+        );
+        const cage = new THREE.Mesh(
+          new THREE.BoxGeometry(1.36, 1.36, 1.36),
+          new THREE.MeshBasicMaterial({ color: 0xffb703, wireframe: true })
+        );
+        group.add(core, cage);
+        group.userData.coreMat = core.material;
+      } else if (type === 'SNIPER') {
+        // Tall Crimson Pyramid that stops & shoots plasma orbs
+        const core = new THREE.Mesh(
+          new THREE.ConeGeometry(0.65, 1.75, 4),
+          new THREE.MeshStandardMaterial({
+            color: 0xff1e56,
+            emissive: 0xb8002e,
+            emissiveIntensity: 0.95,
+            roughness: 0.2,
+            metalness: 0.75
+          })
+        );
+        const wire = new THREE.Mesh(
+          new THREE.ConeGeometry(0.8, 1.95, 4),
+          new THREE.MeshBasicMaterial({ color: 0xffac41, wireframe: true })
+        );
+        // Telegraph charge orb at tip
+        const tipOrb = new THREE.Mesh(
+          new THREE.SphereGeometry(0.18, 12, 12),
+          new THREE.MeshBasicMaterial({ color: 0xffea00 })
+        );
+        tipOrb.position.y = 0.95;
+        tipOrb.visible = false;
+        group.add(core, wire, tipOrb);
+        group.userData.coreMat = core.material;
+        group.userData.tipOrb = tipOrb;
+      }
+
+      return group;
+    }
+
+    function spawnEnemy() {
+      // Choose archetype based on current wave
+      const roll = Math.random();
+      let type = 'SCOUT';
+      if (state.wave >= 2 && roll > 0.62) type = 'BRUISER';
+      if (state.wave >= 3 && roll > 0.82) type = 'SNIPER';
+
+      // Spawn in a wide 140-degree arc in front of player (z = -28 to -34)
+      const angle = (Math.random() - 0.5) * (Math.PI * 0.78);
+      const dist = 30 + Math.random() * 6;
+      const x = Math.sin(angle) * dist;
+      const z = -Math.cos(angle) * dist;
+      const y = type === 'BRUISER' ? 1.45 : (1.35 + Math.random() * 1.45);
+
+      const mesh = createEnemyMesh(type);
+      mesh.position.set(x, y, z);
+      scene.add(mesh);
+
+      const speedScale = 1 + (state.wave - 1) * 0.08;
+      enemies.push({
+        type,
+        mesh,
+        hp: type === 'BRUISER' ? 3 : 1,
+        maxHp: type === 'BRUISER' ? 3 : 1,
+        radius: type === 'BRUISER' ? 0.95 : 0.75,
+        speed: (type === 'SCOUT' ? 5.2 : type === 'BRUISER' ? 2.7 : 3.4) * speedScale,
+        phase: Math.random() * Math.PI * 2,
+        flashTimer: 0,
+        sniperState: 'ADVANCE', // 'ADVANCE' | 'CHARGE' | 'COOLDOWN'
+        sniperTimer: 0,
+        scoreValue: type === 'SCOUT' ? 100 : type === 'BRUISER' ? 300 : 250
+      });
+    }
+
+    function spawnEnemyPlasmaOrb(originPos) {
+      const target = new THREE.Vector3();
+      camera.getWorldPosition(target);
+      // Aim slightly offset so player can dodge or shoot it down
+      target.y -= 0.1;
+
+      const dir = new THREE.Vector3().subVectors(target, originPos).normalize();
+      const orbMesh = new THREE.Mesh(
+        new THREE.SphereGeometry(0.24, 14, 14),
+        new THREE.MeshBasicMaterial({ color: 0xff2a6d })
+      );
+      const halo = new THREE.Mesh(
+        new THREE.SphereGeometry(0.35, 10, 10),
+        new THREE.MeshBasicMaterial({ color: 0xffea00, wireframe: true })
+      );
+      orbMesh.add(halo);
+      orbMesh.position.copy(originPos);
+      scene.add(orbMesh);
+
+      enemyProjectiles.push({
+        mesh: orbMesh,
+        vel: dir.multiplyScalar(11.5),
+        life: 4.5
+      });
+    }
+
+    // =========================================================================
+    // 9. WAVE MANAGEMENT & UI SYNC
+    // =========================================================================
+    const hudWave = document.getElementById('hud-wave');
+    const hudScore = document.getElementById('hud-score');
+    const hudCombo = document.getElementById('hud-combo');
+    const hudHpText = document.getElementById('hud-hp-text');
+    const hudHpBar = document.getElementById('hud-hp-bar');
+    const waveToast = document.getElementById('wave-toast');
+
+    function showToast(msg) {
+      waveToast.textContent = msg;
+      waveToast.style.opacity = '1';
+      clearTimeout(waveToast._tid);
+      waveToast._tid = setTimeout(() => {
+        waveToast.style.opacity = '0';
+      }, 2400);
+    }
+
+    function syncAllHUDs() {
+      hudWave.textContent = String(state.wave).padStart(2, '0');
+      hudScore.textContent = String(state.score).padStart(6, '0');
+      hudCombo.textContent = `${state.combo}x`;
+      const pct = Math.max(0, Math.ceil((state.coreHp / state.maxCoreHp) * 100));
+      hudHpText.textContent = `${pct}%`;
+      hudHpBar.style.width = `${pct}%`;
+
+      updateDiegeticHUD();
+    }
+
+    function startWave(waveNum) {
+      state.wave = waveNum;
+      state.enemiesToSpawn = 5 + waveNum * 3;
+      state.spawnCooldown = 0.5;
+      syncAllHUDs();
+      showToast(`WAVE ${String(waveNum).padStart(2, '0')} INCOMING`);
+    }
+
+    function clearAllEntities() {
+      lasers.forEach(l => scene.remove(l.mesh));
+      lasers.length = 0;
+
+      enemyProjectiles.forEach(p => scene.remove(p.mesh));
+      enemyProjectiles.length = 0;
+
+      enemies.forEach(e => scene.remove(e.mesh));
+      enemies.length = 0;
+
+      particles.forEach(p => scene.remove(p.mesh));
+      particles.length = 0;
+
+      floatingPopups.forEach(f => scene.remove(f.sprite));
+      floatingPopups.length = 0;
+    }
+
+    function resetAndStartGame(targetMode) {
+      audio.init();
+      clearAllEntities();
+
+      state.mode = targetMode;
+      state.score = 0;
+      state.wave = 1;
+      state.combo = 1;
+      state.maxCombo = 1;
+      state.comboTimer = 0;
+      state.coreHp = 100;
+      state.screenShake = 0;
+      state.hitStopTimer = 0;
+
+      document.getElementById('main-menu').classList.add('hidden');
+      document.getElementById('gameover-banner').classList.add('hidden');
+
+      if (targetMode === 'DESKTOP') {
+        document.getElementById('desktop-hud').classList.remove('hidden');
+        document.getElementById('desktop-crosshair').classList.remove('hidden');
+        desktopBlasters[0].visible = true;
+        desktopBlasters[1].visible = true;
+        vrBlasters[0].visible = false;
+        vrBlasters[1].visible = false;
+        requestDesktopPointerLock();
+      } else if (targetMode === 'VR') {
+        document.getElementById('desktop-hud').classList.add('hidden');
+        document.getElementById('desktop-crosshair').classList.add('hidden');
+        desktopBlasters[0].visible = false;
+        desktopBlasters[1].visible = false;
+        vrBlasters[0].visible = true;
+        vrBlasters[1].visible = true;
+      }
+
+      startWave(1);
+    }
+
+    function triggerGameOver() {
+      state.mode = 'GAMEOVER';
+      audio.playExplosion(1.6);
+
+      if (document.pointerLockElement) {
+        document.exitPointerLock();
+      }
+
+      document.getElementById('desktop-hud').classList.add('hidden');
+      document.getElementById('desktop-crosshair').classList.add('hidden');
+      document.getElementById('gameover-banner').classList.remove('hidden');
+      document.getElementById('main-menu').classList.remove('hidden');
+
+      document.getElementById('final-score').textContent = state.score.toLocaleString();
+      document.getElementById('final-wave').textContent = state.wave;
+      document.getElementById('final-combo').textContent = `${state.maxCombo}x`;
+    }
+
+    function damageCore(amount) {
+      if (state.mode !== 'VR' && state.mode !== 'DESKTOP') return;
+      state.coreHp = Math.max(0, state.coreHp - amount);
+      state.combo = 1;
+      state.screenShake = 0.25;
+      audio.playCoreDamage();
+      syncAllHUDs();
+
+      if (state.coreHp <= 0) {
+        triggerGameOver();
+      }
+    }
+
+    // =========================================================================
+    // 10. DESKTOP SIMULATOR CONTROLS & WEBXR SESSION LISTENERS
+    // =========================================================================
+    const mainMenuEl = document.getElementById('main-menu');
+    const pointerHintEl = document.getElementById('pointer-lock-hint');
+    const hitMarkerEl = document.getElementById('hit-marker');
+
+    function flashHitMarker() {
+      hitMarkerEl.classList.remove('hidden');
+      clearTimeout(hitMarkerEl._tid);
+      hitMarkerEl._tid = setTimeout(() => {
+        hitMarkerEl.classList.add('hidden');
+      }, 95);
+    }
+
+    function requestDesktopPointerLock() {
+      if (renderer.domElement.requestPointerLock) {
+        renderer.domElement.requestPointerLock();
+      }
+    }
+
+    document.addEventListener('pointerlockchange', () => {
+      state.isPointerLocked = (document.pointerLockElement === renderer.domElement);
+      if (state.isPointerLocked) {
+        pointerHintEl.classList.add('hidden');
+      } else if (state.mode === 'DESKTOP') {
+        pointerHintEl.classList.remove('hidden');
+      }
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (state.mode !== 'DESKTOP' || !state.isPointerLocked) return;
+      const sensitivity = 0.0022;
+      state.desktopYaw -= e.movementX * sensitivity;
+      state.desktopPitch -= e.movementY * sensitivity;
+      state.desktopYaw = Math.max(-Math.PI * 0.55, Math.min(Math.PI * 0.55, state.desktopYaw));
+      state.desktopPitch = Math.max(-Math.PI * 0.35, Math.min(Math.PI * 0.42, state.desktopPitch));
+    });
+
+    // Fallback drag look if pointer lock is blocked in embedded iframe
+    let isDragging = false;
+    let prevMouse = { x: 0, y: 0 };
+    renderer.domElement.addEventListener('mousedown', (e) => {
+      if (state.mode !== 'DESKTOP') return;
+      if (!state.isPointerLocked) {
+        requestDesktopPointerLock();
+      }
+      isDragging = true;
+      prevMouse = { x: e.clientX, y: e.clientY };
+
+      if (e.button === 0) {
+        const hand = state.desktopAlternateHand;
+        state.desktopAlternateHand = 1 - hand;
+        fireFromBlaster(desktopBlasters[hand], hand);
+      }
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (state.mode === 'DESKTOP' && !state.isPointerLocked && isDragging) {
+        const dx = e.clientX - prevMouse.x;
+        const dy = e.clientY - prevMouse.y;
+        prevMouse = { x: e.clientX, y: e.clientY };
+        state.desktopYaw -= dx * 0.003;
+        state.desktopPitch -= dy * 0.003;
+        state.desktopYaw = Math.max(-Math.PI * 0.55, Math.min(Math.PI * 0.55, state.desktopYaw));
+        state.desktopPitch = Math.max(-Math.PI * 0.35, Math.min(Math.PI * 0.42, state.desktopPitch));
+      }
+    });
+
+    window.addEventListener('mouseup', () => {
+      isDragging = false;
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (state.mode === 'DESKTOP' && e.code === 'Space') {
+        e.preventDefault();
+        const hand = state.desktopAlternateHand;
+        state.desktopAlternateHand = 1 - hand;
+        fireFromBlaster(desktopBlasters[hand], hand);
+      }
+    });
+
+    // UI Button Bindings
+    document.getElementById('btn-desktop-play').addEventListener('click', () => {
+      resetAndStartGame('DESKTOP');
+    });
+
+    document.getElementById('btn-mute').addEventListener('click', (e) => {
+      const muted = audio.toggleMute();
+      e.target.textContent = muted ? 'SFX: OFF' : 'SFX: ON';
+    });
+
+    document.getElementById('btn-pause-menu').addEventListener('click', () => {
+      state.mode = 'MENU';
+      if (document.pointerLockElement) document.exitPointerLock();
+      document.getElementById('desktop-hud').classList.add('hidden');
+      document.getElementById('desktop-crosshair').classList.add('hidden');
+      document.getElementById('main-menu').classList.remove('hidden');
+    });
+
+    // WebXR Session Start / End Hooks
+    renderer.xr.addEventListener('sessionstart', () => {
+      resetAndStartGame('VR');
+    });
+
+    renderer.xr.addEventListener('sessionend', () => {
+      state.mode = 'MENU';
+      document.getElementById('main-menu').classList.remove('hidden');
+    });
+
+    // Window Resize Handler
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    // =========================================================================
+    // 11. MAIN SIMULATION & RENDER LOOP (renderer.setAnimationLoop for WebXR)
+    // =========================================================================
+    const clock = new THREE.Clock();
+
+    function updateSimulation(dt) {
+      const elapsed = clock.elapsedTime;
+
+      // Animate Reactor & Arena Environment
+      reactorCoreMesh.rotation.y += dt * 0.9;
+      reactorCoreMesh.rotation.x += dt * 0.45;
+      reactorCageMesh.rotation.y -= dt * 0.65;
+      reactorGroup.position.y = 2.0 + Math.sin(elapsed * 2.2) * 0.14;
+      coreLight.intensity = 2.4 + Math.sin(elapsed * 5) * 0.6;
+
+      // Smooth Blaster Recoil Recovery
+      [...vrBlasters, ...desktopBlasters].forEach((b, idx) => {
+        if (b.userData.recoil > 0) {
+          b.userData.recoil = Math.max(0, b.userData.recoil - dt * 0.42);
+        }
+        if (idx >= 2) {
+          // Desktop viewmodels have fixed base Z = -0.42
+          b.position.z = -0.42 + b.userData.recoil;
+        } else {
+          b.position.z = b.userData.recoil;
+        }
+      });
+
+      // Apply Desktop Camera Orientation + Screen Shake
+      if (state.mode === 'DESKTOP' || state.mode === 'MENU') {
+        const euler = new THREE.Euler(state.desktopPitch, state.desktopYaw, 0, 'YXZ');
+        camera.quaternion.setFromEuler(euler);
+
+        if (state.screenShake > 0) {
+          state.screenShake = Math.max(0, state.screenShake - dt * 1.4);
+          camera.position.set(
+            (Math.random() - 0.5) * state.screenShake * 0.35,
+            1.6 + (Math.random() - 0.5) * state.screenShake * 0.35,
+            0
+          );
+        } else {
+          camera.position.set(0, 1.6, 0);
+        }
+      }
+
+      // Active Gameplay Logic
+      if (state.mode === 'DESKTOP' || state.mode === 'VR') {
+        // Combo decay timer
+        if (state.combo > 1) {
+          state.comboTimer -= dt;
+          if (state.comboTimer <= 0) {
+            state.combo = 1;
+            syncAllHUDs();
+          }
+        }
+
+        // Wave Spawning Logic
+        if (state.enemiesToSpawn > 0) {
+          state.spawnCooldown -= dt;
+          if (state.spawnCooldown <= 0) {
+            spawnEnemy();
+            state.enemiesToSpawn--;
+            state.spawnCooldown = Math.max(0.45, 1.45 - state.wave * 0.08);
+          }
+        } else if (enemies.length === 0) {
+          // Wave Cleared!
+          state.wavePauseTimer += dt;
+          if (state.wavePauseTimer === dt) {
+            audio.playWaveClear();
+            // Heal core slightly between waves
+            state.coreHp = Math.min(state.maxCoreHp, state.coreHp + 10);
+            syncAllHUDs();
+            showToast(`SECTOR SECURED • +10% CORE REPAIR`);
+          }
+          if (state.wavePauseTimer >= 2.6) {
+            state.wavePauseTimer = 0;
+            startWave(state.wave + 1);
+          }
+        }
+      }
+
+      // Update Player Laser Bolts & Check Collisions
+      for (let i = lasers.length - 1; i >= 0; i--) {
+        const bolt = lasers[i];
+        bolt.life -= dt;
+        bolt.mesh.position.addScaledVector(bolt.vel, dt);
+
+        let hitSomething = false;
+
+        // 1. Check collision against Enemy Plasma Orbs (Player can shoot incoming projectiles!)
+        for (let j = enemyProjectiles.length - 1; j >= 0; j--) {
+          const orb = enemyProjectiles[j];
+          if (bolt.mesh.position.distanceTo(orb.mesh.position) < 0.55) {
+            spawnExplosion(orb.mesh.position, 0xffea00, 10, 0.7);
+            spawnScorePopup(orb.mesh.position, '+50 DEFLECT', '#ffea00');
+            state.score += 50;
+            audio.playHitMarker(state.combo);
+            flashHitMarker();
+            syncAllHUDs();
+
+            scene.remove(orb.mesh);
+            enemyProjectiles.splice(j, 1);
+            hitSomething = true;
+            break;
+          }
+        }
+
+        // 2. Check collision against Enemies
+        if (!hitSomething) {
+          for (let k = enemies.length - 1; k >= 0; k--) {
+            const enemy = enemies[k];
+            if (bolt.mesh.position.distanceTo(enemy.mesh.position) < enemy.radius + 0.25) {
+              hitSomething = true;
+              enemy.hp -= 1;
+              enemy.flashTimer = 0.12;
+              audio.playHitMarker(state.combo);
+              flashHitMarker();
+
+              if (enemy.hp <= 0) {
+                // Enemy Destroyed!
+                const colorHex = enemy.type === 'SCOUT' ? 0x00f3ff : enemy.type === 'BRUISER' ? 0xff00d4 : 0xff1e56;
+                spawnExplosion(enemy.mesh.position, colorHex, enemy.type === 'BRUISER' ? 28 : 18, 1.1);
+                audio.playExplosion(enemy.type === 'BRUISER' ? 1.25 : 0.9);
+
+                const gained = enemy.scoreValue * state.combo;
+                state.score += gained;
+                state.combo = Math.min(12, state.combo + 1);
+                state.maxCombo = Math.max(state.maxCombo, state.combo);
+                state.comboTimer = 3.6;
+
+                spawnScorePopup(
+                  enemy.mesh.position,
+                  state.combo > 2 ? `+${gained} (${state.combo}x)` : `+${gained}`,
+                  enemy.type === 'SCOUT' ? '#00f3ff' : '#ff00d4'
+                );
+
+                scene.remove(enemy.mesh);
+                enemies.splice(k, 1);
+                syncAllHUDs();
+              } else {
+                // Armor Spark Impact
+                spawnExplosion(bolt.mesh.position, 0xffffff, 7, 0.55);
+              }
+              break;
+            }
+          }
+        }
+
+        if (hitSomething || bolt.life <= 0) {
+          scene.remove(bolt.mesh);
+          lasers.splice(i, 1);
+        }
+      }
+
+      // Update Enemies
+      const playerPos = new THREE.Vector3();
+      camera.getWorldPosition(playerPos);
+
+      for (let i = enemies.length - 1; i >= 0; i--) {
+        const e = enemies[i];
+        e.phase += dt * 3.2;
+
+        // Hit flash white effect
+        if (e.flashTimer > 0) {
+          e.flashTimer -= dt;
+          e.mesh.userData.coreMat.emissive.setHex(0xffffff);
+          e.mesh.userData.coreMat.emissiveIntensity = 2.2;
+        } else {
+          const baseEmissive = e.type === 'SCOUT' ? 0x0088cc : e.type === 'BRUISER' ? 0x99007a : 0xb8002e;
+          e.mesh.userData.coreMat.emissive.setHex(baseEmissive);
+          e.mesh.userData.coreMat.emissiveIntensity = 0.9;
+        }
+
+        // Direction toward player platform (0, y, 0)
+        const toCenter = new THREE.Vector3(-e.mesh.position.x, 0, -e.mesh.position.z);
+        const horizDist = toCenter.length();
+        toCenter.normalize();
+
+        if (e.type === 'SCOUT') {
+          e.mesh.rotation.y += dt * 3.5;
+          e.mesh.rotation.z = Math.sin(e.phase) * 0.35;
+          // Weave horizontally while advancing
+          const sideVec = new THREE.Vector3(-toCenter.z, 0, toCenter.x);
+          e.mesh.position.addScaledVector(toCenter, e.speed * dt);
+          e.mesh.position.addScaledVector(sideVec, Math.cos(e.phase * 1.3) * 3.4 * dt);
+          e.mesh.position.y += Math.sin(e.phase * 2) * 0.4 * dt;
+        } else if (e.type === 'BRUISER') {
+          e.mesh.rotation.x += dt * 1.4;
+          e.mesh.rotation.y += dt * 1.8;
+          e.mesh.position.addScaledVector(toCenter, e.speed * dt);
+        } else if (e.type === 'SNIPER') {
+          e.mesh.lookAt(playerPos.x, e.mesh.position.y, playerPos.z);
+
+          if (e.sniperState === 'ADVANCE') {
+            e.mesh.position.addScaledVector(toCenter, e.speed * dt);
+            if (horizDist < 14.5) {
+              e.sniperState = 'CHARGE';
+              e.sniperTimer = 1.35;
+              e.mesh.userData.tipOrb.visible = true;
+              audio.playSniperCharge();
+            }
+          } else if (e.sniperState === 'CHARGE') {
+            e.sniperTimer -= dt;
+            const pulse = 1 + Math.sin(elapsed * 28) * 0.35;
+            e.mesh.userData.tipOrb.scale.setScalar(pulse);
+            if (e.sniperTimer <= 0) {
+              const tipWorld = new THREE.Vector3();
+              e.mesh.userData.tipOrb.getWorldPosition(tipWorld);
+              spawnEnemyPlasmaOrb(tipWorld);
+              e.mesh.userData.tipOrb.visible = false;
+              e.sniperState = 'COOLDOWN';
+              e.sniperTimer = 2.4;
+            }
+          } else if (e.sniperState === 'COOLDOWN') {
+            e.sniperTimer -= dt;
+            // Strafe slowly during cooldown
+            const sideVec = new THREE.Vector3(-toCenter.z, 0, toCenter.x);
+            e.mesh.position.addScaledVector(sideVec, Math.sin(e.phase * 0.7) * 1.8 * dt);
+            if (e.sniperTimer <= 0) {
+              e.sniperState = 'CHARGE';
+              e.sniperTimer = 1.35;
+              e.mesh.userData.tipOrb.visible = true;
+              audio.playSniperCharge();
+            }
+          }
+        }
+
+        // Check if enemy breached the player perimeter (< 1.8m)
+        if (horizDist < 1.85) {
+          spawnExplosion(e.mesh.position, 0xff0055, 20, 1.0);
+          scene.remove(e.mesh);
+          enemies.splice(i, 1);
+          damageCore(e.type === 'BRUISER' ? 25 : 15);
+        }
+      }
+
+      // Update Enemy Plasma Orbs
+      for (let i = enemyProjectiles.length - 1; i >= 0; i--) {
+        const orb = enemyProjectiles[i];
+        orb.life -= dt;
+        orb.mesh.position.addScaledVector(orb.vel, dt);
+        orb.mesh.rotation.y += dt * 6;
+
+        // Check if orb hits player head/body zone
+        if (orb.mesh.position.distanceTo(playerPos) < 0.65) {
+          spawnExplosion(orb.mesh.position, 0xff2a6d, 14, 0.8);
+          scene.remove(orb.mesh);
+          enemyProjectiles.splice(i, 1);
+          damageCore(12);
+          continue;
+        }
+
+        if (orb.life <= 0) {
+          scene.remove(orb.mesh);
+          enemyProjectiles.splice(i, 1);
+        }
+      }
+
+      // Update Explosion Particles
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.life -= dt;
+        p.vel.y -= 14 * dt; // Gravity
+        p.mesh.position.addScaledVector(p.vel, dt);
+        p.mesh.rotation.x += dt * 8;
+        p.mesh.rotation.y += dt * 8;
+        const ratio = Math.max(0, p.life / p.maxLife);
+        p.mesh.scale.setScalar(ratio);
+        p.mesh.material.opacity = ratio;
+
+        if (p.life <= 0) {
+          scene.remove(p.mesh);
+          particles.splice(i, 1);
+        }
+      }
+
+      // Update Floating Score Popups
+      for (let i = floatingPopups.length - 1; i >= 0; i--) {
+        const fp = floatingPopups[i];
+        fp.life -= dt;
+        fp.sprite.position.y += dt * 1.15;
+        fp.sprite.material.opacity = Math.max(0, fp.life / fp.maxLife);
+
+        if (fp.life <= 0) {
+          scene.remove(fp.sprite);
+          fp.sprite.material.map.dispose();
+          fp.sprite.material.dispose();
+          floatingPopups.splice(i, 1);
+        }
+      }
+    }
+
+    // Start WebXR-compatible animation loop on window load
+    window.onload = () => {
+      renderer.setAnimationLoop(() => {
+        const dt = Math.min(clock.getDelta(), 0.05);
+        updateSimulation(dt);
+        renderer.render(scene, camera);
+      });
+    };
+  </script>
+</body>
+</html>

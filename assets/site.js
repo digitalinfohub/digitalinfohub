@@ -79,6 +79,7 @@
     /* Pages that live under a section without sharing its URL prefix still
        need the right item highlighted. */
     if (/^\/post(\/|$)/.test(path)) path = '/blog';
+    else if (/^\/vrgames(\/|$)/.test(path)) path = '/games';
     else if (/^\/tool-/.test(path) || path === '/expense-tracker' || path === '/extension') path = '/software';
     document.querySelectorAll('[data-dih-nav], #dihDrawer').forEach(function (scope) {
       scope.querySelectorAll('a[href]').forEach(function (a) {

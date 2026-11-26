@@ -74,6 +74,12 @@ PAGE_META = {
         "desc": "Play free arcade games in your browser: Snake, 2048, Pong, Memory, Typing Rush and more. No downloads, works on mobile.",
         "keywords": "free browser games, online arcade, snake game, 2048, pong, typing game",
     },
+    "vrgames.html": {
+        "kind": "games", "type": "website",
+        "title": "VR Games — Free WebXR Arcade for Headset or Desktop | Digital Infohub",
+        "desc": "Play free VR games in your browser: Neon Breach is a WebXR wave shooter, Town Square Tycoon VR is a 3D high-street business sim. Headset or desktop simulator, no install.",
+        "keywords": "vr games, free vr games, webxr games, browser vr, vr shooter, vr tycoon game, play vr without headset",
+    },
     "app.html": {
         "kind": "app", "type": "website",
         "title": "Install Digital Infohub — Home-Screen App, QR Code & Chrome Extension",

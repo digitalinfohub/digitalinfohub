@@ -930,23 +930,33 @@ def build_index():
 def build_sitemap():
     urls = []
 
+    # Keep known lastmod dates: a rebuild should not tell search engines that
+    # every page changed just because the generator ran again.
+    previous = {}
+    sitemap_path = ROOT / "sitemap.xml"
+    if sitemap_path.exists():
+        previous = dict(re.findall(
+            r"<loc>([^<]+)</loc>\s*<lastmod>([^<]+)</lastmod>",
+            sitemap_path.read_text(encoding="utf-8"),
+        ))
+
     def add(path, priority, changefreq="monthly", lastmod=TODAY):
         loc = SITE + "/" + path if path else SITE + "/"
-        urls.append((loc, lastmod, changefreq, priority))
+        urls.append((loc, previous.get(loc, lastmod), changefreq, priority))
 
     for slug in ORDER:
         add(slug, "0.8", "monthly", UPDATED)
     add("techtopics", "0.9", "weekly", UPDATED)
     add("", "1.0", "daily")
-    for hub in ["blog", "software", "techtopics", "games", "subscribe", "about", "advertise", "services", "contact", "techproducts", "coincompass", "digi", "expense-tracker", "pomodoro", "privacy-policy", "news", "quiz"]:
+    for hub in ["blog", "software", "techtopics", "games", "vrgames", "subscribe", "about", "advertise", "services", "contact", "techproducts", "coincompass", "digi", "expense-tracker", "pomodoro", "privacy-policy", "news", "quiz", "app", "extension", "terminal"]:
         if (ROOT / f"{hub}.html").exists():
             add(hub, "0.7", "weekly")
-    for sub in ["software", "post"]:
+    for sub in ["software", "games", "vrgames", "post"]:
         folder = ROOT / sub
         if folder.is_dir():
             for f in sorted(folder.glob("*.html")):
                 mtime = datetime.fromtimestamp(f.stat().st_mtime).date().isoformat()
-                add(f"{sub}/{f.stem}", "0.6" if sub == "software" else "0.7", "monthly", mtime)
+                add(f"{sub}/{f.stem}", "0.7" if sub == "post" else "0.6", "monthly", mtime)
     for f in sorted(ROOT.glob("tool-*.html")):
         mtime = datetime.fromtimestamp(f.stat().st_mtime).date().isoformat()
         add(f.stem, "0.5", "monthly", mtime)

@@ -1,0 +1,2167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Town Square Tycoon VR — 3D High-Street Business Tycoon | Digital Infohub</title>
+  <meta name="description" content="Play Town Square Tycoon VR free: a 3D high-street business tycoon in your browser. Open six shops, upgrade the square and grow from a coffee cart to a grand hotel. Works in a headset or on desktop and mobile." />
+  <meta name="keywords" content="town square tycoon, vr tycoon game, webxr business game, 3d tycoon browser game, shop tycoon, idle business game, play vr without headset" />
+  <link rel="canonical" href="https://digitalinfohub.net/vrgames/town-square-tycoon" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Digital Infohub" />
+  <meta property="og:title" content="Town Square Tycoon VR — 3D High-Street Business Tycoon | Digital Infohub" />
+  <meta property="og:description" content="Open six shops, upgrade the square and grow a coffee cart into a grand hotel. Free 3D tycoon game for headset, desktop or phone." />
+  <meta property="og:url" content="https://digitalinfohub.net/vrgames/town-square-tycoon" />
+  <meta property="og:image" content="https://digitalinfohub.net/assets/og/vrgames-town-square-tycoon.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Town Square Tycoon VR — 3D High-Street Business Tycoon | Digital Infohub" />
+  <meta name="twitter:description" content="Open six shops, upgrade the square and grow a coffee cart into a grand hotel. Free 3D tycoon game for headset, desktop or phone." />
+  <meta name="twitter:image" content="https://digitalinfohub.net/assets/og/vrgames-town-square-tycoon.jpg" />
+  <meta name="theme-color" content="#cce3f5" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <link rel="icon" href="/assets/favicon.ico" sizes="any" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoGame","name":"Town Square Tycoon VR","url":"https://digitalinfohub.net/vrgames/town-square-tycoon","description":"A 3D high-street business tycoon played in the browser: six shops, town improvements and an auto-saving economy, in VR or on desktop.","genre":"Business simulation","gamePlatform":"WebXR, Web browser","playMode":"SinglePlayer","applicationCategory":"Game","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"inLanguage":"en","publisher":{"@type":"Organization","name":"Digital Infohub","url":"https://digitalinfohub.net"},"isPartOf":{"@type":"WebSite","name":"Digital Infohub","url":"https://digitalinfohub.net"}}</script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; user-select: none; -webkit-user-select: none; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: #cce3f5;
+      font-family: 'Inter', sans-serif;
+      color: #1e293b;
+    }
+    #game-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      z-index: 1;
+      touch-action: none;
+    }
+    .font-mono-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-variant-numeric: tabular-nums;
+    }
+    .warm-panel {
+      background: rgba(252, 250, 246, 0.90);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(180, 165, 145, 0.45);
+      box-shadow: 0 10px 28px -6px rgba(30, 41, 59, 0.18);
+    }
+    .warm-card {
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(203, 213, 225, 0.85);
+      transition: all 0.18s ease;
+    }
+    .warm-card:hover {
+      border-color: #d97706;
+      background: #ffffff;
+      box-shadow: 0 4px 12px rgba(217, 119, 6, 0.1);
+    }
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: rgba(226, 232, 240, 0.5); }
+    ::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.7); border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(100, 116, 139, 0.9); }
+  </style>
+</head>
+<body>
+
+  <!-- 3D WebGL / WebXR Viewport -->
+  <canvas id="game-canvas"></canvas>
+
+  <!-- HUD Overlay -->
+  <div id="hud-root" class="fixed inset-0 z-10 pointer-events-none flex flex-col justify-between p-3 sm:p-5">
+
+    <!-- Top Bar: Brand, Cash Counters, VR & Audio Controls -->
+    <div class="flex flex-wrap items-start justify-between gap-2 sm:gap-4">
+
+      <!-- Left: Town Brand & Balance -->
+      <div class="flex flex-wrap items-center gap-2 sm:gap-3 pointer-events-auto">
+        <div class="warm-panel rounded-2xl px-3.5 py-2.5 flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-600 to-orange-700 flex items-center justify-center shadow-sm">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4M9 9v.01M9 12v.01M9 15v.01M9 18v.01" />
+            </svg>
+          </div>
+          <div>
+            <div class="flex items-center gap-1.5">
+              <span class="font-extrabold tracking-tight text-xs sm:text-sm text-stone-800">TOWN SQUARE TYCOON</span>
+              <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 border border-amber-300">VR</span>
+            </div>
+            <p class="text-[11px] text-stone-500 hidden sm:block">Oakridge High Street Plaza</p>
+          </div>
+        </div>
+
+        <!-- Balance & Income Counter -->
+        <div class="warm-panel rounded-2xl px-4 py-2 flex items-center gap-4 sm:gap-6">
+          <div>
+            <div class="text-[10px] uppercase tracking-wider text-stone-500 font-bold">Cash Register</div>
+            <div id="ui-cash" class="font-mono-num text-lg sm:text-2xl font-bold text-emerald-700 leading-tight">$120</div>
+          </div>
+          <div class="h-8 w-px bg-stone-300"></div>
+          <div>
+            <div class="text-[10px] uppercase tracking-wider text-stone-500 font-bold">Revenue</div>
+            <div id="ui-income" class="font-mono-num text-sm sm:text-base font-bold text-amber-700 leading-tight">$0/s</div>
+          </div>
+          <div class="hidden md:block h-8 w-px bg-stone-300"></div>
+          <div class="hidden md:block">
+            <div class="text-[10px] uppercase tracking-wider text-stone-500 font-bold">Townsfolk</div>
+            <div id="ui-shoppers" class="font-mono-num text-sm sm:text-base font-bold text-stone-700 leading-tight">0</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Action Controls (VR Enter, Sound, Camera Reset, Reset Save) -->
+      <div class="flex flex-wrap items-center gap-2 pointer-events-auto">
+        <a href="/vrgames" title="Back to the VR games arcade"
+          class="warm-panel hover:bg-amber-50 active:scale-95 transition-all rounded-xl px-3.5 py-2.5 flex items-center gap-1.5 text-xs sm:text-sm font-bold text-stone-700 border border-stone-300/70 cursor-pointer">
+          <span aria-hidden="true">←</span>
+          <span class="hidden sm:inline">VR Games</span>
+        </a>
+
+        <button id="btn-enter-vr" title="Enter WebXR Virtual Reality Mode"
+          class="warm-panel hover:bg-amber-50 active:scale-95 transition-all rounded-xl px-3.5 py-2.5 flex items-center gap-2 text-xs sm:text-sm font-bold text-amber-800 border border-amber-400/80 cursor-pointer">
+          <svg class="w-4 h-4 sm:w-5 sm:h-5 text-amber-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h14a2 2 0 012 2v6a2 2 0 01-2 2h-4.382a1 1 0 01-.894-.553l-.448-.894a1 1 0 00-1.788 0l-.448.894A1 1 0 019.382 17H5a2 2 0 01-2-2V9z" />
+            <circle cx="8" cy="12" r="1.5" />
+            <circle cx="16" cy="12" r="1.5" />
+          </svg>
+          <span id="vr-btn-label">ENTER VR</span>
+        </button>
+
+        <button id="btn-audio" title="Toggle Sound Effects"
+          class="warm-panel hover:bg-stone-100 active:scale-95 transition-all rounded-xl p-2.5 text-stone-700 cursor-pointer">
+          <svg id="icon-sound-on" class="w-5 h-5 text-emerald-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M11 5L6 9H2v6h4l5 4V5z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.54 8.46a5 5 0 010 7.07M19.07 4.93a10 10 0 010 14.14" />
+          </svg>
+          <svg id="icon-sound-off" class="w-5 h-5 text-stone-400 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M11 5L6 9H2v6h4l5 4V5zM23 9l-6 6M17 9l6 6" />
+          </svg>
+        </button>
+
+        <button id="btn-cam-reset" title="Reset Town Square Camera"
+          class="warm-panel hover:bg-stone-100 active:scale-95 transition-all rounded-xl p-2.5 text-stone-700 cursor-pointer">
+          <svg class="w-5 h-5 text-stone-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+          </svg>
+        </button>
+
+        <button id="btn-reset-prompt" title="Reset Town Progress"
+          class="warm-panel hover:bg-rose-50 active:scale-95 transition-all rounded-xl p-2.5 text-stone-600 hover:text-rose-700 cursor-pointer">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Center Toast Notification Banner -->
+    <div id="toast-container" class="self-center pointer-events-none transition-all duration-300 opacity-0 -translate-y-2">
+      <div id="toast-msg" class="warm-panel px-4 py-2 rounded-full text-xs sm:text-sm font-semibold text-stone-800 border border-amber-400/70 shadow-md">
+        Welcome to Oakridge Town Square!
+      </div>
+    </div>
+
+    <!-- Bottom Controls & Management Drawer -->
+    <div class="flex flex-col lg:flex-row items-stretch lg:items-end justify-between gap-3">
+
+      <!-- Left: Weekend Market Rush Button & Controls Hint -->
+      <div class="flex flex-wrap items-center gap-2 pointer-events-auto">
+        <button id="btn-boost"
+          class="warm-panel hover:bg-emerald-50 active:scale-95 transition-all rounded-2xl px-4 py-3 flex items-center gap-3 border border-emerald-500/50 cursor-pointer group">
+          <div class="w-8 h-8 rounded-xl bg-emerald-600 text-white flex items-center justify-center group-hover:scale-105 transition-transform shadow-sm">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <div class="text-left">
+            <div class="text-xs sm:text-sm font-bold text-emerald-800">WEEKEND MARKET RUSH</div>
+            <div id="ui-boost-sub" class="text-[11px] text-stone-600 font-mono-num">Ring Bell (+$10)</div>
+          </div>
+        </button>
+
+        <div class="hidden xl:flex warm-panel rounded-2xl px-4 py-3 text-xs text-stone-600 items-center gap-3">
+          <span class="px-2 py-0.5 rounded bg-stone-200 text-stone-800 font-mono text-[11px]">Drag</span> Orbit
+          <span class="px-2 py-0.5 rounded bg-stone-200 text-stone-800 font-mono text-[11px]">WASD</span> Walk
+          <span class="px-2 py-0.5 rounded bg-stone-200 text-stone-800 font-mono text-[11px]">Click Plot</span> Open / Upgrade
+        </div>
+      </div>
+
+      <!-- Right: Shops & Town Improvements Drawer -->
+      <div class="pointer-events-auto w-full lg:w-[540px] warm-panel rounded-2xl overflow-hidden flex flex-col">
+        <!-- Drawer Header Tabs -->
+        <div class="flex items-center justify-between px-3.5 py-2.5 border-b border-stone-200 bg-stone-100/70">
+          <div class="flex items-center gap-1.5">
+            <button id="tab-shops" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-amber-600 text-white cursor-pointer transition-all shadow-sm">
+              Local Shops (6)
+            </button>
+            <button id="tab-upgrades" class="px-3 py-1.5 rounded-lg text-xs font-bold text-stone-600 hover:text-stone-900 cursor-pointer transition-all">
+              Town Improvements
+            </button>
+          </div>
+          <button id="btn-toggle-drawer" class="text-xs font-semibold text-stone-600 hover:text-stone-900 flex items-center gap-1 px-2 py-1 rounded-lg hover:bg-stone-200/60 cursor-pointer">
+            <span id="drawer-toggle-text">Minimize</span>
+            <svg id="drawer-chevron" class="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Drawer Body -->
+        <div id="drawer-body" class="p-3 max-h-[34vh] sm:max-h-[260px] overflow-y-auto transition-all">
+          <div id="panel-shops" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5"></div>
+          <div id="panel-upgrades" class="hidden grid-cols-1 gap-2.5"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Custom Reset Confirmation Modal -->
+  <div id="modal-reset" class="fixed inset-0 z-50 hidden items-center justify-center bg-stone-900/50 backdrop-blur-sm p-4">
+    <div class="warm-panel rounded-2xl max-w-sm w-full p-6 border border-rose-300 text-center">
+      <div class="w-12 h-12 rounded-2xl bg-rose-100 text-rose-600 mx-auto mb-3 flex items-center justify-center">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+        </svg>
+      </div>
+      <h3 class="text-lg font-bold text-stone-900 mb-1">Start a New Town?</h3>
+      <p class="text-xs text-stone-600 mb-5">This will clear your saved shops and restart Oakridge Square with $120 starting capital.</p>
+      <div class="flex items-center gap-3">
+        <button id="btn-reset-cancel" class="flex-1 py-2.5 rounded-xl bg-stone-200 hover:bg-stone-300 text-xs font-bold text-stone-800 cursor-pointer">Keep Playing</button>
+        <button id="btn-reset-confirm" class="flex-1 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-xs font-bold text-white cursor-pointer">Reset Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Three.js Core via CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <script>
+    /**
+     * ============================================================================
+     * TOWN SQUARE TYCOON VR — Grounded Daylight 3D Business Tycoon (Three.js + WebXR)
+     * Single-file self-contained architecture:
+     * 1. Warm Acoustic/Marimba & Cash Register Procedural Web Audio Synthesizer
+     * 2. Small-Town High-Street Economy & LocalStorage Auto-Save
+     * 3. Daylight Cobblestone Plaza, Fountain, Trees, Streetlamps & Passing Delivery Van
+     * 4. 6 Grounded Brick/Timber Storefronts with Tiered Architectural Growth
+     * 5. Interactive 3D Wooden/Glass Town Noticeboard for In-VR Upgrades
+     * 6. Desktop Orbit/WASD + Mobile Touch + WebXR VR Controllers & Teleportation
+     * ============================================================================
+     */
+
+    (function () {
+      'use strict';
+
+      // --------------------------------------------------------------------------
+      // 1. PROCEDURAL WEB AUDIO SYNTHESIZER (WARM & GROUNDED SOUNDS)
+      // --------------------------------------------------------------------------
+      class SoundEngine {
+        constructor() {
+          this.ctx = null;
+          this.muted = false;
+        }
+
+        init() {
+          if (!this.ctx) {
+            const AudioCtx = window.AudioContext || window.webkitAudioContext;
+            if (AudioCtx) this.ctx = new AudioCtx();
+          }
+          if (this.ctx && this.ctx.state === 'suspended') {
+            this.ctx.resume();
+          }
+        }
+
+        toggleMute() {
+          this.muted = !this.muted;
+          return this.muted;
+        }
+
+        playTone(freq, type, duration, gainVal, delay = 0, slideTo = null) {
+          if (this.muted) return;
+          this.init();
+          if (!this.ctx) return;
+
+          const now = this.ctx.currentTime + delay;
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+
+          osc.type = type;
+          osc.frequency.setValueAtTime(freq, now);
+          if (slideTo) {
+            osc.frequency.exponentialRampToValueAtTime(slideTo, now + duration);
+          }
+
+          gain.gain.setValueAtTime(0.001, now);
+          gain.gain.linearRampToValueAtTime(gainVal, now + 0.012);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+
+          osc.start(now);
+          osc.stop(now + duration + 0.02);
+        }
+
+        // Classic warm cash-register chime
+        playCoin() {
+          this.playTone(1046.5, 'sine', 0.16, 0.08, 0);
+          this.playTone(1567.98, 'sine', 0.26, 0.08, 0.055);
+        }
+
+        // Warm wooden marimba chord for building/upgrading
+        playUpgrade() {
+          this.playTone(392.00, 'sine', 0.22, 0.12, 0);     // G4
+          this.playTone(493.88, 'sine', 0.22, 0.12, 0.06);  // B4
+          this.playTone(587.33, 'sine', 0.25, 0.12, 0.12);  // D5
+          this.playTone(783.99, 'sine', 0.36, 0.13, 0.18);  // G5
+        }
+
+        playClick() {
+          this.playTone(520, 'sine', 0.06, 0.06, 0, 360);
+        }
+
+        // Shop counter bell ring
+        playBell() {
+          this.playTone(1318.5, 'sine', 0.35, 0.09, 0);
+          this.playTone(2637.0, 'sine', 0.22, 0.03, 0);
+        }
+      }
+
+      const sound = new SoundEngine();
+
+      // --------------------------------------------------------------------------
+      // 2. GAME DATA & HIGH-STREET ECONOMY CONFIGURATION
+      // --------------------------------------------------------------------------
+      const SAVE_KEY = 'town_square_tycoon_vr_save_v1';
+
+      const SHOP_CONFIGS = [
+        {
+          id: 'coffee_cart',
+          name: 'Corner Coffee Cart',
+          tag: 'Artisanal Espresso',
+          baseCost: 50,
+          baseIncome: 5,
+          costMult: 1.46,
+          wallColor: 0xf5f0e6,     // Warm cream
+          trimColor: 0x78350f,     // Espresso timber
+          awningColor1: 0x15803d,  // Forest green
+          awningColor2: 0xfefce8,  // Off-white stripe
+          accentCss: '#15803d',
+          pos: { x: -12.5, z: -10.5 },
+          rotY: Math.PI * 0.22
+        },
+        {
+          id: 'bakery',
+          name: 'Neighborhood Bakery',
+          tag: 'Sourdough & Pastries',
+          baseCost: 150,
+          baseIncome: 16,
+          costMult: 1.48,
+          wallColor: 0xb45309,     // Warm terracotta brick
+          trimColor: 0xfef3c7,     // Warm cream trim
+          awningColor1: 0xd97706,  // Golden ochre
+          awningColor2: 0xffffff,
+          accentCss: '#b45309',
+          pos: { x: 12.5, z: -10.5 },
+          rotY: -Math.PI * 0.22
+        },
+        {
+          id: 'bookshop',
+          name: 'Independent Bookshop',
+          tag: 'Books & Reading Loft',
+          baseCost: 450,
+          baseIncome: 48,
+          costMult: 1.50,
+          wallColor: 0x1e3a5f,     // Classic heritage navy wood
+          trimColor: 0xe2e8f0,
+          awningColor1: 0x991b1b,  // Burgundy awning
+          awningColor2: 0xfef2f2,
+          accentCss: '#1e3a5f',
+          pos: { x: -15.5, z: 2.0 },
+          rotY: Math.PI * 0.5
+        },
+        {
+          id: 'bistro',
+          name: 'Farm-to-Table Bistro',
+          tag: 'Patio Dining',
+          baseCost: 1200,
+          baseIncome: 135,
+          costMult: 1.52,
+          wallColor: 0xd6d3d1,     // Natural limestone
+          trimColor: 0x44403c,     // Slate charcoal
+          awningColor1: 0x0f766e,  // Deep teal
+          awningColor2: 0xf0fdfa,
+          accentCss: '#0f766e',
+          pos: { x: 15.5, z: 2.0 },
+          rotY: -Math.PI * 0.5
+        },
+        {
+          id: 'design_studio',
+          name: 'Boutique Design Studio',
+          tag: 'Architecture & Goods',
+          baseCost: 3500,
+          baseIncome: 410,
+          costMult: 1.54,
+          wallColor: 0x9a3412,     // Red clay brick
+          trimColor: 0x292524,     // Dark iron
+          awningColor1: 0x334155,  // Slate awning
+          awningColor2: 0xf8fafc,
+          accentCss: '#9a3412',
+          pos: { x: -11.5, z: 13.5 },
+          rotY: Math.PI * 0.78
+        },
+        {
+          id: 'grand_hotel',
+          name: 'Grand Town Hotel',
+          tag: 'Historic Landmark',
+          baseCost: 10000,
+          baseIncome: 1250,
+          costMult: 1.56,
+          wallColor: 0xe7e5e4,     // Stately limestone
+          trimColor: 0x713f12,     // Mahogany & brass
+          awningColor1: 0x7f1d1d,  // Royal crimson canopy
+          awningColor2: 0xfef3c7,
+          accentCss: '#7f1d1d',
+          pos: { x: 11.5, z: 13.5 },
+          rotY: -Math.PI * 0.78
+        }
+      ];
+
+      const TOWN_IMPROVEMENTS = [
+        {
+          id: 'newspaper',
+          name: 'Local Gazette & Radio Ads',
+          desc: 'Brings more townsfolk & weekend visitors to the square (+25% foot traffic/lv).',
+          baseCost: 120,
+          costMult: 2.05,
+          maxLevel: 10
+        },
+        {
+          id: 'delivery_van',
+          name: 'Wholesale Supply Van',
+          desc: 'Boosts all shop profit margins by +30% per level & dispatches bonus supply vans.',
+          baseCost: 350,
+          costMult: 2.25,
+          maxLevel: 10
+        },
+        {
+          id: 'pedestrian_zone',
+          name: 'High Street Pedestrian Charter',
+          desc: 'Upgrades the town square status & doubles all local business revenue per tier!',
+          baseCost: 2500,
+          costMult: 3.4,
+          maxLevel: 5
+        }
+      ];
+
+      let state = {
+        cash: 120,
+        totalEarned: 120,
+        shops: {},
+        upgrades: {
+          newspaper: 0,
+          delivery_van: 0,
+          pedestrian_zone: 0
+        },
+        rushTimer: 0
+      };
+
+      SHOP_CONFIGS.forEach(cfg => {
+        state.shops[cfg.id] = { level: 0 };
+      });
+
+      function formatMoney(num) {
+        if (num < 1000) return '$' + Math.floor(num).toLocaleString();
+        const units = ['K', 'M', 'B', 'T'];
+        let unitIndex = -1;
+        let scaled = num;
+        while (scaled >= 1000 && unitIndex < units.length - 1) {
+          scaled /= 1000;
+          unitIndex++;
+        }
+        return '$' + scaled.toFixed(scaled >= 100 ? 1 : 2) + units[unitIndex];
+      }
+
+      function getShopUpgradeCost(cfg, level) {
+        return Math.floor(cfg.baseCost * Math.pow(cfg.costMult, level));
+      }
+
+      function getGlobalMultiplier() {
+        const vanBonus = 1 + state.upgrades.delivery_van * 0.30;
+        const charterBonus = Math.pow(2, state.upgrades.pedestrian_zone);
+        const rushBonus = state.rushTimer > 0 ? 1.5 : 1.0;
+        return vanBonus * charterBonus * rushBonus;
+      }
+
+      function getShopIncomePerSec(cfg, level) {
+        if (level <= 0) return 0;
+        const milestoneMult = Math.pow(1.32, Math.floor(level / 5));
+        return cfg.baseIncome * level * milestoneMult * getGlobalMultiplier();
+      }
+
+      function getTotalIncomePerSec() {
+        let total = 0;
+        for (const cfg of SHOP_CONFIGS) {
+          total += getShopIncomePerSec(cfg, state.shops[cfg.id].level);
+        }
+        return total;
+      }
+
+      function getUpgradeCost(upg) {
+        const lv = state.upgrades[upg.id] || 0;
+        return Math.floor(upg.baseCost * Math.pow(upg.costMult, lv));
+      }
+
+      function saveGame() {
+        try {
+          localStorage.setItem(SAVE_KEY, JSON.stringify({
+            cash: state.cash,
+            totalEarned: state.totalEarned,
+            shops: state.shops,
+            upgrades: state.upgrades
+          }));
+        } catch (e) { /* Ignore storage restrictions */ }
+      }
+
+      function loadGame() {
+        try {
+          const raw = localStorage.getItem(SAVE_KEY);
+          if (!raw) return;
+          const parsed = JSON.parse(raw);
+          if (typeof parsed.cash === 'number') state.cash = parsed.cash;
+          if (typeof parsed.totalEarned === 'number') state.totalEarned = parsed.totalEarned;
+          if (parsed.shops) {
+            SHOP_CONFIGS.forEach(cfg => {
+              if (parsed.shops[cfg.id] && typeof parsed.shops[cfg.id].level === 'number') {
+                state.shops[cfg.id].level = parsed.shops[cfg.id].level;
+              }
+            });
+          }
+          if (parsed.upgrades) {
+            Object.assign(state.upgrades, parsed.upgrades);
+          }
+        } catch (e) { /* Ignore parse error */ }
+      }
+
+      loadGame();
+
+      // --------------------------------------------------------------------------
+      // 3. THREE.JS DAYLIGHT SCENE, RENDERER & WEBXR SETUP
+      // --------------------------------------------------------------------------
+      const canvas = document.getElementById('game-canvas');
+      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.shadowMap.enabled = true;
+      renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.05;
+      renderer.xr.enabled = true;
+
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color(0xcce3f5); // Crisp warm afternoon sky
+      scene.fog = new THREE.FogExp2(0xd8e9f6, 0.0085);
+
+      // Camera & VR Rig
+      const cameraRig = new THREE.Group();
+      scene.add(cameraRig);
+
+      const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 220);
+      cameraRig.add(camera);
+
+      // Desktop Orbit Camera State
+      const camOrbit = {
+        target: new THREE.Vector3(0, 1.4, 1.5),
+        radius: 32,
+        theta: 0.0,
+        phi: 0.94,
+        minRadius: 11,
+        maxRadius: 52
+      };
+
+      function updateDesktopCamera() {
+        if (renderer.xr.isPresenting) return;
+        const sinPhi = Math.sin(camOrbit.phi);
+        const cosPhi = Math.cos(camOrbit.phi);
+        const sinTheta = Math.sin(camOrbit.theta);
+        const cosTheta = Math.cos(camOrbit.theta);
+
+        camera.position.set(
+          camOrbit.target.x + camOrbit.radius * sinPhi * sinTheta,
+          camOrbit.target.y + camOrbit.radius * cosPhi,
+          camOrbit.target.z + camOrbit.radius * sinPhi * cosTheta
+        );
+        camera.lookAt(camOrbit.target);
+      }
+      updateDesktopCamera();
+
+      // Grounded Natural Daylight Lighting
+      const hemiLight = new THREE.HemisphereLight(0xf0f8ff, 0x6b8456, 0.85);
+      scene.add(hemiLight);
+
+      const sunLight = new THREE.DirectionalLight(0xfff5e4, 1.25);
+      sunLight.position.set(24, 38, 22);
+      sunLight.castShadow = true;
+      sunLight.shadow.mapSize.width = 1536;
+      sunLight.shadow.mapSize.height = 1536;
+      sunLight.shadow.camera.near = 5;
+      sunLight.shadow.camera.far = 95;
+      const shadowBound = 32;
+      sunLight.shadow.camera.left = -shadowBound;
+      sunLight.shadow.camera.right = shadowBound;
+      sunLight.shadow.camera.top = shadowBound;
+      sunLight.shadow.camera.bottom = -shadowBound;
+      sunLight.shadow.bias = -0.0005;
+      scene.add(sunLight);
+
+      // --------------------------------------------------------------------------
+      // 4. PROCEDURAL GROUNDED TEXTURES & TOWN SQUARE ENVIRONMENT
+      // --------------------------------------------------------------------------
+      function createCobblestoneTexture() {
+        const c = document.createElement('canvas');
+        c.width = 256;
+        c.height = 256;
+        const ctx = c.getContext('2d');
+        ctx.fillStyle = '#b8b2a6';
+        ctx.fillRect(0, 0, 256, 256);
+
+        const rows = 8;
+        const cols = 8;
+        const w = 256 / cols;
+        const h = 256 / rows;
+        const shades = ['#c7c1b6', '#b0a99c', '#d1cbc0', '#a69f92'];
+
+        for (let r = 0; r < rows; r++) {
+          const offsetX = (r % 2) * (w * 0.5);
+          for (let col = -1; col <= cols; col++) {
+            ctx.fillStyle = shades[(r * 7 + col * 3 + 8) % shades.length];
+            ctx.beginPath();
+            ctx.roundRect(col * w + offsetX + 2, r * h + 2, w - 4, h - 4, 5);
+            ctx.fill();
+          }
+        }
+        const tex = new THREE.CanvasTexture(c);
+        tex.wrapS = THREE.RepeatWrapping;
+        tex.wrapT = THREE.RepeatWrapping;
+        tex.repeat.set(14, 14);
+        return tex;
+      }
+
+      function createGrassTexture() {
+        const c = document.createElement('canvas');
+        c.width = 256;
+        c.height = 256;
+        const ctx = c.getContext('2d');
+        ctx.fillStyle = '#6f9654';
+        ctx.fillRect(0, 0, 256, 256);
+
+        for (let i = 0; i < 650; i++) {
+          ctx.fillStyle = i % 2 === 0 ? '#7ca360' : '#618747';
+          ctx.fillRect(Math.random() * 256, Math.random() * 256, 3, 6);
+        }
+        const tex = new THREE.CanvasTexture(c);
+        tex.wrapS = THREE.RepeatWrapping;
+        tex.wrapT = THREE.RepeatWrapping;
+        tex.repeat.set(24, 24);
+        return tex;
+      }
+
+      const waterRipples = [];
+      const clouds = [];
+
+      function buildTownEnvironment() {
+        // 1. Lush Green Meadow Surrounding Ground
+        const grassGeo = new THREE.PlaneGeometry(220, 220);
+        const grassMat = new THREE.MeshStandardMaterial({
+          map: createGrassTexture(),
+          roughness: 0.9,
+          metalness: 0.0
+        });
+        const grass = new THREE.Mesh(grassGeo, grassMat);
+        grass.rotation.x = -Math.PI / 2;
+        grass.position.y = -0.04;
+        grass.receiveShadow = true;
+        scene.add(grass);
+
+        // 2. Cobblestone Town Square Plaza Floor
+        const plazaGeo = new THREE.CylinderGeometry(23.5, 24.0, 0.16, 48);
+        const plazaMat = new THREE.MeshStandardMaterial({
+          map: createCobblestoneTexture(),
+          roughness: 0.85,
+          metalness: 0.05
+        });
+        const plaza = new THREE.Mesh(plazaGeo, plazaMat);
+        plaza.position.y = 0.04;
+        plaza.receiveShadow = true;
+        scene.add(plaza);
+
+        // Stone Curb Rim around the Plaza
+        const curbGeo = new THREE.TorusGeometry(23.7, 0.25, 10, 64);
+        const curbMat = new THREE.MeshStandardMaterial({ color: 0x9ca3af, roughness: 0.8 });
+        const curb = new THREE.Mesh(curbGeo, curbMat);
+        curb.rotation.x = Math.PI / 2;
+        curb.position.y = 0.1;
+        curb.receiveShadow = true;
+        scene.add(curb);
+
+        // 3. Brick Pedestrian Walkways leading out from the Square
+        const brickMat = new THREE.MeshStandardMaterial({ color: 0x9a4e3a, roughness: 0.85 });
+        const walkNS = new THREE.Mesh(new THREE.BoxGeometry(5.2, 0.14, 62), brickMat);
+        walkNS.position.set(0, 0.05, 0);
+        walkNS.receiveShadow = true;
+        scene.add(walkNS);
+
+        const walkEW = new THREE.Mesh(new THREE.BoxGeometry(62, 0.14, 5.2), brickMat);
+        walkEW.position.set(0, 0.05, 0);
+        walkEW.receiveShadow = true;
+        scene.add(walkEW);
+
+        // 4. Perimeter Asphalt High-Street Road (for passing delivery van)
+        const roadMat = new THREE.MeshStandardMaterial({ color: 0x374151, roughness: 0.9 });
+        const road = new THREE.Mesh(new THREE.BoxGeometry(160, 0.08, 6.5), roadMat);
+        road.position.set(0, 0.01, 28.5);
+        road.receiveShadow = true;
+        scene.add(road);
+
+        // Dashed white road centerline
+        const stripeMat = new THREE.MeshBasicMaterial({ color: 0xf8fafc });
+        for (let sx = -72; sx <= 72; sx += 6) {
+          const stripe = new THREE.Mesh(new THREE.BoxGeometry(2.8, 0.09, 0.22), stripeMat);
+          stripe.position.set(sx, 0.02, 28.5);
+          scene.add(stripe);
+        }
+
+        // 5. Central Town Square Stone Fountain
+        const fountainGroup = new THREE.Group();
+        scene.add(fountainGroup);
+
+        const basinWall = new THREE.Mesh(
+          new THREE.CylinderGeometry(3.4, 3.6, 0.75, 28),
+          new THREE.MeshStandardMaterial({ color: 0xd6d3d1, roughness: 0.75 })
+        );
+        basinWall.position.y = 0.45;
+        basinWall.castShadow = true;
+        basinWall.receiveShadow = true;
+        fountainGroup.add(basinWall);
+
+        const waterPool = new THREE.Mesh(
+          new THREE.CylinderGeometry(3.1, 3.1, 0.68, 28),
+          new THREE.MeshStandardMaterial({
+            color: 0x38bdf8,
+            roughness: 0.15,
+            metalness: 0.1,
+            transparent: true,
+            opacity: 0.85
+          })
+        );
+        waterPool.position.y = 0.48;
+        fountainGroup.add(waterPool);
+
+        const centerColumn = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.45, 0.65, 2.2, 16),
+          new THREE.MeshStandardMaterial({ color: 0xa8a29e, roughness: 0.7 })
+        );
+        centerColumn.position.y = 1.25;
+        centerColumn.castShadow = true;
+        fountainGroup.add(centerColumn);
+
+        const upperBowl = new THREE.Mesh(
+          new THREE.CylinderGeometry(1.35, 0.5, 0.4, 20),
+          new THREE.MeshStandardMaterial({ color: 0xd6d3d1, roughness: 0.7 })
+        );
+        upperBowl.position.y = 2.1;
+        upperBowl.castShadow = true;
+        fountainGroup.add(upperBowl);
+
+        const finial = new THREE.Mesh(
+          new THREE.SphereGeometry(0.32, 14, 14),
+          new THREE.MeshStandardMaterial({ color: 0x78716c, roughness: 0.6 })
+        );
+        finial.position.y = 2.65;
+        fountainGroup.add(finial);
+
+        // Animated water ripple rings in fountain
+        for (let r = 0; r < 2; r++) {
+          const rip = new THREE.Mesh(
+            new THREE.RingGeometry(0.7, 0.85, 24),
+            new THREE.MeshBasicMaterial({ color: 0xe0f2fe, side: THREE.DoubleSide, transparent: true, opacity: 0.7 })
+          );
+          rip.rotation.x = -Math.PI / 2;
+          rip.position.y = 0.84;
+          rip.userData.phase = r * 0.5;
+          fountainGroup.add(rip);
+          waterRipples.push(rip);
+        }
+
+        // 6. Wooden Park Benches & Cast-Iron Streetlamps around the Fountain
+        const benchAngles = [Math.PI * 0.25, Math.PI * 0.75, -Math.PI * 0.25, -Math.PI * 0.75];
+        benchAngles.forEach(ang => {
+          const dist = 5.4;
+          const bx = Math.sin(ang) * dist;
+          const bz = Math.cos(ang) * dist;
+
+          const bench = new THREE.Group();
+          bench.position.set(bx, 0.12, bz);
+          bench.rotation.y = ang + Math.PI;
+
+          const woodMat = new THREE.MeshStandardMaterial({ color: 0x92400e, roughness: 0.7 });
+          const ironMat = new THREE.MeshStandardMaterial({ color: 0x1f2937, metalness: 0.6, roughness: 0.4 });
+
+          const seat = new THREE.Mesh(new THREE.BoxGeometry(1.8, 0.08, 0.55), woodMat);
+          seat.position.y = 0.45;
+          seat.castShadow = true;
+          const back = new THREE.Mesh(new THREE.BoxGeometry(1.8, 0.45, 0.08), woodMat);
+          back.position.set(0, 0.72, -0.24);
+          back.rotation.x = -0.15;
+          back.castShadow = true;
+
+          const legL = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.45, 0.5), ironMat);
+          legL.position.set(-0.75, 0.22, 0);
+          const legR = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.45, 0.5), ironMat);
+          legR.position.set(0.75, 0.22, 0);
+
+          bench.add(seat, back, legL, legR);
+          scene.add(bench);
+        });
+
+        // Classic Cast-Iron Streetlamps
+        const lampCoords = [
+          [-7.5, -6.5], [7.5, -6.5], [-8.5, 7.5], [8.5, 7.5],
+          [-18, -14], [18, -14], [-18, 17], [18, 17]
+        ];
+        lampCoords.forEach(([lx, lz]) => {
+          const lamp = new THREE.Group();
+          lamp.position.set(lx, 0.1, lz);
+
+          const pole = new THREE.Mesh(
+            new THREE.CylinderGeometry(0.08, 0.14, 3.6, 10),
+            new THREE.MeshStandardMaterial({ color: 0x1f2937, metalness: 0.7, roughness: 0.3 })
+          );
+          pole.position.y = 1.8;
+          pole.castShadow = true;
+
+          const lantern = new THREE.Mesh(
+            new THREE.CylinderGeometry(0.26, 0.18, 0.48, 8),
+            new THREE.MeshStandardMaterial({ color: 0xfef3c7, emissive: 0xfde68a, emissiveIntensity: 0.5 })
+          );
+          lantern.position.y = 3.75;
+
+          const cap = new THREE.Mesh(
+            new THREE.ConeGeometry(0.32, 0.25, 8),
+            new THREE.MeshStandardMaterial({ color: 0x1f2937 })
+          );
+          cap.position.y = 4.08;
+
+          lamp.add(pole, lantern, cap);
+          scene.add(lamp);
+        });
+
+        // 7. Leafy Park Trees & Flower Planters around the Square Perimeter
+        function addTree(tx, tz, scale = 1.0, isPine = false) {
+          const tree = new THREE.Group();
+          tree.position.set(tx, 0, tz);
+          tree.scale.setScalar(scale);
+
+          const trunk = new THREE.Mesh(
+            new THREE.CylinderGeometry(0.24, 0.36, 2.2, 10),
+            new THREE.MeshStandardMaterial({ color: 0x5c3a21, roughness: 0.9 })
+          );
+          trunk.position.y = 1.1;
+          trunk.castShadow = true;
+          tree.add(trunk);
+
+          if (isPine) {
+            const pineMat = new THREE.MeshStandardMaterial({ color: 0x2d5a36, roughness: 0.85 });
+            for (let tier = 0; tier < 3; tier++) {
+              const cone = new THREE.Mesh(new THREE.ConeGeometry(1.7 - tier * 0.35, 2.1, 10), pineMat);
+              cone.position.y = 2.4 + tier * 1.25;
+              cone.castShadow = true;
+              tree.add(cone);
+            }
+          } else {
+            const leafColors = [0x4d7c32, 0x5d8c3e, 0x3f6b27];
+            const leafMat = new THREE.MeshStandardMaterial({
+              color: leafColors[Math.floor(Math.random() * leafColors.length)],
+              roughness: 0.85
+            });
+            const c1 = new THREE.Mesh(new THREE.DodecahedronGeometry(1.65, 1), leafMat);
+            c1.position.set(0, 3.1, 0);
+            c1.castShadow = true;
+            const c2 = new THREE.Mesh(new THREE.DodecahedronGeometry(1.2, 1), leafMat);
+            c2.position.set(0.85, 2.6, 0.5);
+            c2.castShadow = true;
+            const c3 = new THREE.Mesh(new THREE.DodecahedronGeometry(1.15, 1), leafMat);
+            c3.position.set(-0.8, 2.7, -0.4);
+            c3.castShadow = true;
+            tree.add(c1, c2, c3);
+          }
+
+          scene.add(tree);
+        }
+
+        const treePositions = [
+          [-23, -18, 1.15, false], [23, -18, 1.1, true],
+          [-25, -5, 0.95, true], [25, -5, 1.05, false],
+          [-24, 12, 1.1, false], [24, 12, 1.15, true],
+          [-8, -23, 1.2, false], [8, -23, 1.05, true],
+          [0, -25, 1.25, false], [-32, 6, 1.2, true],
+          [32, 6, 1.2, false], [-16, 36, 1.1, false],
+          [16, 36, 1.15, true], [0, 38, 1.0, false]
+        ];
+        treePositions.forEach(([x, z, s, pine]) => addTree(x, z, s, pine));
+
+        // 8. Soft Drifting Daylight Clouds
+        const cloudMat = new THREE.MeshStandardMaterial({
+          color: 0xffffff,
+          roughness: 0.95,
+          metalness: 0.0
+        });
+        for (let i = 0; i < 9; i++) {
+          const cloud = new THREE.Group();
+          const puffCount = 3 + (i % 3);
+          for (let p = 0; p < puffCount; p++) {
+            const puff = new THREE.Mesh(new THREE.DodecahedronGeometry(2.2 + (p % 2) * 0.9, 1), cloudMat);
+            puff.position.set(p * 2.1 - 2.0, (p % 2) * 0.5, (p % 3) * 0.6);
+            puff.scale.set(1.3, 0.65, 1.0);
+            cloud.add(puff);
+          }
+          cloud.position.set(-65 + i * 16, 26 + (i % 3) * 4, -35 + (i % 4) * 18);
+          scene.add(cloud);
+          clouds.push(cloud);
+        }
+      }
+
+      buildTownEnvironment();
+
+      // --------------------------------------------------------------------------
+      // 5. GROUNDED 3D STOREFRONTS & INTERACTIVE 3D TOWN NOTICEBOARD (FOR VR)
+      // --------------------------------------------------------------------------
+      const shopEntities = {};
+      const interactiveMeshes = [];
+
+      function createShopSignTexture(title, subtitle, accentHex, unlocked) {
+        const cvs = document.createElement('canvas');
+        cvs.width = 512;
+        cvs.height = 176;
+        const ctx = cvs.getContext('2d');
+
+        ctx.clearRect(0, 0, cvs.width, cvs.height);
+        // Warm cream wooden signboard with colored trim
+        ctx.fillStyle = unlocked ? 'rgba(255, 253, 248, 0.95)' : 'rgba(248, 250, 252, 0.90)';
+        ctx.strokeStyle = accentHex;
+        ctx.lineWidth = 8;
+
+        ctx.beginPath();
+        ctx.roundRect(10, 10, 492, 156, 22);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.fillStyle = '#1e293b';
+        ctx.font = 'bold 34px Inter, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(title, 256, 72);
+
+        ctx.fillStyle = unlocked ? '#15803d' : '#b45309';
+        ctx.font = 'bold 30px monospace';
+        ctx.fillText(subtitle, 256, 128);
+
+        return cvs;
+      }
+
+      function createStripedAwning(width, depth, color1, color2) {
+        const awning = new THREE.Group();
+        const stripes = 7;
+        const stripeW = width / stripes;
+        for (let i = 0; i < stripes; i++) {
+          const piece = new THREE.Mesh(
+            new THREE.BoxGeometry(stripeW, 0.12, depth),
+            new THREE.MeshStandardMaterial({
+              color: i % 2 === 0 ? color1 : color2,
+              roughness: 0.8
+            })
+          );
+          piece.position.x = -width / 2 + stripeW * (i + 0.5);
+          piece.castShadow = true;
+          awning.add(piece);
+        }
+        awning.rotation.x = 0.28; // Sloped downward toward sidewalk
+        return awning;
+      }
+
+      function rebuildShopVisuals(cfg) {
+        const entity = shopEntities[cfg.id];
+        if (!entity) return;
+
+        const level = state.shops[cfg.id].level;
+        const cost = getShopUpgradeCost(cfg, level);
+        const inc = getShopIncomePerSec(cfg, level);
+
+        while (entity.buildingGroup.children.length > 0) {
+          entity.buildingGroup.remove(entity.buildingGroup.children[0]);
+        }
+
+        if (level === 0) {
+          // Grounded "For Lease" Timber Plot Frame & Wooden Signpost
+          const gravelPad = new THREE.Mesh(
+            new THREE.BoxGeometry(5.6, 0.12, 5.6),
+            new THREE.MeshStandardMaterial({ color: 0xd6d3d1, roughness: 0.9 })
+          );
+          gravelPad.position.y = 0.06;
+          gravelPad.receiveShadow = true;
+          entity.buildingGroup.add(gravelPad);
+
+          // Low wooden fence posts at corners
+          const postMat = new THREE.MeshStandardMaterial({ color: 0x78350f, roughness: 0.8 });
+          [[-2.6, -2.6], [2.6, -2.6], [-2.6, 2.6], [2.6, 2.6]].forEach(([px, pz]) => {
+            const post = new THREE.Mesh(new THREE.BoxGeometry(0.22, 0.9, 0.22), postMat);
+            post.position.set(px, 0.45, pz);
+            post.castShadow = true;
+            entity.buildingGroup.add(post);
+          });
+
+          // Wooden "Available Plot" post
+          const signPost = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.08, 2.1, 8), postMat);
+          signPost.position.set(0, 1.05, 0);
+          signPost.castShadow = true;
+          entity.buildingGroup.add(signPost);
+
+          entity.labelSprite.position.y = 2.85;
+          entity.hitMesh.scale.set(5.8, 3.0, 5.8);
+          entity.hitMesh.position.y = 1.5;
+        } else {
+          // Grounded Brick & Timber Building — grows stories, awnings, patio tables & pitched roofs!
+          const stories = Math.min(4, 1 + Math.floor((level - 1) / 3));
+          const storyHeight = 2.55;
+          const totalHeight = stories * storyHeight;
+          const width = 5.0 + Math.min(1.0, level * 0.05);
+          const depth = 4.8;
+
+          // Stone Foundation Step
+          const foundation = new THREE.Mesh(
+            new THREE.BoxGeometry(width + 0.6, 0.26, depth + 0.6),
+            new THREE.MeshStandardMaterial({ color: 0xa8a29e, roughness: 0.85 })
+          );
+          foundation.position.y = 0.13;
+          foundation.receiveShadow = true;
+          entity.buildingGroup.add(foundation);
+
+          // Main Building Walls
+          const wallMat = new THREE.MeshStandardMaterial({ color: cfg.wallColor, roughness: 0.78 });
+          const walls = new THREE.Mesh(new THREE.BoxGeometry(width, totalHeight, depth), wallMat);
+          walls.position.y = 0.26 + totalHeight / 2;
+          walls.castShadow = true;
+          walls.receiveShadow = true;
+          entity.buildingGroup.add(walls);
+
+          // Timber/Stone Corner Pilasters & Floor Divider Cornices
+          const trimMat = new THREE.MeshStandardMaterial({ color: cfg.trimColor, roughness: 0.65 });
+          for (let s = 1; s <= stories; s++) {
+            const cornice = new THREE.Mesh(
+              new THREE.BoxGeometry(width + 0.24, 0.18, depth + 0.24),
+              trimMat
+            );
+            cornice.position.y = 0.26 + s * storyHeight;
+            cornice.castShadow = true;
+            entity.buildingGroup.add(cornice);
+          }
+
+          // Ground-Floor Wooden Entrance Door & Glass Shopfront Windows
+          const doorFrame = new THREE.Mesh(new THREE.BoxGeometry(1.3, 2.05, 0.2), trimMat);
+          doorFrame.position.set(0, 1.28, depth / 2 + 0.04);
+          entity.buildingGroup.add(doorFrame);
+
+          const glassMat = new THREE.MeshStandardMaterial({
+            color: 0xe0f2fe,
+            emissive: 0xfef3c7,
+            emissiveIntensity: 0.28,
+            roughness: 0.15,
+            metalness: 0.1
+          });
+
+          const doorGlass = new THREE.Mesh(new THREE.BoxGeometry(0.95, 1.75, 0.24), glassMat);
+          doorGlass.position.set(0, 1.25, depth / 2 + 0.05);
+          entity.buildingGroup.add(doorGlass);
+
+          // Front Display Windows flanking the door
+          [-width * 0.31, width * 0.31].forEach(wx => {
+            const winFrame = new THREE.Mesh(new THREE.BoxGeometry(1.25, 1.35, 0.18), trimMat);
+            winFrame.position.set(wx, 1.35, depth / 2 + 0.04);
+            const winPane = new THREE.Mesh(new THREE.BoxGeometry(1.05, 1.15, 0.22), glassMat);
+            winPane.position.set(wx, 1.35, depth / 2 + 0.05);
+            entity.buildingGroup.add(winFrame, winPane);
+          });
+
+          // Upper Story Windows (when stories >= 2)
+          for (let s = 1; s < stories; s++) {
+            const wy = 0.26 + s * storyHeight + 1.25;
+            [-width * 0.28, 0, width * 0.28].forEach(wx => {
+              const uFrame = new THREE.Mesh(new THREE.BoxGeometry(0.95, 1.2, 0.18), trimMat);
+              uFrame.position.set(wx, wy, depth / 2 + 0.04);
+              const uPane = new THREE.Mesh(new THREE.BoxGeometry(0.76, 1.0, 0.22), glassMat);
+              uPane.position.set(wx, wy, depth / 2 + 0.05);
+              entity.buildingGroup.add(uFrame, uPane);
+            });
+          }
+
+          // Striped Canvas Shopfront Awning
+          const awning = createStripedAwning(width * 0.92, 1.35, cfg.awningColor1, cfg.awningColor2);
+          awning.position.set(0, 2.38, depth / 2 + 0.62);
+          entity.buildingGroup.add(awning);
+
+          // Pitched Slate/Terracotta Roof
+          const roofHeight = 1.45;
+          const roof = new THREE.Mesh(
+            new THREE.ConeGeometry(width * 0.76, roofHeight, 4),
+            new THREE.MeshStandardMaterial({ color: 0x475569, roughness: 0.75 })
+          );
+          roof.rotation.y = Math.PI / 4;
+          roof.position.y = 0.26 + totalHeight + roofHeight / 2;
+          roof.castShadow = true;
+          entity.buildingGroup.add(roof);
+
+          // Brick Chimney on Tier 2+
+          if (stories >= 2) {
+            const chimney = new THREE.Mesh(
+              new THREE.BoxGeometry(0.55, 1.3, 0.55),
+              new THREE.MeshStandardMaterial({ color: 0x9a3412, roughness: 0.85 })
+            );
+            chimney.position.set(width * 0.28, 0.26 + totalHeight + 0.95, -depth * 0.18);
+            chimney.castShadow = true;
+            entity.buildingGroup.add(chimney);
+          }
+
+          // Outdoor Cafe Umbrella & Bistro Table on Tier 2+
+          if (stories >= 2) {
+            const tableX = width * 0.34;
+            const tableZ = depth / 2 + 1.25;
+            const tableTop = new THREE.Mesh(
+              new THREE.CylinderGeometry(0.52, 0.52, 0.07, 16),
+              new THREE.MeshStandardMaterial({ color: 0xf8fafc })
+            );
+            tableTop.position.set(tableX, 0.78, tableZ);
+            tableTop.castShadow = true;
+
+            const tableLeg = new THREE.Mesh(
+              new THREE.CylinderGeometry(0.06, 0.06, 0.78, 8),
+              new THREE.MeshStandardMaterial({ color: 0x334155 })
+            );
+            tableLeg.position.set(tableX, 0.39, tableZ);
+
+            const umbrellaPole = new THREE.Mesh(
+              new THREE.CylinderGeometry(0.04, 0.04, 2.2, 8),
+              new THREE.MeshStandardMaterial({ color: 0x78350f })
+            );
+            umbrellaPole.position.set(tableX, 1.1, tableZ);
+
+            const umbrellaTop = new THREE.Mesh(
+              new THREE.ConeGeometry(1.05, 0.45, 12),
+              new THREE.MeshStandardMaterial({ color: cfg.awningColor1, roughness: 0.8 })
+            );
+            umbrellaTop.position.set(tableX, 2.15, tableZ);
+            umbrellaTop.castShadow = true;
+
+            entity.buildingGroup.add(tableTop, tableLeg, umbrellaPole, umbrellaTop);
+          }
+
+          const topY = 0.26 + totalHeight + roofHeight + 1.35;
+          entity.labelSprite.position.y = topY;
+          entity.hitMesh.scale.set(width + 0.8, totalHeight + roofHeight + 1.2, depth + 1.4);
+          entity.hitMesh.position.y = (totalHeight + roofHeight) / 2;
+        }
+
+        // Update Floating Signboard
+        const titleText = level === 0 ? cfg.name : `${cfg.name} (Lv.${level})`;
+        const subText = level === 0
+          ? `OPEN SHOP: ${formatMoney(cost)}`
+          : `${formatMoney(inc)}/s  •  UP: ${formatMoney(cost)}`;
+
+        const newCanvas = createShopSignTexture(titleText, subText, cfg.accentCss, level > 0);
+        entity.labelTex.image = newCanvas;
+        entity.labelTex.needsUpdate = true;
+      }
+
+      SHOP_CONFIGS.forEach(cfg => {
+        const group = new THREE.Group();
+        group.position.set(cfg.pos.x, 0, cfg.pos.z);
+        group.rotation.y = cfg.rotY;
+        scene.add(group);
+
+        const buildingGroup = new THREE.Group();
+        group.add(buildingGroup);
+
+        const hitMesh = new THREE.Mesh(
+          new THREE.BoxGeometry(1, 1, 1),
+          new THREE.MeshBasicMaterial({ visible: false })
+        );
+        hitMesh.userData.shopId = cfg.id;
+        group.add(hitMesh);
+        interactiveMeshes.push(hitMesh);
+
+        const initCvs = createShopSignTexture(cfg.name, `OPEN SHOP: ${formatMoney(cfg.baseCost)}`, cfg.accentCss, false);
+        const labelTex = new THREE.CanvasTexture(initCvs);
+        const spriteMat = new THREE.SpriteMaterial({ map: labelTex, transparent: true });
+        const labelSprite = new THREE.Sprite(spriteMat);
+        labelSprite.scale.set(5.4, 1.85, 1);
+        labelSprite.position.set(0, 3.0, 0);
+        group.add(labelSprite);
+
+        shopEntities[cfg.id] = {
+          group,
+          buildingGroup,
+          hitMesh,
+          labelSprite,
+          labelTex,
+          config: cfg
+        };
+
+        rebuildShopVisuals(cfg);
+      });
+
+      // --------------------------------------------------------------------------
+      // 5B. INTERACTIVE 3D WOODEN TOWN NOTICEBOARD (FOR IN-VR TOWN IMPROVEMENTS)
+      // --------------------------------------------------------------------------
+      const noticeBoardGroup = new THREE.Group();
+      noticeBoardGroup.position.set(0, 0, -9.2); // North side of the fountain facing players
+      scene.add(noticeBoardGroup);
+
+      // Timber Frame & Roof Cap
+      const nbWoodMat = new THREE.MeshStandardMaterial({ color: 0x78350f, roughness: 0.75 });
+      const nbPostL = new THREE.Mesh(new THREE.BoxGeometry(0.22, 3.2, 0.22), nbWoodMat);
+      nbPostL.position.set(-2.3, 1.6, 0);
+      nbPostL.castShadow = true;
+      const nbPostR = new THREE.Mesh(new THREE.BoxGeometry(0.22, 3.2, 0.22), nbWoodMat);
+      nbPostR.position.set(2.3, 1.6, 0);
+      nbPostR.castShadow = true;
+      const nbRoof = new THREE.Mesh(new THREE.BoxGeometry(5.1, 0.28, 0.65), nbWoodMat);
+      nbRoof.position.set(0, 3.25, 0);
+      nbRoof.castShadow = true;
+      noticeBoardGroup.add(nbPostL, nbPostR, nbRoof);
+
+      // Noticeboard Display Canvas
+      const nbCanvas = document.createElement('canvas');
+      nbCanvas.width = 640;
+      nbCanvas.height = 360;
+      const nbTex = new THREE.CanvasTexture(nbCanvas);
+
+      const nbScreen = new THREE.Mesh(
+        new THREE.PlaneGeometry(4.3, 2.3),
+        new THREE.MeshBasicMaterial({ map: nbTex })
+      );
+      nbScreen.position.set(0, 1.95, 0.08);
+      noticeBoardGroup.add(nbScreen);
+
+      // 3 Individual Clickable/VR-Targetable Buttons on the 3D Noticeboard
+      TOWN_IMPROVEMENTS.forEach((upg, idx) => {
+        const btnHit = new THREE.Mesh(
+          new THREE.BoxGeometry(4.1, 0.55, 0.25),
+          new THREE.MeshBasicMaterial({ visible: false })
+        );
+        btnHit.position.set(0, 2.35 - idx * 0.62, 0.12);
+        btnHit.userData.upgradeId = upg.id;
+        noticeBoardGroup.add(btnHit);
+        interactiveMeshes.push(btnHit);
+      });
+
+      function updateNoticeboardTexture() {
+        const ctx = nbCanvas.getContext('2d');
+        ctx.fillStyle = '#fcfaf6';
+        ctx.fillRect(0, 0, nbCanvas.width, nbCanvas.height);
+
+        ctx.fillStyle = '#78350f';
+        ctx.fillRect(0, 0, nbCanvas.width, 56);
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 26px Inter, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('OAKRIDGE TOWN COUNCIL — IMPROVEMENTS', 320, 37);
+
+        TOWN_IMPROVEMENTS.forEach((upg, idx) => {
+          const y = 74 + idx * 92;
+          const lv = state.upgrades[upg.id] || 0;
+          const maxed = lv >= upg.maxLevel;
+          const cost = getUpgradeCost(upg);
+          const afford = !maxed && state.cash >= cost;
+
+          ctx.fillStyle = afford ? '#fef3c7' : '#f1f5f9';
+          ctx.strokeStyle = afford ? '#d97706' : '#cbd5e1';
+          ctx.lineWidth = 3;
+          ctx.beginPath();
+          ctx.roundRect(22, y, 596, 76, 12);
+          ctx.fill();
+          ctx.stroke();
+
+          ctx.fillStyle = '#1e293b';
+          ctx.font = 'bold 22px Inter, sans-serif';
+          ctx.textAlign = 'left';
+          ctx.fillText(`${upg.name} (Tier ${lv}/${upg.maxLevel})`, 40, y + 32);
+
+          ctx.fillStyle = '#475569';
+          ctx.font = '16px Inter, sans-serif';
+          ctx.fillText(upg.desc.slice(0, 56) + '...', 40, y + 58);
+
+          ctx.fillStyle = maxed ? '#15803d' : (afford ? '#b45309' : '#64748b');
+          ctx.font = 'bold 22px monospace';
+          ctx.textAlign = 'right';
+          ctx.fillText(maxed ? 'MAXED' : formatMoney(cost), 600, y + 46);
+        });
+
+        nbTex.needsUpdate = true;
+      }
+      updateNoticeboardTexture();
+
+      // --------------------------------------------------------------------------
+      // 6. FLOATING "+$XX" POPUPS, TOWNSFOLK PEDESTRIANS & PASSING DELIVERY VAN
+      // --------------------------------------------------------------------------
+      const floatingPopups = [];
+
+      function spawnCashPopup(worldPos, amount, color = '#15803d') {
+        const cvs = document.createElement('canvas');
+        cvs.width = 256;
+        cvs.height = 96;
+        const ctx = cvs.getContext('2d');
+        ctx.font = 'bold 42px monospace';
+        ctx.textAlign = 'center';
+        ctx.fillStyle = '#ffffff';
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 8;
+        ctx.strokeText(`+${formatMoney(amount)}`, 128, 60);
+        ctx.fillStyle = color;
+        ctx.fillText(`+${formatMoney(amount)}`, 128, 60);
+
+        const tex = new THREE.CanvasTexture(cvs);
+        const mat = new THREE.SpriteMaterial({ map: tex, transparent: true, opacity: 1 });
+        const sprite = new THREE.Sprite(mat);
+        sprite.position.copy(worldPos);
+        sprite.position.y += 2.3;
+        sprite.scale.set(3.0, 1.1, 1);
+        scene.add(sprite);
+
+        floatingPopups.push({ sprite, tex, mat, life: 1.15 });
+      }
+
+      // Grounded Everyday Pedestrian Shoppers
+      const shoppers = [];
+      const SHIRT_COLORS = [0x2563eb, 0xd97706, 0x059669, 0xdc2626, 0x7c3aed, 0x0d9488, 0xea580c];
+      const SKIN_TONES = [0xf5d0b5, 0xe0ac69, 0x8d5524, 0xc68642, 0xffdbac];
+      const HAIR_COLORS = [0x1c1917, 0x451a03, 0x92400e, 0xd97706, 0x57534e];
+
+      function createPedestrianMesh() {
+        const person = new THREE.Group();
+        const shirtColor = SHIRT_COLORS[Math.floor(Math.random() * SHIRT_COLORS.length)];
+        const skinColor = SKIN_TONES[Math.floor(Math.random() * SKIN_TONES.length)];
+        const hairColor = HAIR_COLORS[Math.floor(Math.random() * HAIR_COLORS.length)];
+
+        // Trousers / Legs
+        const pantsMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.85 });
+        const legL = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.08, 0.65, 8), pantsMat);
+        legL.position.set(-0.11, 0.325, 0);
+        legL.castShadow = true;
+        const legR = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.08, 0.65, 8), pantsMat);
+        legR.position.set(0.11, 0.325, 0);
+        legR.castShadow = true;
+        person.add(legL, legR);
+
+        // Casual Jacket / Torso
+        const torso = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.21, 0.19, 0.68, 10),
+          new THREE.MeshStandardMaterial({ color: shirtColor, roughness: 0.8 })
+        );
+        torso.position.y = 0.96;
+        torso.castShadow = true;
+        person.add(torso);
+
+        // Head & Hair
+        const head = new THREE.Mesh(
+          new THREE.SphereGeometry(0.21, 14, 14),
+          new THREE.MeshStandardMaterial({ color: skinColor, roughness: 0.65 })
+        );
+        head.position.y = 1.52;
+        head.castShadow = true;
+        person.add(head);
+
+        const hair = new THREE.Mesh(
+          new THREE.SphereGeometry(0.22, 14, 10, 0, Math.PI * 2, 0, Math.PI * 0.55),
+          new THREE.MeshStandardMaterial({ color: hairColor, roughness: 0.9 })
+        );
+        hair.position.y = 1.54;
+        person.add(hair);
+
+        person.userData.legL = legL;
+        person.userData.legR = legR;
+        return person;
+      }
+
+      function getUnlockedShops() {
+        return SHOP_CONFIGS.filter(c => state.shops[c.id].level > 0);
+      }
+
+      function spawnShopper() {
+        const unlocked = getUnlockedShops();
+        if (unlocked.length === 0) return;
+
+        const targetCfg = unlocked[Math.floor(Math.random() * unlocked.length)];
+        const entryPoints = [
+          new THREE.Vector3(0, 0.1, -28),
+          new THREE.Vector3(-28, 0.1, 0),
+          new THREE.Vector3(28, 0.1, 0),
+          new THREE.Vector3(0, 0.1, 26)
+        ];
+        const startPos = entryPoints[Math.floor(Math.random() * entryPoints.length)].clone();
+        startPos.x += (Math.random() - 0.5) * 2.0;
+        startPos.z += (Math.random() - 0.5) * 2.0;
+
+        const mesh = createPedestrianMesh();
+        mesh.position.copy(startPos);
+        scene.add(mesh);
+
+        const ent = shopEntities[targetCfg.id];
+        const doorwayLocal = new THREE.Vector3(0, 0.1, 3.0);
+        const doorwayWorld = doorwayLocal.applyMatrix4(ent.group.matrixWorld);
+
+        // Walk past fountain first, then to shop doorway
+        const angleAroundFountain = Math.random() * Math.PI * 2;
+        const plazaStop = new THREE.Vector3(
+          Math.cos(angleAroundFountain) * 6.5,
+          0.1,
+          Math.sin(angleAroundFountain) * 6.5
+        );
+
+        shoppers.push({
+          mesh,
+          targetShopId: targetCfg.id,
+          waypoint: plazaStop,
+          doorway: doorwayWorld,
+          phase: 'to_plaza',
+          exitPos: startPos.clone(),
+          walkPhase: Math.random() * Math.PI * 2
+        });
+      }
+
+      // Passing Delivery Van on the Perimeter Road
+      const vanGroup = new THREE.Group();
+      const vanBody = new THREE.Mesh(
+        new THREE.BoxGeometry(3.6, 1.65, 1.75),
+        new THREE.MeshStandardMaterial({ color: 0xf8fafc, roughness: 0.4 })
+      );
+      vanBody.position.y = 1.15;
+      vanBody.castShadow = true;
+      const vanStripe = new THREE.Mesh(
+        new THREE.BoxGeometry(3.64, 0.35, 1.78),
+        new THREE.MeshStandardMaterial({ color: 0xd97706 })
+      );
+      vanStripe.position.y = 1.05;
+      const vanCab = new THREE.Mesh(
+        new THREE.BoxGeometry(1.1, 1.35, 1.7),
+        new THREE.MeshStandardMaterial({ color: 0xf1f5f9, roughness: 0.4 })
+      );
+      vanCab.position.set(2.1, 1.0, 0);
+      vanCab.castShadow = true;
+      vanGroup.add(vanBody, vanStripe, vanCab);
+
+      [[-1.2, 0.9], [1.6, 0.9], [-1.2, -0.9], [1.6, -0.9]].forEach(([wx, wz]) => {
+        const wheel = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.38, 0.38, 0.25, 12),
+          new THREE.MeshStandardMaterial({ color: 0x1f2937 })
+        );
+        wheel.rotation.x = Math.PI / 2;
+        wheel.position.set(wx, 0.38, wz);
+        vanGroup.add(wheel);
+      });
+
+      vanGroup.position.set(-75, 0.05, 28.5);
+      scene.add(vanGroup);
+      let vanDropTriggered = false;
+
+      // --------------------------------------------------------------------------
+      // 7. PLAYER ACTIONS (BUY/UPGRADE SHOP, TOWN IMPROVEMENTS, MARKET RUSH)
+      // --------------------------------------------------------------------------
+      let toastTimeout = null;
+      function showToast(msg) {
+        const container = document.getElementById('toast-container');
+        const msgEl = document.getElementById('toast-msg');
+        msgEl.textContent = msg;
+        container.classList.remove('opacity-0', '-translate-y-2');
+        container.classList.add('opacity-100', 'translate-y-0');
+
+        clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(() => {
+          container.classList.remove('opacity-100', 'translate-y-0');
+          container.classList.add('opacity-0', '-translate-y-2');
+        }, 2200);
+      }
+
+      function purchaseOrUpgradeShop(shopId) {
+        const cfg = SHOP_CONFIGS.find(c => c.id === shopId);
+        if (!cfg) return;
+
+        const currentLv = state.shops[shopId].level;
+        const cost = getShopUpgradeCost(cfg, currentLv);
+
+        if (state.cash >= cost) {
+          state.cash -= cost;
+          state.shops[shopId].level += 1;
+          sound.playUpgrade();
+          rebuildShopVisuals(cfg);
+          updateUI();
+          saveGame();
+
+          const ent = shopEntities[shopId];
+          spawnCashPopup(ent.group.position, getShopIncomePerSec(cfg, state.shops[shopId].level), '#15803d');
+          showToast(
+            currentLv === 0
+              ? `Opened ${cfg.name}!`
+              : `Expanded ${cfg.name} to Level ${state.shops[shopId].level}!`
+          );
+
+          spawnShopper();
+        } else {
+          if (currentLv > 0) {
+            const tapBonus = Math.max(4, Math.ceil(getShopIncomePerSec(cfg, currentLv) * 0.45));
+            state.cash += tapBonus;
+            state.totalEarned += tapBonus;
+            sound.playCoin();
+            const ent = shopEntities[shopId];
+            spawnCashPopup(ent.group.position, tapBonus, '#15803d');
+            updateUI();
+          } else {
+            sound.playClick();
+            showToast(`Need ${formatMoney(cost)} to open ${cfg.name}`);
+          }
+        }
+      }
+
+      function purchaseTownImprovement(upgId) {
+        const upg = TOWN_IMPROVEMENTS.find(u => u.id === upgId);
+        if (!upg) return;
+        const lv = state.upgrades[upgId] || 0;
+        if (lv >= upg.maxLevel) return;
+
+        const cost = getUpgradeCost(upg);
+        if (state.cash >= cost) {
+          state.cash -= cost;
+          state.upgrades[upgId] = lv + 1;
+          sound.playUpgrade();
+
+          SHOP_CONFIGS.forEach(rebuildShopVisuals);
+          updateNoticeboardTexture();
+          updateUI();
+          saveGame();
+          showToast(`${upg.name} upgraded to Tier ${state.upgrades[upgId]}!`);
+        } else {
+          sound.playClick();
+          showToast(`Need ${formatMoney(cost)} for ${upg.name}`);
+        }
+      }
+
+      function triggerMarketRush() {
+        const baseClick = Math.max(10, Math.floor(getTotalIncomePerSec() * 0.5 + 10));
+        state.cash += baseClick;
+        state.totalEarned += baseClick;
+        state.rushTimer = 8.0;
+        sound.playBell();
+
+        spawnCashPopup(new THREE.Vector3(0, 2.2, 0), baseClick, '#b45309');
+        spawnShopper();
+        updateUI();
+      }
+
+      // --------------------------------------------------------------------------
+      // 8. DESKTOP ORBIT / WASD & TOUCH / VR RAYCASTING
+      // --------------------------------------------------------------------------
+      const raycaster = new THREE.Raycaster();
+      const pointerNDC = new THREE.Vector2();
+
+      let isPointerDown = false;
+      let lastPointerPos = { x: 0, y: 0 };
+      let draggedDistance = 0;
+
+      canvas.addEventListener('pointerdown', (e) => {
+        sound.init();
+        isPointerDown = true;
+        lastPointerPos = { x: e.clientX, y: e.clientY };
+        draggedDistance = 0;
+      });
+
+      window.addEventListener('pointermove', (e) => {
+        if (!isPointerDown || renderer.xr.isPresenting) return;
+        const dx = e.clientX - lastPointerPos.x;
+        const dy = e.clientY - lastPointerPos.y;
+        draggedDistance += Math.hypot(dx, dy);
+        lastPointerPos = { x: e.clientX, y: e.clientY };
+
+        camOrbit.theta -= dx * 0.0065;
+        camOrbit.phi = Math.max(0.28, Math.min(1.42, camOrbit.phi - dy * 0.0065));
+        updateDesktopCamera();
+      });
+
+      window.addEventListener('pointerup', (e) => {
+        if (!isPointerDown) return;
+        isPointerDown = false;
+
+        if (draggedDistance < 8 && !renderer.xr.isPresenting) {
+          const rect = canvas.getBoundingClientRect();
+          pointerNDC.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+          pointerNDC.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+
+          raycaster.setFromCamera(pointerNDC, camera);
+          const hits = raycaster.intersectObjects(interactiveMeshes, false);
+          if (hits.length > 0) {
+            const data = hits[0].object.userData;
+            if (data.shopId) purchaseOrUpgradeShop(data.shopId);
+            else if (data.upgradeId) purchaseTownImprovement(data.upgradeId);
+          }
+        }
+      });
+
+      canvas.addEventListener('wheel', (e) => {
+        if (renderer.xr.isPresenting) return;
+        e.preventDefault();
+        camOrbit.radius = Math.max(
+          camOrbit.minRadius,
+          Math.min(camOrbit.maxRadius, camOrbit.radius + e.deltaY * 0.02)
+        );
+        updateDesktopCamera();
+      }, { passive: false });
+
+      let initialPinchDist = null;
+      canvas.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 2) {
+          initialPinchDist = Math.hypot(
+            e.touches[0].clientX - e.touches[1].clientX,
+            e.touches[0].clientY - e.touches[1].clientY
+          );
+        }
+      }, { passive: true });
+
+      canvas.addEventListener('touchmove', (e) => {
+        if (e.touches.length === 2 && initialPinchDist) {
+          const dist = Math.hypot(
+            e.touches[0].clientX - e.touches[1].clientX,
+            e.touches[0].clientY - e.touches[1].clientY
+          );
+          const delta = initialPinchDist - dist;
+          camOrbit.radius = Math.max(
+            camOrbit.minRadius,
+            Math.min(camOrbit.maxRadius, camOrbit.radius + delta * 0.05)
+          );
+          initialPinchDist = dist;
+          updateDesktopCamera();
+        }
+      }, { passive: true });
+
+      const keysPressed = {};
+      window.addEventListener('keydown', (e) => { keysPressed[e.code] = true; });
+      window.addEventListener('keyup', (e) => { keysPressed[e.code] = false; });
+
+      function processKeyboardMovement(dt) {
+        if (renderer.xr.isPresenting) return;
+        const speed = 16 * dt;
+        let moved = false;
+
+        const forward = new THREE.Vector3(-Math.sin(camOrbit.theta), 0, -Math.cos(camOrbit.theta));
+        const right = new THREE.Vector3(Math.cos(camOrbit.theta), 0, -Math.sin(camOrbit.theta));
+
+        if (keysPressed['KeyW'] || keysPressed['ArrowUp']) {
+          camOrbit.target.addScaledVector(forward, speed);
+          moved = true;
+        }
+        if (keysPressed['KeyS'] || keysPressed['ArrowDown']) {
+          camOrbit.target.addScaledVector(forward, -speed);
+          moved = true;
+        }
+        if (keysPressed['KeyA'] || keysPressed['ArrowLeft']) {
+          camOrbit.target.addScaledVector(right, -speed);
+          moved = true;
+        }
+        if (keysPressed['KeyD'] || keysPressed['ArrowRight']) {
+          camOrbit.target.addScaledVector(right, speed);
+          moved = true;
+        }
+
+        if (moved) {
+          camOrbit.target.x = Math.max(-22, Math.min(22, camOrbit.target.x));
+          camOrbit.target.z = Math.max(-22, Math.min(22, camOrbit.target.z));
+          updateDesktopCamera();
+        }
+      }
+
+      // --------------------------------------------------------------------------
+      // 9. WEBXR VIRTUAL REALITY CONTROLLERS (LASER POINTER + SNAP TURN)
+      // --------------------------------------------------------------------------
+      const vrControllers = [];
+      const tempMatrix = new THREE.Matrix4();
+      let snapTurnCooldown = 0;
+
+      function setupVRControllers() {
+        for (let i = 0; i < 2; i++) {
+          const controller = renderer.xr.getController(i);
+
+          const lineGeo = new THREE.BufferGeometry().setFromPoints([
+            new THREE.Vector3(0, 0, 0),
+            new THREE.Vector3(0, 0, -22)
+          ]);
+          const lineMat = new THREE.LineBasicMaterial({ color: 0xd97706 });
+          const laser = new THREE.Line(lineGeo, lineMat);
+          controller.add(laser);
+
+          const grip = new THREE.Mesh(
+            new THREE.CylinderGeometry(0.025, 0.03, 0.12, 10),
+            new THREE.MeshStandardMaterial({ color: 0x334155 })
+          );
+          grip.rotation.x = Math.PI / 2;
+          controller.add(grip);
+
+          controller.addEventListener('selectstart', () => {
+            tempMatrix.identity().extractRotation(controller.matrixWorld);
+            raycaster.ray.origin.setFromMatrixPosition(controller.matrixWorld);
+            raycaster.ray.direction.set(0, 0, -1).applyMatrix4(tempMatrix);
+
+            const hits = raycaster.intersectObjects(interactiveMeshes, false);
+            if (hits.length > 0) {
+              const data = hits[0].object.userData;
+              if (data.shopId) purchaseOrUpgradeShop(data.shopId);
+              else if (data.upgradeId) purchaseTownImprovement(data.upgradeId);
+            } else {
+              triggerMarketRush();
+            }
+          });
+
+          cameraRig.add(controller);
+          vrControllers.push(controller);
+        }
+      }
+      setupVRControllers();
+
+      // VR Thumbstick Smooth Walk & Snap Turn
+      function processVRThumbsticks(dt) {
+        if (!renderer.xr.isPresenting) return;
+        const session = renderer.xr.getSession();
+        if (!session) return;
+
+        if (snapTurnCooldown > 0) snapTurnCooldown -= dt;
+
+        for (const source of session.inputSources) {
+          if (!source.gamepad) continue;
+          const axes = source.gamepad.axes;
+          if (axes.length >= 4) {
+            const xAxis = axes[2];
+            const yAxis = axes[3];
+
+            if (source.handedness === 'left') {
+              // Smooth locomotion along head direction
+              if (Math.abs(xAxis) > 0.15 || Math.abs(yAxis) > 0.15) {
+                const headDir = new THREE.Vector3();
+                camera.getWorldDirection(headDir);
+                headDir.y = 0;
+                headDir.normalize();
+                const rightDir = new THREE.Vector3().crossVectors(headDir, new THREE.Vector3(0, 1, 0));
+
+                cameraRig.position.addScaledVector(headDir, -yAxis * 5.5 * dt);
+                cameraRig.position.addScaledVector(rightDir, xAxis * 5.5 * dt);
+                cameraRig.position.x = Math.max(-22, Math.min(22, cameraRig.position.x));
+                cameraRig.position.z = Math.max(-22, Math.min(22, cameraRig.position.z));
+              }
+            } else if (source.handedness === 'right') {
+              // 30-degree comfort snap turning
+              if (snapTurnCooldown <= 0 && Math.abs(xAxis) > 0.65) {
+                cameraRig.rotation.y -= Math.sign(xAxis) * (Math.PI / 6);
+                snapTurnCooldown = 0.32;
+              }
+            }
+          }
+        }
+      }
+
+      const btnEnterVR = document.getElementById('btn-enter-vr');
+      const vrBtnLabel = document.getElementById('vr-btn-label');
+      let currentXRSession = null;
+
+      btnEnterVR.addEventListener('click', async () => {
+        sound.init();
+        if (!navigator.xr) {
+          showToast('WebXR not detected — playing in 3D Desktop/Mobile Mode!');
+          return;
+        }
+        try {
+          const supported = await navigator.xr.isSessionSupported('immersive-vr');
+          if (!supported) {
+            showToast('No VR Headset connected — enjoy 3D Town Square Mode!');
+            return;
+          }
+          if (!currentXRSession) {
+            const session = await navigator.xr.requestSession('immersive-vr', {
+              optionalFeatures: ['local-floor', 'bounded-floor']
+            });
+            renderer.xr.setSession(session);
+            currentXRSession = session;
+            cameraRig.position.set(0, 0, 12);
+            vrBtnLabel.textContent = 'EXIT VR';
+
+            session.addEventListener('end', () => {
+              currentXRSession = null;
+              cameraRig.position.set(0, 0, 0);
+              cameraRig.rotation.set(0, 0, 0);
+              vrBtnLabel.textContent = 'ENTER VR';
+              updateDesktopCamera();
+            });
+          } else {
+            await currentXRSession.end();
+          }
+        } catch (err) {
+          showToast('VR Session unavailable in current browser frame.');
+        }
+      });
+
+      // --------------------------------------------------------------------------
+      // 10. HUD RENDERING & UI BINDINGS
+      // --------------------------------------------------------------------------
+      const uiCash = document.getElementById('ui-cash');
+      const uiIncome = document.getElementById('ui-income');
+      const uiShoppers = document.getElementById('ui-shoppers');
+      const uiBoostSub = document.getElementById('ui-boost-sub');
+      const panelShops = document.getElementById('panel-shops');
+      const panelUpgrades = document.getElementById('panel-upgrades');
+
+      function updateUI() {
+        const incPerSec = getTotalIncomePerSec();
+        uiCash.textContent = formatMoney(state.cash);
+        uiIncome.textContent = `${formatMoney(incPerSec)}/s` + (state.rushTimer > 0 ? ' (1.5x)' : '');
+        uiShoppers.textContent = shoppers.length;
+
+        const clickVal = Math.max(10, Math.floor(incPerSec * 0.5 + 10));
+        uiBoostSub.textContent = state.rushTimer > 0
+          ? `Market Rush Active (${state.rushTimer.toFixed(1)}s)`
+          : `Ring Bell (+${formatMoney(clickVal)})`;
+
+        // Render Local Shops Cards
+        panelShops.innerHTML = SHOP_CONFIGS.map(cfg => {
+          const lv = state.shops[cfg.id].level;
+          const cost = getShopUpgradeCost(cfg, lv);
+          const inc = getShopIncomePerSec(cfg, lv);
+          const canAfford = state.cash >= cost;
+
+          return `
+            <div class="warm-card rounded-xl p-3 flex flex-col justify-between gap-2">
+              <div class="flex items-start justify-between gap-2">
+                <div>
+                  <div class="flex items-center gap-1.5">
+                    <span class="w-2.5 h-2.5 rounded-full" style="background:${cfg.accentCss}"></span>
+                    <span class="text-xs font-bold text-stone-800">${cfg.name}</span>
+                  </div>
+                  <div class="text-[11px] text-stone-500 mt-0.5">${cfg.tag} • <span class="text-stone-700 font-semibold">${lv === 0 ? 'Available' : 'Lv.' + lv}</span></div>
+                </div>
+                <div class="text-right font-mono-num text-[11px] font-bold text-emerald-700">
+                  ${lv === 0 ? `+${formatMoney(cfg.baseIncome * getGlobalMultiplier())}/s` : `${formatMoney(inc)}/s`}
+                </div>
+              </div>
+              <button data-shop-btn="${cfg.id}"
+                class="w-full py-1.5 px-3 rounded-lg text-xs font-bold font-mono-num transition-all cursor-pointer ${
+                  canAfford
+                    ? 'bg-amber-600 hover:bg-amber-500 text-white shadow-sm'
+                    : 'bg-stone-200 text-stone-500'
+                }">
+                ${lv === 0 ? 'OPEN SHOP' : 'EXPAND'} • ${formatMoney(cost)}
+              </button>
+            </div>
+          `;
+        }).join('');
+
+        panelShops.querySelectorAll('[data-shop-btn]').forEach(btn => {
+          btn.addEventListener('click', () => {
+            purchaseOrUpgradeShop(btn.getAttribute('data-shop-btn'));
+          });
+        });
+
+        // Render Town Improvements Cards
+        panelUpgrades.innerHTML = TOWN_IMPROVEMENTS.map(upg => {
+          const lv = state.upgrades[upg.id] || 0;
+          const maxed = lv >= upg.maxLevel;
+          const cost = getUpgradeCost(upg);
+          const canAfford = !maxed && state.cash >= cost;
+
+          return `
+            <div class="warm-card rounded-xl p-3 flex items-center justify-between gap-3">
+              <div class="flex-1">
+                <div class="flex items-center gap-2">
+                  <span class="text-xs font-bold text-stone-800">${upg.name}</span>
+                  <span class="text-[10px] font-mono-num px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 border border-amber-300">
+                    Tier ${lv}/${upg.maxLevel}
+                  </span>
+                </div>
+                <p class="text-[11px] text-stone-500 mt-0.5 leading-snug">${upg.desc}</p>
+              </div>
+              <button data-upg-btn="${upg.id}" ${maxed ? 'disabled' : ''}
+                class="shrink-0 py-2 px-3.5 rounded-lg text-xs font-bold font-mono-num transition-all cursor-pointer ${
+                  maxed
+                    ? 'bg-emerald-100 text-emerald-800 border border-emerald-300 cursor-default'
+                    : canAfford
+                      ? 'bg-emerald-700 hover:bg-emerald-600 text-white shadow-sm'
+                      : 'bg-stone-200 text-stone-500'
+                }">
+                ${maxed ? 'MAXED' : formatMoney(cost)}
+              </button>
+            </div>
+          `;
+        }).join('');
+
+        panelUpgrades.querySelectorAll('[data-upg-btn]').forEach(btn => {
+          btn.addEventListener('click', () => {
+            purchaseTownImprovement(btn.getAttribute('data-upg-btn'));
+          });
+        });
+
+        updateNoticeboardTexture();
+      }
+
+      // Tabs & Drawer Collapse
+      const tabShops = document.getElementById('tab-shops');
+      const tabUpgrades = document.getElementById('tab-upgrades');
+      const btnToggleDrawer = document.getElementById('btn-toggle-drawer');
+      const drawerBody = document.getElementById('drawer-body');
+      const drawerToggleText = document.getElementById('drawer-toggle-text');
+      const drawerChevron = document.getElementById('drawer-chevron');
+      let drawerOpen = true;
+
+      tabShops.addEventListener('click', () => {
+        sound.playClick();
+        panelShops.classList.remove('hidden');
+        panelShops.classList.add('grid');
+        panelUpgrades.classList.add('hidden');
+        panelUpgrades.classList.remove('grid');
+
+        tabShops.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-amber-600 text-white cursor-pointer transition-all shadow-sm';
+        tabUpgrades.className = 'px-3 py-1.5 rounded-lg text-xs font-bold text-stone-600 hover:text-stone-900 cursor-pointer transition-all';
+      });
+
+      tabUpgrades.addEventListener('click', () => {
+        sound.playClick();
+        panelUpgrades.classList.remove('hidden');
+        panelUpgrades.classList.add('grid');
+        panelShops.classList.add('hidden');
+        panelShops.classList.remove('grid');
+
+        tabUpgrades.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-emerald-700 text-white cursor-pointer transition-all shadow-sm';
+        tabShops.className = 'px-3 py-1.5 rounded-lg text-xs font-bold text-stone-600 hover:text-stone-900 cursor-pointer transition-all';
+      });
+
+      btnToggleDrawer.addEventListener('click', () => {
+        sound.playClick();
+        drawerOpen = !drawerOpen;
+        drawerBody.style.display = drawerOpen ? 'block' : 'none';
+        drawerToggleText.textContent = drawerOpen ? 'Minimize' : 'Expand';
+        drawerChevron.style.transform = drawerOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+      });
+
+      document.getElementById('btn-boost').addEventListener('click', triggerMarketRush);
+
+      document.getElementById('btn-audio').addEventListener('click', () => {
+        const muted = sound.toggleMute();
+        document.getElementById('icon-sound-on').classList.toggle('hidden', muted);
+        document.getElementById('icon-sound-off').classList.toggle('hidden', !muted);
+        if (!muted) sound.playClick();
+      });
+
+      document.getElementById('btn-cam-reset').addEventListener('click', () => {
+        sound.playClick();
+        camOrbit.target.set(0, 1.4, 1.5);
+        camOrbit.radius = 32;
+        camOrbit.theta = 0;
+        camOrbit.phi = 0.94;
+        updateDesktopCamera();
+      });
+
+      const modalReset = document.getElementById('modal-reset');
+      document.getElementById('btn-reset-prompt').addEventListener('click', () => {
+        sound.playClick();
+        modalReset.classList.remove('hidden');
+        modalReset.classList.add('flex');
+      });
+      document.getElementById('btn-reset-cancel').addEventListener('click', () => {
+        sound.playClick();
+        modalReset.classList.add('hidden');
+        modalReset.classList.remove('flex');
+      });
+      document.getElementById('btn-reset-confirm').addEventListener('click', () => {
+        localStorage.removeItem(SAVE_KEY);
+        state.cash = 120;
+        state.totalEarned = 120;
+        state.rushTimer = 0;
+        state.upgrades = { newspaper: 0, delivery_van: 0, pedestrian_zone: 0 };
+        SHOP_CONFIGS.forEach(cfg => {
+          state.shops[cfg.id].level = 0;
+          rebuildShopVisuals(cfg);
+        });
+        modalReset.classList.add('hidden');
+        modalReset.classList.remove('flex');
+        updateUI();
+        showToast('Town reset! Starting fresh with $120.');
+      });
+
+      window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+
+      // --------------------------------------------------------------------------
+      // 11. MAIN SIMULATION & RENDER LOOP (DESKTOP + WEBXR VR)
+      // --------------------------------------------------------------------------
+      let lastTime = performance.now();
+      let saveAccumulator = 0;
+      let uiAccumulator = 0;
+      let spawnAccumulator = 0;
+
+      function animate(now) {
+        const dt = Math.min(0.1, (now - lastTime) / 1000);
+        lastTime = now;
+
+        // 1. Passive Income & Market Rush Timer
+        if (state.rushTimer > 0) {
+          state.rushTimer = Math.max(0, state.rushTimer - dt);
+        }
+
+        const passiveGain = getTotalIncomePerSec() * dt;
+        if (passiveGain > 0) {
+          state.cash += passiveGain;
+          state.totalEarned += passiveGain;
+        }
+
+        // 2. Fountain Water Ripples & Drifting Clouds
+        waterRipples.forEach(rip => {
+          rip.userData.phase = (rip.userData.phase + dt * 0.65) % 1.0;
+          const sc = 0.6 + rip.userData.phase * 2.8;
+          rip.scale.set(sc, sc, 1);
+          rip.material.opacity = (1.0 - rip.userData.phase) * 0.65;
+        });
+
+        clouds.forEach(cloud => {
+          cloud.position.x += dt * 0.65;
+          if (cloud.position.x > 75) cloud.position.x = -75;
+        });
+
+        // 3. Passing Delivery Van Animation & Wholesale Drop
+        const vanSpeed = 8.5 + state.upgrades.delivery_van * 1.4;
+        vanGroup.position.x += vanSpeed * dt;
+        if (!vanDropTriggered && vanGroup.position.x >= 0) {
+          vanDropTriggered = true;
+          if (state.upgrades.delivery_van > 0 && getTotalIncomePerSec() > 0) {
+            const dropBonus = Math.max(15, Math.floor(getTotalIncomePerSec() * (1.2 + state.upgrades.delivery_van * 0.4)));
+            state.cash += dropBonus;
+            state.totalEarned += dropBonus;
+            spawnCashPopup(new THREE.Vector3(0, 1.8, 25), dropBonus, '#b45309');
+          }
+        }
+        if (vanGroup.position.x > 78) {
+          vanGroup.position.x = -78;
+          vanDropTriggered = false;
+        }
+
+        // 4. Autonomous Townsfolk Pedestrians
+        const maxShoppers = 5 + state.upgrades.newspaper * 3 + getUnlockedShops().length * 2;
+        const spawnInterval = Math.max(0.5, 2.5 - state.upgrades.newspaper * 0.18);
+
+        spawnAccumulator += dt;
+        if (spawnAccumulator >= spawnInterval && shoppers.length < maxShoppers) {
+          spawnAccumulator = 0;
+          spawnShopper();
+        }
+
+        const walkSpeed = (2.8 + state.upgrades.newspaper * 0.25) * (state.rushTimer > 0 ? 1.35 : 1.0);
+
+        for (let i = shoppers.length - 1; i >= 0; i--) {
+          const s = shoppers[i];
+          s.walkPhase += dt * 9;
+
+          // Natural leg swing & subtle vertical stride
+          if (s.mesh.userData.legL && s.mesh.userData.legR) {
+            s.mesh.userData.legL.rotation.x = Math.sin(s.walkPhase) * 0.45;
+            s.mesh.userData.legR.rotation.x = -Math.sin(s.walkPhase) * 0.45;
+          }
+          s.mesh.position.y = 0.1 + Math.abs(Math.sin(s.walkPhase)) * 0.04;
+
+          let target = s.waypoint;
+          if (s.phase === 'to_shop') target = s.doorway;
+          else if (s.phase === 'leaving') target = s.exitPos;
+
+          const dir = new THREE.Vector3().subVectors(target, s.mesh.position);
+          dir.y = 0;
+          const dist = dir.length();
+
+          if (dist < 0.45) {
+            if (s.phase === 'to_plaza') {
+              s.phase = 'to_shop';
+            } else if (s.phase === 'to_shop') {
+              const cfg = SHOP_CONFIGS.find(c => c.id === s.targetShopId);
+              const lv = cfg ? state.shops[cfg.id].level : 0;
+              if (cfg && lv > 0) {
+                const purchaseBonus = Math.max(2, getShopIncomePerSec(cfg, lv) * 0.65);
+                state.cash += purchaseBonus;
+                state.totalEarned += purchaseBonus;
+                spawnCashPopup(s.doorway, purchaseBonus, '#15803d');
+              }
+              s.phase = 'leaving';
+            } else {
+              scene.remove(s.mesh);
+              shoppers.splice(i, 1);
+              continue;
+            }
+          } else {
+            dir.normalize();
+            s.mesh.position.addScaledVector(dir, walkSpeed * dt);
+            s.mesh.lookAt(s.mesh.position.x + dir.x, s.mesh.position.y, s.mesh.position.z + dir.z);
+          }
+        }
+
+        // 5. Floating "+$XX" Popups Update
+        for (let i = floatingPopups.length - 1; i >= 0; i--) {
+          const p = floatingPopups[i];
+          p.life -= dt;
+          p.sprite.position.y += dt * 1.45;
+          p.mat.opacity = Math.max(0, p.life);
+          if (p.life <= 0) {
+            scene.remove(p.sprite);
+            p.tex.dispose();
+            p.mat.dispose();
+            floatingPopups.splice(i, 1);
+          }
+        }
+
+        // 6. Desktop WASD & VR Thumbstick Locomotion
+        processKeyboardMovement(dt);
+        processVRThumbsticks(dt);
+
+        uiAccumulator += dt;
+        if (uiAccumulator >= 0.25) {
+          uiAccumulator = 0;
+          updateUI();
+        }
+
+        saveAccumulator += dt;
+        if (saveAccumulator >= 5.0) {
+          saveAccumulator = 0;
+          saveGame();
+        }
+
+        renderer.render(scene, camera);
+      }
+
+      window.addEventListener('load', () => {
+        updateUI();
+        for (let i = 0; i < 3; i++) spawnShopper();
+        renderer.setAnimationLoop(animate);
+      });
+    })();
+  </script>
+</body>
+</html>
