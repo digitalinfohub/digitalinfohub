@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>VR Games — Free WebXR Arcade for Headset or Desktop | Digital Infohub</title>
-<meta name="description" content="Play free VR games in your browser: Neon Breach is a WebXR wave shooter, Town Square Tycoon VR is a 3D high-street business sim. Headset or desktop simulator, no install.">
+<meta name="description" content="Play free VR games in your browser: Neon Breach is a WebXR wave shooter, Town Square Tycoon VR is a 3D high-street business sim and Poltergust Manor is a haunted-mansion ghost hunt. Headset or desktop simulator, no install.">
 <style>
   * { box-sizing: border-box; }
   body { margin: 0; }
@@ -133,6 +133,13 @@
     inset: 0;
     background-image: radial-gradient(circle at 26% 34%, rgba(217,119,6,.22), transparent 38%), radial-gradient(circle at 78% 24%, rgba(15,118,110,.2), transparent 40%);
   }
+  .vr-art.manor { background: radial-gradient(120% 120% at 30% 0%, #1b2b24, #070b12 70%), #070b12; }
+  .vr-art.manor::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle at 24% 72%, rgba(16,185,129,.28), transparent 46%), radial-gradient(circle at 76% 28%, rgba(99,102,241,.24), transparent 48%);
+  }
   .vr-art span { position: relative; filter: drop-shadow(0 8px 18px rgba(0,0,0,.35)); }
   .vr-game-body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
   .vr-tag {
@@ -188,12 +195,12 @@
 <meta name="color-scheme" content="dark light">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 <meta name="author" content="Digital Infohub">
-<meta name="keywords" content="vr games, free vr games, webxr games, browser vr, vr shooter, vr tycoon game, play vr without headset">
+<meta name="keywords" content="vr games, free vr games, webxr games, browser vr, vr shooter, vr tycoon game, vr ghost game, play vr without headset">
 <link rel="canonical" href="https://digitalinfohub.net/vrgames">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Digital Infohub">
 <meta property="og:title" content="VR Games — Free WebXR Arcade for Headset or Desktop | Digital Infohub">
-<meta property="og:description" content="Play free VR games in your browser: Neon Breach is a WebXR wave shooter, Town Square Tycoon VR is a 3D high-street business sim. Headset or desktop simulator, no install.">
+<meta property="og:description" content="Play free VR games in your browser: Neon Breach is a WebXR wave shooter, Town Square Tycoon VR is a 3D high-street business sim and Poltergust Manor is a haunted-mansion ghost hunt. Headset or desktop simulator, no install.">
 <meta property="og:url" content="https://digitalinfohub.net/vrgames">
 <meta property="og:image" content="https://digitalinfohub.net/assets/og/vrgames.jpg">
 <meta property="og:image:secure_url" content="https://digitalinfohub.net/assets/og/vrgames.jpg">
@@ -204,7 +211,7 @@
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="VR Games — Free WebXR Arcade for Headset or Desktop | Digital Infohub">
-<meta name="twitter:description" content="Play free VR games in your browser: Neon Breach is a WebXR wave shooter, Town Square Tycoon VR is a 3D high-street business sim. Headset or desktop simulator, no install.">
+<meta name="twitter:description" content="Play free VR games in your browser: Neon Breach is a WebXR wave shooter, Town Square Tycoon VR is a 3D high-street business sim and Poltergust Manor is a haunted-mansion ghost hunt. Headset or desktop simulator, no install.">
 <meta name="twitter:image" content="https://digitalinfohub.net/assets/og/vrgames.jpg">
 <meta name="twitter:image:alt" content="VR Games - Free WebXR Arcade for Headset or Desktop — Digital Infohub">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
@@ -217,7 +224,7 @@
 <link rel="preconnect" href="https://images.unsplash.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/site.css?v=20261226">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://digitalinfohub.net/#organization","name":"Digital Infohub","url":"https://digitalinfohub.net/","logo":{"@type":"ImageObject","url":"https://digitalinfohub.net/assets/icon-512.png","width":512,"height":512},"description":"Independent technology publication for everyone: clear guides, free browser tools and live market context.","sameAs":[]},{"@type":"WebSite","@id":"https://digitalinfohub.net/#website","url":"https://digitalinfohub.net/","name":"Digital Infohub","publisher":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://digitalinfohub.net/blog?q={search_term_string}"},"query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://digitalinfohub.net/vrgames#webpage","url":"https://digitalinfohub.net/vrgames","name":"VR Games — Free WebXR Arcade for Headset or Desktop | Digital Infohub","description":"Play free VR games in your browser: Neon Breach is a WebXR wave shooter, Town Square Tycoon VR is a 3D high-street business sim. Headset or desktop simulator, no install.","isPartOf":{"@id":"https://digitalinfohub.net/#website"},"about":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","primaryImageOfPage":{"@type":"ImageObject","url":"https://digitalinfohub.net/assets/og/vrgames.jpg","width":1200,"height":630}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://digitalinfohub.net/"},{"@type":"ListItem","position":2,"name":"Games","item":"https://digitalinfohub.net/games"},{"@type":"ListItem","position":3,"name":"VR Games — Free WebXR Arcade for Headset or Desktop","item":"https://digitalinfohub.net/vrgames"}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://digitalinfohub.net/#organization","name":"Digital Infohub","url":"https://digitalinfohub.net/","logo":{"@type":"ImageObject","url":"https://digitalinfohub.net/assets/icon-512.png","width":512,"height":512},"description":"Independent technology publication for everyone: clear guides, free browser tools and live market context.","sameAs":[]},{"@type":"WebSite","@id":"https://digitalinfohub.net/#website","url":"https://digitalinfohub.net/","name":"Digital Infohub","publisher":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://digitalinfohub.net/blog?q={search_term_string}"},"query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://digitalinfohub.net/vrgames#webpage","url":"https://digitalinfohub.net/vrgames","name":"VR Games — Free WebXR Arcade for Headset or Desktop | Digital Infohub","description":"Play free VR games in your browser: Neon Breach is a WebXR wave shooter, Town Square Tycoon VR is a 3D high-street business sim and Poltergust Manor is a haunted-mansion ghost hunt. Headset or desktop simulator, no install.","isPartOf":{"@id":"https://digitalinfohub.net/#website"},"about":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","primaryImageOfPage":{"@type":"ImageObject","url":"https://digitalinfohub.net/assets/og/vrgames.jpg","width":1200,"height":630}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://digitalinfohub.net/"},{"@type":"ListItem","position":2,"name":"Games","item":"https://digitalinfohub.net/games"},{"@type":"ListItem","position":3,"name":"VR Games — Free WebXR Arcade for Headset or Desktop","item":"https://digitalinfohub.net/vrgames"}]}]}</script>
 <!-- /DIH:HEAD -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471" crossorigin="anonymous"></script>
 </head>
@@ -304,7 +311,7 @@
       <a class="vr-btn" href="/games">Standard arcade</a>
     </div>
     <div class="vr-stats">
-      <div class="vr-stat"><b>2</b><span>Games live</span></div>
+      <div class="vr-stat"><b>3</b><span>Games live</span></div>
       <div class="vr-stat"><b>0</b><span>Installs needed</span></div>
       <div class="vr-stat"><b>Headset + desktop</b><span>Two ways to play</span></div>
     </div>
@@ -338,6 +345,18 @@
                 <span class="vr-chip">Idle + active</span><span class="vr-chip">Six shops</span><span class="vr-chip">Auto-save</span><span class="vr-chip">Touch friendly</span>
               </div>
               <span class="vr-play">Play Town Square Tycoon →</span>
+            </div>
+          </a>
+          <a class="vr-game" href="/vrgames/poltergust-manor">
+            <div class="vr-art manor" aria-hidden="true"><span>👻</span></div>
+            <div class="vr-game-body">
+              <span class="vr-tag">WebXR ghost hunt</span>
+              <h3>Poltergust Manor</h3>
+              <p>Step into a shadowed manor foyer and clear it room by room. Stun lurking spirits with your flashlight, reel them in with the Poltergust vortex beam and watch your charge before it overheats.</p>
+              <div class="vr-game-meta">
+                <span class="vr-chip">Flashlight stun</span><span class="vr-chip">Wave survival</span><span class="vr-chip">Touch friendly</span><span class="vr-chip">Synth audio</span>
+              </div>
+              <span class="vr-play">Play Poltergust Manor →</span>
             </div>
           </a>
         </div>
@@ -385,6 +404,11 @@
               <td>Point the controller laser at a shop or the noticeboard and pull the trigger; thumbstick to walk, snap turn to rotate.</td>
               <td>Drag to orbit, scroll to zoom, WASD to walk, click a shop or noticeboard row to buy.</td>
             </tr>
+            <tr>
+              <td>Poltergust Manor</td>
+              <td>Move with the thumbstick, aim with the controller and squeeze the trigger to run the vortex beam; F on the keyboard toggles the flashlight.</td>
+              <td>Click the canvas to lock the mouse, WASD to walk, hold left-click or Space to vacuum, F for the flashlight, E to inspect furniture.</td>
+            </tr>
           </tbody>
         </table>
       </section>
@@ -394,7 +418,7 @@
         <div class="vr-faq">
           <details>
             <summary>Do I need a VR headset?</summary>
-            <p>No. Both games have a full desktop mode. The headset adds hand tracking, depth and comfort; it does not unlock content.</p>
+            <p>No. All three games have a full desktop mode. The headset adds hand tracking, depth and comfort; it does not unlock content.</p>
           </details>
           <details>
             <summary>Why do some games ask for a browser permission?</summary>
@@ -413,7 +437,7 @@
 
       <section class="vr-section" id="next">
         <h2>What is coming next</h2>
-        <p>The VR arcade is deliberately small for now: two games that we can keep polished rather than a wall of half-finished demos. Next up are more WebXR cabinets in the same style — a seated puzzle game, a rhythm title and a room-scale exploration piece. New games will appear in this list, each with its own page at <code>/vrgames/&lt;name&gt;</code>, and we will keep the desktop mode for everything.</p>
+        <p>The VR arcade is deliberately small for now: three games that we can keep polished rather than a wall of half-finished demos. Next up are more WebXR cabinets in the same style — a seated puzzle game, a rhythm title and a room-scale exploration piece. New games will appear in this list, each with its own page at <code>/vrgames/&lt;name&gt;</code>, and we will keep the desktop mode for everything.</p>
         <div class="vr-note">
           <p><strong>Built in the open:</strong> these are our own games, not embeds. If something breaks in your headset, tell us through the <a href="/contact">contact page</a> — the browser and headset model are the two details that help most.</p>
         </div>

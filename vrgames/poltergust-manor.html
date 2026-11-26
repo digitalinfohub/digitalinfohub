@@ -1,0 +1,2511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471"
+     crossorigin="anonymous"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Poltergust Manor — 3D Haunted Mansion WebXR Game | Digital Infohub</title>
+  <meta name="description" content="Play Poltergust Manor free: a 3D haunted-mansion ghost hunt in your browser. Stun spirits with your flashlight, reel them in with the Poltergust vortex beam and survive rising waves — in a headset or on desktop and mobile." />
+  <meta name="keywords" content="poltergust manor, vr ghost game, webxr haunted mansion, 3d browser game, ghost hunting game, free vr game, play vr without headset" />
+  <link rel="canonical" href="https://digitalinfohub.net/vrgames/poltergust-manor" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Digital Infohub" />
+  <meta property="og:title" content="Poltergust Manor — 3D Haunted Mansion WebXR Game | Digital Infohub" />
+  <meta property="og:description" content="Shine your flashlight to stun lurking spirits, then fire the Poltergust vortex beam to reel them in. Free 3D haunted-mansion game for headset, desktop or phone." />
+  <meta property="og:url" content="https://digitalinfohub.net/vrgames/poltergust-manor" />
+  <meta property="og:image" content="https://digitalinfohub.net/assets/og/vrgames-poltergust-manor.jpg" />
+  <meta property="og:image:secure_url" content="https://digitalinfohub.net/assets/og/vrgames-poltergust-manor.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Poltergust Manor - 3D Haunted Mansion WebXR Game — Digital Infohub" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Poltergust Manor — 3D Haunted Mansion WebXR Game | Digital Infohub" />
+  <meta name="twitter:description" content="Stun spirits with your flashlight, then reel them in with the Poltergust vortex beam. Free 3D haunted-mansion game in the browser." />
+  <meta name="twitter:image" content="https://digitalinfohub.net/assets/og/vrgames-poltergust-manor.jpg" />
+  <meta name="twitter:image:alt" content="Poltergust Manor - 3D Haunted Mansion WebXR Game — Digital Infohub" />
+  <meta name="theme-color" content="#090c14" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <link rel="icon" href="/assets/favicon.ico" sizes="any" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoGame","name":"Poltergust Manor","url":"https://digitalinfohub.net/vrgames/poltergust-manor","description":"A 3D haunted-mansion ghost hunt played in the browser: stun spirits with a flashlight, vacuum them with a Poltergust vortex beam and survive rising waves, in VR or on desktop.","genre":"Action","gamePlatform":"WebXR, Web browser","playMode":"SinglePlayer","applicationCategory":"Game","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"inLanguage":"en","publisher":{"@type":"Organization","name":"Digital Infohub","url":"https://digitalinfohub.net"},"isPartOf":{"@type":"WebSite","name":"Digital Infohub","url":"https://digitalinfohub.net"}}</script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+    * {
+      box-sizing: border-box;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: #090c14;
+      font-family: 'Inter', sans-serif;
+      color: #f8fafc;
+    }
+
+    .font-display {
+      font-family: 'Fredoka', sans-serif;
+    }
+
+    #canvas-container {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+      outline: none;
+    }
+
+    /* Subtle eerie vignette overlay */
+    .vignette {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 5;
+      background: radial-gradient(circle at center, transparent 48%, rgba(3, 5, 10, 0.72) 100%);
+      transition: background 0.14s ease;
+    }
+
+    .vignette.damage-flash {
+      background: radial-gradient(circle at center, rgba(225, 29, 72, 0.14) 35%, rgba(190, 18, 60, 0.68) 100%);
+    }
+
+    /* Center reticle */
+    #reticle {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 28px;
+      height: 28px;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 12;
+      transition: transform 0.12s ease, opacity 0.2s ease;
+    }
+
+    #reticle.locked-on {
+      transform: translate(-50%, -50%) scale(1.28);
+    }
+
+    #reticle.sucking {
+      transform: translate(-50%, -50%) scale(0.88) rotate(45deg);
+    }
+
+    .hud-glass {
+      background: rgba(12, 17, 29, 0.72);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+    }
+
+    .btn-ectoplasm {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      box-shadow: 0 4px 18px rgba(16, 185, 129, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+      transition: transform 0.14s ease, filter 0.14s ease, box-shadow 0.14s ease;
+    }
+
+    .btn-ectoplasm:hover:not(:disabled) {
+      transform: translateY(-1px);
+      filter: brightness(1.08);
+      box-shadow: 0 6px 24px rgba(16, 185, 129, 0.48), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+    }
+
+    .btn-ectoplasm:active:not(:disabled) {
+      transform: translateY(1px) scale(0.98);
+    }
+
+    .btn-ectoplasm:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.75; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.03); }
+    }
+
+    .toast-pop {
+      animation: pulseGlow 1.6s infinite ease-in-out;
+    }
+
+    /* Mobile touch controls */
+    .touch-pad {
+      touch-action: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Main 3D WebGL / WebXR Viewport -->
+  <div id="canvas-container"></div>
+  <div class="vignette"></div>
+
+  <!-- Center Crosshair Reticle -->
+  <div id="reticle" aria-hidden="true">
+    <svg viewBox="0 0 36 36" fill="none" class="w-full h-full">
+      <circle cx="18" cy="18" r="11" stroke="rgba(167, 243, 208, 0.65)" stroke-width="1.5" stroke-dasharray="5 4" />
+      <circle cx="18" cy="18" r="2.5" fill="#34d399" />
+      <line x1="18" y1="2" x2="18" y2="7" stroke="#a7f3d0" stroke-width="1.5" stroke-linecap="round" />
+      <line x1="18" y1="29" x2="18" y2="34" stroke="#a7f3d0" stroke-width="1.5" stroke-linecap="round" />
+      <line x1="2" y1="18" x2="7" y2="18" stroke="#a7f3d0" stroke-width="1.5" stroke-linecap="round" />
+      <line x1="29" y1="18" x2="34" y2="18" stroke="#a7f3d0" stroke-width="1.5" stroke-linecap="round" />
+    </svg>
+  </div>
+
+  <!-- Top HUD Bar -->
+  <header class="fixed top-0 left-0 right-0 z-20 p-3 sm:p-4 flex flex-wrap items-start justify-between gap-2 pointer-events-none">
+    <!-- Left Stats: Health, Ghosts Captured & Score -->
+    <div class="hud-glass rounded-2xl px-4 py-2.5 flex items-center gap-4 pointer-events-auto">
+      <div class="min-w-[112px] sm:min-w-[132px]">
+        <div class="flex items-center justify-between text-[11px] uppercase tracking-wider font-semibold mb-1">
+          <span class="text-rose-300">Health</span>
+          <span id="hp-text" class="font-mono text-slate-100">100</span>
+        </div>
+        <div class="w-full h-2.5 bg-slate-800/90 rounded-full overflow-hidden border border-slate-700/70">
+          <div id="hp-bar" class="h-full w-full rounded-full bg-gradient-to-r from-rose-500 via-red-400 to-emerald-400 transition-all duration-100"></div>
+        </div>
+      </div>
+
+      <div class="h-8 w-px bg-slate-700/70"></div>
+
+      <div>
+        <div class="text-[11px] uppercase tracking-wider text-emerald-300/80 font-semibold">Captured</div>
+        <div class="font-display text-xl sm:text-2xl font-bold text-emerald-400 leading-tight">
+          <span id="captured-count">0</span> <span class="text-xs sm:text-sm text-slate-400 font-normal">/ <span id="wave-total">6</span></span>
+        </div>
+      </div>
+
+      <div class="h-8 w-px bg-slate-700/70"></div>
+
+      <div>
+        <div class="text-[11px] uppercase tracking-wider text-amber-300/80 font-semibold">Score</div>
+        <div id="score-value" class="font-display text-xl sm:text-2xl font-bold text-amber-300 leading-tight">0</div>
+      </div>
+
+      <div class="h-8 w-px bg-slate-700/70 hidden sm:block"></div>
+
+      <div class="hidden sm:block">
+        <div class="text-[11px] uppercase tracking-wider text-sky-300/80 font-semibold">Room Wave</div>
+        <div id="wave-value" class="font-display text-lg font-bold text-sky-300 leading-tight">1</div>
+      </div>
+    </div>
+
+    <!-- Center/Right Controls: Poltergust Charge, Flashlight Toggle, WebXR VR & Audio -->
+    <div class="flex flex-wrap items-center gap-2 pointer-events-auto">
+      <!-- Back to the VR arcade -->
+      <a href="/vrgames" title="Back to the VR games arcade"
+        class="hud-glass rounded-2xl px-3 py-2.5 text-xs sm:text-sm font-semibold text-emerald-200 hover:bg-slate-800/80 active:scale-95 transition flex items-center gap-1.5 cursor-pointer">
+        <span aria-hidden="true">←</span>
+        <span class="hidden sm:inline">VR Games</span>
+      </a>
+
+      <!-- Poltergust Power / Suction Gauge -->
+      <div class="hud-glass rounded-2xl px-3.5 py-2 min-w-[155px] sm:min-w-[185px]">
+        <div class="flex items-center justify-between text-xs mb-1">
+          <span class="font-semibold text-emerald-300 flex items-center gap-1.5">
+            <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            Poltergust Charge
+          </span>
+          <span id="charge-text" class="font-mono text-slate-200 font-semibold">100%</span>
+        </div>
+        <div class="w-full h-2.5 bg-slate-800/90 rounded-full overflow-hidden border border-slate-700/70">
+          <div id="charge-bar" class="h-full w-full rounded-full bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-300 transition-all duration-75"></div>
+        </div>
+      </div>
+
+      <!-- Flashlight Toggle -->
+      <button id="btn-flashlight" type="button" title="Toggle Flashlight (F)" class="hud-glass rounded-2xl px-3 py-2.5 text-xs sm:text-sm font-semibold text-amber-200 hover:bg-slate-800/80 active:scale-95 transition flex items-center gap-1.5 cursor-pointer">
+        <svg class="w-4 h-4 text-amber-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 18h6M10 22h4M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14" />
+        </svg>
+        <span id="flashlight-label">Light: ON</span>
+      </button>
+
+      <!-- Sound Effects Toggle -->
+      <button id="btn-audio" type="button" title="Toggle Web Audio Synth" class="hud-glass rounded-2xl px-3 py-2.5 text-xs sm:text-sm font-semibold text-slate-200 hover:bg-slate-800/80 active:scale-95 transition flex items-center gap-1.5 cursor-pointer">
+        <svg id="audio-icon-on" class="w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+          <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+          <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+        </svg>
+        <svg id="audio-icon-off" class="w-4 h-4 text-rose-400 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+          <line x1="23" y1="9" x2="17" y2="15" />
+          <line x1="17" y1="9" x2="23" y2="15" />
+        </svg>
+        <span id="audio-label" class="hidden md:inline">SFX</span>
+      </button>
+
+      <!-- WebXR VR Button -->
+      <button id="btn-vr" type="button" disabled class="btn-ectoplasm rounded-2xl px-3.5 py-2.5 text-xs sm:text-sm font-bold text-slate-950 flex items-center gap-1.5 cursor-pointer">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path d="M2 8a4 4 0 0 1 4-4h12a4 4 0 0 1 4 4v7a3 3 0 0 1-3 3h-3.5l-2.2-3.3a1 1 0 0 0-1.6 0L9.5 18H6a3 3 0 0 1-3-3V8z" />
+          <circle cx="8.5" cy="11.5" r="1.5" />
+          <circle cx="15.5" cy="11.5" r="1.5" />
+        </svg>
+        <span id="vr-label">Checking XR...</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Target Ghost Stamina / Lock-on Indicator -->
+  <div id="target-hud" class="fixed top-20 left-1/2 -translate-x-1/2 z-20 hidden pointer-events-none">
+    <div class="hud-glass rounded-full px-4 py-1.5 flex items-center gap-3 border border-emerald-400/40">
+      <span id="target-name" class="text-xs font-bold uppercase tracking-wider text-emerald-300">Boo Whisperer</span>
+      <div class="w-28 h-2 bg-slate-800 rounded-full overflow-hidden">
+        <div id="target-hp-bar" class="h-full w-full bg-gradient-to-r from-rose-500 via-amber-400 to-emerald-400 transition-all duration-75"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Event Toast Banner -->
+  <div id="event-toast" class="fixed bottom-24 left-1/2 -translate-x-1/2 z-20 pointer-events-none opacity-0 transition-opacity duration-300">
+    <div id="event-toast-text" class="hud-glass toast-pop rounded-full px-5 py-2 text-xs sm:text-sm font-semibold text-emerald-200 border border-emerald-400/35 whitespace-nowrap">
+      Ghost Captured! +250
+    </div>
+  </div>
+
+  <!-- Bottom Compact Controls Bar -->
+  <footer class="fixed bottom-3 left-1/2 -translate-x-1/2 z-20 pointer-events-none w-full max-w-3xl px-3">
+    <div class="hud-glass rounded-2xl px-4 py-2 text-[11px] sm:text-xs text-slate-300 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-center">
+      <span><strong class="text-emerald-300">WASD / Arrows</strong> Move</span>
+      <span><strong class="text-emerald-300">Mouse</strong> Aim (Click canvas to lock)</span>
+      <span><strong class="text-emerald-300">Hold Left-Click / Space</strong> Poltergust Suction</span>
+      <span><strong class="text-amber-300">F</strong> Flashlight</span>
+      <span><strong class="text-sky-300">E / Click Prop</strong> Inspect Furniture</span>
+    </div>
+  </footer>
+
+  <!-- Mobile Touch Controls (shown on touch/small screens when playing) -->
+  <div id="touch-controls" class="fixed bottom-16 inset-x-4 z-20 hidden justify-between items-end pointer-events-none md:hidden">
+    <div id="touch-move-pad" class="touch-pad w-24 h-24 rounded-full hud-glass border border-emerald-400/30 flex items-center justify-center text-[11px] font-semibold text-emerald-200 pointer-events-auto">
+      MOVE
+    </div>
+    <button id="touch-suck-btn" type="button" class="touch-pad w-20 h-20 rounded-full btn-ectoplasm text-slate-950 font-display font-bold text-xs flex items-center justify-center pointer-events-auto">
+      VACUUM
+    </button>
+  </div>
+
+  <!-- Start / Pause / Wave Overlay Modal -->
+  <div id="overlay-modal" class="fixed inset-0 z-30 flex items-center justify-center p-4 bg-slate-950/75 backdrop-blur-md">
+    <div class="hud-glass max-w-lg w-full rounded-3xl p-6 sm:p-8 border border-emerald-500/25 relative overflow-hidden">
+      <!-- Decorative Ectoplasm Glow -->
+      <div class="absolute -top-20 -right-20 w-48 h-48 rounded-full bg-emerald-500/15 blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-20 -left-20 w-48 h-48 rounded-full bg-indigo-500/15 blur-3xl pointer-events-none"></div>
+
+      <div class="relative z-10">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-400/30 text-emerald-300 text-xs font-semibold mb-3">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+          3D Haunted Foyer • WebXR &amp; Desktop Ready
+        </div>
+
+        <h1 id="modal-title" class="font-display text-3xl sm:text-4xl font-bold tracking-tight text-white mb-2">
+          Poltergust <span class="text-emerald-400">Manor</span>
+        </h1>
+
+        <p id="modal-subtitle" class="text-sm text-slate-300 leading-relaxed mb-5">
+          Step into the shadowed manor foyer. Shine your flashlight to stun lurking spirits, then fire your <span class="text-emerald-300 font-semibold">Poltergust vortex beam</span> to reel them in before they slip away!
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs text-slate-300 mb-6 bg-slate-900/60 p-3.5 rounded-2xl border border-slate-800">
+          <div class="flex items-start gap-2">
+            <span class="text-amber-300 font-bold">✦</span>
+            <span><strong class="text-white">Flashlight:</strong> Reveals &amp; stuns ghosts in dark corners (<kbd class="px-1.5 py-0.5 bg-slate-800 rounded text-amber-200">F</kbd>).</span>
+          </div>
+          <div class="flex items-start gap-2">
+            <span class="text-emerald-400 font-bold">✦</span>
+            <span><strong class="text-white">Suction Beam:</strong> Hold <kbd class="px-1.5 py-0.5 bg-slate-800 rounded text-emerald-200">Left Click</kbd> or <kbd class="px-1.5 py-0.5 bg-slate-800 rounded text-emerald-200">Space</kbd> to pull &amp; drain ghosts.</span>
+          </div>
+          <div class="flex items-start gap-2">
+            <span class="text-sky-300 font-bold">✦</span>
+            <span><strong class="text-white">Exploration:</strong> <kbd class="px-1.5 py-0.5 bg-slate-800 rounded text-sky-200">WASD</kbd> + Mouse Look, or enter <strong class="text-emerald-300">WebXR VR</strong> with controllers.</span>
+          </div>
+          <div class="flex items-start gap-2">
+            <span class="text-purple-300 font-bold">✦</span>
+            <span><strong class="text-white">Haunted Props:</strong> Inspect grandfather clocks, chests, candelabras &amp; portraits (<kbd class="px-1.5 py-0.5 bg-slate-800 rounded text-purple-200">E</kbd>).</span>
+          </div>
+        </div>
+
+        <div id="xr-status-note" class="text-xs text-slate-400 mb-5 flex items-center gap-2">
+          <span class="inline-block w-2 h-2 rounded-full bg-sky-400"></span>
+          <span>WebXR status: detecting headset capabilities...</span>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-3">
+          <button id="btn-play" type="button" class="btn-ectoplasm flex-1 rounded-2xl py-3.5 px-5 font-display font-bold text-base text-slate-950 cursor-pointer">
+            Enter the Manor
+          </button>
+          <button id="btn-modal-vr" type="button" disabled class="rounded-2xl py-3.5 px-5 font-display font-semibold text-sm bg-slate-800/90 hover:bg-slate-700/90 text-emerald-300 border border-emerald-500/30 disabled:opacity-40 disabled:cursor-not-allowed transition cursor-pointer">
+            Launch WebXR VR
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // =========================================================================
+    // POLTERGUST MANOR — 3D HAUNTED MANSION WEBXR GAME
+    // Self-contained single-file Three.js + WebXR + Web Audio API experience
+    // =========================================================================
+
+    (function () {
+      'use strict';
+
+      // -----------------------------------------------------------------------
+      // 1. WEB AUDIO SYNTHESIZER (Zero external sound assets required)
+      // -----------------------------------------------------------------------
+      class HauntedAudioSynth {
+        constructor() {
+          this.ctx = null;
+          this.enabled = true;
+          this.vacuumGain = null;
+          this.vacuumOsc = null;
+          this.vacuumLfo = null;
+          this.noiseNode = null;
+          this.noiseGain = null;
+          this.isVacuumActive = false;
+          this.ambientStarted = false;
+        }
+
+        ensureContext() {
+          if (!this.ctx) {
+            const AudioCtx = window.AudioContext || window.webkitAudioContext;
+            if (!AudioCtx) return null;
+            this.ctx = new AudioCtx();
+            this._setupVacuumLoop();
+          }
+          if (this.ctx.state === 'suspended') {
+            this.ctx.resume().catch(() => {});
+          }
+          if (this.enabled && !this.ambientStarted) {
+            this._startSpookyAmbience();
+          }
+          return this.ctx;
+        }
+
+        setEnabled(flag) {
+          this.enabled = flag;
+          if (!flag) {
+            this.stopVacuum();
+            if (this.ctx && this.ctx.state === 'running') {
+              this.ctx.suspend().catch(() => {});
+            }
+          } else if (this.ctx) {
+            this.ctx.resume().catch(() => {});
+          }
+        }
+
+        _setupVacuumLoop() {
+          if (!this.ctx) return;
+
+          // Low motor hum + frequency modulation for vortex churn
+          this.vacuumOsc = this.ctx.createOscillator();
+          this.vacuumOsc.type = 'sawtooth';
+          this.vacuumOsc.frequency.value = 74;
+
+          this.vacuumLfo = this.ctx.createOscillator();
+          this.vacuumLfo.type = 'sine';
+          this.vacuumLfo.frequency.value = 11;
+
+          const lfoGain = this.ctx.createGain();
+          lfoGain.gain.value = 14;
+          this.vacuumLfo.connect(lfoGain);
+          lfoGain.connect(this.vacuumOsc.frequency);
+
+          const filter = this.ctx.createBiquadFilter();
+          filter.type = 'lowpass';
+          filter.frequency.value = 340;
+          filter.Q.value = 4.5;
+
+          this.vacuumGain = this.ctx.createGain();
+          this.vacuumGain.gain.value = 0.0001;
+
+          this.vacuumOsc.connect(filter);
+          filter.connect(this.vacuumGain);
+          this.vacuumGain.connect(this.ctx.destination);
+
+          this.vacuumOsc.start();
+          this.vacuumLfo.start();
+
+          // Filtered noise for air suction hiss
+          const bufferSize = this.ctx.sampleRate * 2;
+          const noiseBuffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+          const output = noiseBuffer.getChannelData(0);
+          for (let i = 0; i < bufferSize; i++) {
+            output[i] = Math.random() * 2 - 1;
+          }
+
+          this.noiseNode = this.ctx.createBufferSource();
+          this.noiseNode.buffer = noiseBuffer;
+          this.noiseNode.loop = true;
+
+          const bandpass = this.ctx.createBiquadFilter();
+          bandpass.type = 'bandpass';
+          bandpass.frequency.value = 950;
+          bandpass.Q.value = 1.6;
+
+          this.noiseGain = this.ctx.createGain();
+          this.noiseGain.gain.value = 0.0001;
+
+          this.noiseNode.connect(bandpass);
+          bandpass.connect(this.noiseGain);
+          this.noiseGain.connect(this.ctx.destination);
+          this.noiseNode.start();
+        }
+
+        _startSpookyAmbience() {
+          if (!this.ctx || this.ambientStarted) return;
+          this.ambientStarted = true;
+
+          // Subtle eerie minor-ish drone pad
+          const padGain = this.ctx.createGain();
+          padGain.gain.value = 0.025;
+
+          const filter = this.ctx.createBiquadFilter();
+          filter.type = 'lowpass';
+          filter.frequency.value = 260;
+
+          [65.41, 98.0, 116.54].forEach((freq, idx) => {
+            const osc = this.ctx.createOscillator();
+            osc.type = idx === 0 ? 'triangle' : 'sine';
+            osc.frequency.value = freq;
+            osc.detune.value = (idx - 1) * 7;
+            osc.connect(filter);
+            osc.start();
+          });
+
+          filter.connect(padGain);
+          padGain.connect(this.ctx.destination);
+        }
+
+        updateVacuum(active, pullingGhost = false, tension = 0) {
+          if (!this.enabled) {
+            this.stopVacuum();
+            return;
+          }
+          const ctx = this.ensureContext();
+          if (!ctx || !this.vacuumGain || !this.noiseGain) return;
+
+          const now = ctx.currentTime;
+          if (active) {
+            this.isVacuumActive = true;
+            const targetPitch = pullingGhost ? 92 + tension * 48 : 72;
+            const targetFreq = pullingGhost ? 520 + tension * 340 : 310;
+            this.vacuumOsc.frequency.setTargetAtTime(targetPitch, now, 0.06);
+            this.vacuumOsc.parent?.frequency;
+            this.vacuumGain.gain.setTargetAtTime(pullingGhost ? 0.11 : 0.065, now, 0.05);
+            this.noiseGain.gain.setTargetAtTime(pullingGhost ? 0.09 : 0.045, now, 0.05);
+            // Adjust filter dynamically via quick node reference if desired
+            if (this.vacuumOsc._filter) {
+              this.vacuumOsc._filter.frequency.setTargetAtTime(targetFreq, now, 0.06);
+            }
+          } else if (this.isVacuumActive) {
+            this.stopVacuum();
+          }
+        }
+
+        stopVacuum() {
+          this.isVacuumActive = false;
+          if (!this.ctx || !this.vacuumGain || !this.noiseGain) return;
+          const now = this.ctx.currentTime;
+          this.vacuumGain.gain.setTargetAtTime(0.0001, now, 0.05);
+          this.noiseGain.gain.setTargetAtTime(0.0001, now, 0.05);
+        }
+
+        playFlashlightClick(on = true) {
+          if (!this.enabled) return;
+          const ctx = this.ensureContext();
+          if (!ctx) return;
+
+          const now = ctx.currentTime;
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(on ? 980 : 620, now);
+          osc.frequency.exponentialRampToValueAtTime(on ? 1520 : 340, now + 0.045);
+
+          gain.gain.setValueAtTime(0.08, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.055);
+        }
+
+        playGhostStun() {
+          if (!this.enabled) return;
+          const ctx = this.ensureContext();
+          if (!ctx) return;
+
+          const now = ctx.currentTime;
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(520, now);
+          osc.frequency.exponentialRampToValueAtTime(880, now + 0.14);
+
+          gain.gain.setValueAtTime(0.09, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.16);
+
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.17);
+        }
+
+        playGhostCapture() {
+          if (!this.enabled) return;
+          const ctx = this.ensureContext();
+          if (!ctx) return;
+
+          const now = ctx.currentTime;
+          // Cheerful ectoplasmic arpeggio chime
+          const notes = [523.25, 659.25, 783.99, 1046.5];
+          notes.forEach((freq, i) => {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'triangle';
+            const start = now + i * 0.065;
+            osc.frequency.setValueAtTime(freq, start);
+            gain.gain.setValueAtTime(0.001, start);
+            gain.gain.linearRampToValueAtTime(0.12, start + 0.015);
+            gain.gain.exponentialRampToValueAtTime(0.001, start + 0.24);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(start);
+            osc.stop(start + 0.25);
+          });
+        }
+
+        playPropInteract(spooky = false) {
+          if (!this.enabled) return;
+          const ctx = this.ensureContext();
+          if (!ctx) return;
+
+          const now = ctx.currentTime;
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = spooky ? 'sawtooth' : 'sine';
+          osc.frequency.setValueAtTime(spooky ? 210 : 390, now);
+          osc.frequency.exponentialRampToValueAtTime(spooky ? 95 : 580, now + 0.22);
+
+          gain.gain.setValueAtTime(0.07, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.24);
+
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.25);
+        }
+
+        playPlayerHurt() {
+          if (!this.enabled) return;
+          const ctx = this.ensureContext();
+          if (!ctx) return;
+
+          const now = ctx.currentTime;
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(195, now);
+          osc.frequency.exponentialRampToValueAtTime(58, now + 0.28);
+
+          gain.gain.setValueAtTime(0.15, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.31);
+        }
+
+        playPlayerDeath() {
+          if (!this.enabled) return;
+          const ctx = this.ensureContext();
+          if (!ctx) return;
+
+          const now = ctx.currentTime;
+          const notes = [293.66, 261.63, 220.0, 146.83];
+          notes.forEach((freq, idx) => {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'triangle';
+            const start = now + idx * 0.14;
+            osc.frequency.setValueAtTime(freq, start);
+            gain.gain.setValueAtTime(0.12, start);
+            gain.gain.exponentialRampToValueAtTime(0.001, start + 0.28);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(start);
+            osc.stop(start + 0.3);
+          });
+        }
+      }
+
+      // -----------------------------------------------------------------------
+      // 2. PROCEDURAL CANVAS TEXTURES (Wood planks, cobwebs, rugs, portraits)
+      // -----------------------------------------------------------------------
+      function createWoodFloorTexture() {
+        const canvas = document.createElement('canvas');
+        canvas.width = 512;
+        canvas.height = 512;
+        const ctx = canvas.getContext('2d');
+
+        ctx.fillStyle = '#241812';
+        ctx.fillRect(0, 0, 512, 512);
+
+        const planks = 8;
+        const plankH = 512 / planks;
+        for (let row = 0; row < planks; row++) {
+          const y = row * plankH;
+          const shade = (row * 19) % 14;
+          ctx.fillStyle = `rgb(${36 + shade}, ${23 + Math.floor(shade * 0.6)}, ${17 + Math.floor(shade * 0.4)})`;
+          ctx.fillRect(0, y + 1, 512, plankH - 2);
+
+          // Wood grain lines
+          ctx.strokeStyle = 'rgba(12, 7, 5, 0.35)';
+          ctx.lineWidth = 1;
+          for (let g = 0; g < 6; g++) {
+            const gy = y + 5 + ((g * 9 + row * 7) % (plankH - 8));
+            ctx.beginPath();
+            ctx.moveTo(0, gy);
+            ctx.bezierCurveTo(170, gy - 2, 340, gy + 2, 512, gy);
+            ctx.stroke();
+          }
+
+          // Plank seam & nails
+          ctx.fillStyle = '#120b08';
+          ctx.fillRect(0, y, 512, 2);
+          const seamX = ((row * 167 + 90) % 420) + 45;
+          ctx.fillRect(seamX, y, 2, plankH);
+        }
+
+        const tex = new THREE.CanvasTexture(canvas);
+        tex.wrapS = THREE.RepeatWrapping;
+        tex.wrapT = THREE.RepeatWrapping;
+        tex.repeat.set(7, 7);
+        return tex;
+      }
+
+      function createWallpaperTexture() {
+        const canvas = document.createElement('canvas');
+        canvas.width = 256;
+        canvas.height = 256;
+        const ctx = canvas.getContext('2d');
+
+        ctx.fillStyle = '#181322';
+        ctx.fillRect(0, 0, 256, 256);
+
+        // Victorian damask pattern
+        ctx.strokeStyle = 'rgba(139, 92, 246, 0.14)';
+        ctx.lineWidth = 2;
+        for (let x = 32; x < 256; x += 64) {
+          for (let y = 32; y < 256; y += 64) {
+            ctx.beginPath();
+            ctx.moveTo(x, y - 18);
+            ctx.quadraticCurveTo(x + 16, y, x, y + 18);
+            ctx.quadraticCurveTo(x - 16, y, x, y - 18);
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.arc(x, y, 5, 0, Math.PI * 2);
+            ctx.stroke();
+          }
+        }
+
+        const tex = new THREE.CanvasTexture(canvas);
+        tex.wrapS = THREE.RepeatWrapping;
+        tex.wrapT = THREE.RepeatWrapping;
+        tex.repeat.set(8, 2);
+        return tex;
+      }
+
+      function createCobwebTexture() {
+        const canvas = document.createElement('canvas');
+        canvas.width = 256;
+        canvas.height = 256;
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, 256, 256);
+
+        ctx.strokeStyle = 'rgba(226, 232, 240, 0.42)';
+        ctx.lineWidth = 1.3;
+
+        const cx = 12;
+        const cy = 12;
+        const rays = 8;
+        const maxR = 230;
+
+        for (let i = 0; i <= rays; i++) {
+          const angle = (i / rays) * (Math.PI / 2);
+          ctx.beginPath();
+          ctx.moveTo(cx, cy);
+          ctx.lineTo(cx + Math.cos(angle) * maxR, cy + Math.sin(angle) * maxR);
+          ctx.stroke();
+        }
+
+        for (let ring = 1; ring <= 7; ring++) {
+          const r = (ring / 7) * maxR;
+          ctx.beginPath();
+          for (let i = 0; i <= rays; i++) {
+            const angle = (i / rays) * (Math.PI / 2);
+            const sag = Math.sin((i / rays) * Math.PI) * 5;
+            const px = cx + Math.cos(angle) * (r + sag);
+            const py = cy + Math.sin(angle) * (r + sag);
+            if (i === 0) ctx.moveTo(px, py);
+            else ctx.lineTo(px, py);
+          }
+          ctx.stroke();
+        }
+
+        const tex = new THREE.CanvasTexture(canvas);
+        return tex;
+      }
+
+      function createPortraitTexture(variant = 0) {
+        const canvas = document.createElement('canvas');
+        canvas.width = 192;
+        canvas.height = 256;
+        const ctx = canvas.getContext('2d');
+
+        const bgGrad = ctx.createRadialGradient(96, 105, 12, 96, 128, 140);
+        bgGrad.addColorStop(0, variant === 0 ? '#3b2f2f' : '#263238');
+        bgGrad.addColorStop(1, '#0e0d12');
+        ctx.fillStyle = bgGrad;
+        ctx.fillRect(0, 0, 192, 256);
+
+        // Shoulders / Victorian coat
+        ctx.fillStyle = '#1e1b2e';
+        ctx.beginPath();
+        ctx.ellipse(96, 225, 62, 46, 0, Math.PI, Math.PI * 2);
+        ctx.fill();
+
+        // Face
+        ctx.fillStyle = '#9ca3af';
+        ctx.beginPath();
+        ctx.ellipse(96, 112, 34, 44, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Glowing eerie eyes
+        ctx.fillStyle = variant === 0 ? '#34d399' : '#fbbf24';
+        ctx.beginPath();
+        ctx.arc(83, 106, 4.5, 0, Math.PI * 2);
+        ctx.arc(109, 106, 4.5, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Hollow mouth
+        ctx.fillStyle = '#111827';
+        ctx.beginPath();
+        ctx.ellipse(96, 130, 10, 6, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        return new THREE.CanvasTexture(canvas);
+      }
+
+      // -----------------------------------------------------------------------
+      // 3. GAME STATE & DOM REFERENCES
+      // -----------------------------------------------------------------------
+      const audio = new HauntedAudioSynth();
+
+      const MAX_ACTIVE_GHOSTS = 5;
+      const MAX_PLAYER_HP = 100;
+      const INVULN_DURATION = 1.05;
+
+      const state = {
+        mode: 'menu', // 'menu' | 'playing' | 'paused' | 'gameover'
+        hp: MAX_PLAYER_HP,
+        invulnTimer: 0,
+        damageFlashTimer: 0,
+        shakeTimer: 0,
+        survivalTime: 0,
+        captured: 0,
+        score: 0,
+        wave: 1,
+        waveTarget: 6,
+        pendingWaveSpawns: 0,
+        respawnTimer: 1.4,
+        charge: 100, // 0..100 Poltergust charge
+        overheated: false,
+        flashlightOn: true,
+        isSucking: false,
+        pointerLocked: false,
+        vrSession: null,
+        vrSupported: false,
+        // Movement & camera angles (desktop fallback)
+        yaw: 0,
+        pitch: 0,
+        keys: {
+          forward: false,
+          backward: false,
+          left: false,
+          right: false,
+          suck: false
+        },
+        touchMove: { x: 0, y: 0 },
+        targetGhost: null,
+        hoveredProp: null,
+        clockTime: 0
+      };
+
+      const dom = {
+        container: document.getElementById('canvas-container'),
+        vignette: document.querySelector('.vignette'),
+        reticle: document.getElementById('reticle'),
+        hpText: document.getElementById('hp-text'),
+        hpBar: document.getElementById('hp-bar'),
+        capturedCount: document.getElementById('captured-count'),
+        waveTotal: document.getElementById('wave-total'),
+        scoreValue: document.getElementById('score-value'),
+        waveValue: document.getElementById('wave-value'),
+        chargeText: document.getElementById('charge-text'),
+        chargeBar: document.getElementById('charge-bar'),
+        btnFlashlight: document.getElementById('btn-flashlight'),
+        flashlightLabel: document.getElementById('flashlight-label'),
+        btnAudio: document.getElementById('btn-audio'),
+        audioIconOn: document.getElementById('audio-icon-on'),
+        audioIconOff: document.getElementById('audio-icon-off'),
+        btnVr: document.getElementById('btn-vr'),
+        vrLabel: document.getElementById('vr-label'),
+        btnModalVr: document.getElementById('btn-modal-vr'),
+        xrStatusNote: document.getElementById('xr-status-note'),
+        targetHud: document.getElementById('target-hud'),
+        targetName: document.getElementById('target-name'),
+        targetHpBar: document.getElementById('target-hp-bar'),
+        eventToast: document.getElementById('event-toast'),
+        eventToastText: document.getElementById('event-toast-text'),
+        modal: document.getElementById('overlay-modal'),
+        modalTitle: document.getElementById('modal-title'),
+        modalSubtitle: document.getElementById('modal-subtitle'),
+        btnPlay: document.getElementById('btn-play'),
+        touchControls: document.getElementById('touch-controls'),
+        touchMovePad: document.getElementById('touch-move-pad'),
+        touchSuckBtn: document.getElementById('touch-suck-btn')
+      };
+
+      let toastTimeout = null;
+      function showToast(message, accent = 'text-emerald-200') {
+        dom.eventToastText.textContent = message;
+        dom.eventToastText.className = `hud-glass toast-pop rounded-full px-5 py-2 text-xs sm:text-sm font-semibold border border-emerald-400/35 whitespace-nowrap ${accent}`;
+        dom.eventToast.classList.remove('opacity-0');
+        dom.eventToast.classList.add('opacity-100');
+        clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(() => {
+          dom.eventToast.classList.remove('opacity-100');
+          dom.eventToast.classList.add('opacity-0');
+        }, 2100);
+      }
+
+      function syncHud() {
+        const hpVal = Math.max(0, Math.ceil(state.hp));
+        dom.hpText.textContent = String(hpVal);
+        dom.hpBar.style.width = `${Math.max(0, Math.min(100, (state.hp / MAX_PLAYER_HP) * 100))}%`;
+
+        dom.capturedCount.textContent = String(state.captured);
+        dom.waveTotal.textContent = String(state.waveTarget);
+        dom.scoreValue.textContent = String(state.score);
+        dom.waveValue.textContent = String(state.wave);
+
+        const pct = Math.max(0, Math.min(100, state.charge));
+        dom.chargeText.textContent = `${Math.round(pct)}%`;
+        dom.chargeBar.style.width = `${pct}%`;
+
+        if (state.overheated || pct < 15) {
+          dom.chargeBar.className = 'h-full rounded-full bg-gradient-to-r from-rose-600 via-amber-500 to-yellow-400 transition-all duration-75';
+        } else {
+          dom.chargeBar.className = 'h-full rounded-full bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-300 transition-all duration-75';
+        }
+
+        dom.flashlightLabel.textContent = state.flashlightOn ? 'Light: ON' : 'Light: OFF';
+      }
+
+      function triggerGameOver() {
+        if (state.mode === 'gameover') return;
+        state.hp = 0;
+        state.isSucking = false;
+        state.keys.suck = false;
+        xrTriggerHeld = false;
+        suctionGroup.visible = false;
+        audio.stopVacuum();
+        audio.playPlayerDeath();
+        syncHud();
+
+        if (document.pointerLockElement === renderer.domElement) {
+          try {
+            document.exitPointerLock?.();
+          } catch (_) {}
+        }
+
+        setGameMode('gameover');
+        const survivedSec = Math.floor(state.survivalTime);
+        dom.modalTitle.innerHTML = 'You Were <span class="text-rose-400">Overwhelmed</span>';
+        dom.modalSubtitle.innerHTML =
+          `The manor spirits caught you in <strong>Wave ${state.wave}</strong> after <strong>${survivedSec}s</strong>.<br>` +
+          `Final Score: <span class="text-amber-300 font-semibold">${state.score}</span> • Captured: <span class="text-emerald-300 font-semibold">${state.captured}</span>`;
+        dom.btnPlay.dataset.action = 'replay';
+        dom.btnPlay.textContent = 'Restart Hunt';
+      }
+
+      function damagePlayer(amount, sourceLabel = 'A spirit') {
+        if (state.mode !== 'playing' || state.invulnTimer > 0 || state.hp <= 0) return;
+
+        state.hp = Math.max(0, state.hp - amount);
+        state.invulnTimer = INVULN_DURATION;
+        state.damageFlashTimer = 0.24;
+        state.shakeTimer = 0.26;
+        dom.vignette.classList.add('damage-flash');
+        audio.playPlayerHurt();
+        syncHud();
+
+        if (state.hp <= 0) {
+          triggerGameOver();
+        } else {
+          showToast(`${sourceLabel} struck you! -${amount} HP`, 'text-rose-300');
+        }
+      }
+
+      // -----------------------------------------------------------------------
+      // 4. THREE.JS SCENE, LIGHTING & HAUNTED MANSION ARCHITECTURE
+      // -----------------------------------------------------------------------
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color(0x080b12);
+      scene.fog = new THREE.FogExp2(0x090d16, 0.036);
+
+      const camera = new THREE.PerspectiveCamera(
+        72,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        85
+      );
+      // Player rig holds camera so WebXR headset tracking & desktop yaw/pitch work cleanly
+      const playerRig = new THREE.Group();
+      const EYE_HEIGHT = 1.68;
+      playerRig.position.set(0, 0, 10.5);
+      camera.position.set(0, EYE_HEIGHT, 0);
+      playerRig.add(camera);
+      scene.add(playerRig);
+
+      const renderer = new THREE.WebGLRenderer({
+        antialias: true,
+        powerPreference: 'high-performance'
+      });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      renderer.shadowMap.enabled = true;
+      renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.15;
+      renderer.xr.enabled = true;
+      dom.container.appendChild(renderer.domElement);
+
+      // Ambient & Hemisphere mood lighting
+      const hemiLight = new THREE.HemisphereLight(0x4c5c96, 0x1c1410, 0.42);
+      scene.add(hemiLight);
+
+      const manorHalfW = 14.5;
+      const manorHalfD = 14.5;
+      const wallHeight = 6.2;
+
+      const woodTex = createWoodFloorTexture();
+      const wallTex = createWallpaperTexture();
+      const cobwebTex = createCobwebTexture();
+
+      // Mansion Floor
+      const floorMat = new THREE.MeshStandardMaterial({
+        map: woodTex,
+        roughness: 0.62,
+        metalness: 0.08
+      });
+      const floorMesh = new THREE.Mesh(new THREE.PlaneGeometry(manorHalfW * 2, manorHalfD * 2), floorMat);
+      floorMesh.rotation.x = -Math.PI / 2;
+      floorMesh.receiveShadow = true;
+      scene.add(floorMesh);
+
+      // Crimson Manor Runner Rug along foyer axis
+      const rugMat = new THREE.MeshStandardMaterial({
+        color: 0x581725,
+        roughness: 0.88,
+        metalness: 0.02
+      });
+      const rugMesh = new THREE.Mesh(new THREE.PlaneGeometry(3.6, 20), rugMat);
+      rugMesh.rotation.x = -Math.PI / 2;
+      rugMesh.position.set(0, 0.015, 1.5);
+      rugMesh.receiveShadow = true;
+      scene.add(rugMesh);
+
+      // Gold trim border on rug
+      const trimMat = new THREE.MeshStandardMaterial({
+        color: 0xb48a2c,
+        roughness: 0.45,
+        metalness: 0.6
+      });
+      [-1.85, 1.85].forEach((xOff) => {
+        const trim = new THREE.Mesh(new THREE.PlaneGeometry(0.12, 20), trimMat);
+        trim.rotation.x = -Math.PI / 2;
+        trim.position.set(xOff, 0.018, 1.5);
+        scene.add(trim);
+      });
+
+      // Ceiling with timber beams
+      const ceilMat = new THREE.MeshStandardMaterial({
+        color: 0x11131d,
+        roughness: 0.85,
+        metalness: 0.1
+      });
+      const ceilMesh = new THREE.Mesh(new THREE.PlaneGeometry(manorHalfW * 2, manorHalfD * 2), ceilMat);
+      ceilMesh.rotation.x = Math.PI / 2;
+      ceilMesh.position.y = wallHeight;
+      scene.add(ceilMesh);
+
+      const beamMat = new THREE.MeshStandardMaterial({
+        color: 0x1c120d,
+        roughness: 0.75
+      });
+      for (let z = -10; z <= 10; z += 5) {
+        const beam = new THREE.Mesh(new THREE.BoxGeometry(manorHalfW * 2, 0.36, 0.45), beamMat);
+        beam.position.set(0, wallHeight - 0.18, z);
+        scene.add(beam);
+      }
+
+      // Walls
+      const wallMat = new THREE.MeshStandardMaterial({
+        map: wallTex,
+        roughness: 0.78,
+        metalness: 0.05
+      });
+
+      function buildWalls() {
+        const wallGroup = new THREE.Group();
+        const northWall = new THREE.Mesh(new THREE.BoxGeometry(manorHalfW * 2, wallHeight, 0.5), wallMat);
+        northWall.position.set(0, wallHeight / 2, -manorHalfD);
+        northWall.receiveShadow = true;
+
+        const southWall = new THREE.Mesh(new THREE.BoxGeometry(manorHalfW * 2, wallHeight, 0.5), wallMat);
+        southWall.position.set(0, wallHeight / 2, manorHalfD);
+        southWall.receiveShadow = true;
+
+        const westWall = new THREE.Mesh(new THREE.BoxGeometry(0.5, wallHeight, manorHalfD * 2), wallMat);
+        westWall.position.set(-manorHalfW, wallHeight / 2, 0);
+        westWall.receiveShadow = true;
+
+        const eastWall = new THREE.Mesh(new THREE.BoxGeometry(0.5, wallHeight, manorHalfD * 2), wallMat);
+        eastWall.position.set(manorHalfW, wallHeight / 2, 0);
+        eastWall.receiveShadow = true;
+
+        // Wainscoting baseboard trim
+        const baseMat = new THREE.MeshStandardMaterial({ color: 0x1d130e, roughness: 0.65 });
+        const nBase = new THREE.Mesh(new THREE.BoxGeometry(manorHalfW * 2, 0.9, 0.62), baseMat);
+        nBase.position.set(0, 0.45, -manorHalfD + 0.05);
+        const sBase = new THREE.Mesh(new THREE.BoxGeometry(manorHalfW * 2, 0.9, 0.62), baseMat);
+        sBase.position.set(0, 0.45, manorHalfD - 0.05);
+        const wBase = new THREE.Mesh(new THREE.BoxGeometry(0.62, 0.9, manorHalfD * 2), baseMat);
+        wBase.position.set(-manorHalfW + 0.05, 0.45, 0);
+        const eBase = new THREE.Mesh(new THREE.BoxGeometry(0.62, 0.9, manorHalfD * 2), baseMat);
+        eBase.position.set(manorHalfW - 0.05, 0.45, 0);
+
+        wallGroup.add(northWall, southWall, westWall, eastWall, nBase, sBase, wBase, eBase);
+        scene.add(wallGroup);
+      }
+      buildWalls();
+
+      // Corner Cobwebs
+      const cobwebMat = new THREE.MeshBasicMaterial({
+        map: cobwebTex,
+        transparent: true,
+        opacity: 0.72,
+        side: THREE.DoubleSide,
+        depthWrite: false
+      });
+      const corners = [
+        { x: -manorHalfW + 0.28, y: wallHeight - 0.28, z: -manorHalfD + 0.28, ry: 0 },
+        { x: manorHalfW - 0.28, y: wallHeight - 0.28, z: -manorHalfD + 0.28, ry: -Math.PI / 2 },
+        { x: -manorHalfW + 0.28, y: wallHeight - 0.28, z: manorHalfD - 0.28, ry: Math.PI / 2 },
+        { x: manorHalfW - 0.28, y: wallHeight - 0.28, z: manorHalfD - 0.28, ry: Math.PI }
+      ];
+      corners.forEach((c) => {
+        const web = new THREE.Mesh(new THREE.PlaneGeometry(3.2, 3.2), cobwebMat);
+        web.position.set(c.x, c.y, c.z);
+        web.rotation.y = c.ry;
+        scene.add(web);
+      });
+
+      // Warm Flickering Lanterns & Columns
+      const lanternLights = [];
+      const pillarPositions = [
+        [-6.2, -5.5],
+        [6.2, -5.5],
+        [-6.2, 5.5],
+        [6.2, 5.5]
+      ];
+      const pillarMat = new THREE.MeshStandardMaterial({
+        color: 0x2a2433,
+        roughness: 0.7,
+        metalness: 0.15
+      });
+
+      pillarPositions.forEach(([px, pz], idx) => {
+        const pillar = new THREE.Mesh(new THREE.CylinderGeometry(0.55, 0.65, wallHeight, 12), pillarMat);
+        pillar.position.set(px, wallHeight / 2, pz);
+        pillar.castShadow = true;
+        pillar.receiveShadow = true;
+        scene.add(pillar);
+
+        // Hanging warm lantern on every other pillar
+        if (idx % 2 === 0) {
+          const lx = px + (px < 0 ? 0.85 : -0.85);
+          const ly = 3.35;
+          const lanternGroup = new THREE.Group();
+          lanternGroup.position.set(lx, ly, pz);
+
+          const cageMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, metalness: 0.7, roughness: 0.35 });
+          const cap = new THREE.Mesh(new THREE.ConeGeometry(0.32, 0.22, 6), cageMat);
+          cap.position.y = 0.22;
+          const bulbMat = new THREE.MeshBasicMaterial({ color: 0xffb347 });
+          const bulb = new THREE.Mesh(new THREE.OctahedronGeometry(0.16, 1), bulbMat);
+
+          const pLight = new THREE.PointLight(0xff9e3d, 3.2, 13, 1.7);
+          pLight.position.set(0, -0.05, 0);
+          pLight.castShadow = false;
+
+          lanternGroup.add(cap, bulb, pLight);
+          scene.add(lanternGroup);
+          lanternLights.push({ light: pLight, baseIntensity: 3.2, phase: idx * 2.1 });
+        }
+      });
+
+      // Floating Dust Motes in the Manor Air
+      const dustCount = 260;
+      const dustGeo = new THREE.BufferGeometry();
+      const dustPositions = new Float32Array(dustCount * 3);
+      const dustPhases = new Float32Array(dustCount);
+
+      for (let i = 0; i < dustCount; i++) {
+        dustPositions[i * 3] = (Math.random() - 0.5) * (manorHalfW * 1.8);
+        dustPositions[i * 3 + 1] = 0.4 + Math.random() * (wallHeight - 0.8);
+        dustPositions[i * 3 + 2] = (Math.random() - 0.5) * (manorHalfD * 1.8);
+        dustPhases[i] = Math.random() * Math.PI * 2;
+      }
+      dustGeo.setAttribute('position', new THREE.BufferAttribute(dustPositions, 3));
+      const dustMat = new THREE.PointsMaterial({
+        color: 0xfde68a,
+        size: 0.065,
+        transparent: true,
+        opacity: 0.42,
+        depthWrite: false
+      });
+      const dustPoints = new THREE.Points(dustGeo, dustMat);
+      scene.add(dustPoints);
+
+      // -----------------------------------------------------------------------
+      // 5. INTERACTIVE MANSION PROPS & COLLIDERS
+      // -----------------------------------------------------------------------
+      const colliders = [];
+      const interactiveProps = [];
+
+      function registerProp(group, label, radius, spookyMsg, rewardPoints = 50) {
+        scene.add(group);
+        colliders.push({ x: group.position.x, z: group.position.z, radius });
+        const propEntry = {
+          group,
+          label,
+          spookyMsg,
+          rewardPoints,
+          cooldown: 0,
+          animTimer: 0,
+          inspected: false
+        };
+        group.traverse((child) => {
+          child.userData.prop = propEntry;
+        });
+        interactiveProps.push(propEntry);
+        return propEntry;
+      }
+
+      // 5a. Haunted Grandfather Clock
+      function createGrandfatherClock(x, z, rotY = 0) {
+        const g = new THREE.Group();
+        g.position.set(x, 0, z);
+        g.rotation.y = rotY;
+
+        const woodMat = new THREE.MeshStandardMaterial({ color: 0x3b1f14, roughness: 0.55 });
+        const goldMat = new THREE.MeshStandardMaterial({ color: 0xd4a843, roughness: 0.35, metalness: 0.75 });
+        const dialMat = new THREE.MeshStandardMaterial({ color: 0xf8fafc, roughness: 0.4 });
+
+        const base = new THREE.Mesh(new THREE.BoxGeometry(0.95, 0.35, 0.65), woodMat);
+        base.position.y = 0.175;
+        base.castShadow = true;
+
+        const trunk = new THREE.Mesh(new THREE.BoxGeometry(0.72, 2.05, 0.48), woodMat);
+        trunk.position.y = 1.35;
+        trunk.castShadow = true;
+
+        const hood = new THREE.Mesh(new THREE.BoxGeometry(0.92, 0.55, 0.6), woodMat);
+        hood.position.y = 2.6;
+        hood.castShadow = true;
+
+        const crown = new THREE.Mesh(new THREE.ConeGeometry(0.62, 0.45, 4), woodMat);
+        crown.position.y = 3.08;
+        crown.rotation.y = Math.PI / 4;
+
+        const dial = new THREE.Mesh(new THREE.CircleGeometry(0.24, 20), dialMat);
+        dial.position.set(0, 2.55, 0.31);
+
+        const pendulumPivot = new THREE.Group();
+        pendulumPivot.name = 'pendulum';
+        pendulumPivot.position.set(0, 1.9, 0.26);
+        const rod = new THREE.Mesh(new THREE.CylinderGeometry(0.015, 0.015, 0.72, 8), goldMat);
+        rod.position.y = -0.36;
+        const bob = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.11, 0.04, 16), goldMat);
+        bob.rotation.x = Math.PI / 2;
+        bob.position.y = -0.72;
+        pendulumPivot.add(rod, bob);
+
+        g.add(base, trunk, hood, crown, dial, pendulumPivot);
+        return g;
+      }
+
+      registerProp(
+        createGrandfatherClock(-4.8, -10.5, 0.35),
+        'Grandfather Clock',
+        0.65,
+        'The clock chimes 13 times—time bends inside the foyer!'
+      );
+
+      // 5b. Treasure Chest
+      function createTreasureChest(x, z, rotY = 0) {
+        const g = new THREE.Group();
+        g.position.set(x, 0, z);
+        g.rotation.y = rotY;
+
+        const chestMat = new THREE.MeshStandardMaterial({ color: 0x5c2c16, roughness: 0.5 });
+        const trimMat = new THREE.MeshStandardMaterial({ color: 0xc59b27, roughness: 0.35, metalness: 0.7 });
+
+        const body = new THREE.Mesh(new THREE.BoxGeometry(1.15, 0.55, 0.72), chestMat);
+        body.position.y = 0.275;
+        body.castShadow = true;
+        body.receiveShadow = true;
+
+        const bandL = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.57, 0.75), trimMat);
+        bandL.position.set(-0.38, 0.275, 0);
+        const bandR = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.57, 0.75), trimMat);
+        bandR.position.set(0.38, 0.275, 0);
+
+        const lidGroup = new THREE.Group();
+        lidGroup.name = 'lid';
+        lidGroup.position.set(0, 0.55, -0.34);
+
+        const lidMesh = new THREE.Mesh(new THREE.BoxGeometry(1.18, 0.26, 0.74), chestMat);
+        lidMesh.position.set(0, 0.13, 0.34);
+        lidMesh.castShadow = true;
+        lidGroup.add(lidMesh);
+
+        g.add(body, bandL, bandR, lidGroup);
+        return g;
+      }
+
+      registerProp(
+        createTreasureChest(5.2, -9.8, -0.45),
+        'Antique Chest',
+        0.72,
+        'A puff of ectoplasmic dust spills from the latch!'
+      );
+
+      // 5c. Candelabra Stand
+      function createCandelabra(x, z) {
+        const g = new THREE.Group();
+        g.position.set(x, 0, z);
+
+        const brassMat = new THREE.MeshStandardMaterial({ color: 0xb88b2a, roughness: 0.35, metalness: 0.8 });
+        const waxMat = new THREE.MeshStandardMaterial({ color: 0xfef3c7, roughness: 0.7 });
+        const flameMat = new THREE.MeshBasicMaterial({ color: 0xffb703 });
+
+        const base = new THREE.Mesh(new THREE.CylinderGeometry(0.34, 0.44, 0.14, 14), brassMat);
+        base.position.y = 0.07;
+        const stem = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.08, 1.35, 10), brassMat);
+        stem.position.y = 0.74;
+        const armBar = new THREE.Mesh(new THREE.BoxGeometry(0.75, 0.06, 0.06), brassMat);
+        armBar.position.y = 1.42;
+
+        g.add(base, stem, armBar);
+
+        [-0.32, 0, 0.32].forEach((ox, idx) => {
+          const h = idx === 1 ? 0.26 : 0.2;
+          const candle = new THREE.Mesh(new THREE.CylinderGeometry(0.045, 0.05, h, 10), waxMat);
+          candle.position.set(ox, 1.45 + h / 2, 0);
+          const flame = new THREE.Mesh(new THREE.ConeGeometry(0.04, 0.11, 8), flameMat);
+          flame.position.set(ox, 1.48 + h, 0);
+          g.add(candle, flame);
+        });
+
+        return g;
+      }
+
+      registerProp(
+        createCandelabra(-3.6, 2.5),
+        'Silver Candelabra',
+        0.5,
+        'The candle flames flicker emerald green as you approach!'
+      );
+
+      registerProp(
+        createCandelabra(3.8, -2.2),
+        'Brass Candelabra',
+        0.5,
+        'Warm wax drips softly onto the floorboards.'
+      );
+
+      // 5d. Haunted Portraits along North Wall
+      function addWallPortrait(x, y, z, variant) {
+        const frameGroup = new THREE.Group();
+        frameGroup.position.set(x, y, z);
+
+        const frameMat = new THREE.MeshStandardMaterial({ color: 0x6b4c1e, roughness: 0.45, metalness: 0.5 });
+        const canvasMat = new THREE.MeshBasicMaterial({ map: createPortraitTexture(variant) });
+
+        const outer = new THREE.Mesh(new THREE.BoxGeometry(1.36, 1.76, 0.09), frameMat);
+        const art = new THREE.Mesh(new THREE.PlaneGeometry(1.14, 1.54), canvasMat);
+        art.position.z = 0.052;
+
+        frameGroup.add(outer, art);
+        scene.add(frameGroup);
+      }
+
+      addWallPortrait(-2.4, 2.55, -manorHalfD + 0.28, 0);
+      addWallPortrait(2.4, 2.55, -manorHalfD + 0.28, 1);
+
+      function triggerPropInteraction(prop) {
+        if (!prop || prop.cooldown > 0) return;
+        prop.cooldown = 1.4;
+        prop.animTimer = 1.0;
+
+        // Small Poltergust charge boost & optional discovery bonus
+        state.charge = Math.min(100, state.charge + 18);
+        if (!prop.inspected) {
+          prop.inspected = true;
+          state.score += prop.rewardPoints;
+          audio.playPropInteract(true);
+          showToast(`${prop.label}: +${prop.rewardPoints} pts & +18% Charge!`, 'text-amber-300');
+        } else {
+          audio.playPropInteract(false);
+          showToast(prop.spookyMsg, 'text-purple-200');
+        }
+        syncHud();
+      }
+
+      // -----------------------------------------------------------------------
+      // 6. POLTERGUST 3D MODEL, FLASHLIGHT & SUCTION VORTEX BEAM
+      // -----------------------------------------------------------------------
+      const poltergustGroup = new THREE.Group();
+      const bodyMetalMat = new THREE.MeshStandardMaterial({
+        color: 0x2b3648,
+        roughness: 0.35,
+        metalness: 0.72
+      });
+      const greenAccentMat = new THREE.MeshStandardMaterial({
+        color: 0x10b981,
+        emissive: 0x059669,
+        emissiveIntensity: 0.45,
+        roughness: 0.3,
+        metalness: 0.35
+      });
+
+      const barrelMesh = new THREE.Mesh(new THREE.CylinderGeometry(0.065, 0.085, 0.46, 16), bodyMetalMat);
+      barrelMesh.rotation.x = Math.PI / 2;
+      barrelMesh.position.set(0, 0, -0.18);
+
+      const nozzleRim = new THREE.Mesh(new THREE.TorusGeometry(0.095, 0.022, 12, 24), greenAccentMat);
+      nozzleRim.position.set(0, 0, -0.41);
+
+      // Build tank from cylinder + end spheres (Three.js r128 does not include CapsuleGeometry)
+      const tankMesh = new THREE.Group();
+      const tankCyl = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.09, 0.18, 14), greenAccentMat);
+      tankCyl.rotation.x = Math.PI / 2;
+      const tankCapGeo = new THREE.SphereGeometry(0.09, 14, 10);
+      const tankFrontCap = new THREE.Mesh(tankCapGeo, greenAccentMat);
+      tankFrontCap.position.z = 0.09;
+      const tankBackCap = new THREE.Mesh(tankCapGeo, greenAccentMat);
+      tankBackCap.position.z = -0.09;
+      tankMesh.add(tankCyl, tankFrontCap, tankBackCap);
+      tankMesh.position.set(0.09, -0.06, -0.04);
+
+      poltergustGroup.add(barrelMesh, nozzleRim, tankMesh);
+      camera.add(poltergustGroup);
+      poltergustGroup.position.set(0.36, -0.32, -0.62);
+      poltergustGroup.rotation.set(0.06, -0.08, 0);
+
+      // Flashlight SpotLight attached to camera/player aim
+      const flashlight = new THREE.SpotLight(0xfff3c4, 5.2, 24, Math.PI / 5.2, 0.55, 1.35);
+      flashlight.position.set(0.18, -0.08, -0.2);
+      flashlight.target.position.set(0.18, -0.08, -8);
+      camera.add(flashlight);
+      camera.add(flashlight.target);
+
+      // Suction Cone & Animated Vortex Rings
+      const suctionGroup = new THREE.Group();
+      suctionGroup.visible = false;
+      scene.add(suctionGroup);
+
+      const coneGeo = new THREE.ConeGeometry(1.45, 7.5, 24, 1, true);
+      // Orient cone so tip is at origin (0,0,0) and base opens toward -Z
+      coneGeo.rotateX(-Math.PI / 2);
+      coneGeo.translate(0, 0, -3.75);
+
+      const coneMat = new THREE.MeshBasicMaterial({
+        color: 0x34d399,
+        transparent: true,
+        opacity: 0.16,
+        side: THREE.DoubleSide,
+        depthWrite: false,
+        blending: THREE.AdditiveBlending
+      });
+      const suctionCone = new THREE.Mesh(coneGeo, coneMat);
+      suctionGroup.add(suctionCone);
+
+      const vortexRings = [];
+      const ringGeo = new THREE.RingGeometry(0.24, 0.34, 24);
+      for (let i = 0; i < 6; i++) {
+        const rMat = new THREE.MeshBasicMaterial({
+          color: i % 2 === 0 ? 0x6ee7b7 : 0x2dd4bf,
+          transparent: true,
+          opacity: 0.55,
+          side: THREE.DoubleSide,
+          depthWrite: false,
+          blending: THREE.AdditiveBlending
+        });
+        const ring = new THREE.Mesh(ringGeo, rMat);
+        ring.userData.offset = i / 6;
+        suctionGroup.add(ring);
+        vortexRings.push(ring);
+      }
+
+      // -----------------------------------------------------------------------
+      // 7. POOLED GHOST ENTITIES (Strict cap, shared geometries, telegraphed lunges)
+      // -----------------------------------------------------------------------
+      const ghostPool = [];
+      const ghosts = [];
+      const captureParticles = [];
+
+      // Shared geometries & particle resources to avoid per-frame allocations and GC lag
+      const SHARED_GHOST_HEAD_GEO = new THREE.SphereGeometry(0.56, 16, 16);
+      const SHARED_GHOST_SKIRT_GEO = new THREE.CylinderGeometry(0.56, 0.42, 0.58, 12, 1, false);
+      const SHARED_GHOST_EYE_GEO = new THREE.SphereGeometry(0.09, 8, 8);
+      const SHARED_GHOST_MOUTH_GEO = new THREE.SphereGeometry(0.12, 8, 8);
+      const SHARED_EYE_MAT = new THREE.MeshBasicMaterial({ color: 0x090d16 });
+      const SHARED_PARTICLE_GEO = new THREE.OctahedronGeometry(0.08, 0);
+
+      const GHOST_TYPES = [
+        { title: 'Lurking Boo', hp: 55, speed: 2.05, pullResist: 0.32, points: 150, damage: 14, color: 0x6ee7b7, emissive: 0x10b981 },
+        { title: 'Wisp Poltergeist', hp: 75, speed: 2.55, pullResist: 0.45, points: 220, damage: 18, color: 0x67e8f9, emissive: 0x06b6d4 },
+        { title: 'Dread Specter', hp: 100, speed: 1.85, pullResist: 0.58, points: 320, damage: 24, color: 0xc4b5fd, emissive: 0x8b5cf6 }
+      ];
+
+      function createPooledGhost() {
+        const group = new THREE.Group();
+        group.visible = false;
+
+        // Each pooled ghost gets its own material so stun/telegraph/hit flashes don't cross-contaminate
+        const bodyMat = new THREE.MeshStandardMaterial({
+          color: 0x6ee7b7,
+          emissive: 0x10b981,
+          emissiveIntensity: 0.55,
+          roughness: 0.28,
+          metalness: 0.05,
+          transparent: true,
+          opacity: 0.88
+        });
+
+        const head = new THREE.Mesh(SHARED_GHOST_HEAD_GEO, bodyMat);
+        head.position.y = 0.16;
+
+        const skirt = new THREE.Mesh(SHARED_GHOST_SKIRT_GEO, bodyMat);
+        skirt.position.y = -0.14;
+
+        const leftEye = new THREE.Mesh(SHARED_GHOST_EYE_GEO, SHARED_EYE_MAT);
+        leftEye.position.set(-0.19, 0.22, 0.48);
+        const rightEye = new THREE.Mesh(SHARED_GHOST_EYE_GEO, SHARED_EYE_MAT);
+        rightEye.position.set(0.19, 0.22, 0.48);
+
+        const mouth = new THREE.Mesh(SHARED_GHOST_MOUTH_GEO, SHARED_EYE_MAT);
+        mouth.scale.set(1.15, 0.85, 0.5);
+        mouth.position.set(0, 0.02, 0.52);
+
+        // Single shared point light on pool slots to keep shader light counts low
+        const ghostLight = new THREE.PointLight(0x10b981, 1.15, 5.0, 2.0);
+        ghostLight.position.set(0, 0.1, 0.2);
+
+        group.add(head, skirt, leftEye, rightEye, mouth, ghostLight);
+        scene.add(group);
+
+        const ghostObj = {
+          active: false,
+          title: 'Lurking Boo',
+          maxHp: 55,
+          hp: 55,
+          baseSpeed: 2.0,
+          pullResist: 0.32,
+          points: 150,
+          damage: 15,
+          color: 0x6ee7b7,
+          emissive: 0x10b981,
+          group,
+          bodyMat,
+          mouth,
+          ghostLight,
+          bobPhase: 0,
+          patrolAngle: 0,
+          patrolTimer: 1.5,
+          attackCooldown: 2.6,
+          telegraphTimer: 0,
+          lungeTimer: 0,
+          lungeDir: new THREE.Vector3(),
+          stunTimer: 0,
+          hitFlashTimer: 0,
+          beingPulled: false,
+          captured: false
+        };
+
+        group.traverse((obj) => {
+          obj.userData.ghost = ghostObj;
+        });
+
+        return ghostObj;
+      }
+
+      // Pre-allocate ghost pool up to MAX_ACTIVE_GHOSTS
+      for (let i = 0; i < MAX_ACTIVE_GHOSTS; i++) {
+        ghostPool.push(createPooledGhost());
+      }
+
+      function acquireGhostFromPool(typeConfig) {
+        if (ghosts.length >= MAX_ACTIVE_GHOSTS) return null;
+        const slot = ghostPool.find((g) => !g.active);
+        if (!slot) return null;
+
+        slot.active = true;
+        slot.captured = false;
+        slot.beingPulled = false;
+        slot.title = typeConfig.title;
+        slot.maxHp = typeConfig.hp;
+        slot.hp = typeConfig.hp;
+        slot.baseSpeed = typeConfig.speed;
+        slot.pullResist = typeConfig.pullResist;
+        slot.points = typeConfig.points;
+        slot.damage = typeConfig.damage;
+        slot.color = typeConfig.color;
+        slot.emissive = typeConfig.emissive;
+        slot.bodyMat.color.setHex(typeConfig.color);
+        slot.bodyMat.emissive.setHex(typeConfig.emissive);
+        slot.ghostLight.color.setHex(typeConfig.emissive);
+
+        slot.bobPhase = Math.random() * Math.PI * 2;
+        slot.patrolAngle = Math.random() * Math.PI * 2;
+        slot.patrolTimer = 1.4 + Math.random() * 2.2;
+        slot.attackCooldown = 2.4 + Math.random() * 2.2;
+        slot.telegraphTimer = 0;
+        slot.lungeTimer = 0;
+        slot.stunTimer = 0;
+        slot.hitFlashTimer = 0;
+        slot.group.scale.setScalar(1);
+        slot.group.rotation.set(0, 0, 0);
+        slot.group.visible = true;
+
+        ghosts.push(slot);
+        return slot;
+      }
+
+      function releaseGhostToPool(ghostObj) {
+        ghostObj.active = false;
+        ghostObj.captured = true;
+        ghostObj.beingPulled = false;
+        ghostObj.telegraphTimer = 0;
+        ghostObj.lungeTimer = 0;
+        ghostObj.group.visible = false;
+        const idx = ghosts.indexOf(ghostObj);
+        if (idx !== -1) {
+          ghosts.splice(idx, 1);
+        }
+      }
+
+      function trySpawnOneGhost() {
+        if (ghosts.length >= MAX_ACTIVE_GHOSTS) return false;
+        const typeIdx = Math.min(
+          GHOST_TYPES.length - 1,
+          Math.floor(Math.random() * (state.wave * 0.85 + 0.5))
+        );
+        const ghost = acquireGhostFromPool(GHOST_TYPES[typeIdx]);
+        if (!ghost) return false;
+
+        let sx = 0;
+        let sz = 0;
+        for (let attempt = 0; attempt < 15; attempt++) {
+          sx = (Math.random() - 0.5) * (manorHalfW * 1.55);
+          sz = (Math.random() - 0.5) * (manorHalfD * 1.55);
+          const dx = sx - playerRig.position.x;
+          const dz = sz - playerRig.position.z;
+          if (Math.hypot(dx, dz) > 5.5) break;
+        }
+
+        ghost.group.position.set(sx, 1.55 + Math.random() * 0.45, sz);
+        return true;
+      }
+
+      function spawnGhostWave(waveCount) {
+        state.pendingWaveSpawns = waveCount;
+        state.respawnTimer = 0.2;
+        while (ghosts.length < MAX_ACTIVE_GHOSTS && state.pendingWaveSpawns > 0) {
+          if (trySpawnOneGhost()) {
+            state.pendingWaveSpawns -= 1;
+          } else {
+            break;
+          }
+        }
+      }
+
+      function spawnCaptureBurst(worldPos, colorHex) {
+        const count = 14;
+        for (let i = 0; i < count; i++) {
+          const pMat = new THREE.MeshBasicMaterial({
+            color: i % 2 === 0 ? colorHex : 0xfef08a,
+            transparent: true,
+            opacity: 1
+          });
+          const pMesh = new THREE.Mesh(SHARED_PARTICLE_GEO, pMat);
+          pMesh.position.copy(worldPos);
+          const vel = new THREE.Vector3(
+            (Math.random() - 0.5) * 6,
+            (Math.random() - 0.2) * 6,
+            (Math.random() - 0.5) * 6
+          );
+          scene.add(pMesh);
+          captureParticles.push({ mesh: pMesh, mat: pMat, vel, life: 0.65 });
+        }
+      }
+
+      // -----------------------------------------------------------------------
+      // 8. WEBXR SESSION & CONTROLLER SUPPORT
+      // -----------------------------------------------------------------------
+      let xrController0 = null;
+      let xrController1 = null;
+      let xrTriggerHeld = false;
+
+      async function initWebXRCheck() {
+        if (!navigator.xr || !navigator.xr.isSessionSupported) {
+          state.vrSupported = false;
+          dom.vrLabel.textContent = 'Desktop Mode';
+          dom.btnVr.disabled = true;
+          dom.btnModalVr.disabled = true;
+          dom.xrStatusNote.innerHTML =
+            '<span class="inline-block w-2 h-2 rounded-full bg-amber-400"></span>' +
+            '<span>WebXR not available in this browser — smooth Desktop WASD + Mouse Look enabled.</span>';
+          return;
+        }
+
+        try {
+          const supported = await navigator.xr.isSessionSupported('immersive-vr');
+          state.vrSupported = supported;
+          if (supported) {
+            dom.vrLabel.textContent = 'Enter VR';
+            dom.btnVr.disabled = false;
+            dom.btnModalVr.disabled = false;
+            dom.xrStatusNote.innerHTML =
+              '<span class="inline-block w-2 h-2 rounded-full bg-emerald-400"></span>' +
+              '<span>WebXR headset detected! Click <strong>Launch WebXR VR</strong> to step inside with motion controllers.</span>';
+          } else {
+            dom.vrLabel.textContent = 'VR Unavailable';
+            dom.btnVr.disabled = true;
+            dom.btnModalVr.disabled = true;
+            dom.xrStatusNote.innerHTML =
+              '<span class="inline-block w-2 h-2 rounded-full bg-sky-400"></span>' +
+              '<span>No immersive VR headset active — Desktop WASD + Pointer Lock fallback ready.</span>';
+          }
+        } catch (err) {
+          state.vrSupported = false;
+          dom.vrLabel.textContent = 'Desktop Mode';
+          dom.btnVr.disabled = true;
+          dom.btnModalVr.disabled = true;
+          dom.xrStatusNote.innerHTML =
+            '<span class="inline-block w-2 h-2 rounded-full bg-slate-400"></span>' +
+            '<span>Standard browser view active — WASD + Mouse controls ready.</span>';
+        }
+      }
+
+      function setupXRControllers() {
+        xrController0 = renderer.xr.getController(0);
+        xrController1 = renderer.xr.getController(1);
+
+        const onSelectStart = () => {
+          xrTriggerHeld = true;
+          audio.ensureContext();
+        };
+        const onSelectEnd = () => {
+          xrTriggerHeld = false;
+          audio.stopVacuum();
+        };
+
+        xrController0.addEventListener('selectstart', onSelectStart);
+        xrController0.addEventListener('selectend', onSelectEnd);
+        xrController1.addEventListener('selectstart', onSelectStart);
+        xrController1.addEventListener('selectend', onSelectEnd);
+
+        // Simple visible pointer line on controller 0
+        const lineGeo = new THREE.BufferGeometry().setFromPoints([
+          new THREE.Vector3(0, 0, 0),
+          new THREE.Vector3(0, 0, -4)
+        ]);
+        const lineMat = new THREE.LineBasicMaterial({ color: 0x34d399, transparent: true, opacity: 0.65 });
+        xrController0.add(new THREE.Line(lineGeo, lineMat));
+
+        playerRig.add(xrController0);
+        playerRig.add(xrController1);
+      }
+      setupXRControllers();
+
+      async function toggleVRSession() {
+        if (!state.vrSupported) return;
+        audio.ensureContext();
+
+        if (state.vrSession) {
+          await state.vrSession.end();
+          return;
+        }
+
+        try {
+          const session = await navigator.xr.requestSession('immersive-vr', {
+            optionalFeatures: ['local-floor', 'bounded-floor', 'hand-tracking']
+          });
+          state.vrSession = session;
+          renderer.xr.setSession(session);
+          dom.vrLabel.textContent = 'Exit VR';
+          startGameplay(false);
+
+          session.addEventListener('end', () => {
+            state.vrSession = null;
+            xrTriggerHeld = false;
+            dom.vrLabel.textContent = 'Enter VR';
+            audio.stopVacuum();
+          });
+        } catch (err) {
+          showToast('Could not start WebXR session; continuing in desktop mode.', 'text-amber-300');
+        }
+      }
+
+      // -----------------------------------------------------------------------
+      // 9. INPUT HANDLING (Pointer Lock, Keyboard, Mouse, Touch)
+      // -----------------------------------------------------------------------
+      function setGameMode(newMode) {
+        state.mode = newMode;
+        if (newMode === 'playing') {
+          dom.modal.classList.add('hidden');
+          if (!state.vrSession && window.innerWidth < 768) {
+            dom.touchControls.classList.remove('hidden');
+            dom.touchControls.classList.add('flex');
+          }
+        } else {
+          state.isSucking = false;
+          state.keys.suck = false;
+          xrTriggerHeld = false;
+          audio.stopVacuum();
+          suctionGroup.visible = false;
+          dom.touchControls.classList.add('hidden');
+          dom.touchControls.classList.remove('flex');
+          dom.modal.classList.remove('hidden');
+        }
+      }
+
+      function startGameplay(requestLock = true) {
+        audio.ensureContext();
+        setGameMode('playing');
+        if (ghosts.length === 0) {
+          spawnGhostWave(state.waveTarget);
+        }
+        if (requestLock && !state.vrSession && document.pointerLockElement !== renderer.domElement) {
+          try {
+            renderer.domElement.requestPointerLock?.();
+          } catch (_) {}
+        }
+      }
+
+      function resetEntireGame() {
+        while (ghosts.length > 0) {
+          releaseGhostToPool(ghosts[0]);
+        }
+        state.hp = MAX_PLAYER_HP;
+        state.invulnTimer = 0;
+        state.damageFlashTimer = 0;
+        state.shakeTimer = 0;
+        state.survivalTime = 0;
+        state.captured = 0;
+        state.score = 0;
+        state.wave = 1;
+        state.waveTarget = 6;
+        state.pendingWaveSpawns = 0;
+        state.respawnTimer = 0.2;
+        state.charge = 100;
+        state.overheated = false;
+        dom.vignette.classList.remove('damage-flash');
+        playerRig.position.set(0, 0, 10.5);
+        state.yaw = 0;
+        state.pitch = 0;
+        syncHud();
+        spawnGhostWave(state.waveTarget);
+      }
+
+      dom.btnPlay.addEventListener('click', () => {
+        if (dom.btnPlay.dataset.action === 'replay') {
+          resetEntireGame();
+          dom.btnPlay.dataset.action = '';
+          dom.btnPlay.textContent = 'Enter the Manor';
+        }
+        startGameplay(true);
+      });
+
+      dom.btnVr.addEventListener('click', toggleVRSession);
+      dom.btnModalVr.addEventListener('click', toggleVRSession);
+
+      dom.btnFlashlight.addEventListener('click', () => {
+        state.flashlightOn = !state.flashlightOn;
+        flashlight.visible = state.flashlightOn;
+        audio.playFlashlightClick(state.flashlightOn);
+        syncHud();
+      });
+
+      dom.btnAudio.addEventListener('click', () => {
+        const next = !audio.enabled;
+        audio.setEnabled(next);
+        dom.audioIconOn.classList.toggle('hidden', !next);
+        dom.audioIconOff.classList.toggle('hidden', next);
+      });
+
+      document.addEventListener('pointerlockchange', () => {
+        state.pointerLocked = document.pointerLockElement === renderer.domElement;
+        if (!state.pointerLocked && state.mode === 'playing' && !state.vrSession && window.innerWidth >= 768) {
+          setGameMode('paused');
+          dom.modalTitle.innerHTML = 'Manor <span class="text-emerald-400">Paused</span>';
+          dom.modalSubtitle.textContent = 'Pointer unlocked. Resume to keep vacuuming spirits or launch WebXR VR.';
+          dom.btnPlay.textContent = 'Resume Hunt';
+        }
+      });
+
+      renderer.domElement.addEventListener('mousedown', (e) => {
+        audio.ensureContext();
+        if (state.mode !== 'playing') return;
+
+        if (!state.pointerLocked && !state.vrSession && window.innerWidth >= 768) {
+          try {
+            renderer.domElement.requestPointerLock?.();
+          } catch (_) {}
+        }
+
+        if (e.button === 0) {
+          state.isSucking = true;
+          // Also allow clicking a nearby interactive prop when not pulling a ghost
+          if (state.hoveredProp && !state.targetGhost) {
+            triggerPropInteraction(state.hoveredProp);
+          }
+        }
+      });
+
+      window.addEventListener('mouseup', (e) => {
+        if (e.button === 0) {
+          state.isSucking = false;
+        }
+      });
+
+      window.addEventListener('mousemove', (e) => {
+        if (!state.pointerLocked || state.mode !== 'playing' || state.vrSession) return;
+        const sensitivity = 0.0022;
+        state.yaw -= e.movementX * sensitivity;
+        state.pitch -= e.movementY * sensitivity;
+        const maxPitch = Math.PI * 0.44;
+        state.pitch = Math.max(-maxPitch, Math.min(maxPitch, state.pitch));
+      });
+
+      window.addEventListener('keydown', (e) => {
+        const code = e.code;
+        if (code === 'KeyW' || code === 'ArrowUp') state.keys.forward = true;
+        if (code === 'KeyS' || code === 'ArrowDown') state.keys.backward = true;
+        if (code === 'KeyA' || code === 'ArrowLeft') state.keys.left = true;
+        if (code === 'KeyD' || code === 'ArrowRight') state.keys.right = true;
+        if (code === 'Space') {
+          if (state.mode === 'playing') {
+            e.preventDefault();
+            state.keys.suck = true;
+            audio.ensureContext();
+          }
+        }
+        if (code === 'KeyF') {
+          state.flashlightOn = !state.flashlightOn;
+          flashlight.visible = state.flashlightOn;
+          audio.playFlashlightClick(state.flashlightOn);
+          syncHud();
+        }
+        if (code === 'KeyE') {
+          if (state.mode === 'playing' && state.hoveredProp) {
+            triggerPropInteraction(state.hoveredProp);
+          }
+        }
+      });
+
+      window.addEventListener('keyup', (e) => {
+        const code = e.code;
+        if (code === 'KeyW' || code === 'ArrowUp') state.keys.forward = false;
+        if (code === 'KeyS' || code === 'ArrowDown') state.keys.backward = false;
+        if (code === 'KeyA' || code === 'ArrowLeft') state.keys.left = false;
+        if (code === 'KeyD' || code === 'ArrowRight') state.keys.right = false;
+        if (code === 'Space') state.keys.suck = false;
+      });
+
+      // Mobile Touch Controls
+      let moveTouchId = null;
+      let moveOrigin = { x: 0, y: 0 };
+
+      dom.touchMovePad.addEventListener('touchstart', (e) => {
+        const t = e.changedTouches[0];
+        moveTouchId = t.identifier;
+        moveOrigin = { x: t.clientX, y: t.clientY };
+        audio.ensureContext();
+      }, { passive: true });
+
+      dom.touchMovePad.addEventListener('touchmove', (e) => {
+        for (let i = 0; i < e.changedTouches.length; i++) {
+          const t = e.changedTouches[i];
+          if (t.identifier === moveTouchId) {
+            const dx = Math.max(-36, Math.min(36, t.clientX - moveOrigin.x)) / 36;
+            const dy = Math.max(-36, Math.min(36, t.clientY - moveOrigin.y)) / 36;
+            state.touchMove.x = dx;
+            state.touchMove.y = dy;
+          }
+        }
+      }, { passive: true });
+
+      const endTouchMove = (e) => {
+        for (let i = 0; i < e.changedTouches.length; i++) {
+          if (e.changedTouches[i].identifier === moveTouchId) {
+            moveTouchId = null;
+            state.touchMove.x = 0;
+            state.touchMove.y = 0;
+          }
+        }
+      };
+      dom.touchMovePad.addEventListener('touchend', endTouchMove, { passive: true });
+      dom.touchMovePad.addEventListener('touchcancel', endTouchMove, { passive: true });
+
+      dom.touchSuckBtn.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        state.isSucking = true;
+        audio.ensureContext();
+      });
+      dom.touchSuckBtn.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        state.isSucking = false;
+      });
+
+      // -----------------------------------------------------------------------
+      // 10. SIMULATION UPDATE LOOP (Movement, Flashlight, Suction & Ghosts)
+      // -----------------------------------------------------------------------
+      const _aimOrigin = new THREE.Vector3();
+      const _aimDir = new THREE.Vector3();
+      const _toGhost = new THREE.Vector3();
+      const _nozzleWorld = new THREE.Vector3();
+      const _coneTarget = new THREE.Vector3();
+
+      function resolveCollisions(pos, radius = 0.55) {
+        const limitX = manorHalfW - 0.85;
+        const limitZ = manorHalfD - 0.85;
+        pos.x = Math.max(-limitX, Math.min(limitX, pos.x));
+        pos.z = Math.max(-limitZ, Math.min(limitZ, pos.z));
+
+        for (let i = 0; i < colliders.length; i++) {
+          const c = colliders[i];
+          const dx = pos.x - c.x;
+          const dz = pos.z - c.z;
+          const dist = Math.hypot(dx, dz);
+          const minDist = c.radius + radius;
+          if (dist < minDist && dist > 0.0001) {
+            const push = (minDist - dist) / dist;
+            pos.x += dx * push;
+            pos.z += dz * push;
+          }
+        }
+      }
+
+      function getAimRay(outOrigin, outDir) {
+        if (state.vrSession && xrController0) {
+          xrController0.getWorldPosition(outOrigin);
+          outDir.set(0, 0, -1).applyQuaternion(xrController0.getWorldQuaternion(new THREE.Quaternion())).normalize();
+          return;
+        }
+        camera.getWorldPosition(outOrigin);
+        camera.getWorldDirection(outDir).normalize();
+      }
+
+      function updateSimulation(dt) {
+        state.clockTime += dt;
+
+        // Flicker warm manor lanterns gently
+        for (let i = 0; i < lanternLights.length; i++) {
+          const item = lanternLights[i];
+          const flicker =
+            Math.sin(state.clockTime * 7.3 + item.phase) * 0.22 +
+            Math.cos(state.clockTime * 13.1 + item.phase * 1.7) * 0.11;
+          item.light.intensity = Math.max(1.5, item.baseIntensity + flicker);
+        }
+
+        // Drift dust motes
+        const posAttr = dustGeo.getAttribute('position');
+        for (let i = 0; i < dustCount; i++) {
+          const yIdx = i * 3 + 1;
+          const xIdx = i * 3;
+          posAttr.array[yIdx] += Math.sin(state.clockTime * 0.7 + dustPhases[i]) * 0.0018;
+          posAttr.array[xIdx] += Math.cos(state.clockTime * 0.45 + dustPhases[i]) * 0.0015;
+        }
+        posAttr.needsUpdate = true;
+
+        // Animate interactive furniture
+        for (let i = 0; i < interactiveProps.length; i++) {
+          const prop = interactiveProps[i];
+          if (prop.cooldown > 0) prop.cooldown = Math.max(0, prop.cooldown - dt);
+
+          const pendulum = prop.group.getObjectByName('pendulum');
+          if (pendulum) {
+            pendulum.rotation.z = Math.sin(state.clockTime * 3.2) * 0.26;
+          }
+
+          const lid = prop.group.getObjectByName('lid');
+          if (prop.animTimer > 0) {
+            prop.animTimer = Math.max(0, prop.animTimer - dt * 1.6);
+            if (lid) {
+              lid.rotation.x = -Math.sin(prop.animTimer * Math.PI) * 0.75;
+            } else {
+              prop.group.rotation.z = Math.sin(prop.animTimer * Math.PI * 8) * 0.04;
+            }
+          } else if (lid) {
+            lid.rotation.x = 0;
+          }
+        }
+
+        // Update capture burst particles (reusing shared geometry)
+        for (let i = captureParticles.length - 1; i >= 0; i--) {
+          const p = captureParticles[i];
+          p.life -= dt;
+          if (p.life <= 0) {
+            scene.remove(p.mesh);
+            p.mat.dispose();
+            captureParticles.splice(i, 1);
+          } else {
+            p.mesh.position.addScaledVector(p.vel, dt);
+            p.vel.y -= 9.5 * dt;
+            p.mesh.scale.setScalar(Math.max(0.01, p.life / 0.65));
+            p.mat.opacity = Math.max(0, p.life / 0.65);
+          }
+        }
+
+        // Damage flash & camera shake decay
+        if (state.damageFlashTimer > 0) {
+          state.damageFlashTimer = Math.max(0, state.damageFlashTimer - dt);
+          if (state.damageFlashTimer <= 0) {
+            dom.vignette.classList.remove('damage-flash');
+          }
+        }
+        if (state.shakeTimer > 0) {
+          state.shakeTimer = Math.max(0, state.shakeTimer - dt);
+        }
+
+        if (state.mode !== 'playing') {
+          suctionGroup.visible = false;
+          dom.targetHud.classList.add('hidden');
+          return;
+        }
+
+        state.survivalTime += dt;
+        if (state.invulnTimer > 0) {
+          state.invulnTimer = Math.max(0, state.invulnTimer - dt);
+        }
+
+        // Staggered ghost respawns up to MAX_ACTIVE_GHOSTS
+        if (state.pendingWaveSpawns > 0 && ghosts.length < MAX_ACTIVE_GHOSTS) {
+          state.respawnTimer -= dt;
+          if (state.respawnTimer <= 0) {
+            if (trySpawnOneGhost()) {
+              state.pendingWaveSpawns -= 1;
+            }
+            state.respawnTimer = 1.35;
+          }
+        }
+
+        // Desktop orientation & movement
+        if (!state.vrSession) {
+          const euler = new THREE.Euler(state.pitch, state.yaw, 0, 'YXZ');
+          camera.quaternion.setFromEuler(euler);
+
+          const forwardInput =
+            (state.keys.forward ? 1 : 0) -
+            (state.keys.backward ? 1 : 0) -
+            state.touchMove.y;
+          const strafeInput =
+            (state.keys.right ? 1 : 0) -
+            (state.keys.left ? 1 : 0) +
+            state.touchMove.x;
+
+          if (forwardInput !== 0 || strafeInput !== 0) {
+            const forwardVec = new THREE.Vector3(-Math.sin(state.yaw), 0, -Math.cos(state.yaw));
+            const rightVec = new THREE.Vector3(Math.cos(state.yaw), 0, -Math.sin(state.yaw));
+            const moveVec = new THREE.Vector3()
+              .addScaledVector(forwardVec, forwardInput)
+              .addScaledVector(rightVec, strafeInput);
+            if (moveVec.lengthSq() > 1) moveVec.normalize();
+
+            const moveSpeed = 5.4;
+            playerRig.position.addScaledVector(moveVec, moveSpeed * dt);
+            resolveCollisions(playerRig.position, 0.55);
+
+            // Subtle walk bob on camera
+            camera.position.y = EYE_HEIGHT + Math.sin(state.clockTime * 11) * 0.035;
+          } else {
+            camera.position.y = THREE.MathUtils.lerp(camera.position.y, EYE_HEIGHT, dt * 8);
+          }
+
+          // Hit camera shake offset
+          if (state.shakeTimer > 0) {
+            const mag = (state.shakeTimer / 0.26) * 0.075;
+            camera.position.x = Math.sin(state.clockTime * 68) * mag;
+            camera.position.y += Math.cos(state.clockTime * 74) * mag;
+          } else {
+            camera.position.x = 0;
+          }
+        }
+
+        // Determine aim ray & vacuum trigger state
+        getAimRay(_aimOrigin, _aimDir);
+
+        if (state.vrSession && xrController0) {
+          poltergustGroup.position.set(0, -0.02, -0.08);
+          poltergustGroup.rotation.set(0, 0, 0);
+          if (poltergustGroup.parent !== xrController0) {
+            xrController0.add(poltergustGroup);
+          }
+        } else if (poltergustGroup.parent !== camera) {
+          camera.add(poltergustGroup);
+          poltergustGroup.position.set(0.36, -0.32, -0.62);
+          poltergustGroup.rotation.set(0.06, -0.08, 0);
+        }
+
+        const wantSuck = state.isSucking || state.keys.suck || xrTriggerHeld;
+        if (state.overheated) {
+          state.charge = Math.min(100, state.charge + 24 * dt);
+          if (state.charge >= 35) {
+            state.overheated = false;
+          }
+        } else if (wantSuck && state.charge > 0.5) {
+          state.charge = Math.max(0, state.charge - 14.5 * dt);
+          if (state.charge <= 0.5) {
+            state.overheated = true;
+            showToast('Poltergust Overheated! Recharging...', 'text-rose-300');
+          }
+        } else {
+          state.charge = Math.min(100, state.charge + 16 * dt);
+        }
+
+        const suctionActive = wantSuck && !state.overheated && state.charge > 0.5;
+
+        // Check hovered interactive prop along aim ray
+        let bestProp = null;
+        for (let i = 0; i < interactiveProps.length; i++) {
+          const prop = interactiveProps[i];
+          const distToProp = prop.group.position.distanceTo(_aimOrigin);
+          if (distToProp > 5.2) continue;
+          _toGhost.subVectors(prop.group.position, _aimOrigin).normalize();
+          if (_aimDir.dot(_toGhost) > 0.94) {
+            bestProp = prop;
+            break;
+          }
+        }
+        state.hoveredProp = bestProp;
+
+        // Evaluate active pooled ghosts: flashlight stun, telegraphed lunges, suction pull & capture
+        let lockedGhost = null;
+        let bestDot = 0.88; // Aim cone threshold (~28 degrees)
+        const maxPullRange = 8.2;
+
+        for (let i = ghosts.length - 1; i >= 0; i--) {
+          const g = ghosts[i];
+          if (!g.active || g.captured) continue;
+
+          g.bobPhase += dt * 3.1;
+          if (g.stunTimer > 0) g.stunTimer = Math.max(0, g.stunTimer - dt);
+          if (g.hitFlashTimer > 0) g.hitFlashTimer = Math.max(0, g.hitFlashTimer - dt);
+          if (g.attackCooldown > 0) g.attackCooldown = Math.max(0, g.attackCooldown - dt);
+
+          const distToPlayer = g.group.position.distanceTo(_aimOrigin);
+          _toGhost.subVectors(g.group.position, _aimOrigin).normalize();
+          const aimDot = _aimDir.dot(_toGhost);
+
+          // Flashlight stuns/reveals ghosts aimed at within 12m and interrupts lunge wind-up
+          if (state.flashlightOn && distToPlayer < 12.0 && aimDot > 0.91) {
+            const wasStunned = g.stunTimer > 0.25;
+            g.stunTimer = 0.75;
+            g.telegraphTimer = 0;
+            g.lungeTimer = 0;
+            if (!wasStunned) {
+              audio.playGhostStun();
+            }
+          }
+
+          // Aim lock check for Poltergust
+          const inBeamCone = distToPlayer < maxPullRange && aimDot > bestDot;
+          if (inBeamCone) {
+            bestDot = aimDot;
+            lockedGhost = g;
+          }
+
+          g.beingPulled = Boolean(suctionActive && inBeamCone);
+
+          if (g.beingPulled) {
+            g.telegraphTimer = 0;
+            g.lungeTimer = 0;
+
+            const drainRate = g.stunTimer > 0 ? 44 : 28;
+            g.hp -= drainRate * dt;
+            g.hitFlashTimer = 0.09;
+
+            const pullSpeed = Math.max(0.85, (4.8 - g.pullResist * 3.2) * (g.stunTimer > 0 ? 1.35 : 0.85));
+            const struggleJitter = Math.sin(state.clockTime * 34 + g.bobPhase) * 0.45 * g.pullResist;
+
+            const pullDir = new THREE.Vector3().subVectors(_aimOrigin, g.group.position);
+            pullDir.y = EYE_HEIGHT - 0.15 - g.group.position.y;
+            const currentDist = pullDir.length();
+            if (currentDist > 0.01) pullDir.normalize();
+
+            const netStep = (pullSpeed + struggleJitter) * dt;
+            g.group.position.addScaledVector(pullDir, netStep);
+
+            g.group.rotation.z = Math.sin(state.clockTime * 42) * 0.22;
+            g.group.scale.setScalar(0.85 + Math.max(0, g.hp / g.maxHp) * 0.2);
+
+            if (g.hp <= 0 || currentDist < 1.45) {
+              const burstPos = g.group.position.clone();
+              const burstColor = g.emissive;
+              const title = g.title;
+              const pts = g.points;
+
+              state.captured += 1;
+              state.score += pts;
+              releaseGhostToPool(g);
+              spawnCaptureBurst(burstPos, burstColor);
+              audio.playGhostCapture();
+              showToast(`Captured ${title}! +${pts}`, 'text-emerald-300');
+              syncHud();
+
+              if (state.captured >= state.waveTarget) {
+                state.wave += 1;
+                state.waveTarget += 3;
+                state.charge = 100;
+                state.overheated = false;
+                syncHud();
+                showToast(`Wave ${state.wave}! More spirits manifest in the manor...`, 'text-sky-300');
+                spawnGhostWave(state.waveTarget);
+              }
+              continue;
+            }
+          } else {
+            // Normal patrol, telegraphed wind-up & lunge attack
+            g.group.scale.lerp(new THREE.Vector3(1, 1, 1), dt * 6);
+            g.group.rotation.z = THREE.MathUtils.lerp(g.group.rotation.z, 0, dt * 8);
+
+            if (g.lungeTimer > 0) {
+              g.lungeTimer = Math.max(0, g.lungeTimer - dt);
+              g.group.position.addScaledVector(g.lungeDir, 8.6 * dt);
+
+              // Deal damage on lunge contact
+              if (g.group.position.distanceTo(_aimOrigin) < 1.35) {
+                damagePlayer(g.damage, g.title);
+                g.lungeTimer = 0;
+                g.attackCooldown = 2.8;
+              }
+            } else if (g.telegraphTimer > 0) {
+              // Red/amber wind-up telegraph before lunging
+              g.telegraphTimer = Math.max(0, g.telegraphTimer - dt);
+              g.group.position.x += Math.sin(state.clockTime * 48 + g.bobPhase) * 0.015;
+              if (g.telegraphTimer <= 0) {
+                g.lungeDir.subVectors(_aimOrigin, g.group.position);
+                g.lungeDir.y = EYE_HEIGHT - 0.1 - g.group.position.y;
+                if (g.lungeDir.lengthSq() > 0.0001) g.lungeDir.normalize();
+                g.lungeTimer = 0.36;
+              }
+            } else if (g.stunTimer <= 0) {
+              // Start telegraph if close enough and attack cooldown ready
+              if (distToPlayer < 6.4 && g.attackCooldown <= 0) {
+                g.telegraphTimer = 0.65;
+                g.attackCooldown = 3.2 + Math.random() * 1.4;
+              } else {
+                g.patrolTimer -= dt;
+                if (g.patrolTimer <= 0) {
+                  g.patrolAngle += (Math.random() - 0.5) * 2.2;
+                  g.patrolTimer = 1.6 + Math.random() * 2.4;
+                }
+                const vx = Math.cos(g.patrolAngle) * g.baseSpeed;
+                const vz = Math.sin(g.patrolAngle) * g.baseSpeed;
+                g.group.position.x += vx * dt;
+                g.group.position.z += vz * dt;
+
+                const bound = manorHalfW - 1.4;
+                if (g.group.position.x > bound) {
+                  g.group.position.x = bound;
+                  g.patrolAngle = Math.PI - g.patrolAngle;
+                } else if (g.group.position.x < -bound) {
+                  g.group.position.x = -bound;
+                  g.patrolAngle = Math.PI - g.patrolAngle;
+                }
+                if (g.group.position.z > bound) {
+                  g.group.position.z = bound;
+                  g.patrolAngle = -g.patrolAngle;
+                } else if (g.group.position.z < -bound) {
+                  g.group.position.z = -bound;
+                  g.patrolAngle = -g.patrolAngle;
+                }
+
+                g.group.rotation.y = Math.atan2(vx, vz) - Math.PI / 2;
+              }
+            }
+
+            // Close contact bump damage if ghost drifts right into player
+            if (distToPlayer < 1.15 && g.stunTimer <= 0 && g.lungeTimer <= 0) {
+              damagePlayer(Math.ceil(g.damage * 0.75), g.title);
+            }
+
+            const targetBobY = 1.55 + Math.sin(g.bobPhase) * 0.24;
+            g.group.position.y = THREE.MathUtils.lerp(g.group.position.y, targetBobY, dt * 5);
+          }
+
+          // Visual feedback for hit flash / telegraph / stun
+          if (g.hitFlashTimer > 0) {
+            g.bodyMat.emissive.setHex(0xffffff);
+            g.bodyMat.emissiveIntensity = 1.35;
+            g.mouth.scale.set(1.45, 1.35, 0.7);
+          } else if (g.telegraphTimer > 0 || g.lungeTimer > 0) {
+            g.bodyMat.emissive.setHex(0xf43f5e);
+            g.bodyMat.emissiveIntensity = 1.15;
+            g.mouth.scale.set(1.4, 1.3, 0.7);
+          } else if (g.stunTimer > 0) {
+            g.bodyMat.emissive.setHex(0xfde047);
+            g.bodyMat.emissiveIntensity = 0.95;
+            g.mouth.scale.set(1.3, 1.15, 0.6);
+          } else {
+            g.bodyMat.emissive.setHex(g.emissive);
+            g.bodyMat.emissiveIntensity = 0.55;
+            g.mouth.scale.set(1.15, 0.85, 0.5);
+          }
+        }
+
+        state.targetGhost = lockedGhost;
+
+        // Update Target HUD & Reticle
+        if (lockedGhost && !lockedGhost.captured) {
+          dom.targetHud.classList.remove('hidden');
+          dom.targetName.textContent = lockedGhost.title;
+          const hpPct = Math.max(0, Math.min(100, (lockedGhost.hp / lockedGhost.maxHp) * 100));
+          dom.targetHpBar.style.width = `${hpPct}%`;
+          dom.reticle.classList.add('locked-on');
+        } else {
+          dom.targetHud.classList.add('hidden');
+          dom.reticle.classList.remove('locked-on');
+        }
+
+        dom.reticle.classList.toggle('sucking', suctionActive);
+
+        // Update Suction Cone & Vortex Rings
+        if (suctionActive) {
+          nozzleRim.getWorldPosition(_nozzleWorld);
+          suctionGroup.visible = true;
+          suctionGroup.position.copy(_nozzleWorld);
+
+          if (lockedGhost && !lockedGhost.captured) {
+            _coneTarget.copy(lockedGhost.group.position);
+          } else {
+            _coneTarget.copy(_aimOrigin).addScaledVector(_aimDir, 7.5);
+          }
+          suctionGroup.lookAt(_coneTarget);
+
+          const beamDist = Math.max(2.2, Math.min(8.2, _nozzleWorld.distanceTo(_coneTarget)));
+          suctionCone.scale.set(1, 1, beamDist / 7.5);
+          suctionCone.rotation.z += dt * 9;
+
+          for (let i = 0; i < vortexRings.length; i++) {
+            const ring = vortexRings[i];
+            // Rings travel from target toward nozzle to visually depict suction pull
+            const progress = ((state.clockTime * 1.45 + ring.userData.offset) % 1);
+            const zDist = -progress * beamDist;
+            ring.position.set(0, 0, zDist);
+            const scaleFactor = 0.35 + progress * 1.45;
+            ring.scale.setScalar(scaleFactor);
+            ring.rotation.z += dt * (8 + i);
+            ring.material.opacity = (1 - progress) * 0.72;
+          }
+
+          // Subtle nozzle vibration
+          poltergustGroup.position.x += Math.sin(state.clockTime * 55) * 0.004;
+          poltergustGroup.position.y += Math.cos(state.clockTime * 61) * 0.004;
+
+          const tension = lockedGhost ? 1 - lockedGhost.hp / lockedGhost.maxHp : 0;
+          audio.updateVacuum(true, Boolean(lockedGhost), tension);
+        } else {
+          suctionGroup.visible = false;
+          audio.updateVacuum(false);
+        }
+
+        syncHud();
+      }
+
+      // -----------------------------------------------------------------------
+      // 11. RENDER LOOP & RESIZE HANDLING
+      // -----------------------------------------------------------------------
+      let lastTimestamp = performance.now();
+
+      renderer.setAnimationLoop((timestamp) => {
+        const dt = Math.min(0.05, Math.max(0.001, (timestamp - lastTimestamp) / 1000));
+        lastTimestamp = timestamp;
+
+        updateSimulation(dt);
+        renderer.render(scene, camera);
+      });
+
+      window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+
+        if (state.mode === 'playing' && !state.vrSession) {
+          if (window.innerWidth < 768) {
+            dom.touchControls.classList.remove('hidden');
+            dom.touchControls.classList.add('flex');
+          } else {
+            dom.touchControls.classList.add('hidden');
+            dom.touchControls.classList.remove('flex');
+          }
+        }
+      });
+
+      // Initialize HUD & WebXR capability check
+      syncHud();
+      initWebXRCheck();
+    })();
+  </script>
+</body>
+</html>

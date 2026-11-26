@@ -757,6 +757,12 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://digitalinfohub.net/vrgames/poltergust-manor</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://digitalinfohub.net/post/ai-agent-economy-october-catalysts</loc>
     <lastmod>2026-11-23</lastmod>
     <changefreq>monthly</changefreq>
