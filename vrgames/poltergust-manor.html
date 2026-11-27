@@ -334,7 +334,7 @@
           </div>
           <div class="flex items-start gap-2">
             <span class="text-sky-300 font-bold">✦</span>
-            <span><strong class="text-white">Exploration:</strong> <kbd class="px-1.5 py-0.5 bg-slate-800 rounded text-sky-200">WASD</kbd> + Mouse Look, or enter <strong class="text-emerald-300">WebXR VR</strong> with controllers.</span>
+            <span><strong class="text-white">Exploration:</strong> <kbd class="px-1.5 py-0.5 bg-slate-800 rounded text-sky-200">WASD</kbd> + Mouse Look, or enter <strong class="text-emerald-300">WebXR VR</strong>: left stick walks, right stick snap-turns, trigger fires the vortex.</span>
           </div>
           <div class="flex items-start gap-2">
             <span class="text-purple-300 font-bold">✦</span>
@@ -1770,6 +1770,13 @@
         xrController1.addEventListener('selectstart', onSelectStart);
         xrController1.addEventListener('selectend', onSelectEnd);
 
+        // Remember which controller is in which hand so the walk stick stays on the left
+        const trackHandedness = (ctrl) => (event) => {
+          if (event.data && event.data.handedness) ctrl.userData.handedness = event.data.handedness;
+        };
+        xrController0.addEventListener('connected', trackHandedness(xrController0));
+        xrController1.addEventListener('connected', trackHandedness(xrController1));
+
         // Simple visible pointer line on controller 0
         const lineGeo = new THREE.BufferGeometry().setFromPoints([
           new THREE.Vector3(0, 0, 0),
@@ -2052,6 +2059,117 @@
         }
       }
 
+      // -----------------------------------------------------------------------
+      // 7b. WEBXR LOCOMOTION (left stick walks, right stick snap-turns 30°)
+      // -----------------------------------------------------------------------
+      const _xrStickMove = { x: 0, y: 0 };
+      const _xrStickTurn = { x: 0, y: 0 };
+      const _xrHead = new THREE.Vector3();
+      const _xrForward = new THREE.Vector3();
+      const _xrRight = new THREE.Vector3();
+      const _xrStep = new THREE.Vector3();
+      const _xrQuat = new THREE.Quaternion();
+      let xrSnapTurnArmed = true;
+
+      function getXRInputSource(handedness) {
+        if (!renderer.xr.getSession) return null;
+        const session = renderer.xr.getSession();
+        if (!session || !session.inputSources) return null;
+        for (let i = 0; i < session.inputSources.length; i++) {
+          const src = session.inputSources[i];
+          if (src.handedness !== handedness) continue;
+          if (src.gamepad && src.gamepad.axes && src.gamepad.axes.length >= 2) return src;
+        }
+        return null;
+      }
+
+      function readThumbstick(inputSource, out) {
+        out.x = 0;
+        out.y = 0;
+        if (!inputSource || !inputSource.gamepad) return out;
+        const axes = inputSource.gamepad.axes;
+        // xr-standard puts the thumbstick on axes 2/3; older pads report it on 0/1
+        const ax = axes.length >= 4 ? axes[2] : axes[0];
+        const ay = axes.length >= 4 ? axes[3] : axes[1];
+        if (typeof ax === 'number' && Math.abs(ax) > 0.16) out.x = Math.max(-1, Math.min(1, ax));
+        if (typeof ay === 'number' && Math.abs(ay) > 0.16) out.y = Math.max(-1, Math.min(1, ay));
+        return out;
+      }
+
+      // Head pose lives on the XR camera, which the renderer parents to the rig
+      function getXRHead(out) {
+        if (renderer.xr.getSession && renderer.xr.getSession()) {
+          const xrCam = renderer.xr.getCamera(camera);
+          if (xrCam) return out.setFromMatrixPosition(xrCam.matrixWorld);
+        }
+        return camera.getWorldPosition(out);
+      }
+
+      function updateXRLocomotion(dt) {
+        if (!state.vrSession) return;
+
+        // Keep walking on the left hand even if the headset reports right first
+        let moveHand = (xrController0 && xrController0.userData.handedness) || 'left';
+        let turnHand = moveHand === 'right' ? 'left' : 'right';
+
+        readThumbstick(getXRInputSource(moveHand), _xrStickMove);
+        readThumbstick(getXRInputSource(turnHand), _xrStickTurn);
+
+        // Snap turn in 30° steps, one step per stick push
+        if (Math.abs(_xrStickTurn.x) > 0.7) {
+          if (xrSnapTurnArmed) {
+            xrSnapTurnArmed = false;
+            const angle = (_xrStickTurn.x > 0 ? -1 : 1) * (Math.PI / 6);
+            getXRHead(_xrHead);
+            const offX = _xrHead.x - playerRig.position.x;
+            const offZ = _xrHead.z - playerRig.position.z;
+            const cos = Math.cos(angle);
+            const sin = Math.sin(angle);
+            // Pivot around the player's head so snap-turning never drags them sideways
+            playerRig.position.x += offX - (offX * cos + offZ * sin);
+            playerRig.position.z += offZ - (-offX * sin + offZ * cos);
+            playerRig.rotation.y += angle;
+          }
+        } else {
+          xrSnapTurnArmed = true;
+        }
+
+        if (_xrStickMove.x === 0 && _xrStickMove.y === 0) return;
+
+        // Walk relative to where the headset is looking
+        const xrCam = renderer.xr.getCamera(camera);
+        if (xrCam) {
+          _xrQuat.setFromRotationMatrix(xrCam.matrixWorld);
+        } else {
+          camera.getWorldQuaternion(_xrQuat);
+        }
+        _xrForward.set(0, 0, -1).applyQuaternion(_xrQuat);
+        _xrForward.y = 0;
+        if (_xrForward.lengthSq() < 1e-5) _xrForward.set(-Math.sin(state.yaw), 0, -Math.cos(state.yaw));
+        _xrForward.normalize();
+        _xrRight.set(1, 0, 0).applyQuaternion(_xrQuat);
+        _xrRight.y = 0;
+        _xrRight.normalize();
+
+        _xrStep.set(0, 0, 0)
+          .addScaledVector(_xrForward, -_xrStickMove.y)
+          .addScaledVector(_xrRight, _xrStickMove.x);
+        if (_xrStep.lengthSq() > 1) _xrStep.normalize();
+        _xrStep.multiplyScalar(2.6 * dt);
+
+        getXRHead(_xrHead);
+        const headX = _xrHead.x;
+        const headZ = _xrHead.z;
+        playerRig.position.x += _xrStep.x;
+        playerRig.position.z += _xrStep.z;
+
+        // Resolve walls around the head, then shift the rig by whatever was corrected
+        _xrHead.set(headX + _xrStep.x, 0, headZ + _xrStep.z);
+        resolveCollisions(_xrHead, 0.45);
+        playerRig.position.x += _xrHead.x - (headX + _xrStep.x);
+        playerRig.position.z += _xrHead.z - (headZ + _xrStep.z);
+      }
+
       function getAimRay(outOrigin, outDir) {
         if (state.vrSession && xrController0) {
           xrController0.getWorldPosition(outOrigin);
@@ -2196,6 +2314,8 @@
           } else {
             camera.position.x = 0;
           }
+        } else {
+          updateXRLocomotion(dt);
         }
 
         // Determine aim ray & vacuum trigger state
