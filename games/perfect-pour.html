@@ -1003,8 +1003,10 @@
       }
 
       function stopPouring(e) {
-        if (e && e.cancelable) e.preventDefault();
+        // Only swallow the touchend when a pour is actually in progress. Doing
+        // it unconditionally cancels the synthetic click on Start / Next buttons.
         if (!state.isPouring) return;
+        if (e && e.cancelable) e.preventDefault();
         state.isPouring = false;
         sound.updatePourSound(false, state.fillHeightRatio);
 

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Digital Infohub — the digital world, made easier to understand</title>
-<meta name="description" content="Digital Infohub makes the digital world easier to understand: 35 clear guides, 40+ free browser tools, live markets, tech news, twelve games and the Hub Guide. No signup, no paywall.">
+<meta name="description" content="Digital Infohub makes the digital world easier to understand: 35 clear guides, 55+ free browser tools, live markets, tech news, twelve games, a VR hub and the Hub Guide. No signup, no paywall.">
 <meta name="color-scheme" content="dark light">
 
 <link rel="preload" as="image" href="/assets/logo.png">
@@ -531,7 +531,7 @@ html[data-theme="light"] .ask-form{background:rgba(255,255,255,.96)}
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Digital Infohub">
 <meta property="og:title" content="Digital Infohub — the digital world, made easier to understand">
-<meta property="og:description" content="35 clear guides, 40+ free browser tools, live markets, tech news, twelve games and the Hub Guide — all in one calm place. No signup, no paywall.">
+<meta property="og:description" content="35 clear guides, 55+ free browser tools, live markets, tech news, twelve games, VR games and a walk-in art museum — all in one calm place. No signup, no paywall.">
 <meta property="og:url" content="https://digitalinfohub.net/">
 <meta property="og:image" content="https://digitalinfohub.net/assets/og/home.jpg">
 <meta property="og:image:secure_url" content="https://digitalinfohub.net/assets/og/home.jpg">
@@ -542,7 +542,7 @@ html[data-theme="light"] .ask-form{background:rgba(255,255,255,.96)}
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Digital Infohub — the digital world, made easier to understand">
-<meta name="twitter:description" content="35 clear guides, 40+ free browser tools, live markets, tech news, twelve games and the Hub Guide — all in one calm place.">
+<meta name="twitter:description" content="35 clear guides, 55+ free browser tools, live markets, tech news, twelve games, VR games and a walk-in art museum — all in one calm place.">
 <meta name="twitter:image" content="https://digitalinfohub.net/assets/og/home.jpg">
 <meta name="twitter:image:alt" content="Digital Infohub - the digital world, made easier to understand — Digital Infohub">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
@@ -556,6 +556,28 @@ html[data-theme="light"] .ask-form{background:rgba(255,255,255,.96)}
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://digitalinfohub.net/#organization","name":"Digital Infohub","url":"https://digitalinfohub.net/","logo":{"@type":"ImageObject","url":"https://digitalinfohub.net/assets/icon-512.png","width":512,"height":512},"description":"Independent technology publication for everyone: clear guides, free browser tools and live market context.","sameAs":[]},{"@type":"WebSite","@id":"https://digitalinfohub.net/#website","url":"https://digitalinfohub.net/","name":"Digital Infohub","publisher":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://digitalinfohub.net/blog?q={search_term_string}"},"query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://digitalinfohub.net/#webpage","url":"https://digitalinfohub.net/","name":"Digital Infohub — Tech made simple for everyone","description":"Clear guides, 30+ free browser tools, live prices and Digi, the AI guide that answers anything. Tech for everyday life — no signup, no paywall.","isPartOf":{"@id":"https://digitalinfohub.net/#website"},"about":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","primaryImageOfPage":{"@type":"ImageObject","url":"https://digitalinfohub.net/assets/og/home.jpg","width":1200,"height":630}}]}</script>
 <!-- /DIH:HEAD -->
 <link rel="stylesheet" href="/assets/promo.css">
+<style>
+  /* Homepage quick-start layer: large targets, plain words, one click each. */
+  .home-jump { display: flex; gap: 8px; overflow-x: auto; padding: 10px 2px 2px; margin: 0 auto; max-width: 1120px; scrollbar-width: none; }
+  .home-jump::-webkit-scrollbar { display: none; }
+  .home-jump a { flex: 0 0 auto; padding: 7px 13px; border-radius: 999px; border: 1px solid var(--dih-border); background: var(--dih-surface); color: var(--dih-text-sub); font-size: 12px; font-weight: 650; text-decoration: none; }
+  .home-jump a:hover { color: var(--dih-text); border-color: var(--dih-border-strong); background: var(--dih-surface-2); }
+  #homeStart { margin: 30px auto 0; }
+  .start-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+  .start-card { position: relative; display: flex; flex-direction: column; gap: 6px; padding: 20px 20px 18px; border-radius: 18px; border: 1px solid var(--dih-border); background: linear-gradient(165deg, var(--dih-surface), var(--dih-bg-2)); color: inherit; text-decoration: none; transition: .22s var(--dih-ease); }
+  .start-card:hover { transform: translateY(-3px); border-color: var(--dih-border-strong); box-shadow: 0 18px 38px rgba(0,0,0,.28); }
+  .start-card .ico { display: inline-flex; width: 42px; height: 42px; align-items: center; justify-content: center; border-radius: 12px; background: var(--dih-accent-soft); font-size: 21px; margin-bottom: 4px; }
+  .start-card b { font-size: 16.5px; color: var(--dih-text); letter-spacing: -.01em; }
+  .start-card span { font-size: 13px; line-height: 1.6; color: var(--dih-text-sub); }
+  .start-card em { margin-top: 10px; font-style: normal; font-size: 12.5px; font-weight: 750; color: #8b5cf6; }
+  .start-card.is-vr { border-color: rgba(139,92,246,.45); background: radial-gradient(420px 160px at 20% 0%, rgba(139,92,246,.2), transparent 70%), linear-gradient(165deg, var(--dih-surface), var(--dih-bg-2)); }
+  .start-card.is-vr em { color: #c4b5fd; }
+  .start-note { margin: 14px 0 0; font-size: 13px; color: var(--dih-text-muted); }
+  .start-note a { color: var(--dih-text); font-weight: 650; }
+  .vr-band .promo-card:first-child { border-color: rgba(139,92,246,.4); }
+  @media (max-width: 820px) { .start-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 540px) { .start-grid { grid-template-columns: 1fr; } .start-card { padding: 17px; } }
+</style>
 </head>
 <body data-page="home" data-home="v2">
 <!-- DIH:AMBIENT -->
@@ -574,6 +596,7 @@ html[data-theme="light"] .ask-form{background:rgba(255,255,255,.96)}
       <a class="dih-link" href="/techtopics">Tech Topics</a>
       <a class="dih-link" href="/software">Software</a>
       <a class="dih-link" href="/games">Games</a>
+      <a class="dih-link" href="/vr">VR</a>
       <a class="dih-link" href="/coincompass">Markets</a>
       <a class="dih-link" href="/app">More</a>
     </nav>
@@ -610,13 +633,20 @@ html[data-theme="light"] .ask-form{background:rgba(255,255,255,.96)}
       <a class="dih-drawer-link" href="/software">Software</a>
       <a class="dih-drawer-link" href="/techproducts">Tech Products</a>
       <a class="dih-drawer-link" href="/games">Games</a>
+      <a class="dih-drawer-link" href="/vr">VR</a>
       <a class="dih-drawer-link" href="/coincompass">Markets</a>
+      <a class="dih-drawer-link" href="/app">More</a>
     </div>
     <div class="dih-drawer-sub">
       <a class="dih-drawer-link" href="/news">📰 Tech News</a>
       <a class="dih-drawer-link" href="/quiz">🎯 Tech Quiz</a>
       <a class="dih-drawer-link" href="/software#tools">⚡ Tools</a>
+      <a class="dih-drawer-link" href="/vr">🥽 VR hub</a>
+      <a class="dih-drawer-link" href="/vrgames">🎯 VR games</a>
+      <a class="dih-drawer-link" href="/vrexperiences">🖼️ VR experiences</a>
       <a class="dih-drawer-link" href="/services">🧰 Services</a>
+      <a class="dih-drawer-link" href="/terminal">⌨️ Terminal mode</a>
+      <a class="dih-drawer-link" href="/terminal#interest">📊 Most opened pages</a>
       <a class="dih-drawer-link" href="/contact">✉️ Contact</a>
     </div>
     <a class="dih-drawer-cta" href="/subscribe">✉️ Subscribe — weekly tech intel</a>
@@ -634,6 +664,16 @@ html[data-theme="light"] .ask-form{background:rgba(255,255,255,.96)}
   </div>
   <a class="dih-ticker-more" href="/coincompass">Markets →</a>
 </div>
+
+<nav class="home-jump" aria-label="Jump to a part of the homepage">
+  <a href="#homeStart">🚀 Start here</a>
+  <a href="#homeExplore">🧭 Browse the hub</a>
+  <a href="#vr">🥽 VR &amp; AR</a>
+  <a href="#marketPulse">📈 Markets</a>
+  <a href="#homeNews">📰 News</a>
+  <a href="#homeBriefing">📝 Analysis</a>
+  <a href="/terminal">⌨️ Terminal</a>
+</nav>
 
 <main class="os-desktop" id="osDesktop">
   <div class="home-content" id="homeContent">
@@ -685,22 +725,73 @@ html[data-theme="light"] .ask-form{background:rgba(255,255,255,.96)}
         <span id="heroLine1">The digital world,</span><br>
         <span class="grad hub-typed-wrap"><span id="heroLine2" data-typed data-phrases="made easier to understand|explained without the jargon|all in one place|built for every day">made easier to understand</span><span class="hub-caret" aria-hidden="true"></span></span>
       </h1>
-      <p class="hero-sub" id="heroSubText">Digital Infohub is the calm way in: <b>clear guides</b>, a <b>Creative Studio</b> of music, photo and animation apps, live markets, news and twelve small games. No signup, no paywall.</p>
+      <p class="hero-sub" id="heroSubText">Digital Infohub is the calm way in: <b>plain-English guides</b>, free browser tools, twelve small games, live markets — and <b>VR you can actually walk into</b>, with or without a headset. No signup, no paywall.</p>
 
       <!-- Hub Guide: instant rule-based answers, built by assets/hub.js -->
       <div class="hub-ai" id="homeGuide" aria-label="Hub Guide — instant answers"></div>
 
       <div class="hero-actions">
-        <a class="dih-btn dih-btn-primary" href="#homeExplore">Explore the hub</a>
+        <a class="dih-btn dih-btn-primary" href="#homeStart">Start with one click</a>
         <a class="dih-btn dih-btn-ghost" href="/digi">Ask Digi a question</a>
       </div>
 
       <div class="hero-stats">
-        <div class="hero-stat"><b>35</b><span>Tech guides</span></div>
+        <div class="hero-stat"><b>35</b><span>Plain-English guides</span></div>
         <div class="hero-stat"><b>55+</b><span>Free tools</span></div>
-        <div class="hero-stat"><b>12</b><span>Arcade games</span></div>
+        <div class="hero-stat"><b>4</b><span>VR games &amp; spaces</span></div>
         <div class="hero-stat"><b>0</b><span>Paywalls</span></div>
       </div>
+    </section>
+
+    <!-- One-click routes for first-time visitors, whatever they came for. -->
+    <section id="homeStart" aria-labelledby="startTitle">
+      <div class="dih-section-head">
+        <div>
+          <span class="dih-eyebrow">Start here</span>
+          <h2 id="startTitle">What would you like to do?</h2>
+          <p>No tech knowledge needed. Pick the sentence that sounds like you and you are one click from the right place.</p>
+        </div>
+        <a class="dih-view-all" href="/terminal">See every page <span>→</span></a>
+      </div>
+      <div class="start-grid">
+        <a class="start-card" href="/techtopics">
+          <span class="ico" aria-hidden="true">🧠</span>
+          <b>Understand something</b>
+          <span>What is AI, why chips matter, how to spot a scam — explained without the jargon.</span>
+          <em>Read a guide →</em>
+        </a>
+        <a class="start-card" href="/software#tools">
+          <span class="ico" aria-hidden="true">🛠️</span>
+          <b>Get a job done</b>
+          <span>Invoice, résumé, loan payment, unit conversion, password check — 55+ tools that open instantly.</span>
+          <em>Use a free tool →</em>
+        </a>
+        <a class="start-card" href="/games">
+          <span class="ico" aria-hidden="true">🎮</span>
+          <b>Take a two-minute break</b>
+          <span>Twelve small games, from Snake and 2048 to a neon highway racer. Keyboard or thumb.</span>
+          <em>Play a game →</em>
+        </a>
+        <a class="start-card is-vr" href="/vr">
+          <span class="ico" aria-hidden="true">🥽</span>
+          <b>Step into VR or AR</b>
+          <span>Three VR games and a walk-in art museum. Headset, phone or desktop — no install.</span>
+          <em>Open the VR hub →</em>
+        </a>
+        <a class="start-card" href="/digi">
+          <span class="ico" aria-hidden="true">✨</span>
+          <b>Ask a question</b>
+          <span>Type it in your own words. Digi answers, then points you at the guide or tool you need.</span>
+          <em>Ask Digi →</em>
+        </a>
+        <a class="start-card" href="/coincompass">
+          <span class="ico" aria-hidden="true">📈</span>
+          <b>Check prices</b>
+          <span>Shares and crypto with a short, plain summary — not a wall of charts.</span>
+          <em>Open the markets →</em>
+        </a>
+      </div>
+      <p class="start-note">Already know your way around? <a href="#homeExplore">Jump straight to the rooms</a>, or <a href="/terminal">open terminal mode</a> and drive the hub from the keyboard.</p>
     </section>
 
     <!-- Creative Studio + arcade cross-promotion -->
@@ -740,71 +831,23 @@ html[data-theme="light"] .ask-form{background:rgba(255,255,255,.96)}
       </div>
     </section>
 
-    <!-- Categories -->
-    <section id="homeBrowse" aria-labelledby="browseTitle">
-      <div class="dih-section-head">
-        <div>
-          <span class="dih-eyebrow">Jump in</span>
-          <h2 id="browseTitle">What are you here for?</h2>
-          <p>Pick a category and open it straight from the menu — nothing is more than one click away.</p>
-        </div>
-        <a class="dih-view-all" href="/terminal">Browse everything <span>→</span></a>
+    <!-- VR & AR: games, an experience, and the one hub that holds them. -->
+    <section class="promo-band vr-band" id="vr" aria-labelledby="vrBandTitle">
+      <div class="promo-head">
+        <span class="promo-eyebrow"><i></i> VR &amp; AR · new</span>
+        <h2 id="vrBandTitle">Don't just scroll. <span>Step inside.</span></h2>
+        <p>Three browser games and one walk-in art museum, all working in VR, AR or plain desktop 3D. Use the headset if you have one, the phone in your pocket if you don't, or the laptop you are on right now. Nothing to install and nothing to sign up for.</p>
       </div>
-      <div class="hub-cats">
-        <details class="hub-cat">
-          <summary>🧠 Guides</summary>
-          <div class="hub-cat-body">
-            <a href="/techtopics">All 35 guides</a>
-            <a href="/artificialintelligence">Artificial intelligence</a>
-            <a href="/cybersecurity">Cybersecurity</a>
-            <a href="/quantumcomputing">Quantum computing</a>
-            <a href="/semiconductors">Semiconductors</a>
-          </div>
-        </details>
-        <details class="hub-cat">
-          <summary>🛠️ Software</summary>
-          <div class="hub-cat-body">
-            <a href="/software">All software &amp; tools</a>
-            <a href="/software#tools">Instant tools</a>
-            <a href="/software/tedori">手取り計算</a>
-            <a href="/software/invoice">Invoice generator</a>
-            <a href="/software/timezone">Meeting planner</a>
-          </div>
-        </details>
-        <details class="hub-cat">
-          <summary>🎮 Games</summary>
-          <div class="hub-cat-body">
-            <a href="/games">Pixel Palace</a>
-            <a href="/games/snake">Snake</a>
-            <a href="/games/2048">2048</a>
-            <a href="/games/typing">Typing rush</a>
-            <a href="/games/simon">Simon</a>
-          </div>
-        </details>
-        <details class="hub-cat">
-          <summary>📈 Markets</summary>
-          <div class="hub-cat-body">
-            <a href="/coincompass">CoinCompass</a>
-            <a href="/software/marketlens">MarketLens briefing</a>
-            <a href="/post/tech-market-sell-off-october-2026">Tech sell-off analysis</a>
-          </div>
-        </details>
-        <details class="hub-cat">
-          <summary>📰 News</summary>
-          <div class="hub-cat-body">
-            <a href="/news">Live news desk</a>
-            <a href="/blog">Blog &amp; analysis</a>
-            <a href="/post/tech-trends-october-2026">Tech trends Q4 2026</a>
-          </div>
-        </details>
-        <details class="hub-cat">
-          <summary>⌨️ Terminal</summary>
-          <div class="hub-cat-body">
-            <a href="/terminal">Open terminal mode</a>
-            <a href="/terminal#top">Most opened pages</a>
-            <a href="/terminal?cmd=help">Command list</a>
-          </div>
-        </details>
+      <div class="promo-grid">
+        <a class="promo-card" href="/vrgames/neon-breach"><span class="pi">🔫</span><b>Neon Breach</b><span>A neon wave shooter with dual blasters and combo multipliers.</span><em>Play →</em></a>
+        <a class="promo-card" href="/vrgames/poltergust-manor"><span class="pi">👻</span><b>Poltergust Manor</b><span>Stun ghosts with a torch, then reel them in with a vortex beam.</span><em>Play →</em></a>
+        <a class="promo-card" href="/vrgames/town-square-tycoon"><span class="pi">🏘️</span><b>Town Square Tycoon</b><span>Grow six high-street shops into a small empire.</span><em>Play →</em></a>
+        <a class="promo-card" href="/vrexperiences/artify-space"><span class="pi">🖼️</span><b>Artify Space</b><span>Walk a floating gallery holding fourteen artworks.</span><em>Enter →</em></a>
+      </div>
+      <div class="promo-actions">
+        <a class="promo-cta primary" href="/vr">Open the VR hub →</a>
+        <a class="promo-cta" href="/vrgames">VR games</a>
+        <a class="promo-cta" href="/vrexperiences">VR experiences</a>
       </div>
     </section>
 
@@ -813,13 +856,14 @@ html[data-theme="light"] .ask-form{background:rgba(255,255,255,.96)}
       <div class="dih-section-head">
         <div>
           <span class="dih-eyebrow">The whole hub</span>
-          <h2 id="exploreTitle">Six rooms, one page</h2>
-          <p>Games, software, guides, markets, news and the blog — switch tabs instead of scrolling for minutes.</p>
+          <h2 id="exploreTitle">Seven rooms, one page</h2>
+          <p>The whole hub without the endless scroll. Pick a room, look at four or five things, move on.</p>
         </div>
         <a class="dih-view-all" href="/software">Open the toolbox <span>→</span></a>
       </div>
       <div class="hub-tabs" role="tablist" aria-label="Browse Digital Infohub">
         <button type="button" class="hub-tab" role="tab" id="tab-games" aria-controls="panel-games" aria-selected="true">🎮 Games</button>
+        <button type="button" class="hub-tab" role="tab" id="tab-vr" aria-controls="panel-vr" aria-selected="false">🥽 VR &amp; AR</button>
         <button type="button" class="hub-tab" role="tab" id="tab-software" aria-controls="panel-software" aria-selected="false">🛠️ Software</button>
         <button type="button" class="hub-tab" role="tab" id="tab-guides" aria-controls="panel-guides" aria-selected="false">🧠 Guides</button>
         <button type="button" class="hub-tab" role="tab" id="tab-markets" aria-controls="panel-markets" aria-selected="false">📈 Markets</button>
@@ -840,6 +884,17 @@ html[data-theme="light"] .ask-form{background:rgba(255,255,255,.96)}
           <a class="hub-mini" href="/games/reaction"><span class="hub-mini-ico">⚡</span><strong>Reaction test</strong><span class="hub-mini-note">Measure your best five.</span><em>Play →</em></a>
           <a class="hub-mini" href="/games/simon"><span class="hub-mini-ico">🎵</span><strong>Simon</strong><span class="hub-mini-note">Repeat the sequence, one longer each time.</span><em>Play →</em></a>
           <a class="hub-mini" href="/games/tictactoe"><span class="hub-mini-ico">❌</span><strong>Tic-tac-toe</strong><span class="hub-mini-note">You against the hub. It does not lose.</span><em>Play →</em></a>
+        </div>
+      </div>
+
+      <div class="hub-panel" id="panel-vr" role="tabpanel" aria-labelledby="tab-vr" hidden>
+        <div class="hub-mini-grid">
+          <a class="hub-mini" href="/vrgames/neon-breach"><span class="hub-mini-ico">🔫</span><strong>Neon Breach</strong><span class="hub-mini-note">Wave shooter. No walking, just aim and fire.</span><em>Play in VR / AR →</em></a>
+          <a class="hub-mini" href="/vrgames/poltergust-manor"><span class="hub-mini-ico">👻</span><strong>Poltergust Manor</strong><span class="hub-mini-note">Stun spirits, then vacuum them in.</span><em>Play in VR / AR →</em></a>
+          <a class="hub-mini" href="/vrgames/town-square-tycoon"><span class="hub-mini-ico">🏘️</span><strong>Town Square Tycoon</strong><span class="hub-mini-note">Build a high street from a coffee cart up.</span><em>Play in VR / AR →</em></a>
+          <a class="hub-mini" href="/vrexperiences/artify-space"><span class="hub-mini-ico">🖼️</span><strong>Artify Space</strong><span class="hub-mini-note">A walk-in museum of 14 artworks.</span><em>Enter →</em></a>
+          <a class="hub-mini" href="/vr"><span class="hub-mini-ico">🥽</span><strong>All VR in one place</strong><span class="hub-mini-note">Games and experiences, with a tab for each.</span><em>Open the hub →</em></a>
+          <a class="hub-mini" href="/vrgames"><span class="hub-mini-ico">🎯</span><strong>VR arcade</strong><span class="hub-mini-note">Controls, headset advice and the full list.</span><em>Open →</em></a>
         </div>
       </div>
 
@@ -941,7 +996,7 @@ html[data-theme="light"] .ask-form{background:rgba(255,255,255,.96)}
           <h2 id="interestTitle">What you open most</h2>
           <p>Every page view and tap is counted privately on this device, so the hub can show you what you actually use.</p>
         </div>
-        <a class="dih-view-all" href="/terminal#top">Interest board <span>→</span></a>
+        <a class="dih-view-all" href="/terminal#interest">Interest board <span>→</span></a>
       </div>
       <div id="homeInterestBoard" aria-live="polite"></div>
     </section>
@@ -1018,6 +1073,7 @@ html[data-theme="light"] .ask-form{background:rgba(255,255,255,.96)}
         <a class="dih-explore-card" href="/terminal"><span class="dih-explore-icon">⌨️</span><strong>Terminal mode</strong><span>Browse the hub like Linux, from the keyboard.</span><em>Open the shell →</em></a>
         <a class="dih-explore-card" href="/software"><span class="dih-explore-icon">🛠️</span><strong>Software</strong><span>Forty-plus free tools and assistants.</span><em>Explore →</em></a>
         <a class="dih-explore-card" href="/games"><span class="dih-explore-icon">🎮</span><strong>Pixel Palace</strong><span>Twelve games, each on its own page.</span><em>Play →</em></a>
+        <a class="dih-explore-card" href="/vr"><span class="dih-explore-icon">🥽</span><strong>VR &amp; AR</strong><span>Three VR games and a walk-in museum.</span><em>Step inside →</em></a>
         <a class="dih-explore-card" href="/techproducts"><span class="dih-explore-icon">💻</span><strong>Tech Products</strong><span>Buying guides that earn their place.</span><em>Explore →</em></a>
         <a class="dih-explore-card" href="/news"><span class="dih-explore-icon">📰</span><strong>News</strong><span>Headlines through the day.</span><em>Open →</em></a>
         <a class="dih-explore-card" href="/subscribe"><span class="dih-explore-icon">✉️</span><strong>Newsletter</strong><span>One email a week, no noise.</span><em>Subscribe →</em></a>
@@ -1239,8 +1295,10 @@ html[data-theme="light"] .ask-form{background:rgba(255,255,255,.96)}
       <a href="/blog">Blog &amp; analysis</a>
       <a href="/techtopics">Tech Topics</a>
       <a href="/software">Software &amp; tools</a>
+      <a href="/terminal">Terminal mode</a>
       <a href="/techproducts">Tech Products</a>
       <a href="/games">Pixel Palace</a>
+      <a href="/vr">VR &amp; AR</a>
       <a href="/digi">Digi AI guide</a>
       <a href="/news">Live tech news</a>
       <a href="/quiz">Tech quiz</a>
@@ -1266,8 +1324,9 @@ html[data-theme="light"] .ask-form{background:rgba(255,255,255,.96)}
       <a href="/techtopics">Guides</a>
       <a href="/software">Tools</a>
       <a href="/contact">Contact</a>
-      <a href="/sitemap.xml">Sitemap</a>
       <a href="/terminal">Terminal</a>
+      <a href="/vr">VR</a>
+      <a href="/sitemap.xml">Sitemap</a>
     </nav>
   </div>
 </footer>

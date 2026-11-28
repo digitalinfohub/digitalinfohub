@@ -29,7 +29,7 @@ def copy_public_tree():
     for path in sorted(ROOT.glob("*.html")):
         shutil.copy2(path, PUBLIC / path.name)
 
-    for folder in ("post", "software"):
+    for folder in ("post", "software", "vrexperiences"):
         source = ROOT / folder
         target = PUBLIC / folder
         target.mkdir()

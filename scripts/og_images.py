@@ -35,13 +35,14 @@ SECTIONS = [
     ("software/", "Creative Studio"),
     ("games/", "Pixel Palace Arcade"),
     ("vrgames/", "VR Arcade"),
+    ("vrexperiences/", "VR Experiences"),
     ("post/", "Field Notes"),
 ]
 
 
 def pages() -> list[Path]:
     found: list[Path] = []
-    for pattern in ("*.html", "software/*.html", "games/*.html", "vrgames/*.html", "post/*.html"):
+    for pattern in ("*.html", "software/*.html", "games/*.html", "vrgames/*.html", "vrexperiences/*.html", "post/*.html"):
         found += sorted(ROOT.glob(pattern))
     return [p for p in found if p.name not in SKIP]
 
@@ -97,6 +98,10 @@ def section_of(rel: str) -> str:
         return "Creative Studio"
     if rel in ("games.html",):
         return "Pixel Palace Arcade"
+    if rel in ("vrexperiences.html",):
+        return "VR Experiences"
+    if rel in ("vr.html",):
+        return "VR Hub"
     if rel in ("techtopics.html",) or rel in TOPIC_SLUGS:
         return "Tech Topics"
     if rel in ("coincompass.html",):

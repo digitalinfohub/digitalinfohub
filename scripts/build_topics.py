@@ -948,10 +948,10 @@ def build_sitemap():
         add(slug, "0.8", "monthly", UPDATED)
     add("techtopics", "0.9", "weekly", UPDATED)
     add("", "1.0", "daily")
-    for hub in ["blog", "software", "techtopics", "games", "vrgames", "subscribe", "about", "advertise", "services", "contact", "techproducts", "coincompass", "digi", "expense-tracker", "pomodoro", "privacy-policy", "news", "quiz", "app", "extension", "terminal"]:
+    for hub in ["blog", "software", "techtopics", "games", "vr", "vrgames", "vrexperiences", "subscribe", "about", "advertise", "services", "contact", "techproducts", "coincompass", "digi", "expense-tracker", "pomodoro", "privacy-policy", "news", "quiz", "app", "extension", "terminal"]:
         if (ROOT / f"{hub}.html").exists():
             add(hub, "0.7", "weekly")
-    for sub in ["software", "games", "vrgames", "post"]:
+    for sub in ["software", "games", "vrgames", "vrexperiences", "post"]:
         folder = ROOT / sub
         if folder.is_dir():
             for f in sorted(folder.glob("*.html")):

@@ -76,9 +76,21 @@ PAGE_META = {
     },
     "vrgames.html": {
         "kind": "games", "type": "website",
-        "title": "VR Games — Free WebXR Arcade for Headset or Desktop | Digital Infohub",
-        "desc": "Play free VR games in your browser: Neon Breach is a WebXR wave shooter, Town Square Tycoon VR is a 3D high-street business sim. Headset or desktop simulator, no install.",
+        "title": "VR Games — Free WebXR Arcade for Headset, Phone or AR | Digital Infohub",
+        "desc": "Play free VR games in your browser: Neon Breach, Town Square Tycoon and Poltergust Manor. VR, AR, desktop and touch — no install.",
         "keywords": "vr games, free vr games, webxr games, browser vr, vr shooter, vr tycoon game, play vr without headset",
+    },
+    "vr.html": {
+        "kind": "games", "type": "website",
+        "title": "VR Hub — WebXR Games & Walk-In Experiences | Digital Infohub",
+        "desc": "Every VR thing on Digital Infohub in one place: three WebXR games with VR, AR and touch controls, plus Artify Space, a walk-in 3D art museum. Headset, desktop or phone — no install, no signup.",
+        "keywords": "vr hub, webxr games, vr experiences, browser vr, ar games, virtual art museum, play vr without headset",
+    },
+    "vrexperiences.html": {
+        "kind": "games", "type": "website",
+        "title": "VR Experiences — Walk-In WebXR Spaces | Digital Infohub",
+        "desc": "Step inside free VR experiences in your browser: Artify Space is a walk-in 3D art museum with 14 artworks, three portfolio portals and a visitor lounge. Headset, desktop or phone — no install, no signup.",
+        "keywords": "vr experiences, webxr experiences, virtual art museum, 3d art gallery, walk-in vr, artify space, play vr without headset",
     },
     "app.html": {
         "kind": "app", "type": "website",

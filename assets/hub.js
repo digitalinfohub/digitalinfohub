@@ -662,22 +662,36 @@
       el.setAttribute('data-hub-ready', '1');
       el.classList.add('hub-ai');
       el.innerHTML =
-        '<form class="hub-ai-form" role="search">' +
-          '<span class="hub-ai-spark" aria-hidden="true">◆</span>' +
-          '<input class="hub-ai-input" type="search" placeholder="Ask the Hub Guide — “手取り”, “invoice”, “games”…" aria-label="Ask the Hub Guide" autocomplete="off" maxlength="200">' +
-          '<button class="hub-ai-btn" type="submit">Ask</button>' +
-        '</form>' +
-        '<p class="hub-ai-purpose">A shortcut finder: type what you need and it points at the right page. Instant and rule-based. For a conversation, ask Digi; for commands, use terminal mode.</p>' +
-        '<div class="hub-ai-modes">' +
-          '<button type="button" class="hub-ai-mode" data-hub-digi>✦ Ask Digi (AI)</button>' +
-          '<button type="button" class="hub-ai-mode" data-hub-term>⌨ Terminal mode</button>' +
+        '<div class="hub-ai-top">' +
+          '<span class="hub-ai-brand">' +
+            '<span class="hub-ai-mark" aria-hidden="true">◆</span>' +
+            '<span class="hub-ai-brandtext"><strong>Hub Guide</strong><small>Find the right page in one line</small></span>' +
+          '</span>' +
+          '<span class="hub-ai-badge"><i aria-hidden="true"></i> Instant · no sign-up</span>' +
         '</div>' +
-        '<div class="hub-ai-out" aria-live="polite"></div>' +
-        '<div class="hub-ai-chips">' +
-          ['手取り', 'ふるさと納税', 'Invoice', 'Games', 'Terminal', 'What is quantum computing?'].map(function (q) {
-            return '<button type="button" data-hub-q="' + esc(q) + '">' + esc(q) + '</button>';
-          }).join('') +
-        '</div>';
+        '<form class="hub-ai-form" role="search">' +
+          '<span class="hub-ai-spark" aria-hidden="true">⌕</span>' +
+          '<input class="hub-ai-input" type="search" placeholder="Try “invoice”, “手取り”, “VR games”…" aria-label="Ask the Hub Guide" autocomplete="off" maxlength="200">' +
+          '<button class="hub-ai-btn" type="submit">Find it</button>' +
+        '</form>' +
+        '<div class="hub-ai-cols">' +
+          '<div class="hub-ai-col">' +
+            '<p class="hub-ai-purpose">Type what you need in your own words. The guide matches it to a page — no AI, no waiting.</p>' +
+            '<div class="hub-ai-chips"><span class="hub-ai-chips-label">Try</span>' +
+              ['手取り', 'ふるさと納税', 'Invoice', 'Games', 'VR', 'What is quantum computing?'].map(function (q) {
+                return '<button type="button" data-hub-q="' + esc(q) + '">' + esc(q) + '</button>';
+              }).join('') +
+            '</div>' +
+          '</div>' +
+          '<div class="hub-ai-col hub-ai-col-side">' +
+            '<p class="hub-ai-side-kicker">Need more than a link?</p>' +
+            '<div class="hub-ai-modes">' +
+              '<button type="button" class="hub-ai-mode" data-hub-digi>✦ Ask Digi <small>AI conversation</small></button>' +
+              '<button type="button" class="hub-ai-mode" data-hub-term>⌨ Terminal <small>run a command</small></button>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="hub-ai-out" aria-live="polite"></div>';
       var form = el.querySelector('form');
       var input = el.querySelector('input');
       var out = el.querySelector('.hub-ai-out');

@@ -14,6 +14,20 @@ NAV = [
     ("/techtopics", "Tech Topics"),
     ("/software", "Software"),
     ("/games", "Games"),
+    ("/vr", "VR"),
+    ("/coincompass", "Markets"),
+    ("/app", "More"),
+]
+
+DRAWER = [
+    ("/", "Home"),
+    ("/digi", "Digi"),
+    ("/blog", "Blog"),
+    ("/techtopics", "Tech Topics"),
+    ("/software", "Software"),
+    ("/techproducts", "Tech Products"),
+    ("/games", "Games"),
+    ("/vr", "VR"),
     ("/coincompass", "Markets"),
     ("/app", "More"),
 ]
@@ -39,6 +53,9 @@ TARGETS = {
     "/software": ("🛠️", "Software & tools", "Free AI assistants and browser utilities that run locally."),
     "/techproducts": ("💻", "Tech Products", "Hands-on buying guidance for work, creativity and play."),
     "/games": ("🎮", "Pixel Palace", "Free arcade games, playable on desktop and mobile."),
+    "/vr": ("🥽", "VR hub", "Every VR game and walk-in experience in one place."),
+    "/vrgames": ("🎯", "VR games", "Three WebXR games for a headset, desktop or phone."),
+    "/vrexperiences": ("🖼️", "VR experiences", "Walk-in 3D places, starting with Artify Space."),
     "/coincompass": ("🧭", "CoinCompass", "Track crypto and market context in one place."),
     "/news": ("📰", "Tech News", "Live headlines from the industry, updated through the day."),
     "/quiz": ("🎯", "Tech Quiz", "Six quick quizzes with a grade for every topic."),
@@ -124,7 +141,7 @@ def header_html(prefix: str = "") -> str:
     )
     drawer = "\n".join(
         f'      <a class="dih-drawer-link" href="{href}">{escape(label)}</a>'
-        for href, label in NAV
+        for href, label in DRAWER
     )
     return f"""<!-- DIH:HEADER -->
 <header class="dih-header">
@@ -168,6 +185,9 @@ def header_html(prefix: str = "") -> str:
       <a class="dih-drawer-link" href="/news">📰 Tech News</a>
       <a class="dih-drawer-link" href="/quiz">🎯 Tech Quiz</a>
       <a class="dih-drawer-link" href="/software#tools">⚡ Tools</a>
+      <a class="dih-drawer-link" href="/vr">🥽 VR hub</a>
+      <a class="dih-drawer-link" href="/vrgames">🎯 VR games</a>
+      <a class="dih-drawer-link" href="/vrexperiences">🖼️ VR experiences</a>
       <a class="dih-drawer-link" href="/services">🧰 Services</a>
       <a class="dih-drawer-link" href="/terminal">⌨️ Terminal mode</a>
       <a class="dih-drawer-link" href="/terminal#interest">📊 Most opened pages</a>
@@ -228,6 +248,7 @@ def footer_html() -> str:
       <a href="/terminal">Terminal mode</a>
       <a href="/techproducts">Tech Products</a>
       <a href="/games">Pixel Palace</a>
+      <a href="/vr">VR &amp; AR</a>
       <a href="/digi">Digi AI guide</a>
       <a href="/news">Live tech news</a>
       <a href="/quiz">Tech quiz</a>
@@ -254,6 +275,7 @@ def footer_html() -> str:
       <a href="/software">Tools</a>
       <a href="/contact">Contact</a>
       <a href="/terminal">Terminal</a>
+      <a href="/vr">VR</a>
       <a href="/sitemap.xml">Sitemap</a>
     </nav>
   </div>

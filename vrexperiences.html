@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en" data-dih="">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VR Experiences — Walk-In WebXR Spaces | Digital Infohub</title>
+<meta name="description" content="Step inside free VR experiences in your browser: Artify Space is a walk-in 3D art museum with 14 artworks, three portfolio portals and a visitor lounge. Headset, desktop or phone — no install, no signup.">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; }
+  .vr-shell { max-width: 1080px; margin: 0 auto; padding: 26px 20px 10px; }
+  .vr-hero {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--dih-border);
+    border-radius: 24px;
+    padding: 34px 30px 30px;
+    background:
+      radial-gradient(900px 340px at 12% -10%, rgba(139, 92, 246, 0.22), transparent 62%),
+      radial-gradient(760px 320px at 92% 8%, rgba(56, 189, 248, 0.20), transparent 60%),
+      linear-gradient(160deg, var(--dih-surface), var(--dih-bg-2));
+  }
+  .vr-hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px);
+    background-size: 42px 42px;
+    mask-image: radial-gradient(70% 70% at 50% 0%, #000 30%, transparent 80%);
+    pointer-events: none;
+    opacity: .55;
+  }
+  .vr-eyebrow {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(167, 139, 250, 0.42);
+    background: rgba(139, 92, 246, 0.12);
+    color: #c4b5fd;
+    font-family: var(--dih-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  .vr-eyebrow i { width: 6px; height: 6px; border-radius: 50%; background: #34d399; box-shadow: 0 0 10px #34d399; }
+  .vr-hero h1 {
+    position: relative;
+    margin: 16px 0 12px;
+    font-size: clamp(30px, 5vw, 48px);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    color: var(--dih-text);
+  }
+  .vr-hero h1 span {
+    background: linear-gradient(100deg, #8b5cf6, #4c8dff 45%, #22d3ee);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .vr-lede { position: relative; margin: 0; max-width: 66ch; font-size: 15px; line-height: 1.75; color: var(--dih-text-sub); }
+  .vr-actions { position: relative; display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+  .vr-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 18px;
+    border-radius: 12px;
+    border: 1px solid var(--dih-border-strong);
+    background: var(--dih-surface-2);
+    color: var(--dih-text);
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: 0.2s var(--dih-ease);
+  }
+  .vr-btn:hover { transform: translateY(-2px); border-color: rgba(139, 92, 246, 0.6); }
+  .vr-btn.primary {
+    border-color: transparent;
+    background: linear-gradient(100deg, #8b5cf6, #4c8dff);
+    color: #fff;
+    box-shadow: 0 12px 30px rgba(139, 92, 246, 0.28);
+  }
+  .vr-stats {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 26px;
+  }
+  .vr-stat { border: 1px solid var(--dih-border); border-radius: 14px; padding: 12px 14px; background: rgba(255,255,255,.025); }
+  .vr-stat b { display: block; font-size: 20px; letter-spacing: -0.02em; color: var(--dih-text); }
+  .vr-stat span { font-family: var(--dih-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dih-text-muted); }
+
+  .vr-body { margin: 34px 0 0; }
+  .vr-body h2 { margin: 0 0 6px; font-size: clamp(21px, 3vw, 27px); letter-spacing: -0.02em; color: var(--dih-text); }
+  .vr-body h3 { margin: 0 0 4px; font-size: 15px; color: var(--dih-text); }
+  .vr-body p { margin: 0 0 14px; font-size: 14px; line-height: 1.75; color: var(--dih-text-sub); }
+  .vr-section { margin-bottom: 34px; }
+  .vr-sub { margin: 0 0 18px; font-size: 13.5px; color: var(--dih-text-muted); }
+
+  .vr-games { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .vr-games.is-single { grid-template-columns: minmax(0, 1fr); }
+  .vr-game {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--dih-border);
+    border-radius: 20px;
+    overflow: hidden;
+    background: linear-gradient(165deg, var(--dih-surface), var(--dih-bg-2));
+    color: inherit;
+    text-decoration: none;
+    transition: 0.25s var(--dih-ease);
+  }
+  .vr-game:hover { transform: translateY(-4px); border-color: var(--dih-border-strong); box-shadow: 0 22px 46px rgba(0,0,0,.35); }
+  .vr-art { position: relative; height: 132px; display: flex; align-items: center; justify-content: center; font-size: 46px; overflow: hidden; }
+  .vr-games.is-single .vr-art { height: 196px; font-size: 64px; }
+  .vr-art.artify {
+    background: radial-gradient(120% 130% at 22% 0%, #2a1b5e, #0b0e1a 62%), #0b0e1a;
+    background-image:
+      radial-gradient(1.6px 1.6px at 12% 22%, rgba(226,232,240,.85), transparent),
+      radial-gradient(1.4px 1.4px at 32% 68%, rgba(196,181,253,.8), transparent),
+      radial-gradient(1.8px 1.8px at 54% 18%, rgba(255,255,255,.9), transparent),
+      radial-gradient(1.3px 1.3px at 70% 62%, rgba(125,211,252,.85), transparent),
+      radial-gradient(1.7px 1.7px at 88% 30%, rgba(255,255,255,.8), transparent),
+      radial-gradient(120% 130% at 22% 0%, #2a1b5e, #0b0e1a 62%);
+  }
+  .vr-art.artify::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+    background-size: 34px 34px;
+    transform: perspective(420px) rotateX(52deg) translateY(28%);
+    mask-image: linear-gradient(#000, transparent 75%);
+    opacity: .7;
+  }
+  .vr-art span { position: relative; filter: drop-shadow(0 8px 18px rgba(0,0,0,.35)); }
+  .vr-game-body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+  .vr-tag {
+    align-self: flex-start;
+    font-family: var(--dih-mono);
+    font-size: 9.5px;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    padding: 4px 8px;
+    border-radius: 6px;
+    border: 1px solid var(--dih-border-strong);
+    color: var(--dih-text-muted);
+  }
+  .vr-game h3 { margin: 2px 0 0; font-size: 18px; letter-spacing: -0.01em; color: var(--dih-text); }
+  .vr-game p { margin: 0; font-size: 13px; line-height: 1.65; color: var(--dih-text-sub); }
+  .vr-game-meta { margin-top: auto; display: flex; flex-wrap: wrap; gap: 6px; padding-top: 10px; }
+  .vr-chip { font-family: var(--dih-mono); font-size: 9.5px; letter-spacing: 0.06em; padding: 3px 7px; border-radius: 999px; background: var(--dih-accent-soft); color: #c3b5ff; }
+  .vr-play { margin-top: 6px; font-size: 12.5px; font-weight: 700; color: #c4b5fd; }
+
+  .vr-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+  .vr-card { border: 1px solid var(--dih-border); border-radius: 16px; padding: 16px; background: var(--dih-surface); }
+  .vr-card .ico { display: inline-flex; width: 34px; height: 34px; align-items: center; justify-content: center; border-radius: 10px; background: var(--dih-accent-soft); font-size: 17px; margin-bottom: 8px; }
+  .vr-card p { margin: 0; font-size: 12.5px; line-height: 1.65; }
+
+  .vr-table { width: 100%; border-collapse: collapse; overflow: hidden; border-radius: 14px; border: 1px solid var(--dih-border); font-size: 13px; }
+  .vr-table th, .vr-table td { padding: 11px 14px; text-align: left; border-bottom: 1px solid var(--dih-border); }
+  .vr-table thead th { font-family: var(--dih-mono); font-size: 10px; letter-spacing: 0.11em; text-transform: uppercase; color: var(--dih-text-muted); background: var(--dih-surface-2); }
+  .vr-table tbody tr:last-child td { border-bottom: 0; }
+  .vr-table td:first-child { color: var(--dih-text); font-weight: 600; }
+  .vr-table td { color: var(--dih-text-sub); }
+
+  .vr-faq { display: grid; gap: 10px; }
+  .vr-faq details { border: 1px solid var(--dih-border); border-radius: 14px; background: var(--dih-surface); padding: 14px 16px; }
+  .vr-faq summary { cursor: pointer; font-size: 14px; font-weight: 600; color: var(--dih-text); }
+  .vr-faq details p { margin: 10px 0 0; font-size: 13px; }
+  .vr-note { border-left: 3px solid #8b5cf6; padding: 12px 16px; border-radius: 0 12px 12px 0; background: rgba(139, 92, 246, 0.08); }
+  .vr-note p { margin: 0; font-size: 13px; }
+
+  @media (max-width: 820px) {
+    .vr-games, .vr-cards { grid-template-columns: 1fr; }
+    .vr-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+  @media (max-width: 560px) {
+    .vr-shell { padding: 18px 14px 6px; }
+    .vr-hero { padding: 24px 20px; border-radius: 20px; }
+    .vr-stats { grid-template-columns: 1fr; }
+    .vr-table th, .vr-table td { padding: 9px 10px; font-size: 12px; }
+  }
+</style>
+<!-- DIH:HEAD -->
+<script>try{var t=localStorage.getItem('dih_theme')||'dark';document.documentElement.setAttribute('data-theme',t);document.documentElement.setAttribute('data-dih','');}catch(e){document.documentElement.setAttribute('data-dih','');}</script>
+<meta name="theme-color" content="#07070c">
+<meta name="color-scheme" content="dark light">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="author" content="Digital Infohub">
+<meta name="keywords" content="vr experiences, webxr experiences, virtual art museum, 3d art gallery, walk-in vr, artify space, play vr without headset">
+<link rel="canonical" href="https://digitalinfohub.net/vrexperiences">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Digital Infohub">
+<meta property="og:title" content="VR Experiences — Walk-In WebXR Spaces | Digital Infohub">
+<meta property="og:description" content="Step inside free VR experiences in your browser: Artify Space is a walk-in 3D art museum with 14 artworks, three portfolio portals and a visitor lounge. Headset, desktop or phone — no install, no signup.">
+<meta property="og:url" content="https://digitalinfohub.net/vrexperiences">
+<meta property="og:image" content="https://digitalinfohub.net/assets/og/vrexperiences.jpg">
+<meta property="og:image:secure_url" content="https://digitalinfohub.net/assets/og/vrexperiences.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="VR Experiences - Walk-In WebXR Spaces — Digital Infohub">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="VR Experiences — Walk-In WebXR Spaces | Digital Infohub">
+<meta name="twitter:description" content="Step inside free VR experiences in your browser: Artify Space is a walk-in 3D art museum with 14 artworks, three portfolio portals and a visitor lounge. Headset, desktop or phone — no install, no signup.">
+<meta name="twitter:image" content="https://digitalinfohub.net/assets/og/vrexperiences.jpg">
+<meta name="twitter:image:alt" content="VR Experiences - Walk-In WebXR Spaces — Digital Infohub">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="icon" href="/assets/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://digitalinfohub.net/#organization","name":"Digital Infohub","url":"https://digitalinfohub.net/","logo":{"@type":"ImageObject","url":"https://digitalinfohub.net/assets/icon-512.png","width":512,"height":512},"description":"Independent technology publication for everyone: clear guides, free browser tools and live market context.","sameAs":[]},{"@type":"WebSite","@id":"https://digitalinfohub.net/#website","url":"https://digitalinfohub.net/","name":"Digital Infohub","publisher":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://digitalinfohub.net/blog?q={search_term_string}"},"query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://digitalinfohub.net/vrexperiences#webpage","url":"https://digitalinfohub.net/vrexperiences","name":"VR Experiences — Walk-In WebXR Spaces | Digital Infohub","description":"Step inside free VR experiences in your browser: Artify Space is a walk-in 3D art museum with 14 artworks, three portfolio portals and a visitor lounge. Headset, desktop or phone — no install, no signup.","isPartOf":{"@id":"https://digitalinfohub.net/#website"},"about":{"@id":"https://digitalinfohub.net/#organization"},"inLanguage":"en","primaryImageOfPage":{"@type":"ImageObject","url":"https://digitalinfohub.net/assets/og/vrexperiences.jpg","width":1200,"height":630}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://digitalinfohub.net/"},{"@type":"ListItem","position":2,"name":"Games","item":"https://digitalinfohub.net/games"},{"@type":"ListItem","position":3,"name":"VR Experiences — Walk-In WebXR Spaces","item":"https://digitalinfohub.net/vrexperiences"}]}]}</script>
+<!-- /DIH:HEAD -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471" crossorigin="anonymous"></script>
+</head>
+<body data-page="games">
+<!-- DIH:AMBIENT -->
+<div class="dih-ambient" aria-hidden="true" style="--dih-ambient:url('https://images.unsplash.com/photo-1644088379091-d574269d422f?w=1200&amp;h=675&amp;fit=crop&amp;auto=format&amp;q=40')"></div>
+<!-- /DIH:AMBIENT -->
+<!-- DIH:HEADER -->
+<header class="dih-header">
+  <div class="dih-header-inner">
+    <a class="dih-brand" href="/" aria-label="Digital Infohub home">
+      <img src="/assets/logo.png" alt="Digital Infohub logo" width="36" height="36">
+      <span class="dih-brand-text">Digital <b>Infohub</b></span>
+    </a>
+    <nav class="dih-nav" data-dih-nav aria-label="Primary navigation">
+      <a class="dih-link" href="/">Home</a>
+      <a class="dih-link" href="/blog">Blog</a>
+      <a class="dih-link" href="/techtopics">Tech Topics</a>
+      <a class="dih-link" href="/software">Software</a>
+      <a class="dih-link" href="/games">Games</a>
+      <a class="dih-link" href="/vr">VR</a>
+      <a class="dih-link" href="/coincompass">Markets</a>
+      <a class="dih-link" href="/app">More</a>
+    </nav>
+    <div class="dih-actions">
+      <a class="dih-icon dih-tools" href="/software#tools" title="Free browser tools" aria-label="Free browser tools">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 5 14h5l-1 8 8-12h-5l1-8Z"/></svg>
+      </a>
+      <a class="dih-icon dih-term" href="/terminal" title="Terminal mode — browse like a shell" aria-label="Open terminal mode">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="m7 9 3 3-3 3"/><path d="M13 15h4"/></svg>
+      </a>
+      <button class="dih-icon dih-sound" type="button" data-dih-sound aria-label="Sound on — tap to mute" aria-pressed="true" title="Sound on — tap to mute (Shift+S)">
+        <svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4Z"/><path d="M16.5 8.5a5 5 0 0 1 0 7"/><path d="M19 6a8.5 8.5 0 0 1 0 12"/></svg>
+        <svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4Z"/><path d="m16 9 5 6"/><path d="m21 9-5 6"/></svg>
+      </button>
+      <button class="dih-icon dih-share" type="button" data-dih-share aria-label="Share this page" title="Share this page">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M12 3v13"/><path d="m7 8 5-5 5 5"/></svg>
+      </button>
+      <button class="dih-icon dih-theme" type="button" data-dih-theme aria-label="Switch theme" title="Switch theme">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a6.6 6.6 0 0 0 9.8 9.8Z"/></svg>
+      </button>
+      <a class="dih-cta" href="/subscribe">Subscribe</a>
+      <button class="dih-burger" id="dihBurger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="dihDrawer"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+<div class="dih-drawer" id="dihDrawer" aria-label="Site menu">
+  <div class="dih-drawer-panel">
+    <div class="dih-drawer-grid">
+      <a class="dih-drawer-link" href="/">Home</a>
+      <a class="dih-drawer-link" href="/digi">Digi</a>
+      <a class="dih-drawer-link" href="/blog">Blog</a>
+      <a class="dih-drawer-link" href="/techtopics">Tech Topics</a>
+      <a class="dih-drawer-link" href="/software">Software</a>
+      <a class="dih-drawer-link" href="/techproducts">Tech Products</a>
+      <a class="dih-drawer-link" href="/games">Games</a>
+      <a class="dih-drawer-link" href="/vr">VR</a>
+      <a class="dih-drawer-link" href="/coincompass">Markets</a>
+      <a class="dih-drawer-link" href="/app">More</a>
+    </div>
+    <div class="dih-drawer-sub">
+      <a class="dih-drawer-link" href="/news">📰 Tech News</a>
+      <a class="dih-drawer-link" href="/quiz">🎯 Tech Quiz</a>
+      <a class="dih-drawer-link" href="/software#tools">⚡ Tools</a>
+      <a class="dih-drawer-link" href="/vr">🥽 VR hub</a>
+      <a class="dih-drawer-link" href="/vrgames">🎯 VR games</a>
+      <a class="dih-drawer-link" href="/vrexperiences">🖼️ VR experiences</a>
+      <a class="dih-drawer-link" href="/services">🧰 Services</a>
+      <a class="dih-drawer-link" href="/terminal">⌨️ Terminal mode</a>
+      <a class="dih-drawer-link" href="/terminal#interest">📊 Most opened pages</a>
+      <a class="dih-drawer-link" href="/contact">✉️ Contact</a>
+    </div>
+    <a class="dih-drawer-cta" href="/subscribe">✉️ Subscribe — weekly tech intel</a>
+    <p class="dih-drawer-note">Digital Infohub · Tech for everyone, with a guide for every question.</p>
+  </div>
+</div>
+<!-- /DIH:HEADER -->
+
+<div class="vr-shell">
+  <section class="vr-hero">
+    <span class="vr-eyebrow"><i></i> WebXR experiences</span>
+    <h1>VR experiences you can <span>walk into</span></h1>
+    <p class="vr-lede">
+      Not everything worth putting on a headset is a game. An experience is a place: a gallery, a showroom, a landscape you
+      can walk around at your own pace. The first one here is <strong>Artify Space</strong> — a celestial museum holding
+      fourteen artworks, three portfolio portals and a visitor lounge. Open the link, look around, point at what interests
+      you. No installs, no accounts, nothing to pay for.
+    </p>
+    <div class="vr-actions">
+      <a class="vr-btn primary" href="#experiences">Browse the experiences →</a>
+      <a class="vr-btn" href="/vr">All VR in one hub</a>
+      <a class="vr-btn" href="/vrgames">VR games arcade</a>
+    </div>
+    <div class="vr-stats">
+      <div class="vr-stat"><b>1</b><span>Experience live</span></div>
+      <div class="vr-stat"><b>14</b><span>Artworks inside</span></div>
+      <div class="vr-stat"><b>Headset + desktop</b><span>Two ways to visit</span></div>
+    </div>
+  </section>
+
+  <main class="vr-body">
+    <article>
+      <section class="vr-section" id="experiences">
+        <h2>Step inside</h2>
+        <p class="vr-sub">Each experience opens on its own page, so a link is all you need to send someone there — or to come back yourself.</p>
+        <div class="vr-games is-single">
+          <a class="vr-game" href="/vrexperiences/artify-space">
+            <div class="vr-art artify" aria-hidden="true"><span>🖼️</span></div>
+            <div class="vr-game-body">
+              <span class="vr-tag">WebXR gallery</span>
+              <h3>Artify Space — Virtual Art Museum</h3>
+              <p>A floating gallery in a starfield, built by the artist behind Artify Space. Seven digital worlds line the west wing and seven coloured-pencil pieces the east; three screens on the north wall open the artist's live portfolio, store and gallery. The lounge holds the visitor guide, the maker's links and the way back here.</p>
+              <div class="vr-game-meta">
+                <span class="vr-chip">Walk-in navigation</span><span class="vr-chip">14 artworks</span><span class="vr-chip">Portfolio portals</span><span class="vr-chip">AR passthrough</span><span class="vr-chip">Touch joystick</span>
+              </div>
+              <span class="vr-play">Enter the museum →</span>
+            </div>
+          </a>
+        </div>
+      </section>
+
+<aside class="dih-ad-slot" data-dih-ad="1" aria-label="Advertisement" style="max-width:970px;margin:26px auto;padding:10px 10px 6px;border:1px solid rgba(255,255,255,.09);border-radius:14px;background:rgba(255,255,255,.028);text-align:center"><span style="display:block;font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#8b93a7;margin:0 0 6px">Advertisement</span><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5443646750699471" data-ad-slot="8451723433" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></aside>
+
+      <section class="vr-section" id="how">
+        <h2>Experiences, not games</h2>
+        <p>
+          The <a href="/vrgames">VR arcade</a> is built for score: waves, waves survived, shops bought. An experience asks
+          nothing of you. You arrive, you walk, you look. There is no timer in the museum and no way to lose — the only
+          thing to do is stand in front of a frame and get closer to it than a flat page allows.
+        </p>
+        <p>
+          That makes these pages the calm end of WebXR: good for a five-minute break, good for showing someone what a
+          browser can do without an app store, and good on a phone in a pinch.
+        </p>
+        <div class="vr-cards">
+          <div class="vr-card">
+            <span class="ico" aria-hidden="true">🥽</span>
+            <h3>In a headset</h3>
+            <p>Open the page in the headset's browser (Quest Browser, Pico, or a PC headset through Chrome or Edge with a runtime) and press Enter VR. Walk with the thumbstick and aim the controller laser at a frame or a screen.</p>
+          </div>
+          <div class="vr-card">
+            <span class="ico" aria-hidden="true">🖥️</span>
+            <h3>On a desktop</h3>
+            <p>WASD or the arrow keys walk, click and drag to look, and a click on a frame opens it full size. There is nothing to install and nothing to sign up for.</p>
+          </div>
+          <div class="vr-card">
+            <span class="ico" aria-hidden="true">📱</span>
+            <h3>On a phone</h3>
+            <p>The museum swaps in a thumbstick for walking and a drag-to-look area for everything else. Tap a frame to inspect it; landscape gives you the widest view of a wall.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="vr-section" id="controls">
+        <h2>Controls at a glance</h2>
+        <p class="vr-sub">The same defaults for every experience, so you only learn them once.</p>
+        <table class="vr-table">
+          <thead>
+            <tr><th>Where</th><th>Move</th><th>Look and inspect</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Headset</td>
+              <td>Thumbstick on either controller; the local-floor reference space means your real height is your height.</td>
+              <td>Turn your head and body, point the controller ray at a frame or portal screen, squeeze the trigger.</td>
+            </tr>
+            <tr>
+              <td>Desktop</td>
+              <td>W A S D or the arrow keys. The wing buttons in the top bar teleport you instead of walking.</td>
+              <td>Click and drag to look, or Lock Mouse for pointer-lock. Click a frame to inspect it; Esc closes it.</td>
+            </tr>
+            <tr>
+              <td>Phone</td>
+              <td>Left thumbstick, while a second finger drags elsewhere to look — the two never fight.</td>
+              <td>Tap a frame to inspect it, and tap ✕ or press Esc-equivalent to close. Rotate to landscape first.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="vr-section" id="faq">
+        <h2>Questions people ask</h2>
+        <div class="vr-faq">
+          <details>
+            <summary>Do I need a VR headset?</summary>
+            <p>No. Every experience here has a full desktop and phone mode built from the same scene. A headset adds depth, hand tracking and a sense of scale; it does not unlock anything.</p>
+          </details>
+          <details>
+            <summary>Why does the museum ask for permission?</summary>
+            <p>WebXR needs your consent before it can draw to a headset, and the browser may ask before going full screen. Nothing is recorded, uploaded or sent anywhere — the whole scene is generated in your browser.</p>
+          </details>
+          <details>
+            <summary>Can I visit on a phone?</summary>
+            <p>Yes. The museum detects a touch device, shows a virtual joystick and lets you drag the rest of the screen to look. It is the easiest way to see what the space is like before borrowing a headset.</p>
+          </details>
+          <details>
+            <summary>Who makes these?</summary>
+            <p>Artify Space is the artist's own museum — the artworks, the portfolio links and the branding are theirs. Digital Infohub builds the browser version and hosts it. The three portfolio screens link out to their official site, Fab store and ArtStation.</p>
+          </details>
+          <details>
+            <summary>Is any of this paid or account-based?</summary>
+            <p>No. There is no signup, no purchase and no account. Nothing is stored on a server, and the only thing kept between visits is whatever your browser chooses to cache.</p>
+          </details>
+        </div>
+      </section>
+
+      <section class="vr-section" id="next">
+        <h2>What is coming next</h2>
+        <p>
+          The wing is deliberately small for now: one space polished enough to send to someone, rather than a wall of demos.
+          Next up are more walk-in places in the same style — a night-sky observatory, a small product showroom and a
+          room-scale story piece. Each new one appears in this list at <code>/vrexperiences/&lt;name&gt;</code>, and each keeps
+          a desktop mode so nobody is locked out.
+        </p>
+        <div class="vr-note">
+          <p><strong>Built in the open:</strong> these are our own builds, not embeds. If something breaks in your headset, tell us through the <a href="/contact">contact page</a> — the browser and headset model are the two details that help most.</p>
+        </div>
+      </section>
+    </article>
+  </main>
+</div>
+
+<!-- DIH:GALLERY -->
+<aside class="dih-ad-slot" data-dih-ad="1" aria-label="Advertisement" style="max-width:970px;margin:26px auto;padding:10px 10px 6px;border:1px solid rgba(255,255,255,.09);border-radius:14px;background:rgba(255,255,255,.028);text-align:center"><span style="display:block;font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#8b93a7;margin:0 0 6px">Advertisement</span><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5443646750699471" data-ad-slot="8451723433" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></aside>
+<section class="dih-gallery" aria-labelledby="dihGalleryTitle">
+  <div class="dih-gallery-head">
+    <div>
+      <span class="dih-gallery-eyebrow">Visual briefing</span>
+      <h2 id="dihGalleryTitle">Technology, in focus</h2>
+      <p>Fast context on the ideas shaping the industry, with a guide for every one.</p>
+    </div>
+    <a class="dih-gallery-all" href="/techtopics">All 35 tech guides <span aria-hidden="true">&rarr;</span></a>
+  </div>
+  <div class="dih-gallery-grid">
+      <a class="dih-gallery-card" href="/services">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?w=640&amp;h=400&amp;fit=crop&amp;auto=format&amp;q=70" alt="Desktop computer and keyboard on a clean desk" width="640" height="400" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Services</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Design and build, without the agency fog</strong>
+          <span>Websites, design and promotion with clear pricing and a real person on the other end.</span>
+          <em>See services and pricing &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/advertise">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=640&amp;h=400&amp;fit=crop&amp;auto=format&amp;q=70" alt="Laptop showing an analytics dashboard" width="640" height="400" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Advertising</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Reach people who make decisions</strong>
+          <span>Put a product in front of developers, founders and technology leaders with clear, respectful advertising.</span>
+          <em>Advertise on Digital Infohub &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/quiz">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1599508704512-2f19efd1e35f?w=640&amp;h=400&amp;fit=crop&amp;auto=format&amp;q=70" alt="Red neon question mark on a wall" width="640" height="400" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Quiz</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>How well do you actually know tech?</strong>
+          <span>Six quick quizzes with a grade for every topic and a guide for what to learn next.</span>
+          <em>Take the tech quiz &rarr;</em>
+        </span>
+      </a>
+      <a class="dih-gallery-card" href="/tool-calendar">
+        <span class="dih-gallery-media">
+          <img src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?w=640&amp;h=400&amp;fit=crop&amp;auto=format&amp;q=70" alt="Open monthly planner with a cup of coffee" width="640" height="400" loading="lazy" decoding="async">
+          <span class="dih-gallery-tag">Calendar</span>
+        </span>
+        <span class="dih-gallery-body">
+          <strong>Plan the week in one place</strong>
+          <span>A calendar only helps if opening it is faster than remembering. Keep it light and private.</span>
+          <em>Open the calendar &rarr;</em>
+        </span>
+      </a>
+  </div>
+  <p class="dih-gallery-credit">Photography by Unsplash contributors. Cards link to related Digital Infohub guides.</p>
+</section>
+<!-- /DIH:GALLERY -->
+<!-- DIH:EXPLORE -->
+<section class="dih-explore" aria-labelledby="dihExploreTitle">
+  <div class="dih-explore-head">
+    <h2 id="dihExploreTitle">Take a five-minute break</h2>
+    <p>Fresh guides and tools while you recharge.</p>
+  </div>
+  <div class="dih-explore-grid">
+      <a class="dih-explore-card" href="/software">
+        <span class="dih-explore-icon" aria-hidden="true">🛠️</span>
+        <strong>Software &amp; tools</strong>
+        <span>Free AI assistants and browser utilities that run locally.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/blog">
+        <span class="dih-explore-icon" aria-hidden="true">📝</span>
+        <strong>Blog &amp; analysis</strong>
+        <span>Deep dives on AI, hardware, markets and digital culture.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/coincompass">
+        <span class="dih-explore-icon" aria-hidden="true">🧭</span>
+        <strong>CoinCompass</strong>
+        <span>Track crypto and market context in one place.</span>
+        <em>Explore →</em>
+      </a>
+      <a class="dih-explore-card" href="/techtopics">
+        <span class="dih-explore-icon" aria-hidden="true">🔬</span>
+        <strong>Tech Topics</strong>
+        <span>Clear guides to the technology shaping business.</span>
+        <em>Explore →</em>
+      </a>
+  </div>
+</section>
+<!-- /DIH:EXPLORE -->
+<!-- DIH:FOOTER -->
+<footer class="dih-footer">
+  <div class="dih-footer-inner">
+    <div class="dih-footer-brand">
+      <a class="dih-brand" href="/" aria-label="Digital Infohub home">
+        <img src="/assets/logo.png" alt="Digital Infohub logo" width="40" height="40">
+        <span class="dih-brand-text">Digital <b>Infohub</b></span>
+      </a>
+      <p>The independent tech hub for everyone: AI research, market moves, practical guides, free tools and Digi, your AI guide.</p>
+      <span class="dih-pill"><span class="dih-dot"></span> Updated daily</span>
+    </div>
+    <div class="dih-footer-col">
+      <h3>Explore</h3>
+      <a href="/blog">Blog &amp; analysis</a>
+      <a href="/techtopics">Tech Topics</a>
+      <a href="/software">Software &amp; tools</a>
+      <a href="/terminal">Terminal mode</a>
+      <a href="/techproducts">Tech Products</a>
+      <a href="/games">Pixel Palace</a>
+      <a href="/vr">VR &amp; AR</a>
+      <a href="/digi">Digi AI guide</a>
+      <a href="/news">Live tech news</a>
+      <a href="/quiz">Tech quiz</a>
+    </div>
+    <div class="dih-footer-col">
+      <h3>Company</h3>
+      <a href="/about">About</a>
+      <a href="/services">Services</a>
+      <a href="/advertise">Advertise</a>
+      <a href="/coincompass">CoinCompass</a>
+      <a href="/privacy-policy">Privacy</a>
+    </div>
+    <div class="dih-footer-col dih-footer-cta">
+      <h3>Stay ahead</h3>
+      <p>One email a week: the AI, market and software stories that actually matter.</p>
+      <a class="dih-btn dih-btn-primary" href="/subscribe">Subscribe free</a>
+    </div>
+  </div>
+  <div class="dih-footer-bottom">
+    <span>© 2026 Digital Infohub · Independent technology publication</span>
+    <nav aria-label="Footer links">
+      <a href="/blog">Blog</a>
+      <a href="/techtopics">Guides</a>
+      <a href="/software">Tools</a>
+      <a href="/contact">Contact</a>
+      <a href="/terminal">Terminal</a>
+      <a href="/vr">VR</a>
+      <a href="/sitemap.xml">Sitemap</a>
+    </nav>
+  </div>
+</footer>
+<!-- /DIH:FOOTER -->
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

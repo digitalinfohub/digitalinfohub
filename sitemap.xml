@@ -247,8 +247,20 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://digitalinfohub.net/vr</loc>
+    <lastmod>2026-11-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://digitalinfohub.net/vrgames</loc>
     <lastmod>2026-11-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://digitalinfohub.net/vrexperiences</loc>
+    <lastmod>2026-11-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -751,14 +763,20 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://digitalinfohub.net/vrgames/poltergust-manor</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://digitalinfohub.net/vrgames/town-square-tycoon</loc>
     <lastmod>2026-11-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://digitalinfohub.net/vrgames/poltergust-manor</loc>
-    <lastmod>2026-11-26</lastmod>
+    <loc>https://digitalinfohub.net/vrexperiences/artify-space</loc>
+    <lastmod>2026-11-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>

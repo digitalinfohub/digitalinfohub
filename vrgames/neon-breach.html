@@ -6,7 +6,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
   <title>Neon Breach: WebXR Arcade Shooter | Digital Infohub</title>
-  <meta name="description" content="Play Neon Breach free: a WebXR wave shooter set in Sector 09. Dual blasters, combo multipliers, three enemy types and a desktop simulator if you have no headset. No install, no signup." />
+  <meta name="description" content="Play Neon Breach free: a WebXR wave shooter set in Sector 09. Dual blasters, combo multipliers, three enemy types, plus desktop, phone touch and AR modes if you have no headset. No install, no signup." />
   <meta name="keywords" content="neon breach, webxr shooter, free vr game, browser vr shooter, vr wave shooter, quest browser game, play vr without headset" />
   <link rel="canonical" href="https://digitalinfohub.net/vrgames/neon-breach" />
   <meta property="og:type" content="website" />
@@ -106,6 +106,38 @@
       background: linear-gradient(90deg, rgba(255, 0, 212, 0.48), rgba(0, 243, 255, 0.48)) !important;
       box-shadow: 0 0 30px rgba(255, 0, 212, 0.75) !important;
     }
+    /* AR button matches the VR button; ARButton only appears when the device supports it. */
+    #ARButton {
+      position: static !important;
+      width: 100% !important;
+      padding: 14px 24px !important;
+      border-radius: 0.75rem !important;
+      border: 1px solid #22d3ee !important;
+      background: linear-gradient(90deg, rgba(16, 185, 129, 0.3), rgba(34, 211, 238, 0.32)) !important;
+      color: #ffffff !important;
+      font-family: 'Orbitron', sans-serif !important;
+      font-weight: 700 !important;
+      font-size: 0.95rem !important;
+      letter-spacing: 0.12em !important;
+      text-transform: uppercase !important;
+      cursor: pointer !important;
+      opacity: 1 !important;
+      box-shadow: 0 0 20px rgba(34, 211, 238, 0.35) !important;
+      transition: all 0.2s ease !important;
+      margin-top: 0.6rem !important;
+    }
+    #ARButton:hover { box-shadow: 0 0 30px rgba(34, 211, 238, 0.7) !important; }
+    /* Always-available exit while an AR session is running (the menu button hides). */
+    #ar-exit {
+      position: fixed; z-index: 70; top: max(14px, env(safe-area-inset-top)); right: 14px;
+      display: none; align-items: center; gap: 7px; padding: 10px 14px; border-radius: 999px;
+      border: 1px solid rgba(34, 211, 238, .65); background: rgba(4, 10, 22, .86);
+      color: #d9fbff; font-family: 'Orbitron', sans-serif; font-size: 11px; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase; cursor: pointer;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, .45), 0 0 18px rgba(34, 211, 238, .28);
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    }
+    #ar-exit.is-on { display: inline-flex; }
   </style>
 
   <!-- Import Map for Three.js r181+ ES Modules -->
@@ -247,7 +279,7 @@
           <div id="vr-button-container" class="w-full"></div>
 
           <button id="btn-desktop-play" class="cyber-btn w-full py-4 px-6 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-orbitron font-black text-sm sm:text-base tracking-widest uppercase cursor-pointer shadow-[0_0_20px_rgba(0,243,255,0.45)]">
-            PLAY IN DESKTOP SIMULATOR
+            PLAY IN BROWSER · DESKTOP / PHONE
           </button>
 
           <a href="/vrgames" class="cyber-btn block w-full py-3 px-6 rounded-xl border border-cyan-400/40 bg-cyan-950/40 hover:bg-cyan-900/60 text-cyan-200 font-orbitron text-xs tracking-widest uppercase text-center no-underline">
@@ -266,6 +298,8 @@
         <div class="mt-5 pt-4 border-t border-cyan-500/20 flex flex-wrap justify-center gap-x-6 gap-y-1 text-xs text-cyan-200/80">
           <span><strong>VR:</strong> Dual Touch Controllers + Triggers</span>
           <span><strong>Desktop:</strong> Mouse Aim + Left-Click / Space</span>
+          <span><strong>Phone:</strong> Drag to aim + tap to fire</span>
+          <span><strong>AR:</strong> Phone camera + tap to fire</span>
         </div>
       </div>
     </div>
@@ -280,6 +314,7 @@
   <script type="module">
     import * as THREE from 'three';
     import { VRButton } from 'three/addons/webxr/VRButton.js';
+    import { ARButton } from 'three/addons/webxr/ARButton.js';
     import { XRControllerModelFactory } from 'three/addons/webxr/XRControllerModelFactory.js';
 
     // =========================================================================
@@ -498,9 +533,13 @@
     // =========================================================================
     // 3. THREE.JS SCENE, CAMERA, RENDERER & LIGHTING SETUP
     // =========================================================================
+    const IS_TOUCH = window.matchMedia('(pointer: coarse)').matches || navigator.maxTouchPoints > 0;
+
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0x05020d);
     scene.fog = new THREE.FogExp2(0x080318, 0.016);
+    const DEFAULT_BG = scene.background;
+    const DEFAULT_FOG = scene.fog;
 
     const camera = new THREE.PerspectiveCamera(72, window.innerWidth / window.innerHeight, 0.1, 180);
     // Player rig allows smooth 6DoF VR tracking + desktop offset
@@ -511,18 +550,35 @@
     camera.position.set(0, 1.6, 0);
     playerRig.add(camera);
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, IS_TOUCH ? 1.5 : 2));
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.xr.enabled = true;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.25;
     document.body.appendChild(renderer.domElement);
 
-    // Setup WebXR VRButton inside Menu Container
+    // Setup WebXR VRButton and ARButton inside the menu. ARButton hides itself
+    // automatically on devices without immersive-ar support.
     const vrBtnContainer = document.getElementById('vr-button-container');
     const vrButton = VRButton.createButton(renderer);
     vrBtnContainer.appendChild(vrButton);
+    const arButton = ARButton.createButton(renderer, {
+      optionalFeatures: ['local-floor', 'dom-overlay', 'hit-test'],
+      domOverlay: { root: document.body }
+    });
+    vrBtnContainer.appendChild(arButton);
+
+    const arExitButton = document.createElement('button');
+    arExitButton.id = 'ar-exit';
+    arExitButton.type = 'button';
+    arExitButton.setAttribute('aria-label', 'Exit the augmented reality session');
+    arExitButton.textContent = '✕ EXIT AR';
+    arExitButton.addEventListener('click', () => {
+      const session = renderer.xr.getSession();
+      if (session) session.end().catch(() => {});
+    });
+    document.body.appendChild(arExitButton);
 
     // Lighting
     const hemiLight = new THREE.HemisphereLight(0x00f3ff, 0xff00d4, 1.1);
@@ -663,6 +719,51 @@
     holoPanelMesh.position.set(0, 3.65, -6.5);
     holoPanelMesh.rotation.x = 0.18;
     scene.add(holoPanelMesh);
+
+    // Head-locked game-over panel: DOM is invisible inside a headset, so the
+    // final score and the retry hint have to exist in the 3D scene as well.
+    const goCanvas = document.createElement('canvas');
+    goCanvas.width = 1024;
+    goCanvas.height = 512;
+    const goCtx = goCanvas.getContext('2d');
+    const goTexture = new THREE.CanvasTexture(goCanvas);
+    const goPanel = new THREE.Mesh(
+      new THREE.PlaneGeometry(2.5, 1.25),
+      new THREE.MeshBasicMaterial({ map: goTexture, transparent: true, depthTest: false, depthWrite: false })
+    );
+    goPanel.position.set(0, -0.02, -2.5);
+    goPanel.renderOrder = 999;
+    goPanel.visible = false;
+    camera.add(goPanel);
+
+    function drawGameOverPanel() {
+      const c = goCtx;
+      c.clearRect(0, 0, 1024, 512);
+      c.fillStyle = 'rgba(7, 2, 16, 0.88)';
+      c.strokeStyle = 'rgba(255, 0, 110, 0.9)';
+      c.lineWidth = 6;
+      const r = 34;
+      c.beginPath();
+      c.moveTo(r, 8); c.lineTo(1024 - r, 8); c.quadraticCurveTo(1016, 8, 1016, r);
+      c.lineTo(1016, 504 - r); c.quadraticCurveTo(1016, 504, 1024 - r, 504);
+      c.lineTo(r, 504); c.quadraticCurveTo(8, 504, 8, 504 - r);
+      c.lineTo(8, r); c.quadraticCurveTo(8, 8, r, 8); c.closePath();
+      c.fill(); c.stroke();
+      c.textAlign = 'center';
+      c.fillStyle = '#ff2a6d';
+      c.font = '700 34px Orbitron, Arial, sans-serif';
+      c.fillText('S E C T O R   L O S T', 512, 104);
+      c.fillStyle = '#ffffff';
+      c.font = '900 108px Orbitron, Arial Black, sans-serif';
+      c.fillText('GAME OVER', 512, 236);
+      c.fillStyle = '#7ef9ff';
+      c.font = '700 38px Orbitron, Arial, sans-serif';
+      c.fillText('WAVE ' + state.wave + '   ·   SCORE ' + state.score.toLocaleString(), 512, 318);
+      c.fillStyle = '#c8b6ff';
+      c.font = '600 30px Arial, sans-serif';
+      c.fillText('Pull the trigger or tap the screen to retry', 512, 406);
+      goTexture.needsUpdate = true;
+    }
 
     function updateDiegeticHUD() {
       const ctx = holoCtx;
@@ -807,6 +908,11 @@
         delete controller.userData.inputSource;
       });
       controller.addEventListener('selectstart', () => {
+        if (state.mode === 'GAMEOVER') {
+          const session = renderer.xr.getSession();
+          resetAndStartGame(session && session.environmentBlendMode !== 'opaque' ? 'AR' : 'VR');
+          return;
+        }
         if (state.mode === 'VR') {
           fireFromBlaster(blaster, i, controller.userData.inputSource);
         }
@@ -845,7 +951,7 @@
     boltGeo.rotateX(Math.PI / 2);
 
     function fireFromBlaster(blasterObj, handIndex, inputSource = null) {
-      if (state.mode !== 'VR' && state.mode !== 'DESKTOP') return;
+      if (state.mode !== 'VR' && state.mode !== 'DESKTOP' && state.mode !== 'AR') return;
 
       const muzzle = blasterObj.userData.muzzle;
       const spawnPos = new THREE.Vector3();
@@ -855,8 +961,8 @@
 
       const dir = new THREE.Vector3(0, 0, -1).applyQuaternion(quat).normalize();
 
-      // In Desktop mode, converge shot slightly toward exact center crosshair ray
-      if (state.mode === 'DESKTOP') {
+      // In Desktop and AR modes, converge shot toward the centre of the view
+      if (state.mode === 'DESKTOP' || state.mode === 'AR') {
         const camDir = new THREE.Vector3();
         camera.getWorldDirection(camDir);
         const camPos = new THREE.Vector3();
@@ -1148,15 +1254,17 @@
 
       document.getElementById('main-menu').classList.add('hidden');
       document.getElementById('gameover-banner').classList.add('hidden');
+      goPanel.visible = false;
 
-      if (targetMode === 'DESKTOP') {
+      if (targetMode === 'DESKTOP' || targetMode === 'AR') {
         document.getElementById('desktop-hud').classList.remove('hidden');
         document.getElementById('desktop-crosshair').classList.remove('hidden');
         desktopBlasters[0].visible = true;
         desktopBlasters[1].visible = true;
         vrBlasters[0].visible = false;
         vrBlasters[1].visible = false;
-        requestDesktopPointerLock();
+        if (targetMode === 'DESKTOP' && !IS_TOUCH && !renderer.xr.isPresenting) requestDesktopPointerLock();
+        if (targetMode === 'AR') pointerHintEl.classList.add('hidden');
       } else if (targetMode === 'VR') {
         document.getElementById('desktop-hud').classList.add('hidden');
         document.getElementById('desktop-crosshair').classList.add('hidden');
@@ -1185,10 +1293,11 @@
       document.getElementById('final-score').textContent = state.score.toLocaleString();
       document.getElementById('final-wave').textContent = state.wave;
       document.getElementById('final-combo').textContent = `${state.maxCombo}x`;
+      drawGameOverPanel();
     }
 
     function damageCore(amount) {
-      if (state.mode !== 'VR' && state.mode !== 'DESKTOP') return;
+      if (state.mode !== 'VR' && state.mode !== 'DESKTOP' && state.mode !== 'AR') return;
       state.coreHp = Math.max(0, state.coreHp - amount);
       state.combo = 1;
       state.screenShake = 0.25;
@@ -1206,6 +1315,7 @@
     const mainMenuEl = document.getElementById('main-menu');
     const pointerHintEl = document.getElementById('pointer-lock-hint');
     const hitMarkerEl = document.getElementById('hit-marker');
+    if (IS_TOUCH) pointerHintEl.textContent = 'Drag to aim • Tap to fire';
 
     function flashHitMarker() {
       hitMarkerEl.classList.remove('hidden');
@@ -1273,6 +1383,56 @@
       isDragging = false;
     });
 
+    // Touch controls: drag to aim, lift without dragging to fire.
+    let touchLookId = null;
+    let lastTouch = { x: 0, y: 0 };
+    let touchMoved = false;
+    let touchStartAt = 0;
+
+    renderer.domElement.addEventListener('touchstart', (e) => {
+      if (state.mode !== 'DESKTOP') return;
+      const t = e.changedTouches[0];
+      touchLookId = t.identifier;
+      lastTouch = { x: t.clientX, y: t.clientY };
+      touchMoved = false;
+      touchStartAt = performance.now();
+      e.preventDefault();
+    }, { passive: false });
+
+    renderer.domElement.addEventListener('touchmove', (e) => {
+      if (state.mode !== 'DESKTOP' || touchLookId === null) return;
+      for (let i = 0; i < e.changedTouches.length; i++) {
+        const t = e.changedTouches[i];
+        if (t.identifier !== touchLookId) continue;
+        const dx = t.clientX - lastTouch.x;
+        const dy = t.clientY - lastTouch.y;
+        if (Math.abs(dx) + Math.abs(dy) > 2) touchMoved = true;
+        state.desktopYaw -= dx * 0.0042;
+        state.desktopPitch -= dy * 0.0042;
+        state.desktopYaw = Math.max(-Math.PI * 0.55, Math.min(Math.PI * 0.55, state.desktopYaw));
+        state.desktopPitch = Math.max(-Math.PI * 0.35, Math.min(Math.PI * 0.42, state.desktopPitch));
+        lastTouch = { x: t.clientX, y: t.clientY };
+        break;
+      }
+      e.preventDefault();
+    }, { passive: false });
+
+    renderer.domElement.addEventListener('touchend', (e) => {
+      if (state.mode !== 'DESKTOP') return;
+      for (let i = 0; i < e.changedTouches.length; i++) {
+        if (e.changedTouches[i].identifier !== touchLookId) continue;
+        const quickTap = !touchMoved && performance.now() - touchStartAt < 320;
+        if (quickTap) {
+          const hand = state.desktopAlternateHand;
+          state.desktopAlternateHand = 1 - hand;
+          fireFromBlaster(desktopBlasters[hand], hand);
+        }
+        touchLookId = null;
+        break;
+      }
+      e.preventDefault();
+    }, { passive: false });
+
     window.addEventListener('keydown', (e) => {
       if (state.mode === 'DESKTOP' && e.code === 'Space') {
         e.preventDefault();
@@ -1300,13 +1460,54 @@
       document.getElementById('main-menu').classList.remove('hidden');
     });
 
-    // WebXR Session Start / End Hooks
+    // AR keeps the game objects but drops the synthwave arena and sky, so the
+    // camera passthrough becomes the backdrop. Screen taps fire the blasters.
+    function enterARVisuals() {
+      arenaGroup.visible = false;
+      scene.background = null;
+      scene.fog = null;
+      renderer.setClearAlpha(0);
+    }
+
+    function exitARVisuals() {
+      arenaGroup.visible = true;
+      scene.background = DEFAULT_BG;
+      scene.fog = DEFAULT_FOG;
+      renderer.setClearAlpha(1);
+    }
+
+    let arSelectHandler = null;
+
+    // WebXR Session Start / End Hooks (shared by the VR and AR buttons)
     renderer.xr.addEventListener('sessionstart', () => {
-      resetAndStartGame('VR');
+      const session = renderer.xr.getSession();
+      const isAR = !!session && session.environmentBlendMode && session.environmentBlendMode !== 'opaque';
+      if (isAR) {
+        enterARVisuals();
+        arExitButton.classList.add('is-on');
+        resetAndStartGame('AR');
+        arSelectHandler = () => {
+          if (state.mode === 'GAMEOVER') {
+            resetAndStartGame('AR');
+            return;
+          }
+          if (state.mode !== 'AR') return;
+          const hand = state.desktopAlternateHand;
+          state.desktopAlternateHand = 1 - hand;
+          fireFromBlaster(desktopBlasters[hand], hand);
+        };
+        session.addEventListener('select', arSelectHandler);
+      } else {
+        resetAndStartGame('VR');
+      }
     });
 
     renderer.xr.addEventListener('sessionend', () => {
+      arExitButton.classList.remove('is-on');
+      exitARVisuals();
       state.mode = 'MENU';
+      document.getElementById('desktop-hud').classList.add('hidden');
+      document.getElementById('desktop-crosshair').classList.add('hidden');
       document.getElementById('main-menu').classList.remove('hidden');
     });
 
@@ -1363,7 +1564,7 @@
       }
 
       // Active Gameplay Logic
-      if (state.mode === 'DESKTOP' || state.mode === 'VR') {
+      if (state.mode === 'DESKTOP' || state.mode === 'VR' || state.mode === 'AR') {
         // Combo decay timer
         if (state.combo > 1) {
           state.comboTimer -= dt;
@@ -1614,6 +1815,7 @@
       renderer.setAnimationLoop(() => {
         const dt = Math.min(clock.getDelta(), 0.05);
         updateSimulation(dt);
+        goPanel.visible = state.mode === 'GAMEOVER' && renderer.xr.isPresenting;
         renderer.render(scene, camera);
       });
     };

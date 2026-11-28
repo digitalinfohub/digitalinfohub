@@ -1,0 +1,1763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>Artify Space Museum — 3D WebXR Art Gallery | Digital Infohub</title>
+  <meta name="description" content="Walk into Artify Space, a free WebXR art museum in your browser: 14 digital and coloured-pencil artworks, three portfolio portals and a visitor lounge. Headset, desktop or phone — no install, no signup." />
+  <meta name="keywords" content="vr art gallery, webxr museum, virtual art museum, walk in vr, 3d art gallery, artify space, free vr experience, play vr without headset" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="author" content="Digital Infohub" />
+  <link rel="canonical" href="https://digitalinfohub.net/vrexperiences/artify-space" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Digital Infohub" />
+  <meta property="og:title" content="Artify Space Museum — 3D WebXR Art Gallery | Digital Infohub" />
+  <meta property="og:description" content="A walk-in virtual gallery: 14 artworks across two wings, three portfolio portals and a visitor lounge, in a headset or on desktop." />
+  <meta property="og:url" content="https://digitalinfohub.net/vrexperiences/artify-space" />
+  <meta property="og:image" content="https://digitalinfohub.net/assets/og/vrexperiences-artify-space.jpg" />
+  <meta property="og:image:secure_url" content="https://digitalinfohub.net/assets/og/vrexperiences-artify-space.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Artify Space Museum - 3D WebXR Art Gallery — Digital Infohub" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Artify Space Museum — 3D WebXR Art Gallery | Digital Infohub" />
+  <meta name="twitter:description" content="A walk-in virtual gallery: 14 artworks across two wings, three portfolio portals and a visitor lounge, in a headset or on desktop." />
+  <meta name="twitter:image" content="https://digitalinfohub.net/assets/og/vrexperiences-artify-space.jpg" />
+  <meta name="twitter:image:alt" content="Artify Space Museum - 3D WebXR Art Gallery — Digital Infohub" />
+  <meta name="theme-color" content="#0b0e1a" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="icon" href="/assets/favicon.ico" sizes="any" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Artify Space Museum — 3D WebXR Art Gallery","url":"https://digitalinfohub.net/vrexperiences/artify-space","description":"A walk-in virtual art museum built with Three.js and WebXR: 14 digital and coloured-pencil artworks, three portfolio portals and a visitor lounge, playable in a headset or on desktop.","inLanguage":"en","isPartOf":{"@type":"WebSite","name":"Digital Infohub","url":"https://digitalinfohub.net"},"publisher":{"@type":"Organization","name":"Digital Infohub","url":"https://digitalinfohub.net"},"about":{"@type":"Thing","name":"Artify Space"}}</script>
+
+  <!-- Google AdSense Script -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5443646750699471"
+       crossorigin="anonymous"></script>
+
+  <!-- Tailwind CSS & Google Fonts -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+  <!-- Three.js r128 Core -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: #0b0e1a;
+      font-family: 'Inter', sans-serif;
+      color: #f8fafc;
+      touch-action: none;
+      overscroll-behavior: none;
+    }
+    #canvas-container {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      touch-action: none;
+    }
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+      outline: none;
+    }
+    .font-display {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    .glass-panel {
+      background: rgba(15, 20, 38, 0.78);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55);
+    }
+    .glass-pill {
+      background: rgba(15, 20, 38, 0.72);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+    }
+    /* Custom scrollbar for drawers/modals */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.4);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(129, 140, 248, 0.45);
+      border-radius: 9999px;
+    }
+    #vr-button-mount button,
+    #ar-button-mount button {
+      position: static !important;
+      width: auto !important;
+      padding: 0.55rem 1rem !important;
+      border-radius: 9999px !important;
+      border: 1px solid rgba(167, 139, 250, 0.55) !important;
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.88), rgba(168, 85, 247, 0.88)) !important;
+      color: #ffffff !important;
+      font-family: 'Space Grotesk', sans-serif !important;
+      font-weight: 600 !important;
+      font-size: 0.8rem !important;
+      letter-spacing: 0.03em !important;
+      cursor: pointer !important;
+      box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4) !important;
+      transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+      white-space: nowrap !important;
+    }
+    #ar-button-mount button {
+      border-color: rgba(56, 189, 248, 0.6) !important;
+      background: linear-gradient(135deg, rgba(14, 165, 233, 0.88), rgba(16, 185, 129, 0.88)) !important;
+      box-shadow: 0 4px 20px rgba(14, 165, 233, 0.4) !important;
+    }
+    #vr-button-mount button:hover,
+    #ar-button-mount button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 25px rgba(139, 92, 246, 0.65) !important;
+    }
+    /* Virtual Analog Joystick for Mobile */
+    #mobile-joystick-zone {
+      width: 124px;
+      height: 124px;
+      border-radius: 9999px;
+      background: rgba(15, 20, 38, 0.55);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1.5px solid rgba(129, 140, 248, 0.35);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+      position: relative;
+      touch-action: none;
+    }
+    #mobile-joystick-knob {
+      width: 48px;
+      height: 48px;
+      border-radius: 9999px;
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.9), rgba(56, 189, 248, 0.9));
+      border: 2px solid rgba(255, 255, 255, 0.65);
+      box-shadow: 0 4px 14px rgba(56, 189, 248, 0.5);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      transition: transform 0.05s linear;
+    }
+    /* Subtle center crosshair for desktop inspection */
+    #crosshair {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 10px;
+      height: 10px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.55);
+      pointer-events: none;
+      z-index: 15;
+      transition: transform 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+    }
+    #crosshair.hovering {
+      transform: translate(-50%, -50%) scale(1.7);
+      border-color: #38bdf8;
+      background-color: rgba(56, 189, 248, 0.25);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 3D WebGL / WebXR Viewport -->
+  <div id="canvas-container"></div>
+
+  <!-- Subtle Interactive Reticle -->
+  <div id="crosshair"></div>
+
+  <!-- Hover Tooltip Pill -->
+  <div id="hover-label" class="fixed top-1/2 left-1/2 -translate-x-1/2 translate-y-5 z-20 pointer-events-none hidden">
+    <div class="glass-pill px-3.5 py-1.5 rounded-full text-xs font-medium text-sky-200 shadow-lg flex items-center gap-2">
+      <span class="w-2 h-2 rounded-full bg-sky-400 animate-pulse"></span>
+      <span id="hover-label-text">Inspect Artwork</span>
+    </div>
+  </div>
+
+  <!-- Top Navigation & Teleport HUD -->
+  <header class="fixed top-0 left-0 right-0 z-30 p-3 sm:p-4 flex flex-wrap items-center justify-between gap-2 pointer-events-none">
+    <!-- Brand Badge -->
+    <div class="glass-pill rounded-2xl px-4 py-2.5 flex items-center gap-3 pointer-events-auto">
+      <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 via-purple-500 to-sky-400 flex items-center justify-center text-lg shadow-inner">
+        🫐
+      </div>
+      <div>
+        <h1 class="font-display font-bold text-sm sm:text-base tracking-tight text-white leading-tight">
+          Artify Space Museum
+        </h1>
+        <p class="text-[11px] text-slate-300 leading-tight">
+          Stylized Environment Artist 🎮🗺️ • Illustrator 🐌🫐
+        </p>
+      </div>
+    </div>
+
+    <!-- Quick Wing Warp Pills -->
+    <nav class="glass-pill rounded-full p-1.5 flex items-center gap-1 pointer-events-auto overflow-x-auto max-w-full">
+      <button onclick="window.museumApp.teleportTo('atrium')" class="px-3 py-1.5 rounded-full text-xs font-medium text-slate-200 hover:text-white hover:bg-white/10 transition whitespace-nowrap">
+        🏛️ Atrium
+      </button>
+      <button onclick="window.museumApp.teleportTo('portfolios')" class="px-3 py-1.5 rounded-full text-xs font-medium text-slate-200 hover:text-white hover:bg-white/10 transition whitespace-nowrap">
+        🖥️ Portals
+      </button>
+      <button onclick="window.museumApp.teleportTo('digital')" class="px-3 py-1.5 rounded-full text-xs font-medium text-sky-300 hover:text-white hover:bg-sky-500/20 transition whitespace-nowrap">
+        🎨 Digital Wing
+      </button>
+      <button onclick="window.museumApp.teleportTo('traditional')" class="px-3 py-1.5 rounded-full text-xs font-medium text-amber-300 hover:text-white hover:bg-amber-500/20 transition whitespace-nowrap">
+        ✏️ Physical Wing
+      </button>
+    </nav>
+
+    <!-- Action Controls: Guide/Lounge Drawer & WebXR VR/AR Buttons -->
+    <div class="flex items-center gap-1.5 sm:gap-2 pointer-events-auto flex-wrap justify-end">
+      <span id="device-mode-badge" class="glass-pill px-2.5 py-1.5 rounded-full text-[11px] font-medium text-sky-300 hidden sm:inline-flex items-center gap-1">
+        🖥️ Desktop
+      </span>
+      <button id="toggle-lounge-btn" onclick="window.museumApp.toggleLounge()" class="glass-pill hover:bg-white/10 text-slate-100 px-3 sm:px-3.5 py-2 rounded-full text-xs font-medium transition flex items-center gap-1.5">
+        <span>📘</span>
+        <span class="hidden sm:inline">Guide & Lounge</span>
+      </button>
+      <div id="ar-button-mount"></div>
+      <div id="vr-button-mount"></div>
+    </div>
+  </header>
+
+  <!-- Collapsible Museum Guide & AdSense Lounge Sidebar -->
+  <aside id="lounge-drawer" class="fixed top-20 right-3 sm:right-4 bottom-16 w-[calc(100vw-1.5rem)] sm:w-80 z-30 glass-panel rounded-3xl p-4 flex flex-col justify-between overflow-y-auto transition-all duration-300 translate-x-[120%] opacity-0 pointer-events-none">
+    <div class="space-y-4">
+      <div class="flex items-center justify-between border-b border-white/10 pb-3">
+        <div>
+          <span class="text-[10px] uppercase tracking-widest text-indigo-400 font-semibold">Visitor Lounge</span>
+          <h2 class="font-display font-bold text-base text-white">Museum Directory</h2>
+        </div>
+        <button onclick="window.museumApp.toggleLounge(false)" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/15 flex items-center justify-center text-slate-300 hover:text-white transition">
+          ✕
+        </button>
+      </div>
+
+      <!-- Artist Bio Card -->
+      <div class="bg-white/5 rounded-2xl p-3.5 border border-white/10 space-y-2">
+        <div class="flex items-center gap-2 text-sm font-semibold text-white">
+          <span>🎮🗺️</span>
+          <span>Artify Space</span>
+          <span>🐌🫐</span>
+        </div>
+        <p class="text-xs text-slate-300 leading-relaxed">
+          Welcome to the floating celestial gallery of <strong class="text-white">Artify Space</strong> — showcasing stylized 3D worlds, digital art, and coloured pencil physical art.
+        </p>
+        <div class="text-[11px] font-medium text-indigo-300 bg-indigo-500/15 border border-indigo-400/20 rounded-xl px-2.5 py-1.5">
+          Experience made by Digital Infohub
+        </div>
+        <div class="grid grid-cols-1 gap-1.5 pt-1">
+          <a href="https://artifys.wixsite.com/artifyspace" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-3 py-2 rounded-xl bg-indigo-500/20 hover:bg-indigo-500/30 border border-indigo-400/25 text-xs text-indigo-200 transition">
+            <span>🌐 Official Artify Space Site</span>
+            <span>↗</span>
+          </a>
+          <a href="https://www.fab.com/sellers/ArtifySpace" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-3 py-2 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-400/25 text-xs text-emerald-200 transition">
+            <span>🧊 Fab 3D Environment Store</span>
+            <span>↗</span>
+          </a>
+          <a href="https://artifyspace.artstation.com/" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-3 py-2 rounded-xl bg-sky-500/20 hover:bg-sky-500/30 border border-sky-400/25 text-xs text-sky-200 transition">
+            <span>🎨 ArtStation Portfolio</span>
+            <span>↗</span>
+          </a>
+          <a href="/vrexperiences" class="flex items-center justify-between px-3 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs text-slate-300 transition">
+            <span>← All VR experiences</span>
+            <span>↩</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Controls Quick Reference -->
+      <div class="bg-white/5 rounded-2xl p-3.5 border border-white/10 space-y-2">
+        <h3 class="text-xs font-semibold uppercase tracking-wider text-slate-300">Navigation Controls</h3>
+        <ul class="text-xs text-slate-300 space-y-1.5">
+          <li class="flex justify-between"><span>Move / Walk</span><span class="text-white font-mono bg-white/10 px-1.5 py-0.5 rounded">W A S D / Arrows</span></li>
+          <li class="flex justify-between"><span>Look Around</span><span class="text-white font-mono bg-white/10 px-1.5 py-0.5 rounded">Click + Drag / Lock</span></li>
+          <li class="flex justify-between"><span>Inspect Art / Screen</span><span class="text-white font-mono bg-white/10 px-1.5 py-0.5 rounded">Click / VR Trigger</span></li>
+          <li class="flex justify-between"><span>VR Locomotion</span><span class="text-white font-mono bg-white/10 px-1.5 py-0.5 rounded">Thumbstick / Ray</span></li>
+        </ul>
+      </div>
+
+      <!-- Comfortable AdSense Display Unit Container -->
+      <div class="bg-slate-900/70 rounded-2xl p-3 border border-white/10">
+        <div class="text-[10px] uppercase tracking-widest text-slate-400 text-center mb-1.5">Museum Sponsor</div>
+        <div class="w-full overflow-hidden rounded-xl bg-slate-950/60 min-h-[120px] flex items-center justify-center">
+          <!-- Display manual 2026 square -->
+          <ins class="adsbygoogle"
+               style="display:block; width:100%;"
+               data-ad-client="ca-pub-5443646750699471"
+               data-ad-slot="8451723433"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>
+               (adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Bottom Controls & Mobile Touch Pad -->
+  <footer class="fixed bottom-3 left-3 right-3 z-20 flex items-end justify-between pointer-events-none gap-2">
+    <!-- Desktop Control Hint Pill -->
+    <div id="desktop-controls-hint" class="hidden md:flex glass-pill rounded-full px-4 py-2 items-center gap-4 text-xs text-slate-300 pointer-events-auto">
+      <span><strong class="text-white">WASD</strong> Move</span>
+      <span class="text-white/20">|</span>
+      <span><strong class="text-white">Drag</strong> or <button onclick="window.museumApp.requestPointerLock()" class="underline text-sky-300 hover:text-sky-200">Lock Mouse</button> to Look</span>
+      <span class="text-white/20">|</span>
+      <span><strong class="text-white">Click</strong> Artworks & Screens</span>
+    </div>
+
+    <!-- Mobile Analog Joystick & Quick Controls -->
+    <div id="mobile-controls-hud" class="hidden items-end gap-3 pointer-events-auto">
+      <div id="mobile-joystick-zone" aria-label="Movement Joystick">
+        <div id="mobile-joystick-knob"></div>
+      </div>
+      <div class="glass-pill rounded-2xl px-3 py-2 text-[11px] text-slate-200 leading-snug max-w-[140px]">
+        <div class="font-semibold text-sky-300 mb-0.5">📱 Touch Controls</div>
+        <div>Left stick: Walk</div>
+        <div>Drag screen: Look</div>
+        <div>Tap art: Inspect</div>
+      </div>
+    </div>
+
+    <!-- Loading Progress Indicator -->
+    <div id="load-status" class="glass-pill rounded-full px-3.5 py-1.5 text-xs text-slate-300 flex items-center gap-2 pointer-events-auto ml-auto">
+      <span id="load-dot" class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+      <span id="load-text">Curating 14 Artworks...</span>
+    </div>
+  </footer>
+
+  <!-- Welcome Lobby Overlay -->
+  <div id="welcome-modal" class="fixed inset-0 z-40 bg-slate-950/75 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="glass-panel max-w-2xl w-full rounded-3xl p-6 sm:p-8 border border-indigo-400/25 shadow-2xl space-y-6 max-h-[92vh] overflow-y-auto">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-5">
+        <div class="flex items-center gap-3.5">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-500 via-purple-500 to-sky-400 flex items-center justify-center text-3xl shadow-lg">
+            🐌
+          </div>
+          <div>
+            <span class="text-xs font-semibold uppercase tracking-widest text-sky-400">WebXR & Desktop 3D Gallery</span>
+            <h2 class="font-display text-2xl sm:text-3xl font-bold text-white">Artify Space Museum</h2>
+            <p class="text-xs sm:text-sm text-slate-300">Stylized Environment Artist 🎮🗺️ • Digital & Coloured Pencil Illustrator 🐌🫐</p>
+            <p class="text-xs font-semibold text-indigo-300 mt-1">Experience made by Digital Infohub</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+        <div class="bg-white/5 rounded-2xl p-3.5 border border-white/10">
+          <div class="text-lg mb-1">🎨</div>
+          <div class="font-semibold text-white mb-0.5">Artify Space Digital Art</div>
+          <p class="text-slate-400">7 digital artworks & stylized worlds in the West Gallery.</p>
+        </div>
+        <div class="bg-white/5 rounded-2xl p-3.5 border border-white/10">
+          <div class="text-lg mb-1">✏️</div>
+          <div class="font-semibold text-white mb-0.5">Artify Space Physical Art</div>
+          <p class="text-slate-400">7 coloured pencil & traditional pieces in the East Gallery.</p>
+        </div>
+        <div class="bg-white/5 rounded-2xl p-3.5 border border-white/10">
+          <div class="text-lg mb-1">🥽</div>
+          <div class="font-semibold text-white mb-0.5">WebXR & Desktop</div>
+          <p class="text-slate-400">Explore via VR headset or WASD + mouse drag on any browser.</p>
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
+        <button onclick="window.museumApp.enterExperience(false)" class="w-full sm:w-auto flex-1 py-3.5 px-6 rounded-2xl bg-gradient-to-r from-indigo-500 via-purple-500 to-sky-500 hover:from-indigo-400 hover:to-sky-400 text-white font-display font-bold text-sm sm:text-base shadow-lg shadow-indigo-500/30 transition transform hover:-translate-y-0.5 cursor-pointer">
+          Enter 3D Museum →
+        </button>
+        <button onclick="window.museumApp.enterExperience(true)" class="w-full sm:w-auto py-3.5 px-5 rounded-2xl bg-white/10 hover:bg-white/15 border border-white/15 text-slate-200 font-medium text-xs sm:text-sm transition cursor-pointer">
+          Enter + Open Lounge Guide
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Artwork & Interactive Screen Inspection Lightbox Modal -->
+  <div id="inspect-modal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-lg hidden items-center justify-center p-4">
+    <div class="glass-panel max-w-4xl w-full rounded-3xl overflow-hidden border border-white/15 shadow-2xl flex flex-col max-h-[92vh]">
+      <!-- Modal Header -->
+      <div class="px-5 py-4 border-b border-white/10 flex items-center justify-between">
+        <div>
+          <span id="inspect-category" class="text-[11px] uppercase tracking-widest font-semibold text-sky-400">Digital Artwork</span>
+          <h3 id="inspect-title" class="font-display text-lg sm:text-xl font-bold text-white">Artwork Title</h3>
+        </div>
+        <button onclick="window.museumApp.closeInspectModal()" class="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition cursor-pointer">
+          ✕
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div id="inspect-body" class="p-5 overflow-y-auto flex-1 flex flex-col items-center justify-center gap-4">
+        <!-- Artwork Image View -->
+        <img id="inspect-image" src="" alt="Artwork Preview" class="max-h-[60vh] w-auto rounded-2xl shadow-2xl border border-white/10 object-contain hidden" />
+
+        <!-- Web Portal View (for the 3 Artify Space sites) -->
+        <div id="inspect-portal-box" class="w-full hidden flex-col gap-4">
+          <div class="bg-slate-900/90 rounded-2xl p-5 border border-indigo-400/25 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div class="space-y-1">
+              <div id="portal-badge" class="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-indigo-500/25 text-indigo-300">Official Portfolio</div>
+              <h4 id="portal-heading" class="font-display text-xl font-bold text-white">Artify Space</h4>
+              <p id="portal-desc" class="text-xs sm:text-sm text-slate-300 max-w-xl">Explore environments, 3D assets, and illustrations.</p>
+              <div id="portal-url-text" class="text-xs font-mono text-sky-400 pt-1 break-all">https://artifys.wixsite.com/artifyspace</div>
+            </div>
+            <div class="flex flex-wrap gap-2 shrink-0">
+              <a id="portal-external-link" href="#" target="_blank" rel="noopener noreferrer" class="px-5 py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-sky-500 hover:from-indigo-400 hover:to-sky-400 text-white font-semibold text-xs sm:text-sm shadow-lg transition flex items-center gap-2">
+                <span>Open Live Site</span>
+                <span>↗</span>
+              </a>
+              <button id="portal-iframe-toggle" onclick="window.museumApp.togglePortalIframe()" class="px-4 py-3 rounded-xl bg-white/10 hover:bg-white/15 text-slate-200 text-xs font-medium border border-white/15 transition cursor-pointer">
+                Try Embedded Frame
+              </button>
+            </div>
+          </div>
+
+          <div id="portal-iframe-container" class="hidden w-full h-[48vh] rounded-2xl overflow-hidden border border-white/15 bg-white relative">
+            <iframe id="portal-iframe" src="" class="w-full h-full border-0" title="Artify Space Portal"></iframe>
+            <div class="absolute bottom-2 right-2 bg-slate-900/90 text-[11px] text-slate-300 px-3 py-1 rounded-full">
+              If blank due to site security headers, use "Open Live Site ↗"
+            </div>
+          </div>
+        </div>
+
+        <p id="inspect-description" class="text-xs sm:text-sm text-slate-300 text-center max-w-2xl leading-relaxed"></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /**
+     * Artify Space — 3D WebXR & Desktop Virtual Museum
+     * Built with Three.js r128
+     */
+    (function () {
+      'use strict';
+
+      // ==========================================
+      // 2. DEVICE DETECTION, THREE.JS & WEBXR SETUP
+      // ==========================================
+      function detectMobileDevice() {
+        const ua = navigator.userAgent || navigator.vendor || window.opera || '';
+        const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+        const isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua);
+        const isSmallViewport = window.innerWidth <= 900 && isTouch;
+        return isMobileUA || isSmallViewport;
+      }
+
+      const isMobile = detectMobileDevice();
+
+      // Apply Mobile vs Desktop UI immediately
+      function applyDeviceUI() {
+        const mobileHud = document.getElementById('mobile-controls-hud');
+        const desktopHint = document.getElementById('desktop-controls-hint');
+        const deviceBadge = document.getElementById('device-mode-badge');
+
+        if (isMobile) {
+          mobileHud.classList.remove('hidden');
+          mobileHud.classList.add('flex');
+          desktopHint.classList.add('hidden');
+          desktopHint.classList.remove('md:flex');
+          if (deviceBadge) deviceBadge.textContent = '📱 Mobile Touch';
+        } else {
+          mobileHud.classList.add('hidden');
+          mobileHud.classList.remove('flex');
+          if (deviceBadge) deviceBadge.textContent = '🖥️ Desktop';
+        }
+      }
+      applyDeviceUI();
+
+      const container = document.getElementById('canvas-container');
+      const scene = new THREE.Scene();
+      const defaultBgColor = new THREE.Color(0x090d1a);
+      const defaultFog = new THREE.FogExp2(0x090d1a, 0.011);
+      scene.background = defaultBgColor;
+      scene.fog = defaultFog;
+
+      const camera = new THREE.PerspectiveCamera(isMobile ? 72 : 68, window.innerWidth / window.innerHeight, 0.15, 160);
+
+      // Player Rig (used for Desktop, Mobile & WebXR VR/AR locomotion!)
+      const playerRig = new THREE.Group();
+      playerRig.position.set(0, 0, 11);
+      camera.position.set(0, 1.65, 0);
+      playerRig.add(camera);
+      scene.add(playerRig);
+
+      const renderer = new THREE.WebGLRenderer({
+        antialias: !isMobile,
+        alpha: true,
+        powerPreference: 'high-performance',
+        logarithmicDepthBuffer: true
+      });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2));
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.shadowMap.enabled = !isMobile;
+      if (!isMobile) {
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+      }
+      renderer.outputEncoding = THREE.sRGBEncoding;
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.12;
+      renderer.xr.enabled = true;
+      container.appendChild(renderer.domElement);
+
+      // Track active XR mode ('vr' | 'ar' | null)
+      let activeXRMode = null;
+
+      function configureSceneForXR(mode) {
+        activeXRMode = mode;
+        if (mode === 'ar') {
+          // Transparent sky/fog so VR headset passthrough or mobile AR camera blends seamlessly!
+          scene.background = null;
+          scene.fog = null;
+          renderer.setClearAlpha(0);
+          exteriorGroup.visible = false;
+        } else {
+          scene.background = defaultBgColor;
+          scene.fog = defaultFog;
+          renderer.setClearAlpha(1);
+          exteriorGroup.visible = true;
+        }
+      }
+
+      // Custom WebXR VR & AR Buttons (Supports VR Headsets with Passthrough AR + Mobile WebXR AR)
+      function setupWebXRButtons() {
+        if (!('xr' in navigator)) return;
+        let currentSession = null;
+        let currentMode = null;
+
+        const vrMount = document.getElementById('vr-button-mount');
+        const arMount = document.getElementById('ar-button-mount');
+        let vrBtn = null;
+        let arBtn = null;
+
+        async function toggleXRSession(mode) {
+          if (currentSession !== null) {
+            await currentSession.end();
+            return;
+          }
+
+          try {
+            const sessionInit = mode === 'ar'
+              ? { optionalFeatures: ['local-floor', 'bounded-floor', 'hand-tracking', 'hit-test', 'dom-overlay'], domOverlay: { root: document.body } }
+              : { optionalFeatures: ['local-floor', 'bounded-floor', 'hand-tracking'] };
+
+            const session = await navigator.xr.requestSession(
+              mode === 'ar' ? 'immersive-ar' : 'immersive-vr',
+              sessionInit
+            );
+
+            renderer.xr.setReferenceSpaceType('local-floor');
+            await renderer.xr.setSession(session);
+            currentSession = session;
+            currentMode = mode;
+            configureSceneForXR(mode);
+
+            if (mode === 'vr' && vrBtn) vrBtn.textContent = 'Exit VR';
+            if (mode === 'ar' && arBtn) arBtn.textContent = 'Exit AR';
+
+            session.addEventListener('end', () => {
+              currentSession = null;
+              currentMode = null;
+              configureSceneForXR(null);
+              if (vrBtn) vrBtn.textContent = '🥽 Enter VR';
+              if (arBtn) arBtn.textContent = '🌐 Enter AR';
+            });
+          } catch (err) {
+            console.warn(`WebXR ${mode.toUpperCase()} session start error:`, err);
+          }
+        }
+
+        // Check Immersive VR support
+        navigator.xr.isSessionSupported('immersive-vr').then((supported) => {
+          if (!supported) return;
+          vrBtn = document.createElement('button');
+          vrBtn.textContent = '🥽 Enter VR';
+          vrBtn.onclick = () => toggleXRSession('vr');
+          vrMount.appendChild(vrBtn);
+        }).catch(() => {});
+
+        // Check Immersive AR support (Meta Quest Passthrough AR, Apple Vision / WebXR AR, Android ARCore)
+        navigator.xr.isSessionSupported('immersive-ar').then((supported) => {
+          if (!supported) return;
+          arBtn = document.createElement('button');
+          arBtn.textContent = '🌐 Enter AR';
+          arBtn.title = 'Mixed Reality Passthrough AR Mode';
+          arBtn.onclick = () => toggleXRSession('ar');
+          arMount.appendChild(arBtn);
+        }).catch(() => {});
+      }
+      setupWebXRButtons();
+
+      // ==========================================
+      // 3. PROCEDURAL TEXTURES & MATERIALS
+      // ==========================================
+      function createTerrazzoTexture() {
+        const canvas = document.createElement('canvas');
+        canvas.width = 512;
+        canvas.height = 512;
+        const ctx = canvas.getContext('2d');
+
+        // Soft warm alabaster/slate terrazzo base
+        ctx.fillStyle = '#1b2238';
+        ctx.fillRect(0, 0, 512, 512);
+
+        // Subtle tile grid lines
+        ctx.strokeStyle = 'rgba(148, 163, 184, 0.14)';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(1, 1, 510, 510);
+        ctx.beginPath();
+        ctx.moveTo(256, 0); ctx.lineTo(256, 512);
+        ctx.moveTo(0, 256); ctx.lineTo(512, 256);
+        ctx.stroke();
+
+        // Terrazzo mineral flecks (blueberry, sky, gold, lavender)
+        const colors = ['#38bdf8', '#818cf8', '#f59e0b', '#e2e8f0', '#6366f1'];
+        for (let i = 0; i < 240; i++) {
+          ctx.fillStyle = colors[i % colors.length];
+          ctx.globalAlpha = 0.22 + (i % 5) * 0.06;
+          const x = (Math.sin(i * 78.233) * 0.5 + 0.5) * 512;
+          const y = (Math.cos(i * 45.164) * 0.5 + 0.5) * 512;
+          const r = 1.5 + (i % 4);
+          ctx.beginPath();
+          ctx.arc(x, y, r, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.globalAlpha = 1;
+
+        const tex = new THREE.CanvasTexture(canvas);
+        tex.wrapS = THREE.RepeatWrapping;
+        tex.wrapT = THREE.RepeatWrapping;
+        tex.repeat.set(16, 16);
+        tex.encoding = THREE.sRGBEncoding;
+        return tex;
+      }
+
+      function createBannerTexture(title, subtitle, bg1, bg2, accentColor) {
+        const canvas = document.createElement('canvas');
+        canvas.width = 1024;
+        canvas.height = 256;
+        const ctx = canvas.getContext('2d');
+
+        const grad = ctx.createLinearGradient(0, 0, 1024, 256);
+        grad.addColorStop(0, bg1);
+        grad.addColorStop(1, bg2);
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, 1024, 256);
+
+        ctx.strokeStyle = accentColor;
+        ctx.lineWidth = 6;
+        ctx.strokeRect(8, 8, 1008, 240);
+
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 54px "Space Grotesk", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(title, 512, 102);
+
+        ctx.fillStyle = accentColor;
+        ctx.font = '600 28px "Inter", sans-serif';
+        ctx.fillText(subtitle, 512, 174);
+
+        const tex = new THREE.CanvasTexture(canvas);
+        tex.encoding = THREE.sRGBEncoding;
+        return tex;
+      }
+
+      function createPlaqueTexture(title, subtitle) {
+        const canvas = document.createElement('canvas');
+        canvas.width = 512;
+        canvas.height = 128;
+        const ctx = canvas.getContext('2d');
+
+        ctx.fillStyle = '#0f172a';
+        ctx.fillRect(0, 0, 512, 128);
+        ctx.strokeStyle = 'rgba(148, 163, 184, 0.45)';
+        ctx.lineWidth = 4;
+        ctx.strokeRect(4, 4, 504, 120);
+
+        ctx.fillStyle = '#f8fafc';
+        ctx.font = 'bold 28px "Space Grotesk", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(title, 256, subtitle ? 48 : 64);
+
+        if (subtitle) {
+          ctx.fillStyle = '#94a3b8';
+          ctx.font = '18px "Inter", sans-serif';
+          ctx.fillText(subtitle, 256, 88);
+        }
+
+        const tex = new THREE.CanvasTexture(canvas);
+        tex.encoding = THREE.sRGBEncoding;
+        return tex;
+      }
+
+      function createPortalScreenTexture(site) {
+        const canvas = document.createElement('canvas');
+        canvas.width = 1024;
+        canvas.height = 640;
+        const ctx = canvas.getContext('2d');
+
+        // Sleek dark browser window backdrop
+        const bgGrad = ctx.createLinearGradient(0, 0, 1024, 640);
+        bgGrad.addColorStop(0, '#0f172a');
+        bgGrad.addColorStop(0.5, '#1e1b4b');
+        bgGrad.addColorStop(1, '#090d16');
+        ctx.fillStyle = bgGrad;
+        ctx.fillRect(0, 0, 1024, 640);
+
+        // Decorative glowing orb
+        const radGrad = ctx.createRadialGradient(820, 180, 20, 820, 180, 260);
+        radGrad.addColorStop(0, site.accent + '66');
+        radGrad.addColorStop(1, 'transparent');
+        ctx.fillStyle = radGrad;
+        ctx.fillRect(0, 0, 1024, 640);
+
+        // Browser Top Bar
+        ctx.fillStyle = 'rgba(255,255,255,0.08)';
+        ctx.fillRect(0, 0, 1024, 54);
+        ['#ef4444', '#f59e0b', '#10b981'].forEach((dot, idx) => {
+          ctx.fillStyle = dot;
+          ctx.beginPath();
+          ctx.arc(32 + idx * 24, 27, 7, 0, Math.PI * 2);
+          ctx.fill();
+        });
+
+        // URL Pill inside browser bar
+        ctx.fillStyle = 'rgba(15, 23, 42, 0.85)';
+        ctx.fillRect(120, 12, 780, 30);
+        ctx.fillStyle = '#cbd5e1';
+        ctx.font = '18px monospace';
+        ctx.textAlign = 'left';
+        ctx.fillText('🔒 ' + site.url, 138, 33);
+
+        // Badge
+        ctx.fillStyle = site.accent + '33';
+        ctx.fillRect(64, 96, 260, 36);
+        ctx.fillStyle = site.accent;
+        ctx.font = 'bold 18px "Inter", sans-serif';
+        ctx.fillText(site.badge.toUpperCase(), 82, 120);
+
+        // Main Title
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 48px "Space Grotesk", sans-serif';
+        ctx.fillText(site.title, 64, 195);
+
+        // Subtitle
+        ctx.fillStyle = '#cbd5e1';
+        ctx.font = '24px "Inter", sans-serif';
+        ctx.fillText('Artify Space • Stylized Environment Artist & Illustrator', 64, 245);
+
+        // Highlight Cards
+        site.highlights.forEach((item, i) => {
+          const y = 295 + i * 68;
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.06)';
+          ctx.fillRect(64, y, 560, 52);
+          ctx.strokeStyle = site.accent + '55';
+          ctx.lineWidth = 2;
+          ctx.strokeRect(64, y, 560, 52);
+
+          ctx.fillStyle = '#f8fafc';
+          ctx.font = '600 22px "Inter", sans-serif';
+          ctx.fillText('✦  ' + item, 88, y + 33);
+        });
+
+        // Right Side Stylized Card Emblem
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
+        ctx.fillRect(665, 295, 295, 260);
+        ctx.strokeStyle = site.secondary + '88';
+        ctx.lineWidth = 3;
+        ctx.strokeRect(665, 295, 295, 260);
+
+        ctx.font = '76px serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('🎮🗺️', 812, 395);
+        ctx.font = '48px serif';
+        ctx.fillText('🐌🫐', 812, 465);
+
+        ctx.fillStyle = site.accent;
+        ctx.font = 'bold 20px "Space Grotesk", sans-serif';
+        ctx.fillText('CLICK TO LAUNCH SITE ↗', 812, 525);
+
+        const tex = new THREE.CanvasTexture(canvas);
+        tex.encoding = THREE.sRGBEncoding;
+        return tex;
+      }
+
+      // ==========================================
+      // 4. LIGHTING & CELESTIAL STYLIZED ENVIRONMENT
+      // ==========================================
+      const ambientLight = new THREE.HemisphereLight(0xc7d2fe, 0x1e1b4b, 0.95);
+      scene.add(ambientLight);
+
+      const sunLight = new THREE.DirectionalLight(0xfffbeb, 0.85);
+      sunLight.position.set(12, 28, 14);
+      sunLight.castShadow = true;
+      sunLight.shadow.mapSize.width = 2048;
+      sunLight.shadow.mapSize.height = 2048;
+      scene.add(sunLight);
+
+      // Warm and Cool Architectural Accent Lights
+      const atriumLight = new THREE.PointLight(0xa5b4fc, 1.3, 28);
+      atriumLight.position.set(0, 7.5, 0);
+      scene.add(atriumLight);
+
+      const westWingLight = new THREE.PointLight(0x38bdf8, 1.15, 32);
+      westWingLight.position.set(-14, 6.2, -3);
+      scene.add(westWingLight);
+
+      const eastWingLight = new THREE.PointLight(0xfbbf24, 1.15, 32);
+      eastWingLight.position.set(14, 6.2, -3);
+      scene.add(eastWingLight);
+
+      // Stylized Cosmic Starfield & Floating Islands outside the pavilion
+      const exteriorGroup = new THREE.Group();
+      scene.add(exteriorGroup);
+
+      function buildStylizedExterior() {
+        const starGeo = new THREE.BufferGeometry();
+        const starCount = isMobile ? 450 : 900;
+        const positions = new Float32Array(starCount * 3);
+        for (let i = 0; i < starCount * 3; i += 3) {
+          const r = 45 + Math.random() * 85;
+          const theta = Math.random() * Math.PI * 2;
+          const phi = Math.acos(2 * Math.random() - 1);
+          positions[i] = r * Math.sin(phi) * Math.cos(theta);
+          positions[i + 1] = Math.abs(r * Math.cos(phi)) - 8;
+          positions[i + 2] = r * Math.sin(phi) * Math.sin(theta);
+        }
+        starGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        const starMat = new THREE.PointsMaterial({ color: 0xe0e7ff, size: 0.45, transparent: true, opacity: 0.85 });
+        exteriorGroup.add(new THREE.Points(starGeo, starMat));
+
+        // Stylized low-poly floating islands around the museum
+        const islandConfigs = [
+          { x: -34, y: 3, z: -26, s: 1.3, color: 0x312e81 },
+          { x: 35, y: 5, z: -24, s: 1.5, color: 0x1e3a8a },
+          { x: 0, y: 7, z: -42, s: 1.8, color: 0x3b0764 },
+          { x: -32, y: -2, z: 22, s: 1.1, color: 0x1e293b },
+          { x: 33, y: 1, z: 24, s: 1.2, color: 0x1e293b }
+        ];
+
+        const floatingIslands = [];
+        islandConfigs.forEach((cfg, idx) => {
+          const group = new THREE.Group();
+          const rockMat = new THREE.MeshStandardMaterial({ color: cfg.color, roughness: 0.85, flatShading: true });
+          const topMat = new THREE.MeshStandardMaterial({ color: 0x4338ca, roughness: 0.7, flatShading: true });
+
+          const cone = new THREE.Mesh(new THREE.ConeGeometry(4.5 * cfg.s, 7 * cfg.s, 6), rockMat);
+          cone.rotation.x = Math.PI;
+          cone.position.y = -3.5 * cfg.s;
+          group.add(cone);
+
+          const cap = new THREE.Mesh(new THREE.CylinderGeometry(4.6 * cfg.s, 4.5 * cfg.s, 0.8 * cfg.s, 6), topMat);
+          group.add(cap);
+
+          // Stylized crystal spire on island
+          const crystalMat = new THREE.MeshStandardMaterial({
+            color: idx % 2 === 0 ? 0x38bdf8 : 0xc084fc,
+            emissive: idx % 2 === 0 ? 0x0284c7 : 0x7e22ce,
+            emissiveIntensity: 0.45,
+            roughness: 0.2
+          });
+          const crystal = new THREE.Mesh(new THREE.OctahedronGeometry(1.1 * cfg.s, 0), crystalMat);
+          crystal.position.y = 1.6 * cfg.s;
+          group.add(crystal);
+
+          group.position.set(cfg.x, cfg.y, cfg.z);
+          exteriorGroup.add(group);
+          floatingIslands.push({ group, baseY: cfg.y, speed: 0.6 + idx * 0.15, offset: idx });
+        });
+        return floatingIslands;
+      }
+      const floatingIslands = buildStylizedExterior();
+
+      // ==========================================
+      // 5. MUSEUM ARCHITECTURE, ARTWORKS & PORTALS
+      // ==========================================
+      const solidColliders = [];
+      const interactables = [];
+
+      function addCollider(minX, maxX, minZ, maxZ) {
+        solidColliders.push({ minX, maxX, minZ, maxZ });
+      }
+
+      // Terrazzo Museum Floor
+      const floorGeo = new THREE.PlaneGeometry(48, 34);
+      const floorMat = new THREE.MeshStandardMaterial({
+        map: createTerrazzoTexture(),
+        roughness: 0.35,
+        metalness: 0.1
+      });
+      const floorMesh = new THREE.Mesh(floorGeo, floorMat);
+      floorMesh.rotation.x = -Math.PI / 2;
+      floorMesh.position.set(0, 0, -1);
+      floorMesh.receiveShadow = !isMobile;
+      scene.add(floorMesh);
+
+      // Skylight Ceiling Trim
+      const ceilingMat = new THREE.MeshStandardMaterial({
+        color: 0x0f172a,
+        roughness: 0.85
+      });
+      const ceilingBeam1 = new THREE.Mesh(new THREE.BoxGeometry(46, 0.35, 1.2), ceilingMat);
+      ceilingBeam1.position.set(0, 8.2, -16.5);
+      scene.add(ceilingBeam1);
+
+      const ceilingBeam2 = new THREE.Mesh(new THREE.BoxGeometry(46, 0.35, 1.2), ceilingMat);
+      ceilingBeam2.position.set(0, 8.2, 14.5);
+      scene.add(ceilingBeam2);
+
+      // Gallery Walls & Dividers
+      const wallMat = new THREE.MeshStandardMaterial({
+        color: 0x161e35,
+        roughness: 0.72,
+        metalness: 0.08
+      });
+      const trimMat = new THREE.MeshStandardMaterial({
+        color: 0x6366f1,
+        emissive: 0x312e81,
+        emissiveIntensity: 0.45,
+        roughness: 0.3
+      });
+
+      function createWall(x, y, z, w, h, d, withTrim = true) {
+        const mesh = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), wallMat);
+        mesh.position.set(x, y, z);
+        mesh.receiveShadow = !isMobile;
+        scene.add(mesh);
+
+        if (withTrim) {
+          const trim = new THREE.Mesh(new THREE.BoxGeometry(w + 0.04, 0.14, d + 0.04), trimMat);
+          trim.position.set(x, 0.07, z);
+          scene.add(trim);
+        }
+        addCollider(x - w / 2, x + w / 2, z - d / 2, z + d / 2);
+        return mesh;
+      }
+
+      // Perimeter Walls
+      createWall(0, 3.6, -16.5, 46, 7.2, 0.6);   // North Back Wall
+      createWall(0, 3.6, 14.5, 46, 7.2, 0.6);    // South Entrance Wall
+      createWall(-23.0, 3.6, -1.0, 0.6, 7.2, 31.6); // West Gallery Wall
+      createWall(23.0, 3.6, -1.0, 0.6, 7.2, 31.6);  // East Gallery Wall
+
+      // Wing Partition Walls (clean non-overlapping offsets)
+      createWall(-9.5, 3.2, -7.5, 0.5, 6.4, 9.0);
+      createWall(-9.5, 3.2, 6.5, 0.5, 6.4, 8.0);
+      createWall(9.5, 3.2, -7.5, 0.5, 6.4, 9.0);
+      createWall(9.5, 3.2, 6.5, 0.5, 6.4, 8.0);
+
+      // Overhead Wing Banners
+      function addBanner(x, y, z, rotY, title, subtitle, bg1, bg2, accent) {
+        const bannerTex = createBannerTexture(title, subtitle, bg1, bg2, accent);
+        const bannerMat = new THREE.MeshBasicMaterial({ map: bannerTex, side: THREE.DoubleSide });
+        const bannerMesh = new THREE.Mesh(new THREE.PlaneGeometry(6.8, 1.7), bannerMat);
+        bannerMesh.position.set(x, y, z);
+        bannerMesh.rotation.y = rotY;
+        scene.add(bannerMesh);
+      }
+
+      addBanner(0, 5.6, -16.12, 0, 'ARTIFY SPACE MUSEUM', 'Experience made by Digital Infohub', '#1e1b4b', '#312e81', '#38bdf8');
+      addBanner(-9.18, 5.4, -0.5, Math.PI / 2, 'ARTIFY SPACE DIGITAL ART', 'West Wing • Stylized Worlds & Digital Illustration', '#0f172a', '#0369a1', '#38bdf8');
+      addBanner(9.18, 5.4, -0.5, -Math.PI / 2, 'ARTIFY SPACE PHYSICAL ART', 'East Wing • Coloured Pencil & Traditional Works', '#1c1917', '#78350f', '#fbbf24');
+
+      // Atrium Centerpiece Sculpture (Stylized Crystal & Orbiting Blueberries)
+      const pedestalMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.35, metalness: 0.4 });
+      const pedestal = new THREE.Mesh(new THREE.CylinderGeometry(1.45, 1.75, 1.0, 24), pedestalMat);
+      pedestal.position.set(0, 0.5, 1.5);
+      scene.add(pedestal);
+      addCollider(-1.8, 1.8, -0.3, 3.3);
+
+      const crystalGeo = new THREE.OctahedronGeometry(0.85, 0);
+      const crystalMat = new THREE.MeshStandardMaterial({
+        color: 0x818cf8,
+        emissive: 0x4f46e5,
+        emissiveIntensity: 0.55,
+        roughness: 0.15,
+        metalness: 0.25
+      });
+      const sculptureCrystal = new THREE.Mesh(crystalGeo, crystalMat);
+      sculptureCrystal.position.set(0, 2.1, 1.5);
+      scene.add(sculptureCrystal);
+
+      const berryOrbit = new THREE.Group();
+      berryOrbit.position.set(0, 2.1, 1.5);
+      scene.add(berryOrbit);
+
+      const berryMat = new THREE.MeshStandardMaterial({
+        color: 0x38bdf8,
+        emissive: 0x0284c7,
+        emissiveIntensity: 0.45,
+        roughness: 0.2
+      });
+      for (let i = 0; i < 4; i++) {
+        const angle = (i / 4) * Math.PI * 2;
+        const berry = new THREE.Mesh(new THREE.SphereGeometry(0.18, 16, 16), berryMat);
+        berry.position.set(Math.cos(angle) * 1.45, Math.sin(angle * 2) * 0.2, Math.sin(angle) * 1.45);
+        berryOrbit.add(berry);
+      }
+
+      // ==========================================
+      // 6. ARTWORKS & INTERACTIVE WEB PORTAL SCREENS
+      // ==========================================
+      const DIGITAL_ARTWORKS = [
+        'https://raw.githubusercontent.com/digitalinfohub/digitalinfohub/refs/heads/main/artwork/Artdig1.jpg',
+        'https://raw.githubusercontent.com/digitalinfohub/digitalinfohub/refs/heads/main/artwork/Artdig2.jpg',
+        'https://raw.githubusercontent.com/digitalinfohub/digitalinfohub/refs/heads/main/artwork/Artdig3.jpg',
+        'https://raw.githubusercontent.com/digitalinfohub/digitalinfohub/refs/heads/main/artwork/Artdig4.jpg',
+        'https://raw.githubusercontent.com/digitalinfohub/digitalinfohub/refs/heads/main/artwork/Artdig5.jpg',
+        'https://raw.githubusercontent.com/digitalinfohub/digitalinfohub/refs/heads/main/artwork/Artdig6.jpg',
+        'https://raw.githubusercontent.com/digitalinfohub/digitalinfohub/refs/heads/main/artwork/Artdig7.jpg'
+      ];
+
+      const PHYSICAL_ARTWORKS = [
+        'https://raw.githubusercontent.com/digitalinfohub/digitalinfohub/refs/heads/main/artwork/Arttra1.jpg',
+        'https://raw.githubusercontent.com/digitalinfohub/digitalinfohub/refs/heads/main/artwork/Arttra2.jpg',
+        'https://raw.githubusercontent.com/digitalinfohub/digitalinfohub/refs/heads/main/artwork/Arttra3.jpg',
+        'https://raw.githubusercontent.com/digitalinfohub/digitalinfohub/refs/heads/main/artwork/Arttra4.jpg',
+        'https://raw.githubusercontent.com/digitalinfohub/digitalinfohub/refs/heads/main/artwork/Arttra5.jpg',
+        'https://raw.githubusercontent.com/digitalinfohub/digitalinfohub/refs/heads/main/artwork/Arttra6.jpg',
+        'https://raw.githubusercontent.com/digitalinfohub/digitalinfohub/refs/heads/main/artwork/Arttra7.jpg'
+      ];
+
+      const PORTFOLIO_SITES = [
+        {
+          title: 'Artify Space Official Website',
+          badge: 'Official Hub',
+          url: 'https://artifys.wixsite.com/artifyspace',
+          desc: 'Official portfolio & stylized environment showcase by Artify Space.',
+          accent: '#818cf8',
+          secondary: '#38bdf8',
+          highlights: ['Stylized 3D Environments', 'Worldbuilding & Level Art', 'Illustration Showcase'],
+          x: -5.4,
+          z: -15.95
+        },
+        {
+          title: 'Artify Space on Fab',
+          badge: '3D Asset Store',
+          url: 'https://www.fab.com/sellers/ArtifySpace',
+          desc: 'Download game-ready stylized environments and 3D packs on Fab.',
+          accent: '#34d399',
+          secondary: '#38bdf8',
+          highlights: ['Game-Ready Stylized Packs', 'Unreal & 3D Engine Assets', 'Modular Environment Kits'],
+          x: 0,
+          z: -15.95
+        },
+        {
+          title: 'Artify Space on ArtStation',
+          badge: 'ArtStation Gallery',
+          url: 'https://artifyspace.artstation.com/',
+          desc: 'High-resolution environment breakdowns, renders, and illustrations.',
+          accent: '#38bdf8',
+          secondary: '#c084fc',
+          highlights: ['High-Res Environment Renders', 'Lighting & Shader Breakdowns', 'Digital & Pencil Works'],
+          x: 5.4,
+          z: -15.95
+        }
+      ];
+
+      // Build Interactive Portfolio Screens on North Wall
+      PORTFOLIO_SITES.forEach((site) => {
+        const screenGroup = new THREE.Group();
+        screenGroup.position.set(site.x, 2.55, site.z);
+
+        const bezel = new THREE.Mesh(
+          new THREE.BoxGeometry(4.5, 2.85, 0.14),
+          new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.3, metalness: 0.6 })
+        );
+        screenGroup.add(bezel);
+
+        const screenTex = createPortalScreenTexture(site);
+        const screenMat = new THREE.MeshBasicMaterial({ map: screenTex });
+        const screenMesh = new THREE.Mesh(new THREE.PlaneGeometry(4.25, 2.65), screenMat);
+        screenMesh.position.z = 0.08;
+        screenMesh.userData = { type: 'portal', data: site };
+        screenGroup.add(screenMesh);
+        interactables.push(screenMesh);
+
+        scene.add(screenGroup);
+      });
+
+      // Artwork Loader & Framing System
+      const texLoader = new THREE.TextureLoader();
+      texLoader.setCrossOrigin('anonymous');
+      let loadedCount = 0;
+      const totalArtworks = DIGITAL_ARTWORKS.length + PHYSICAL_ARTWORKS.length;
+
+      function updateLoadProgress() {
+        loadedCount++;
+        const loadText = document.getElementById('load-text');
+        const loadDot = document.getElementById('load-dot');
+        if (loadedCount >= totalArtworks) {
+          if (loadText) loadText.textContent = '14/14 Artworks Ready';
+          if (loadDot) {
+            loadDot.classList.remove('bg-amber-400', 'animate-ping');
+            loadDot.classList.add('bg-emerald-400');
+          }
+        } else if (loadText) {
+          loadText.textContent = `Loading Artworks (${loadedCount}/${totalArtworks})...`;
+        }
+      }
+
+      function mountFramedArtwork(url, title, category, desc, pos, rotY, frameColorHex) {
+        const group = new THREE.Group();
+        group.position.copy(pos);
+        group.rotation.y = rotY;
+        scene.add(group);
+
+        const frameMat = new THREE.MeshStandardMaterial({
+          color: frameColorHex,
+          roughness: 0.35,
+          metalness: 0.3
+        });
+
+        const frameMesh = new THREE.Mesh(new THREE.BoxGeometry(2.6, 2.0, 0.12), frameMat);
+        group.add(frameMesh);
+
+        const artMat = new THREE.MeshBasicMaterial({ color: 0x1e293b });
+        const artMesh = new THREE.Mesh(new THREE.PlaneGeometry(2.38, 1.78), artMat);
+        artMesh.position.z = 0.07;
+        artMesh.userData = {
+          type: 'artwork',
+          data: { url, title, category, desc }
+        };
+        group.add(artMesh);
+        interactables.push(artMesh);
+
+        // Plaque beneath artwork
+        const plaqueTex = createPlaqueTexture(title, 'Artify Space');
+        const plaqueMesh = new THREE.Mesh(
+          new THREE.PlaneGeometry(1.5, 0.38),
+          new THREE.MeshBasicMaterial({ map: plaqueTex })
+        );
+        plaqueMesh.position.set(0, -1.32, 0.04);
+        group.add(plaqueMesh);
+
+        texLoader.load(
+          url,
+          (texture) => {
+            texture.encoding = THREE.sRGBEncoding;
+            artMat.color.setHex(0xffffff);
+            artMat.map = texture;
+            artMat.needsUpdate = true;
+
+            if (texture.image && texture.image.width && texture.image.height) {
+              const aspect = texture.image.width / texture.image.height;
+              const maxH = 2.05;
+              const maxW = 2.75;
+              let w = maxH * aspect;
+              let h = maxH;
+              if (w > maxW) {
+                w = maxW;
+                h = maxW / aspect;
+              }
+              frameMesh.scale.set((w + 0.22) / 2.6, (h + 0.22) / 2.0, 1);
+              artMesh.scale.set(w / 2.38, h / 1.78, 1);
+              plaqueMesh.position.y = -(h / 2) - 0.34;
+            }
+            updateLoadProgress();
+          },
+          undefined,
+          () => {
+            updateLoadProgress();
+          }
+        );
+      }
+
+      // Place 7 Digital Artworks in West Wing (x = -22.62, facing +X)
+      DIGITAL_ARTWORKS.forEach((url, idx) => {
+        const z = -12.5 + idx * 3.85;
+        mountFramedArtwork(
+          url,
+          'Artify Space Digital Art',
+          'Digital Artwork • Artify Space',
+          'Artify Space Digital Art — Stylized Environment & Digital Illustration.',
+          new THREE.Vector3(-22.62, 2.45, z),
+          Math.PI / 2,
+          0x38bdf8
+        );
+      });
+
+      // Place 7 Physical Artworks in East Wing (x = 22.62, facing -X)
+      PHYSICAL_ARTWORKS.forEach((url, idx) => {
+        const z = -12.5 + idx * 3.85;
+        mountFramedArtwork(
+          url,
+          "It's Artify Space Physical Art",
+          'Physical Art • Artify Space',
+          "It's Artify Space Physical Art — Coloured Pencil & Traditional Illustration.",
+          new THREE.Vector3(22.62, 2.45, z),
+          -Math.PI / 2,
+          0xf59e0b
+        );
+      });
+
+      // ==========================================
+      // 7. WEBXR VR CONTROLLERS & LOCOMOTION
+      // ==========================================
+      const vrControllers = [];
+      const vrRayMat = new THREE.LineBasicMaterial({ color: 0x38bdf8 });
+
+      for (let i = 0; i < 2; i++) {
+        const controller = renderer.xr.getController(i);
+        const lineGeo = new THREE.BufferGeometry().setFromPoints([
+          new THREE.Vector3(0, 0, 0),
+          new THREE.Vector3(0, 0, -6)
+        ]);
+        const line = new THREE.Line(lineGeo, vrRayMat);
+        controller.add(line);
+
+        controller.addEventListener('selectstart', () => {
+          const tempMatrix = new THREE.Matrix4();
+          tempMatrix.identity().extractRotation(controller.matrixWorld);
+          raycaster.ray.origin.setFromMatrixPosition(controller.matrixWorld);
+          raycaster.ray.direction.set(0, 0, -1).applyMatrix4(tempMatrix);
+
+          const hits = raycaster.intersectObjects(interactables, false);
+          if (hits.length > 0 && hits[0].distance < 22) {
+            handleInteractableClick(hits[0].object.userData);
+          }
+        });
+
+        playerRig.add(controller);
+        vrControllers.push(controller);
+      }
+
+      function updateVRLocomotion(dt) {
+        if (!renderer.xr.isPresenting) return;
+        const session = renderer.xr.getSession();
+        if (!session) return;
+
+        for (const source of session.inputSources) {
+          if (source.gamepad && source.gamepad.axes && source.gamepad.axes.length >= 4) {
+            const stickX = source.gamepad.axes[2];
+            const stickY = source.gamepad.axes[3];
+            if (Math.abs(stickX) > 0.15 || Math.abs(stickY) > 0.15) {
+              const xrCam = renderer.xr.getCamera(camera);
+              const forward = new THREE.Vector3();
+              xrCam.getWorldDirection(forward);
+              forward.y = 0;
+              if (forward.lengthSq() > 0.0001) forward.normalize();
+              const right = new THREE.Vector3().crossVectors(forward, new THREE.Vector3(0, 1, 0)).normalize();
+
+              const nextX = playerRig.position.x + (forward.x * -stickY + right.x * stickX) * 4.5 * dt;
+              const nextZ = playerRig.position.z + (forward.z * -stickY + right.z * stickX) * 4.5 * dt;
+              const bounded = resolveMuseumCollisions(nextX, nextZ);
+              playerRig.position.x = bounded.x;
+              playerRig.position.z = bounded.z;
+            }
+          }
+        }
+      }
+
+      // ==========================================
+      // 8. DESKTOP & MOBILE CONTROLS (WASD + ANALOG JOYSTICK + MULTI-TOUCH LOOK)
+      // ==========================================
+      const keys = { w: false, a: false, s: false, d: false };
+      const joystickVec = { x: 0, y: 0 }; // Analog movement (-1 to 1)
+      let yaw = 0;
+      let pitch = 0;
+      let targetYaw = 0;
+      let targetPitch = 0;
+      let isDragging = false;
+      let dragMoved = false;
+      let prevMouse = { x: 0, y: 0 };
+
+      window.addEventListener('keydown', (e) => {
+        const k = e.key.toLowerCase();
+        if (k === 'w' || e.key === 'ArrowUp') keys.w = true;
+        if (k === 's' || e.key === 'ArrowDown') keys.s = true;
+        if (k === 'a' || e.key === 'ArrowLeft') keys.a = true;
+        if (k === 'd' || e.key === 'ArrowRight') keys.d = true;
+        if (e.key === 'Escape') {
+          window.museumApp.closeInspectModal();
+        }
+      });
+
+      window.addEventListener('keyup', (e) => {
+        const k = e.key.toLowerCase();
+        if (k === 'w' || e.key === 'ArrowUp') keys.w = false;
+        if (k === 's' || e.key === 'ArrowDown') keys.s = false;
+        if (k === 'a' || e.key === 'ArrowLeft') keys.a = false;
+        if (k === 'd' || e.key === 'ArrowRight') keys.d = false;
+      });
+
+      // Mobile Virtual Analog Joystick Setup (supports multi-touch simultaneously with look swipe!)
+      const joyZone = document.getElementById('mobile-joystick-zone');
+      const joyKnob = document.getElementById('mobile-joystick-knob');
+      let joyTouchId = null;
+
+      function updateJoystickFromClientXY(clientX, clientY) {
+        const rect = joyZone.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        const maxRadius = rect.width * 0.36;
+
+        let dx = clientX - centerX;
+        let dy = clientY - centerY;
+        const dist = Math.hypot(dx, dy);
+
+        if (dist > maxRadius) {
+          dx = (dx / dist) * maxRadius;
+          dy = (dy / dist) * maxRadius;
+        }
+
+        joyKnob.style.transform = `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px))`;
+        joystickVec.x = dx / maxRadius;
+        joystickVec.y = -dy / maxRadius; // Forward is +Y
+      }
+
+      function resetJoystick() {
+        joyTouchId = null;
+        joystickVec.x = 0;
+        joystickVec.y = 0;
+        joyKnob.style.transform = 'translate(-50%, -50%)';
+      }
+
+      if (joyZone) {
+        joyZone.addEventListener('touchstart', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          if (joyTouchId === null && e.changedTouches.length > 0) {
+            const t = e.changedTouches[0];
+            joyTouchId = t.identifier;
+            updateJoystickFromClientXY(t.clientX, t.clientY);
+          }
+        }, { passive: false });
+
+        joyZone.addEventListener('touchmove', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          for (let i = 0; i < e.changedTouches.length; i++) {
+            const t = e.changedTouches[i];
+            if (t.identifier === joyTouchId) {
+              updateJoystickFromClientXY(t.clientX, t.clientY);
+              break;
+            }
+          }
+        }, { passive: false });
+
+        const endJoyTouch = (e) => {
+          for (let i = 0; i < e.changedTouches.length; i++) {
+            if (e.changedTouches[i].identifier === joyTouchId) {
+              resetJoystick();
+              break;
+            }
+          }
+        };
+        joyZone.addEventListener('touchend', endJoyTouch, { passive: false });
+        joyZone.addEventListener('touchcancel', endJoyTouch, { passive: false });
+      }
+
+      // Mouse & Touch Look + Raycast Clicking
+      const raycaster = new THREE.Raycaster();
+      const pointerNDC = new THREE.Vector2(0, 0);
+      const crosshair = document.getElementById('crosshair');
+      const hoverLabel = document.getElementById('hover-label');
+      const hoverLabelText = document.getElementById('hover-label-text');
+
+      renderer.domElement.addEventListener('mousedown', (e) => {
+        if (e.button !== 0) return;
+        isDragging = true;
+        dragMoved = false;
+        prevMouse.x = e.clientX;
+        prevMouse.y = e.clientY;
+      });
+
+      window.addEventListener('mousemove', (e) => {
+        if (document.pointerLockElement === renderer.domElement) {
+          targetYaw -= e.movementX * 0.0025;
+          targetPitch -= e.movementY * 0.0025;
+          targetPitch = Math.max(-Math.PI / 2.2, Math.min(Math.PI / 2.2, targetPitch));
+          pointerNDC.set(0, 0);
+          return;
+        }
+
+        // Update normalized cursor coordinates for hover & click raycasting
+        pointerNDC.x = (e.clientX / window.innerWidth) * 2 - 1;
+        pointerNDC.y = -(e.clientY / window.innerHeight) * 2 + 1;
+
+        if (!isDragging) return;
+
+        const dx = e.clientX - prevMouse.x;
+        const dy = e.clientY - prevMouse.y;
+        if (Math.abs(dx) > 3 || Math.abs(dy) > 3) {
+          dragMoved = true;
+        }
+
+        targetYaw -= dx * 0.0038;
+        targetPitch -= dy * 0.0038;
+        targetPitch = Math.max(-Math.PI / 2.2, Math.min(Math.PI / 2.2, targetPitch));
+
+        prevMouse.x = e.clientX;
+        prevMouse.y = e.clientY;
+      });
+
+      window.addEventListener('mouseup', (e) => {
+        if (e.button !== 0) return;
+        if (document.pointerLockElement === renderer.domElement) {
+          pointerNDC.set(0, 0);
+          performDesktopClickRaycast();
+        } else if (isDragging && !dragMoved) {
+          pointerNDC.x = (e.clientX / window.innerWidth) * 2 - 1;
+          pointerNDC.y = -(e.clientY / window.innerHeight) * 2 + 1;
+          performDesktopClickRaycast();
+        }
+        isDragging = false;
+      });
+
+      document.addEventListener('pointerlockchange', () => {
+        if (document.pointerLockElement === renderer.domElement) {
+          pointerNDC.set(0, 0);
+        }
+      });
+
+      function performDesktopClickRaycast() {
+        raycaster.setFromCamera(pointerNDC, camera);
+        const hits = raycaster.intersectObjects(interactables, false);
+        if (hits.length > 0 && hits[0].distance < 20) {
+          handleInteractableClick(hits[0].object.userData);
+        }
+      }
+
+      // Multi-Touch Camera Look & Tap-to-Inspect on Canvas (independent of left joystick finger)
+      let lookTouchId = null;
+      let prevLookTouch = null;
+      let lookTouchMoved = false;
+
+      renderer.domElement.addEventListener('touchstart', (e) => {
+        for (let i = 0; i < e.changedTouches.length; i++) {
+          const t = e.changedTouches[i];
+          if (lookTouchId === null && t.identifier !== joyTouchId) {
+            lookTouchId = t.identifier;
+            prevLookTouch = { x: t.clientX, y: t.clientY };
+            lookTouchMoved = false;
+            break;
+          }
+        }
+      }, { passive: true });
+
+      renderer.domElement.addEventListener('touchmove', (e) => {
+        for (let i = 0; i < e.changedTouches.length; i++) {
+          const t = e.changedTouches[i];
+          if (t.identifier === lookTouchId && prevLookTouch) {
+            const dx = t.clientX - prevLookTouch.x;
+            const dy = t.clientY - prevLookTouch.y;
+            if (Math.abs(dx) > 5 || Math.abs(dy) > 5) lookTouchMoved = true;
+
+            targetYaw -= dx * 0.0048;
+            targetPitch -= dy * 0.0048;
+            targetPitch = Math.max(-Math.PI / 2.25, Math.min(Math.PI / 2.25, targetPitch));
+            prevLookTouch = { x: t.clientX, y: t.clientY };
+            break;
+          }
+        }
+      }, { passive: true });
+
+      renderer.domElement.addEventListener('touchend', (e) => {
+        for (let i = 0; i < e.changedTouches.length; i++) {
+          const t = e.changedTouches[i];
+          if (t.identifier === lookTouchId) {
+            if (!lookTouchMoved) {
+              pointerNDC.x = (t.clientX / window.innerWidth) * 2 - 1;
+              pointerNDC.y = -(t.clientY / window.innerHeight) * 2 + 1;
+              performDesktopClickRaycast();
+            }
+            lookTouchId = null;
+            prevLookTouch = null;
+            break;
+          }
+        }
+      }, { passive: true });
+
+      // Smooth Sliding Circle-vs-AABB Collision Resolution inside the Museum
+      function resolveMuseumCollisions(x, z) {
+        const playerRadius = 0.55;
+        let rx = Math.max(-22.0, Math.min(22.0, x));
+        let rz = Math.max(-15.0, Math.min(13.0, z));
+
+        // Two solver passes ensure smooth corner sliding without jitter or box trapping
+        for (let pass = 0; pass < 2; pass++) {
+          for (let i = 0; i < solidColliders.length; i++) {
+            const box = solidColliders[i];
+            const closestX = Math.max(box.minX, Math.min(rx, box.maxX));
+            const closestZ = Math.max(box.minZ, Math.min(rz, box.maxZ));
+
+            const dx = rx - closestX;
+            const dz = rz - closestZ;
+            const distSq = dx * dx + dz * dz;
+
+            if (distSq < playerRadius * playerRadius) {
+              const dist = Math.sqrt(distSq);
+              if (dist > 0.0001) {
+                const overlap = playerRadius - dist;
+                rx += (dx / dist) * overlap;
+                rz += (dz / dist) * overlap;
+              } else {
+                // Center is inside AABB; push out along minimum penetration axis
+                const penLeft = Math.abs(rx - box.minX);
+                const penRight = Math.abs(box.maxX - rx);
+                const penTop = Math.abs(rz - box.minZ);
+                const penBottom = Math.abs(box.maxZ - rz);
+                const minPen = Math.min(penLeft, penRight, penTop, penBottom);
+
+                if (minPen === penLeft) rx = box.minX - playerRadius;
+                else if (minPen === penRight) rx = box.maxX + playerRadius;
+                else if (minPen === penTop) rz = box.minZ - playerRadius;
+                else rz = box.maxZ + playerRadius;
+              }
+            }
+          }
+        }
+
+        return { x: rx, z: rz };
+      }
+
+      // ==========================================
+      // 9. UI MODALS & INTERACTION HANDLERS
+      // ==========================================
+      let activePortalUrl = '';
+
+      function handleInteractableClick(userData) {
+        if (document.pointerLockElement) {
+          document.exitPointerLock();
+        }
+
+        const modal = document.getElementById('inspect-modal');
+        const imgEl = document.getElementById('inspect-image');
+        const portalBox = document.getElementById('inspect-portal-box');
+        const iframeContainer = document.getElementById('portal-iframe-container');
+        const iframeEl = document.getElementById('portal-iframe');
+
+        iframeContainer.classList.add('hidden');
+        iframeEl.src = '';
+
+        if (userData.type === 'artwork') {
+          const art = userData.data;
+          document.getElementById('inspect-category').textContent = art.category;
+          document.getElementById('inspect-title').textContent = art.title;
+          document.getElementById('inspect-description').textContent = art.desc;
+
+          imgEl.src = art.url;
+          imgEl.classList.remove('hidden');
+          portalBox.classList.add('hidden');
+          portalBox.classList.remove('flex');
+        } else if (userData.type === 'portal') {
+          const site = userData.data;
+          activePortalUrl = site.url;
+          document.getElementById('inspect-category').textContent = 'Artify Space Interactive Web Terminal';
+          document.getElementById('inspect-title').textContent = site.title;
+          document.getElementById('inspect-description').textContent = '';
+
+          document.getElementById('portal-badge').textContent = site.badge;
+          document.getElementById('portal-heading').textContent = site.title;
+          document.getElementById('portal-desc').textContent = site.desc;
+          document.getElementById('portal-url-text').textContent = site.url;
+          document.getElementById('portal-external-link').href = site.url;
+
+          imgEl.classList.add('hidden');
+          portalBox.classList.remove('hidden');
+          portalBox.classList.add('flex');
+        }
+
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      }
+
+      // Global App Controller exposed to HTML buttons
+      window.museumApp = {
+        enterExperience(openLounge) {
+          const welcome = document.getElementById('welcome-modal');
+          welcome.classList.add('hidden');
+          if (openLounge) {
+            this.toggleLounge(true);
+          }
+        },
+
+        toggleLounge(forceState) {
+          const drawer = document.getElementById('lounge-drawer');
+          const isOpen = !drawer.classList.contains('translate-x-[120%]');
+          const nextState = typeof forceState === 'boolean' ? forceState : !isOpen;
+          if (nextState) {
+            drawer.classList.remove('translate-x-[120%]', 'opacity-0', 'pointer-events-none');
+          } else {
+            drawer.classList.add('translate-x-[120%]', 'opacity-0', 'pointer-events-none');
+          }
+        },
+
+        teleportTo(zone) {
+          if (zone === 'atrium') {
+            playerRig.position.set(0, 0, 10.5);
+            yaw = targetYaw = 0;
+            pitch = targetPitch = 0;
+          } else if (zone === 'portfolios') {
+            playerRig.position.set(0, 0, -9.2);
+            yaw = targetYaw = 0;
+            pitch = targetPitch = 0;
+          } else if (zone === 'digital') {
+            playerRig.position.set(-15.5, 0, -2.5);
+            yaw = targetYaw = Math.PI / 2;
+            pitch = targetPitch = 0;
+          } else if (zone === 'traditional') {
+            playerRig.position.set(15.5, 0, -2.5);
+            yaw = targetYaw = -Math.PI / 2;
+            pitch = targetPitch = 0;
+          }
+        },
+
+        requestPointerLock() {
+          if (renderer.domElement.requestPointerLock) {
+            renderer.domElement.requestPointerLock();
+          }
+        },
+
+        closeInspectModal() {
+          const modal = document.getElementById('inspect-modal');
+          modal.classList.add('hidden');
+          modal.classList.remove('flex');
+          document.getElementById('portal-iframe').src = '';
+        },
+
+        togglePortalIframe() {
+          const container = document.getElementById('portal-iframe-container');
+          const iframe = document.getElementById('portal-iframe');
+          if (container.classList.contains('hidden')) {
+            container.classList.remove('hidden');
+            iframe.src = activePortalUrl;
+          } else {
+            container.classList.add('hidden');
+            iframe.src = '';
+          }
+        }
+      };
+
+      // ==========================================
+      // 10. MAIN RENDER & ANIMATION LOOP (WEBXR + DESKTOP)
+      // ==========================================
+      const clock = new THREE.Clock();
+      const moveForward = new THREE.Vector3();
+      const moveRight = new THREE.Vector3();
+      const currentVelocity = new THREE.Vector2(0, 0);
+
+      function updateDesktopAndMobileMovement(dt) {
+        if (renderer.xr.isPresenting) return;
+
+        // Smooth camera rotation interpolation for silky 60/120fps look
+        const lookLerp = 1 - Math.exp(-24 * dt);
+        yaw += (targetYaw - yaw) * lookLerp;
+        pitch += (targetPitch - pitch) * lookLerp;
+
+        camera.rotation.order = 'YXZ';
+        camera.rotation.y = yaw;
+        camera.rotation.x = pitch;
+
+        camera.getWorldDirection(moveForward);
+        moveForward.y = 0;
+        if (moveForward.lengthSq() > 0.0001) moveForward.normalize();
+
+        moveRight.crossVectors(moveForward, camera.up).normalize();
+
+        // Combine keyboard WASD and mobile analog joystick input
+        let forwardInput = (keys.w ? 1 : 0) - (keys.s ? 1 : 0) + joystickVec.y;
+        let rightInput = (keys.d ? 1 : 0) - (keys.a ? 1 : 0) + joystickVec.x;
+
+        const inputLen = Math.hypot(forwardInput, rightInput);
+        if (inputLen > 1) {
+          forwardInput /= inputLen;
+          rightInput /= inputLen;
+        }
+
+        const maxSpeed = 6.4;
+        const targetVx = (moveForward.x * forwardInput + moveRight.x * rightInput) * maxSpeed;
+        const targetVz = (moveForward.z * forwardInput + moveRight.z * rightInput) * maxSpeed;
+
+        // Smooth acceleration/deceleration damping
+        const moveLerp = 1 - Math.exp(-14 * dt);
+        currentVelocity.x += (targetVx - currentVelocity.x) * moveLerp;
+        currentVelocity.y += (targetVz - currentVelocity.y) * moveLerp;
+
+        if (Math.abs(currentVelocity.x) > 0.001 || Math.abs(currentVelocity.y) > 0.001) {
+          const nextX = playerRig.position.x + currentVelocity.x * dt;
+          const nextZ = playerRig.position.z + currentVelocity.y * dt;
+          const bounded = resolveMuseumCollisions(nextX, nextZ);
+          playerRig.position.x = bounded.x;
+          playerRig.position.z = bounded.z;
+        }
+
+        // Hover raycast highlight on desktop
+        if (!isMobile) {
+          raycaster.setFromCamera(pointerNDC, camera);
+          const hits = raycaster.intersectObjects(interactables, false);
+          if (hits.length > 0 && hits[0].distance < 18) {
+            crosshair.classList.add('hovering');
+            hoverLabel.classList.remove('hidden');
+            const item = hits[0].object.userData;
+            hoverLabelText.textContent = item.type === 'portal'
+              ? `Open ${item.data.title}`
+              : `Inspect ${item.data.title}`;
+          } else {
+            crosshair.classList.remove('hovering');
+            hoverLabel.classList.add('hidden');
+          }
+        }
+      }
+
+      function animate() {
+        const dt = Math.min(clock.getDelta(), 0.05);
+        const elapsed = clock.getElapsedTime();
+
+        // Animate Atrium Centerpiece & Floating Exterior Islands
+        sculptureCrystal.rotation.y = elapsed * 0.65;
+        sculptureCrystal.position.y = 2.1 + Math.sin(elapsed * 1.8) * 0.14;
+        berryOrbit.rotation.y = -elapsed * 1.1;
+
+        for (let i = 0; i < floatingIslands.length; i++) {
+          const isl = floatingIslands[i];
+          isl.group.position.y = isl.baseY + Math.sin(elapsed * isl.speed + isl.offset) * 0.65;
+        }
+
+        updateDesktopAndMobileMovement(dt);
+        updateVRLocomotion(dt);
+
+        renderer.render(scene, camera);
+      }
+
+      // Window Resize Handler
+      window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+
+      // Start Animation Loop on Window Load
+      window.onload = function () {
+        renderer.setAnimationLoop(animate);
+      };
+    })();
+  </script>
+</body>
+</html>

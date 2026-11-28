@@ -6,7 +6,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Poltergust Manor — 3D Haunted Mansion WebXR Game | Digital Infohub</title>
-  <meta name="description" content="Play Poltergust Manor free: a 3D haunted-mansion ghost hunt in your browser. Stun spirits with your flashlight, reel them in with the Poltergust vortex beam and survive rising waves — in a headset or on desktop and mobile." />
+  <meta name="description" content="Play Poltergust Manor free: a 3D haunted-mansion ghost hunt in your browser. Stun spirits with your flashlight, reel them in with the Poltergust vortex beam and survive rising waves — in a headset, on desktop, on a phone, or in AR passthrough." />
   <meta name="keywords" content="poltergust manor, vr ghost game, webxr haunted mansion, 3d browser game, ghost hunting game, free vr game, play vr without headset" />
   <link rel="canonical" href="https://digitalinfohub.net/vrgames/poltergust-manor" />
   <meta property="og:type" content="website" />
@@ -261,6 +261,15 @@
         </svg>
         <span id="vr-label">Checking XR...</span>
       </button>
+
+      <!-- WebXR AR Button (phones / passthrough headsets) -->
+      <button id="btn-ar" type="button" disabled title="Hunt ghosts in your own room with AR passthrough" class="rounded-2xl px-3.5 py-2.5 text-xs sm:text-sm font-bold text-sky-200 bg-sky-950/70 border border-sky-400/40 hover:bg-sky-900/70 disabled:opacity-40 disabled:cursor-not-allowed transition flex items-center gap-1.5 cursor-pointer">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2" />
+          <circle cx="12" cy="12" r="2.4" />
+        </svg>
+        <span id="ar-label">AR</span>
+      </button>
     </div>
   </header>
 
@@ -353,6 +362,9 @@
           </button>
           <button id="btn-modal-vr" type="button" disabled class="rounded-2xl py-3.5 px-5 font-display font-semibold text-sm bg-slate-800/90 hover:bg-slate-700/90 text-emerald-300 border border-emerald-500/30 disabled:opacity-40 disabled:cursor-not-allowed transition cursor-pointer">
             Launch WebXR VR
+          </button>
+          <button id="btn-modal-ar" type="button" disabled class="rounded-2xl py-3.5 px-5 font-display font-semibold text-sm bg-slate-800/90 hover:bg-slate-700/90 text-sky-300 border border-sky-500/30 disabled:opacity-40 disabled:cursor-not-allowed transition cursor-pointer">
+            Launch AR
           </button>
         </div>
 
@@ -891,6 +903,9 @@
         btnVr: document.getElementById('btn-vr'),
         vrLabel: document.getElementById('vr-label'),
         btnModalVr: document.getElementById('btn-modal-vr'),
+        btnAr: document.getElementById('btn-ar'),
+        arLabel: document.getElementById('ar-label'),
+        btnModalAr: document.getElementById('btn-modal-ar'),
         xrStatusNote: document.getElementById('xr-status-note'),
         targetHud: document.getElementById('target-hud'),
         targetName: document.getElementById('target-name'),
@@ -967,6 +982,8 @@
           `Final Score: <span class="text-amber-300 font-semibold">${state.score}</span> • Captured: <span class="text-emerald-300 font-semibold">${state.captured}</span>`;
         dom.btnPlay.dataset.action = 'replay';
         dom.btnPlay.textContent = 'Restart Hunt';
+        drawPolterGameOver();
+        goPanel.visible = renderer.xr.isPresenting;
       }
 
       function damagePlayer(amount, sourceLabel = 'A spirit') {
@@ -993,6 +1010,10 @@
       const scene = new THREE.Scene();
       scene.background = new THREE.Color(0x080b12);
       scene.fog = new THREE.FogExp2(0x090d16, 0.036);
+      const DEFAULT_BG = scene.background;
+      const DEFAULT_FOG = scene.fog;
+      // Mansion shell hidden in AR so the camera passthrough shows your room.
+      const arShell = [];
 
       const camera = new THREE.PerspectiveCamera(
         72,
@@ -1008,8 +1029,51 @@
       playerRig.add(camera);
       scene.add(playerRig);
 
+      // Head-locked game-over card. The DOM modal cannot be seen in a headset,
+      // so the run summary and retry hint are drawn inside the 3D scene too.
+      const goCanvas = document.createElement('canvas');
+      goCanvas.width = 1024;
+      goCanvas.height = 512;
+      const goCtx = goCanvas.getContext('2d');
+      const goTexture = new THREE.CanvasTexture(goCanvas);
+      const goPanel = new THREE.Mesh(
+        new THREE.PlaneGeometry(1.25, 0.62),
+        new THREE.MeshBasicMaterial({ map: goTexture, transparent: true, depthTest: false, depthWrite: false })
+      );
+      goPanel.position.set(0, 0, -1.45);
+      goPanel.renderOrder = 999;
+      goPanel.visible = false;
+      camera.add(goPanel);
+
+      function drawPolterGameOver() {
+        const c = goCtx;
+        c.clearRect(0, 0, 1024, 512);
+        c.fillStyle = 'rgba(5, 10, 14, 0.9)';
+        c.strokeStyle = 'rgba(52, 211, 153, 0.85)';
+        c.lineWidth = 6;
+        c.beginPath();
+        if (typeof c.roundRect === 'function') c.roundRect(10, 10, 1004, 492, 32);
+        else c.rect(10, 10, 1004, 492);
+        c.fill(); c.stroke();
+        c.textAlign = 'center';
+        c.fillStyle = '#fda4af';
+        c.font = '700 30px Arial, sans-serif';
+        c.fillText('T H E   M A N O R   W I N S', 512, 112);
+        c.fillStyle = '#ffffff';
+        c.font = '900 104px Arial Black, Arial, sans-serif';
+        c.fillText('GAME OVER', 512, 236);
+        c.fillStyle = '#6ee7b7';
+        c.font = '700 36px Arial, sans-serif';
+        c.fillText('WAVE ' + state.wave + '  ·  SCORE ' + state.score + '  ·  CAPTURED ' + state.captured, 512, 318);
+        c.fillStyle = '#cbd5e1';
+        c.font = '600 30px Arial, sans-serif';
+        c.fillText('Pull the trigger or tap the screen to restart', 512, 406);
+        goTexture.needsUpdate = true;
+      }
+
       const renderer = new THREE.WebGLRenderer({
         antialias: true,
+        alpha: true,
         powerPreference: 'high-performance'
       });
       renderer.setSize(window.innerWidth, window.innerHeight);
@@ -1043,6 +1107,7 @@
       floorMesh.rotation.x = -Math.PI / 2;
       floorMesh.receiveShadow = true;
       scene.add(floorMesh);
+      arShell.push(floorMesh);
 
       // Crimson Manor Runner Rug along foyer axis
       const rugMat = new THREE.MeshStandardMaterial({
@@ -1055,6 +1120,7 @@
       rugMesh.position.set(0, 0.015, 1.5);
       rugMesh.receiveShadow = true;
       scene.add(rugMesh);
+      arShell.push(rugMesh);
 
       // Gold trim border on rug
       const trimMat = new THREE.MeshStandardMaterial({
@@ -1079,6 +1145,7 @@
       ceilMesh.rotation.x = Math.PI / 2;
       ceilMesh.position.y = wallHeight;
       scene.add(ceilMesh);
+      arShell.push(ceilMesh);
 
       const beamMat = new THREE.MeshStandardMaterial({
         color: 0x1c120d,
@@ -1088,6 +1155,7 @@
         const beam = new THREE.Mesh(new THREE.BoxGeometry(manorHalfW * 2, 0.36, 0.45), beamMat);
         beam.position.set(0, wallHeight - 0.18, z);
         scene.add(beam);
+        arShell.push(beam);
       }
 
       // Walls
@@ -1128,6 +1196,7 @@
 
         wallGroup.add(northWall, southWall, westWall, eastWall, nBase, sBase, wBase, eBase);
         scene.add(wallGroup);
+        arShell.push(wallGroup);
       }
       buildWalls();
 
@@ -1741,6 +1810,18 @@
               '<span class="inline-block w-2 h-2 rounded-full bg-sky-400"></span>' +
               '<span>No immersive VR headset active — Desktop WASD + Pointer Lock fallback ready.</span>';
           }
+
+          // AR is independent of VR: phones and passthrough headsets can offer
+          // immersive-ar while reporting no immersive-vr support at all.
+          const arSupported = await navigator.xr.isSessionSupported('immersive-ar').catch(() => false);
+          state.arSupported = arSupported;
+          dom.btnAr.disabled = !arSupported;
+          dom.btnModalAr.disabled = !arSupported;
+          dom.arLabel.textContent = arSupported ? 'Enter AR' : 'AR unavailable';
+          if (arSupported) {
+            dom.xrStatusNote.innerHTML +=
+              '<span class="ml-1 text-sky-300">AR passthrough is available on this device.</span>';
+          }
         } catch (err) {
           state.vrSupported = false;
           dom.vrLabel.textContent = 'Desktop Mode';
@@ -1757,6 +1838,10 @@
         xrController1 = renderer.xr.getController(1);
 
         const onSelectStart = () => {
+          if (state.mode === 'gameover') {
+            restartFromGameOver();
+            return;
+          }
           xrTriggerHeld = true;
           audio.ensureContext();
         };
@@ -1798,6 +1883,9 @@
           await state.vrSession.end();
           return;
         }
+        if (state.arSession) {
+          try { await state.arSession.end(); } catch (_) {}
+        }
 
         try {
           const session = await navigator.xr.requestSession('immersive-vr', {
@@ -1819,6 +1907,78 @@
         }
       }
 
+      // AR: hide the manor shell, keep the ghosts and props, and let the camera
+      // passthrough become the room. Same touch/trigger controls as desktop.
+      function enterARVisuals() {
+        arShell.forEach((obj) => { if (obj) obj.visible = false; });
+        scene.background = null;
+        scene.fog = null;
+        renderer.setClearAlpha(0);
+      }
+
+      function exitARVisuals() {
+        arShell.forEach((obj) => { if (obj) obj.visible = true; });
+        scene.background = DEFAULT_BG;
+        scene.fog = DEFAULT_FOG;
+        renderer.setClearAlpha(1);
+      }
+
+      async function toggleARSession() {
+        if (!state.arSupported) return;
+        audio.ensureContext();
+
+        if (state.arSession) {
+          await state.arSession.end();
+          return;
+        }
+        if (state.vrSession) {
+          try { await state.vrSession.end(); } catch (_) {}
+        }
+
+        let session = null;
+        try {
+          session = await navigator.xr.requestSession('immersive-ar', {
+            optionalFeatures: ['local-floor', 'dom-overlay'],
+            domOverlay: { root: document.body }
+          });
+          state.arSession = session;
+          enterARVisuals();
+          // Some phones only expose a 'local' space; fall back instead of
+          // leaving the manor shell hidden with no running session.
+          try {
+            renderer.xr.setReferenceSpaceType('local-floor');
+            await renderer.xr.setSession(session);
+          } catch (spaceErr) {
+            renderer.xr.setReferenceSpaceType('local');
+            await renderer.xr.setSession(session);
+          }
+          playerRig.position.set(0, 0, 0);
+          dom.arLabel.textContent = 'Exit AR';
+          startGameplay(false);
+
+          session.addEventListener('end', () => {
+            state.arSession = null;
+            xrTriggerHeld = false;
+            audio.stopVacuum();
+            exitARVisuals();
+            goPanel.visible = false;
+            playerRig.position.set(0, 0, 10.5);
+            dom.arLabel.textContent = 'Enter AR';
+          });
+          // Phone AR has no controller: a screen tap restarts after a loss.
+          session.addEventListener('select', () => {
+            if (state.mode === 'gameover') restartFromGameOver();
+          });
+        } catch (err) {
+          state.arSession = null;
+          exitARVisuals();
+          playerRig.position.set(0, 0, 10.5);
+          dom.arLabel.textContent = 'Enter AR';
+          if (session) { try { await session.end(); } catch (_) {} }
+          showToast('AR could not start here. A phone with WebXR AR or a passthrough headset is needed.', 'text-sky-300');
+        }
+      }
+
       // -----------------------------------------------------------------------
       // 9. INPUT HANDLING (Pointer Lock, Keyboard, Mouse, Touch)
       // -----------------------------------------------------------------------
@@ -1826,7 +1986,8 @@
         state.mode = newMode;
         if (newMode === 'playing') {
           dom.modal.classList.add('hidden');
-          if (!state.vrSession && window.innerWidth < 768) {
+          goPanel.visible = false;
+          if (!state.vrSession && (state.arSession || window.innerWidth < 768)) {
             dom.touchControls.classList.remove('hidden');
             dom.touchControls.classList.add('flex');
           }
@@ -1848,14 +2009,23 @@
         if (ghosts.length === 0) {
           spawnGhostWave(state.waveTarget);
         }
-        if (requestLock && !state.vrSession && document.pointerLockElement !== renderer.domElement) {
+        if (requestLock && !state.vrSession && !state.arSession && document.pointerLockElement !== renderer.domElement) {
           try {
             renderer.domElement.requestPointerLock?.();
           } catch (_) {}
         }
       }
 
+      function restartFromGameOver() {
+        if (state.mode !== 'gameover') return;
+        resetEntireGame();
+        dom.btnPlay.dataset.action = '';
+        dom.btnPlay.textContent = 'Enter the Manor';
+        startGameplay(false);
+      }
+
       function resetEntireGame() {
+        goPanel.visible = false;
         while (ghosts.length > 0) {
           releaseGhostToPool(ghosts[0]);
         }
@@ -1891,6 +2061,8 @@
 
       dom.btnVr.addEventListener('click', toggleVRSession);
       dom.btnModalVr.addEventListener('click', toggleVRSession);
+      dom.btnAr.addEventListener('click', toggleARSession);
+      dom.btnModalAr.addEventListener('click', toggleARSession);
 
       dom.btnFlashlight.addEventListener('click', () => {
         state.flashlightOn = !state.flashlightOn;
@@ -1908,7 +2080,7 @@
 
       document.addEventListener('pointerlockchange', () => {
         state.pointerLocked = document.pointerLockElement === renderer.domElement;
-        if (!state.pointerLocked && state.mode === 'playing' && !state.vrSession && window.innerWidth >= 768) {
+        if (!state.pointerLocked && state.mode === 'playing' && !state.vrSession && !state.arSession && window.innerWidth >= 768) {
           setGameMode('paused');
           dom.modalTitle.innerHTML = 'Manor <span class="text-emerald-400">Paused</span>';
           dom.modalSubtitle.textContent = 'Pointer unlocked. Resume to keep vacuuming spirits or launch WebXR VR.';
@@ -2274,8 +2446,9 @@
           }
         }
 
-        // Desktop orientation & movement
-        if (!state.vrSession) {
+        // Desktop orientation & movement. Never write the camera transform
+        // while an AR/VR session owns the head pose.
+        if (!state.vrSession && !state.arSession) {
           const euler = new THREE.Euler(state.pitch, state.yaw, 0, 'YXZ');
           camera.quaternion.setFromEuler(euler);
 
@@ -2314,8 +2487,23 @@
           } else {
             camera.position.x = 0;
           }
-        } else {
+        } else if (state.vrSession) {
           updateXRLocomotion(dt);
+        } else if (state.arSession && (state.touchMove.x || state.touchMove.y)) {
+          // Phone AR has no controller sticks: let the touch joystick move the
+          // rig while the headset/phone keeps full control of the camera pose.
+          const dir = new THREE.Vector3();
+          camera.getWorldDirection(dir);
+          dir.y = 0;
+          if (dir.lengthSq() < 0.0001) dir.set(0, 0, -1);
+          dir.normalize();
+          const right = new THREE.Vector3().crossVectors(dir, new THREE.Vector3(0, 1, 0)).normalize();
+          const move = new THREE.Vector3()
+            .addScaledVector(dir, -state.touchMove.y)
+            .addScaledVector(right, state.touchMove.x);
+          if (move.lengthSq() > 1) move.normalize();
+          playerRig.position.addScaledVector(move, 3.4 * dt);
+          resolveCollisions(playerRig.position, 0.55);
         }
 
         // Determine aim ray & vacuum trigger state
@@ -2609,6 +2797,7 @@
         lastTimestamp = timestamp;
 
         updateSimulation(dt);
+        goPanel.visible = state.mode === 'gameover' && renderer.xr.isPresenting;
         renderer.render(scene, camera);
       });
 
@@ -2618,7 +2807,7 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
 
-        if (state.mode === 'playing' && !state.vrSession) {
+        if (state.mode === 'playing' && !state.vrSession && !state.arSession) {
           if (window.innerWidth < 768) {
             dom.touchControls.classList.remove('hidden');
             dom.touchControls.classList.add('flex');

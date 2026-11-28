@@ -6,7 +6,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Town Square Tycoon VR — 3D High-Street Business Tycoon | Digital Infohub</title>
-  <meta name="description" content="Play Town Square Tycoon VR free: a 3D high-street business tycoon in your browser. Open six shops, upgrade the square and grow from a coffee cart to a grand hotel. Works in a headset or on desktop and mobile." />
+  <meta name="description" content="Play Town Square Tycoon VR free: a 3D high-street business tycoon in your browser. Open six shops, upgrade the square and grow from a coffee cart to a grand hotel. Works in a headset, on desktop or phone, with an AR mode." />
   <meta name="keywords" content="town square tycoon, vr tycoon game, webxr business game, 3d tycoon browser game, shop tycoon, idle business game, play vr without headset" />
   <link rel="canonical" href="https://digitalinfohub.net/vrgames/town-square-tycoon" />
   <meta property="og:type" content="website" />
@@ -138,6 +138,15 @@
             <circle cx="16" cy="12" r="1.5" />
           </svg>
           <span id="vr-btn-label">ENTER VR</span>
+        </button>
+
+        <button id="btn-enter-ar" title="Place the town square in your room with AR"
+          class="warm-panel hover:bg-sky-50 active:scale-95 transition-all rounded-xl px-3.5 py-2.5 flex items-center gap-2 text-xs sm:text-sm font-bold text-sky-800 border border-sky-400/80 cursor-pointer">
+          <svg class="w-4 h-4 sm:w-5 sm:h-5 text-sky-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 8V6a2 2 0 012-2h2M16 4h2a2 2 0 012 2v2M20 16v2a2 2 0 01-2 2h-2M8 20H6a2 2 0 01-2-2v-2" />
+            <circle cx="12" cy="12" r="2.4" />
+          </svg>
+          <span id="ar-btn-label">ENTER AR</span>
         </button>
 
         <button id="btn-audio" title="Toggle Sound Effects"
@@ -573,6 +582,7 @@
       const renderer = new THREE.WebGLRenderer({
         canvas,
         antialias: true,
+        alpha: true,
         powerPreference: 'high-performance',
         logarithmicDepthBuffer: true
       });
@@ -587,6 +597,8 @@
       const scene = new THREE.Scene();
       scene.background = new THREE.Color(0xcce3f5); // Crisp warm afternoon sky
       scene.fog = new THREE.FogExp2(0xd8e9f6, 0.0085);
+      const DEFAULT_BG = scene.background;
+      const DEFAULT_FOG = scene.fog;
 
       // Camera & VR Rig
       const cameraRig = new THREE.Group();
@@ -694,6 +706,8 @@
 
       const waterRipples = [];
       const clouds = [];
+      // Ground and sky pieces hidden in AR so the real floor becomes the plaza.
+      const arGround = [];
 
       function buildTownEnvironment() {
         // 1. Lush Green Meadow Surrounding Ground (base layer at y = -0.06)
@@ -708,6 +722,7 @@
         grass.position.y = -0.06;
         grass.receiveShadow = true;
         scene.add(grass);
+        arGround.push(grass);
 
         // 2. Cobblestone Town Square Plaza Floor (top surface at y = 0.00)
         const plazaGeo = new THREE.CylinderGeometry(23.5, 24.0, 0.12, 48);
@@ -720,6 +735,7 @@
         plaza.position.y = -0.06;
         plaza.receiveShadow = true;
         scene.add(plaza);
+        arGround.push(plaza);
 
         // Stone Curb Rim around the Plaza (raised cleanly above cobblestone at y = 0.015)
         const curbGeo = new THREE.TorusGeometry(23.7, 0.25, 10, 64);
@@ -729,6 +745,7 @@
         curb.position.y = 0.015;
         curb.receiveShadow = true;
         scene.add(curb);
+        arGround.push(curb);
 
         // 3. Non-Overlapping Brick Pedestrian Walkways (top surface strictly at y = 0.03)
         // Split into 4 distinct outer arms + a central square medallion so zero brick meshes share the same plane
@@ -769,6 +786,7 @@
         walkWest.receiveShadow = true;
 
         scene.add(walkNorth, walkSouth, walkEast, walkWest);
+        arGround.push(centerWalk, walkNorth, walkSouth, walkEast, walkWest);
 
         // 4. Perimeter Asphalt High-Street Road (sits cleanly above grass at y = -0.02, below brick at y = 0.03)
         const roadMat = new THREE.MeshStandardMaterial({ color: 0x374151, roughness: 0.9 });
@@ -776,6 +794,7 @@
         road.position.set(0, -0.02, 28.5);
         road.receiveShadow = true;
         scene.add(road);
+        arGround.push(road);
 
         // Dashed white road centerline (top surface at y = 0.015, no overlap with road top at y = 0.01)
         const stripeMat = new THREE.MeshBasicMaterial({ color: 0xf8fafc });
@@ -783,6 +802,7 @@
           const stripe = new THREE.Mesh(new THREE.BoxGeometry(2.8, 0.01, 0.22), stripeMat);
           stripe.position.set(sx, 0.015, 28.5);
           scene.add(stripe);
+          arGround.push(stripe);
         }
 
         // 5. Central Town Square Stone Fountain (step base strictly above y = 0.04)
@@ -1836,6 +1856,9 @@
           showToast('WebXR not detected — playing in 3D Desktop/Mobile Mode!');
           return;
         }
+        if (currentARSession) {
+          try { await currentARSession.end(); } catch (e) {}
+        }
         try {
           const supported = await navigator.xr.isSessionSupported('immersive-vr');
           if (!supported) {
@@ -1863,6 +1886,90 @@
           }
         } catch (err) {
           showToast('VR Session unavailable in current browser frame.');
+        }
+      });
+
+      // AR: hide the grass, plaza, roads and clouds so the town sits on the real
+      // floor, seen through the phone camera. Shops, people and UI stay put.
+      const btnEnterAR = document.getElementById('btn-enter-ar');
+      const arBtnLabel = document.getElementById('ar-btn-label');
+      let currentARSession = null;
+
+      function enterARVisuals() {
+        arGround.forEach((obj) => { if (obj) obj.visible = false; });
+        clouds.forEach((cloud) => { cloud.visible = false; });
+        scene.background = null;
+        scene.fog = null;
+        renderer.setClearAlpha(0);
+      }
+
+      function exitARVisuals() {
+        arGround.forEach((obj) => { if (obj) obj.visible = true; });
+        clouds.forEach((cloud) => { cloud.visible = true; });
+        scene.background = DEFAULT_BG;
+        scene.fog = DEFAULT_FOG;
+        renderer.setClearAlpha(1);
+      }
+
+      btnEnterAR.addEventListener('click', async () => {
+        sound.init();
+        if (!navigator.xr) {
+          showToast('AR not detected — playing in 3D Desktop/Mobile Mode!');
+          return;
+        }
+
+        if (currentARSession) {
+          await currentARSession.end();
+          return;
+        }
+        if (currentXRSession) {
+          try { await currentXRSession.end(); } catch (e) {}
+        }
+
+        let session = null;
+        try {
+          const supported = await navigator.xr.isSessionSupported('immersive-ar');
+          if (!supported) {
+            showToast('AR needs a phone or passthrough headset with WebXR AR support.');
+            return;
+          }
+          session = await navigator.xr.requestSession('immersive-ar', {
+            optionalFeatures: ['local-floor', 'dom-overlay'],
+            domOverlay: { root: document.body }
+          });
+          currentARSession = session;
+          enterARVisuals();
+          // Fall back to a 'local' reference space on phones that do not expose
+          // a floor origin; otherwise the square would stay hidden with no session.
+          try {
+            renderer.xr.setReferenceSpaceType('local-floor');
+            await renderer.xr.setSession(session);
+          } catch (spaceErr) {
+            renderer.xr.setReferenceSpaceType('local');
+            await renderer.xr.setSession(session);
+          }
+          // Stand at the south edge of the square so the town appears in front.
+          cameraRig.position.set(0, 0, 18);
+          cameraRig.rotation.set(0, 0, 0);
+          arBtnLabel.textContent = 'EXIT AR';
+
+          session.addEventListener('end', () => {
+            currentARSession = null;
+            exitARVisuals();
+            arBtnLabel.textContent = 'ENTER AR';
+            cameraRig.position.set(0, 0, 0);
+            cameraRig.rotation.set(0, 0, 0);
+            updateDesktopCamera();
+          });
+        } catch (err) {
+          currentARSession = null;
+          exitARVisuals();
+          cameraRig.position.set(0, 0, 0);
+          cameraRig.rotation.set(0, 0, 0);
+          updateDesktopCamera();
+          arBtnLabel.textContent = 'ENTER AR';
+          if (session) { try { await session.end(); } catch (_) {} }
+          showToast('AR could not start here. Try a phone or a passthrough headset with WebXR AR.');
         }
       });
 
