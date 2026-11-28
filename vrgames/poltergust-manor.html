@@ -293,11 +293,12 @@
   <!-- Bottom Compact Controls Bar -->
   <footer class="fixed bottom-3 left-1/2 -translate-x-1/2 z-20 pointer-events-none w-full max-w-3xl px-3">
     <div class="hud-glass rounded-2xl px-4 py-2 text-[11px] sm:text-xs text-slate-300 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-center">
-      <span><strong class="text-emerald-300">WASD / Arrows</strong> Move</span>
-      <span><strong class="text-emerald-300">Mouse</strong> Aim (Click canvas to lock)</span>
-      <span><strong class="text-emerald-300">Hold Left-Click / Space</strong> Poltergust Suction</span>
-      <span><strong class="text-amber-300">F</strong> Flashlight</span>
-      <span><strong class="text-sky-300">E / Click Prop</strong> Inspect Furniture</span>
+      <span class="hidden md:inline"><strong class="text-emerald-300">WASD / Arrows</strong> Move</span>
+      <span class="hidden md:inline"><strong class="text-emerald-300">Mouse</strong> Aim (Click canvas to lock)</span>
+      <span class="hidden md:inline"><strong class="text-emerald-300">Hold Left-Click / Space</strong> Poltergust Suction</span>
+      <span class="hidden md:inline"><strong class="text-amber-300">F</strong> Flashlight</span>
+      <span class="hidden md:inline"><strong class="text-sky-300">E / Click Prop</strong> Inspect Furniture</span>
+      <span class="md:hidden"><strong class="text-emerald-300">Drag screen</strong> Look · <strong class="text-emerald-300">Pad</strong> Move · <strong class="text-emerald-300">VACUUM</strong> Suck</span>
     </div>
   </footer>
 
@@ -343,7 +344,7 @@
           </div>
           <div class="flex items-start gap-2">
             <span class="text-sky-300 font-bold">✦</span>
-            <span><strong class="text-white">Exploration:</strong> <kbd class="px-1.5 py-0.5 bg-slate-800 rounded text-sky-200">WASD</kbd> + Mouse Look, or enter <strong class="text-emerald-300">WebXR VR</strong>: left stick walks, right stick snap-turns, trigger fires the vortex.</span>
+            <span><strong class="text-white">Exploration:</strong> <kbd class="px-1.5 py-0.5 bg-slate-800 rounded text-sky-200">WASD</kbd> + Mouse Look, or enter <strong class="text-emerald-300">WebXR VR</strong>: left stick walks, right stick snap-turns, trigger fires the vortex. On a phone, <strong class="text-white">drag the screen to look</strong> and use the MOVE pad.</span>
           </div>
           <div class="flex items-start gap-2">
             <span class="text-purple-300 font-bold">✦</span>
@@ -2006,6 +2007,9 @@
       function startGameplay(requestLock = true) {
         audio.ensureContext();
         setGameMode('playing');
+        if (window.innerWidth < 768 && !state.arSession) {
+          showToast('Drag the screen to look around', 'text-emerald-200');
+        }
         if (ghosts.length === 0) {
           spawnGhostWave(state.waveTarget);
         }
@@ -2121,6 +2125,54 @@
         const maxPitch = Math.PI * 0.44;
         state.pitch = Math.max(-maxPitch, Math.min(maxPitch, state.pitch));
       });
+
+      // Mobile drag-to-look. There is no pointer lock on a phone, so the canvas
+      // itself turns the camera; the MOVE pad and VACUUM button stay independent.
+      let lookTouchId = null;
+      let lookLastX = 0;
+      let lookLastY = 0;
+      const lookCanvas = renderer.domElement;
+      lookCanvas.style.touchAction = 'none';
+
+      lookCanvas.addEventListener('touchstart', (e) => {
+        if (state.mode !== 'playing' || state.vrSession || state.arSession || lookTouchId !== null) return;
+        const t = e.changedTouches[0];
+        if (!t) return;
+        lookTouchId = t.identifier;
+        lookLastX = t.clientX;
+        lookLastY = t.clientY;
+        if (e.cancelable) e.preventDefault();
+      }, { passive: false });
+
+      lookCanvas.addEventListener('touchmove', (e) => {
+        if (lookTouchId === null || state.mode !== 'playing' || state.vrSession || state.arSession) return;
+        for (let i = 0; i < e.changedTouches.length; i++) {
+          const t = e.changedTouches[i];
+          if (t.identifier !== lookTouchId) continue;
+          const dx = t.clientX - lookLastX;
+          const dy = t.clientY - lookLastY;
+          lookLastX = t.clientX;
+          lookLastY = t.clientY;
+          const sensitivity = 0.0042;
+          state.yaw -= dx * sensitivity;
+          state.pitch -= dy * sensitivity;
+          const maxPitch = Math.PI * 0.44;
+          state.pitch = Math.max(-maxPitch, Math.min(maxPitch, state.pitch));
+          if (e.cancelable) e.preventDefault();
+          break;
+        }
+      }, { passive: false });
+
+      const endTouchLook = (e) => {
+        for (let i = 0; i < e.changedTouches.length; i++) {
+          if (e.changedTouches[i].identifier === lookTouchId) {
+            lookTouchId = null;
+            break;
+          }
+        }
+      };
+      lookCanvas.addEventListener('touchend', endTouchLook, { passive: true });
+      lookCanvas.addEventListener('touchcancel', endTouchLook, { passive: true });
 
       window.addEventListener('keydown', (e) => {
         const code = e.code;
